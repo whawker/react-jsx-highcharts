@@ -31,3 +31,7 @@ A proof of concept for integrating [Highcharts](https://github.com/highcharts/hi
   </YAxis>
 </HighchartsChart>
 ```
+
+## Demos
+
+[See here](https://whawker.github.io/react-jsx-highcharts/examples/index.html)
