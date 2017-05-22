@@ -37,7 +37,7 @@ class Series extends Component {
   componentDidMount () {
     const { children, dimension, axisId, ...rest } = this.props;
     this.context.chart.addSeries({
-      //[`${dimension}Axis`]: axisId,
+      [`${dimension}Axis`]: axisId,
       ...rest
     }, true);
     this.setState({
