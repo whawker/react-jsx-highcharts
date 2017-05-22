@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import {
   HighchartsChart, XAxis, YAxis, Title, Legend, LineSeries
 } from '../..';
+import ExampleCode from '../utils/ExampleCode';
+import code from './exampleCode';
 import { createRandomData } from '../utils/data-helpers';
 
 class App extends Component {
@@ -12,7 +14,6 @@ class App extends Component {
     this.handleAddSeries = this.handleAddSeries.bind(this);
     this.handleRemoveSeries = this.handleRemoveSeries.bind(this);
     this.renderSeries = this.renderSeries.bind(this);
-    this.renderNavSeries = this.renderNavSeries.bind(this);
 
     const now = Date.now();
     this.state = {
@@ -63,15 +64,7 @@ class App extends Component {
     );
   }
 
-  renderNavSeries ({ name }) {
-    return (
-      <Navigator.Series seriesId={name} key={name} />
-    );
-  }
-
   render() {
-    const { data1, data2 } = this.state;
-
     return (
       <div className="app">
 
@@ -96,6 +89,8 @@ class App extends Component {
           <button className="btn btn-primary" onClick={this.handleAddSeries}>Add line series</button>
           <button className="btn btn-danger" onClick={this.handleRemoveSeries}>Remove line series</button>
         </div>
+
+        <ExampleCode name="AddSeries">{code}</ExampleCode>
       </div>
     );
   }

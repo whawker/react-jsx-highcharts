@@ -11,8 +11,7 @@ const examples = [
   'Highstocks',
   'LiveUpdate',
   'SimpleLine',
-  'SplineWithPlotBands',
-  'Waterfall'
+  'SplineWithPlotBands'
 ];
 
 module.exports = {
@@ -43,10 +42,6 @@ module.exports = {
           plugins: ['transform-runtime'],
           presets: ['es2015', 'react', 'stage-0']
         }
-      },
-      {
-        test: /\.css$/,
-        loader: 'style-loader!css'
       }
     ]
   },

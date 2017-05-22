@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import {
   HighchartsChart, Chart, XAxis, YAxis, Title, Legend, LineSeries
 } from '../..';
+import ExampleCode from '../utils/ExampleCode';
+import code from './exampleCode';
 import { createRandomData, addDataPoint } from '../utils/data-helpers';
 
 class App extends Component {
@@ -72,7 +74,6 @@ class App extends Component {
             <LineSeries id="p1" name="Sensor 1" data={data1} />
             <LineSeries id="p2" name="Sensor 2" data={data2} />
           </YAxis>
-
         </HighchartsChart>
 
         <div>
@@ -83,6 +84,8 @@ class App extends Component {
             <button className="btn btn-danger" onClick={this.handleStopLiveUpdate}>Stop update</button>
           )}
         </div>
+
+        <ExampleCode name="LiveUpdate">{code}</ExampleCode>
       </div>
     );
   }

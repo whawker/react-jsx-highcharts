@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import {
   HighchartsChart, Chart, XAxis, YAxis, Title, Legend, ScatterSeries
 } from '../..';
+import ExampleCode from '../utils/ExampleCode';
+import code from './exampleCode';
 import { addDataPoint } from '../utils/data-helpers';
 
 class App extends Component {
@@ -62,6 +64,8 @@ class App extends Component {
           </YAxis>
         </HighchartsChart>
         <p>Click count: <span>{clickCounter}</span></p>
+
+        <ExampleCode name="Events">{code}</ExampleCode>
       </div>
     );
   }

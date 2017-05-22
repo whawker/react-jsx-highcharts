@@ -3,6 +3,8 @@ import {
   HighchartsStockChart, Chart, XAxis, YAxis, Title, Legend, AreaSplineSeries, LineSeries,
   SplineSeries, Navigator, RangeSelector, Tooltip
 } from '../..';
+import ExampleCode from '../utils/ExampleCode';
+import code from './exampleCode';
 import { createRandomData } from '../utils/data-helpers';
 
 class App extends Component {
@@ -18,7 +20,7 @@ class App extends Component {
   }
 
   render() {
-    const { data1, data2, clickCounter } = this.state;
+    const { data1, data2 } = this.state;
 
     return (
       <div className="app">
@@ -60,6 +62,9 @@ class App extends Component {
             <Navigator.Series seriesId="twitter" />
           </Navigator>
         </HighchartsStockChart>
+
+        <ExampleCode name="Highstocks">{code}</ExampleCode>
+
       </div>
     );
   }
