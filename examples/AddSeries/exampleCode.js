@@ -1,7 +1,7 @@
 export default `
 createRandomSeries (index) {
   return {
-    name: \`Series${index}\`,
+    name: \`Series\$\{index\}\`,
     data: createRandomData(this.state.now, 1e8)
   };
 }
