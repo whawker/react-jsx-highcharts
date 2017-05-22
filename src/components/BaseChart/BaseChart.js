@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Highcharts from 'highstock-release';
-import { validChartTypes, validSeriesTypes } from '../../utils/propTypeValidators';
+import { validChartTypes } from '../../utils/propTypeValidators';
 
 class BaseChart extends Component {
 

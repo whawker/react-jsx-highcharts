@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import PropTypes from 'prop-types';
 import Highcharts from 'highstock-release';
 import omitBy from 'lodash.omitby';
