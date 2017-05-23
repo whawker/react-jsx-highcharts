@@ -45,8 +45,9 @@ class AxisTitle extends Component {
   }
 
   updateAxisTitle (config) {
+    const { axisId, dimension, ...rest } = config;
     this.getAxis().update({
-      title: config
+      title: rest
     }, true);
   }
 
