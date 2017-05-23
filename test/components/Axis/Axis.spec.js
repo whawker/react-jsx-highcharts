@@ -28,14 +28,14 @@ describe('<Axis />', function ()  {
   });
 
   describe('when mounted', function () {
-    it('adds an X axis using the addAxis method when mounted', function () {
+    it('adds an X axis using the addAxis method', function () {
       mount(<Axis id="myAxis" dimension="x" />, {context: this.context});
       expect(this.chart.addAxis).to.have.been.calledWith(
         { id: 'myAxis' }, true, true
       );
     });
 
-    it('adds a Y axis using the addAxis method when mounted', function () {
+    it('adds a Y axis using the addAxis method', function () {
       mount(<Axis id="myAxis" dimension="y" />, {context: this.context});
       expect(this.chart.addAxis).to.have.been.calledWith(
         { id: 'myAxis' }, false, true
@@ -62,7 +62,7 @@ describe('<Axis />', function ()  {
   });
 
   describe('when unmounted', function () {
-    it('removes the correct axis when unmounted', function () {
+    it('removes the correct axis', function () {
       const wrapper = mount(<Axis id="myAxis" dimension="x" />, {context: this.context});
       wrapper.unmount();
       expect(this.axis.remove).to.have.been.called;
