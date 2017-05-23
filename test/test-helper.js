@@ -1,4 +1,4 @@
-const { JSDOM } = require('jsdom');
+import { JSDOM } from 'jsdom';
 import chai, { expect } from 'chai';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
