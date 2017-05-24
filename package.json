@@ -7,6 +7,7 @@
   "jsnext:main": "src/index.js",
   "scripts": {
     "build": "./node_modules/.bin/webpack",
+    "build:examples": "./node_modules/.bin/webpack --config examples/webpack.config.js",
     "lint": "./node_modules/.bin/eslint src",
     "test": "./node_modules/.bin/mocha --compilers js:babel-core/register --require test/test-helper.js test/**/*.spec.js"
   },
