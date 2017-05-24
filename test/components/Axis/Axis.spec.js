@@ -1,26 +1,18 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import Axis from '../../../src/components/Axis';
+import { createMockAxis, createMockChart } from '../../test-utils';
 
 describe('<Axis />', function ()  {
   beforeEach(function () {
-    this.axis = {
-      remove: sinon.spy(),
-      update: sinon.spy()
-    };
-    this.otherAxis = {
-      remove: sinon.spy(),
-      update: sinon.spy()
-    };
+    this.axis = createMockAxis();
+    this.otherAxis = createMockAxis();
 
     const getStub = sinon.stub();
     getStub.withArgs('myAxis').returns(this.axis);
     getStub.withArgs('myOtherAxis').returns(this.otherAxis);
 
-    this.chart = {
-      addAxis: sinon.spy(),
-      get: getStub
-    };
+    this.chart = createMockChart(getStub);
 
     this.context = {
       chart: this.chart
