@@ -42,5 +42,6 @@ export WaterfallSeries from './components/WaterfallSeries';
 // Helpers
 export Axis from './components/Axis';
 export BaseChart from './components/BaseChart';
+export Debug from './components/Debug';
 export Hidden from './components/Hidden';
 export Series from './components/Series';

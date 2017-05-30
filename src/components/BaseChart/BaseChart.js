@@ -56,13 +56,11 @@ class BaseChart extends Component {
         enabled: false
       },
       series: [],
+      xAxis: [],
       yAxis: [],
       ...rest
     };
-    window.chart = this.chart = Highcharts[chartType](this.domNode, opts);
-
-    // Need an initial X axis to later (possibly) display Navigator
-    this.chart.xAxis[0].remove(false);
+    this.chart = Highcharts[chartType](this.domNode, opts);
 
     this.setState({
       rendered: true
