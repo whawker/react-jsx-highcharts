@@ -10,9 +10,13 @@ class Navigator extends Component {
     chart: PropTypes.object
   };
   
+  static propTypes = {
+    update: PropTypes.func // Provided by ChartProvider
+  };
+
   constructor (props, context) {
     super(props, context);
-    
+
     this.updateNavigator = this.updateNavigator.bind(this);
   }
 
@@ -25,7 +29,7 @@ class Navigator extends Component {
       enabled: true
     });
   }
-  
+
   componentDidUpdate (prevProps) {
     const modifiedProps = getModifiedProps(prevProps, this.props);
     if (modifiedProps !== false) {
@@ -40,7 +44,7 @@ class Navigator extends Component {
   }
 
   updateNavigator (config) {
-    this.context.chart.update({
+    this.props.update({
       navigator: config
     }, true);
   }
