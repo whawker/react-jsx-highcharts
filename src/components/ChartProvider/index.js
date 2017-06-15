@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import cleanPropsBeforeUpdate from '../../utils/cleanPropsBeforeUpdate';
 
 function getDisplayName (Component) {
   return Component.displayName || Component.name || 'Component';
@@ -20,9 +21,9 @@ export default function provideChart(WrappedComponent) {
         <WrappedComponent
           {...this.props}
           get={chart.get.bind(chart)}
-          update={chart.update.bind(chart)}
-          addAxis={chart.addAxis.bind(chart)}
-          addSeries={chart.addSeries.bind(chart)} />
+          update={cleanPropsBeforeUpdate(chart.update.bind(chart))}
+          addAxis={cleanPropsBeforeUpdate(chart.addAxis.bind(chart))}
+          addSeries={cleanPropsBeforeUpdate(chart.addSeries.bind(chart))} />
       );
     }
   }

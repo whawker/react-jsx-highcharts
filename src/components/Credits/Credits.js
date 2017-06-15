@@ -4,12 +4,12 @@ import getModifiedProps from '../../utils/getModifiedProps';
 
 class Credits extends Component {
 
-  static contextTypes = {
-    chart: PropTypes.object
+  static propTypes = {
+    update: PropTypes.object
   };
 
-  constructor (props, context) {
-    super(props, context);
+  constructor (props) {
+    super(props);
 
     this.updateCredits = this.updateCredits.bind(this);
   }
@@ -36,7 +36,7 @@ class Credits extends Component {
   }
 
   updateCredits (config) {
-    this.context.chart.update({
+    this.props.update({
       credits: config
     }, true);
   }

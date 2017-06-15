@@ -1,17 +1,20 @@
 import React, { Component } from 'react';
 import provideChart from '../ChartProvider';
+import cleanPropsBeforeUpdate from '../../utils/cleanPropsBeforeUpdate';
 
 function getDisplayName (Component) {
   return Component.displayName || Component.name || 'Component';
 }
 
-export default function provideSeries(WrappedComponent) {
+export default function provideSeries(WrappedComponent, expectsSeriesExists = true) {
   class SeriesProvider extends Component {
     static displayName = `SeriesProvider(${getDisplayName(WrappedComponent)})`;
 
     render () {
-      const id = this.props.id || this.props.seriesId;
+      const id = this.props.seriesId || this.props.id;
       const series = this.props.get(id);
+      if (!series && expectsSeriesExists) return null;
+
       const update = series && series.update.bind(series);
       const remove = series && series.remove.bind(series);
       const setData = series && series.setData.bind(series);
@@ -20,7 +23,7 @@ export default function provideSeries(WrappedComponent) {
       return (
         <WrappedComponent
           {...this.props}
-          update={update}
+          update={cleanPropsBeforeUpdate(update)}
           remove={remove}
           setData={setData}
           setVisible={setVisible} />

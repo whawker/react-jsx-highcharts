@@ -66,8 +66,11 @@
   "dependencies": {
     "lodash.foreach": "^4.5.0",
     "lodash.isequal": "^4.5.0",
+    "lodash.isplainobject": "^4.0.6",
     "lodash.lowerfirst": "^4.3.1",
     "lodash.mapkeys": "^4.6.0",
+    "lodash.mapvalues": "^4.6.0",
+    "lodash.omit": "^4.5.0",
     "lodash.omitby": "^4.6.0",
     "lodash.pickby": "^4.6.0",
     "lodash.size": "^4.2.0",

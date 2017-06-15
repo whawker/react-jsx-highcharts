@@ -5,16 +5,11 @@ class NavigatorSeries extends Component {
 
   static propTypes = {
     seriesId: PropTypes.string.isRequired,
-    update: PropTypes.func
-  };
-
-  static contextTypes = {
-    chart: PropTypes.object
+    update: PropTypes.func // Provided by ChartProvider
   };
 
   componentDidMount () {
-    const update = this.props.update;
-    update && update({ showInNavigator: true });
+    this.props.update({ showInNavigator: true });
   }
 
   componentWillUnmount () {

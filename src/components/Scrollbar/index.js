@@ -1,2 +1,3 @@
 import Scrollbar from './Scrollbar';
-export default Scrollbar;
+import provideChart from '../ChartProvider';
+export default provideChart(Scrollbar);
