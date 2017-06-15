@@ -336,6 +336,8 @@ var _lodash5 = __webpack_require__(198);
 
 var _lodash6 = _interopRequireDefault(_lodash5);
 
+var _providedProps = __webpack_require__(206);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function getModifiedProps(prevProps, currProps) {
@@ -344,7 +346,10 @@ function getModifiedProps(prevProps, currProps) {
       rest = (0, _objectWithoutProperties3.default)(currProps, ['children']);
 
 
+  var providedProps = (0, _providedProps.getProvidedProps)();
   var modifiedProps = (0, _lodash4.default)(rest, function (value, propName) {
+    if (providedProps.indexOf(propName) > -1) return false;
+
     return (0, _lodash2.default)(value, prevProps[propName]) === false;
   });
 
@@ -659,6 +664,10 @@ var _propTypes = __webpack_require__(6);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
+var _providedProps = __webpack_require__(206);
+
+var _providedProps2 = _interopRequireDefault(_providedProps);
+
 var _cleanPropsBeforeUpdate = __webpack_require__(205);
 
 var _cleanPropsBeforeUpdate2 = _interopRequireDefault(_cleanPropsBeforeUpdate);
@@ -673,9 +682,13 @@ function provideChart(WrappedComponent) {
   var ChartProvider = function (_Component) {
     (0, _inherits3.default)(ChartProvider, _Component);
 
-    function ChartProvider() {
+    function ChartProvider(props, context) {
       (0, _classCallCheck3.default)(this, ChartProvider);
-      return (0, _possibleConstructorReturn3.default)(this, (ChartProvider.__proto__ || (0, _getPrototypeOf2.default)(ChartProvider)).apply(this, arguments));
+
+      var _this = (0, _possibleConstructorReturn3.default)(this, (ChartProvider.__proto__ || (0, _getPrototypeOf2.default)(ChartProvider)).call(this, props, context));
+
+      (0, _providedProps2.default)('ChartProvider', ['get', 'update', 'addAxis', 'addSeries']);
+      return _this;
     }
 
     (0, _createClass3.default)(ChartProvider, [{
@@ -1160,6 +1173,10 @@ var _ChartProvider = __webpack_require__(27);
 
 var _ChartProvider2 = _interopRequireDefault(_ChartProvider);
 
+var _providedProps = __webpack_require__(206);
+
+var _providedProps2 = _interopRequireDefault(_providedProps);
+
 var _cleanPropsBeforeUpdate = __webpack_require__(205);
 
 var _cleanPropsBeforeUpdate2 = _interopRequireDefault(_cleanPropsBeforeUpdate);
@@ -1176,9 +1193,13 @@ function provideSeries(WrappedComponent) {
   var SeriesProvider = function (_Component) {
     (0, _inherits3.default)(SeriesProvider, _Component);
 
-    function SeriesProvider() {
+    function SeriesProvider(props, context) {
       (0, _classCallCheck3.default)(this, SeriesProvider);
-      return (0, _possibleConstructorReturn3.default)(this, (SeriesProvider.__proto__ || (0, _getPrototypeOf2.default)(SeriesProvider)).apply(this, arguments));
+
+      var _this = (0, _possibleConstructorReturn3.default)(this, (SeriesProvider.__proto__ || (0, _getPrototypeOf2.default)(SeriesProvider)).call(this, props, context));
+
+      (0, _providedProps2.default)('SeriesProvider', ['update', 'remove', 'addPlotBand', 'removePlotBand']);
+      return _this;
     }
 
     (0, _createClass3.default)(SeriesProvider, [{
@@ -6799,6 +6820,10 @@ var _ChartProvider = __webpack_require__(27);
 
 var _ChartProvider2 = _interopRequireDefault(_ChartProvider);
 
+var _providedProps = __webpack_require__(206);
+
+var _providedProps2 = _interopRequireDefault(_providedProps);
+
 var _cleanPropsBeforeUpdate = __webpack_require__(205);
 
 var _cleanPropsBeforeUpdate2 = _interopRequireDefault(_cleanPropsBeforeUpdate);
@@ -6813,9 +6838,13 @@ function provideAxis(WrappedComponent) {
   var AxisProvider = function (_Component) {
     (0, _inherits3.default)(AxisProvider, _Component);
 
-    function AxisProvider() {
+    function AxisProvider(props, context) {
       (0, _classCallCheck3.default)(this, AxisProvider);
-      return (0, _possibleConstructorReturn3.default)(this, (AxisProvider.__proto__ || (0, _getPrototypeOf2.default)(AxisProvider)).apply(this, arguments));
+
+      var _this = (0, _possibleConstructorReturn3.default)(this, (AxisProvider.__proto__ || (0, _getPrototypeOf2.default)(AxisProvider)).call(this, props, context));
+
+      (0, _providedProps2.default)('AxisProvider', ['update', 'remove', 'addPlotBand', 'removePlotBand']);
+      return _this;
     }
 
     (0, _createClass3.default)(AxisProvider, [{
@@ -22349,6 +22378,8 @@ var _lodash5 = __webpack_require__(203);
 
 var _lodash6 = _interopRequireDefault(_lodash5);
 
+var _providedProps = __webpack_require__(206);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function cleanPropsBeforeUpdate(wrappedUpdate) {
@@ -22369,9 +22400,42 @@ function cleanPropsBeforeUpdate(wrappedUpdate) {
 }
 
 function removeProviderProps(config) {
-  var providedProps = ['get', 'update', 'remove', 'addAxis', 'addSeries', 'setData', 'setVisible', 'addPlotBand', 'removePlotBand'];
-  return (0, _lodash4.default)(config, providedProps);
+  return (0, _lodash4.default)(config, (0, _providedProps.getProvidedProps)());
 }
+
+/***/ }),
+/* 206 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.getProvidedProps = undefined;
+exports.default = addProvidedProps;
+
+var _lodash = __webpack_require__(194);
+
+var _lodash2 = _interopRequireDefault(_lodash);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var propsMap = {};
+
+function addProvidedProps(name, props) {
+  propsMap[name] = props;
+}
+
+var getProvidedProps = exports.getProvidedProps = function getProvidedProps() {
+  var combined = [];
+  (0, _lodash2.default)(propsMap, function (props) {
+    Array.prototype.push.apply(combined, props);
+  });
+
+  return combined;
+};
 
 /***/ })
 /******/ ]);

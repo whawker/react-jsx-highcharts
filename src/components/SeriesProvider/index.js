@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import provideChart from '../ChartProvider';
+import providedProps from '../../utils/providedProps';
 import cleanPropsBeforeUpdate from '../../utils/cleanPropsBeforeUpdate';
 
 function getDisplayName (Component) {
@@ -9,6 +10,12 @@ function getDisplayName (Component) {
 export default function provideSeries(WrappedComponent, expectsSeriesExists = true) {
   class SeriesProvider extends Component {
     static displayName = `SeriesProvider(${getDisplayName(WrappedComponent)})`;
+
+    constructor (props, context) {
+      super(props, context);
+
+      providedProps('SeriesProvider', ['update', 'remove', 'addPlotBand', 'removePlotBand']);
+    }
 
     render () {
       const id = this.props.seriesId || this.props.id;

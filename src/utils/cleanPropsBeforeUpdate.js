@@ -1,6 +1,7 @@
 import mapValues from 'lodash.mapvalues';
 import omit from 'lodash.omit';
 import isPlainObject from 'lodash.isplainobject';
+import { getProvidedProps } from './providedProps';
 
 export default function cleanPropsBeforeUpdate (wrappedUpdate) {
   return (config, ...args) => {
@@ -16,10 +17,5 @@ export default function cleanPropsBeforeUpdate (wrappedUpdate) {
 }
 
 function removeProviderProps (config) {
-  const providedProps = [
-    'get', 'update', 'remove', 'addAxis',
-    'addSeries', 'setData', 'setVisible',
-    'addPlotBand', 'removePlotBand'
-  ];
-  return omit(config, providedProps);
+  return omit(config, getProvidedProps());
 }

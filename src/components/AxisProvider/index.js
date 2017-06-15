@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import provideChart from '../ChartProvider';
+import providedProps from '../../utils/providedProps';
 import cleanPropsBeforeUpdate from '../../utils/cleanPropsBeforeUpdate';
 
 function getDisplayName (Component) {
@@ -9,6 +10,12 @@ function getDisplayName (Component) {
 export default function provideAxis(WrappedComponent) {
   class AxisProvider extends Component {
     static displayName = `AxisProvider(${getDisplayName(WrappedComponent)})`;
+
+    constructor (props, context) {
+      super(props, context);
+
+      providedProps('AxisProvider', ['update', 'remove', 'addPlotBand', 'removePlotBand']);
+    }
 
     render () {
       const id = this.props.axisId || this.props.id;
