@@ -5,7 +5,8 @@ class RangeSelectorButton extends Component {
 
   static propTypes = {
     count: PropTypes.number,
-    type: PropTypes.string.isRequired
+    type: PropTypes.string.isRequired,
+    update: PropTypes.func // Provided by ChartProvider
   };
 
   static contextTypes = {
@@ -55,7 +56,7 @@ class RangeSelectorButton extends Component {
   }
 
   updateRangeSelectorButtons (config) {
-    this.context.chart.update({
+    this.props.update({
       rangeSelector: {
         buttons: config
       }

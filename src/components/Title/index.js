@@ -1,2 +1,3 @@
 import Title from './Title';
-export default Title;
+import provideChart from '../ChartProvider';
+export default provideChart(Title);

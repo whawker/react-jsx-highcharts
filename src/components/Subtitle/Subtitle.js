@@ -4,12 +4,12 @@ import getModifiedProps from '../../utils/getModifiedProps';
 
 class Subtitle extends Component {
 
-  static contextTypes = {
-    chart: PropTypes.object
+  static propTypes = {
+    update: PropTypes.func
   };
 
-  constructor (props, context) {
-    super(props, context);
+  constructor (props) {
+    super(props);
 
     this.updateSubtitle = this.updateSubtitle.bind(this);
   }
@@ -37,7 +37,7 @@ class Subtitle extends Component {
   }
 
   updateSubtitle (config) {
-    this.context.chart.update({
+    this.props.update({
       subtitle: config
     }, true);
   }

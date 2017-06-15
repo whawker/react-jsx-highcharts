@@ -4,13 +4,13 @@ import getModifiedProps from '../../utils/getModifiedProps';
 
 class LegendTitle extends Component {
 
-  static contextTypes = {
-    chart: PropTypes.object
+  static propTypes = {
+    update: PropTypes.func // Provided by ChartProvider
   };
-  
-  constructor (props, context) {
-    super(props, context);
-    
+
+  constructor (props) {
+    super(props);
+
     this.updateLegendTitle = this.updateLegendTitle.bind(this);
   }
 
@@ -36,7 +36,7 @@ class LegendTitle extends Component {
   }
 
   updateLegendTitle (config) {
-    this.context.chart.update({
+    this.props.update({
       legend: {
         title: config
       }

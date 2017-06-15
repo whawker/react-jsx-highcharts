@@ -1,2 +1,3 @@
 import Series from './Series';
-export default Series;
+import provideSeries from '../SeriesProvider';
+export default provideSeries(Series, false);

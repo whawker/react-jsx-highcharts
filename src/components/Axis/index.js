@@ -1,4 +1,6 @@
 import Axis from './Axis';
 import AxisTitle from './AxisTitle';
-Axis.Title = AxisTitle;
-export default Axis;
+import provideAxis from '../AxisProvider';
+const ChartAxis = provideAxis(Axis);
+ChartAxis.Title = provideAxis(AxisTitle);
+export default ChartAxis;

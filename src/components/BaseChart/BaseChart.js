@@ -67,7 +67,7 @@ class BaseChart extends Component {
     })
   }
 
-  getChildContext() {
+  getChildContext () {
     return { chart: this.chart };
   }
 

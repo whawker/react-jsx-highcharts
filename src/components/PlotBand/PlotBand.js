@@ -1,13 +1,8 @@
 import React, { Component, Children, cloneElement } from 'react';
 import PropTypes from 'prop-types';
-import PlotBandLabel from './PlotBandLabel';
 import Hidden from '../Hidden';
 
 class PlotBand extends Component {
-
-  static contextTypes = {
-    chart: PropTypes.object
-  };
 
   static propTypes = {
     id: PropTypes.string.isRequired,
@@ -17,17 +12,18 @@ class PlotBand extends Component {
     to: PropTypes.any.isRequired,
     xAxis: PropTypes.string,
     yAxis: PropTypes.string,
-    color: PropTypes.string
+    color: PropTypes.string,
+    addPlotBand: PropTypes.func, // Provided by AxisProvider
+    removePlotBand: PropTypes.func // Provided by AxisProvider
   };
 
   static defaultProps = {
     color: '#ccffff'
   };
 
-  constructor (props, context) {
-    super(props, context);
+  constructor (props) {
+    super(props);
 
-    this.getAxis = this.getAxis.bind(this);
     this.state = {
       rendered: false
     };
@@ -35,19 +31,14 @@ class PlotBand extends Component {
 
   componentDidMount () {
     const { axisId, dimension, ...rest } = this.props;
-    this.getAxis().addPlotBand(rest);
+    this.props.addPlotBand(rest);
     this.setState({
       rendered: true
     });
   }
 
   componentWillUnmount () {
-    const axis = this.getAxis();
-    axis && axis.removePlotBand(this.props.id);
-  }
-
-  getAxis () {
-    return this.context.chart.get(this.props.axisId);
+    this.props.removePlotBand(this.props.id);
   }
 
   render () {
@@ -55,7 +46,7 @@ class PlotBand extends Component {
     if (!children || !this.state.rendered) return null;
 
     const bandChildren = Children.map(children, child => {
-      if (child.type === PlotBandLabel) {
+      if (child.type.displayName.indexOf('PlotBandLabel') > -1) {
         return cloneElement(child, rest);
       }
       return child;

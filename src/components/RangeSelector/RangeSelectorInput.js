@@ -6,12 +6,12 @@ import getModifiedProps from '../../utils/getModifiedProps';
 
 class RangeSelectorInput extends Component {
 
-  static contextTypes = {
-    chart: PropTypes.object
+  static propTypes = {
+    update: PropTypes.func // Provided by ChartProvider
   };
 
-  constructor (props, context) {
-    super(props, context);
+  constructor (props) {
+    super(props);
 
     this.updateRangeSelectorInputs = this.updateRangeSelectorInputs.bind(this);
   }
@@ -42,7 +42,7 @@ class RangeSelectorInput extends Component {
       return key.indexOf('input') === 0 ? key : `input${upperFirst(key)}`;
     });
 
-    this.context.chart.update({
+    this.props.update({
       rangeSelector: {
         ...inputProps
       }

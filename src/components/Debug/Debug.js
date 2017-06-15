@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Hidden from '../Hidden';
 
 class Debug extends Component {
+
   static contextTypes = {
     chart: PropTypes.object
   };

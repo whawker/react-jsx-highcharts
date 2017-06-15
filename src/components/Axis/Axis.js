@@ -6,43 +6,32 @@ import { validAxisDimensions, validAxisTypes } from '../../utils/propTypeValidat
 
 class Axis extends Component {
 
-  static contextTypes = {
-    chart: PropTypes.object
-  };
-
   static propTypes = {
     dimension: validAxisDimensions.isRequired,
     type: validAxisTypes,
     id: PropTypes.string.isRequired,
-    children: PropTypes.node
+    children: PropTypes.node,
+    addAxis: PropTypes.func, // Provided by ChartProvider
+    update: PropTypes.func, // Provided by AxisProvider
+    remove: PropTypes.func // Provided by AxisProvider
   };
 
-  constructor (props, context) {
-    super(props, context);
-
-    this.getSelf = this.getSelf.bind(this);
-  }
-
   componentWillMount () {
-    const { children, dimension, ...rest } = this.props;
+    const { children, dimension, addAxis, ...rest } = this.props;
     const isX = dimension.toLowerCase() === 'x';
-    this.context.chart.addAxis(rest, isX, true);
+    addAxis(rest, isX, true);
   }
 
   componentDidUpdate (prevProps) {
-    const modifiedProps = getModifiedProps(prevProps, this.props);
+    const { update, ...rest } = this.props;
+    const modifiedProps = getModifiedProps(prevProps, rest);
     if (modifiedProps !== false) {
-      this.getSelf().update(modifiedProps);
+      update(modifiedProps);
     }
   }
 
   componentWillUnmount () {
-    const axis = this.getSelf();
-    axis && axis.remove();
-  }
-
-  getSelf () {
-    return this.context.chart.get(this.props.id);
+    this.props.remove();
   }
 
   render () {

@@ -6,17 +6,18 @@ import { validSeriesTypes } from '../../utils/propTypeValidators';
 
 class Series extends Component {
 
-  static contextTypes = {
-    chart: PropTypes.object
-  };
-
   static propTypes = {
     id: PropTypes.string.isRequired,
     type: validSeriesTypes.isRequired,
     axisId: PropTypes.string, // Provided by Axis component
     dimension: PropTypes.string, // Provided by Axis component
     data: PropTypes.array,
-    visible: PropTypes.bool
+    visible: PropTypes.bool,
+    addSeries: PropTypes.func, // Provided by ChartProvider
+    update: PropTypes.func, // Provided by SeriesProvider
+    remove: PropTypes.func, // Provided by SeriesProvider
+    setData: PropTypes.func, // Provided by SeriesProvider
+    setVisible: PropTypes.func // Provided by SeriesProvider
   };
 
   static defaultProps = {
@@ -25,18 +26,17 @@ class Series extends Component {
     visible: true
   };
 
-  constructor (props, context) {
-    super(props, context);
+  constructor (props) {
+    super(props);
 
-    this.getSelf = this.getSelf.bind(this);
     this.state = {
       rendered: false
     };
   }
 
   componentDidMount () {
-    const { children, dimension, axisId, ...rest } = this.props;
-    this.context.chart.addSeries({
+    const { children, dimension, axisId, addSeries, ...rest } = this.props;
+    addSeries({
       [`${dimension}Axis`]: axisId,
       ...rest
     }, true);
@@ -46,29 +46,24 @@ class Series extends Component {
   }
 
   componentDidUpdate (prevProps) {
-    const { visible, data, ...rest } = this.props;
+    const { visible, setVisible, data, setData, update, ...rest } = this.props;
 
     // Using setData is more performant than update
     if (isEqual(data, prevProps.data) === false) {
-      this.getSelf().setData(data, true);
+      setData(data, true);
     }
     if (visible !== prevProps.visible) {
-      this.getSelf().setVisible(visible);
+      setVisible(visible);
     }
 
     const modifiedProps = getModifiedProps(prevProps, rest);
     if (modifiedProps !== false) {
-      this.getSelf().update(modifiedProps);
+      update(modifiedProps);
     }
   }
 
   componentWillUnmount () {
-    const series = this.getSelf();
-    series && series.remove();
-  }
-
-  getSelf () {
-    return this.context.chart.get(this.props.id);
+    this.props.remove();
   }
 
   render () {
