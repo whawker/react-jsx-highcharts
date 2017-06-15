@@ -1,2 +1,3 @@
 import Subtitle from './Subtitle';
-export default Subtitle;
+import provideChart from '../ChartProvider';
+export default provideChart(Subtitle);

@@ -1,15 +1,10 @@
 import { Component } from 'react';
-import PropTypes from 'prop-types';
 import getModifiedProps from '../../utils/getModifiedProps';
 
 class Legend extends Component {
 
-  static contextTypes = {
-    chart: PropTypes.object
-  };
-
-  constructor (props, context) {
-    super(props, context);
+  constructor (props) {
+    super(props);
 
     this.updateLegend = this.updateLegend.bind(this);
   }
@@ -36,7 +31,7 @@ class Legend extends Component {
   }
 
   updateLegend (config) {
-    this.context.chart.update({
+    this.props.update({
       legend: config
     }, true);
   }

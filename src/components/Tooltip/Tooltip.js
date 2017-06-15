@@ -10,6 +10,10 @@ class Tooltip extends Component {
     chart: PropTypes.object
   };
 
+  static defaultProps = {
+    ...Highcharts.defaultOptions.tooltip
+  };
+
   constructor (props, context) {
     super(props, context);
 

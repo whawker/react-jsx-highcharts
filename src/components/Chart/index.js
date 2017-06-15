@@ -1,2 +1,3 @@
 import Chart from './Chart';
-export default Chart;
+import provideChart from '../ChartProvider';
+export default provideChart(Chart);

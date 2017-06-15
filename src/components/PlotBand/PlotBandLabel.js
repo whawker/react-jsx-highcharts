@@ -3,27 +3,22 @@ import PropTypes from 'prop-types';
 
 class PlotBandLabel extends Component {
 
-  static contextTypes = {
-    chart: PropTypes.object
-  };
-
   static propTypes = {
     axisId: PropTypes.string,
-    id: PropTypes.string
+    id: PropTypes.string,
+    addPlotBand: PropTypes.func, // Provided by AxisProvider
+    removePlotBand: PropTypes.func // Provided by AxisProvider
   };
 
-  constructor (props, context) {
-    super(props, context);
+  constructor (props) {
+    super(props);
 
-    this.getAxis = this.getAxis.bind(this);
+    this.updatePlotBand = this.updatePlotBand.bind(this);
   }
 
   componentDidMount () {
     const { children, ...rest } = this.props;
-    const axis = this.getAxis();
-    // Plot bands have no update method
-    axis.removePlotBand(this.props.id);
-    axis.addPlotBand({
+    this.updatePlotBand({
       label: {
         text: children
       },
@@ -33,9 +28,7 @@ class PlotBandLabel extends Component {
 
   componentWillUnmount () {
     const { children, ...rest } = this.props;
-    const axis = this.getAxis();
-    axis.removePlotBand(this.props.id);
-    axis.addPlotBand({
+    this.updatePlotBand({
       label: {
         text: null
       },
@@ -43,8 +36,10 @@ class PlotBandLabel extends Component {
     });
   }
 
-  getAxis () {
-    return this.context.chart.get(this.props.axisId);
+  updatePlotBand (config) {
+    const { id, addPlotBand, removePlotBand } = this.props;
+    removePlotBand(id);
+    addPlotBand(config);
   }
 
   render () {

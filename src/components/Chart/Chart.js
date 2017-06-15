@@ -24,7 +24,8 @@ class Chart extends Component {
     onLoad: PropTypes.func,
     onRedraw: PropTypes.func,
     onRender: PropTypes.func,
-    onSelection: PropTypes.func
+    onSelection: PropTypes.func,
+    update: PropTypes.func
   };
 
   static defaultProps = {
@@ -45,11 +46,10 @@ class Chart extends Component {
   }
 
   componentDidMount () {
-    const { type, children,  ...rest } = this.props;
-    const { chart } = this.context;
+    const { type, children, update,  ...rest } = this.props;
 
     const notEventProps = omitBy(rest, this.isEventKey);
-    chart.update({
+    update({
       chart: {
         type,
         ...notEventProps
@@ -59,7 +59,7 @@ class Chart extends Component {
     const eventProps = pickBy(rest, this.isEventKey);
     forEach(eventProps, (handler, eventName) => {
       const highchartsEventName = lowerFirst(eventName.replace(/^on/, ''));
-      Highcharts.addEvent(chart, highchartsEventName, handler);
+      Highcharts.addEvent(this.context.chart, highchartsEventName, handler);
     });
   }
 

@@ -4,18 +4,14 @@ import getModifiedProps from '../../utils/getModifiedProps';
 
 class AxisTitle extends Component {
 
-  static contextTypes = {
-    chart: PropTypes.object
-  };
-
   static propTypes = {
-    axisId: PropTypes.string
+    axisId: PropTypes.string,
+    update: PropTypes.func // Provided by AxisProvider
   };
 
-  constructor (props, context) {
-    super(props, context);
+  constructor (props) {
+    super(props);
 
-    this.getAxis = this.getAxis.bind(this);
     this.updateAxisTitle = this.updateAxisTitle.bind(this);
   }
 
@@ -40,13 +36,9 @@ class AxisTitle extends Component {
     });
   }
 
-  getAxis () {
-    return this.context.chart.get(this.props.axisId);
-  }
-
   updateAxisTitle (config) {
     const { axisId, dimension, ...rest } = config;
-    this.getAxis().update({
+    this.props.update({
       title: rest
     }, true);
   }

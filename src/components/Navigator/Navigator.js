@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Children, cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import Highcharts from 'highstock-release';
 import Hidden from '../Hidden';
@@ -9,11 +9,22 @@ class Navigator extends Component {
   static contextTypes = {
     chart: PropTypes.object
   };
-  
+
+  static propTypes = {
+    update: PropTypes.func // Provided by ChartProvider
+  };
+
   constructor (props, context) {
     super(props, context);
-    
+
     this.updateNavigator = this.updateNavigator.bind(this);
+    this.handleAddSeries = this.handleAddSeries.bind(this);
+
+    this.state = {
+      seriesCount: 0
+    };
+
+    Highcharts.addEvent(context.chart, 'addSeries', this.handleAddSeries);
   }
 
   componentDidMount () {
@@ -25,7 +36,7 @@ class Navigator extends Component {
       enabled: true
     });
   }
-  
+
   componentDidUpdate (prevProps) {
     const modifiedProps = getModifiedProps(prevProps, this.props);
     if (modifiedProps !== false) {
@@ -40,17 +51,27 @@ class Navigator extends Component {
   }
 
   updateNavigator (config) {
-    this.context.chart.update({
+    this.props.update({
       navigator: config
     }, true);
+  }
+
+  handleAddSeries () {
+    this.setState({
+      seriesCount: this.state.seriesCount + 1
+    });
   }
 
   render () {
     const { children } = this.props;
     if (!children) return null;
 
+    const navChildren = Children.map(children, child => {
+      return cloneElement(child, this.state);
+    });
+
     return (
-      <Hidden>{children}</Hidden>
+      <Hidden>{navChildren}</Hidden>
     );
   }
 }

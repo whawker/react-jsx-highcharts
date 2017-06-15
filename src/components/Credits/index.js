@@ -1,2 +1,3 @@
 import Credits from './Credits';
-export default Credits;
+import provideChart from '../ChartProvider';
+export default provideChart(Credits);

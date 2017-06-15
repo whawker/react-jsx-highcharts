@@ -4,31 +4,16 @@ import PropTypes from 'prop-types';
 class NavigatorSeries extends Component {
 
   static propTypes = {
-    seriesId: PropTypes.string.isRequired
+    seriesId: PropTypes.string.isRequired,
+    update: PropTypes.func // Provided by ChartProvider
   };
-
-  static contextTypes = {
-    chart: PropTypes.object
-  };
-
-  constructor (props, context) {
-    super(props, context);
-
-    this.getSeries = this.getSeries.bind(this);
-  }
 
   componentDidMount () {
-    const series = this.getSeries();
-    series && series.update({ showInNavigator: true });
+    this.props.update({ showInNavigator: true });
   }
 
   componentWillUnmount () {
-    const series = this.getSeries();
-    series && series.update({ showInNavigator: false });
-  }
-
-  getSeries () {
-    return this.context.chart.get(this.props.seriesId);
+    this.props.update({ showInNavigator: false });
   }
 
   render () {

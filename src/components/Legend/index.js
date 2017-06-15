@@ -1,4 +1,6 @@
 import Legend from './Legend';
 import LegendTitle from './LegendTitle';
-Legend.Title = LegendTitle;
-export default Legend;
+import provideChart from '../ChartProvider';
+const ChartLegend = provideChart(Legend);
+ChartLegend.Title = provideChart(LegendTitle);
+export default ChartLegend;

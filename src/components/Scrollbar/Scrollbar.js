@@ -5,12 +5,12 @@ import getModifiedProps from '../../utils/getModifiedProps';
 
 class Scrollbar extends Component {
 
-  static contextTypes = {
-    chart: PropTypes.object
+  static propTypes = {
+    update: PropTypes.func // Provided by ChartProvider
   };
 
-  constructor (props, context) {
-    super(props, context);
+  constructor (props) {
+    super(props);
 
     this.updateScrollbar = this.updateScrollbar.bind(this);
   }
@@ -37,7 +37,7 @@ class Scrollbar extends Component {
   }
 
   updateScrollbar (config) {
-    this.context.chart.update({
+    this.props.update({
       scrollbar: config
     }, true);
   }
