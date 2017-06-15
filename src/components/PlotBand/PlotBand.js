@@ -1,6 +1,5 @@
 import React, { Component, Children, cloneElement } from 'react';
 import PropTypes from 'prop-types';
-import PlotBandLabel from './PlotBandLabel';
 import Hidden from '../Hidden';
 
 class PlotBand extends Component {

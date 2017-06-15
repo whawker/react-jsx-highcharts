@@ -9064,10 +9064,6 @@ var _propTypes = __webpack_require__(6);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _PlotBandLabel = __webpack_require__(49);
-
-var _PlotBandLabel2 = _interopRequireDefault(_PlotBandLabel);
-
 var _Hidden = __webpack_require__(12);
 
 var _Hidden2 = _interopRequireDefault(_Hidden);
