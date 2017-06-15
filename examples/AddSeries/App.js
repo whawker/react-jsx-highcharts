@@ -71,7 +71,7 @@ class App extends Component {
         <HighchartsChart>
           <Title>Dynamically add/remove series</Title>
 
-          <Legend>
+          <Legend align="left">
             <Legend.Title>Legend</Legend.Title>
           </Legend>
 
@@ -85,7 +85,7 @@ class App extends Component {
           </YAxis>
         </HighchartsChart>
 
-        <div>
+        <div className="btn-toolbar" role="toolbar">
           <button className="btn btn-primary" onClick={this.handleAddSeries}>Add line series</button>
           <button className="btn btn-danger" onClick={this.handleRemoveSeries}>Remove line series</button>
         </div>
