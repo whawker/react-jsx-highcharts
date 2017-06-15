@@ -7087,10 +7087,9 @@ var AxisTitle = function (_Component) {
     value: function updateAxisTitle(config) {
       var axisId = config.axisId,
           dimension = config.dimension,
-          update = config.update,
-          rest = (0, _objectWithoutProperties3.default)(config, ['axisId', 'dimension', 'update']);
+          rest = (0, _objectWithoutProperties3.default)(config, ['axisId', 'dimension']);
 
-      update({
+      this.props.update({
         title: rest
       }, true);
     }
