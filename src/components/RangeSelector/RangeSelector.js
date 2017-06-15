@@ -14,6 +14,10 @@ class RangeSelector extends Component {
     update: PropTypes.func // Provided by ChartProvider
   };
 
+  static defaultProps = {
+    ...Highcharts.defaultOptions.rangeSelector
+  };
+
   constructor (props, context) {
     super(props, context);
 
