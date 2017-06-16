@@ -5,7 +5,7 @@ import getModifiedProps from '../../utils/getModifiedProps';
 class Title extends Component {
 
   static propTypes = {
-    update: PropTypes.func // Provided by ChartProvider
+    setTitle: PropTypes.func // Provided by ChartProvider
   };
 
   constructor (props) {
@@ -37,9 +37,7 @@ class Title extends Component {
   }
 
   updateTitle (config) {
-    this.props.update({
-      title: config
-    }, true);
+    this.props.setTitle(config, null, true);
   }
 
   render () {

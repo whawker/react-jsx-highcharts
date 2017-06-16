@@ -18,5 +18,6 @@ export const createMockChart = () => ({
   addAxis: sinon.stub(),
   addSeries: sinon.stub(),
   get: sinon.stub(),
-  update: sinon.stub()
+  update: sinon.stub(),
+  setTitle: sinon.stub()
 });

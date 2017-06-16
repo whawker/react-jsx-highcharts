@@ -5,7 +5,7 @@ import getModifiedProps from '../../utils/getModifiedProps';
 class Subtitle extends Component {
 
   static propTypes = {
-    update: PropTypes.func
+    setTitle: PropTypes.func
   };
 
   constructor (props) {
@@ -37,9 +37,7 @@ class Subtitle extends Component {
   }
 
   updateSubtitle (config) {
-    this.props.update({
-      subtitle: config
-    }, true);
+    this.props.setTitle(null, config, true);
   }
 
   render () {

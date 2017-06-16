@@ -18,7 +18,7 @@ export default function provideChart(WrappedComponent) {
     constructor (props, context) {
       super(props, context);
 
-      providedProps('ChartProvider', ['get', 'update', 'addAxis', 'addSeries']);
+      providedProps('ChartProvider', ['get', 'update', 'addAxis', 'addSeries', 'setTitle']);
     }
 
     render () {
@@ -30,7 +30,8 @@ export default function provideChart(WrappedComponent) {
           get={chart.get.bind(chart)}
           update={cleanPropsBeforeUpdate(chart.update.bind(chart))}
           addAxis={cleanPropsBeforeUpdate(chart.addAxis.bind(chart))}
-          addSeries={cleanPropsBeforeUpdate(chart.addSeries.bind(chart))} />
+          addSeries={cleanPropsBeforeUpdate(chart.addSeries.bind(chart))}
+          setTitle={cleanPropsBeforeUpdate(chart.setTitle.bind(chart))} />
       );
     }
   }

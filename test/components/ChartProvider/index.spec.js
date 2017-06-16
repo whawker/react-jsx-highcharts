@@ -24,6 +24,7 @@ describe('<ChartProvider />', function () {
       this.chart.update.withArgs({ prop: 'Test9876' }).returns('update method mock');
       this.chart.addAxis.withArgs({ prop: 'Test4567' }).returns('addAxis method mock');
       this.chart.addSeries.withArgs({ prop: 'Test7654' }).returns('addSeries method mock');
+      this.chart.setTitle.withArgs({ prop: 'Test8080' }).returns('setTitle method mock');
     });
 
     it('should pass the `get` function of Highcharts to the wrapped component', function () {
@@ -46,6 +47,11 @@ describe('<ChartProvider />', function () {
       expect(wrapper.props().addSeries({ prop: 'Test7654' })).to.eql('addSeries method mock');
     });
 
+    it('should pass the `setTitle` function of Highcharts to the wrapped component', function () {
+      const wrapper = shallow(<ChartWrappedComponent />, {context: this.context}).find(WrappedComponent);
+      expect(wrapper.props().setTitle({ prop: 'Test8080' })).to.eql('setTitle method mock');
+    });
+
     it('should pass all other props through to the WrappedComponent', function () {
       const wrapper = shallow(<ChartWrappedComponent prop1="bob" prop264="dave" />, {context: this.context}).find(WrappedComponent);
       expect(wrapper.props().prop1).to.eql('bob');
@@ -59,6 +65,7 @@ describe('<ChartProvider />', function () {
       this.chart.update.withArgs({ prop: 'Test9876' }).returnsThis();
       this.chart.addAxis.withArgs({ prop: 'Test4567' }).returnsThis();
       this.chart.addSeries.withArgs({ prop: 'Test7654' }).returnsThis();
+      this.chart.setTitle.withArgs({ prop: 'Test8080' }).returnsThis();
     });
 
     it('the scope of the `get` function should be bound to the chart', function () {
@@ -79,6 +86,11 @@ describe('<ChartProvider />', function () {
     it('the scope of the `addSeries` function should be bound to the chart', function () {
       const wrapper = shallow(<ChartWrappedComponent />, {context: this.context}).find(WrappedComponent);
       expect(wrapper.props().addSeries({ prop: 'Test7654' })).to.eql(this.chart);
+    });
+
+    it('the scope of the `setTitle` function should be bound to the chart', function () {
+      const wrapper = shallow(<ChartWrappedComponent />, {context: this.context}).find(WrappedComponent);
+      expect(wrapper.props().setTitle({ prop: 'Test8080' })).to.eql(this.chart);
     });
   });
 });
