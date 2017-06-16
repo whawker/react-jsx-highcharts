@@ -10,6 +10,10 @@ class Tooltip extends Component {
     chart: PropTypes.object
   };
 
+  static propTypes = {
+    update: PropTypes.func
+  };
+
   static defaultProps = {
     ...Highcharts.defaultOptions.tooltip
   };
@@ -43,7 +47,7 @@ class Tooltip extends Component {
   }
 
   updateTooltip (config) {
-    this.context.chart.tooltip.update({
+    this.props.update({
       tooltip: config
     }, true);
   }
