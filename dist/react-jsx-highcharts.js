@@ -10616,7 +10616,7 @@ exports.default = YAxis;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.Series = exports.Hidden = exports.Debug = exports.BaseChart = exports.Axis = exports.WaterfallSeries = exports.SplineSeries = exports.ScatterSeries = exports.PyramidSeries = exports.PolygonSeries = exports.PieSeries = exports.OHLCSeries = exports.LineSeries = exports.FunnelSeries = exports.FlagSeries = exports.ErrorBarSeries = exports.ColumnSeries = exports.ColumnRangeSeries = exports.CandlestickSeries = exports.BubbleSeries = exports.BoxPlotSeries = exports.BarSeries = exports.AreaSplineSeries = exports.AreaSplineRangeSeries = exports.AreaSeries = exports.AreaRangeSeries = exports.YAxis = exports.XAxis = exports.Tooltip = exports.Title = exports.Subtitle = exports.Scrollbar = exports.RangeSelector = exports.PlotBand = exports.Navigator = exports.Legend = exports.Credits = exports.Chart = exports.HighchartsStockChart = exports.HighchartsChart = undefined;
+exports.Series = exports.Hidden = exports.Debug = exports.BaseChart = exports.Axis = exports.provideSeries = exports.provideAxis = exports.provideChart = exports.WaterfallSeries = exports.SplineSeries = exports.ScatterSeries = exports.PyramidSeries = exports.PolygonSeries = exports.PieSeries = exports.OHLCSeries = exports.LineSeries = exports.FunnelSeries = exports.FlagSeries = exports.ErrorBarSeries = exports.ColumnSeries = exports.ColumnRangeSeries = exports.CandlestickSeries = exports.BubbleSeries = exports.BoxPlotSeries = exports.BarSeries = exports.AreaSplineSeries = exports.AreaSplineRangeSeries = exports.AreaSeries = exports.AreaRangeSeries = exports.YAxis = exports.XAxis = exports.Tooltip = exports.Title = exports.Subtitle = exports.Scrollbar = exports.RangeSelector = exports.PlotBand = exports.Navigator = exports.Legend = exports.Credits = exports.Chart = exports.HighchartsStockChart = exports.HighchartsChart = undefined;
 
 var _HighchartsChart2 = __webpack_require__(82);
 
@@ -10758,6 +10758,18 @@ var _WaterfallSeries2 = __webpack_require__(99);
 
 var _WaterfallSeries3 = _interopRequireDefault(_WaterfallSeries2);
 
+var _ChartProvider = __webpack_require__(27);
+
+var _ChartProvider2 = _interopRequireDefault(_ChartProvider);
+
+var _AxisProvider = __webpack_require__(106);
+
+var _AxisProvider2 = _interopRequireDefault(_AxisProvider);
+
+var _SeriesProvider = __webpack_require__(50);
+
+var _SeriesProvider2 = _interopRequireDefault(_SeriesProvider);
+
 var _Axis2 = __webpack_require__(33);
 
 var _Axis3 = _interopRequireDefault(_Axis2);
@@ -10822,6 +10834,12 @@ exports.PyramidSeries = _PyramidSeries3.default;
 exports.ScatterSeries = _ScatterSeries3.default;
 exports.SplineSeries = _SplineSeries3.default;
 exports.WaterfallSeries = _WaterfallSeries3.default;
+
+// Providers
+
+exports.provideChart = _ChartProvider2.default;
+exports.provideAxis = _AxisProvider2.default;
+exports.provideSeries = _SeriesProvider2.default;
 
 // Helpers
 

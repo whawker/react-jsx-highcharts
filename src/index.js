@@ -39,6 +39,11 @@ export ScatterSeries from './components/ScatterSeries';
 export SplineSeries from './components/SplineSeries';
 export WaterfallSeries from './components/WaterfallSeries';
 
+// Providers
+export provideChart from './components/ChartProvider';
+export provideAxis from './components/AxisProvider';
+export provideSeries from './components/SeriesProvider';
+
 // Helpers
 export Axis from './components/Axis';
 export BaseChart from './components/BaseChart';
