@@ -52,7 +52,7 @@ class App extends Component {
             <AreaSplineSeries id="profit" name="Profit" data={data1} />
           </YAxis>
 
-          <YAxis id="social" opposite={true}>
+          <YAxis id="social" opposite>
             <YAxis.Title>Social Buzz</YAxis.Title>
             <SplineSeries id="twitter" name="Twitter mentions" data={data2} />
           </YAxis>
