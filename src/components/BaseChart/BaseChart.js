@@ -67,6 +67,10 @@ class BaseChart extends Component {
     })
   }
 
+  componentWillUnmount () {
+    this.chart.destroy();
+  }
+
   getChildContext () {
     return { chart: this.chart };
   }

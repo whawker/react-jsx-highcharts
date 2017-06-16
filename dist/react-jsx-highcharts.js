@@ -7283,6 +7283,11 @@ var BaseChart = function (_Component) {
       });
     }
   }, {
+    key: 'componentWillUnmount',
+    value: function componentWillUnmount() {
+      this.chart.destroy();
+    }
+  }, {
     key: 'getChildContext',
     value: function getChildContext() {
       return { chart: this.chart };
