@@ -12,7 +12,7 @@ export default function cleanPropsBeforeUpdate (wrappedUpdate) {
       return removeProviderProps(prop);
     });
 
-    wrappedUpdate(cleanedNested, ...args);
+    return wrappedUpdate(cleanedNested, ...args);
   }
 }
 

@@ -6309,16 +6309,11 @@ var _RangeSelectorInput = __webpack_require__(137);
 
 var _RangeSelectorInput2 = _interopRequireDefault(_RangeSelectorInput);
 
-var _ChartProvider = __webpack_require__(27);
-
-var _ChartProvider2 = _interopRequireDefault(_ChartProvider);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var ChartRangeSelector = (0, _ChartProvider2.default)(_RangeSelector2.default);
-ChartRangeSelector.Button = (0, _ChartProvider2.default)(_RangeSelectorButton2.default);
-ChartRangeSelector.Input = (0, _ChartProvider2.default)(_RangeSelectorInput2.default);
-exports.default = ChartRangeSelector;
+_RangeSelector2.default.Button = _RangeSelectorButton2.default;
+_RangeSelector2.default.Input = _RangeSelectorInput2.default;
+exports.default = _RangeSelector2.default;
 
 /***/ }),
 /* 93 */
@@ -22390,7 +22385,7 @@ function cleanPropsBeforeUpdate(wrappedUpdate) {
       return removeProviderProps(prop);
     });
 
-    wrappedUpdate.apply(undefined, [cleanedNested].concat(args));
+    return wrappedUpdate.apply(undefined, [cleanedNested].concat(args));
   };
 }
 

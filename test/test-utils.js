@@ -1,19 +1,22 @@
 import sinon from 'sinon';
 
 export const createMockAxis = () => ({
-  remove: sinon.spy(),
-  update: sinon.spy()
+  remove: sinon.stub(),
+  addPlotBand: sinon.stub(),
+  removePlotBand: sinon.stub(),
+  update: sinon.stub()
 });
 
 export const createMockSeries = () => ({
-  remove: sinon.spy(),
-  setData: sinon.spy(),
-  setVisible: sinon.spy(),
-  update: sinon.spy()
+  remove: sinon.stub(),
+  setData: sinon.stub(),
+  setVisible: sinon.stub(),
+  update: sinon.stub()
 });
 
-export const createMockChart = getStub => ({
-  addAxis: sinon.spy(),
-  addSeries: sinon.spy(),
-  get: getStub
+export const createMockChart = () => ({
+  addAxis: sinon.stub(),
+  addSeries: sinon.stub(),
+  get: sinon.stub(),
+  update: sinon.stub()
 });
