@@ -1,2 +1,3 @@
 import Tooltip from './Tooltip';
-export default Tooltip;
+import provideChart from '../ChartProvider';
+export default provideChart(Tooltip);

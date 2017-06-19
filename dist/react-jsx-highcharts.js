@@ -7090,9 +7090,13 @@ var _Tooltip = __webpack_require__(147);
 
 var _Tooltip2 = _interopRequireDefault(_Tooltip);
 
+var _ChartProvider = __webpack_require__(11);
+
+var _ChartProvider2 = _interopRequireDefault(_ChartProvider);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = _Tooltip2.default;
+exports.default = (0, _ChartProvider2.default)(_Tooltip2.default);
 
 /***/ }),
 /* 102 */
@@ -11023,7 +11027,7 @@ var Tooltip = function (_Component) {
   }, {
     key: 'updateTooltip',
     value: function updateTooltip(config) {
-      this.context.chart.tooltip.update({
+      this.props.update({
         tooltip: config
       }, true);
     }
