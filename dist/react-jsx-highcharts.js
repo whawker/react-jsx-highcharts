@@ -10783,7 +10783,6 @@ var Subtitle = function (_Component) {
           rest = (0, _objectWithoutProperties3.default)(_props, ['children']);
 
       this.updateSubtitle((0, _extends3.default)({}, rest, {
-        useHTML: true,
         text: children
       }));
     }
@@ -10889,7 +10888,6 @@ var Title = function (_Component) {
           rest = (0, _objectWithoutProperties3.default)(_props, ['children']);
 
       this.updateTitle((0, _extends3.default)({}, rest, {
-        useHTML: true,
         text: children
       }));
     }

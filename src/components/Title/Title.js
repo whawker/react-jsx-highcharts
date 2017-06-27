@@ -18,7 +18,6 @@ class Title extends Component {
     const { children, ...rest } = this.props;
     this.updateTitle({
       ...rest,
-      useHTML: true,
       text: children
     });
   }
