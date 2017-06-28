@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
+import pickBy from 'lodash.pickby';
 
 class PlotBandLabel extends Component {
 
@@ -10,18 +11,30 @@ class PlotBandLabel extends Component {
     removePlotBand: PropTypes.func // Provided by AxisProvider
   };
 
+  static labelProps = [
+    'text',
+    'align',
+    'rotation',
+    'style',
+    'textAlign',
+    'useHTML',
+    'verticalAlign',
+    'x',
+    'y'
+  ];
+
   constructor (props) {
     super(props);
 
     this.updatePlotBand = this.updatePlotBand.bind(this);
+    this.getLabelProps = this.getLabelProps.bind(this);
+    this.getOtherProps = this.getOtherProps.bind(this);
   }
 
   componentDidMount () {
     const { children, ...rest } = this.props;
     this.updatePlotBand({
-      label: {
-        text: children
-      },
+      text: children,
       ...rest
     });
   }
@@ -29,17 +42,34 @@ class PlotBandLabel extends Component {
   componentWillUnmount () {
     const { children, ...rest } = this.props;
     this.updatePlotBand({
-      label: {
-        text: null
-      },
+      text: null,
       ...rest
+    });
+  }
+
+  getLabelProps (props) {
+    return pickBy(props, (value, propName) => {
+      return PlotBandLabel.labelProps.indexOf(propName) > -1;
+    });
+  }
+
+  getOtherProps (props) {
+    return pickBy(props, (value, propName) => {
+      return PlotBandLabel.labelProps.indexOf(propName) === -1;
     });
   }
 
   updatePlotBand (config) {
     const { id, addPlotBand, removePlotBand } = this.props;
+    const labelProps = this.getLabelProps(config);
+    const otherProps = this.getOtherProps(config);
     removePlotBand(id);
-    addPlotBand(config);
+    addPlotBand({
+      ...otherProps,
+      label: {
+        ...labelProps
+      }
+    });
   }
 
   render () {
