@@ -9668,10 +9668,7 @@ var PlotBand = function (_Component) {
       if (!children || !this.state.rendered) return null;
 
       var bandChildren = _react.Children.map(children, function (child) {
-        if (child.type.displayName.indexOf('PlotBandLabel') > -1) {
-          return (0, _react.cloneElement)(child, rest);
-        }
-        return child;
+        return (0, _react.cloneElement)(child, rest);
       });
 
       return _react2.default.createElement(
@@ -9684,9 +9681,6 @@ var PlotBand = function (_Component) {
   return PlotBand;
 }(_react.Component);
 
-PlotBand.defaultProps = {
-  color: '#ccffff'
-};
 exports.default = PlotBand;
 
 /***/ }),

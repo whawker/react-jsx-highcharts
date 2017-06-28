@@ -17,10 +17,6 @@ class PlotBand extends Component {
     removePlotBand: PropTypes.func // Provided by AxisProvider
   };
 
-  static defaultProps = {
-    color: '#ccffff'
-  };
-
   constructor (props) {
     super(props);
 
@@ -46,10 +42,7 @@ class PlotBand extends Component {
     if (!children || !this.state.rendered) return null;
 
     const bandChildren = Children.map(children, child => {
-      if (child.type.displayName.indexOf('PlotBandLabel') > -1) {
-        return cloneElement(child, rest);
-      }
-      return child;
+      return cloneElement(child, rest);
     });
 
     return (
