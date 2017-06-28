@@ -18,7 +18,6 @@ class Subtitle extends Component {
     const { children, ...rest } = this.props;
     this.updateSubtitle({
       ...rest,
-      useHTML: true,
       text: children
     });
   }

@@ -9668,10 +9668,7 @@ var PlotBand = function (_Component) {
       if (!children || !this.state.rendered) return null;
 
       var bandChildren = _react.Children.map(children, function (child) {
-        if (child.type.displayName.indexOf('PlotBandLabel') > -1) {
-          return (0, _react.cloneElement)(child, rest);
-        }
-        return child;
+        return (0, _react.cloneElement)(child, rest);
       });
 
       return _react2.default.createElement(
@@ -9684,9 +9681,6 @@ var PlotBand = function (_Component) {
   return PlotBand;
 }(_react.Component);
 
-PlotBand.defaultProps = {
-  color: '#ccffff'
-};
 exports.default = PlotBand;
 
 /***/ }),
@@ -10783,7 +10777,6 @@ var Subtitle = function (_Component) {
           rest = (0, _objectWithoutProperties3.default)(_props, ['children']);
 
       this.updateSubtitle((0, _extends3.default)({}, rest, {
-        useHTML: true,
         text: children
       }));
     }
@@ -10889,7 +10882,6 @@ var Title = function (_Component) {
           rest = (0, _objectWithoutProperties3.default)(_props, ['children']);
 
       this.updateTitle((0, _extends3.default)({}, rest, {
-        useHTML: true,
         text: children
       }));
     }
