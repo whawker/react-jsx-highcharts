@@ -26,6 +26,8 @@ describe('<AxisProvider />', function () {
       this.axis.remove.withArgs({ prop: 'Test1234' }).returns('remove method mock');
       this.axis.addPlotBand.withArgs({ prop: 'Test4567' }).returns('addPlotBand method mock');
       this.axis.removePlotBand.withArgs({ prop: 'Test7654' }).returns('removePlotBand method mock');
+      this.axis.addPlotLine.withArgs({ prop: 'Test4444' }).returns('addPlotLine method mock');
+      this.axis.removePlotLine.withArgs({ prop: 'Test5555' }).returns('removePlotLine method mock');
     });
 
     it('should pass the `update` function of the axis to the wrapped component', function () {
@@ -48,6 +50,16 @@ describe('<AxisProvider />', function () {
       expect(wrapper.props().removePlotBand({ prop: 'Test7654' })).to.eql('removePlotBand method mock');
     });
 
+    it('should pass the `addPlotLine` function of the axis to the wrapped component', function () {
+      const wrapper = mount(<AxisWrappedComponent axisId="myAxisId" />, {context: this.context}).find(WrappedComponent);
+      expect(wrapper.props().addPlotLine({ prop: 'Test4444' })).to.eql('addPlotLine method mock');
+    });
+
+    it('should pass the `removePlotLine` function of the axis to the wrapped component', function () {
+      const wrapper = mount(<AxisWrappedComponent axisId="myAxisId" />, {context: this.context}).find(WrappedComponent);
+      expect(wrapper.props().removePlotLine({ prop: 'Test5555' })).to.eql('removePlotLine method mock');
+    });
+
     it('should pass all other props through to the WrappedComponent', function () {
       const wrapper = mount(<AxisWrappedComponent axisId="myAxisId" prop1="bob" prop264="dave" />, {context: this.context}).find(WrappedComponent);
       expect(wrapper.props().prop1).to.eql('bob');
@@ -61,6 +73,8 @@ describe('<AxisProvider />', function () {
       this.axis.remove.withArgs({ prop: 'Test1234' }).returnsThis();
       this.axis.addPlotBand.withArgs({ prop: 'Test4567' }).returnsThis();
       this.axis.removePlotBand.withArgs({ prop: 'Test7654' }).returnsThis();
+      this.axis.addPlotLine.withArgs({ prop: 'Test4444' }).returnsThis();
+      this.axis.removePlotLine.withArgs({ prop: 'Test5555' }).returnsThis();
     });
 
     it('the scope of the `update` function should be bound to the axis', function () {
@@ -81,7 +95,16 @@ describe('<AxisProvider />', function () {
     it('the scope of the `removePlotBand` function should be bound to the axis', function () {
       const wrapper = mount(<AxisWrappedComponent axisId="myAxisId" />, {context: this.context}).find(WrappedComponent);
       expect(wrapper.props().removePlotBand({ prop: 'Test7654' })).to.eql(this.axis);
+    });
 
+    it('the scope of the `addPlotLine` function should be bound to the axis', function () {
+      const wrapper = mount(<AxisWrappedComponent axisId="myAxisId" />, {context: this.context}).find(WrappedComponent);
+      expect(wrapper.props().addPlotLine({ prop: 'Test4444' })).to.eql(this.axis);
+    });
+
+    it('the scope of the `removePlotLine` function should be bound to the axis', function () {
+      const wrapper = mount(<AxisWrappedComponent axisId="myAxisId" />, {context: this.context}).find(WrappedComponent);
+      expect(wrapper.props().removePlotLine({ prop: 'Test5555' })).to.eql(this.axis);
     });
   });
 });
