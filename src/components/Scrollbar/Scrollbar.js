@@ -6,7 +6,12 @@ import getModifiedProps from '../../utils/getModifiedProps';
 class Scrollbar extends Component {
 
   static propTypes = {
-    update: PropTypes.func // Provided by ChartProvider
+    update: PropTypes.func, // Provided by ChartProvider
+    enabled: PropTypes.bool.isRequired
+  };
+
+  static defaultProps = {
+    enabled: true
   };
 
   constructor (props) {
@@ -18,8 +23,7 @@ class Scrollbar extends Component {
   componentDidMount () {
     const { children, ...rest } = this.props;
     this.updateScrollbar({
-      ...rest,
-      enabled: true
+      ...rest
     });
   }
 

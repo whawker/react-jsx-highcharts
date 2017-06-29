@@ -8441,7 +8441,7 @@ var Credits = function (_Component) {
     key: 'componentWillUnmount',
     value: function componentWillUnmount() {
       this.updateCredits({
-        text: null
+        enabled: false
       });
     }
   }, {
@@ -8460,6 +8460,9 @@ var Credits = function (_Component) {
   return Credits;
 }(_react.Component);
 
+Credits.defaultProps = {
+  enabled: true
+};
 exports.default = Credits;
 
 /***/ }),
@@ -8986,6 +8989,10 @@ var _inherits3 = _interopRequireDefault(_inherits2);
 
 var _react = __webpack_require__(5);
 
+var _propTypes = __webpack_require__(6);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _getModifiedProps = __webpack_require__(10);
 
 var _getModifiedProps2 = _interopRequireDefault(_getModifiedProps);
@@ -9011,9 +9018,7 @@ var Legend = function (_Component) {
           children = _props.children,
           rest = (0, _objectWithoutProperties3.default)(_props, ['children']);
 
-      this.updateLegend((0, _extends3.default)({}, rest, {
-        enabled: true
-      }));
+      this.updateLegend((0, _extends3.default)({}, rest));
     }
   }, {
     key: 'componentDidUpdate',
@@ -9048,6 +9053,9 @@ var Legend = function (_Component) {
   return Legend;
 }(_react.Component);
 
+Legend.defaultProps = {
+  enabled: true
+};
 exports.default = Legend;
 
 /***/ }),
@@ -9316,9 +9324,7 @@ var Navigator = function (_Component) {
           rest = (0, _objectWithoutProperties3.default)(_props, ['children']);
 
       chart.navigator = new _highstockRelease2.default.Navigator(chart);
-      this.updateNavigator((0, _extends3.default)({}, rest, {
-        enabled: true
-      }));
+      this.updateNavigator((0, _extends3.default)({}, rest));
     }
   }, {
     key: 'componentDidUpdate',
@@ -9374,6 +9380,9 @@ var Navigator = function (_Component) {
 
 Navigator.contextTypes = {
   chart: _propTypes2.default.object
+};
+Navigator.defaultProps = {
+  enabled: true
 };
 exports.default = Navigator;
 
@@ -10037,8 +10046,7 @@ var RangeSelector = function (_Component) {
 
       chart.rangeSelector = new _highstockRelease2.default.RangeSelector(chart);
       this.updateRangeSelector((0, _extends3.default)({}, rest, {
-        inputEnabled: false,
-        enabled: true
+        inputEnabled: false
       }));
       this.setState({
         rendered: true
@@ -10090,7 +10098,9 @@ var RangeSelector = function (_Component) {
 RangeSelector.contextTypes = {
   chart: _propTypes2.default.object
 };
-RangeSelector.defaultProps = (0, _extends3.default)({}, _highstockRelease2.default.defaultOptions.rangeSelector);
+RangeSelector.defaultProps = (0, _extends3.default)({}, _highstockRelease2.default.defaultOptions.rangeSelector, {
+  enabled: true
+});
 exports.default = RangeSelector;
 
 /***/ }),
@@ -10295,9 +10305,7 @@ var RangeSelectorInput = function (_Component) {
           children = _props.children,
           rest = (0, _objectWithoutProperties3.default)(_props, ['children']);
 
-      this.updateRangeSelectorInputs((0, _extends3.default)({}, rest, {
-        enabled: true
-      }));
+      this.updateRangeSelectorInputs((0, _extends3.default)({}, rest));
     }
   }, {
     key: 'componentDidUpdate',
@@ -10334,6 +10342,9 @@ var RangeSelectorInput = function (_Component) {
   return RangeSelectorInput;
 }(_react.Component);
 
+RangeSelectorInput.defaultProps = {
+  enabled: true
+};
 exports.default = RangeSelectorInput;
 
 /***/ }),
@@ -10480,9 +10491,7 @@ var Scrollbar = function (_Component) {
           children = _props.children,
           rest = (0, _objectWithoutProperties3.default)(_props, ['children']);
 
-      this.updateScrollbar((0, _extends3.default)({}, rest, {
-        enabled: true
-      }));
+      this.updateScrollbar((0, _extends3.default)({}, rest));
     }
   }, {
     key: 'componentDidUpdate',
@@ -10523,6 +10532,9 @@ var Scrollbar = function (_Component) {
   return Scrollbar;
 }(_react.Component);
 
+Scrollbar.defaultProps = {
+  enabled: true
+};
 exports.default = Scrollbar;
 
 /***/ }),
@@ -11022,9 +11034,7 @@ var Tooltip = function (_Component) {
           children = _props.children,
           rest = (0, _objectWithoutProperties3.default)(_props, ['children']);
 
-      chart.tooltip = new _highstockRelease2.default.Tooltip(chart, (0, _extends3.default)({}, rest, {
-        enabled: true
-      }));
+      chart.tooltip = new _highstockRelease2.default.Tooltip(chart, (0, _extends3.default)({}, rest));
     }
   }, {
     key: 'componentDidUpdate',
@@ -11068,7 +11078,9 @@ var Tooltip = function (_Component) {
 Tooltip.contextTypes = {
   chart: _propTypes2.default.object
 };
-Tooltip.defaultProps = (0, _extends3.default)({}, _highstockRelease2.default.defaultOptions.tooltip);
+Tooltip.defaultProps = (0, _extends3.default)({}, _highstockRelease2.default.defaultOptions.tooltip, {
+  enabled: true
+});
 exports.default = Tooltip;
 
 /***/ }),

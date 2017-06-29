@@ -7,7 +7,12 @@ import getModifiedProps from '../../utils/getModifiedProps';
 class RangeSelectorInput extends Component {
 
   static propTypes = {
-    update: PropTypes.func // Provided by ChartProvider
+    update: PropTypes.func, // Provided by ChartProvider
+    enabled: PropTypes.bool.isRequired
+  };
+
+  static defaultProps = {
+    enabled: true
   };
 
   constructor (props) {
@@ -19,8 +24,7 @@ class RangeSelectorInput extends Component {
   componentDidMount () {
     const { children, ...rest } = this.props;
     this.updateRangeSelectorInputs({
-      ...rest,
-      enabled: true
+      ...rest
     });
   }
 

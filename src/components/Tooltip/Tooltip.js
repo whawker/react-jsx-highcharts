@@ -11,11 +11,13 @@ class Tooltip extends Component {
   };
 
   static propTypes = {
-    update: PropTypes.func
+    update: PropTypes.func, // Provided by ChartProvider
+    enabled: PropTypes.bool.isRequired
   };
 
   static defaultProps = {
-    ...Highcharts.defaultOptions.tooltip
+    ...Highcharts.defaultOptions.tooltip,
+    enabled: true
   };
 
   constructor (props, context) {
@@ -28,8 +30,7 @@ class Tooltip extends Component {
     const { chart } = this.context;
     const { children, ...rest } = this.props;
     chart.tooltip = new Highcharts.Tooltip(chart, {
-      ...rest,
-      enabled: true
+      ...rest
     });
   }
 

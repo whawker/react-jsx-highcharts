@@ -1,7 +1,16 @@
 import { Component } from 'react';
+import PropTypes from 'prop-types';
 import getModifiedProps from '../../utils/getModifiedProps';
 
 class Legend extends Component {
+
+  static propTypes = {
+    enabled: PropTypes.bool.isRequired
+  };
+
+  static defaultProps = {
+    enabled: true
+  };
 
   constructor (props) {
     super(props);
@@ -12,8 +21,7 @@ class Legend extends Component {
   componentDidMount () {
     const { children, ...rest } = this.props;
     this.updateLegend({
-      ...rest,
-      enabled: true
+      ...rest
     });
   }
 

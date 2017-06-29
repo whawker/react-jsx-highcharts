@@ -11,7 +11,12 @@ class Navigator extends Component {
   };
 
   static propTypes = {
-    update: PropTypes.func // Provided by ChartProvider
+    update: PropTypes.func, // Provided by ChartProvider
+    enabled: PropTypes.bool.isRequired
+  };
+
+  static defaultProps = {
+    enabled: true
   };
 
   constructor (props, context) {
@@ -32,8 +37,7 @@ class Navigator extends Component {
     const { children, ...rest } = this.props;
     chart.navigator = new Highcharts.Navigator(chart);
     this.updateNavigator({
-      ...rest,
-      enabled: true
+      ...rest
     });
   }
 
