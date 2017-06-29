@@ -4,6 +4,8 @@ export const createMockAxis = () => ({
   remove: sinon.stub(),
   addPlotBand: sinon.stub(),
   removePlotBand: sinon.stub(),
+  addPlotLine: sinon.stub(),
+  removePlotLine: sinon.stub(),
   update: sinon.stub()
 });
 

@@ -14,7 +14,10 @@ export default function provideAxis(WrappedComponent) {
     constructor (props, context) {
       super(props, context);
 
-      providedProps('AxisProvider', ['update', 'remove', 'addPlotBand', 'removePlotBand']);
+      providedProps(
+        'AxisProvider',
+        ['update', 'remove', 'addPlotBand', 'removePlotBand', 'addPlotLine', 'removePlotLine']
+      );
     }
 
     render () {
@@ -26,6 +29,8 @@ export default function provideAxis(WrappedComponent) {
       const remove = axis && axis.remove.bind(axis);
       const addPlotBand = axis && axis.addPlotBand.bind(axis);
       const removePlotBand = axis && axis.removePlotBand.bind(axis);
+      const addPlotLine = axis && axis.addPlotLine.bind(axis);
+      const removePlotLine = axis && axis.removePlotLine.bind(axis);
 
       return (
         <WrappedComponent
@@ -33,7 +38,9 @@ export default function provideAxis(WrappedComponent) {
           update={cleanPropsBeforeUpdate(update)}
           remove={remove}
           addPlotBand={cleanPropsBeforeUpdate(addPlotBand)}
-          removePlotBand={cleanPropsBeforeUpdate(removePlotBand)} />
+          removePlotBand={cleanPropsBeforeUpdate(removePlotBand)}
+          addPlotLine={cleanPropsBeforeUpdate(addPlotLine)}
+          removePlotLine={cleanPropsBeforeUpdate(removePlotLine)} />
       );
     }
   }

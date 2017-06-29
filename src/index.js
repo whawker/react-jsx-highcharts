@@ -8,6 +8,7 @@ export Credits from './components/Credits';
 export Legend from './components/Legend';
 export Navigator from './components/Navigator';
 export PlotBand from './components/PlotBand';
+export PlotLine from './components/PlotLine';
 export RangeSelector from './components/RangeSelector';
 export Scrollbar from './components/Scrollbar';
 export Subtitle from './components/Subtitle';

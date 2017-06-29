@@ -11,11 +11,13 @@ class RangeSelector extends Component {
   };
 
   static propTypes = {
-    update: PropTypes.func // Provided by ChartProvider
+    update: PropTypes.func, // Provided by ChartProvider
+    enabled: PropTypes.bool.isRequired
   };
 
   static defaultProps = {
-    ...Highcharts.defaultOptions.rangeSelector
+    ...Highcharts.defaultOptions.rangeSelector,
+    enabled: true
   };
 
   constructor (props, context) {
@@ -33,8 +35,7 @@ class RangeSelector extends Component {
     chart.rangeSelector = new Highcharts.RangeSelector(chart);
     this.updateRangeSelector({
       ...rest,
-      inputEnabled: false,
-      enabled: true
+      inputEnabled: false
     });
     this.setState({
       rendered: true
