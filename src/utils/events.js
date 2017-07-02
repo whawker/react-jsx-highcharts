@@ -17,7 +17,6 @@ export const addEventHandlers = (context, props) => {
 
   forEach(eventProps, (handler, eventName) => {
     const highchartsEventName = lowerFirst(eventName.replace(/^on/, ''));
-    console.log('adding', highchartsEventName, 'to', context);
     Highcharts.addEvent(context, highchartsEventName, handler);
   });
 };

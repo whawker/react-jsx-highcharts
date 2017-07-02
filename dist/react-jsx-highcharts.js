@@ -3770,7 +3770,6 @@ var addEventHandlers = exports.addEventHandlers = function addEventHandlers(cont
 
   (0, _lodash2.default)(eventProps, function (handler, eventName) {
     var highchartsEventName = (0, _lodash4.default)(eventName.replace(/^on/, ''));
-    console.log('adding', highchartsEventName, 'to', context);
     _highstockRelease2.default.addEvent(context, highchartsEventName, handler);
   });
 };
