@@ -32,6 +32,7 @@ class Tooltip extends Component {
     chart.tooltip = new Highcharts.Tooltip(chart, {
       ...rest
     });
+    this.updateTooltip(rest);
   }
 
   componentDidUpdate (prevProps) {

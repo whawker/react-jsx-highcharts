@@ -1,6 +1,7 @@
 import React, { Component, Children, cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import Hidden from '../Hidden';
+import addEventProps, { getNonEventHandlerProps } from '../../utils/events';
 import getModifiedProps from '../../utils/getModifiedProps';
 import { validAxisDimensions, validAxisTypes } from '../../utils/propTypeValidators';
 
@@ -19,7 +20,14 @@ class Axis extends Component {
   componentWillMount () {
     const { children, dimension, addAxis, ...rest } = this.props;
     const isX = dimension.toLowerCase() === 'x';
-    addAxis(rest, isX, true);
+
+    const nonEventProps = getNonEventHandlerProps(rest);
+    addAxis(nonEventProps, isX, true);
+  }
+
+  componentDidMount () {
+    const { get, id, ...rest } = this.props;
+    addEventProps(get(id), rest);
   }
 
   componentDidUpdate (prevProps) {
