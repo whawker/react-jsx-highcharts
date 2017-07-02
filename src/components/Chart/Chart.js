@@ -1,10 +1,6 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import Highcharts from 'highstock-release';
-import omitBy from 'lodash.omitby';
-import pickBy from 'lodash.pickby';
-import forEach from 'lodash.foreach';
-import lowerFirst from 'lodash.lowerfirst'
+import addEventProps, { getNonEventHandlerProps } from '../../utils/events';
 import { validSeriesTypes } from '../../utils/propTypeValidators';
 
 class Chart extends Component {
@@ -39,16 +35,10 @@ class Chart extends Component {
     onSelection: () => {}
   };
 
-  constructor (props, context) {
-    super(props, context);
-
-    this.isEventKey = this.isEventKey.bind(this);
-  }
-
   componentDidMount () {
     const { type, children, update,  ...rest } = this.props;
 
-    const notEventProps = omitBy(rest, this.isEventKey);
+    const notEventProps = getNonEventHandlerProps(rest);
     update({
       chart: {
         type,
@@ -56,15 +46,7 @@ class Chart extends Component {
       }
     });
 
-    const eventProps = pickBy(rest, this.isEventKey);
-    forEach(eventProps, (handler, eventName) => {
-      const highchartsEventName = lowerFirst(eventName.replace(/^on/, ''));
-      Highcharts.addEvent(this.context.chart, highchartsEventName, handler);
-    });
-  }
-
-  isEventKey (value, key) {
-    return key.indexOf('on') === 0;
+    addEventProps(this.context.chart, rest);
   }
 
   render () {
