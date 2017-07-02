@@ -64,7 +64,7 @@ var example =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 119);
+/******/ 	return __webpack_require__(__webpack_require__.s = 120);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -2039,7 +2039,7 @@ var _ExampleCode = __webpack_require__(43);
 
 var _ExampleCode2 = _interopRequireDefault(_ExampleCode);
 
-var _exampleCode = __webpack_require__(118);
+var _exampleCode = __webpack_require__(119);
 
 var _exampleCode2 = _interopRequireDefault(_exampleCode);
 
@@ -2131,7 +2131,8 @@ exports.default = App;
 /* 115 */,
 /* 116 */,
 /* 117 */,
-/* 118 */
+/* 118 */,
+/* 119 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2143,7 +2144,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = "\nrender () {\n  const plotOptions = {\n    series: {\n      pointStart: 2010\n    }\n  };\n\n  return (\n    <HighchartsChart plotOptions={plotOptions}>\n      <Chart />\n\n      <Title>Solar Employment Growth by Sector, 2010-2016</Title>\n\n      <Subtitle>Source: thesolarfoundation.com</Subtitle>\n\n      <Legend layout=\"vertical\" align=\"right\" verticalAlign=\"middle\" />\n\n      <XAxis id=\"x\" type=\"linear\">\n        <XAxis.Title>Time</XAxis.Title>\n      </XAxis>\n\n      <YAxis id=\"number\">\n        <YAxis.Title>Number of employees</YAxis.Title>\n        <LineSeries id=\"installation\" name=\"Installation\" data={[43934, 52503, 57177, 69658, 97031, 119931, 137133, 154175]} />\n        <LineSeries id=\"manufacturing\" name=\"Manufacturing\" data={[24916, 24064, 29742, 29851, 32490, 30282, 38121, 40434]} />\n        <LineSeries id=\"sales-distribution\" name=\"Sales & Distribution\" data={[11744, 17722, 16005, 19771, 20185, 24377, 32147, 39387]} />\n        <LineSeries id=\"project-development\" name=\"Project Development\" data={[null, null, 7988, 12169, 15112, 22452, 34400, 34227]} />\n        <LineSeries id=\"other\" name=\"Other\" data={[12908, 5948, 8105, 11248, 8989, 11816, 18274, 18111]} />\n      </YAxis>\n    </HighchartsChart>\n  );\n}";
 
 /***/ }),
-/* 119 */
+/* 120 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

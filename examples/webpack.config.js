@@ -11,7 +11,8 @@ const examples = [
   'Highstocks',
   'LiveUpdate',
   'SimpleLine',
-  'SplineWithPlotBands'
+  'SplineWithPlotBands',
+  'SynchronisedCharts'
 ];
 
 module.exports = {

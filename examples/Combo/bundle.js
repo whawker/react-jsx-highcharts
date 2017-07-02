@@ -64,7 +64,7 @@ var example =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 109);
+/******/ 	return __webpack_require__(__webpack_require__.s = 110);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -2034,7 +2034,7 @@ var _ExampleCode = __webpack_require__(43);
 
 var _ExampleCode2 = _interopRequireDefault(_ExampleCode);
 
-var _exampleCode = __webpack_require__(108);
+var _exampleCode = __webpack_require__(109);
 
 var _exampleCode2 = _interopRequireDefault(_exampleCode);
 
@@ -2108,7 +2108,8 @@ exports.default = App;
 /* 105 */,
 /* 106 */,
 /* 107 */,
-/* 108 */
+/* 108 */,
+/* 109 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2120,7 +2121,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = "\nconst pieData = [{\n  name: 'Jane',\n  y: 13\n}, {\n  name: 'John',\n  y: 23\n}, {\n  name: 'Joe',\n  y: 19\n}];\n\nreturn (\n  <HighchartsChart>\n    <Chart />\n\n    <Title>Combination chart</Title>\n\n    <Legend />\n\n    <XAxis id=\"x\" type=\"category\" categories={['Apples', 'Oranges', 'Pears', 'Bananas', 'Plums']} />\n\n    <YAxis id=\"number\">\n      <ColumnSeries id=\"jane\" name=\"Jane\" data={[3, 2, 1, 3, 4]} />\n      <ColumnSeries id=\"john\" name=\"John\" data={[2, 3, 5, 7, 6]} />\n      <ColumnSeries id=\"joe\" name=\"Joe\" data={[4, 3, 3, 9, 0]} />\n      <SplineSeries id=\"average\" name=\"Average\" data={[3, 2.67, 3, 6.33, 3.33]} />\n      <PieSeries id=\"total-consumption\" name=\"Total consumption\" data={pieData} center={[100, 80]} size={100} showInLegend={false} />\n    </YAxis>\n  </HighchartsChart>\n);";
 
 /***/ }),
-/* 109 */
+/* 110 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

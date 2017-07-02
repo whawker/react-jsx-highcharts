@@ -64,7 +64,7 @@ var example =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 107);
+/******/ 	return __webpack_require__(__webpack_require__.s = 108);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -2066,7 +2066,7 @@ var _ExampleCode = __webpack_require__(43);
 
 var _ExampleCode2 = _interopRequireDefault(_ExampleCode);
 
-var _exampleCode = __webpack_require__(106);
+var _exampleCode = __webpack_require__(107);
 
 var _exampleCode2 = _interopRequireDefault(_exampleCode);
 
@@ -2222,7 +2222,8 @@ exports.default = App;
 /* 103 */,
 /* 104 */,
 /* 105 */,
-/* 106 */
+/* 106 */,
+/* 107 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2234,7 +2235,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = "\ncreateRandomSeries (index) {\n  return {\n    name: `Series${index}`,\n    data: createRandomData(this.state.now, 1e8)\n  };\n}\n\nhandleAddSeries (e) {\n  e.preventDefault();\n  let { series, seriesCounter } = this.state;\n  seriesCounter++;\n  series.push(\n    this.createRandomSeries(seriesCounter)\n  );\n\n  this.setState({\n    series,\n    seriesCounter\n  });\n}\n\nhandleRemoveSeries (e) {\n  e.preventDefault();\n  const { series } = this.state;\n  const randomIndex = Math.floor(Math.random() * series.length);\n  series.splice(randomIndex, 1);\n\n  this.setState({\n    series\n  });\n}\n\nrenderSeries ({ name, data }) {\n  return (\n    <LineSeries id={name} name={name} key={name} data={data} />\n  );\n}\n\nrender() {\n  return (\n    <div className=\"app\">\n\n      <HighchartsChart>\n        <Title>Dynamically add/remove series</Title>\n\n        <Legend align=\"left\">\n          <Legend.Title>Legend</Legend.Title>\n        </Legend>\n\n        <XAxis>\n          <XAxis.Title>Time</XAxis.Title>\n        </XAxis>\n\n        <YAxis id=\"price\">\n          <YAxis.Title>Price</YAxis.Title>\n          {this.state.series.map(this.renderSeries)}\n        </YAxis>\n      </HighchartsChart>\n\n      <div className=\"btn-toolbar\" role=\"toolbar\">\n        <button className=\"btn btn-primary\" onClick={this.handleAddSeries}>Add line series</button>\n        <button className=\"btn btn-danger\" onClick={this.handleRemoveSeries}>Remove line series</button>\n      </div>\n    </div>\n  );\n}";
 
 /***/ }),
-/* 107 */
+/* 108 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

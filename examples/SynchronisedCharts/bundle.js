@@ -64,7 +64,7 @@ var example =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 122);
+/******/ 	return __webpack_require__(__webpack_require__.s = 124);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -2000,7 +2000,8 @@ module.exports = ReactHighcharts;
 /* 102 */,
 /* 103 */,
 /* 104 */,
-/* 105 */
+/* 105 */,
+/* 106 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2040,11 +2041,19 @@ var _ExampleCode = __webpack_require__(43);
 
 var _ExampleCode2 = _interopRequireDefault(_ExampleCode);
 
-var _exampleCode = __webpack_require__(121);
+var _exampleCode = __webpack_require__(123);
 
 var _exampleCode2 = _interopRequireDefault(_exampleCode);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+Highcharts.Pointer.prototype.reset = function () {};
+
+Highcharts.Point.prototype.highlight = function (event) {
+  this.onMouseOver(); // Show the hover marker
+  this.series.chart.tooltip.refresh(this); // Show the tooltip
+  this.series.chart.xAxis[0].drawCrosshair(event, this); // Show the crosshair
+};
 
 var App = function (_Component) {
   (0, _inherits3.default)(App, _Component);
@@ -2054,93 +2063,106 @@ var App = function (_Component) {
 
     var _this = (0, _possibleConstructorReturn3.default)(this, (App.__proto__ || (0, _getPrototypeOf2.default)(App)).call(this, props));
 
-    _this.renderPlotBand = _this.renderPlotBand.bind(_this);
+    _this.handleMouseMove = _this.handleMouseMove.bind(_this);
+    _this.renderChart = _this.renderChart.bind(_this);
+    _this.state = {
+      chartData: null
+    };
     return _this;
   }
 
   (0, _createClass3.default)(App, [{
-    key: 'renderPlotBand',
-    value: function renderPlotBand(band, index) {
-      var from = band.from,
-          to = band.to;
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      var _this2 = this;
 
-      var id = from + '-' + to;
-      var color = index % 2 ? '#FFFFFF' : 'rgba(68, 170, 213, 0.1)';
+      fetch('activity.json').then(function (res) {
+        if (res.ok) {
+          return res.json();
+        }
+        throw new Error('Network response was not ok.');
+      }).then(function (json) {
+        _this2.setState({
+          chartData: json
+        });
+      });
+    }
+  }, {
+    key: 'renderChart',
+    value: function renderChart(dataset, index) {
+      var _this3 = this;
+
+      var tooltipPositioner = function tooltipPositioner() {
+        return { x: this.chart.chartWidth - this.label.width, y: 10 };
+      };
+      var data = dataset.data.map(function (val, i) {
+        return [_this3.state.chartData.xData[i], val];
+      });
+      var colour = Highcharts.getOptions().colors[index];
+
       return _react2.default.createElement(
-        _.PlotBand,
-        { id: id, key: id, from: from, to: to, color: color },
+        _.HighchartsChart,
+        { key: index },
         _react2.default.createElement(
-          _.PlotBand.Label,
-          null,
-          band.label
-        )
+          _.Title,
+          { align: 'left', margin: 30, x: 30 },
+          dataset.name
+        ),
+        _react2.default.createElement(_.XAxis, { id: 'x', crosshair: true, labels: { format: '{value} km' }, type: 'linear' }),
+        _react2.default.createElement(
+          _.YAxis,
+          { id: 'y' },
+          _react2.default.createElement(_.Series, {
+            id: dataset.name,
+            name: dataset.name,
+            type: dataset.type,
+            data: data,
+            color: colour,
+            tooltip: { valueSuffix: ' ' + dataset.unit } })
+        ),
+        _react2.default.createElement(_.Tooltip, {
+          positioner: tooltipPositioner,
+          borderWidth: 0,
+          backgroundColor: 'none',
+          pointFormat: '{point.y}',
+          headerFormat: '',
+          shadow: false,
+          style: { fontSize: '18px' },
+          valueDecimals: dataset.valueDecimals })
       );
+    }
+  }, {
+    key: 'handleMouseMove',
+    value: function handleMouseMove(e) {
+      var point = null;
+      var event = null;
+
+      Highcharts.charts.forEach(function (chart) {
+        event = chart.pointer.normalize(e.originalEvent); // Find coordinates within the chart
+        point = chart.series[0].searchPoint(event, true); // Get the hovered point
+        if (point) {
+          point.highlight(e);
+        }
+      });
     }
   }, {
     key: 'render',
     value: function render() {
-      var plotOptions = {
-        spline: {
-          lineWidth: 4,
-          states: {
-            hover: {
-              lineWidth: 5
-            }
-          },
-          marker: {
-            enabled: false
-          },
-          pointInterval: 3600000, // one hour
-          pointStart: Date.UTC(2015, 4, 31, 0, 0, 0)
-        }
-      };
+      var chartData = this.state.chartData;
 
-      var bands = [{ label: 'Light air', from: 0.5, to: 1.5 }, { label: 'Light breeze', from: 1.5, to: 3.3 }, { label: 'Gentle breeze', from: 3.3, to: 5.5 }, { label: 'Moderate breeze', from: 5.5, to: 8 }, { label: 'Fresh breeze', from: 8, to: 11 }, { label: 'Strong breeze', from: 11, to: 14 }, { label: 'High wind', from: 14, to: 15 }];
+      if (!chartData) return null;
 
       return _react2.default.createElement(
         'div',
         { className: 'app' },
         _react2.default.createElement(
-          _.HighchartsChart,
-          { plotOptions: plotOptions },
-          _react2.default.createElement(_.Chart, { type: 'spline' }),
-          _react2.default.createElement(
-            _.Title,
-            null,
-            'Wind speed during two days'
-          ),
-          _react2.default.createElement(
-            _.Subtitle,
-            null,
-            'May 31 and and June 1, 2015 at two locations in Vik i Sogn, Norway'
-          ),
-          _react2.default.createElement(_.Legend, null),
-          _react2.default.createElement(_.Tooltip, { valueSuffix: ' m/s' }),
-          _react2.default.createElement(
-            _.XAxis,
-            { id: 'x' },
-            _react2.default.createElement(
-              _.XAxis.Title,
-              null,
-              'Time'
-            )
-          ),
-          _react2.default.createElement(
-            _.YAxis,
-            { id: 'y', minorGridLineWidth: 0, gridLineWidth: 0, alternateGridColor: null },
-            _react2.default.createElement(
-              _.YAxis.Title,
-              null,
-              'Wind speed (m/s)'
-            ),
-            _react2.default.createElement(_.SplineSeries, { id: 'hestavollane', name: 'Hestavollane', data: [0.2, 0.8, 0.8, 0.8, 1, 1.3, 1.5, 2.9, 1.9, 2.6, 1.6, 3, 4, 3.6, 4.5, 4.2, 4.5, 4.5, 4, 3.1, 2.7, 4, 2.7, 2.3, 2.3, 4.1, 7.7, 7.1, 5.6, 6.1, 5.8, 8.6, 7.2, 9, 10.9, 11.5, 11.6, 11.1, 12, 12.3, 10.7, 9.4, 9.8, 9.6, 9.8, 9.5, 8.5, 7.4, 7.6] }),
-            _react2.default.createElement(_.SplineSeries, { id: 'vix', name: 'Vix', data: [0, 0, 0.6, 0.9, 0.8, 0.2, 0, 0, 0, 0.1, 0.6, 0.7, 0.8, 0.6, 0.2, 0, 0.1, 0.3, 0.3, 0, 0.1, 0, 0, 0, 0.2, 0.1, 0, 0.3, 0, 0.1, 0.2, 0.1, 0.3, 0.3, 0, 3.1, 3.1, 2.5, 1.5, 1.9, 2.1, 1, 2.3, 1.9, 1.2, 0.7, 1.3, 0.4, 0.3] }),
-            bands.map(this.renderPlotBand)
-          )
+          'div',
+          { onMouseMove: this.handleMouseMove },
+          chartData.datasets.map(this.renderChart)
         ),
         _react2.default.createElement(
           _ExampleCode2.default,
-          { name: 'SplineWithPlotBands' },
+          { name: 'SynchronisedCharts' },
           _exampleCode2.default
         )
       );
@@ -2152,7 +2174,6 @@ var App = function (_Component) {
 exports.default = App;
 
 /***/ }),
-/* 106 */,
 /* 107 */,
 /* 108 */,
 /* 109 */,
@@ -2167,7 +2188,9 @@ exports.default = App;
 /* 118 */,
 /* 119 */,
 /* 120 */,
-/* 121 */
+/* 121 */,
+/* 122 */,
+/* 123 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2176,10 +2199,10 @@ exports.default = App;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = "\nrenderPlotBand (band, index) {\n  const { from, to } = band;\n  const id = `${from}-${to}`;\n  const color = (index % 2) ? '#FFFFFF' : 'rgba(68, 170, 213, 0.1)';\n  return (\n    <PlotBand id={id} key={id} from={from} to={to} color={color}>\n      <PlotBand.Label>{band.label}</PlotBand.Label>\n    </PlotBand>\n  );\n}\n\nrender() {\n  const plotOptions =  {\n    spline: {\n      lineWidth: 4,\n        states: {\n        hover: {\n          lineWidth: 5\n        }\n      },\n      marker: {\n        enabled: false\n      },\n      pointInterval: 3600000, // one hour\n      pointStart: Date.UTC(2015, 4, 31, 0, 0, 0)\n    }\n  };\n\n  const bands = [\n    { label: 'Light air', from: 0.5, to: 1.5 },\n    { label: 'Light breeze', from: 1.5, to: 3.3 },\n    { label: 'Gentle breeze', from: 3.3, to: 5.5 },\n    { label: 'Moderate breeze', from: 5.5, to: 8 },\n    { label: 'Fresh breeze', from: 8, to: 11 },\n    { label: 'Strong breeze', from: 11, to: 14 },\n    { label: 'High wind', from: 14, to: 15 }\n  ];\n\n  return (\n    <HighchartsChart plotOptions={plotOptions}>\n      <Chart type=\"spline\" />\n\n      <Title>Wind speed during two days</Title>\n\n      <Subtitle>May 31 and and June 1, 2015 at two locations in Vik i Sogn, Norway</Subtitle>\n\n      <Legend />\n\n      <Tooltip valueSuffix=\" m/s\" />\n\n      <XAxis id=\"x\">\n        <XAxis.Title>Time</XAxis.Title>\n      </XAxis>\n\n      <YAxis id=\"y\" minorGridLineWidth={0} gridLineWidth={0} alternateGridColor={null}>\n        <YAxis.Title>Wind speed (m/s)</YAxis.Title>\n        <SplineSeries id=\"hestavollane\" name=\"Hestavollane\" data={[0.2, 0.8, 0.8, 0.8, 1, 1.3, // etc.]} />\n        <SplineSeries id=\"vix\" name=\"Vix\" data={[0, 0, 0.6, 0.9, 0.8, 0.2, 0, 0, 0, 0.1, 0.6, // etc.]} />\n        {bands.map(this.renderPlotBand)}\n      </YAxis>\n    </HighchartsChart>\n  );\n}";
+exports.default = "\nHighcharts.Pointer.prototype.reset = () => {};\n\nHighcharts.Point.prototype.highlight = function (event) {\n  this.onMouseOver(); // Show the hover marker\n  this.series.chart.tooltip.refresh(this); // Show the tooltip\n  this.series.chart.xAxis[0].drawCrosshair(event, this); // Show the crosshair\n};\n\nclass App extends Component {\n\n  constructor(props) {\n    super(props);\n\n    this.handleMouseMove = this.handleMouseMove.bind(this);\n    this.renderChart = this.renderChart.bind(this);\n    this.state = {\n      chartData: null\n    };\n  }\n\n  componentDidMount () {\n    fetch('activity.json')\n      .then(res => {\n        if (res.ok) {\n          return res.json();\n        }\n        throw new Error('Network response was not ok.');\n      })\n      .then(json => {\n        this.setState({\n          chartData: json\n        })\n      });\n  }\n\n  renderChart (dataset, index) {\n    const tooltipPositioner = function () {\n      return { x: this.chart.chartWidth - this.label.width, y: 10 };\n    };\n    const data = dataset.data.map((val, i) => [this.state.chartData.xData[i], val]);\n    const colour = Highcharts.getOptions().colors[index];\n\n    return (\n      <HighchartsChart key={index}>\n        <Title align=\"left\" margin={30} x={30}>{dataset.name}</Title>\n        <XAxis id=\"x\" crosshair labels={{format: '{value} km'}} type=\"linear\" />\n        <YAxis id=\"y\">\n          <Series\n            id={dataset.name}\n            name={dataset.name}\n            type={dataset.type}\n            data={data}\n            color={colour}\n            tooltip={{ valueSuffix: ` ${dataset.unit}` }} />\n        </YAxis>\n\n        <Tooltip\n          positioner={tooltipPositioner}\n          borderWidth={0}\n          backgroundColor=\"none\"\n          pointFormat=\"{point.y}\"\n          headerFormat=\"\"\n          shadow={false}\n          style={{ fontSize: '18px' }}\n          valueDecimals={dataset.valueDecimals} />\n      </HighchartsChart>\n    );\n  }\n\n  handleMouseMove (e) {\n    let point = null;\n    let event = null;\n\n    Highcharts.charts.forEach(chart => {\n      event = chart.pointer.normalize(e.originalEvent); // Find coordinates within the chart\n      point = chart.series[0].searchPoint(event, true); // Get the hovered point\n      if (point) {\n        point.highlight(e);\n      }\n    });\n  }\n\n  render() {\n    const { chartData } = this.state;\n    if (!chartData) return null;\n\n    return (\n      <div className=\"app\" onMouseMove={this.handleMouseMove}>\n        {chartData.datasets.map(this.renderChart)}\n      </div>\n    );\n  }\n}";
 
 /***/ }),
-/* 122 */
+/* 124 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2193,7 +2216,7 @@ var _reactDom = __webpack_require__(42);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _App = __webpack_require__(105);
+var _App = __webpack_require__(106);
 
 var _App2 = _interopRequireDefault(_App);
 

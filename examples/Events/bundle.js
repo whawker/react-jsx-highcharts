@@ -64,7 +64,7 @@ var example =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 111);
+/******/ 	return __webpack_require__(__webpack_require__.s = 112);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -2068,7 +2068,7 @@ var _ExampleCode = __webpack_require__(43);
 
 var _ExampleCode2 = _interopRequireDefault(_ExampleCode);
 
-var _exampleCode = __webpack_require__(110);
+var _exampleCode = __webpack_require__(111);
 
 var _exampleCode2 = _interopRequireDefault(_exampleCode);
 
@@ -2185,7 +2185,8 @@ exports.default = App;
 /* 107 */,
 /* 108 */,
 /* 109 */,
-/* 110 */
+/* 110 */,
+/* 111 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2197,7 +2198,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = "\n<HighchartsChart>\n  <Chart zoomType=\"xy\" onClick={this.handleClick} />\n\n  <Title>Click to add data</Title>\n\n  <Legend>\n    <Legend.Title>Legend</Legend.Title>\n  </Legend>\n\n  <XAxis type=\"linear\">\n    <XAxis.Title>X Coord</XAxis.Title>\n  </XAxis>\n\n  <YAxis id=\"scatter\">\n    <YAxis.Title>Y Coord</YAxis.Title>\n    <ScatterSeries id=\"my-clicks\" name=\"My clicks\" data={myClicks} />\n    <ScatterSeries id=\"user-clicks\" name=\"Your clicks\" data={userClicks} />\n  </YAxis>\n</HighchartsChart>";
 
 /***/ }),
-/* 111 */
+/* 112 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

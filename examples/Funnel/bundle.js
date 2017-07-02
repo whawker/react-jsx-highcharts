@@ -64,7 +64,7 @@ var example =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 113);
+/******/ 	return __webpack_require__(__webpack_require__.s = 114);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -2036,7 +2036,7 @@ var _ExampleCode = __webpack_require__(43);
 
 var _ExampleCode2 = _interopRequireDefault(_ExampleCode);
 
-var _exampleCode = __webpack_require__(112);
+var _exampleCode = __webpack_require__(113);
 
 var _exampleCode2 = _interopRequireDefault(_exampleCode);
 
@@ -2106,7 +2106,8 @@ exports.default = App;
 /* 109 */,
 /* 110 */,
 /* 111 */,
-/* 112 */
+/* 112 */,
+/* 113 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2118,7 +2119,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = "\nrender() {\n  const plotOptions = {\n    series: {\n      dataLabels: {\n        enabled: true,\n        format: '<b>{point.name}</b> ({point.y:,.0f})',\n        softConnector: true\n      },\n      center: ['40%', '50%'],\n      neckWidth: '30%',\n      neckHeight: '25%',\n      width: '80%'\n    }\n  };\n\n  const funnelData = [\n    ['Website visits', 15654],\n    ['Downloads', 4064],\n    ['Requested price list', 1987],\n    ['Invoice sent', 976],\n    ['Finalized', 846]\n  ];\n\n  return (\n    <div className=\"app\">\n      <HighchartsChart plotOptions={plotOptions}>\n        <Title>Sales funnel</Title>\n\n        <FunnelSeries id=\"unique-users\" name=\"Unique users\" data={funnelData} />\n      </HighchartsChart>\n    </div>\n  );\n}";
 
 /***/ }),
-/* 113 */
+/* 114 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

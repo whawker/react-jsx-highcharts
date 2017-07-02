@@ -64,7 +64,7 @@ var example =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 117);
+/******/ 	return __webpack_require__(__webpack_require__.s = 118);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -2071,7 +2071,7 @@ var _ExampleCode = __webpack_require__(43);
 
 var _ExampleCode2 = _interopRequireDefault(_ExampleCode);
 
-var _exampleCode = __webpack_require__(116);
+var _exampleCode = __webpack_require__(117);
 
 var _exampleCode2 = _interopRequireDefault(_exampleCode);
 
@@ -2226,7 +2226,8 @@ exports.default = App;
 /* 113 */,
 /* 114 */,
 /* 115 */,
-/* 116 */
+/* 116 */,
+/* 117 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2238,7 +2239,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = "\nupdateLiveData () {\n  const { data1, data2 } = this.state;\n\n  this.setState({\n    data1: addDataPoint(data1),\n    data2: addDataPoint(data2)\n  });\n}\n\nhandleStartLiveUpdate (e) {\n  e && e.preventDefault();\n  this.setState({\n    liveUpdate: window.setInterval(this.updateLiveData, 1000)\n  });\n}\n\nrender () {\n  const { data1, data2 } = this.state;\n\n  return (\n    <HighchartsChart>\n      <Chart />\n\n      <Title>Dynamically updating data</Title>\n\n      <Legend>\n        <Legend.Title>Legend</Legend.Title>\n      </Legend>\n\n      <XAxis>\n        <XAxis.Title>Time</XAxis.Title>\n      </XAxis>\n\n      <YAxis id=\"pressure\">\n        <YAxis.Title>Pressure (m)</YAxis.Title>\n        <LineSeries id=\"p1\" name=\"Sensor 1\" data={data1} />\n        <LineSeries id=\"p2\" name=\"Sensor 2\" data={data2} />\n      </YAxis>\n    </HighchartsChart>\n  );\n}";
 
 /***/ }),
-/* 117 */
+/* 118 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
