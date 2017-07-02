@@ -40,6 +40,9 @@ class BaseChart extends Component {
 
     const opts = {
       chart: {},
+      legend: {
+        enabled: false
+      },
       rangeSelector: {
         enabled: false
       },

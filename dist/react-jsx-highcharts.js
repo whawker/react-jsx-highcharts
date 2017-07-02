@@ -7921,6 +7921,9 @@ var BaseChart = function (_Component) {
 
       var opts = (0, _extends3.default)({
         chart: {},
+        legend: {
+          enabled: false
+        },
         rangeSelector: {
           enabled: false
         },
