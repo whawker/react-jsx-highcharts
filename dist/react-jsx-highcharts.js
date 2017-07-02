@@ -11341,6 +11341,7 @@ var Tooltip = function (_Component) {
           rest = (0, _objectWithoutProperties3.default)(_props, ['children']);
 
       chart.tooltip = new _highstockRelease2.default.Tooltip(chart, (0, _extends3.default)({}, rest));
+      this.updateTooltip(rest);
     }
   }, {
     key: 'componentDidUpdate',
