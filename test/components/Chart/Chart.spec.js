@@ -8,6 +8,8 @@ describe('<Chart />', function ()  {
 
   beforeEach(function () {
     this.update = sinon.spy();
+    this.getChart = sinon.stub();
+    this.getChart.returns('mock-chart');
 
     sandbox = sinon.sandbox.create();
     sandbox.stub(Highcharts, 'addEvent');
@@ -19,7 +21,7 @@ describe('<Chart />', function ()  {
 
   describe('when mounted', function () {
     it('updates the chart config with the provided props', function () {
-      mount(<Chart type="bubble" update={this.update} />);
+      mount(<Chart type="bubble" update={this.update} getChart={this.getChart} />);
       expect(this.update).to.have.been.calledWith({
         chart : {
           type: 'bubble'
@@ -28,7 +30,11 @@ describe('<Chart />', function ()  {
     });
 
     it('updates the chart with all props that don\'t look like event handlers', function () {
-      mount(<Chart type="spline" propFoo="bar" zoomType="x" onClick={() => {}} update={this.update} />);
+      mount(
+        <Chart type="spline" propFoo="bar" zoomType="x" onClick={() => {}}
+          update={this.update}
+          getChart={this.getChart} />
+      );
       expect(this.update).to.have.been.calledWith({
         chart : {
           type: 'spline',
@@ -43,10 +49,14 @@ describe('<Chart />', function ()  {
       const handleRender = sinon.spy();
       const handleBeforePrint = sinon.spy();
 
-      mount(<Chart type="area" onClick={handleClick} onRender={handleRender} onBeforePrint={handleBeforePrint} update={this.update} />);
-      expect(Highcharts.addEvent).to.have.been.calledWith(this.chart, 'click', handleClick);
-      expect(Highcharts.addEvent).to.have.been.calledWith(this.chart, 'render', handleRender);
-      expect(Highcharts.addEvent).to.have.been.calledWith(this.chart, 'beforePrint', handleBeforePrint);
+      mount(
+        <Chart type="area" onClick={handleClick} onRender={handleRender} onBeforePrint={handleBeforePrint}
+          update={this.update}
+          getChart={this.getChart} />
+      );
+      expect(Highcharts.addEvent).to.have.been.calledWith('mock-chart', 'click', handleClick);
+      expect(Highcharts.addEvent).to.have.been.calledWith('mock-chart', 'render', handleRender);
+      expect(Highcharts.addEvent).to.have.been.calledWith('mock-chart', 'beforePrint', handleBeforePrint);
     });
   });
 });

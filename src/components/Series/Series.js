@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import isEqual from 'lodash.isequal';
+import addEventProps, { getNonEventHandlerProps } from '../../utils/events';
 import getModifiedProps from '../../utils/getModifiedProps';
 import { validSeriesTypes } from '../../utils/propTypeValidators';
 
@@ -35,11 +36,13 @@ class Series extends Component {
   }
 
   componentDidMount () {
-    const { children, dimension, axisId, addSeries, ...rest } = this.props;
+    const { children, dimension, axisId, addSeries, getSeries, ...rest } = this.props;
+    const nonEventProps = getNonEventHandlerProps(rest);
     addSeries({
       [`${dimension}Axis`]: axisId,
-      ...rest
+      ...nonEventProps
     }, true);
+    addEventProps(getSeries(), rest);
     this.setState({
       rendered: true
     });
