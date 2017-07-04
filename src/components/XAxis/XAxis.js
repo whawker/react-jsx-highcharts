@@ -9,6 +9,10 @@ class XAxis extends Component {
     type: PropTypes.string
   };
 
+  static defaultProps = {
+    id: 'xAxis'
+  };
+
   render () {
     let { getChartType, type, ...rest } = this.props;
     if (!type) {

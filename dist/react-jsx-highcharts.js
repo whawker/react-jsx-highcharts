@@ -11517,6 +11517,9 @@ var XAxis = function (_Component) {
   return XAxis;
 }(_react.Component);
 
+XAxis.defaultProps = {
+  id: 'xAxis'
+};
 exports.default = XAxis;
 
 /***/ }),
