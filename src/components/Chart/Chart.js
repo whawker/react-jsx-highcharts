@@ -5,10 +5,6 @@ import { validSeriesTypes } from '../../utils/propTypeValidators';
 
 class Chart extends Component {
 
-  static contextTypes = {
-    chart: PropTypes.object
-  };
-
   static propTypes = {
     type: validSeriesTypes.isRequired,
     width: PropTypes.number,
@@ -36,7 +32,7 @@ class Chart extends Component {
   };
 
   componentDidMount () {
-    const { type, children, update,  ...rest } = this.props;
+    const { type, children, update, getChart, ...rest } = this.props;
 
     const notEventProps = getNonEventHandlerProps(rest);
     update({
@@ -46,7 +42,7 @@ class Chart extends Component {
       }
     });
 
-    addEventProps(this.context.chart, rest);
+    addEventProps(getChart(), rest);
   }
 
   render () {

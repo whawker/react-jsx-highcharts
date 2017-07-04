@@ -3,8 +3,6 @@ import { mount } from 'enzyme';
 import Credits from '../../../src/components/Credits/Credits';
 
 describe('<Credits />', function ()  {
-  let sandbox;
-
   beforeEach(function () {
     this.update = sinon.spy();
   });

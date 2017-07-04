@@ -26,8 +26,8 @@ class Axis extends Component {
   }
 
   componentDidMount () {
-    const { get, id, ...rest } = this.props;
-    addEventProps(get(id), rest);
+    const { getAxis, ...rest } = this.props;
+    addEventProps(getAxis(), rest);
   }
 
   componentDidUpdate (prevProps) {

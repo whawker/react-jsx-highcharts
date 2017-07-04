@@ -1,36 +1,71 @@
 import React from 'react';
 import { mount } from 'enzyme';
+import Highcharts from 'highstock-release';
 import Series from '../../../src/components/Series/Series';
 
 describe('<Series />', function ()  {
+  let sandbox;
+
   beforeEach(function () {
     this.addSeries = sinon.spy();
     this.update = sinon.spy();
     this.setData = sinon.spy();
     this.setVisible = sinon.spy();
     this.remove = sinon.spy();
+    this.getSeries = sinon.stub();
+    this.getSeries.returns('mock-series');
+
+    sandbox = sinon.sandbox.create();
+    sandbox.stub(Highcharts, 'addEvent');
+  });
+
+  afterEach(function () {
+    sandbox.restore();
   });
 
   describe('when mounted', function () {
     it('adds an X series using the addSeries method', function () {
-      mount(<Series id="mySeries" axisId="myAxis" dimension="x" addSeries={this.addSeries} />);
+      mount(
+        <Series id="mySeries" axisId="myAxis" dimension="x" addSeries={this.addSeries} getSeries={this.getSeries} />
+      );
       expect(this.addSeries).to.have.been.calledWith(
         { id: 'mySeries', xAxis: 'myAxis', type: 'line', data: [], visible: true }, true
       );
     });
 
     it('adds a Y series using the addSeries method', function () {
-      mount(<Series id="mySeries" axisId="myAxis" dimension="y" addSeries={this.addSeries} />);
+      mount(
+        <Series id="mySeries" axisId="myAxis" dimension="y" addSeries={this.addSeries} getSeries={this.getSeries} />
+      );
       expect(this.addSeries).to.have.been.calledWith(
         { id: 'mySeries', yAxis: 'myAxis', type: 'line', data: [], visible: true }, true
       );
     });
 
     it('adds should pass additional props through to Highcharts addSeries method', function () {
-      mount(<Series id="mySeries" axisId="myAxis" dimension="y" data={[5]} step addSeries={this.addSeries} />);
+      mount(
+        <Series id="mySeries" axisId="myAxis" dimension="y" data={[5]} step
+          addSeries={this.addSeries}
+          getSeries={this.getSeries} />
+      );
       expect(this.addSeries).to.have.been.calledWith(
         { id: 'mySeries', yAxis: 'myAxis', type: 'line', data: [5], visible: true, step: true }, true
       );
+    });
+
+    it('subscribes to Highcharts events for props that look like event handlers', function () {
+      const handleClick = sinon.spy();
+      const handleShow = sinon.spy();
+
+      mount(
+        <Series id="mySeries" axisId="myAxis" dimension="y"
+          onClick={handleClick}
+          onShow={handleShow}
+          addSeries={this.addSeries}
+          getSeries={this.getSeries} />
+      );
+      expect(Highcharts.addEvent).to.have.been.calledWith('mock-series', 'click', handleClick);
+      expect(Highcharts.addEvent).to.have.been.calledWith('mock-series', 'show', handleShow);
     });
   });
 
@@ -40,6 +75,7 @@ describe('<Series />', function ()  {
         <Series
           id="mySeries" axisId="myAxis" dimension="x" data={[]}
           addSeries={this.addSeries}
+          getSeries={this.getSeries}
           update={this.update}
           setData={this.setData}
           setVisible={this.setVisible} />
@@ -55,6 +91,7 @@ describe('<Series />', function ()  {
         <Series
           id="mySeries" axisId="myAxis" dimension="x" visible
           addSeries={this.addSeries}
+          getSeries={this.getSeries}
           update={this.update}
           setData={this.setData}
           setVisible={this.setVisible} />
@@ -70,6 +107,7 @@ describe('<Series />', function ()  {
         <Series
           id="mySeries" axisId="myAxis" dimension="x" visible
           addSeries={this.addSeries}
+          getSeries={this.getSeries}
           update={this.update}
           setData={this.setData}
           setVisible={this.setVisible} />
@@ -87,6 +125,7 @@ describe('<Series />', function ()  {
         <Series
           id="mySeries" axisId="myAxis" dimension="x" data={[]} visible={false}
           addSeries={this.addSeries}
+          getSeries={this.getSeries}
           update={this.update}
           setData={this.setData}
           setVisible={this.setVisible} />
@@ -102,7 +141,12 @@ describe('<Series />', function ()  {
 
   describe('when unmounted', function () {
     it('removes the correct series', function () {
-      const wrapper = mount(<Series id="mySeries" axisId="myAxis" dimension="y" addSeries={this.addSeries} remove={this.remove} />);
+      const wrapper = mount(
+        <Series id="mySeries" axisId="myAxis" dimension="y"
+          addSeries={this.addSeries}
+          getSeries={this.getSeries}
+          remove={this.remove} />
+      );
       wrapper.unmount();
       expect(this.remove).to.have.been.called;
     });
