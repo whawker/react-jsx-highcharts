@@ -6,20 +6,24 @@ class XAxis extends Component {
 
   static propTypes = {
     id: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired
+    type: PropTypes.string
   };
 
   static defaultProps = {
-    id: 'datetime',
-    type: 'datetime'
+    id: 'xAxis'
   };
 
   render () {
+    let { getChartType, type, ...rest } = this.props;
+    if (!type) {
+      const chartType = getChartType();
+      type = (chartType === 'stockChart') ? 'datetime' : 'linear';
+    }
+
     return (
-      <Axis {...this.props} dimension="x" />
+      <Axis {...rest} type={type} dimension="x" />
     );
   }
 }
 
-XAxis.Title = Axis.Title;
 export default XAxis;

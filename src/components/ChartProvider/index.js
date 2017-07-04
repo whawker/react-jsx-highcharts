@@ -12,17 +12,23 @@ export default function provideChart(WrappedComponent) {
     static displayName = `ChartProvider(${getDisplayName(WrappedComponent)})`;
 
     static contextTypes = {
-      chart: PropTypes.object
+      chart: PropTypes.object,
+      chartType: PropTypes.string
     };
 
     constructor (props, context) {
       super(props, context);
 
-      providedProps('ChartProvider', ['get', 'update', 'addAxis', 'addSeries', 'setTitle']);
+      providedProps(
+        'ChartProvider',
+        ['get', 'update', 'addAxis', 'addSeries', 'setTitle', 'getChart']
+      );
     }
 
     render () {
-      const chart = this.context.chart;
+      const { chart, chartType } = this.context;
+      const getChart = () => chart;
+      const getChartType = () => chartType;
 
       return (
         <WrappedComponent
@@ -31,7 +37,9 @@ export default function provideChart(WrappedComponent) {
           update={cleanPropsBeforeUpdate(chart.update.bind(chart))}
           addAxis={cleanPropsBeforeUpdate(chart.addAxis.bind(chart))}
           addSeries={cleanPropsBeforeUpdate(chart.addSeries.bind(chart))}
-          setTitle={cleanPropsBeforeUpdate(chart.setTitle.bind(chart))} />
+          setTitle={cleanPropsBeforeUpdate(chart.setTitle.bind(chart))}
+          getChart={getChart}
+          getChartType={getChartType} />
       );
     }
   }

@@ -14,7 +14,10 @@ export default function provideSeries(WrappedComponent, expectsSeriesExists = tr
     constructor (props, context) {
       super(props, context);
 
-      providedProps('SeriesProvider', ['update', 'remove', 'addPlotBand', 'removePlotBand']);
+      providedProps(
+        'SeriesProvider',
+        ['update', 'remove', 'setData', 'setVisible', 'getSeries']
+      );
     }
 
     render () {
@@ -26,6 +29,7 @@ export default function provideSeries(WrappedComponent, expectsSeriesExists = tr
       const remove = series && series.remove.bind(series);
       const setData = series && series.setData.bind(series);
       const setVisible = series && series.setVisible.bind(series);
+      const getSeries = () => series;
 
       return (
         <WrappedComponent
@@ -33,7 +37,8 @@ export default function provideSeries(WrappedComponent, expectsSeriesExists = tr
           update={cleanPropsBeforeUpdate(update)}
           remove={remove}
           setData={setData}
-          setVisible={setVisible} />
+          setVisible={setVisible}
+          getSeries={getSeries} />
       );
     }
   }
