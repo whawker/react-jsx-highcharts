@@ -48,6 +48,11 @@ describe('<SeriesProvider />', function () {
       expect(wrapper.props().setVisible({ prop: 'Test7654' })).to.eql('setVisible method mock');
     });
 
+    it('should pass the `getSeries` helper function to the wrapped component', function () {
+      const wrapper = mount(<SeriesWrappedComponent seriesId="mySeriesId" />, {context: this.context}).find(WrappedComponent);
+      expect(wrapper.props().getSeries()).to.eql(this.series);
+    });
+
     it('should pass all other props through to the WrappedComponent', function () {
       const wrapper = mount(<SeriesWrappedComponent seriesId="mySeriesId" prop1="bob" prop264="dave" />, {context: this.context}).find(WrappedComponent);
       expect(wrapper.props().prop1).to.eql('bob');

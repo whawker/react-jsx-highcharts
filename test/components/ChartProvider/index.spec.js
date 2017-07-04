@@ -52,6 +52,11 @@ describe('<ChartProvider />', function () {
       expect(wrapper.props().setTitle({ prop: 'Test8080' })).to.eql('setTitle method mock');
     });
 
+    it('should pass the `getChart` helper function to the wrapped component', function () {
+      const wrapper = shallow(<ChartWrappedComponent />, {context: this.context}).find(WrappedComponent);
+      expect(wrapper.props().getChart()).to.eql(this.chart);
+    });
+
     it('should pass all other props through to the WrappedComponent', function () {
       const wrapper = shallow(<ChartWrappedComponent prop1="bob" prop264="dave" />, {context: this.context}).find(WrappedComponent);
       expect(wrapper.props().prop1).to.eql('bob');

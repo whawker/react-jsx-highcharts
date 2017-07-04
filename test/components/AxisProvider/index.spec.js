@@ -60,6 +60,11 @@ describe('<AxisProvider />', function () {
       expect(wrapper.props().removePlotLine({ prop: 'Test5555' })).to.eql('removePlotLine method mock');
     });
 
+    it('should pass the `getAxis` helper function to the wrapped component', function () {
+      const wrapper = mount(<AxisWrappedComponent axisId="myAxisId" />, {context: this.context}).find(WrappedComponent);
+      expect(wrapper.props().getAxis()).to.eql(this.axis);
+    });
+
     it('should pass all other props through to the WrappedComponent', function () {
       const wrapper = mount(<AxisWrappedComponent axisId="myAxisId" prop1="bob" prop264="dave" />, {context: this.context}).find(WrappedComponent);
       expect(wrapper.props().prop1).to.eql('bob');
