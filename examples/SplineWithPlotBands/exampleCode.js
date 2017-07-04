@@ -49,7 +49,7 @@ render() {
 
       <Tooltip valueSuffix=" m/s" />
 
-      <XAxis id="x">
+      <XAxis type="datetime">
         <XAxis.Title>Time</XAxis.Title>
       </XAxis>
 

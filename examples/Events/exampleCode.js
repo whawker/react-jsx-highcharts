@@ -8,7 +8,7 @@ export default `
     <Legend.Title>Legend</Legend.Title>
   </Legend>
 
-  <XAxis type="linear">
+  <XAxis>
     <XAxis.Title>X Coord</XAxis.Title>
   </XAxis>
 

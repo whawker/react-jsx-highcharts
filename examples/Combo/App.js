@@ -28,7 +28,7 @@ class App extends Component {
 
           <Legend />
 
-          <XAxis id="x" type="linear" categories={['Apples', 'Oranges', 'Pears', 'Bananas', 'Plums']} />
+          <XAxis id="x" categories={['Apples', 'Oranges', 'Pears', 'Bananas', 'Plums']} />
 
           <YAxis id="number">
             <ColumnSeries id="jane" name="Jane" data={[3, 2, 1, 3, 4]} />

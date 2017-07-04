@@ -2133,7 +2133,7 @@ var App = function (_Component) {
           ),
           _react2.default.createElement(
             _.XAxis,
-            { type: 'linear' },
+            null,
             _react2.default.createElement(
               _.XAxis.Title,
               null,
@@ -2195,7 +2195,7 @@ exports.default = App;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = "\n<HighchartsChart>\n  <Chart zoomType=\"xy\" onClick={this.handleClick} />\n\n  <Title>Click to add data</Title>\n\n  <Legend>\n    <Legend.Title>Legend</Legend.Title>\n  </Legend>\n\n  <XAxis type=\"linear\">\n    <XAxis.Title>X Coord</XAxis.Title>\n  </XAxis>\n\n  <YAxis id=\"scatter\">\n    <YAxis.Title>Y Coord</YAxis.Title>\n    <ScatterSeries id=\"my-clicks\" name=\"My clicks\" data={myClicks} />\n    <ScatterSeries id=\"user-clicks\" name=\"Your clicks\" data={userClicks} />\n  </YAxis>\n</HighchartsChart>";
+exports.default = "\n<HighchartsChart>\n  <Chart zoomType=\"xy\" onClick={this.handleClick} />\n\n  <Title>Click to add data</Title>\n\n  <Legend>\n    <Legend.Title>Legend</Legend.Title>\n  </Legend>\n\n  <XAxis>\n    <XAxis.Title>X Coord</XAxis.Title>\n  </XAxis>\n\n  <YAxis id=\"scatter\">\n    <YAxis.Title>Y Coord</YAxis.Title>\n    <ScatterSeries id=\"my-clicks\" name=\"My clicks\" data={myClicks} />\n    <ScatterSeries id=\"user-clicks\" name=\"Your clicks\" data={userClicks} />\n  </YAxis>\n</HighchartsChart>";
 
 /***/ }),
 /* 112 */

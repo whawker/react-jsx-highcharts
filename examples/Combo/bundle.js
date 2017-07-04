@@ -2075,7 +2075,7 @@ var App = function (_Component) {
             'Combination chart'
           ),
           _react2.default.createElement(_.Legend, null),
-          _react2.default.createElement(_.XAxis, { id: 'x', type: 'linear', categories: ['Apples', 'Oranges', 'Pears', 'Bananas', 'Plums'] }),
+          _react2.default.createElement(_.XAxis, { id: 'x', categories: ['Apples', 'Oranges', 'Pears', 'Bananas', 'Plums'] }),
           _react2.default.createElement(
             _.YAxis,
             { id: 'number' },
@@ -2118,7 +2118,7 @@ exports.default = App;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = "\nconst pieData = [{\n  name: 'Jane',\n  y: 13\n}, {\n  name: 'John',\n  y: 23\n}, {\n  name: 'Joe',\n  y: 19\n}];\n\nreturn (\n  <HighchartsChart>\n    <Chart />\n\n    <Title>Combination chart</Title>\n\n    <Legend />\n\n    <XAxis id=\"x\" type=\"category\" categories={['Apples', 'Oranges', 'Pears', 'Bananas', 'Plums']} />\n\n    <YAxis id=\"number\">\n      <ColumnSeries id=\"jane\" name=\"Jane\" data={[3, 2, 1, 3, 4]} />\n      <ColumnSeries id=\"john\" name=\"John\" data={[2, 3, 5, 7, 6]} />\n      <ColumnSeries id=\"joe\" name=\"Joe\" data={[4, 3, 3, 9, 0]} />\n      <SplineSeries id=\"average\" name=\"Average\" data={[3, 2.67, 3, 6.33, 3.33]} />\n      <PieSeries id=\"total-consumption\" name=\"Total consumption\" data={pieData} center={[100, 80]} size={100} showInLegend={false} />\n    </YAxis>\n  </HighchartsChart>\n);";
+exports.default = "\nconst pieData = [{\n  name: 'Jane',\n  y: 13\n}, {\n  name: 'John',\n  y: 23\n}, {\n  name: 'Joe',\n  y: 19\n}];\n\nreturn (\n  <HighchartsChart>\n    <Chart />\n\n    <Title>Combination chart</Title>\n\n    <Legend />\n\n    <XAxis id=\"x\" categories={['Apples', 'Oranges', 'Pears', 'Bananas', 'Plums']} />\n\n    <YAxis id=\"number\">\n      <ColumnSeries id=\"jane\" name=\"Jane\" data={[3, 2, 1, 3, 4]} />\n      <ColumnSeries id=\"john\" name=\"John\" data={[2, 3, 5, 7, 6]} />\n      <ColumnSeries id=\"joe\" name=\"Joe\" data={[4, 3, 3, 9, 0]} />\n      <SplineSeries id=\"average\" name=\"Average\" data={[3, 2.67, 3, 6.33, 3.33]} />\n      <PieSeries id=\"total-consumption\" name=\"Total consumption\" data={pieData} center={[100, 80]} size={100} showInLegend={false} />\n    </YAxis>\n  </HighchartsChart>\n);";
 
 /***/ }),
 /* 110 */

@@ -48,7 +48,7 @@ render() {
           <Legend.Title>Legend</Legend.Title>
         </Legend>
 
-        <XAxis>
+        <XAxis type="datetime">
           <XAxis.Title>Time</XAxis.Title>
         </XAxis>
 

@@ -50,7 +50,7 @@ class App extends Component {
     return (
       <HighchartsChart key={index}>
         <Title align="left" margin={30} x={30}>{dataset.name}</Title>
-        <XAxis id="x" crosshair labels={{format: '{value} km'}} type="linear" />
+        <XAxis crosshair labels={{format: '{value} km'}} />
         <YAxis id="y">
           <Series
             id={dataset.name}

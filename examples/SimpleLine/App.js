@@ -25,7 +25,7 @@ class App extends Component {
 
           <Legend layout="vertical" align="right" verticalAlign="middle" />
 
-          <XAxis id="x" type="linear">
+          <XAxis>
             <XAxis.Title>Time</XAxis.Title>
           </XAxis>
 
