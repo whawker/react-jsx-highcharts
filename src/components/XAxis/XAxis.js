@@ -22,5 +22,4 @@ class XAxis extends Component {
   }
 }
 
-XAxis.Title = Axis.Title;
 export default XAxis;

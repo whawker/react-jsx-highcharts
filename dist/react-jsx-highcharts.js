@@ -7189,9 +7189,15 @@ var _ChartProvider = __webpack_require__(11);
 
 var _ChartProvider2 = _interopRequireDefault(_ChartProvider);
 
+var _Axis = __webpack_require__(36);
+
+var _Axis2 = _interopRequireDefault(_Axis);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = (0, _ChartProvider2.default)(_XAxis2.default);
+var ChartXAxis = (0, _ChartProvider2.default)(_XAxis2.default);
+ChartXAxis.Title = _Axis2.default.Title;
+exports.default = ChartXAxis;
 
 /***/ }),
 /* 105 */
@@ -11511,7 +11517,6 @@ var XAxis = function (_Component) {
   return XAxis;
 }(_react.Component);
 
-XAxis.Title = _Axis2.default.Title;
 exports.default = XAxis;
 
 /***/ }),
