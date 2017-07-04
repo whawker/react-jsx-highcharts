@@ -12,9 +12,11 @@ describe('<ChartProvider />', function () {
 
   beforeEach(function () {
     this.chart = createMockChart();
+    this.chartType = 'my-mock-chart-type';
 
     this.context = {
-      chart: this.chart
+      chart: this.chart,
+      chartType: this.chartType
     };
   });
 
@@ -55,6 +57,11 @@ describe('<ChartProvider />', function () {
     it('should pass the `getChart` helper function to the wrapped component', function () {
       const wrapper = shallow(<ChartWrappedComponent />, {context: this.context}).find(WrappedComponent);
       expect(wrapper.props().getChart()).to.eql(this.chart);
+    });
+
+    it('should pass the `getChartType` helper function to the wrapped component', function () {
+      const wrapper = shallow(<ChartWrappedComponent />, {context: this.context}).find(WrappedComponent);
+      expect(wrapper.props().getChartType()).to.eql(this.chartType);
     });
 
     it('should pass all other props through to the WrappedComponent', function () {

@@ -6,17 +6,18 @@ class XAxis extends Component {
 
   static propTypes = {
     id: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired
-  };
-
-  static defaultProps = {
-    id: 'datetime',
-    type: 'datetime'
+    type: PropTypes.string
   };
 
   render () {
+    let { getChartType, type, ...rest } = this.props;
+    if (!type) {
+      const chartType = getChartType();
+      type = (chartType === 'stockChart') ? 'datetime' : 'linear';
+    }
+
     return (
-      <Axis {...this.props} dimension="x" />
+      <Axis {...rest} type={type} dimension="x" />
     );
   }
 }

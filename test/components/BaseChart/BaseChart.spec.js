@@ -7,7 +7,8 @@ import { createMockChart } from '../../test-utils';
 
 class ChartContextReceiver extends PureComponent {
   static contextTypes = {
-    chart: PropTypes.object
+    chart: PropTypes.object,
+    chartType: PropTypes.string
   };
 
   render () {
@@ -53,6 +54,7 @@ describe('<BaseChart />', function ()  {
         clock.tick(1);
         const child = wrapper.find(ChartContextReceiver).getNode();
         expect(child.context.chart).to.eql(chart);
+        expect(child.context.chartType).to.eql('chart');
       });
     });
 
@@ -73,6 +75,7 @@ describe('<BaseChart />', function ()  {
         clock.tick(1);
         const child = wrapper.find(ChartContextReceiver).getNode();
         expect(child.context.chart).to.eql(chart);
+        expect(child.context.chartType).to.eql('stockChart');
       });
     });
   });

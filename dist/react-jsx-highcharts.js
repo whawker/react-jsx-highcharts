@@ -439,9 +439,15 @@ function provideChart(WrappedComponent) {
     (0, _createClass3.default)(ChartProvider, [{
       key: 'render',
       value: function render() {
-        var chart = this.context.chart;
+        var _context = this.context,
+            chart = _context.chart,
+            chartType = _context.chartType;
+
         var getChart = function getChart() {
           return chart;
+        };
+        var getChartType = function getChartType() {
+          return chartType;
         };
 
         return _react2.default.createElement(WrappedComponent, (0, _extends3.default)({}, this.props, {
@@ -450,7 +456,8 @@ function provideChart(WrappedComponent) {
           addAxis: (0, _cleanPropsBeforeUpdate2.default)(chart.addAxis.bind(chart)),
           addSeries: (0, _cleanPropsBeforeUpdate2.default)(chart.addSeries.bind(chart)),
           setTitle: (0, _cleanPropsBeforeUpdate2.default)(chart.setTitle.bind(chart)),
-          getChart: getChart }));
+          getChart: getChart,
+          getChartType: getChartType }));
       }
     }]);
     return ChartProvider;
@@ -458,7 +465,8 @@ function provideChart(WrappedComponent) {
 
   ChartProvider.displayName = 'ChartProvider(' + getDisplayName(WrappedComponent) + ')';
   ChartProvider.contextTypes = {
-    chart: _propTypes2.default.object
+    chart: _propTypes2.default.object,
+    chartType: _propTypes2.default.string
   };
 
 
@@ -7177,9 +7185,13 @@ var _XAxis = __webpack_require__(152);
 
 var _XAxis2 = _interopRequireDefault(_XAxis);
 
+var _ChartProvider = __webpack_require__(11);
+
+var _ChartProvider2 = _interopRequireDefault(_ChartProvider);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = _XAxis2.default;
+exports.default = (0, _ChartProvider2.default)(_XAxis2.default);
 
 /***/ }),
 /* 105 */
@@ -7911,7 +7923,10 @@ var BaseChart = function (_Component) {
   }, {
     key: 'getChildContext',
     value: function getChildContext() {
-      return { chart: this.chart };
+      return {
+        chart: this.chart,
+        chartType: this.props.chartType
+      };
     }
   }, {
     key: 'render',
@@ -7933,7 +7948,8 @@ var BaseChart = function (_Component) {
 }(_react.Component);
 
 BaseChart.childContextTypes = {
-  chart: _propTypes2.default.object
+  chart: _propTypes2.default.object,
+  chartType: _propTypes2.default.string
 };
 BaseChart.defaultProps = {
   chartType: 'chart'
@@ -11430,6 +11446,10 @@ var _extends2 = __webpack_require__(7);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
+var _objectWithoutProperties2 = __webpack_require__(9);
+
+var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
+
 var _getPrototypeOf = __webpack_require__(0);
 
 var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
@@ -11475,17 +11495,21 @@ var XAxis = function (_Component) {
   (0, _createClass3.default)(XAxis, [{
     key: 'render',
     value: function render() {
-      return _react2.default.createElement(_Axis2.default, (0, _extends3.default)({}, this.props, { dimension: 'x' }));
+      var _props = this.props,
+          getChartType = _props.getChartType,
+          type = _props.type,
+          rest = (0, _objectWithoutProperties3.default)(_props, ['getChartType', 'type']);
+
+      if (!type) {
+        var chartType = getChartType();
+        type = chartType === 'stockChart' ? 'datetime' : 'linear';
+      }
+
+      return _react2.default.createElement(_Axis2.default, (0, _extends3.default)({}, rest, { type: type, dimension: 'x' }));
     }
   }]);
   return XAxis;
 }(_react.Component);
-
-XAxis.defaultProps = {
-  id: 'datetime',
-  type: 'datetime'
-};
-
 
 XAxis.Title = _Axis2.default.Title;
 exports.default = XAxis;

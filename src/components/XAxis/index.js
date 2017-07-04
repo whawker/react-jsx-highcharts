@@ -1,2 +1,3 @@
 import XAxis from './XAxis';
-export default XAxis;
+import provideChart from '../ChartProvider';
+export default provideChart(XAxis);

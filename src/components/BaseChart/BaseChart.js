@@ -6,7 +6,8 @@ import { validChartTypes } from '../../utils/propTypeValidators';
 class BaseChart extends Component {
 
   static childContextTypes = {
-    chart: PropTypes.object
+    chart: PropTypes.object,
+    chartType: PropTypes.string
   };
 
   static propTypes = {
@@ -75,7 +76,10 @@ class BaseChart extends Component {
   }
 
   getChildContext () {
-    return { chart: this.chart };
+    return {
+      chart: this.chart,
+      chartType: this.props.chartType
+    };
   }
 
   render () {
