@@ -2085,6 +2085,8 @@ var App = function (_Component) {
     var _this = (0, _possibleConstructorReturn3.default)(this, (App.__proto__ || (0, _getPrototypeOf2.default)(App)).call(this, props));
 
     _this.handleClick = _this.handleClick.bind(_this);
+    _this.handleShow = _this.handleShow.bind(_this);
+    _this.handleHide = _this.handleHide.bind(_this);
 
     _this.state = {
       userClicks: [],
@@ -2100,6 +2102,16 @@ var App = function (_Component) {
         userClicks: (0, _dataHelpers.addDataPoint)(this.state.userClicks, [e.xAxis[0].value, e.yAxis[0].value]),
         clickCounter: this.state.clickCounter + 1
       });
+    }
+  }, {
+    key: 'handleShow',
+    value: function handleShow() {
+      alert('Series shown');
+    }
+  }, {
+    key: 'handleHide',
+    value: function handleHide() {
+      alert('Series hidden');
     }
   }, {
     key: 'render',
@@ -2149,7 +2161,7 @@ var App = function (_Component) {
               'Y Coord'
             ),
             _react2.default.createElement(_.ScatterSeries, { id: 'my-clicks', name: 'My clicks', data: myClicks }),
-            _react2.default.createElement(_.ScatterSeries, { id: 'user-clicks', name: 'Your clicks', data: userClicks })
+            _react2.default.createElement(_.ScatterSeries, { id: 'user-clicks', name: 'Your clicks', data: userClicks, onHide: this.handleHide, onShow: this.handleShow })
           )
         ),
         _react2.default.createElement(
@@ -2195,7 +2207,7 @@ exports.default = App;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = "\n<HighchartsChart>\n  <Chart zoomType=\"xy\" onClick={this.handleClick} />\n\n  <Title>Click to add data</Title>\n\n  <Legend>\n    <Legend.Title>Legend</Legend.Title>\n  </Legend>\n\n  <XAxis>\n    <XAxis.Title>X Coord</XAxis.Title>\n  </XAxis>\n\n  <YAxis id=\"scatter\">\n    <YAxis.Title>Y Coord</YAxis.Title>\n    <ScatterSeries id=\"my-clicks\" name=\"My clicks\" data={myClicks} />\n    <ScatterSeries id=\"user-clicks\" name=\"Your clicks\" data={userClicks} />\n  </YAxis>\n</HighchartsChart>";
+exports.default = "\n<HighchartsChart>\n  <Chart zoomType=\"xy\" onClick={this.handleClick} />\n\n  <Title>Click to add data</Title>\n\n  <Legend>\n    <Legend.Title>Legend</Legend.Title>\n  </Legend>\n\n  <XAxis>\n    <XAxis.Title>X Coord</XAxis.Title>\n  </XAxis>\n\n  <YAxis id=\"scatter\">\n    <YAxis.Title>Y Coord</YAxis.Title>\n    <ScatterSeries id=\"my-clicks\" name=\"My clicks\" data={myClicks} />\n    <ScatterSeries id=\"user-clicks\" name=\"Your clicks\" data={userClicks} onHide={this.handleHide} onShow={this.handleShow} />\n  </YAxis>\n</HighchartsChart>";
 
 /***/ }),
 /* 112 */

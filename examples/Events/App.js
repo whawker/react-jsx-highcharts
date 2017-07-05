@@ -11,6 +11,8 @@ class App extends Component {
   constructor (props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
+    this.handleShow = this.handleShow.bind(this);
+    this.handleHide = this.handleHide.bind(this);
 
     this.state = {
       userClicks: [],
@@ -23,6 +25,14 @@ class App extends Component {
       userClicks: addDataPoint(this.state.userClicks, [e.xAxis[0].value, e.yAxis[0].value]),
       clickCounter: this.state.clickCounter + 1
     });
+  }
+
+  handleShow () {
+    alert('Series shown');
+  }
+
+  handleHide () {
+    alert('Series hidden');
   }
 
   render() {
@@ -60,7 +70,7 @@ class App extends Component {
           <YAxis id="scatter">
             <YAxis.Title>Y Coord</YAxis.Title>
             <ScatterSeries id="my-clicks" name="My clicks" data={myClicks} />
-            <ScatterSeries id="user-clicks" name="Your clicks" data={userClicks} />
+            <ScatterSeries id="user-clicks" name="Your clicks" data={userClicks} onHide={this.handleHide} onShow={this.handleShow} />
           </YAxis>
         </HighchartsChart>
         <p>Click count: <span>{clickCounter}</span></p>
