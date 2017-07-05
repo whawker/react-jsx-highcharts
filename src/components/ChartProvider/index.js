@@ -21,7 +21,7 @@ export default function provideChart(WrappedComponent) {
 
       providedProps(
         'ChartProvider',
-        ['get', 'update', 'addAxis', 'addSeries', 'setTitle', 'getChart']
+        ['get', 'update', 'addAxis', 'addSeries', 'setTitle', 'getChart', 'getChartType']
       );
     }
 
