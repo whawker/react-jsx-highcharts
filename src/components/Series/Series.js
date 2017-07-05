@@ -27,25 +27,18 @@ class Series extends Component {
     visible: true
   };
 
-  constructor (props) {
-    super(props);
-
-    this.state = {
-      rendered: false
-    };
-  }
-
-  componentDidMount () {
-    const { children, dimension, axisId, addSeries, getSeries, ...rest } = this.props;
+  componentWillMount () {
+    const { children, dimension, axisId, addSeries, ...rest } = this.props;
     const nonEventProps = getNonEventHandlerProps(rest);
     addSeries({
       [`${dimension}Axis`]: axisId,
       ...nonEventProps
     }, true);
+  }
+
+  componentDidMount () {
+    const { getSeries, ...rest } = this.props;
     addEventProps(getSeries(), rest);
-    this.setState({
-      rendered: true
-    });
   }
 
   componentDidUpdate (prevProps) {
@@ -71,7 +64,7 @@ class Series extends Component {
 
   render () {
     const { children } = this.props;
-    return (children && this.state.rendered) ? children : null;
+    return (children && this.props.seriesAdded) ? children : null;
   }
 }
 

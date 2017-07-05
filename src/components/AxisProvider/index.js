@@ -31,7 +31,7 @@ export default function provideAxis(WrappedComponent) {
       const removePlotBand = axis && axis.removePlotBand.bind(axis);
       const addPlotLine = axis && axis.addPlotLine.bind(axis);
       const removePlotLine = axis && axis.removePlotLine.bind(axis);
-      const getAxis = () => axis;
+      const getAxis = () => this.props.get(id);
 
       return (
         <WrappedComponent

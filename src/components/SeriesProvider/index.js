@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Highcharts from 'highstock-release';
 import provideChart from '../ChartProvider';
 import providedProps from '../../utils/providedProps';
 import cleanPropsBeforeUpdate from '../../utils/cleanPropsBeforeUpdate';
@@ -16,8 +17,34 @@ export default function provideSeries(WrappedComponent, expectsSeriesExists = tr
 
       providedProps(
         'SeriesProvider',
-        ['update', 'remove', 'setData', 'setVisible', 'getSeries']
+        ['update', 'remove', 'setData', 'setVisible', 'getSeries', 'seriesAdded']
       );
+
+      this.handleSeriesAdded = this.handleSeriesAdded.bind(this);
+      this.state = {
+        seriesAdded: false
+      };
+    }
+
+    componentWillMount () {
+      const { get, getChart } = this.props;
+      const id = this.props.seriesId || this.props.id;
+
+      if (get(id)) {
+        return this.setState({
+          seriesAdded: true
+        });
+      }
+
+      Highcharts.addEvent(getChart(), 'addSeries', this.handleSeriesAdded);
+    }
+
+    handleSeriesAdded (e) {
+      if (e.options.id !== this.props.id) return;
+
+      this.setState({
+        seriesAdded: true
+      });
     }
 
     render () {
@@ -29,7 +56,7 @@ export default function provideSeries(WrappedComponent, expectsSeriesExists = tr
       const remove = series && series.remove.bind(series);
       const setData = series && series.setData.bind(series);
       const setVisible = series && series.setVisible.bind(series);
-      const getSeries = () => series;
+      const getSeries = () => this.props.get(id);
 
       return (
         <WrappedComponent
@@ -38,7 +65,8 @@ export default function provideSeries(WrappedComponent, expectsSeriesExists = tr
           remove={remove}
           setData={setData}
           setVisible={setVisible}
-          getSeries={getSeries} />
+          getSeries={getSeries}
+          seriesAdded={!!series} />
       );
     }
   }
