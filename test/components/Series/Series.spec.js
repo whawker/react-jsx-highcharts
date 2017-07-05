@@ -29,7 +29,7 @@ describe('<Series />', function ()  {
         <Series id="mySeries" axisId="myAxis" dimension="x" addSeries={this.addSeries} getSeries={this.getSeries} />
       );
       expect(this.addSeries).to.have.been.calledWith(
-        { id: 'mySeries', xAxis: 'myAxis', type: 'line', data: [], visible: true }, true
+        { id: 'mySeries', xAxis: 'myAxis', type: 'line', data: [], visible: true, getSeries: this.getSeries }, true
       );
     });
 
@@ -38,7 +38,7 @@ describe('<Series />', function ()  {
         <Series id="mySeries" axisId="myAxis" dimension="y" addSeries={this.addSeries} getSeries={this.getSeries} />
       );
       expect(this.addSeries).to.have.been.calledWith(
-        { id: 'mySeries', yAxis: 'myAxis', type: 'line', data: [], visible: true }, true
+        { id: 'mySeries', yAxis: 'myAxis', type: 'line', data: [], visible: true, getSeries: this.getSeries }, true
       );
     });
 
@@ -48,9 +48,10 @@ describe('<Series />', function ()  {
           addSeries={this.addSeries}
           getSeries={this.getSeries} />
       );
-      expect(this.addSeries).to.have.been.calledWith(
-        { id: 'mySeries', yAxis: 'myAxis', type: 'line', data: [5], visible: true, step: true }, true
-      );
+      expect(this.addSeries).to.have.been.calledWith({
+        id: 'mySeries', yAxis: 'myAxis', type: 'line', data: [5],
+        visible: true, step: true, getSeries: this.getSeries
+      }, true);
     });
 
     it('subscribes to Highcharts events for props that look like event handlers', function () {

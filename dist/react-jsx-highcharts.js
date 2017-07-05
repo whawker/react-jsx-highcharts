@@ -375,7 +375,7 @@ function provideChart(WrappedComponent) {
 
       var _this = (0, _possibleConstructorReturn3.default)(this, (ChartProvider.__proto__ || (0, _getPrototypeOf2.default)(ChartProvider)).call(this, props, context));
 
-      (0, _providedProps2.default)('ChartProvider', ['get', 'update', 'addAxis', 'addSeries', 'setTitle', 'getChart']);
+      (0, _providedProps2.default)('ChartProvider', ['get', 'update', 'addAxis', 'addSeries', 'setTitle', 'getChart', 'getChartType']);
       return _this;
     }
 
@@ -865,6 +865,8 @@ function provideAxis(WrappedComponent) {
     (0, _createClass3.default)(AxisProvider, [{
       key: 'render',
       value: function render() {
+        var _this2 = this;
+
         var id = this.props.axisId || this.props.id;
         if (!id) return null;
 
@@ -876,7 +878,7 @@ function provideAxis(WrappedComponent) {
         var addPlotLine = axis && axis.addPlotLine.bind(axis);
         var removePlotLine = axis && axis.removePlotLine.bind(axis);
         var getAxis = function getAxis() {
-          return axis;
+          return _this2.props.get(id);
         };
 
         return _react2.default.createElement(WrappedComponent, (0, _extends3.default)({}, this.props, {
@@ -3454,6 +3456,10 @@ var _react = __webpack_require__(5);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _highstockRelease = __webpack_require__(29);
+
+var _highstockRelease2 = _interopRequireDefault(_highstockRelease);
+
 var _ChartProvider = __webpack_require__(10);
 
 var _ChartProvider2 = _interopRequireDefault(_ChartProvider);
@@ -3483,13 +3489,46 @@ function provideSeries(WrappedComponent) {
 
       var _this = (0, _possibleConstructorReturn3.default)(this, (SeriesProvider.__proto__ || (0, _getPrototypeOf2.default)(SeriesProvider)).call(this, props, context));
 
-      (0, _providedProps2.default)('SeriesProvider', ['update', 'remove', 'setData', 'setVisible', 'getSeries']);
+      (0, _providedProps2.default)('SeriesProvider', ['update', 'remove', 'setData', 'setVisible', 'getSeries', 'seriesAdded']);
+
+      _this.handleSeriesAdded = _this.handleSeriesAdded.bind(_this);
+      _this.state = {
+        seriesAdded: false
+      };
       return _this;
     }
 
     (0, _createClass3.default)(SeriesProvider, [{
+      key: 'componentWillMount',
+      value: function componentWillMount() {
+        var _props = this.props,
+            get = _props.get,
+            getChart = _props.getChart;
+
+        var id = this.props.seriesId || this.props.id;
+
+        if (get(id)) {
+          return this.setState({
+            seriesAdded: true
+          });
+        }
+
+        _highstockRelease2.default.addEvent(getChart(), 'addSeries', this.handleSeriesAdded);
+      }
+    }, {
+      key: 'handleSeriesAdded',
+      value: function handleSeriesAdded(e) {
+        if (e.options.id !== this.props.id) return;
+
+        this.setState({
+          seriesAdded: true
+        });
+      }
+    }, {
       key: 'render',
       value: function render() {
+        var _this2 = this;
+
         var id = this.props.seriesId || this.props.id;
         var series = this.props.get(id);
         if (!series && expectsSeriesExists) return null;
@@ -3499,7 +3538,7 @@ function provideSeries(WrappedComponent) {
         var setData = series && series.setData.bind(series);
         var setVisible = series && series.setVisible.bind(series);
         var getSeries = function getSeries() {
-          return series;
+          return _this2.props.get(id);
         };
 
         return _react2.default.createElement(WrappedComponent, (0, _extends3.default)({}, this.props, {
@@ -3507,7 +3546,8 @@ function provideSeries(WrappedComponent) {
           remove: remove,
           setData: setData,
           setVisible: setVisible,
-          getSeries: getSeries }));
+          getSeries: getSeries,
+          seriesAdded: !!series }));
       }
     }]);
     return SeriesProvider;
@@ -10944,45 +10984,43 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var Series = function (_Component) {
   (0, _inherits3.default)(Series, _Component);
 
-  function Series(props) {
+  function Series() {
     (0, _classCallCheck3.default)(this, Series);
-
-    var _this = (0, _possibleConstructorReturn3.default)(this, (Series.__proto__ || (0, _getPrototypeOf2.default)(Series)).call(this, props));
-
-    _this.state = {
-      rendered: false
-    };
-    return _this;
+    return (0, _possibleConstructorReturn3.default)(this, (Series.__proto__ || (0, _getPrototypeOf2.default)(Series)).apply(this, arguments));
   }
 
   (0, _createClass3.default)(Series, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
+    key: 'componentWillMount',
+    value: function componentWillMount() {
       var _props = this.props,
           children = _props.children,
           dimension = _props.dimension,
           axisId = _props.axisId,
           addSeries = _props.addSeries,
-          getSeries = _props.getSeries,
-          rest = (0, _objectWithoutProperties3.default)(_props, ['children', 'dimension', 'axisId', 'addSeries', 'getSeries']);
+          rest = (0, _objectWithoutProperties3.default)(_props, ['children', 'dimension', 'axisId', 'addSeries']);
 
       var nonEventProps = (0, _events.getNonEventHandlerProps)(rest);
       addSeries((0, _extends4.default)((0, _defineProperty3.default)({}, dimension + 'Axis', axisId), nonEventProps), true);
+    }
+  }, {
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      var _props2 = this.props,
+          getSeries = _props2.getSeries,
+          rest = (0, _objectWithoutProperties3.default)(_props2, ['getSeries']);
+
       (0, _events2.default)(getSeries(), rest);
-      this.setState({
-        rendered: true
-      });
     }
   }, {
     key: 'componentDidUpdate',
     value: function componentDidUpdate(prevProps) {
-      var _props2 = this.props,
-          visible = _props2.visible,
-          setVisible = _props2.setVisible,
-          data = _props2.data,
-          setData = _props2.setData,
-          update = _props2.update,
-          rest = (0, _objectWithoutProperties3.default)(_props2, ['visible', 'setVisible', 'data', 'setData', 'update']);
+      var _props3 = this.props,
+          visible = _props3.visible,
+          setVisible = _props3.setVisible,
+          data = _props3.data,
+          setData = _props3.setData,
+          update = _props3.update,
+          rest = (0, _objectWithoutProperties3.default)(_props3, ['visible', 'setVisible', 'data', 'setData', 'update']);
 
       // Using setData is more performant than update
 
@@ -11008,7 +11046,7 @@ var Series = function (_Component) {
     value: function render() {
       var children = this.props.children;
 
-      return children && this.state.rendered ? children : null;
+      return children && this.props.seriesAdded ? children : null;
     }
   }]);
   return Series;
