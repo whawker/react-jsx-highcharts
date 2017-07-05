@@ -1,7 +1,7 @@
 {
   "name": "react-jsx-highcharts",
   "version": "0.1.0",
-  "description": "React charts built using Highcharts",
+  "description": "Highcharts charts built using React components",
   "main": "dist/react-jsx-highcharts.js",
   "module": "src/index.js",
   "jsnext:main": "src/index.js",
