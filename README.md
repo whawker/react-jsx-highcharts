@@ -62,4 +62,9 @@ In the vast majority of cases, there is no need to use these HOCs directly - but
 ## Common issues
 
 **I updated the data of my chart series, and the chart did not update**
+
 As Objects and Arrays are passed by reference, React thought your component props had not changed. You should clone the data object before modifying it. See the [`addDataPoint`](https://github.com/whawker/react-jsx-highcharts/blob/master/examples/utils/data-helpers.js#L19-L20) utility function used in the demos as an example.
+
+**My stock chart isn't rendering the Navigator and RangeSelector components**
+
+You're probably using a `<HighchartsChart />` at the top level, rather than a `<HighchartsStockChart />`, otherwise please post an issue.
