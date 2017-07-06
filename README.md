@@ -41,12 +41,15 @@ A proof of concept for integrating [Highcharts](https://github.com/highcharts/hi
 
 You'll need the peer dependencies too
 
-`npm install --save react react-dom prop-types highstock-release` (Highstock Release is Highcharts bundled with stock charts)
+`npm install --save react react-dom prop-types highstock-release` (Highstock release is Highcharts bundled with stock charts)
 
 ## Goals
 
-This project aims to hide the complexity of Highcharts from the React application author, allowing the rendering of charts in a React familiar way. It also aims to use best React and Highcharts practices where possible - for example if the `data` prop of a Series were to change React JSX Highcharts uses the [`Series.prototype.setData`](http://api.highcharts.com/highstock/Series.setData) method of Highcharts which is much less expensive than `update`.
-It also aims to avoid passing large JSON configuration objects as props, as this leads to painful debugging when trying to work out why your component did or did not re-render, this also helps as an abstraction over the complexity as mentioned above.
+This project aims to hide the complexity of Highcharts from the React application author, allowing the rendering of charts in a React familiar way. 
+
+It also aims to use best React and Highcharts practices where possible - for example if the `data` prop of a Series were to change React JSX Highcharts uses the [`Series.prototype.setData`](http://api.highcharts.com/highstock/Series.setData) method of Highcharts which is much less expensive than `update`.
+
+Additionally we avoid passing large JSON configuration objects as props, as this leads to painful debugging when trying to work out why your component did or did not re-render, this also helps as an abstraction over the complexity as mentioned above.
 
 ## Technical approach
 
@@ -54,5 +57,9 @@ Rather than passing around a chart object between all the components, we utilise
 
 There are 3 HOCs in this project, [provideChart](https://github.com/whawker/react-jsx-highcharts/blob/master/src/components/ChartProvider/index.js), [provideAxis](https://github.com/whawker/react-jsx-highcharts/blob/master/src/components/AxisProvider/index.js) and [provideSeries](https://github.com/whawker/react-jsx-highcharts/blob/master/src/components/ChartProvider/index.js). 
 
-In the vast majority of cases, there is no need to use these HOCs directly - but the have been exposed anyway - they are useful if you want to create your own components with this library. 
+In the vast majority of cases, there is no need to use these HOCs directly - but they have been exposed anyway - they are useful if you want to create your own components with this library. 
 
+## Common issues
+
+**I updated the data of my chart series, and the chart did not update**
+As Objects and Arrays are passed by reference, React thought your component props had not changed. You should clone the data object before modifying it. See the [`addDataPoint`](https://github.com/whawker/react-jsx-highcharts/blob/master/examples/utils/data-helpers.js#L19-L20) utility function used in the demos as an example.
