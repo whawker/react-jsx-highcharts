@@ -16,7 +16,12 @@ export default function provideAxis(WrappedComponent) {
 
       providedProps(
         'AxisProvider',
-        ['update', 'remove', 'addPlotBand', 'removePlotBand', 'addPlotLine', 'removePlotLine', 'getAxis']
+        [
+          'update', 'remove', 'getAxis',
+          'addPlotBand', 'removePlotBand',
+          'addPlotLine', 'removePlotLine',
+          'getExtremes', 'setExtremes'
+        ]
       );
     }
 
@@ -31,6 +36,8 @@ export default function provideAxis(WrappedComponent) {
       const removePlotBand = axis && axis.removePlotBand.bind(axis);
       const addPlotLine = axis && axis.addPlotLine.bind(axis);
       const removePlotLine = axis && axis.removePlotLine.bind(axis);
+      const getExtremes = axis && axis.getExtremes.bind(axis);
+      const setExtremes = axis && axis.setExtremes.bind(axis);
       const getAxis = () => this.props.get(id);
 
       return (
@@ -42,6 +49,8 @@ export default function provideAxis(WrappedComponent) {
           removePlotBand={cleanPropsBeforeUpdate(removePlotBand)}
           addPlotLine={cleanPropsBeforeUpdate(addPlotLine)}
           removePlotLine={cleanPropsBeforeUpdate(removePlotLine)}
+          getExtremes={getExtremes}
+          setExtremes={setExtremes}
           getAxis={getAxis} />
       );
     }

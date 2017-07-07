@@ -7,7 +7,7 @@
 		exports["ReactHighcharts"] = factory(require("react"), require("highstock-release"));
 	else
 		root["ReactHighcharts"] = factory(root["React"], root["Highcharts"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_5__, __WEBPACK_EXTERNAL_MODULE_29__) {
+})(this, function(__WEBPACK_EXTERNAL_MODULE_5__, __WEBPACK_EXTERNAL_MODULE_24__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -352,7 +352,7 @@ var _propTypes = __webpack_require__(6);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _providedProps = __webpack_require__(24);
+var _providedProps = __webpack_require__(25);
 
 var _providedProps2 = _interopRequireDefault(_providedProps);
 
@@ -445,7 +445,7 @@ var _lodash5 = __webpack_require__(207);
 
 var _lodash6 = _interopRequireDefault(_lodash5);
 
-var _providedProps = __webpack_require__(24);
+var _providedProps = __webpack_require__(25);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -623,7 +623,7 @@ module.exports = function(it, key){
 /* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var anObject       = __webpack_require__(25)
+var anObject       = __webpack_require__(26)
   , IE8_DOM_DEFINE = __webpack_require__(60)
   , toPrimitive    = __webpack_require__(52)
   , dP             = Object.defineProperty;
@@ -694,6 +694,12 @@ $exports.store = store;
 
 /***/ }),
 /* 24 */
+/***/ (function(module, exports) {
+
+module.exports = __WEBPACK_EXTERNAL_MODULE_24__;
+
+/***/ }),
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -727,17 +733,17 @@ var getProvidedProps = exports.getProvidedProps = function getProvidedProps() {
 };
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var isObject = __webpack_require__(26);
+var isObject = __webpack_require__(27);
 module.exports = function(it){
   if(!isObject(it))throw TypeError(it + ' is not an object!');
   return it;
 };
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports) {
 
 module.exports = function(it){
@@ -745,7 +751,7 @@ module.exports = function(it){
 };
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 19.1.2.14 / 15.2.3.14 Object.keys(O)
@@ -757,7 +763,7 @@ module.exports = Object.keys || function keys(O){
 };
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -783,12 +789,6 @@ module.exports = function(module) {
 	return module;
 };
 
-
-/***/ }),
-/* 29 */
-/***/ (function(module, exports) {
-
-module.exports = __WEBPACK_EXTERNAL_MODULE_29__;
 
 /***/ }),
 /* 30 */
@@ -835,7 +835,7 @@ var _ChartProvider = __webpack_require__(10);
 
 var _ChartProvider2 = _interopRequireDefault(_ChartProvider);
 
-var _providedProps = __webpack_require__(24);
+var _providedProps = __webpack_require__(25);
 
 var _providedProps2 = _interopRequireDefault(_providedProps);
 
@@ -858,7 +858,7 @@ function provideAxis(WrappedComponent) {
 
       var _this = (0, _possibleConstructorReturn3.default)(this, (AxisProvider.__proto__ || (0, _getPrototypeOf2.default)(AxisProvider)).call(this, props, context));
 
-      (0, _providedProps2.default)('AxisProvider', ['update', 'remove', 'addPlotBand', 'removePlotBand', 'addPlotLine', 'removePlotLine', 'getAxis']);
+      (0, _providedProps2.default)('AxisProvider', ['update', 'remove', 'getAxis', 'addPlotBand', 'removePlotBand', 'addPlotLine', 'removePlotLine', 'getExtremes', 'setExtremes']);
       return _this;
     }
 
@@ -877,6 +877,8 @@ function provideAxis(WrappedComponent) {
         var removePlotBand = axis && axis.removePlotBand.bind(axis);
         var addPlotLine = axis && axis.addPlotLine.bind(axis);
         var removePlotLine = axis && axis.removePlotLine.bind(axis);
+        var getExtremes = axis && axis.getExtremes.bind(axis);
+        var setExtremes = axis && axis.setExtremes.bind(axis);
         var getAxis = function getAxis() {
           return _this2.props.get(id);
         };
@@ -888,6 +890,8 @@ function provideAxis(WrappedComponent) {
           removePlotBand: (0, _cleanPropsBeforeUpdate2.default)(removePlotBand),
           addPlotLine: (0, _cleanPropsBeforeUpdate2.default)(addPlotLine),
           removePlotLine: (0, _cleanPropsBeforeUpdate2.default)(removePlotLine),
+          getExtremes: getExtremes,
+          setExtremes: setExtremes,
           getAxis: getAxis }));
       }
     }]);
@@ -3394,7 +3398,7 @@ function stubArray() {
 
 module.exports = pickBy;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(14), __webpack_require__(28)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(14), __webpack_require__(29)(module)))
 
 /***/ }),
 /* 37 */
@@ -3456,7 +3460,7 @@ var _react = __webpack_require__(5);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _highstockRelease = __webpack_require__(29);
+var _highstockRelease = __webpack_require__(24);
 
 var _highstockRelease2 = _interopRequireDefault(_highstockRelease);
 
@@ -3464,7 +3468,7 @@ var _ChartProvider = __webpack_require__(10);
 
 var _ChartProvider2 = _interopRequireDefault(_ChartProvider);
 
-var _providedProps = __webpack_require__(24);
+var _providedProps = __webpack_require__(25);
 
 var _providedProps2 = _interopRequireDefault(_providedProps);
 
@@ -3583,7 +3587,7 @@ var _lodash5 = __webpack_require__(201);
 
 var _lodash6 = _interopRequireDefault(_lodash5);
 
-var _providedProps = __webpack_require__(24);
+var _providedProps = __webpack_require__(25);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -3620,7 +3624,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.addEventHandlers = exports.getNonEventHandlerProps = exports.getEventHandlerProps = undefined;
 
-var _highstockRelease = __webpack_require__(29);
+var _highstockRelease = __webpack_require__(24);
 
 var _highstockRelease2 = _interopRequireDefault(_highstockRelease);
 
@@ -3701,7 +3705,7 @@ module.exports = true;
 /***/ (function(module, exports, __webpack_require__) {
 
 // 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
-var anObject    = __webpack_require__(25)
+var anObject    = __webpack_require__(26)
   , dPs         = __webpack_require__(180)
   , enumBugKeys = __webpack_require__(42)
   , IE_PROTO    = __webpack_require__(48)('IE_PROTO')
@@ -3808,7 +3812,7 @@ module.exports = function(it){
 /***/ (function(module, exports, __webpack_require__) {
 
 // 7.1.1 ToPrimitive(input [, PreferredType])
-var isObject = __webpack_require__(26);
+var isObject = __webpack_require__(27);
 // instead of the ES6 spec version, we didn't implement @@toPrimitive case
 // and the second argument - flag - preferred type is a string
 module.exports = function(it, S){
@@ -3912,7 +3916,7 @@ module.exports = function(fn, that, length){
 /* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var isObject = __webpack_require__(26)
+var isObject = __webpack_require__(27)
   , document = __webpack_require__(15).document
   // in old IE typeof document.createElement is 'object'
   , is = isObject(document) && isObject(document.createElement);
@@ -6517,7 +6521,7 @@ function stubFalse() {
 
 module.exports = isEqual;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(14), __webpack_require__(28)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(14), __webpack_require__(29)(module)))
 
 /***/ }),
 /* 70 */
@@ -7946,7 +7950,7 @@ var _propTypes = __webpack_require__(6);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _highstockRelease = __webpack_require__(29);
+var _highstockRelease = __webpack_require__(24);
 
 var _highstockRelease2 = _interopRequireDefault(_highstockRelease);
 
@@ -9427,7 +9431,7 @@ var _propTypes = __webpack_require__(6);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _highstockRelease = __webpack_require__(29);
+var _highstockRelease = __webpack_require__(24);
 
 var _highstockRelease2 = _interopRequireDefault(_highstockRelease);
 
@@ -10386,7 +10390,7 @@ var _propTypes = __webpack_require__(6);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _highstockRelease = __webpack_require__(29);
+var _highstockRelease = __webpack_require__(24);
 
 var _highstockRelease2 = _interopRequireDefault(_highstockRelease);
 
@@ -11384,7 +11388,7 @@ var _propTypes = __webpack_require__(6);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _highstockRelease = __webpack_require__(29);
+var _highstockRelease = __webpack_require__(24);
 
 var _highstockRelease2 = _interopRequireDefault(_highstockRelease);
 
@@ -12108,7 +12112,7 @@ module.exports = function(IS_INCLUDES){
 /***/ (function(module, exports, __webpack_require__) {
 
 // all enumerable object keys, includes symbols
-var getKeys = __webpack_require__(27)
+var getKeys = __webpack_require__(28)
   , gOPS    = __webpack_require__(46)
   , pIE     = __webpack_require__(33);
 module.exports = function(it){
@@ -12170,7 +12174,7 @@ module.exports = function(done, value){
 /* 177 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var getKeys   = __webpack_require__(27)
+var getKeys   = __webpack_require__(28)
   , toIObject = __webpack_require__(20);
 module.exports = function(object, el){
   var O      = toIObject(object)
@@ -12186,7 +12190,7 @@ module.exports = function(object, el){
 /***/ (function(module, exports, __webpack_require__) {
 
 var META     = __webpack_require__(35)('meta')
-  , isObject = __webpack_require__(26)
+  , isObject = __webpack_require__(27)
   , has      = __webpack_require__(18)
   , setDesc  = __webpack_require__(19).f
   , id       = 0;
@@ -12246,7 +12250,7 @@ var meta = module.exports = {
 "use strict";
 
 // 19.1.2.1 Object.assign(target, source, ...)
-var getKeys  = __webpack_require__(27)
+var getKeys  = __webpack_require__(28)
   , gOPS     = __webpack_require__(46)
   , pIE      = __webpack_require__(33)
   , toObject = __webpack_require__(51)
@@ -12283,8 +12287,8 @@ module.exports = !$assign || __webpack_require__(21)(function(){
 /***/ (function(module, exports, __webpack_require__) {
 
 var dP       = __webpack_require__(19)
-  , anObject = __webpack_require__(25)
-  , getKeys  = __webpack_require__(27);
+  , anObject = __webpack_require__(26)
+  , getKeys  = __webpack_require__(28);
 
 module.exports = __webpack_require__(16) ? Object.defineProperties : function defineProperties(O, Properties){
   anObject(O);
@@ -12342,8 +12346,8 @@ module.exports = function(KEY, exec){
 
 // Works with __proto__ only. Old v8 can't work with null proto objects.
 /* eslint-disable no-proto */
-var isObject = __webpack_require__(26)
-  , anObject = __webpack_require__(25);
+var isObject = __webpack_require__(27)
+  , anObject = __webpack_require__(26);
 var check = function(O, proto){
   anObject(O);
   if(!isObject(proto) && proto !== null)throw TypeError(proto + ": can't set as prototype!");
@@ -12550,7 +12554,7 @@ var global         = __webpack_require__(15)
   , keyOf          = __webpack_require__(177)
   , enumKeys       = __webpack_require__(172)
   , isArray        = __webpack_require__(174)
-  , anObject       = __webpack_require__(25)
+  , anObject       = __webpack_require__(26)
   , toIObject      = __webpack_require__(20)
   , toPrimitive    = __webpack_require__(52)
   , createDesc     = __webpack_require__(34)
@@ -12558,7 +12562,7 @@ var global         = __webpack_require__(15)
   , gOPNExt        = __webpack_require__(181)
   , $GOPD          = __webpack_require__(63)
   , $DP            = __webpack_require__(19)
-  , $keys          = __webpack_require__(27)
+  , $keys          = __webpack_require__(28)
   , gOPD           = $GOPD.f
   , dP             = $DP.f
   , gOPN           = gOPNExt.f
@@ -15636,7 +15640,7 @@ function property(path) {
 
 module.exports = mapKeys;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(14), __webpack_require__(28)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(14), __webpack_require__(29)(module)))
 
 /***/ }),
 /* 204 */
@@ -17923,7 +17927,7 @@ function property(path) {
 
 module.exports = mapValues;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(14), __webpack_require__(28)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(14), __webpack_require__(29)(module)))
 
 /***/ }),
 /* 205 */
@@ -21890,7 +21894,7 @@ function stubArray() {
 
 module.exports = omitBy;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(14), __webpack_require__(28)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(14), __webpack_require__(29)(module)))
 
 /***/ }),
 /* 207 */

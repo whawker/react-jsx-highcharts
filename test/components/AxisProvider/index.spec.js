@@ -28,6 +28,8 @@ describe('<AxisProvider />', function () {
       this.axis.removePlotBand.withArgs({ prop: 'Test7654' }).returns('removePlotBand method mock');
       this.axis.addPlotLine.withArgs({ prop: 'Test4444' }).returns('addPlotLine method mock');
       this.axis.removePlotLine.withArgs({ prop: 'Test5555' }).returns('removePlotLine method mock');
+      this.axis.getExtremes.withArgs({ prop: 'Test6666' }).returns('getExtremes method mock');
+      this.axis.setExtremes.withArgs({ prop: 'Test7777' }).returns('setExtremes method mock');
     });
 
     it('should pass the `update` function of the axis to the wrapped component', function () {
@@ -60,6 +62,16 @@ describe('<AxisProvider />', function () {
       expect(wrapper.props().removePlotLine({ prop: 'Test5555' })).to.eql('removePlotLine method mock');
     });
 
+    it('should pass the `getExtremes` function of the axis to the wrapped component', function () {
+      const wrapper = mount(<AxisWrappedComponent axisId="myAxisId" />, {context: this.context}).find(WrappedComponent);
+      expect(wrapper.props().getExtremes({ prop: 'Test6666' })).to.eql('getExtremes method mock');
+    });
+
+    it('should pass the `setExtremes` function of the axis to the wrapped component', function () {
+      const wrapper = mount(<AxisWrappedComponent axisId="myAxisId" />, {context: this.context}).find(WrappedComponent);
+      expect(wrapper.props().setExtremes({ prop: 'Test7777' })).to.eql('setExtremes method mock');
+    });
+
     it('should pass the `getAxis` helper function to the wrapped component', function () {
       const wrapper = mount(<AxisWrappedComponent axisId="myAxisId" />, {context: this.context}).find(WrappedComponent);
       expect(wrapper.props().getAxis()).to.eql(this.axis);
@@ -80,6 +92,8 @@ describe('<AxisProvider />', function () {
       this.axis.removePlotBand.withArgs({ prop: 'Test7654' }).returnsThis();
       this.axis.addPlotLine.withArgs({ prop: 'Test4444' }).returnsThis();
       this.axis.removePlotLine.withArgs({ prop: 'Test5555' }).returnsThis();
+      this.axis.getExtremes.withArgs({ prop: 'Test6666' }).returnsThis();
+      this.axis.setExtremes.withArgs({ prop: 'Test7777' }).returnsThis();
     });
 
     it('the scope of the `update` function should be bound to the axis', function () {
@@ -110,6 +124,16 @@ describe('<AxisProvider />', function () {
     it('the scope of the `removePlotLine` function should be bound to the axis', function () {
       const wrapper = mount(<AxisWrappedComponent axisId="myAxisId" />, {context: this.context}).find(WrappedComponent);
       expect(wrapper.props().removePlotLine({ prop: 'Test5555' })).to.eql(this.axis);
+    });
+
+    it('the scope of the `getExtremes` function should be bound to the axis', function () {
+      const wrapper = mount(<AxisWrappedComponent axisId="myAxisId" />, {context: this.context}).find(WrappedComponent);
+      expect(wrapper.props().getExtremes({ prop: 'Test6666' })).to.eql(this.axis);
+    });
+
+    it('the scope of the `setExtremes` function should be bound to the axis', function () {
+      const wrapper = mount(<AxisWrappedComponent axisId="myAxisId" />, {context: this.context}).find(WrappedComponent);
+      expect(wrapper.props().setExtremes({ prop: 'Test7777' })).to.eql(this.axis);
     });
   });
 });
