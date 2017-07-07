@@ -6,6 +6,7 @@ const zipObject = require('lodash.zipobject');
 const examples = [
   'AddSeries',
   'Combo',
+  'CustomComponent',
   'Events',
   'Funnel',
   'Highstocks',
@@ -29,6 +30,8 @@ module.exports = {
     'react': 'React',
     'react-dom': 'ReactDOM',
     'highstock-release': 'Highcharts',
+    'moment': 'moment',
+    'react-day-picker': 'DayPicker',
     '../..': 'ReactHighcharts'
   },
 
@@ -43,6 +46,10 @@ module.exports = {
           plugins: ['transform-runtime'],
           presets: ['es2015', 'react', 'stage-0']
         }
+      },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader']
       }
     ]
   },
