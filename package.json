@@ -1,10 +1,8 @@
 {
   "name": "react-jsx-highcharts",
-  "version": "0.1.0",
-  "description": "React charts built using Highcharts",
+  "version": "0.1.1",
+  "description": "Highcharts charts built using React components",
   "main": "dist/react-jsx-highcharts.js",
-  "module": "src/index.js",
-  "jsnext:main": "src/index.js",
   "scripts": {
     "build": "./node_modules/.bin/webpack",
     "build:examples": "./node_modules/.bin/webpack --config examples/webpack.config.js",
@@ -44,6 +42,7 @@
     "chai": "^3.5.0",
     "chai-enzyme": "^0.7.0",
     "cross-env": "^5.0.0",
+    "css-loader": "^0.28.4",
     "enzyme": "^2.8.2",
     "eslint": "^3.19.0",
     "eslint-config-react-app": "^1.0.2",

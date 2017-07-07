@@ -64,7 +64,7 @@ var example =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 115);
+/******/ 	return __webpack_require__(__webpack_require__.s = 113);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -2028,8 +2028,7 @@ var addDataPoint = exports.addDataPoint = function addDataPoint(data, toAdd) {
 /***/ }),
 /* 98 */,
 /* 99 */,
-/* 100 */,
-/* 101 */
+/* 100 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2069,9 +2068,13 @@ var _ExampleCode = __webpack_require__(49);
 
 var _ExampleCode2 = _interopRequireDefault(_ExampleCode);
 
-var _exampleCode = __webpack_require__(114);
+var _exampleCode = __webpack_require__(136);
 
 var _exampleCode2 = _interopRequireDefault(_exampleCode);
+
+var _DateRangePickers = __webpack_require__(112);
+
+var _DateRangePickers2 = _interopRequireDefault(_DateRangePickers);
 
 var _dataHelpers = __webpack_require__(97);
 
@@ -2085,55 +2088,35 @@ var App = function (_Component) {
 
     var _this = (0, _possibleConstructorReturn3.default)(this, (App.__proto__ || (0, _getPrototypeOf2.default)(App)).call(this, props));
 
-    _this.handleClick = _this.handleClick.bind(_this);
-    _this.handleShow = _this.handleShow.bind(_this);
-    _this.handleHide = _this.handleHide.bind(_this);
-
+    var now = Date.now();
     _this.state = {
-      userClicks: [],
-      clickCounter: 0
+      data1: (0, _dataHelpers.createRandomData)(now, 1e8)
     };
     return _this;
   }
 
   (0, _createClass3.default)(App, [{
-    key: 'handleClick',
-    value: function handleClick(e) {
-      this.setState({
-        userClicks: (0, _dataHelpers.addDataPoint)(this.state.userClicks, [e.xAxis[0].value, e.yAxis[0].value]),
-        clickCounter: this.state.clickCounter + 1
-      });
-    }
-  }, {
-    key: 'handleShow',
-    value: function handleShow() {
-      alert('Series shown');
-    }
-  }, {
-    key: 'handleHide',
-    value: function handleHide() {
-      alert('Series hidden');
-    }
-  }, {
     key: 'render',
     value: function render() {
-      var myClicks = [[154, 97], [458, 235], [314, 127], [430, 207], [196, 113], [354, 223], [444, 253], [182, 59], [244, 249], [414, 253], [458, 209]];
-      var _state = this.state,
-          userClicks = _state.userClicks,
-          clickCounter = _state.clickCounter;
+      var data1 = this.state.data1;
 
 
       return _react2.default.createElement(
         'div',
         { className: 'app' },
         _react2.default.createElement(
-          _.HighchartsChart,
+          _.HighchartsStockChart,
           null,
-          _react2.default.createElement(_.Chart, { zoomType: 'xy', onClick: this.handleClick }),
+          _react2.default.createElement(_.Chart, { zoomType: 'x' }),
           _react2.default.createElement(
             _.Title,
             null,
-            'Click to add data'
+            'Custom Components'
+          ),
+          _react2.default.createElement(
+            _.Subtitle,
+            null,
+            'react-day-picker Date Pickers'
           ),
           _react2.default.createElement(
             _.Legend,
@@ -2141,7 +2124,7 @@ var App = function (_Component) {
             _react2.default.createElement(
               _.Legend.Title,
               null,
-              'Legend'
+              'Key'
             )
           ),
           _react2.default.createElement(
@@ -2150,34 +2133,29 @@ var App = function (_Component) {
             _react2.default.createElement(
               _.XAxis.Title,
               null,
-              'X Coord'
+              'Time'
             )
           ),
           _react2.default.createElement(
             _.YAxis,
-            { id: 'scatter' },
+            { id: 'price' },
             _react2.default.createElement(
               _.YAxis.Title,
               null,
-              'Y Coord'
+              'Price'
             ),
-            _react2.default.createElement(_.ScatterSeries, { id: 'my-clicks', name: 'My clicks', data: myClicks }),
-            _react2.default.createElement(_.ScatterSeries, { id: 'user-clicks', name: 'Your clicks', data: userClicks, onHide: this.handleHide, onShow: this.handleShow })
-          )
-        ),
-        _react2.default.createElement(
-          'p',
-          null,
-          'Click count: ',
+            _react2.default.createElement(_.AreaSplineSeries, { id: 'profit', name: 'Profit', data: data1 })
+          ),
+          _react2.default.createElement(_DateRangePickers2.default, { axisId: 'xAxis' }),
           _react2.default.createElement(
-            'span',
+            _.Navigator,
             null,
-            clickCounter
+            _react2.default.createElement(_.Navigator.Series, { seriesId: 'profit' })
           )
         ),
         _react2.default.createElement(
           _ExampleCode2.default,
-          { name: 'Events' },
+          { name: 'CustomComponent' },
           _exampleCode2.default
         )
       );
@@ -2189,6 +2167,7 @@ var App = function (_Component) {
 exports.default = App;
 
 /***/ }),
+/* 101 */,
 /* 102 */,
 /* 103 */,
 /* 104 */,
@@ -2199,9 +2178,7 @@ exports.default = App;
 /* 109 */,
 /* 110 */,
 /* 111 */,
-/* 112 */,
-/* 113 */,
-/* 114 */
+/* 112 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2210,10 +2187,164 @@ exports.default = App;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = "\n<HighchartsChart>\n  <Chart zoomType=\"xy\" onClick={this.handleClick} />\n\n  <Title>Click to add data</Title>\n\n  <Legend>\n    <Legend.Title>Legend</Legend.Title>\n  </Legend>\n\n  <XAxis>\n    <XAxis.Title>X Coord</XAxis.Title>\n  </XAxis>\n\n  <YAxis id=\"scatter\">\n    <YAxis.Title>Y Coord</YAxis.Title>\n    <ScatterSeries id=\"my-clicks\" name=\"My clicks\" data={myClicks} />\n    <ScatterSeries id=\"user-clicks\" name=\"Your clicks\" data={userClicks} onHide={this.handleHide} onShow={this.handleShow} />\n  </YAxis>\n</HighchartsChart>";
+
+var _getPrototypeOf = __webpack_require__(43);
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = __webpack_require__(44);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(45);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = __webpack_require__(47);
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = __webpack_require__(46);
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _react = __webpack_require__(12);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _moment = __webpack_require__(135);
+
+var _moment2 = _interopRequireDefault(_moment);
+
+var _reactDayPicker = __webpack_require__(133);
+
+var _reactDayPicker2 = _interopRequireDefault(_reactDayPicker);
+
+var _highstockRelease = __webpack_require__(134);
+
+var _highstockRelease2 = _interopRequireDefault(_highstockRelease);
+
+var _ = __webpack_require__(48);
+
+__webpack_require__(132);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var DAY_FORMAT = 'DD MMM YYYY';
+
+var DateRangePickers = function (_Component) {
+  (0, _inherits3.default)(DateRangePickers, _Component);
+
+  function DateRangePickers(props) {
+    (0, _classCallCheck3.default)(this, DateRangePickers);
+
+    var _this = (0, _possibleConstructorReturn3.default)(this, (DateRangePickers.__proto__ || (0, _getPrototypeOf2.default)(DateRangePickers)).call(this, props));
+
+    _this.handleFromDateChange = _this.handleFromDateChange.bind(_this);
+    _this.handleToDateChange = _this.handleToDateChange.bind(_this);
+    _this.handleAfterSetExtremes = _this.handleAfterSetExtremes.bind(_this);
+
+    _this.state = {
+      min: null,
+      max: null
+    };
+    return _this;
+  }
+
+  (0, _createClass3.default)(DateRangePickers, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      _highstockRelease2.default.addEvent(this.props.getAxis(), 'afterSetExtremes', this.handleAfterSetExtremes);
+
+      var _props$getExtremes = this.props.getExtremes(),
+          min = _props$getExtremes.min,
+          max = _props$getExtremes.max;
+
+      this.setState({
+        min: min,
+        max: max
+      });
+    }
+  }, {
+    key: 'handleFromDateChange',
+    value: function handleFromDateChange(fromDate) {
+      var _props$getExtremes2 = this.props.getExtremes(),
+          max = _props$getExtremes2.max;
+
+      var selectedTime = fromDate.startOf('day').valueOf();
+
+      var newMax = selectedTime >= max ? selectedTime + 86400000 : max;
+      this.props.setExtremes(selectedTime, newMax);
+    }
+  }, {
+    key: 'handleToDateChange',
+    value: function handleToDateChange(toDate) {
+      var _props$getExtremes3 = this.props.getExtremes(),
+          min = _props$getExtremes3.min;
+
+      var selectedTime = toDate.startOf('day').valueOf();
+
+      var newMin = selectedTime <= min ? selectedTime - 86400000 : min;
+      this.props.setExtremes(newMin, selectedTime);
+    }
+  }, {
+    key: 'handleAfterSetExtremes',
+    value: function handleAfterSetExtremes(e) {
+      var min = e.min,
+          max = e.max;
+
+      this.setState({
+        min: min,
+        max: max
+      });
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var axis = this.props.getAxis();
+      if (!axis) return null;
+      var _state = this.state,
+          min = _state.min,
+          max = _state.max;
+
+
+      var fromDate = (0, _moment2.default)(min).format(DAY_FORMAT);
+      var toDate = (0, _moment2.default)(max).format(DAY_FORMAT);
+
+      return _react2.default.createElement(
+        'div',
+        { className: 'date-range-pickers' },
+        _react2.default.createElement(
+          'span',
+          { className: 'date-range-pickers__from-label' },
+          'From: '
+        ),
+        _react2.default.createElement(_reactDayPicker2.default.Input, {
+          value: fromDate,
+          onDayChange: this.handleFromDateChange,
+          format: DAY_FORMAT }),
+        _react2.default.createElement(
+          'span',
+          { className: 'date-range-pickers__to-label' },
+          'To: '
+        ),
+        _react2.default.createElement(_reactDayPicker2.default.Input, {
+          value: toDate,
+          onDayChange: this.handleToDateChange,
+          format: DAY_FORMAT })
+      );
+    }
+  }]);
+  return DateRangePickers;
+}(_react.Component);
+
+// The important bit, using the provideAxis HOC to inject Highcharts axis methods
+
+
+exports.default = (0, _.provideAxis)(DateRangePickers);
 
 /***/ }),
-/* 115 */
+/* 113 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2227,13 +2358,592 @@ var _reactDom = __webpack_require__(42);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _App = __webpack_require__(101);
+var _App = __webpack_require__(100);
 
 var _App2 = _interopRequireDefault(_App);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 _reactDom2.default.render(_react2.default.createElement(_App2.default, null), document.getElementById('root'));
+
+/***/ }),
+/* 114 */,
+/* 115 */,
+/* 116 */,
+/* 117 */,
+/* 118 */,
+/* 119 */,
+/* 120 */,
+/* 121 */,
+/* 122 */,
+/* 123 */,
+/* 124 */,
+/* 125 */,
+/* 126 */,
+/* 127 */,
+/* 128 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(129)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, ".date-range-pickers {\n  float: right;\n  position: relative;\n  z-index: 1000;\n}\n\n.date-range-pickers > span {\n  color: #666;\n}\n\n.date-range-pickers .DayPickerInput > input {\n  border: 1px solid #e6e6e6;\n  color: #666;\n  cursor: pointer;\n  border-radius: 4px;\n  text-align: center;\n  width: 100px;\n}\n\n.date-range-pickers__to-label {\n  margin-left: 10px;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 129 */
+/***/ (function(module, exports) {
+
+/*
+	MIT License http://www.opensource.org/licenses/mit-license.php
+	Author Tobias Koppers @sokra
+*/
+// css base code, injected by the css-loader
+module.exports = function(useSourceMap) {
+	var list = [];
+
+	// return the list of modules as css string
+	list.toString = function toString() {
+		return this.map(function (item) {
+			var content = cssWithMappingToString(item, useSourceMap);
+			if(item[2]) {
+				return "@media " + item[2] + "{" + content + "}";
+			} else {
+				return content;
+			}
+		}).join("");
+	};
+
+	// import a list of modules into the list
+	list.i = function(modules, mediaQuery) {
+		if(typeof modules === "string")
+			modules = [[null, modules, ""]];
+		var alreadyImportedModules = {};
+		for(var i = 0; i < this.length; i++) {
+			var id = this[i][0];
+			if(typeof id === "number")
+				alreadyImportedModules[id] = true;
+		}
+		for(i = 0; i < modules.length; i++) {
+			var item = modules[i];
+			// skip already imported module
+			// this implementation is not 100% perfect for weird media query combinations
+			//  when a module is imported multiple times with different media queries.
+			//  I hope this will never occur (Hey this way we have smaller bundles)
+			if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
+				if(mediaQuery && !item[2]) {
+					item[2] = mediaQuery;
+				} else if(mediaQuery) {
+					item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
+				}
+				list.push(item);
+			}
+		}
+	};
+	return list;
+};
+
+function cssWithMappingToString(item, useSourceMap) {
+	var content = item[1] || '';
+	var cssMapping = item[3];
+	if (!cssMapping) {
+		return content;
+	}
+
+	if (useSourceMap && typeof btoa === 'function') {
+		var sourceMapping = toComment(cssMapping);
+		var sourceURLs = cssMapping.sources.map(function (source) {
+			return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */'
+		});
+
+		return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
+	}
+
+	return [content].join('\n');
+}
+
+// Adapted from convert-source-map (MIT)
+function toComment(sourceMap) {
+	// eslint-disable-next-line no-undef
+	var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
+	var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
+
+	return '/*# ' + data + ' */';
+}
+
+
+/***/ }),
+/* 130 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/*
+	MIT License http://www.opensource.org/licenses/mit-license.php
+	Author Tobias Koppers @sokra
+*/
+var stylesInDom = {},
+	memoize = function(fn) {
+		var memo;
+		return function () {
+			if (typeof memo === "undefined") memo = fn.apply(this, arguments);
+			return memo;
+		};
+	},
+	isOldIE = memoize(function() {
+		// Test for IE <= 9 as proposed by Browserhacks
+		// @see http://browserhacks.com/#hack-e71d8692f65334173fee715c222cb805
+		// Tests for existence of standard globals is to allow style-loader 
+		// to operate correctly into non-standard environments
+		// @see https://github.com/webpack-contrib/style-loader/issues/177
+		return window && document && document.all && !window.atob;
+	}),
+	getElement = (function(fn) {
+		var memo = {};
+		return function(selector) {
+			if (typeof memo[selector] === "undefined") {
+				memo[selector] = fn.call(this, selector);
+			}
+			return memo[selector]
+		};
+	})(function (styleTarget) {
+		return document.querySelector(styleTarget)
+	}),
+	singletonElement = null,
+	singletonCounter = 0,
+	styleElementsInsertedAtTop = [],
+	fixUrls = __webpack_require__(131);
+
+module.exports = function(list, options) {
+	if(typeof DEBUG !== "undefined" && DEBUG) {
+		if(typeof document !== "object") throw new Error("The style-loader cannot be used in a non-browser environment");
+	}
+
+	options = options || {};
+	options.attrs = typeof options.attrs === "object" ? options.attrs : {};
+
+	// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
+	// tags it will allow on a page
+	if (typeof options.singleton === "undefined") options.singleton = isOldIE();
+
+	// By default, add <style> tags to the <head> element
+	if (typeof options.insertInto === "undefined") options.insertInto = "head";
+
+	// By default, add <style> tags to the bottom of the target
+	if (typeof options.insertAt === "undefined") options.insertAt = "bottom";
+
+	var styles = listToStyles(list, options);
+	addStylesToDom(styles, options);
+
+	return function update(newList) {
+		var mayRemove = [];
+		for(var i = 0; i < styles.length; i++) {
+			var item = styles[i];
+			var domStyle = stylesInDom[item.id];
+			domStyle.refs--;
+			mayRemove.push(domStyle);
+		}
+		if(newList) {
+			var newStyles = listToStyles(newList, options);
+			addStylesToDom(newStyles, options);
+		}
+		for(var i = 0; i < mayRemove.length; i++) {
+			var domStyle = mayRemove[i];
+			if(domStyle.refs === 0) {
+				for(var j = 0; j < domStyle.parts.length; j++)
+					domStyle.parts[j]();
+				delete stylesInDom[domStyle.id];
+			}
+		}
+	};
+};
+
+function addStylesToDom(styles, options) {
+	for(var i = 0; i < styles.length; i++) {
+		var item = styles[i];
+		var domStyle = stylesInDom[item.id];
+		if(domStyle) {
+			domStyle.refs++;
+			for(var j = 0; j < domStyle.parts.length; j++) {
+				domStyle.parts[j](item.parts[j]);
+			}
+			for(; j < item.parts.length; j++) {
+				domStyle.parts.push(addStyle(item.parts[j], options));
+			}
+		} else {
+			var parts = [];
+			for(var j = 0; j < item.parts.length; j++) {
+				parts.push(addStyle(item.parts[j], options));
+			}
+			stylesInDom[item.id] = {id: item.id, refs: 1, parts: parts};
+		}
+	}
+}
+
+function listToStyles(list, options) {
+	var styles = [];
+	var newStyles = {};
+	for(var i = 0; i < list.length; i++) {
+		var item = list[i];
+		var id = options.base ? item[0] + options.base : item[0];
+		var css = item[1];
+		var media = item[2];
+		var sourceMap = item[3];
+		var part = {css: css, media: media, sourceMap: sourceMap};
+		if(!newStyles[id])
+			styles.push(newStyles[id] = {id: id, parts: [part]});
+		else
+			newStyles[id].parts.push(part);
+	}
+	return styles;
+}
+
+function insertStyleElement(options, styleElement) {
+	var styleTarget = getElement(options.insertInto)
+	if (!styleTarget) {
+		throw new Error("Couldn't find a style target. This probably means that the value for the 'insertInto' parameter is invalid.");
+	}
+	var lastStyleElementInsertedAtTop = styleElementsInsertedAtTop[styleElementsInsertedAtTop.length - 1];
+	if (options.insertAt === "top") {
+		if(!lastStyleElementInsertedAtTop) {
+			styleTarget.insertBefore(styleElement, styleTarget.firstChild);
+		} else if(lastStyleElementInsertedAtTop.nextSibling) {
+			styleTarget.insertBefore(styleElement, lastStyleElementInsertedAtTop.nextSibling);
+		} else {
+			styleTarget.appendChild(styleElement);
+		}
+		styleElementsInsertedAtTop.push(styleElement);
+	} else if (options.insertAt === "bottom") {
+		styleTarget.appendChild(styleElement);
+	} else {
+		throw new Error("Invalid value for parameter 'insertAt'. Must be 'top' or 'bottom'.");
+	}
+}
+
+function removeStyleElement(styleElement) {
+	styleElement.parentNode.removeChild(styleElement);
+	var idx = styleElementsInsertedAtTop.indexOf(styleElement);
+	if(idx >= 0) {
+		styleElementsInsertedAtTop.splice(idx, 1);
+	}
+}
+
+function createStyleElement(options) {
+	var styleElement = document.createElement("style");
+	options.attrs.type = "text/css";
+
+	attachTagAttrs(styleElement, options.attrs);
+	insertStyleElement(options, styleElement);
+	return styleElement;
+}
+
+function createLinkElement(options) {
+	var linkElement = document.createElement("link");
+	options.attrs.type = "text/css";
+	options.attrs.rel = "stylesheet";
+
+	attachTagAttrs(linkElement, options.attrs);
+	insertStyleElement(options, linkElement);
+	return linkElement;
+}
+
+function attachTagAttrs(element, attrs) {
+	Object.keys(attrs).forEach(function (key) {
+		element.setAttribute(key, attrs[key]);
+	});
+}
+
+function addStyle(obj, options) {
+	var styleElement, update, remove, transformResult;
+
+	// If a transform function was defined, run it on the css
+	if (options.transform && obj.css) {
+	    transformResult = options.transform(obj.css);
+	    
+	    if (transformResult) {
+	    	// If transform returns a value, use that instead of the original css.
+	    	// This allows running runtime transformations on the css.
+	    	obj.css = transformResult;
+	    } else {
+	    	// If the transform function returns a falsy value, don't add this css. 
+	    	// This allows conditional loading of css
+	    	return function() {
+	    		// noop
+	    	};
+	    }
+	}
+
+	if (options.singleton) {
+		var styleIndex = singletonCounter++;
+		styleElement = singletonElement || (singletonElement = createStyleElement(options));
+		update = applyToSingletonTag.bind(null, styleElement, styleIndex, false);
+		remove = applyToSingletonTag.bind(null, styleElement, styleIndex, true);
+	} else if(obj.sourceMap &&
+		typeof URL === "function" &&
+		typeof URL.createObjectURL === "function" &&
+		typeof URL.revokeObjectURL === "function" &&
+		typeof Blob === "function" &&
+		typeof btoa === "function") {
+		styleElement = createLinkElement(options);
+		update = updateLink.bind(null, styleElement, options);
+		remove = function() {
+			removeStyleElement(styleElement);
+			if(styleElement.href)
+				URL.revokeObjectURL(styleElement.href);
+		};
+	} else {
+		styleElement = createStyleElement(options);
+		update = applyToTag.bind(null, styleElement);
+		remove = function() {
+			removeStyleElement(styleElement);
+		};
+	}
+
+	update(obj);
+
+	return function updateStyle(newObj) {
+		if(newObj) {
+			if(newObj.css === obj.css && newObj.media === obj.media && newObj.sourceMap === obj.sourceMap)
+				return;
+			update(obj = newObj);
+		} else {
+			remove();
+		}
+	};
+}
+
+var replaceText = (function () {
+	var textStore = [];
+
+	return function (index, replacement) {
+		textStore[index] = replacement;
+		return textStore.filter(Boolean).join('\n');
+	};
+})();
+
+function applyToSingletonTag(styleElement, index, remove, obj) {
+	var css = remove ? "" : obj.css;
+
+	if (styleElement.styleSheet) {
+		styleElement.styleSheet.cssText = replaceText(index, css);
+	} else {
+		var cssNode = document.createTextNode(css);
+		var childNodes = styleElement.childNodes;
+		if (childNodes[index]) styleElement.removeChild(childNodes[index]);
+		if (childNodes.length) {
+			styleElement.insertBefore(cssNode, childNodes[index]);
+		} else {
+			styleElement.appendChild(cssNode);
+		}
+	}
+}
+
+function applyToTag(styleElement, obj) {
+	var css = obj.css;
+	var media = obj.media;
+
+	if(media) {
+		styleElement.setAttribute("media", media)
+	}
+
+	if(styleElement.styleSheet) {
+		styleElement.styleSheet.cssText = css;
+	} else {
+		while(styleElement.firstChild) {
+			styleElement.removeChild(styleElement.firstChild);
+		}
+		styleElement.appendChild(document.createTextNode(css));
+	}
+}
+
+function updateLink(linkElement, options, obj) {
+	var css = obj.css;
+	var sourceMap = obj.sourceMap;
+
+	/* If convertToAbsoluteUrls isn't defined, but sourcemaps are enabled
+	and there is no publicPath defined then lets turn convertToAbsoluteUrls
+	on by default.  Otherwise default to the convertToAbsoluteUrls option
+	directly
+	*/
+	var autoFixUrls = options.convertToAbsoluteUrls === undefined && sourceMap;
+
+	if (options.convertToAbsoluteUrls || autoFixUrls){
+		css = fixUrls(css);
+	}
+
+	if(sourceMap) {
+		// http://stackoverflow.com/a/26603875
+		css += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + " */";
+	}
+
+	var blob = new Blob([css], { type: "text/css" });
+
+	var oldSrc = linkElement.href;
+
+	linkElement.href = URL.createObjectURL(blob);
+
+	if(oldSrc)
+		URL.revokeObjectURL(oldSrc);
+}
+
+
+/***/ }),
+/* 131 */
+/***/ (function(module, exports) {
+
+
+/**
+ * When source maps are enabled, `style-loader` uses a link element with a data-uri to
+ * embed the css on the page. This breaks all relative urls because now they are relative to a
+ * bundle instead of the current page.
+ *
+ * One solution is to only use full urls, but that may be impossible.
+ *
+ * Instead, this function "fixes" the relative urls to be absolute according to the current page location.
+ *
+ * A rudimentary test suite is located at `test/fixUrls.js` and can be run via the `npm test` command.
+ *
+ */
+
+module.exports = function (css) {
+  // get current location
+  var location = typeof window !== "undefined" && window.location;
+
+  if (!location) {
+    throw new Error("fixUrls requires window.location");
+  }
+
+	// blank or null?
+	if (!css || typeof css !== "string") {
+	  return css;
+  }
+
+  var baseUrl = location.protocol + "//" + location.host;
+  var currentDir = baseUrl + location.pathname.replace(/\/[^\/]*$/, "/");
+
+	// convert each url(...)
+	/*
+	This regular expression is just a way to recursively match brackets within
+	a string.
+
+	 /url\s*\(  = Match on the word "url" with any whitespace after it and then a parens
+	   (  = Start a capturing group
+	     (?:  = Start a non-capturing group
+	         [^)(]  = Match anything that isn't a parentheses
+	         |  = OR
+	         \(  = Match a start parentheses
+	             (?:  = Start another non-capturing groups
+	                 [^)(]+  = Match anything that isn't a parentheses
+	                 |  = OR
+	                 \(  = Match a start parentheses
+	                     [^)(]*  = Match anything that isn't a parentheses
+	                 \)  = Match a end parentheses
+	             )  = End Group
+              *\) = Match anything and then a close parens
+          )  = Close non-capturing group
+          *  = Match anything
+       )  = Close capturing group
+	 \)  = Match a close parens
+
+	 /gi  = Get all matches, not the first.  Be case insensitive.
+	 */
+	var fixedCss = css.replace(/url\s*\(((?:[^)(]|\((?:[^)(]+|\([^)(]*\))*\))*)\)/gi, function(fullMatch, origUrl) {
+		// strip quotes (if they exist)
+		var unquotedOrigUrl = origUrl
+			.trim()
+			.replace(/^"(.*)"$/, function(o, $1){ return $1; })
+			.replace(/^'(.*)'$/, function(o, $1){ return $1; });
+
+		// already a full url? no change
+		if (/^(#|data:|http:\/\/|https:\/\/|file:\/\/\/)/i.test(unquotedOrigUrl)) {
+		  return fullMatch;
+		}
+
+		// convert the url to a full url
+		var newUrl;
+
+		if (unquotedOrigUrl.indexOf("//") === 0) {
+		  	//TODO: should we add protocol?
+			newUrl = unquotedOrigUrl;
+		} else if (unquotedOrigUrl.indexOf("/") === 0) {
+			// path should be relative to the base url
+			newUrl = baseUrl + unquotedOrigUrl; // already starts with '/'
+		} else {
+			// path should be relative to current directory
+			newUrl = currentDir + unquotedOrigUrl.replace(/^\.\//, ""); // Strip leading './'
+		}
+
+		// send back the fixed url(...)
+		return "url(" + JSON.stringify(newUrl) + ")";
+	});
+
+	// send back the fixed css
+	return fixedCss;
+};
+
+
+/***/ }),
+/* 132 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(128);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// Prepare cssTransformation
+var transform;
+
+var options = {}
+options.transform = transform
+// add the styles to the DOM
+var update = __webpack_require__(130)(content, options);
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../../node_modules/css-loader/index.js!./DateRangePickers.css", function() {
+			var newContent = require("!!../../node_modules/css-loader/index.js!./DateRangePickers.css");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 133 */
+/***/ (function(module, exports) {
+
+module.exports = DayPicker;
+
+/***/ }),
+/* 134 */
+/***/ (function(module, exports) {
+
+module.exports = Highcharts;
+
+/***/ }),
+/* 135 */
+/***/ (function(module, exports) {
+
+module.exports = moment;
+
+/***/ }),
+/* 136 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = "\n// Rendered in App.js with <DateRangePickers axisId=\"xAxis\" />\n\nclass DateRangePickers extends Component {\n\n  constructor (props) {\n    super(props);\n\n    this.handleFromDateChange = this.handleFromDateChange.bind(this);\n    this.handleToDateChange = this.handleToDateChange.bind(this);\n    this.handleAfterSetExtremes = this.handleAfterSetExtremes.bind(this);\n\n    this.state = {\n      min: null,\n      max: null\n    };\n  }\n\n  componentDidMount () {\n    Highcharts.addEvent(this.props.getAxis(), 'afterSetExtremes', this.handleAfterSetExtremes);\n\n    const { min, max } = this.props.getExtremes();\n    this.setState({\n      min,\n      max\n    });\n  }\n\n  handleFromDateChange (fromDate) {\n    let { max } = this.props.getExtremes();\n    let selectedTime = fromDate.startOf('day').valueOf();\n\n    let newMax = (selectedTime >= max) ? selectedTime + 86400000 : max;\n    this.props.setExtremes(selectedTime, newMax);\n  }\n\n  handleToDateChange (toDate) {\n    let { min } = this.props.getExtremes();\n    let selectedTime = toDate.startOf('day').valueOf();\n\n    let newMin = (selectedTime <= min) ? selectedTime - 86400000 : min;\n    this.props.setExtremes(newMin, selectedTime);\n  }\n\n  handleAfterSetExtremes (e) {\n    const { min, max } = e;\n    this.setState({\n      min,\n      max\n    });\n  }\n\n  render () {\n    const axis = this.props.getAxis();\n    if (!axis) return null;\n    const { min, max } = this.state;\n\n    const fromDate = moment(min).format(DAY_FORMAT);\n    const toDate = moment(max).format(DAY_FORMAT);\n\n    return (\n      <div className=\"date-range-pickers\">\n        <span className=\"date-range-pickers__from-label\">From: </span>\n        <DayPicker.Input\n          value={fromDate}\n          onDayChange={this.handleFromDateChange}\n          format={DAY_FORMAT} />\n        <span className=\"date-range-pickers__to-label\">To: </span>\n        <DayPicker.Input\n          value={toDate}\n          onDayChange={this.handleToDateChange}\n          format={DAY_FORMAT} />\n      </div>\n    );\n  }\n}\n\n// The important bit, using the provideAxis HOC to inject Highcharts axis methods\nexport default provideAxis(DateRangePickers);";
 
 /***/ })
 /******/ ]);
