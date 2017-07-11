@@ -1,0 +1,18 @@
+#root {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.app {
+  flex: 1 0 0%;
+  height: 80vh;
+  max-width: 800px;
+  width: 98vw;
+}
+
+.app pre.language-jsx {
+  padding: 0 1em;
+}
