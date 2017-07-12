@@ -25,21 +25,21 @@ describe('<Axis />', function ()  {
     it('adds an X axis using the addAxis method', function () {
       mount(<Axis id="myAxis" dimension="x" addAxis={this.addAxis} getAxis={this.getAxis} />);
       expect(this.addAxis).to.have.been.calledWith(
-        { id: 'myAxis', getAxis: this.getAxis }, true, true
+        { id: 'myAxis', title: { text: null }, getAxis: this.getAxis }, true, true
       );
     });
 
     it('adds a Y axis using the addAxis method', function () {
       mount(<Axis id="myAxis" dimension="y" addAxis={this.addAxis} getAxis={this.getAxis} />);
       expect(this.addAxis).to.have.been.calledWith(
-        { id: 'myAxis', getAxis: this.getAxis }, false, true
+        { id: 'myAxis', title: { text: null }, getAxis: this.getAxis }, false, true
       );
     });
 
     it('adds should pass additional props through to Highcharts addAxis method', function () {
       mount(<Axis id="myAxis" dimension="x" min={10} max={100} reversed addAxis={this.addAxis} getAxis={this.getAxis} />);
       expect(this.addAxis).to.have.been.calledWith(
-        { id: 'myAxis', min: 10, max: 100, reversed: true, getAxis: this.getAxis }, true, true
+        { id: 'myAxis', title: { text: null }, min: 10, max: 100, reversed: true, getAxis: this.getAxis }, true, true
       );
     });
 

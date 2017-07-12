@@ -41,6 +41,12 @@ class BaseChart extends Component {
 
     const opts = {
       chart: {},
+      title: {
+        text: null
+      },
+      subtitle: {
+        text: null
+      },
       legend: {
         enabled: false
       },
