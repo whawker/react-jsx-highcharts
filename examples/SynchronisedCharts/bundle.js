@@ -64,7 +64,7 @@ var example =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 127);
+/******/ 	return __webpack_require__(__webpack_require__.s = 135);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -2002,7 +2002,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 /* 104 */,
 /* 105 */,
 /* 106 */,
-/* 107 */
+/* 107 */,
+/* 108 */,
+/* 109 */,
+/* 110 */,
+/* 111 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2042,7 +2046,7 @@ var _ExampleCode = __webpack_require__(49);
 
 var _ExampleCode2 = _interopRequireDefault(_ExampleCode);
 
-var _exampleCode = __webpack_require__(126);
+var _exampleCode = __webpack_require__(134);
 
 var _exampleCode2 = _interopRequireDefault(_exampleCode);
 
@@ -2175,10 +2179,6 @@ var App = function (_Component) {
 exports.default = App;
 
 /***/ }),
-/* 108 */,
-/* 109 */,
-/* 110 */,
-/* 111 */,
 /* 112 */,
 /* 113 */,
 /* 114 */,
@@ -2193,7 +2193,15 @@ exports.default = App;
 /* 123 */,
 /* 124 */,
 /* 125 */,
-/* 126 */
+/* 126 */,
+/* 127 */,
+/* 128 */,
+/* 129 */,
+/* 130 */,
+/* 131 */,
+/* 132 */,
+/* 133 */,
+/* 134 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2205,7 +2213,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = "\nHighcharts.Pointer.prototype.reset = () => {};\n\nHighcharts.Point.prototype.highlight = function (event) {\n  this.onMouseOver(); // Show the hover marker\n  this.series.chart.tooltip.refresh(this); // Show the tooltip\n  this.series.chart.xAxis[0].drawCrosshair(event, this); // Show the crosshair\n};\n\nclass App extends Component {\n\n  constructor(props) {\n    super(props);\n\n    this.handleMouseMove = this.handleMouseMove.bind(this);\n    this.renderChart = this.renderChart.bind(this);\n    this.state = {\n      chartData: null\n    };\n  }\n\n  componentDidMount () {\n    fetch('activity.json')\n      .then(res => {\n        if (res.ok) {\n          return res.json();\n        }\n        throw new Error('Network response was not ok.');\n      })\n      .then(json => {\n        this.setState({\n          chartData: json\n        })\n      });\n  }\n\n  renderChart (dataset, index) {\n    const tooltipPositioner = function () {\n      return { x: this.chart.chartWidth - this.label.width, y: 10 };\n    };\n    const data = dataset.data.map((val, i) => [this.state.chartData.xData[i], val]);\n    const colour = Highcharts.getOptions().colors[index];\n\n    return (\n      <HighchartsChart key={index}>\n        <Title align=\"left\" margin={30} x={30}>{dataset.name}</Title>\n        <XAxis crosshair labels={{format: '{value} km'}} />\n        <YAxis id=\"y\">\n          <Series\n            id={dataset.name}\n            name={dataset.name}\n            type={dataset.type}\n            data={data}\n            color={colour}\n            tooltip={{ valueSuffix: ` ${dataset.unit}` }} />\n        </YAxis>\n\n        <Tooltip\n          positioner={tooltipPositioner}\n          borderWidth={0}\n          backgroundColor=\"none\"\n          pointFormat=\"{point.y}\"\n          headerFormat=\"\"\n          shadow={false}\n          style={{ fontSize: '18px' }}\n          valueDecimals={dataset.valueDecimals} />\n      </HighchartsChart>\n    );\n  }\n\n  handleMouseMove (e) {\n    let point = null;\n    let event = null;\n\n    Highcharts.charts.forEach(chart => {\n      event = chart.pointer.normalize(e.originalEvent); // Find coordinates within the chart\n      point = chart.series[0].searchPoint(event, true); // Get the hovered point\n      if (point) {\n        point.highlight(e);\n      }\n    });\n  }\n\n  render() {\n    const { chartData } = this.state;\n    if (!chartData) return null;\n\n    return (\n      <div className=\"app\" onMouseMove={this.handleMouseMove}>\n        {chartData.datasets.map(this.renderChart)}\n      </div>\n    );\n  }\n}";
 
 /***/ }),
-/* 127 */
+/* 135 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2219,7 +2227,7 @@ var _reactDom = __webpack_require__(42);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _App = __webpack_require__(107);
+var _App = __webpack_require__(111);
 
 var _App2 = _interopRequireDefault(_App);
 

@@ -64,7 +64,7 @@ var example =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 119);
+/******/ 	return __webpack_require__(__webpack_require__.s = 126);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -2010,9 +2010,11 @@ var createDataPoint = exports.createDataPoint = function createDataPoint() {
 };
 
 var createRandomData = exports.createRandomData = function createRandomData(time, magnitude) {
+  var dataPoints = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 99;
+
   var data = [];
 
-  for (var i = -99; i <= 0; i++) {
+  for (var i = dataPoints * -1; i <= 0; i++) {
     data.push(createDataPoint(time, magnitude, i));
   }
   return data;
@@ -2031,7 +2033,10 @@ var addDataPoint = exports.addDataPoint = function addDataPoint(data, toAdd) {
 /* 100 */,
 /* 101 */,
 /* 102 */,
-/* 103 */
+/* 103 */,
+/* 104 */,
+/* 105 */,
+/* 106 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2071,7 +2076,7 @@ var _ExampleCode = __webpack_require__(49);
 
 var _ExampleCode2 = _interopRequireDefault(_ExampleCode);
 
-var _exampleCode = __webpack_require__(118);
+var _exampleCode = __webpack_require__(125);
 
 var _exampleCode2 = _interopRequireDefault(_exampleCode);
 
@@ -2200,9 +2205,6 @@ var App = function (_Component) {
 exports.default = App;
 
 /***/ }),
-/* 104 */,
-/* 105 */,
-/* 106 */,
 /* 107 */,
 /* 108 */,
 /* 109 */,
@@ -2214,7 +2216,14 @@ exports.default = App;
 /* 115 */,
 /* 116 */,
 /* 117 */,
-/* 118 */
+/* 118 */,
+/* 119 */,
+/* 120 */,
+/* 121 */,
+/* 122 */,
+/* 123 */,
+/* 124 */,
+/* 125 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2226,7 +2235,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = "\n<HighchartsStockChart>\n  <Chart onClick={this.handleClick} zoomType=\"x\" />\n\n  <Title>Highstocks Example</Title>\n\n  <Legend>\n    <Legend.Title>Key</Legend.Title>\n  </Legend>\n\n  <RangeSelector>\n    <RangeSelector.Button count={1} type=\"day\">1d</RangeSelector.Button>\n    <RangeSelector.Button count={7} type=\"day\">7d</RangeSelector.Button>\n    <RangeSelector.Button count={1} type=\"month\">1m</RangeSelector.Button>\n    <RangeSelector.Button type=\"all\">All</RangeSelector.Button>\n    <RangeSelector.Input boxBorderColor=\"#7cb5ec\" />\n  </RangeSelector>\n\n  <Tooltip />\n\n  <XAxis>\n    <XAxis.Title>Time</XAxis.Title>\n  </XAxis>\n\n  <YAxis id=\"price\">\n    <YAxis.Title>Price</YAxis.Title>\n    <AreaSplineSeries id=\"profit\" name=\"Profit\" data={data1} />\n  </YAxis>\n\n  <YAxis id=\"social\" opposite>\n    <YAxis.Title>Social Buzz</YAxis.Title>\n    <SplineSeries id=\"twitter\" name=\"Twitter mentions\" data={data2} />\n  </YAxis>\n\n  <Navigator>\n    <Navigator.Series seriesId=\"profit\" />\n    <Navigator.Series seriesId=\"twitter\" />\n  </Navigator>\n</HighchartsStockChart>";
 
 /***/ }),
-/* 119 */
+/* 126 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2240,7 +2249,7 @@ var _reactDom = __webpack_require__(42);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _App = __webpack_require__(103);
+var _App = __webpack_require__(106);
 
 var _App2 = _interopRequireDefault(_App);
 

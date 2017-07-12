@@ -13,7 +13,8 @@ const examples = [
   'LiveUpdate',
   'SimpleLine',
   'SplineWithPlotBands',
-  'SynchronisedCharts'
+  'SynchronisedCharts',
+  'Sparkline'
 ];
 
 module.exports = {

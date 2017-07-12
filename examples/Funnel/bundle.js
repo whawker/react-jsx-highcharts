@@ -64,7 +64,7 @@ var example =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 117);
+/******/ 	return __webpack_require__(__webpack_require__.s = 124);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -1997,7 +1997,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 /* 99 */,
 /* 100 */,
 /* 101 */,
-/* 102 */
+/* 102 */,
+/* 103 */,
+/* 104 */,
+/* 105 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2037,7 +2040,7 @@ var _ExampleCode = __webpack_require__(49);
 
 var _ExampleCode2 = _interopRequireDefault(_ExampleCode);
 
-var _exampleCode = __webpack_require__(116);
+var _exampleCode = __webpack_require__(123);
 
 var _exampleCode2 = _interopRequireDefault(_exampleCode);
 
@@ -2097,9 +2100,6 @@ var App = function (_Component) {
 exports.default = App;
 
 /***/ }),
-/* 103 */,
-/* 104 */,
-/* 105 */,
 /* 106 */,
 /* 107 */,
 /* 108 */,
@@ -2110,7 +2110,14 @@ exports.default = App;
 /* 113 */,
 /* 114 */,
 /* 115 */,
-/* 116 */
+/* 116 */,
+/* 117 */,
+/* 118 */,
+/* 119 */,
+/* 120 */,
+/* 121 */,
+/* 122 */,
+/* 123 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2122,7 +2129,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = "\nrender() {\n  const plotOptions = {\n    series: {\n      dataLabels: {\n        enabled: true,\n        format: '<b>{point.name}</b> ({point.y:,.0f})',\n        softConnector: true\n      },\n      center: ['40%', '50%'],\n      neckWidth: '30%',\n      neckHeight: '25%',\n      width: '80%'\n    }\n  };\n\n  const funnelData = [\n    ['Website visits', 15654],\n    ['Downloads', 4064],\n    ['Requested price list', 1987],\n    ['Invoice sent', 976],\n    ['Finalized', 846]\n  ];\n\n  return (\n    <div className=\"app\">\n      <HighchartsChart plotOptions={plotOptions}>\n        <Title>Sales funnel</Title>\n\n        <FunnelSeries id=\"unique-users\" name=\"Unique users\" data={funnelData} />\n      </HighchartsChart>\n    </div>\n  );\n}";
 
 /***/ }),
-/* 117 */
+/* 124 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2136,7 +2143,7 @@ var _reactDom = __webpack_require__(42);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _App = __webpack_require__(102);
+var _App = __webpack_require__(105);
 
 var _App2 = _interopRequireDefault(_App);
 

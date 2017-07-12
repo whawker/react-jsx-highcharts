@@ -64,7 +64,7 @@ var example =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 111);
+/******/ 	return __webpack_require__(__webpack_require__.s = 117);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -1994,7 +1994,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 /***/ }),
 /* 97 */,
 /* 98 */,
-/* 99 */
+/* 99 */,
+/* 100 */,
+/* 101 */,
+/* 102 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2034,7 +2037,7 @@ var _ExampleCode = __webpack_require__(49);
 
 var _ExampleCode2 = _interopRequireDefault(_ExampleCode);
 
-var _exampleCode = __webpack_require__(110);
+var _exampleCode = __webpack_require__(116);
 
 var _exampleCode2 = _interopRequireDefault(_exampleCode);
 
@@ -2100,9 +2103,6 @@ var App = function (_Component) {
 exports.default = App;
 
 /***/ }),
-/* 100 */,
-/* 101 */,
-/* 102 */,
 /* 103 */,
 /* 104 */,
 /* 105 */,
@@ -2110,7 +2110,13 @@ exports.default = App;
 /* 107 */,
 /* 108 */,
 /* 109 */,
-/* 110 */
+/* 110 */,
+/* 111 */,
+/* 112 */,
+/* 113 */,
+/* 114 */,
+/* 115 */,
+/* 116 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2122,7 +2128,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = "\nconst pieData = [{\n  name: 'Jane',\n  y: 13\n}, {\n  name: 'John',\n  y: 23\n}, {\n  name: 'Joe',\n  y: 19\n}];\n\nreturn (\n  <HighchartsChart>\n    <Chart />\n\n    <Title>Combination chart</Title>\n\n    <Legend />\n\n    <XAxis id=\"x\" categories={['Apples', 'Oranges', 'Pears', 'Bananas', 'Plums']} />\n\n    <YAxis id=\"number\">\n      <ColumnSeries id=\"jane\" name=\"Jane\" data={[3, 2, 1, 3, 4]} />\n      <ColumnSeries id=\"john\" name=\"John\" data={[2, 3, 5, 7, 6]} />\n      <ColumnSeries id=\"joe\" name=\"Joe\" data={[4, 3, 3, 9, 0]} />\n      <SplineSeries id=\"average\" name=\"Average\" data={[3, 2.67, 3, 6.33, 3.33]} />\n      <PieSeries id=\"total-consumption\" name=\"Total consumption\" data={pieData} center={[100, 80]} size={100} showInLegend={false} />\n    </YAxis>\n  </HighchartsChart>\n);";
 
 /***/ }),
-/* 111 */
+/* 117 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2136,7 +2142,7 @@ var _reactDom = __webpack_require__(42);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _App = __webpack_require__(99);
+var _App = __webpack_require__(102);
 
 var _App2 = _interopRequireDefault(_App);
 

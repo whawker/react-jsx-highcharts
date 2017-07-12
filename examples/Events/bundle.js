@@ -64,7 +64,7 @@ var example =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 115);
+/******/ 	return __webpack_require__(__webpack_require__.s = 122);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -2010,9 +2010,11 @@ var createDataPoint = exports.createDataPoint = function createDataPoint() {
 };
 
 var createRandomData = exports.createRandomData = function createRandomData(time, magnitude) {
+  var dataPoints = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 99;
+
   var data = [];
 
-  for (var i = -99; i <= 0; i++) {
+  for (var i = dataPoints * -1; i <= 0; i++) {
     data.push(createDataPoint(time, magnitude, i));
   }
   return data;
@@ -2029,7 +2031,10 @@ var addDataPoint = exports.addDataPoint = function addDataPoint(data, toAdd) {
 /* 98 */,
 /* 99 */,
 /* 100 */,
-/* 101 */
+/* 101 */,
+/* 102 */,
+/* 103 */,
+/* 104 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2069,7 +2074,7 @@ var _ExampleCode = __webpack_require__(49);
 
 var _ExampleCode2 = _interopRequireDefault(_ExampleCode);
 
-var _exampleCode = __webpack_require__(114);
+var _exampleCode = __webpack_require__(121);
 
 var _exampleCode2 = _interopRequireDefault(_exampleCode);
 
@@ -2189,9 +2194,6 @@ var App = function (_Component) {
 exports.default = App;
 
 /***/ }),
-/* 102 */,
-/* 103 */,
-/* 104 */,
 /* 105 */,
 /* 106 */,
 /* 107 */,
@@ -2201,7 +2203,14 @@ exports.default = App;
 /* 111 */,
 /* 112 */,
 /* 113 */,
-/* 114 */
+/* 114 */,
+/* 115 */,
+/* 116 */,
+/* 117 */,
+/* 118 */,
+/* 119 */,
+/* 120 */,
+/* 121 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2213,7 +2222,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = "\n<HighchartsChart>\n  <Chart zoomType=\"xy\" onClick={this.handleClick} />\n\n  <Title>Click to add data</Title>\n\n  <Legend>\n    <Legend.Title>Legend</Legend.Title>\n  </Legend>\n\n  <XAxis>\n    <XAxis.Title>X Coord</XAxis.Title>\n  </XAxis>\n\n  <YAxis id=\"scatter\">\n    <YAxis.Title>Y Coord</YAxis.Title>\n    <ScatterSeries id=\"my-clicks\" name=\"My clicks\" data={myClicks} />\n    <ScatterSeries id=\"user-clicks\" name=\"Your clicks\" data={userClicks} onHide={this.handleHide} onShow={this.handleShow} />\n  </YAxis>\n</HighchartsChart>";
 
 /***/ }),
-/* 115 */
+/* 122 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2227,7 +2236,7 @@ var _reactDom = __webpack_require__(42);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _App = __webpack_require__(101);
+var _App = __webpack_require__(104);
 
 var _App2 = _interopRequireDefault(_App);
 
