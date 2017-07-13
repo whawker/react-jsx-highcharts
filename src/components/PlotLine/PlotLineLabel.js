@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import pickBy from 'lodash.pickby';
+import pickBy from 'lodash/pickBy';
 
 class PlotLineLabel extends Component {
 

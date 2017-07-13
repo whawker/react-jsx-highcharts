@@ -1,11 +1,16 @@
 const webpack = require('webpack');
 const path = require('path');
+const fs = require('fs');
+const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 
-module.exports = {
+const isProd = (process.env.NODE_ENV === 'production');
+const babelSettings = JSON.parse(fs.readFileSync('.babelrc'));
+
+const webpackConfig = {
   entry: path.resolve(__dirname, 'src'),
 
   output: {
-    filename: 'react-jsx-highcharts.js',
+    filename: isProd ? 'react-jsx-highcharts.min.js' : 'react-jsx-highcharts.js',
     path: path.resolve(__dirname, 'dist'),
     library: 'ReactHighcharts',
     libraryTarget: 'umd'
@@ -38,11 +43,7 @@ module.exports = {
         test: /\.js$/,
         loader: 'babel-loader',
         exclude: /node_modules/,
-        query: {
-          cacheDirectory: true,
-          plugins: ['transform-runtime', 'transform-react-remove-prop-types'],
-          presets: [[ 'es2015', { modules: false } ], 'react', 'stage-0']
-        }
+        query: babelSettings
       }
     ]
   },
@@ -50,8 +51,19 @@ module.exports = {
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
-        'NODE_ENV': JSON.stringify('production')
+        'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
       }
+    }),
+    new LodashModuleReplacementPlugin({
+      collections: true
     })
   ]
 };
+
+if (isProd) {
+  webpackConfig.plugins.push(
+    new webpack.optimize.UglifyJsPlugin()
+  );
+}
+
+module.exports = webpackConfig;

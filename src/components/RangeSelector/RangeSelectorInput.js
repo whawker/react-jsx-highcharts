@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import mapKeys from 'lodash.mapkeys';
-import upperFirst from 'lodash.upperfirst';
+import mapKeys from 'lodash/mapKeys';
+import upperFirst from 'lodash/upperFirst';
 import getModifiedProps from '../../utils/getModifiedProps';
 
 class RangeSelectorInput extends Component {
