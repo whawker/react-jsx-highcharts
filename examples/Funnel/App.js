@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {
   HighchartsChart, Title, FunnelSeries
-} from '../..';
+} from 'react-jsx-highcharts';
 import ExampleCode from '../utils/ExampleCode';
 import code from './exampleCode';
 

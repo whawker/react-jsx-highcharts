@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {
   HighchartsChart, XAxis, YAxis, Title, Series, Tooltip
-} from '../..';
+} from 'react-jsx-highcharts';
 import ExampleCode from '../utils/ExampleCode';
 import code from './exampleCode';
 

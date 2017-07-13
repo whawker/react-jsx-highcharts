@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {
   HighchartsStockChart, Chart, XAxis, YAxis, Title, Subtitle, Legend, AreaSplineSeries, Navigator
-} from '../..';
+} from 'react-jsx-highcharts';
 import ExampleCode from '../utils/ExampleCode';
 import code from './exampleCode';
 import DateRangePickers from './DateRangePickers';
