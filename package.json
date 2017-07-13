@@ -8,7 +8,7 @@
     "build:prod": "cross-env NODE_ENV=production ./node_modules/.bin/webpack -p",
     "build:examples": "./node_modules/.bin/webpack --config examples/webpack.config.js",
     "lint": "./node_modules/.bin/eslint src",
-    "test": "./node_modules/.bin/mocha --compilers js:babel-core/register --require test/test-helper.js test/**/*.spec.js"
+    "test": "cross-env NODE_ENV=test ./node_modules/.bin/mocha --compilers js:babel-core/register --require test/test-helper.js test/**/*.spec.js"
   },
   "author": "Will Hawker",
   "license": "MIT",
