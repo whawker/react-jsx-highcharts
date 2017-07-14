@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {
   HighchartsStockChart, Chart, XAxis, YAxis, Title, Legend, AreaSplineSeries,
   SplineSeries, Navigator, RangeSelector, Tooltip
-} from '../..';
+} from 'react-jsx-highcharts';
 import ExampleCode from '../utils/ExampleCode';
 import code from './exampleCode';
 import { createRandomData } from '../utils/data-helpers';

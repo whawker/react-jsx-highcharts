@@ -22,7 +22,7 @@ class Axis extends Component {
     const isX = dimension.toLowerCase() === 'x';
 
     const nonEventProps = getNonEventHandlerProps(rest);
-    addAxis(nonEventProps, isX, true);
+    addAxis(Object.assign({ title: { text: null } }, nonEventProps), isX, true);
   }
 
   componentDidMount () {

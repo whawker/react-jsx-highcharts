@@ -1,6 +1,6 @@
-import mapValues from 'lodash.mapvalues';
-import omit from 'lodash.omit';
-import isPlainObject from 'lodash.isplainobject';
+import mapValues from 'lodash/mapValues';
+import omit from 'lodash/omit';
+import isPlainObject from 'lodash/isPlainObject';
 import { getProvidedProps } from './providedProps';
 
 export default function cleanPropsBeforeUpdate (wrappedUpdate) {

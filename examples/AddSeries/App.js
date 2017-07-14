@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {
   HighchartsChart, XAxis, YAxis, Title, Legend, LineSeries
-} from '../..';
+} from 'react-jsx-highcharts';
 import ExampleCode from '../utils/ExampleCode';
 import code from './exampleCode';
 import { createRandomData } from '../utils/data-helpers';

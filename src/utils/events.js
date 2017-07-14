@@ -1,8 +1,8 @@
 import Highcharts from 'highstock-release';
-import forEach from 'lodash.foreach';
-import lowerFirst from 'lodash.lowerfirst';
-import pickBy from 'lodash.pickby';
-import omitBy from 'lodash.omitby';
+import forEach from 'lodash/forEach';
+import lowerFirst from 'lodash/lowerFirst';
+import pickBy from 'lodash/pickBy';
+import omitBy from 'lodash/omitBy';
 
 export const getEventHandlerProps  = props => {
   return pickBy(props, isEventKey);

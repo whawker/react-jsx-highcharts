@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import isEqual from 'lodash.isequal';
+import isEqual from 'lodash/isEqual';
 import addEventProps, { getNonEventHandlerProps } from '../../utils/events';
 import getModifiedProps from '../../utils/getModifiedProps';
 import { validSeriesTypes } from '../../utils/propTypeValidators';

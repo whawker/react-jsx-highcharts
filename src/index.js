@@ -1,6 +1,7 @@
 // Graphs
 export HighchartsChart from './components/HighchartsChart';
 export HighchartsStockChart from './components/HighchartsStockChart';
+export HighchartsSparkline from './components/HighchartsSparkline';
 
 // Graph parts
 export Chart from './components/Chart';
