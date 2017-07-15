@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {
   HighchartsSparkline, AreaSeries, Tooltip
-} from '../..';
+} from 'react-jsx-highcharts';
 import Highcharts from 'highstock-release';
 import mapValues from 'lodash.mapvalues';
 import ExampleCode from '../utils/ExampleCode';
