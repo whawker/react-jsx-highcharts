@@ -14,8 +14,8 @@ const examples = [
   { name: 'LiveUpdate' },
   { name: 'SimpleLine' },
   { name: 'SplineWithPlotBands' },
-  { name: 'SynchronisedCharts' },
-  { name: 'Sparkline' }
+  { name: 'SynchronisedCharts', additional: ['promise-polyfill', 'fetch-polyfill'] },
+  { name: 'Sparkline', additional: ['promise-polyfill', 'fetch-polyfill'] }
 ];
 
 const exampleNames = examples.map(e => e.name);
@@ -30,7 +30,9 @@ const externals = {
   'prism':                'https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/prism.min.js',
   'prism-jsx':            'https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/components/prism-jsx.min.js',
   'moment':               'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js',
-  'react-day-picker':     'https://unpkg.com/react-day-picker@6.0.5/lib/daypicker.js'
+  'react-day-picker':     'https://unpkg.com/react-day-picker@6.0.5/lib/daypicker.js',
+  'promise-polyfill':     'https://www.promisejs.org/polyfills/promise-6.1.0.js',
+  'fetch-polyfill':       'https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.min.js'
 };
 
 module.exports = {

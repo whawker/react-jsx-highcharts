@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import moment from 'moment';
 import DayPicker from 'react-day-picker';
 import Highcharts from 'highstock-release';
-import { provideAxis } from '../..';
+import { provideAxis } from 'react-jsx-highcharts';
 import './DateRangePickers.css';
 
 const DAY_FORMAT = 'DD MMM YYYY';
