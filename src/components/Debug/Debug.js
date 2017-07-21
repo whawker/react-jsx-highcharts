@@ -4,12 +4,9 @@ import Hidden from '../Hidden';
 
 class Debug extends Component {
 
-  static contextTypes = {
-    chart: PropTypes.object
-  };
-
   static propTypes = {
-    varName: PropTypes.string.isRequired
+    varName: PropTypes.string.isRequired,
+    getChart: PropTypes.func // Provided by ChartProvider
   };
 
   static defaultProps = {
@@ -17,8 +14,8 @@ class Debug extends Component {
   };
 
   componentDidMount () {
-    const { varName } = this.props;
-    window[varName] = this.context.chart;
+    const { varName, getChart } = this.props;
+    window[varName] =  getChart();
     console.log(`Chart instance available as global variable as window.${varName}`);
   }
 

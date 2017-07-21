@@ -2650,8 +2650,10 @@ module.exports = ReactPropTypesSecret;
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Debug__ = __webpack_require__(147);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ChartProvider__ = __webpack_require__(10);
 
-/* harmony default export */ __webpack_exports__["a"] = (__WEBPACK_IMPORTED_MODULE_0__Debug__["a" /* default */]);
+
+/* harmony default export */ __webpack_exports__["a"] = (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__ChartProvider__["a" /* default */])(__WEBPACK_IMPORTED_MODULE_0__Debug__["a" /* default */]));
 
 /***/ }),
 /* 110 */
@@ -4103,9 +4105,11 @@ var Debug = function (_Component) {
   __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_createClass___default()(Debug, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      var varName = this.props.varName;
+      var _props = this.props,
+          varName = _props.varName,
+          getChart = _props.getChart;
 
-      window[varName] = this.context.chart;
+      window[varName] = getChart();
       console.log('Chart instance available as global variable as window.' + varName);
     }
   }, {
@@ -4123,11 +4127,9 @@ var Debug = function (_Component) {
   return Debug;
 }(__WEBPACK_IMPORTED_MODULE_5_react__["Component"]);
 
-Debug.contextTypes = {
-  chart: __WEBPACK_IMPORTED_MODULE_6_prop_types___default.a.object
-};
 Debug.propTypes = {
-  varName: __WEBPACK_IMPORTED_MODULE_6_prop_types___default.a.string.isRequired
+  varName: __WEBPACK_IMPORTED_MODULE_6_prop_types___default.a.string.isRequired,
+  getChart: __WEBPACK_IMPORTED_MODULE_6_prop_types___default.a.func // Provided by ChartProvider
 };
 Debug.defaultProps = {
   varName: 'chart'
@@ -4912,10 +4914,10 @@ LineSeries.propTypes = {
 var Navigator = function (_Component) {
   __WEBPACK_IMPORTED_MODULE_6_babel_runtime_helpers_inherits___default()(Navigator, _Component);
 
-  function Navigator(props, context) {
+  function Navigator(props) {
     __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_classCallCheck___default()(this, Navigator);
 
-    var _this = __WEBPACK_IMPORTED_MODULE_5_babel_runtime_helpers_possibleConstructorReturn___default()(this, (Navigator.__proto__ || __WEBPACK_IMPORTED_MODULE_2_babel_runtime_core_js_object_get_prototype_of___default()(Navigator)).call(this, props, context));
+    var _this = __WEBPACK_IMPORTED_MODULE_5_babel_runtime_helpers_possibleConstructorReturn___default()(this, (Navigator.__proto__ || __WEBPACK_IMPORTED_MODULE_2_babel_runtime_core_js_object_get_prototype_of___default()(Navigator)).call(this, props));
 
     _this.updateNavigator = _this.updateNavigator.bind(_this);
     _this.handleAddSeries = _this.handleAddSeries.bind(_this);
@@ -4924,19 +4926,19 @@ var Navigator = function (_Component) {
       seriesCount: 0
     };
 
-    __WEBPACK_IMPORTED_MODULE_9_highstock_release___default.a.addEvent(context.chart, 'addSeries', _this.handleAddSeries);
+    __WEBPACK_IMPORTED_MODULE_9_highstock_release___default.a.addEvent(props.getChart(), 'addSeries', _this.handleAddSeries);
     return _this;
   }
 
   __WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_createClass___default()(Navigator, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      var chart = this.context.chart;
-
       var _props = this.props,
           children = _props.children,
-          rest = __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_objectWithoutProperties___default()(_props, ['children']);
+          getChart = _props.getChart,
+          rest = __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_objectWithoutProperties___default()(_props, ['children', 'getChart']);
 
+      var chart = getChart();
       chart.navigator = new __WEBPACK_IMPORTED_MODULE_9_highstock_release___default.a.Navigator(chart);
       this.updateNavigator(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default()({}, rest));
     }
@@ -4993,11 +4995,9 @@ var Navigator = function (_Component) {
   return Navigator;
 }(__WEBPACK_IMPORTED_MODULE_7_react__["Component"]);
 
-Navigator.contextTypes = {
-  chart: __WEBPACK_IMPORTED_MODULE_8_prop_types___default.a.object
-};
 Navigator.propTypes = {
   update: __WEBPACK_IMPORTED_MODULE_8_prop_types___default.a.func, // Provided by ChartProvider
+  getChart: __WEBPACK_IMPORTED_MODULE_8_prop_types___default.a.func, // Provided by ChartProvider
   enabled: __WEBPACK_IMPORTED_MODULE_8_prop_types___default.a.bool.isRequired
 };
 Navigator.defaultProps = {
@@ -5798,10 +5798,10 @@ PyramidSeries.propTypes = {
 var RangeSelector = function (_Component) {
   __WEBPACK_IMPORTED_MODULE_6_babel_runtime_helpers_inherits___default()(RangeSelector, _Component);
 
-  function RangeSelector(props, context) {
+  function RangeSelector(props) {
     __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_classCallCheck___default()(this, RangeSelector);
 
-    var _this = __WEBPACK_IMPORTED_MODULE_5_babel_runtime_helpers_possibleConstructorReturn___default()(this, (RangeSelector.__proto__ || __WEBPACK_IMPORTED_MODULE_2_babel_runtime_core_js_object_get_prototype_of___default()(RangeSelector)).call(this, props, context));
+    var _this = __WEBPACK_IMPORTED_MODULE_5_babel_runtime_helpers_possibleConstructorReturn___default()(this, (RangeSelector.__proto__ || __WEBPACK_IMPORTED_MODULE_2_babel_runtime_core_js_object_get_prototype_of___default()(RangeSelector)).call(this, props));
 
     _this.updateRangeSelector = _this.updateRangeSelector.bind(_this);
     _this.state = {
@@ -5813,12 +5813,12 @@ var RangeSelector = function (_Component) {
   __WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_createClass___default()(RangeSelector, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      var chart = this.context.chart;
-
       var _props = this.props,
           children = _props.children,
-          rest = __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_objectWithoutProperties___default()(_props, ['children']);
+          getChart = _props.getChart,
+          rest = __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_objectWithoutProperties___default()(_props, ['children', 'getChart']);
 
+      var chart = getChart();
       chart.rangeSelector = new __WEBPACK_IMPORTED_MODULE_9_highstock_release___default.a.RangeSelector(chart);
       this.updateRangeSelector(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default()({}, rest, {
         inputEnabled: false
@@ -5871,11 +5871,9 @@ var RangeSelector = function (_Component) {
   return RangeSelector;
 }(__WEBPACK_IMPORTED_MODULE_7_react__["Component"]);
 
-RangeSelector.contextTypes = {
-  chart: __WEBPACK_IMPORTED_MODULE_8_prop_types___default.a.object
-};
 RangeSelector.propTypes = {
   update: __WEBPACK_IMPORTED_MODULE_8_prop_types___default.a.func, // Provided by ChartProvider
+  getChart: __WEBPACK_IMPORTED_MODULE_8_prop_types___default.a.func, // Provided by ChartProvider
   enabled: __WEBPACK_IMPORTED_MODULE_8_prop_types___default.a.bool.isRequired
 };
 RangeSelector.defaultProps = __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default()({}, __WEBPACK_IMPORTED_MODULE_9_highstock_release___default.a.defaultOptions.rangeSelector, {
@@ -5915,10 +5913,10 @@ RangeSelector.defaultProps = __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_e
 var RangeSelectorButton = function (_Component) {
   __WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_inherits___default()(RangeSelectorButton, _Component);
 
-  function RangeSelectorButton(props, context) {
+  function RangeSelectorButton(props) {
     __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_classCallCheck___default()(this, RangeSelectorButton);
 
-    var _this = __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_possibleConstructorReturn___default()(this, (RangeSelectorButton.__proto__ || __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_get_prototype_of___default()(RangeSelectorButton)).call(this, props, context));
+    var _this = __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_possibleConstructorReturn___default()(this, (RangeSelectorButton.__proto__ || __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_get_prototype_of___default()(RangeSelectorButton)).call(this, props));
 
     _this.getButtons = _this.getButtons.bind(_this);
     _this.getButtonIndex = _this.getButtonIndex.bind(_this);
@@ -5958,8 +5956,8 @@ var RangeSelectorButton = function (_Component) {
   }, {
     key: 'getButtons',
     value: function getButtons() {
-      var _context$chart$option = this.context.chart.options.rangeSelector.buttons,
-          buttons = _context$chart$option === undefined ? [] : _context$chart$option;
+      var _props$getChart$optio = this.props.getChart().options.rangeSelector.buttons,
+          buttons = _props$getChart$optio === undefined ? [] : _props$getChart$optio;
 
       return buttons;
     }
@@ -5996,10 +5994,8 @@ var RangeSelectorButton = function (_Component) {
 RangeSelectorButton.propTypes = {
   count: __WEBPACK_IMPORTED_MODULE_6_prop_types___default.a.number,
   type: __WEBPACK_IMPORTED_MODULE_6_prop_types___default.a.string.isRequired,
-  update: __WEBPACK_IMPORTED_MODULE_6_prop_types___default.a.func // Provided by ChartProvider
-};
-RangeSelectorButton.contextTypes = {
-  chart: __WEBPACK_IMPORTED_MODULE_6_prop_types___default.a.object
+  update: __WEBPACK_IMPORTED_MODULE_6_prop_types___default.a.func, // Provided by ChartProvider
+  getChart: __WEBPACK_IMPORTED_MODULE_6_prop_types___default.a.func // Provided by ChartProvider
 };
 
 
@@ -6713,10 +6709,10 @@ Title.propTypes = {
 var Tooltip = function (_Component) {
   __WEBPACK_IMPORTED_MODULE_6_babel_runtime_helpers_inherits___default()(Tooltip, _Component);
 
-  function Tooltip(props, context) {
+  function Tooltip(props) {
     __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_classCallCheck___default()(this, Tooltip);
 
-    var _this = __WEBPACK_IMPORTED_MODULE_5_babel_runtime_helpers_possibleConstructorReturn___default()(this, (Tooltip.__proto__ || __WEBPACK_IMPORTED_MODULE_2_babel_runtime_core_js_object_get_prototype_of___default()(Tooltip)).call(this, props, context));
+    var _this = __WEBPACK_IMPORTED_MODULE_5_babel_runtime_helpers_possibleConstructorReturn___default()(this, (Tooltip.__proto__ || __WEBPACK_IMPORTED_MODULE_2_babel_runtime_core_js_object_get_prototype_of___default()(Tooltip)).call(this, props));
 
     _this.updateTooltip = _this.updateTooltip.bind(_this);
     return _this;
@@ -6725,12 +6721,12 @@ var Tooltip = function (_Component) {
   __WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_createClass___default()(Tooltip, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      var chart = this.context.chart;
-
       var _props = this.props,
           children = _props.children,
-          rest = __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_objectWithoutProperties___default()(_props, ['children']);
+          getChart = _props.getChart,
+          rest = __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_objectWithoutProperties___default()(_props, ['children', 'getChart']);
 
+      var chart = getChart();
       chart.tooltip = new __WEBPACK_IMPORTED_MODULE_9_highstock_release___default.a.Tooltip(chart, __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default()({}, rest));
       this.updateTooltip(rest);
     }
@@ -6774,11 +6770,9 @@ var Tooltip = function (_Component) {
   return Tooltip;
 }(__WEBPACK_IMPORTED_MODULE_7_react__["Component"]);
 
-Tooltip.contextTypes = {
-  chart: __WEBPACK_IMPORTED_MODULE_8_prop_types___default.a.object
-};
 Tooltip.propTypes = {
   update: __WEBPACK_IMPORTED_MODULE_8_prop_types___default.a.func, // Provided by ChartProvider
+  getChart: __WEBPACK_IMPORTED_MODULE_8_prop_types___default.a.func, // Provided by ChartProvider
   enabled: __WEBPACK_IMPORTED_MODULE_8_prop_types___default.a.bool.isRequired
 };
 Tooltip.defaultProps = __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default()({}, __WEBPACK_IMPORTED_MODULE_9_highstock_release___default.a.defaultOptions.tooltip, {

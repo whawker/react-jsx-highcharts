@@ -6,12 +6,9 @@ import getModifiedProps from '../../utils/getModifiedProps';
 
 class Tooltip extends Component {
 
-  static contextTypes = {
-    chart: PropTypes.object
-  };
-
   static propTypes = {
     update: PropTypes.func, // Provided by ChartProvider
+    getChart: PropTypes.func, // Provided by ChartProvider
     enabled: PropTypes.bool.isRequired
   };
 
@@ -20,15 +17,15 @@ class Tooltip extends Component {
     enabled: true
   };
 
-  constructor (props, context) {
-    super(props, context);
+  constructor (props) {
+    super(props);
 
     this.updateTooltip = this.updateTooltip.bind(this);
   }
 
   componentDidMount () {
-    const { chart } = this.context;
-    const { children, ...rest } = this.props;
+    const { children, getChart, ...rest } = this.props;
+    const chart = getChart();
     chart.tooltip = new Highcharts.Tooltip(chart, {
       ...rest
     });

@@ -6,15 +6,12 @@ class RangeSelectorButton extends Component {
   static propTypes = {
     count: PropTypes.number,
     type: PropTypes.string.isRequired,
-    update: PropTypes.func // Provided by ChartProvider
+    update: PropTypes.func, // Provided by ChartProvider
+    getChart: PropTypes.func // Provided by ChartProvider
   };
 
-  static contextTypes = {
-    chart: PropTypes.object
-  };
-
-  constructor (props, context) {
-    super(props, context);
+  constructor (props) {
+    super(props);
     this.getButtons = this.getButtons.bind(this);
     this.getButtonIndex = this.getButtonIndex.bind(this);
     this.updateRangeSelectorButtons = this.updateRangeSelectorButtons.bind(this);
@@ -44,7 +41,7 @@ class RangeSelectorButton extends Component {
   }
 
   getButtons () {
-    const { buttons = [] } = this.context.chart.options.rangeSelector;
+    const { buttons = [] } = this.props.getChart().options.rangeSelector;
     return buttons;
   }
 

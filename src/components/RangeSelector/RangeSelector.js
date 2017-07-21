@@ -6,12 +6,9 @@ import getModifiedProps from '../../utils/getModifiedProps';
 
 class RangeSelector extends Component {
 
-  static contextTypes = {
-    chart: PropTypes.object
-  };
-
   static propTypes = {
     update: PropTypes.func, // Provided by ChartProvider
+    getChart: PropTypes.func, // Provided by ChartProvider
     enabled: PropTypes.bool.isRequired
   };
 
@@ -20,8 +17,8 @@ class RangeSelector extends Component {
     enabled: true
   };
 
-  constructor (props, context) {
-    super(props, context);
+  constructor (props) {
+    super(props);
 
     this.updateRangeSelector = this.updateRangeSelector.bind(this);
     this.state = {
@@ -30,8 +27,8 @@ class RangeSelector extends Component {
   }
 
   componentDidMount () {
-    const { chart } = this.context;
-    const { children, ...rest } = this.props;
+    const { children, getChart, ...rest } = this.props;
+    const chart = getChart();
     chart.rangeSelector = new Highcharts.RangeSelector(chart);
     this.updateRangeSelector({
       ...rest,

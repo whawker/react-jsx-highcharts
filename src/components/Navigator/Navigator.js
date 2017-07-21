@@ -6,12 +6,9 @@ import getModifiedProps from '../../utils/getModifiedProps';
 
 class Navigator extends Component {
 
-  static contextTypes = {
-    chart: PropTypes.object
-  };
-
   static propTypes = {
     update: PropTypes.func, // Provided by ChartProvider
+    getChart: PropTypes.func, // Provided by ChartProvider
     enabled: PropTypes.bool.isRequired
   };
 
@@ -19,8 +16,8 @@ class Navigator extends Component {
     enabled: true
   };
 
-  constructor (props, context) {
-    super(props, context);
+  constructor (props) {
+    super(props);
 
     this.updateNavigator = this.updateNavigator.bind(this);
     this.handleAddSeries = this.handleAddSeries.bind(this);
@@ -29,12 +26,12 @@ class Navigator extends Component {
       seriesCount: 0
     };
 
-    Highcharts.addEvent(context.chart, 'addSeries', this.handleAddSeries);
+    Highcharts.addEvent(props.getChart(), 'addSeries', this.handleAddSeries);
   }
 
   componentDidMount () {
-    const { chart } = this.context;
-    const { children, ...rest } = this.props;
+    const { children, getChart, ...rest } = this.props;
+    const chart = getChart();
     chart.navigator = new Highcharts.Navigator(chart);
     this.updateNavigator({
       ...rest

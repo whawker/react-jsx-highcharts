@@ -10,10 +10,8 @@ describe('<RangeSelector />', function ()  {
   beforeEach(function () {
     this.update = sinon.spy();
     this.chart = createMockChart();
-
-    this.context = {
-      chart: this.chart
-    };
+    this.getChart = sinon.stub();
+    this.getChart.returns(this.chart);
 
     sandbox = sinon.sandbox.create();
     sandbox.stub(Highcharts, 'RangeSelector');
@@ -26,13 +24,13 @@ describe('<RangeSelector />', function ()  {
 
   describe('when mounted', function () {
     it('creates a new Highcharts RangeSelector instance', function () {
-      mount(<RangeSelector update={this.update} />, {context: this.context});
+      mount(<RangeSelector update={this.update} getChart={this.getChart} />);
       expect(Highcharts.RangeSelector).to.have.been.calledWithNew;
       expect(Highcharts.RangeSelector).to.have.been.calledWith(this.chart);
     });
 
     it('updates the chart with the passed props', function () {
-      mount(<RangeSelector height={100} buttonSpacing={2} update={this.update} />, {context: this.context});
+      mount(<RangeSelector height={100} buttonSpacing={2} update={this.update} getChart={this.getChart} />);
       expect(this.update).to.have.been.calledWith({
         rangeSelector: {
           ...RangeSelector.defaultProps,
@@ -48,7 +46,7 @@ describe('<RangeSelector />', function ()  {
 
   describe('update', function () {
     it('should use the update method when props change', function () {
-      const wrapper = mount(<RangeSelector selected={0} update={this.update} />, {context: this.context});
+      const wrapper = mount(<RangeSelector selected={0} update={this.update} getChart={this.getChart} />);
       wrapper.setProps({ selected: 2 });
       expect(this.update).to.have.been.calledWith({
         rangeSelector: {
@@ -60,7 +58,7 @@ describe('<RangeSelector />', function ()  {
 
   describe('when unmounted', function () {
     it('should disable the RangeSelector', function () {
-      const wrapper = mount(<RangeSelector update={this.update} />, {context: this.context});
+      const wrapper = mount(<RangeSelector update={this.update} getChart={this.getChart} />);
       wrapper.unmount();
       expect(this.update).to.have.been.calledWith({
         rangeSelector: {
