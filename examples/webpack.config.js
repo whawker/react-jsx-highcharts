@@ -15,7 +15,8 @@ const examples = [
   { name: 'SimpleLine' },
   { name: 'SplineWithPlotBands' },
   { name: 'SynchronisedCharts', additional: ['promise-polyfill', 'fetch-polyfill'] },
-  { name: 'Sparkline', additional: ['promise-polyfill', 'fetch-polyfill'] }
+  { name: 'Sparkline', additional: ['promise-polyfill', 'fetch-polyfill'] },
+  { name: 'InvertedChart' }
 ];
 
 const exampleNames = examples.map(e => e.name);

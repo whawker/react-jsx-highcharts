@@ -43,6 +43,9 @@ You'll need the peer dependencies too
 
 `npm install --save react react-dom prop-types highstock-release` (Highstock release is Highcharts bundled with stock charts)
 
+## Documentation
+In progress... [see here](https://github.com/whawker/react-jsx-highcharts/wiki).
+
 ## Goals
 
 This project aims to hide the complexity of Highcharts from the React application author, allowing the rendering of charts in a React familiar way. 
