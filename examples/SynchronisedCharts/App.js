@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Highcharts from 'highcharts';
 import {
   HighchartsChart, XAxis, YAxis, Title, Series, Tooltip
 } from 'react-jsx-highcharts';
@@ -79,7 +80,7 @@ class App extends Component {
     let event = null;
 
     Highcharts.charts.forEach(chart => {
-      event = chart.pointer.normalize(e.originalEvent); // Find coordinates within the chart
+      event = chart.pointer.normalize(e); // Find coordinates within the chart
       point = chart.series[0].searchPoint(event, true); // Get the hovered point
       if (point) {
         point.highlight(e);

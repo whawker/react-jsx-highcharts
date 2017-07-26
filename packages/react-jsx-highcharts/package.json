@@ -1,0 +1,79 @@
+{
+  "name": "react-jsx-highcharts",
+  "version": "1.0.0",
+  "description": "Highcharts charts built using React components",
+  "main": "dist/react-jsx-highcharts.min.js",
+  "scripts": {
+    "build": "cross-env NODE_ENV=development ./node_modules/.bin/webpack",
+    "build:prod": "cross-env NODE_ENV=production ./node_modules/.bin/webpack -p",
+    "lint": "./node_modules/.bin/eslint src",
+    "test": "cross-env NODE_ENV=test ./node_modules/.bin/mocha --compilers js:babel-core/register --require test/test-helper.js test/**/*.spec.js"
+  },
+  "author": "Will Hawker",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/whawker/react-jsx-highcharts.git"
+  },
+  "bugs": "https://github.com/whawker/react-jsx-highcharts/issues",
+  "homepage": "https://github.com/whawker/react-jsx-highcharts",
+  "keywords": [
+    "react",
+    "reactjs",
+    "react-component",
+    "highcharts",
+    "highstock",
+    "chart",
+    "charts",
+    "graphs",
+    "visualization",
+    "data"
+  ],
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-core": "^6.24.1",
+    "babel-eslint": "^7.2.3",
+    "babel-loader": "^7.0.0",
+    "babel-plugin-lodash": "^3.2.11",
+    "babel-plugin-transform-react-remove-prop-types": "^0.4.5",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "chai": "^3.5.0",
+    "chai-enzyme": "^0.7.0",
+    "cross-env": "^5.0.1",
+    "enzyme": "^2.8.2",
+    "eslint": "^3.19.0",
+    "eslint-config-react-app": "^1.0.2",
+    "eslint-plugin-flowtype": "^2.33.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^5.0.1",
+    "eslint-plugin-react": "^7.0.1",
+    "highcharts": "^5.0.0",
+    "html-webpack-include-assets-plugin": "0.0.6",
+    "html-webpack-plugin": "^2.28.0",
+    "jsdom": "^11.0.0",
+    "lodash-webpack-plugin": "^0.11.4",
+    "mocha": "^3.4.1",
+    "prop-types": "^15.0.0",
+    "react": "^15.0.0",
+    "react-dom": "^15.0.0",
+    "react-test-renderer": "^15.5.4",
+    "rimraf": "^2.6.1",
+    "sinon": "^2.3.0",
+    "sinon-chai": "^2.10.0",
+    "webpack": "^2.5.1",
+    "webpack-dev-server": "^2.4.5"
+  },
+  "dependencies": {
+    "lodash": "^4.17.4"
+  },
+  "peerDependencies": {
+    "highcharts": "^5.0.0",
+    "react": "^15.0.0",
+    "react-dom": "^15.0.0",
+    "prop-types": "^15.0.0"
+  }
+}

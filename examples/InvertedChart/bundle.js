@@ -64,7 +64,7 @@ var example =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 129);
+/******/ 	return __webpack_require__(__webpack_require__.s = 162);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -1920,9 +1920,19 @@ var PrismCode = function (_PureComponent) {
   _inherits(PrismCode, _PureComponent);
 
   function PrismCode() {
+    var _ref;
+
+    var _temp, _this, _ret;
+
     _classCallCheck(this, PrismCode);
 
-    return _possibleConstructorReturn(this, (PrismCode.__proto__ || Object.getPrototypeOf(PrismCode)).apply(this, arguments));
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = PrismCode.__proto__ || Object.getPrototypeOf(PrismCode)).call.apply(_ref, [this].concat(args))), _this), _this._handleRefMount = function (domNode) {
+      _this._domNode = domNode;
+    }, _temp), _possibleConstructorReturn(_this, _ret);
   }
 
   _createClass(PrismCode, [{
@@ -1938,20 +1948,21 @@ var PrismCode = function (_PureComponent) {
   }, {
     key: "_hightlight",
     value: function _hightlight() {
-      Prism.highlightElement(this.refs.code, this.props.async);
+      Prism.highlightElement(this._domNode, this.props.async);
     }
   }, {
     key: "render",
     value: function render() {
       var _props = this.props,
           className = _props.className,
+          Wrapper = _props.component,
           children = _props.children;
 
 
       return _react2.default.createElement(
-        "code",
+        Wrapper,
         {
-          ref: "code",
+          ref: this._handleRefMount,
           className: className
         },
         children
@@ -1965,7 +1976,11 @@ var PrismCode = function (_PureComponent) {
 PrismCode.propTypes = {
   async: _propTypes.PropTypes.bool,
   className: _propTypes.PropTypes.string,
-  children: _propTypes.PropTypes.any
+  children: _propTypes.PropTypes.any,
+  component: _propTypes.PropTypes.node
+};
+PrismCode.defaultProps = {
+  component: "code"
 };
 exports.default = PrismCode;
 
@@ -1988,6 +2003,12 @@ Object.defineProperty(exports, "PrismCode", {
     return _interopRequireDefault(_PrismCode).default;
   }
 });
+Object.defineProperty(exports, "default", {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_PrismCode).default;
+  }
+});
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1996,19 +2017,53 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 /* 98 */,
 /* 99 */,
 /* 100 */,
-/* 101 */
+/* 101 */,
+/* 102 */,
+/* 103 */
 /***/ (function(module, exports) {
 
 module.exports = Highcharts;
 
 /***/ }),
-/* 102 */,
-/* 103 */,
 /* 104 */,
 /* 105 */,
 /* 106 */,
 /* 107 */,
-/* 108 */
+/* 108 */,
+/* 109 */,
+/* 110 */,
+/* 111 */,
+/* 112 */,
+/* 113 */,
+/* 114 */,
+/* 115 */,
+/* 116 */,
+/* 117 */,
+/* 118 */,
+/* 119 */,
+/* 120 */,
+/* 121 */,
+/* 122 */,
+/* 123 */,
+/* 124 */,
+/* 125 */,
+/* 126 */,
+/* 127 */,
+/* 128 */,
+/* 129 */,
+/* 130 */,
+/* 131 */,
+/* 132 */,
+/* 133 */,
+/* 134 */,
+/* 135 */,
+/* 136 */,
+/* 137 */,
+/* 138 */,
+/* 139 */,
+/* 140 */,
+/* 141 */,
+/* 142 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2038,7 +2093,7 @@ var _inherits2 = __webpack_require__(46);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _from = __webpack_require__(140);
+var _from = __webpack_require__(173);
 
 var _from2 = _interopRequireDefault(_from);
 
@@ -2046,7 +2101,7 @@ var _react = __webpack_require__(13);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _highstockRelease = __webpack_require__(101);
+var _highstockRelease = __webpack_require__(103);
 
 var _highstockRelease2 = _interopRequireDefault(_highstockRelease);
 
@@ -2056,7 +2111,7 @@ var _ExampleCode = __webpack_require__(51);
 
 var _ExampleCode2 = _interopRequireDefault(_ExampleCode);
 
-var _exampleCode = __webpack_require__(158);
+var _exampleCode = __webpack_require__(161);
 
 var _exampleCode2 = _interopRequireDefault(_exampleCode);
 
@@ -2166,27 +2221,37 @@ var App = function (_Component) {
 exports.default = App;
 
 /***/ }),
-/* 109 */,
-/* 110 */,
-/* 111 */,
-/* 112 */,
-/* 113 */,
-/* 114 */,
-/* 115 */,
-/* 116 */,
-/* 117 */,
-/* 118 */,
-/* 119 */,
-/* 120 */,
-/* 121 */,
-/* 122 */,
-/* 123 */,
-/* 124 */,
-/* 125 */,
-/* 126 */,
-/* 127 */,
-/* 128 */,
-/* 129 */
+/* 143 */,
+/* 144 */,
+/* 145 */,
+/* 146 */,
+/* 147 */,
+/* 148 */,
+/* 149 */,
+/* 150 */,
+/* 151 */,
+/* 152 */,
+/* 153 */,
+/* 154 */,
+/* 155 */,
+/* 156 */,
+/* 157 */,
+/* 158 */,
+/* 159 */,
+/* 160 */,
+/* 161 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = "\nrender () {\n  const plotOptions = {\n    areaspline: {\n      fillOpacity: 1,\n      lineWidth: 0,\n      marker: {\n        enabled: false,\n        states: {\n          hover: { enabled: false }\n        }\n      }\n    }\n  };\n\n  const positioner = (w, h, point) => ({x: 0, y: point.plotY + (h / 2) + 8});\n    \n  const { seasons, totalGoals, avgGoalsPerGame } = this.state; \n\n  return (\n    <div className=\"app\">\n      <HighchartsChart plotOptions={plotOptions}>\n        <Chart inverted marginLeft={300} height={650} />\n\n        <Title>Premier League Goal Stats: 1992-93 to 2016-17</Title>\n\n        <Subtitle>Source: myfootballfacts.com</Subtitle>\n\n        <XAxis type=\"category\" categories={seasons} crosshair={{ zIndex: 10 }} lineWidth={0} tickLength={0}>\n          <XAxis.Title>Season</XAxis.Title>\n        </XAxis>\n\n        <YAxis id=\"total\" min={800} gridLineWidth={0} labels={{ enabled: false }}>\n          <AreaSplineSeries id=\"totalGoals\" name=\"Total Goals\" data={totalGoals} color=\"#38003c\" />\n        </YAxis>\n\n        <YAxis id=\"average\" min={2.4} max={5} gridLineWidth={0} labels={{ enabled: false }}>\n          <AreaSplineSeries id=\"avgGoalsPerGame\" name=\"Average Goals per Game\" data={avgGoalsPerGame} color=\"#e90052\" />\n        </YAxis>\n\n        <Tooltip shared positioner={positioner} backgroundColor=\"transparent\" borderWidth={0} shadow={false} />\n      </HighchartsChart>\n    </div>\n  );\n}";
+
+/***/ }),
+/* 162 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2200,7 +2265,7 @@ var _reactDom = __webpack_require__(42);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _App = __webpack_require__(108);
+var _App = __webpack_require__(142);
 
 var _App2 = _interopRequireDefault(_App);
 
@@ -2209,31 +2274,31 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 _reactDom2.default.render(_react2.default.createElement(_App2.default, null), document.getElementById('root'));
 
 /***/ }),
-/* 130 */,
-/* 131 */,
-/* 132 */,
-/* 133 */,
-/* 134 */,
-/* 135 */,
-/* 136 */,
-/* 137 */,
-/* 138 */,
-/* 139 */,
-/* 140 */
+/* 163 */,
+/* 164 */,
+/* 165 */,
+/* 166 */,
+/* 167 */,
+/* 168 */,
+/* 169 */,
+/* 170 */,
+/* 171 */,
+/* 172 */,
+/* 173 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = { "default": __webpack_require__(141), __esModule: true };
+module.exports = { "default": __webpack_require__(174), __esModule: true };
 
 /***/ }),
-/* 141 */
+/* 174 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(49);
-__webpack_require__(148);
+__webpack_require__(181);
 module.exports = __webpack_require__(0).Array.from;
 
 /***/ }),
-/* 142 */
+/* 175 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // getting tag from 19.1.3.6 Object.prototype.toString()
@@ -2261,7 +2326,7 @@ module.exports = function(it){
 };
 
 /***/ }),
-/* 143 */
+/* 176 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2275,7 +2340,7 @@ module.exports = function(object, index, value){
 };
 
 /***/ }),
-/* 144 */
+/* 177 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // check on default Array iterator
@@ -2288,7 +2353,7 @@ module.exports = function(it){
 };
 
 /***/ }),
-/* 145 */
+/* 178 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // call something on iterator step with safe closing on error
@@ -2305,7 +2370,7 @@ module.exports = function(iterator, fn, value, entries){
 };
 
 /***/ }),
-/* 146 */
+/* 179 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var ITERATOR     = __webpack_require__(6)('iterator')
@@ -2331,10 +2396,10 @@ module.exports = function(exec, skipClosing){
 };
 
 /***/ }),
-/* 147 */
+/* 180 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var classof   = __webpack_require__(142)
+var classof   = __webpack_require__(175)
   , ITERATOR  = __webpack_require__(6)('iterator')
   , Iterators = __webpack_require__(16);
 module.exports = __webpack_require__(0).getIteratorMethod = function(it){
@@ -2344,7 +2409,7 @@ module.exports = __webpack_require__(0).getIteratorMethod = function(it){
 };
 
 /***/ }),
-/* 148 */
+/* 181 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2352,13 +2417,13 @@ module.exports = __webpack_require__(0).getIteratorMethod = function(it){
 var ctx            = __webpack_require__(30)
   , $export        = __webpack_require__(7)
   , toObject       = __webpack_require__(31)
-  , call           = __webpack_require__(145)
-  , isArrayIter    = __webpack_require__(144)
+  , call           = __webpack_require__(178)
+  , isArrayIter    = __webpack_require__(177)
   , toLength       = __webpack_require__(48)
-  , createProperty = __webpack_require__(143)
-  , getIterFn      = __webpack_require__(147);
+  , createProperty = __webpack_require__(176)
+  , getIterFn      = __webpack_require__(180);
 
-$export($export.S + $export.F * !__webpack_require__(146)(function(iter){ Array.from(iter); }), 'Array', {
+$export($export.S + $export.F * !__webpack_require__(179)(function(iter){ Array.from(iter); }), 'Array', {
   // 22.1.2.1 Array.from(arrayLike, mapfn = undefined, thisArg = undefined)
   from: function from(arrayLike/*, mapfn = undefined, thisArg = undefined*/){
     var O       = toObject(arrayLike)
@@ -2386,27 +2451,6 @@ $export($export.S + $export.F * !__webpack_require__(146)(function(iter){ Array.
   }
 });
 
-
-/***/ }),
-/* 149 */,
-/* 150 */,
-/* 151 */,
-/* 152 */,
-/* 153 */,
-/* 154 */,
-/* 155 */,
-/* 156 */,
-/* 157 */,
-/* 158 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = "\nrender () {\n  const plotOptions = {\n    areaspline: {\n      fillOpacity: 1,\n      lineWidth: 0,\n      marker: {\n        enabled: false,\n        states: {\n          hover: { enabled: false }\n        }\n      }\n    }\n  };\n\n  const positioner = (w, h, point) => ({x: 0, y: point.plotY + (h / 2) + 8});\n    \n  const { seasons, totalGoals, avgGoalsPerGame } = this.state; \n\n  return (\n    <div className=\"app\">\n      <HighchartsChart plotOptions={plotOptions}>\n        <Chart inverted marginLeft={300} height={650} />\n\n        <Title>Premier League Goal Stats: 1992-93 to 2016-17</Title>\n\n        <Subtitle>Source: myfootballfacts.com</Subtitle>\n\n        <XAxis type=\"category\" categories={seasons} crosshair={{ zIndex: 10 }} lineWidth={0} tickLength={0}>\n          <XAxis.Title>Season</XAxis.Title>\n        </XAxis>\n\n        <YAxis id=\"total\" min={800} gridLineWidth={0} labels={{ enabled: false }}>\n          <AreaSplineSeries id=\"totalGoals\" name=\"Total Goals\" data={totalGoals} color=\"#38003c\" />\n        </YAxis>\n\n        <YAxis id=\"average\" min={2.4} max={5} gridLineWidth={0} labels={{ enabled: false }}>\n          <AreaSplineSeries id=\"avgGoalsPerGame\" name=\"Average Goals per Game\" data={avgGoalsPerGame} color=\"#e90052\" />\n        </YAxis>\n\n        <Tooltip shared positioner={positioner} backgroundColor=\"transparent\" borderWidth={0} shadow={false} />\n      </HighchartsChart>\n    </div>\n  );\n}";
 
 /***/ })
 /******/ ]);
