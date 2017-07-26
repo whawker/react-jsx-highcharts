@@ -12,9 +12,9 @@ class Hidden extends Component {
     if (!children) return null;
 
     return (
-      <script type="text/a-bit-of-a-hack">
+      <div style={{ display: 'none' }}>
         {children}
-      </script>
+      </div>
     );
   }
 }

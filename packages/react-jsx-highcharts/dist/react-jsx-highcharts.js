@@ -4109,8 +4109,8 @@ var Hidden = function (_Component) {
       if (!children) return null;
 
       return __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(
-        'script',
-        { type: 'text/a-bit-of-a-hack' },
+        'div',
+        { style: { display: 'none' } },
         children
       );
     }
