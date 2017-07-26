@@ -2,15 +2,13 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plugin');
 const path = require('path');
-const zipObject = require('lodash.zipobject');
+const zipObject = require('lodash/zipObject');
 
-const examples = [
+const highchartsExamples = [
   { name: 'AddSeries' },
   { name: 'Combo', additional: ['highcharts-more'] },
-  { name: 'CustomComponent', additional: ['moment', 'react-day-picker'] },
   { name: 'Events' },
   { name: 'Funnel', additional: ['highcharts-funnel'] },
-  { name: 'Highstocks' },
   { name: 'LiveUpdate' },
   { name: 'SimpleLine' },
   { name: 'SplineWithPlotBands' },
@@ -19,12 +17,24 @@ const examples = [
   { name: 'InvertedChart' }
 ];
 
+const highstockExamples = [
+  { name: 'CustomComponent', additional: ['moment', 'react-day-picker'] },
+  { name: 'Highstocks' }
+];
+
+const examples = [].concat(
+  highchartsExamples.map(({ name, additional = [] }) => ({ name, additional: ['highcharts', 'react-jsx-highcharts'].concat(additional) })),
+  highstockExamples.map(({ name, additional = [] }) => ({ name, additional: ['highstock-release', 'react-jsx-highstock'].concat(additional) }))
+);
+
 const exampleNames = examples.map(e => e.name);
 
 const externals = {
-  'react-jsx-highcharts': '../../dist/react-jsx-highcharts.min.js',
-  'react':                'https://cdnjs.cloudflare.com/ajax/libs/react/15.5.4/react.min.js',
-  'react-dom':            'https://cdnjs.cloudflare.com/ajax/libs/react/15.5.4/react-dom.min.js',
+  'react-jsx-highcharts': '../../packages/react-jsx-highcharts/dist/react-jsx-highcharts.min.js',
+  'react-jsx-highstock':  '../../packages/react-jsx-highstock/dist/react-jsx-highstock.min.js',
+  'react':                'https://cdnjs.cloudflare.com/ajax/libs/react/15.5.4/react.js',
+  'react-dom':            'https://cdnjs.cloudflare.com/ajax/libs/react/15.5.4/react-dom.js',
+  'highcharts':           'https://code.highcharts.com/highcharts.js',
   'highstock-release':    'https://code.highcharts.com/stock/highstock.js',
   'highcharts-more':      'https://code.highcharts.com/highcharts-more.js',
   'highcharts-funnel':    'https://code.highcharts.com/modules/funnel.js',
@@ -49,6 +59,7 @@ module.exports = {
   externals: {
     'react': 'React',
     'react-dom': 'ReactDOM',
+    'highcharts': 'Highcharts',
     'highstock-release': 'Highcharts',
     'moment': 'moment',
     'react-day-picker': 'DayPicker',
@@ -104,7 +115,7 @@ module.exports = {
     // Default dependencies
     new HtmlWebpackIncludeAssetsPlugin({
       files: '**/index.html',
-      assets: ['react', 'react-dom', 'highstock-release', 'react-jsx-highcharts', 'prism', 'prism-jsx'].map(d => externals[d]),
+      assets: ['react', 'react-dom', 'prism', 'prism-jsx'].map(d => externals[d]),
       publicPath: false,
       append: false
     })

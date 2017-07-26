@@ -3,7 +3,7 @@ import {
   HighchartsSparkline, AreaSeries, Tooltip
 } from 'react-jsx-highcharts';
 import Highcharts from 'highstock-release';
-import mapValues from 'lodash.mapvalues';
+import mapValues from 'lodash/mapValues';
 import ExampleCode from '../utils/ExampleCode';
 import code from './exampleCode';
 import './index.css';
