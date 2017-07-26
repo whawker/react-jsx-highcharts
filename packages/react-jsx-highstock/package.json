@@ -1,6 +1,6 @@
 {
   "name": "react-jsx-highstock",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Highcharts (including Highstock) charts built using React components",
   "main": "dist/react-jsx-highstock.min.js",
   "scripts": {
@@ -11,6 +11,12 @@
   },
   "author": "Will Hawker",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/whawker/react-jsx-highcharts.git"
+  },
+  "bugs": "https://github.com/whawker/react-jsx-highcharts/issues",
+  "homepage": "https://github.com/whawker/react-jsx-highcharts",
   "keywords": [
     "react",
     "reactjs",
