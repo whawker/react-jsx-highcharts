@@ -24,7 +24,7 @@
     "data"
   ],
   "dependencies": {
-    "react-jsx-highcharts": "1.0.0-pre"
+    "react-jsx-highcharts": "1.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",

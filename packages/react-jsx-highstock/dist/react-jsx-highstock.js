@@ -4249,8 +4249,8 @@ var Hidden = function (_Component) {
       if (!children) return null;
 
       return __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(
-        'script',
-        { type: 'text/a-bit-of-a-hack' },
+        'div',
+        { style: { display: 'none' } },
         children
       );
     }
@@ -4320,7 +4320,7 @@ var HighchartsChart = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
-      return __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_9__BaseChart__["a" /* default */], __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default()({ chartCreationFunc: __WEBPACK_IMPORTED_MODULE_8_highstock_release___default.a.chart }, this.props));
+      return __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_9__BaseChart__["a" /* default */], __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default()({}, this.props, { chartCreationFunc: __WEBPACK_IMPORTED_MODULE_8_highstock_release___default.a.chart }));
     }
   }]);
 
