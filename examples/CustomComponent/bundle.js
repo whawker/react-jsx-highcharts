@@ -2613,7 +2613,7 @@ var _react = __webpack_require__(13);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactJsxHighcharts = __webpack_require__(50);
+var _reactJsxHighstock = __webpack_require__(50);
 
 var _ExampleCode = __webpack_require__(51);
 
@@ -2656,52 +2656,52 @@ var App = function (_Component) {
         'div',
         { className: 'app' },
         _react2.default.createElement(
-          _reactJsxHighcharts.HighchartsStockChart,
+          _reactJsxHighstock.HighchartsStockChart,
           null,
-          _react2.default.createElement(_reactJsxHighcharts.Chart, { zoomType: 'x' }),
+          _react2.default.createElement(_reactJsxHighstock.Chart, { zoomType: 'x' }),
           _react2.default.createElement(
-            _reactJsxHighcharts.Title,
+            _reactJsxHighstock.Title,
             null,
             'Custom Components'
           ),
           _react2.default.createElement(
-            _reactJsxHighcharts.Subtitle,
+            _reactJsxHighstock.Subtitle,
             null,
             'react-day-picker Date Pickers'
           ),
           _react2.default.createElement(
-            _reactJsxHighcharts.Legend,
+            _reactJsxHighstock.Legend,
             null,
             _react2.default.createElement(
-              _reactJsxHighcharts.Legend.Title,
+              _reactJsxHighstock.Legend.Title,
               null,
               'Key'
             )
           ),
           _react2.default.createElement(
-            _reactJsxHighcharts.XAxis,
+            _reactJsxHighstock.XAxis,
             null,
             _react2.default.createElement(
-              _reactJsxHighcharts.XAxis.Title,
+              _reactJsxHighstock.XAxis.Title,
               null,
               'Time'
             )
           ),
           _react2.default.createElement(
-            _reactJsxHighcharts.YAxis,
+            _reactJsxHighstock.YAxis,
             { id: 'price' },
             _react2.default.createElement(
-              _reactJsxHighcharts.YAxis.Title,
+              _reactJsxHighstock.YAxis.Title,
               null,
               'Price'
             ),
-            _react2.default.createElement(_reactJsxHighcharts.AreaSplineSeries, { id: 'profit', name: 'Profit', data: data1 })
+            _react2.default.createElement(_reactJsxHighstock.AreaSplineSeries, { id: 'profit', name: 'Profit', data: data1 })
           ),
           _react2.default.createElement(_DateRangePickers2.default, { axisId: 'xAxis' }),
           _react2.default.createElement(
-            _reactJsxHighcharts.Navigator,
+            _reactJsxHighstock.Navigator,
             null,
-            _react2.default.createElement(_reactJsxHighcharts.Navigator.Series, { seriesId: 'profit' })
+            _react2.default.createElement(_reactJsxHighstock.Navigator.Series, { seriesId: 'profit' })
           )
         ),
         _react2.default.createElement(

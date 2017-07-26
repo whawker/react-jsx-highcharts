@@ -63,7 +63,8 @@ module.exports = {
     'highstock-release': 'Highcharts',
     'moment': 'moment',
     'react-day-picker': 'DayPicker',
-    'react-jsx-highcharts': 'ReactHighcharts'
+    'react-jsx-highcharts': 'ReactHighcharts',
+    'react-jsx-highstock': 'ReactHighcharts'
   },
 
   module: {

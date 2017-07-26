@@ -2124,7 +2124,7 @@ var _react = __webpack_require__(13);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactJsxHighcharts = __webpack_require__(50);
+var _reactJsxHighstock = __webpack_require__(50);
 
 var _ExampleCode = __webpack_require__(51);
 
@@ -2166,83 +2166,83 @@ var App = function (_Component) {
         'div',
         { className: 'app' },
         _react2.default.createElement(
-          _reactJsxHighcharts.HighchartsStockChart,
+          _reactJsxHighstock.HighchartsStockChart,
           null,
-          _react2.default.createElement(_reactJsxHighcharts.Chart, { onClick: this.handleClick, zoomType: 'x' }),
+          _react2.default.createElement(_reactJsxHighstock.Chart, { onClick: this.handleClick, zoomType: 'x' }),
           _react2.default.createElement(
-            _reactJsxHighcharts.Title,
+            _reactJsxHighstock.Title,
             null,
             'Highstocks Example'
           ),
           _react2.default.createElement(
-            _reactJsxHighcharts.Legend,
+            _reactJsxHighstock.Legend,
             null,
             _react2.default.createElement(
-              _reactJsxHighcharts.Legend.Title,
+              _reactJsxHighstock.Legend.Title,
               null,
               'Key'
             )
           ),
           _react2.default.createElement(
-            _reactJsxHighcharts.RangeSelector,
+            _reactJsxHighstock.RangeSelector,
             null,
             _react2.default.createElement(
-              _reactJsxHighcharts.RangeSelector.Button,
+              _reactJsxHighstock.RangeSelector.Button,
               { count: 1, type: 'day' },
               '1d'
             ),
             _react2.default.createElement(
-              _reactJsxHighcharts.RangeSelector.Button,
+              _reactJsxHighstock.RangeSelector.Button,
               { count: 7, type: 'day' },
               '7d'
             ),
             _react2.default.createElement(
-              _reactJsxHighcharts.RangeSelector.Button,
+              _reactJsxHighstock.RangeSelector.Button,
               { count: 1, type: 'month' },
               '1m'
             ),
             _react2.default.createElement(
-              _reactJsxHighcharts.RangeSelector.Button,
+              _reactJsxHighstock.RangeSelector.Button,
               { type: 'all' },
               'All'
             ),
-            _react2.default.createElement(_reactJsxHighcharts.RangeSelector.Input, { boxBorderColor: '#7cb5ec' })
+            _react2.default.createElement(_reactJsxHighstock.RangeSelector.Input, { boxBorderColor: '#7cb5ec' })
           ),
-          _react2.default.createElement(_reactJsxHighcharts.Tooltip, null),
+          _react2.default.createElement(_reactJsxHighstock.Tooltip, null),
           _react2.default.createElement(
-            _reactJsxHighcharts.XAxis,
+            _reactJsxHighstock.XAxis,
             null,
             _react2.default.createElement(
-              _reactJsxHighcharts.XAxis.Title,
+              _reactJsxHighstock.XAxis.Title,
               null,
               'Time'
             )
           ),
           _react2.default.createElement(
-            _reactJsxHighcharts.YAxis,
+            _reactJsxHighstock.YAxis,
             { id: 'price' },
             _react2.default.createElement(
-              _reactJsxHighcharts.YAxis.Title,
+              _reactJsxHighstock.YAxis.Title,
               null,
               'Price'
             ),
-            _react2.default.createElement(_reactJsxHighcharts.AreaSplineSeries, { id: 'profit', name: 'Profit', data: data1 })
+            _react2.default.createElement(_reactJsxHighstock.AreaSplineSeries, { id: 'profit', name: 'Profit', data: data1 })
           ),
           _react2.default.createElement(
-            _reactJsxHighcharts.YAxis,
+            _reactJsxHighstock.YAxis,
             { id: 'social', opposite: true },
             _react2.default.createElement(
-              _reactJsxHighcharts.YAxis.Title,
+              _reactJsxHighstock.YAxis.Title,
               null,
               'Social Buzz'
             ),
-            _react2.default.createElement(_reactJsxHighcharts.SplineSeries, { id: 'twitter', name: 'Twitter mentions', data: data2 })
+            _react2.default.createElement(_reactJsxHighstock.SplineSeries, { id: 'twitter', name: 'Twitter mentions', data: data2 })
           ),
           _react2.default.createElement(
-            _reactJsxHighcharts.Navigator,
+            _reactJsxHighstock.Navigator,
             null,
-            _react2.default.createElement(_reactJsxHighcharts.Navigator.Series, { seriesId: 'profit' }),
-            _react2.default.createElement(_reactJsxHighcharts.Navigator.Series, { seriesId: 'twitter' })
+            _react2.default.createElement(_reactJsxHighstock.Navigator.Series, { seriesId: 'profit' }),
+            _react2.default.createElement(_reactJsxHighstock.Navigator.Series, { seriesId: 'twitter' })
           )
         ),
         _react2.default.createElement(
