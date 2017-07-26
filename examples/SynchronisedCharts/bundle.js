@@ -2017,7 +2017,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 /* 98 */,
 /* 99 */,
 /* 100 */,
-/* 101 */,
+/* 101 */
+/***/ (function(module, exports) {
+
+module.exports = Highcharts;
+
+/***/ }),
 /* 102 */,
 /* 103 */,
 /* 104 */,
@@ -2097,6 +2102,10 @@ var _react = __webpack_require__(13);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _highcharts = __webpack_require__(101);
+
+var _highcharts2 = _interopRequireDefault(_highcharts);
+
 var _reactJsxHighcharts = __webpack_require__(50);
 
 var _ExampleCode = __webpack_require__(51);
@@ -2109,9 +2118,9 @@ var _exampleCode2 = _interopRequireDefault(_exampleCode);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-Highcharts.Pointer.prototype.reset = function () {};
+_highcharts2.default.Pointer.prototype.reset = function () {};
 
-Highcharts.Point.prototype.highlight = function (event) {
+_highcharts2.default.Point.prototype.highlight = function (event) {
   this.onMouseOver(); // Show the hover marker
   this.series.chart.tooltip.refresh(this); // Show the tooltip
   this.series.chart.xAxis[0].drawCrosshair(event, this); // Show the crosshair
@@ -2160,7 +2169,7 @@ var App = function (_Component) {
       var data = dataset.data.map(function (val, i) {
         return [_this3.state.chartData.xData[i], val];
       });
-      var colour = Highcharts.getOptions().colors[index];
+      var colour = _highcharts2.default.getOptions().colors[index];
 
       return _react2.default.createElement(
         _reactJsxHighcharts.HighchartsChart,
@@ -2199,9 +2208,13 @@ var App = function (_Component) {
       var point = null;
       var event = null;
 
-      Highcharts.charts.forEach(function (chart) {
-        event = chart.pointer.normalize(e.originalEvent); // Find coordinates within the chart
+      _highcharts2.default.charts.forEach(function (chart) {
+        console.log('originalEvent', e);
+        console.log('originalEvent', e.originalEvent);
+        event = chart.pointer.normalize(e); // Find coordinates within the chart
+        console.log('event', event);
         point = chart.series[0].searchPoint(event, true); // Get the hovered point
+        console.log('point', point);
         if (point) {
           point.highlight(e);
         }
