@@ -2085,6 +2085,12 @@ module.exports = getNative;
 
 /***/ }),
 /* 101 */
+/***/ (function(module, exports) {
+
+module.exports = Highcharts;
+
+/***/ }),
+/* 102 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Symbol = __webpack_require__(105),
@@ -2118,7 +2124,7 @@ module.exports = baseGetTag;
 
 
 /***/ }),
-/* 102 */
+/* 103 */
 /***/ (function(module, exports) {
 
 /**
@@ -2151,12 +2157,6 @@ function isObjectLike(value) {
 
 module.exports = isObjectLike;
 
-
-/***/ }),
-/* 103 */
-/***/ (function(module, exports) {
-
-module.exports = Highcharts;
 
 /***/ }),
 /* 104 */
@@ -2548,8 +2548,8 @@ module.exports = isObject;
 /* 116 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseGetTag = __webpack_require__(101),
-    isObjectLike = __webpack_require__(102);
+var baseGetTag = __webpack_require__(102),
+    isObjectLike = __webpack_require__(103);
 
 /** `Object#toString` result references. */
 var symbolTag = '[object Symbol]';
@@ -3098,7 +3098,7 @@ module.exports = baseGet;
 /***/ (function(module, exports, __webpack_require__) {
 
 var baseIsEqualDeep = __webpack_require__(202),
-    isObjectLike = __webpack_require__(102);
+    isObjectLike = __webpack_require__(103);
 
 /**
  * The base implementation of `_.isEqual` which supports partial comparisons
@@ -3409,7 +3409,7 @@ module.exports = eq;
 /***/ (function(module, exports, __webpack_require__) {
 
 var baseIsArguments = __webpack_require__(201),
-    isObjectLike = __webpack_require__(102);
+    isObjectLike = __webpack_require__(103);
 
 /** Used for built-in method references. */
 var objectProto = Object.prototype;
@@ -3495,7 +3495,7 @@ module.exports = isBuffer;
 /* 133 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseGetTag = __webpack_require__(101),
+var baseGetTag = __webpack_require__(102),
     isObject = __webpack_require__(115);
 
 /** `Object#toString` result references. */
@@ -3641,9 +3641,9 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactJsxHighcharts = __webpack_require__(50);
 
-var _highstockRelease = __webpack_require__(103);
+var _highcharts = __webpack_require__(101);
 
-var _highstockRelease2 = _interopRequireDefault(_highstockRelease);
+var _highcharts2 = _interopRequireDefault(_highcharts);
 
 var _mapValues = __webpack_require__(265);
 
@@ -3661,7 +3661,7 @@ __webpack_require__(272);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-_highstockRelease2.default.setOptions({
+_highcharts2.default.setOptions({
   lang: { thousandsSep: ',' }
 });
 
@@ -3706,7 +3706,7 @@ var App = function (_Component) {
     _this.renderSparklineWithTooltip = _this.renderSparklineWithTooltip.bind(_this);
 
     _this.state = {
-      npmPackages: ['highcharts', 'highcharts-release', 'highstock-release', 'react-jsx-highcharts']
+      npmPackages: ['highcharts', 'highstock-release', 'react-jsx-highcharts', 'react-jsx-highstock']
     };
     return _this;
   }
@@ -4403,8 +4403,8 @@ module.exports = baseHasIn;
 /* 201 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseGetTag = __webpack_require__(101),
-    isObjectLike = __webpack_require__(102);
+var baseGetTag = __webpack_require__(102),
+    isObjectLike = __webpack_require__(103);
 
 /** `Object#toString` result references. */
 var argsTag = '[object Arguments]';
@@ -4637,9 +4637,9 @@ module.exports = baseIsNative;
 /* 205 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseGetTag = __webpack_require__(101),
+var baseGetTag = __webpack_require__(102),
     isLength = __webpack_require__(114),
-    isObjectLike = __webpack_require__(102);
+    isObjectLike = __webpack_require__(103);
 
 /** `Object#toString` result references. */
 var argsTag = '[object Arguments]',
@@ -5411,7 +5411,7 @@ var DataView = __webpack_require__(184),
     Promise = __webpack_require__(186),
     Set = __webpack_require__(187),
     WeakMap = __webpack_require__(190),
-    baseGetTag = __webpack_require__(101),
+    baseGetTag = __webpack_require__(102),
     toSource = __webpack_require__(129);
 
 /** `Object#toString` result references. */
