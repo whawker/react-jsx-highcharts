@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {
   HighchartsSparkline, AreaSeries, Tooltip
 } from 'react-jsx-highcharts';
-import Highcharts from 'highstock-release';
+import Highcharts from 'highcharts';
 import mapValues from 'lodash/mapValues';
 import ExampleCode from '../utils/ExampleCode';
 import code from './exampleCode';
@@ -52,9 +52,9 @@ class App extends Component {
     this.state = {
       npmPackages: [
         'highcharts',
-        'highcharts-release',
         'highstock-release',
-        'react-jsx-highcharts'
+        'react-jsx-highcharts',
+        'react-jsx-highstock'
       ]
     };
   }
