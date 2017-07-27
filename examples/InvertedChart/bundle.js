@@ -2017,14 +2017,14 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 /* 98 */,
 /* 99 */,
 /* 100 */,
-/* 101 */,
-/* 102 */,
-/* 103 */
+/* 101 */
 /***/ (function(module, exports) {
 
 module.exports = Highcharts;
 
 /***/ }),
+/* 102 */,
+/* 103 */,
 /* 104 */,
 /* 105 */,
 /* 106 */,
@@ -2101,9 +2101,9 @@ var _react = __webpack_require__(13);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _highstockRelease = __webpack_require__(103);
+var _highcharts = __webpack_require__(101);
 
-var _highstockRelease2 = _interopRequireDefault(_highstockRelease);
+var _highcharts2 = _interopRequireDefault(_highcharts);
 
 var _reactJsxHighcharts = __webpack_require__(50);
 
@@ -2117,7 +2117,7 @@ var _exampleCode2 = _interopRequireDefault(_exampleCode);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-_highstockRelease2.default.setOptions({
+_highcharts2.default.setOptions({
   lang: { thousandsSep: '' }
 });
 
