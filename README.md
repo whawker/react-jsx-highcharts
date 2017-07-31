@@ -37,11 +37,19 @@ A proof of concept for integrating [Highcharts](https://github.com/highcharts/hi
 
 ## Getting Started
 
+#### Highcharts
 `npm install --save react-jsx-highcharts`
 
 You'll need the peer dependencies too
 
-`npm install --save react react-dom prop-types highstock-release` (Highstock release is Highcharts bundled with stock charts)
+`npm install --save react react-dom prop-types highcharts`
+
+#### Highstock (also includes Highcharts)
+`npm install --save react-jsx-highstock`
+
+You'll need the peer dependencies too
+
+`npm install --save react react-dom prop-types highstock-release` (note: `highstock-release`, not `highcharts`)
 
 ## Documentation
 In progress... [see here](https://github.com/whawker/react-jsx-highcharts/wiki).

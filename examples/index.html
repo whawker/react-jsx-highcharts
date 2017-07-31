@@ -5,31 +5,149 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>react-jsx-highcharts examples</title>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    body > div {
+      padding: 0 10px;
+    }
+
+    .grid {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      width: 100%;
+    }
+
+    .col {
+      flex: 1;
+      max-width: 32%;
+      min-width: 32%;
+    }
+
+    .col a {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .col a img {
+      max-height: 200px;
+      max-width: 100%;
+      padding: 10px;
+      width: auto;
+    }
+
+    .col p {
+      min-height: 20px;
+      text-align: center;
+      width: 100%;
+    }
+
+    @media (max-width: 768px) {
+      .col {
+        max-width: 50%;
+        min-width: 50%;
+      }
+    }
+
+    @media (max-width: 468px) {
+      .col {
+        max-width: 100%;
+        min-width: 100%;
+      }
+    }
+  </style>
 </head>
 <body>
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-xs-12">
-        <h1><code>react-jsx-highcharts</code> Examples</h1>
-        <ol>
-          <li><a href="SimpleLine/index.html">Simple line chart</a></li>
-          <li><a href="InvertedChart/index.html">Inverted chart</a></li>
-          <li><a href="SplineWithPlotBands/index.html">Spline with Plot Bands</a></li>
-          <li><a href="Combo/index.html">Combined series types</a> (Requires <code>highcharts-more</code> module)</li>
-          <li><a href="Funnel/index.html">Funnel chart</a> (Requires <code>funnel</code> module)</li>
-          <li><a href="AddSeries/index.html">Add / Remove series</a></li>
-          <li><a href="Events/index.html">Event handling</a></li>
-          <li><a href="LiveUpdate/index.html">Dynamically updating data</a></li>
-          <li><a href="SynchronisedCharts/index.html">Synchronised charts</a></li>
-          <li><a href="Sparkline/index.html">Sparkline charts</a></li>
-        </ol>
+  <div>
+    <h1><code>react-jsx-highcharts</code> Examples</h1>
+    <div class="grid">
+      <div class="col">
+        <a href="SimpleLine/index.html">
+          <img src="https://user-images.githubusercontent.com/2003804/28792320-154dad82-7627-11e7-8457-6f5ef0519ede.png" alt="SimpleLine" />
+          <h4>Simple line chart</h4>
+        </a>
+        <p></p>
       </div>
-      <div class="col-xs-12">
-        <h1><code>react-jsx-highstock</code> Examples</h1>
-        <ol>
-          <li><a href="Highstocks/index.html">Highstocks chart</a></li>
-          <li><a href="CustomComponent/index.html">Custom components</a> (Using <a href="http://react-day-picker.js.org/"><code>react-day-picker</code></a> Date Pickers)</li>
-        </ol>
+      <div class="col">
+        <a href="InvertedChart/index.html">
+          <img src="https://user-images.githubusercontent.com/2003804/28792317-1536e9ee-7627-11e7-91d4-b1c5896a271e.png" alt="InvertedChart" />
+          <h4>Inverted chart</h4>
+        </a>
+        <p></p>
+      </div>
+      <div class="col">
+        <a href="SplineWithPlotBands/index.html">
+          <img src="https://user-images.githubusercontent.com/2003804/28792321-154e19d4-7627-11e7-823c-f20540e30d81.png" alt="SplineWithPlotBands" />
+          <h4>Spline with Plot Bands</h4>
+        </a>
+        <p></p>
+      </div>
+      <div class="col">
+        <a href="Combo/index.html">
+          <img src="https://user-images.githubusercontent.com/2003804/28792313-152e0acc-7627-11e7-895b-8bfb9b818bce.png" alt="Combo" />
+          <h4>Combined series types</h4>
+        </a>
+        <p>(Requires <code>highcharts-more</code> module)</p>
+      </div>
+      <div class="col">
+        <a href="Funnel/index.html">
+          <img src="https://user-images.githubusercontent.com/2003804/28792314-1534eae0-7627-11e7-93c9-eaae2b1c96b2.png" alt="Funnel" />
+          <h4>Funnel chart</h4>
+        </a>
+        <p>(Requires <code>funnel</code> module)</p>
+      </div>
+      <div class="col">
+        <a href="AddSeries/index.html">
+          <img src="https://user-images.githubusercontent.com/2003804/28792312-15186cc6-7627-11e7-9602-1bb4f628e6e9.gif" alt="AddSeries" />
+          <h4>Add / Remove series</h4>
+        </a>
+        <p></p>
+      </div>
+      <div class="col">
+        <a href="Events/index.html">
+          <img src="https://user-images.githubusercontent.com/2003804/28792316-1536c888-7627-11e7-915d-6177b1ce248e.gif" alt="Events" />
+          <h4>Event handling</h4>
+        </a>
+        <p></p>
+      </div>
+      <div class="col">
+        <a href="LiveUpdate/index.html">
+          <img src="https://user-images.githubusercontent.com/2003804/28792319-1547c11a-7627-11e7-962a-4d99721fdd43.gif" alt="LiveUpdate" />
+          <h4>Dynamically updating data</h4>
+        </a>
+        <p></p>
+      </div>
+      <div class="col">
+        <a href="SynchronisedCharts/index.html">
+          <img src="https://user-images.githubusercontent.com/2003804/28792322-154e48e6-7627-11e7-9608-ef813b12b73a.gif" alt="SynchronisedCharts" />
+          <h4>Synchronised charts</h4>
+        </a>
+        <p></p>
+      </div>
+      <div class="col">
+        <a href="Sparkline/index.html">
+          <img src="https://user-images.githubusercontent.com/2003804/28792323-155773ee-7627-11e7-8f46-9a1c34e026c3.png" alt="Sparkline" />
+          <h4>Sparkline charts</h4>
+        </a>
+        <p></p>
+      </div>
+    </div>
+
+    <h1><code>react-jsx-highstock</code> Examples</h1>
+    <div class="grid">
+      <div class="col">
+        <a href="Highstocks/index.html">
+          <img src="https://user-images.githubusercontent.com/2003804/28792315-15357154-7627-11e7-8c73-3df7d564e49c.png" alt="Highstocks" />
+          <h4>Highstocks chart</h4>
+        </a>
+        <p></p>
+      </div>
+      <div class="col">
+        <a href="CustomComponent/index.html">
+          <img src="https://user-images.githubusercontent.com/2003804/28792318-153a0746-7627-11e7-883f-f28b03bcd386.png" alt="CustomComponent" />
+          <h4>Custom components</h4>
+        </a>
+        <p>(Using <code>react-day-picker</code> Date Pickers)</p>
       </div>
     </div>
   </div>
