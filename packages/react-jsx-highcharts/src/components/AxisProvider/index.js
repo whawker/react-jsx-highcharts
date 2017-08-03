@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import provideChart from '../ChartProvider';
 import providedProps from '../../utils/providedProps';
+import getBoundChartMethod from '../../utils/getBoundChartMethod';
 import cleanPropsBeforeUpdate from '../../utils/cleanPropsBeforeUpdate';
 
 function getDisplayName (Component) {
@@ -29,15 +30,16 @@ export default function provideAxis(WrappedComponent) {
       const id = this.props.axisId || this.props.id;
       if (!id) return null;
 
+      const chart = this.props.getChart();
       const axis = this.props.get(id);
-      const update = axis && axis.update.bind(axis);
-      const remove = axis && axis.remove.bind(axis);
-      const addPlotBand = axis && axis.addPlotBand.bind(axis);
-      const removePlotBand = axis && axis.removePlotBand.bind(axis);
-      const addPlotLine = axis && axis.addPlotLine.bind(axis);
-      const removePlotLine = axis && axis.removePlotLine.bind(axis);
-      const getExtremes = axis && axis.getExtremes.bind(axis);
-      const setExtremes = axis && axis.setExtremes.bind(axis);
+      const update = axis && getBoundChartMethod(chart, axis.update, axis);
+      const remove = axis && getBoundChartMethod(chart, axis.remove, axis);
+      const addPlotBand = axis && getBoundChartMethod(chart, axis.addPlotBand, axis);
+      const removePlotBand = axis && getBoundChartMethod(chart, axis.removePlotBand, axis);
+      const addPlotLine = axis && getBoundChartMethod(chart, axis.addPlotLine, axis);
+      const removePlotLine = axis && getBoundChartMethod(chart, axis.removePlotLine, axis);
+      const getExtremes = axis && getBoundChartMethod(chart, axis.getExtremes, axis);
+      const setExtremes = axis && getBoundChartMethod(chart, axis.setExtremes, axis);
       const getAxis = () => this.props.get(id);
 
       return (

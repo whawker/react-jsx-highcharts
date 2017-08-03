@@ -71,6 +71,7 @@ class BaseChart extends Component {
 
   componentWillUnmount () {
     this.chart.destroy();
+    this.chart.__destroyed = true;
   }
 
   getChildContext () {

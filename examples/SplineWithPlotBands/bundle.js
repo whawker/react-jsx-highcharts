@@ -64,7 +64,7 @@ var example =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 170);
+/******/ 	return __webpack_require__(__webpack_require__.s = 173);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -2062,7 +2062,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 /* 143 */,
 /* 144 */,
 /* 145 */,
-/* 146 */
+/* 146 */,
+/* 147 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2102,7 +2103,7 @@ var _ExampleCode = __webpack_require__(51);
 
 var _ExampleCode2 = _interopRequireDefault(_ExampleCode);
 
-var _exampleCode = __webpack_require__(169);
+var _exampleCode = __webpack_require__(172);
 
 var _exampleCode2 = _interopRequireDefault(_exampleCode);
 
@@ -2214,7 +2215,6 @@ var App = function (_Component) {
 exports.default = App;
 
 /***/ }),
-/* 147 */,
 /* 148 */,
 /* 149 */,
 /* 150 */,
@@ -2236,7 +2236,10 @@ exports.default = App;
 /* 166 */,
 /* 167 */,
 /* 168 */,
-/* 169 */
+/* 169 */,
+/* 170 */,
+/* 171 */,
+/* 172 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2248,7 +2251,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = "\nrenderPlotBand (band, index) {\n  const { from, to } = band;\n  const id = `${from}-${to}`;\n  const color = (index % 2) ? '#FFFFFF' : 'rgba(68, 170, 213, 0.1)';\n  return (\n    <PlotBand id={id} key={id} from={from} to={to} color={color}>\n      <PlotBand.Label>{band.label}</PlotBand.Label>\n    </PlotBand>\n  );\n}\n\nrender() {\n  const plotOptions =  {\n    spline: {\n      lineWidth: 4,\n        states: {\n        hover: {\n          lineWidth: 5\n        }\n      },\n      marker: {\n        enabled: false\n      },\n      pointInterval: 3600000, // one hour\n      pointStart: Date.UTC(2015, 4, 31, 0, 0, 0)\n    }\n  };\n\n  const bands = [\n    { label: 'Light air', from: 0.5, to: 1.5 },\n    { label: 'Light breeze', from: 1.5, to: 3.3 },\n    { label: 'Gentle breeze', from: 3.3, to: 5.5 },\n    { label: 'Moderate breeze', from: 5.5, to: 8 },\n    { label: 'Fresh breeze', from: 8, to: 11 },\n    { label: 'Strong breeze', from: 11, to: 14 },\n    { label: 'High wind', from: 14, to: 15 }\n  ];\n\n  return (\n    <HighchartsChart plotOptions={plotOptions}>\n      <Chart type=\"spline\" />\n\n      <Title>Wind speed during two days</Title>\n\n      <Subtitle>May 31 and and June 1, 2015 at two locations in Vik i Sogn, Norway</Subtitle>\n\n      <Legend />\n\n      <Tooltip valueSuffix=\" m/s\" />\n\n      <XAxis type=\"datetime\">\n        <XAxis.Title>Time</XAxis.Title>\n      </XAxis>\n\n      <YAxis id=\"y\" minorGridLineWidth={0} gridLineWidth={0} alternateGridColor={null}>\n        <YAxis.Title>Wind speed (m/s)</YAxis.Title>\n        <SplineSeries id=\"hestavollane\" name=\"Hestavollane\" data={[0.2, 0.8, 0.8, 0.8, 1, 1.3, // etc.]} />\n        <SplineSeries id=\"vix\" name=\"Vix\" data={[0, 0, 0.6, 0.9, 0.8, 0.2, 0, 0, 0, 0.1, 0.6, // etc.]} />\n        {bands.map(this.renderPlotBand)}\n      </YAxis>\n    </HighchartsChart>\n  );\n}";
 
 /***/ }),
-/* 170 */
+/* 173 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2262,7 +2265,7 @@ var _reactDom = __webpack_require__(42);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _App = __webpack_require__(146);
+var _App = __webpack_require__(147);
 
 var _App2 = _interopRequireDefault(_App);
 

@@ -64,7 +64,7 @@ var example =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 154);
+/******/ 	return __webpack_require__(__webpack_require__.s = 155);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -2050,14 +2050,14 @@ var addDataPoint = exports.addDataPoint = function addDataPoint(data, toAdd) {
 /* 98 */,
 /* 99 */,
 /* 100 */,
-/* 101 */,
-/* 102 */,
-/* 103 */
+/* 101 */
 /***/ (function(module, exports) {
 
 module.exports = Highcharts;
 
 /***/ }),
+/* 102 */,
+/* 103 */,
 /* 104 */,
 /* 105 */,
 /* 106 */,
@@ -2619,11 +2619,11 @@ var _ExampleCode = __webpack_require__(51);
 
 var _ExampleCode2 = _interopRequireDefault(_ExampleCode);
 
-var _exampleCode = __webpack_require__(153);
+var _exampleCode = __webpack_require__(154);
 
 var _exampleCode2 = _interopRequireDefault(_exampleCode);
 
-var _DateRangePickers = __webpack_require__(152);
+var _DateRangePickers = __webpack_require__(153);
 
 var _DateRangePickers2 = _interopRequireDefault(_DateRangePickers);
 
@@ -2731,7 +2731,8 @@ exports.default = App;
 /* 149 */,
 /* 150 */,
 /* 151 */,
-/* 152 */
+/* 152 */,
+/* 153 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2765,21 +2766,21 @@ var _react = __webpack_require__(13);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _moment = __webpack_require__(275);
+var _moment = __webpack_require__(278);
 
 var _moment2 = _interopRequireDefault(_moment);
 
-var _reactDayPicker = __webpack_require__(274);
+var _reactDayPicker = __webpack_require__(277);
 
 var _reactDayPicker2 = _interopRequireDefault(_reactDayPicker);
 
-var _highstockRelease = __webpack_require__(103);
+var _highstockRelease = __webpack_require__(101);
 
 var _highstockRelease2 = _interopRequireDefault(_highstockRelease);
 
 var _reactJsxHighcharts = __webpack_require__(50);
 
-__webpack_require__(271);
+__webpack_require__(274);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2897,7 +2898,7 @@ var DateRangePickers = function (_Component) {
 exports.default = (0, _reactJsxHighcharts.provideAxis)(DateRangePickers);
 
 /***/ }),
-/* 153 */
+/* 154 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2909,7 +2910,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = "\n// Rendered in App.js with <DateRangePickers axisId=\"xAxis\" />\n\nclass DateRangePickers extends Component {\n\n  constructor (props) {\n    super(props);\n\n    this.handleFromDateChange = this.handleFromDateChange.bind(this);\n    this.handleToDateChange = this.handleToDateChange.bind(this);\n    this.handleAfterSetExtremes = this.handleAfterSetExtremes.bind(this);\n\n    this.state = {\n      min: null,\n      max: null\n    };\n  }\n\n  componentDidMount () {\n    Highcharts.addEvent(this.props.getAxis(), 'afterSetExtremes', this.handleAfterSetExtremes);\n\n    const { min, max } = this.props.getExtremes();\n    this.setState({\n      min,\n      max\n    });\n  }\n\n  handleFromDateChange (fromDate) {\n    let { max } = this.props.getExtremes();\n    let selectedTime = fromDate.startOf('day').valueOf();\n\n    let newMax = (selectedTime >= max) ? selectedTime + 86400000 : max;\n    this.props.setExtremes(selectedTime, newMax);\n  }\n\n  handleToDateChange (toDate) {\n    let { min } = this.props.getExtremes();\n    let selectedTime = toDate.startOf('day').valueOf();\n\n    let newMin = (selectedTime <= min) ? selectedTime - 86400000 : min;\n    this.props.setExtremes(newMin, selectedTime);\n  }\n\n  handleAfterSetExtremes (e) {\n    const { min, max } = e;\n    this.setState({\n      min,\n      max\n    });\n  }\n\n  render () {\n    const axis = this.props.getAxis();\n    if (!axis) return null;\n    const { min, max } = this.state;\n\n    const fromDate = moment(min).format(DAY_FORMAT);\n    const toDate = moment(max).format(DAY_FORMAT);\n\n    return (\n      <div className=\"date-range-pickers\">\n        <span className=\"date-range-pickers__from-label\">From: </span>\n        <DayPicker.Input\n          value={fromDate}\n          onDayChange={this.handleFromDateChange}\n          format={DAY_FORMAT} />\n        <span className=\"date-range-pickers__to-label\">To: </span>\n        <DayPicker.Input\n          value={toDate}\n          onDayChange={this.handleToDateChange}\n          format={DAY_FORMAT} />\n      </div>\n    );\n  }\n}\n\n// The important bit, using the provideAxis HOC to inject Highcharts axis methods\nexport default provideAxis(DateRangePickers);";
 
 /***/ }),
-/* 154 */
+/* 155 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2932,7 +2933,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 _reactDom2.default.render(_react2.default.createElement(_App2.default, null), document.getElementById('root'));
 
 /***/ }),
-/* 155 */,
 /* 156 */,
 /* 157 */,
 /* 158 */,
@@ -2959,7 +2959,10 @@ _reactDom2.default.render(_react2.default.createElement(_App2.default, null), do
 /* 179 */,
 /* 180 */,
 /* 181 */,
-/* 182 */
+/* 182 */,
+/* 183 */,
+/* 184 */,
+/* 185 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(110)(undefined);
@@ -2973,9 +2976,6 @@ exports.push([module.i, ".date-range-pickers {\n  float: right;\n  position: rel
 
 
 /***/ }),
-/* 183 */,
-/* 184 */,
-/* 185 */,
 /* 186 */,
 /* 187 */,
 /* 188 */,
@@ -3061,13 +3061,16 @@ exports.push([module.i, ".date-range-pickers {\n  float: right;\n  position: rel
 /* 268 */,
 /* 269 */,
 /* 270 */,
-/* 271 */
+/* 271 */,
+/* 272 */,
+/* 273 */,
+/* 274 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(182);
+var content = __webpack_require__(185);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -3092,15 +3095,15 @@ if(false) {
 }
 
 /***/ }),
-/* 272 */,
-/* 273 */,
-/* 274 */
+/* 275 */,
+/* 276 */,
+/* 277 */
 /***/ (function(module, exports) {
 
 module.exports = DayPicker;
 
 /***/ }),
-/* 275 */
+/* 278 */
 /***/ (function(module, exports) {
 
 module.exports = moment;

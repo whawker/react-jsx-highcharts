@@ -64,7 +64,7 @@ var example =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 162);
+/******/ 	return __webpack_require__(__webpack_require__.s = 165);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -2063,7 +2063,8 @@ module.exports = Highcharts;
 /* 139 */,
 /* 140 */,
 /* 141 */,
-/* 142 */
+/* 142 */,
+/* 143 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2093,7 +2094,7 @@ var _inherits2 = __webpack_require__(46);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _from = __webpack_require__(173);
+var _from = __webpack_require__(176);
 
 var _from2 = _interopRequireDefault(_from);
 
@@ -2111,7 +2112,7 @@ var _ExampleCode = __webpack_require__(51);
 
 var _ExampleCode2 = _interopRequireDefault(_ExampleCode);
 
-var _exampleCode = __webpack_require__(161);
+var _exampleCode = __webpack_require__(164);
 
 var _exampleCode2 = _interopRequireDefault(_exampleCode);
 
@@ -2221,7 +2222,6 @@ var App = function (_Component) {
 exports.default = App;
 
 /***/ }),
-/* 143 */,
 /* 144 */,
 /* 145 */,
 /* 146 */,
@@ -2239,7 +2239,10 @@ exports.default = App;
 /* 158 */,
 /* 159 */,
 /* 160 */,
-/* 161 */
+/* 161 */,
+/* 162 */,
+/* 163 */,
+/* 164 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2251,7 +2254,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = "\nrender () {\n  const plotOptions = {\n    areaspline: {\n      fillOpacity: 1,\n      lineWidth: 0,\n      marker: {\n        enabled: false,\n        states: {\n          hover: { enabled: false }\n        }\n      }\n    }\n  };\n\n  const positioner = (w, h, point) => ({x: 0, y: point.plotY + (h / 2) + 8});\n    \n  const { seasons, totalGoals, avgGoalsPerGame } = this.state; \n\n  return (\n    <div className=\"app\">\n      <HighchartsChart plotOptions={plotOptions}>\n        <Chart inverted marginLeft={300} height={650} />\n\n        <Title>Premier League Goal Stats: 1992-93 to 2016-17</Title>\n\n        <Subtitle>Source: myfootballfacts.com</Subtitle>\n\n        <XAxis type=\"category\" categories={seasons} crosshair={{ zIndex: 10 }} lineWidth={0} tickLength={0}>\n          <XAxis.Title>Season</XAxis.Title>\n        </XAxis>\n\n        <YAxis id=\"total\" min={800} gridLineWidth={0} labels={{ enabled: false }}>\n          <AreaSplineSeries id=\"totalGoals\" name=\"Total Goals\" data={totalGoals} color=\"#38003c\" />\n        </YAxis>\n\n        <YAxis id=\"average\" min={2.4} max={5} gridLineWidth={0} labels={{ enabled: false }}>\n          <AreaSplineSeries id=\"avgGoalsPerGame\" name=\"Average Goals per Game\" data={avgGoalsPerGame} color=\"#e90052\" />\n        </YAxis>\n\n        <Tooltip shared positioner={positioner} backgroundColor=\"transparent\" borderWidth={0} shadow={false} />\n      </HighchartsChart>\n    </div>\n  );\n}";
 
 /***/ }),
-/* 162 */
+/* 165 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2265,7 +2268,7 @@ var _reactDom = __webpack_require__(42);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _App = __webpack_require__(142);
+var _App = __webpack_require__(143);
 
 var _App2 = _interopRequireDefault(_App);
 
@@ -2274,9 +2277,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 _reactDom2.default.render(_react2.default.createElement(_App2.default, null), document.getElementById('root'));
 
 /***/ }),
-/* 163 */,
-/* 164 */,
-/* 165 */,
 /* 166 */,
 /* 167 */,
 /* 168 */,
@@ -2284,21 +2284,24 @@ _reactDom2.default.render(_react2.default.createElement(_App2.default, null), do
 /* 170 */,
 /* 171 */,
 /* 172 */,
-/* 173 */
+/* 173 */,
+/* 174 */,
+/* 175 */,
+/* 176 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = { "default": __webpack_require__(174), __esModule: true };
+module.exports = { "default": __webpack_require__(177), __esModule: true };
 
 /***/ }),
-/* 174 */
+/* 177 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(49);
-__webpack_require__(181);
+__webpack_require__(184);
 module.exports = __webpack_require__(0).Array.from;
 
 /***/ }),
-/* 175 */
+/* 178 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // getting tag from 19.1.3.6 Object.prototype.toString()
@@ -2326,7 +2329,7 @@ module.exports = function(it){
 };
 
 /***/ }),
-/* 176 */
+/* 179 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2340,7 +2343,7 @@ module.exports = function(object, index, value){
 };
 
 /***/ }),
-/* 177 */
+/* 180 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // check on default Array iterator
@@ -2353,7 +2356,7 @@ module.exports = function(it){
 };
 
 /***/ }),
-/* 178 */
+/* 181 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // call something on iterator step with safe closing on error
@@ -2370,7 +2373,7 @@ module.exports = function(iterator, fn, value, entries){
 };
 
 /***/ }),
-/* 179 */
+/* 182 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var ITERATOR     = __webpack_require__(6)('iterator')
@@ -2396,10 +2399,10 @@ module.exports = function(exec, skipClosing){
 };
 
 /***/ }),
-/* 180 */
+/* 183 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var classof   = __webpack_require__(175)
+var classof   = __webpack_require__(178)
   , ITERATOR  = __webpack_require__(6)('iterator')
   , Iterators = __webpack_require__(16);
 module.exports = __webpack_require__(0).getIteratorMethod = function(it){
@@ -2409,7 +2412,7 @@ module.exports = __webpack_require__(0).getIteratorMethod = function(it){
 };
 
 /***/ }),
-/* 181 */
+/* 184 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2417,13 +2420,13 @@ module.exports = __webpack_require__(0).getIteratorMethod = function(it){
 var ctx            = __webpack_require__(30)
   , $export        = __webpack_require__(7)
   , toObject       = __webpack_require__(31)
-  , call           = __webpack_require__(178)
-  , isArrayIter    = __webpack_require__(177)
+  , call           = __webpack_require__(181)
+  , isArrayIter    = __webpack_require__(180)
   , toLength       = __webpack_require__(48)
-  , createProperty = __webpack_require__(176)
-  , getIterFn      = __webpack_require__(180);
+  , createProperty = __webpack_require__(179)
+  , getIterFn      = __webpack_require__(183);
 
-$export($export.S + $export.F * !__webpack_require__(179)(function(iter){ Array.from(iter); }), 'Array', {
+$export($export.S + $export.F * !__webpack_require__(182)(function(iter){ Array.from(iter); }), 'Array', {
   // 22.1.2.1 Array.from(arrayLike, mapfn = undefined, thisArg = undefined)
   from: function from(arrayLike/*, mapfn = undefined, thisArg = undefined*/){
     var O       = toObject(arrayLike)

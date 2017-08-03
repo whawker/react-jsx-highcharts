@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import providedProps from '../../utils/providedProps';
+import getBoundChartMethod from '../../utils/getBoundChartMethod';
 import cleanPropsBeforeUpdate from '../../utils/cleanPropsBeforeUpdate';
 
 function getDisplayName (Component) {
@@ -34,10 +35,10 @@ export default function provideChart(WrappedComponent) {
         <WrappedComponent
           {...this.props}
           get={chart.get.bind(chart)}
-          update={cleanPropsBeforeUpdate(chart.update.bind(chart))}
-          addAxis={cleanPropsBeforeUpdate(chart.addAxis.bind(chart))}
-          addSeries={cleanPropsBeforeUpdate(chart.addSeries.bind(chart))}
-          setTitle={cleanPropsBeforeUpdate(chart.setTitle.bind(chart))}
+          update={cleanPropsBeforeUpdate(getBoundChartMethod(chart, chart.update, chart))}
+          addAxis={cleanPropsBeforeUpdate(getBoundChartMethod(chart, chart.addAxis, chart))}
+          addSeries={cleanPropsBeforeUpdate(getBoundChartMethod(chart, chart.addSeries, chart))}
+          setTitle={cleanPropsBeforeUpdate(getBoundChartMethod(chart, chart.setTitle, chart))}
           getChart={getChart}
           getChartType={getChartType} />
       );

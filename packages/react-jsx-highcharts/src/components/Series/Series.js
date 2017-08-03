@@ -59,7 +59,9 @@ class Series extends Component {
   }
 
   componentWillUnmount () {
-    this.props.remove();
+    const { remove } = this.props;
+
+    remove && remove();
   }
 
   render () {
