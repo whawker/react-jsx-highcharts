@@ -754,6 +754,21 @@ module.exports = pickBy;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Axis__ = __webpack_require__(114);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__AxisTitle__ = __webpack_require__(115);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__AxisProvider__ = __webpack_require__(31);
+
+
+
+var ChartAxis = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__AxisProvider__["a" /* default */])(__WEBPACK_IMPORTED_MODULE_0__Axis__["a" /* default */]);
+ChartAxis.Title = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__AxisProvider__["a" /* default */])(__WEBPACK_IMPORTED_MODULE_1__AxisTitle__["a" /* default */]);
+/* harmony default export */ __webpack_exports__["a"] = (ChartAxis);
+
+/***/ }),
+/* 31 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = provideAxis;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__);
@@ -842,21 +857,6 @@ function provideAxis(WrappedComponent) {
 
   return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__ChartProvider__["a" /* default */])(AxisProvider);
 }
-
-/***/ }),
-/* 31 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Axis__ = __webpack_require__(114);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__AxisTitle__ = __webpack_require__(115);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__AxisProvider__ = __webpack_require__(30);
-
-
-
-var ChartAxis = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__AxisProvider__["a" /* default */])(__WEBPACK_IMPORTED_MODULE_0__Axis__["a" /* default */]);
-ChartAxis.Title = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__AxisProvider__["a" /* default */])(__WEBPACK_IMPORTED_MODULE_1__AxisTitle__["a" /* default */]);
-/* harmony default export */ __webpack_exports__["a"] = (ChartAxis);
 
 /***/ }),
 /* 32 */
@@ -1599,7 +1599,7 @@ module.exports = isObjectLike;
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__XAxis__ = __webpack_require__(170);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ChartProvider__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Axis__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Axis__ = __webpack_require__(30);
 
 
 
@@ -2608,11 +2608,11 @@ module.exports = ReactPropTypesSecret;
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "D", function() { return __WEBPACK_IMPORTED_MODULE_29__components_WaterfallSeries__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__components_ChartProvider__ = __webpack_require__(10);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "E", function() { return __WEBPACK_IMPORTED_MODULE_30__components_ChartProvider__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__components_AxisProvider__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__components_AxisProvider__ = __webpack_require__(31);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "F", function() { return __WEBPACK_IMPORTED_MODULE_31__components_AxisProvider__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__components_SeriesProvider__ = __webpack_require__(41);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "G", function() { return __WEBPACK_IMPORTED_MODULE_32__components_SeriesProvider__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__components_Axis__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__components_Axis__ = __webpack_require__(30);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "H", function() { return __WEBPACK_IMPORTED_MODULE_33__components_Axis__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__components_BaseChart__ = __webpack_require__(40);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "I", function() { return __WEBPACK_IMPORTED_MODULE_34__components_BaseChart__["a"]; });
@@ -5065,7 +5065,7 @@ PlotBandLabel.labelProps = ['text', 'align', 'rotation', 'style', 'textAlign', '
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__PlotBand__ = __webpack_require__(147);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__PlotBandLabel__ = __webpack_require__(148);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__AxisProvider__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__AxisProvider__ = __webpack_require__(31);
 
 
 
@@ -5306,7 +5306,7 @@ PlotLineLabel.labelProps = ['text', 'align', 'rotation', 'style', 'textAlign', '
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__PlotLine__ = __webpack_require__(150);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__PlotLineLabel__ = __webpack_require__(151);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__AxisProvider__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__AxisProvider__ = __webpack_require__(31);
 
 
 
@@ -6152,7 +6152,7 @@ WaterfallSeries.propTypes = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_prop_types__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_prop_types__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__Axis__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__Axis__ = __webpack_require__(30);
 
 
 
@@ -6225,7 +6225,7 @@ XAxis.defaultProps = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_prop_types__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_prop_types__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__Axis__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__Axis__ = __webpack_require__(30);
 
 
 
