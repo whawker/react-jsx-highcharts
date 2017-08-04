@@ -30,6 +30,8 @@ const examples = [].concat(
 const exampleNames = examples.map(e => e.name);
 
 const externals = {
+  // 'react-jsx-highcharts': '../../packages/react-jsx-highcharts/dist/react-jsx-highcharts.min.js',
+  // 'react-jsx-highstock':  '../../packages/react-jsx-highstock/dist/react-jsx-highstock.min.js',
   'react-jsx-highcharts': 'https://unpkg.com/react-jsx-highcharts/dist/react-jsx-highcharts.min.js',
   'react-jsx-highstock':  'https://unpkg.com/react-jsx-highstock/dist/react-jsx-highstock.min.js',
   'react':                'https://cdnjs.cloudflare.com/ajax/libs/react/15.5.4/react.min.js',
