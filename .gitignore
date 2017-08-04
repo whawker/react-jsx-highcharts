@@ -62,3 +62,4 @@ typings/
 
 # react-jsx-highcharts
 packages/react-jsx-highcharts/README.md
+dist

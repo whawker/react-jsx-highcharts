@@ -3,6 +3,10 @@
   "version": "1.0.2",
   "description": "Highcharts charts built using React components",
   "main": "dist/react-jsx-highcharts.min.js",
+  "files": [
+    "dist",
+    "src"
+  ],
   "scripts": {
     "build": "cross-env NODE_ENV=development ./node_modules/.bin/webpack",
     "build:prod": "cp ../../README.md . && cross-env NODE_ENV=production ./node_modules/.bin/webpack -p",
