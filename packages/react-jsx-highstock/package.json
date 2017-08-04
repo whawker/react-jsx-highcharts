@@ -1,8 +1,12 @@
 {
   "name": "react-jsx-highstock",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Highcharts (including Highstock) charts built using React components",
   "main": "dist/react-jsx-highstock.min.js",
+  "files": [
+    "dist",
+    "src"
+  ],
   "scripts": {
     "build": "cross-env NODE_ENV=development ./node_modules/.bin/webpack",
     "build:prod": "cross-env NODE_ENV=production ./node_modules/.bin/webpack -p",
@@ -10,6 +14,9 @@
     "test": "cross-env NODE_ENV=test ./node_modules/.bin/mocha --compilers js:babel-core/register --require test/test-helper.js test/**/*.spec.js"
   },
   "author": "Will Hawker",
+  "contributors": [
+    { "name": "Alex Mayants", "url": "https://github.com/AlexMayants" }
+  ],
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -30,7 +37,7 @@
     "data"
   ],
   "dependencies": {
-    "react-jsx-highcharts": "1.0.0"
+    "react-jsx-highcharts": "1.1.0"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",

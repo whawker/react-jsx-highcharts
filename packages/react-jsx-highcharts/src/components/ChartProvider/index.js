@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import providedProps from '../../utils/providedProps';
+import boundContextHelper from '../../utils/boundContextHelper';
 import cleanPropsBeforeUpdate from '../../utils/cleanPropsBeforeUpdate';
 
 function getDisplayName (Component) {
@@ -29,15 +30,16 @@ export default function provideChart(WrappedComponent) {
       const { chart, chartType } = this.context;
       const getChart = () => chart;
       const getChartType = () => chartType;
+      const getBoundChartMethod = boundContextHelper(chart, chart);
 
       return (
         <WrappedComponent
           {...this.props}
           get={chart.get.bind(chart)}
-          update={cleanPropsBeforeUpdate(chart.update.bind(chart))}
-          addAxis={cleanPropsBeforeUpdate(chart.addAxis.bind(chart))}
-          addSeries={cleanPropsBeforeUpdate(chart.addSeries.bind(chart))}
-          setTitle={cleanPropsBeforeUpdate(chart.setTitle.bind(chart))}
+          update={cleanPropsBeforeUpdate(getBoundChartMethod(chart.update))}
+          addAxis={cleanPropsBeforeUpdate(getBoundChartMethod(chart.addAxis))}
+          addSeries={cleanPropsBeforeUpdate(getBoundChartMethod(chart.addSeries))}
+          setTitle={cleanPropsBeforeUpdate(getBoundChartMethod(chart.setTitle))}
           getChart={getChart}
           getChartType={getChartType} />
       );

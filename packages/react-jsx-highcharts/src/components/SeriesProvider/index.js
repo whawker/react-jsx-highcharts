@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Highcharts from 'highcharts';
 import provideChart from '../ChartProvider';
 import providedProps from '../../utils/providedProps';
+import boundContextHelper from '../../utils/boundContextHelper';
 import cleanPropsBeforeUpdate from '../../utils/cleanPropsBeforeUpdate';
 
 function getDisplayName (Component) {
@@ -52,10 +53,12 @@ export default function provideSeries(WrappedComponent, expectsSeriesExists = tr
       const series = this.props.get(id);
       if (!series && expectsSeriesExists) return null;
 
-      const update = series && series.update.bind(series);
-      const remove = series && series.remove.bind(series);
-      const setData = series && series.setData.bind(series);
-      const setVisible = series && series.setVisible.bind(series);
+      const getBoundSeriesMethod = boundContextHelper(this.props.getChart(), series);
+
+      const update = getBoundSeriesMethod(series && series.update);
+      const remove = getBoundSeriesMethod(series && series.remove);
+      const setData = getBoundSeriesMethod(series && series.setData);
+      const setVisible = getBoundSeriesMethod(series && series.setVisible);
       const getSeries = () => this.props.get(id);
 
       return (
