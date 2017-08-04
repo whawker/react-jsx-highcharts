@@ -1,6 +1,6 @@
 {
   "name": "react-jsx-highcharts",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "Highcharts charts built using React components",
   "main": "dist/react-jsx-highcharts.min.js",
   "files": [
