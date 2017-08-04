@@ -64,7 +64,7 @@ var example =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 161);
+/******/ 	return __webpack_require__(__webpack_require__.s = 158);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -2056,8 +2056,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 /* 137 */,
 /* 138 */,
 /* 139 */,
-/* 140 */,
-/* 141 */
+/* 140 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2097,7 +2096,7 @@ var _ExampleCode = __webpack_require__(51);
 
 var _ExampleCode2 = _interopRequireDefault(_ExampleCode);
 
-var _exampleCode = __webpack_require__(160);
+var _exampleCode = __webpack_require__(157);
 
 var _exampleCode2 = _interopRequireDefault(_exampleCode);
 
@@ -2157,6 +2156,7 @@ var App = function (_Component) {
 exports.default = App;
 
 /***/ }),
+/* 141 */,
 /* 142 */,
 /* 143 */,
 /* 144 */,
@@ -2172,10 +2172,7 @@ exports.default = App;
 /* 154 */,
 /* 155 */,
 /* 156 */,
-/* 157 */,
-/* 158 */,
-/* 159 */,
-/* 160 */
+/* 157 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2187,7 +2184,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = "\nrender() {\n  const plotOptions = {\n    series: {\n      dataLabels: {\n        enabled: true,\n        format: '<b>{point.name}</b> ({point.y:,.0f})',\n        softConnector: true\n      },\n      center: ['40%', '50%'],\n      neckWidth: '30%',\n      neckHeight: '25%',\n      width: '80%'\n    }\n  };\n\n  const funnelData = [\n    ['Website visits', 15654],\n    ['Downloads', 4064],\n    ['Requested price list', 1987],\n    ['Invoice sent', 976],\n    ['Finalized', 846]\n  ];\n\n  return (\n    <div className=\"app\">\n      <HighchartsChart plotOptions={plotOptions}>\n        <Title>Sales funnel</Title>\n\n        <FunnelSeries id=\"unique-users\" name=\"Unique users\" data={funnelData} />\n      </HighchartsChart>\n    </div>\n  );\n}";
 
 /***/ }),
-/* 161 */
+/* 158 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2201,7 +2198,7 @@ var _reactDom = __webpack_require__(42);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _App = __webpack_require__(141);
+var _App = __webpack_require__(140);
 
 var _App2 = _interopRequireDefault(_App);
 

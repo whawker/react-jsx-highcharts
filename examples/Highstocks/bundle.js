@@ -64,7 +64,7 @@ var example =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 163);
+/******/ 	return __webpack_require__(__webpack_require__.s = 160);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -2090,8 +2090,7 @@ var addDataPoint = exports.addDataPoint = function addDataPoint(data, toAdd) {
 /* 138 */,
 /* 139 */,
 /* 140 */,
-/* 141 */,
-/* 142 */
+/* 141 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2131,7 +2130,7 @@ var _ExampleCode = __webpack_require__(51);
 
 var _ExampleCode2 = _interopRequireDefault(_ExampleCode);
 
-var _exampleCode = __webpack_require__(162);
+var _exampleCode = __webpack_require__(159);
 
 var _exampleCode2 = _interopRequireDefault(_exampleCode);
 
@@ -2147,11 +2146,6 @@ var App = function (_Component) {
 
     var _this = (0, _possibleConstructorReturn3.default)(this, (App.__proto__ || (0, _getPrototypeOf2.default)(App)).call(this, props));
 
-    _this.state = {
-      showChart: true
-    };
-
-
     var now = Date.now();
     _this.state = {
       data1: (0, _dataHelpers.createRandomData)(now, 1e8),
@@ -2163,8 +2157,6 @@ var App = function (_Component) {
   (0, _createClass3.default)(App, [{
     key: 'render',
     value: function render() {
-      var _this2 = this;
-
       var _state = this.state,
           data1 = _state.data1,
           data2 = _state.data2;
@@ -2174,13 +2166,6 @@ var App = function (_Component) {
         'div',
         { className: 'app' },
         _react2.default.createElement(
-          'button',
-          { onClick: function onClick() {
-              return _this2.setState({ showChart: !_this2.state.showChart });
-            } },
-          'Toggle chart'
-        ),
-        this.state.showChart && _react2.default.createElement(
           _reactJsxHighstock.HighchartsStockChart,
           null,
           _react2.default.createElement(_reactJsxHighstock.Chart, { onClick: this.handleClick, zoomType: 'x' }),
@@ -2274,6 +2259,7 @@ var App = function (_Component) {
 exports.default = App;
 
 /***/ }),
+/* 142 */,
 /* 143 */,
 /* 144 */,
 /* 145 */,
@@ -2290,10 +2276,7 @@ exports.default = App;
 /* 156 */,
 /* 157 */,
 /* 158 */,
-/* 159 */,
-/* 160 */,
-/* 161 */,
-/* 162 */
+/* 159 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2305,7 +2288,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = "\n<HighchartsStockChart>\n  <Chart onClick={this.handleClick} zoomType=\"x\" />\n\n  <Title>Highstocks Example</Title>\n\n  <Legend>\n    <Legend.Title>Key</Legend.Title>\n  </Legend>\n\n  <RangeSelector>\n    <RangeSelector.Button count={1} type=\"day\">1d</RangeSelector.Button>\n    <RangeSelector.Button count={7} type=\"day\">7d</RangeSelector.Button>\n    <RangeSelector.Button count={1} type=\"month\">1m</RangeSelector.Button>\n    <RangeSelector.Button type=\"all\">All</RangeSelector.Button>\n    <RangeSelector.Input boxBorderColor=\"#7cb5ec\" />\n  </RangeSelector>\n\n  <Tooltip />\n\n  <XAxis>\n    <XAxis.Title>Time</XAxis.Title>\n  </XAxis>\n\n  <YAxis id=\"price\">\n    <YAxis.Title>Price</YAxis.Title>\n    <AreaSplineSeries id=\"profit\" name=\"Profit\" data={data1} />\n  </YAxis>\n\n  <YAxis id=\"social\" opposite>\n    <YAxis.Title>Social Buzz</YAxis.Title>\n    <SplineSeries id=\"twitter\" name=\"Twitter mentions\" data={data2} />\n  </YAxis>\n\n  <Navigator>\n    <Navigator.Series seriesId=\"profit\" />\n    <Navigator.Series seriesId=\"twitter\" />\n  </Navigator>\n</HighchartsStockChart>";
 
 /***/ }),
-/* 163 */
+/* 160 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2319,7 +2302,7 @@ var _reactDom = __webpack_require__(42);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _App = __webpack_require__(142);
+var _App = __webpack_require__(141);
 
 var _App2 = _interopRequireDefault(_App);
 

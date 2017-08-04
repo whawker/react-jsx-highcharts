@@ -362,13 +362,14 @@ function provideChart(WrappedComponent) {
         var getChartType = function getChartType() {
           return chartType;
         };
+        var getBoundChartMethod = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_9__utils_getBoundChartMethod__["a" /* boundContextHelper */])(chart, chart);
 
         return __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement(WrappedComponent, __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default()({}, this.props, {
           get: chart.get.bind(chart),
-          update: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_10__utils_cleanPropsBeforeUpdate__["a" /* default */])(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_9__utils_getBoundChartMethod__["a" /* default */])(chart, chart.update, chart)),
-          addAxis: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_10__utils_cleanPropsBeforeUpdate__["a" /* default */])(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_9__utils_getBoundChartMethod__["a" /* default */])(chart, chart.addAxis, chart)),
-          addSeries: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_10__utils_cleanPropsBeforeUpdate__["a" /* default */])(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_9__utils_getBoundChartMethod__["a" /* default */])(chart, chart.addSeries, chart)),
-          setTitle: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_10__utils_cleanPropsBeforeUpdate__["a" /* default */])(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_9__utils_getBoundChartMethod__["a" /* default */])(chart, chart.setTitle, chart)),
+          update: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_10__utils_cleanPropsBeforeUpdate__["a" /* default */])(getBoundChartMethod(chart.update)),
+          addAxis: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_10__utils_cleanPropsBeforeUpdate__["a" /* default */])(getBoundChartMethod(chart.addAxis)),
+          addSeries: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_10__utils_cleanPropsBeforeUpdate__["a" /* default */])(getBoundChartMethod(chart.addSeries)),
+          setTitle: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_10__utils_cleanPropsBeforeUpdate__["a" /* default */])(getBoundChartMethod(chart.setTitle)),
           getChart: getChart,
           getChartType: getChartType }));
       }
@@ -821,16 +822,18 @@ function provideAxis(WrappedComponent) {
         var id = this.props.axisId || this.props.id;
         if (!id) return null;
 
-        var chart = this.props.getChart();
         var axis = this.props.get(id);
-        var update = axis && __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_9__utils_getBoundChartMethod__["a" /* default */])(chart, axis.update, axis);
-        var remove = axis && __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_9__utils_getBoundChartMethod__["a" /* default */])(chart, axis.remove, axis);
-        var addPlotBand = axis && __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_9__utils_getBoundChartMethod__["a" /* default */])(chart, axis.addPlotBand, axis);
-        var removePlotBand = axis && __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_9__utils_getBoundChartMethod__["a" /* default */])(chart, axis.removePlotBand, axis);
-        var addPlotLine = axis && __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_9__utils_getBoundChartMethod__["a" /* default */])(chart, axis.addPlotLine, axis);
-        var removePlotLine = axis && __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_9__utils_getBoundChartMethod__["a" /* default */])(chart, axis.removePlotLine, axis);
-        var getExtremes = axis && __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_9__utils_getBoundChartMethod__["a" /* default */])(chart, axis.getExtremes, axis);
-        var setExtremes = axis && __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_9__utils_getBoundChartMethod__["a" /* default */])(chart, axis.setExtremes, axis);
+
+        var getBoundAxisMethod = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_9__utils_getBoundChartMethod__["a" /* boundContextHelper */])(this.props.getChart(), axis);
+
+        var update = axis && getBoundAxisMethod(axis.update);
+        var remove = axis && getBoundAxisMethod(axis.remove);
+        var addPlotBand = axis && getBoundAxisMethod(axis.addPlotBand);
+        var removePlotBand = axis && getBoundAxisMethod(axis.removePlotBand);
+        var addPlotLine = axis && getBoundAxisMethod(axis.addPlotLine);
+        var removePlotLine = axis && getBoundAxisMethod(axis.removePlotLine);
+        var getExtremes = axis && getBoundAxisMethod(axis.getExtremes);
+        var setExtremes = axis && getBoundAxisMethod(axis.setExtremes);
         var getAxis = function getAxis() {
           return _this2.props.get(id);
         };
@@ -1081,16 +1084,25 @@ var isEventKey = function isEventKey(value, key) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = getBoundChartMethod;
+/* unused harmony export default */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return boundContextHelper; });
 function getBoundChartMethod(chart, method, context) {
   var boundMethod = method.bind(context);
 
   return function () {
     if (!chart.__destroyed) {
-      boundMethod.apply(undefined, arguments);
+      return boundMethod.apply(undefined, arguments);
     }
+
+    return null;
   };
 }
+
+var boundContextHelper = function boundContextHelper(chart, context) {
+  return function (method) {
+    return getBoundChartMethod(chart, method, context);
+  };
+};
 
 /***/ }),
 /* 41 */
@@ -1566,11 +1578,12 @@ function provideSeries(WrappedComponent) {
         var series = this.props.get(id);
         if (!series && expectsSeriesExists) return null;
 
-        var chart = this.props.getChart();
-        var update = series && __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_10__utils_getBoundChartMethod__["a" /* default */])(chart, series.update, series);
-        var remove = series && __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_10__utils_getBoundChartMethod__["a" /* default */])(chart, series.remove, series);
-        var setData = series && __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_10__utils_getBoundChartMethod__["a" /* default */])(chart, series.setData, series);
-        var setVisible = series && __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_10__utils_getBoundChartMethod__["a" /* default */])(chart, series.setVisible, series);
+        var getBoundSeriesMethod = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_10__utils_getBoundChartMethod__["a" /* boundContextHelper */])(this.props.getChart(), series);
+
+        var update = series && getBoundSeriesMethod(series.update);
+        var remove = series && getBoundSeriesMethod(series.remove);
+        var setData = series && getBoundSeriesMethod(series.setData);
+        var setVisible = series && getBoundSeriesMethod(series.setVisible);
         var getSeries = function getSeries() {
           return _this2.props.get(id);
         };
@@ -3120,7 +3133,7 @@ var Axis = function (_Component) {
       var remove = this.props.remove;
 
 
-      remove && remove();
+      remove();
     }
   }, {
     key: 'render',
@@ -5410,7 +5423,7 @@ var Series = function (_Component) {
       var remove = this.props.remove;
 
 
-      remove && remove();
+      remove();
     }
   }, {
     key: 'render',

@@ -64,7 +64,7 @@ var example =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 169);
+/******/ 	return __webpack_require__(__webpack_require__.s = 166);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -2060,8 +2060,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 /* 141 */,
 /* 142 */,
 /* 143 */,
-/* 144 */,
-/* 145 */
+/* 144 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2101,7 +2100,7 @@ var _ExampleCode = __webpack_require__(51);
 
 var _ExampleCode2 = _interopRequireDefault(_ExampleCode);
 
-var _exampleCode = __webpack_require__(168);
+var _exampleCode = __webpack_require__(165);
 
 var _exampleCode2 = _interopRequireDefault(_exampleCode);
 
@@ -2180,6 +2179,7 @@ var App = function (_Component) {
 exports.default = App;
 
 /***/ }),
+/* 145 */,
 /* 146 */,
 /* 147 */,
 /* 148 */,
@@ -2199,10 +2199,7 @@ exports.default = App;
 /* 162 */,
 /* 163 */,
 /* 164 */,
-/* 165 */,
-/* 166 */,
-/* 167 */,
-/* 168 */
+/* 165 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2214,7 +2211,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = "\nrender () {\n  const plotOptions = {\n    series: {\n      pointStart: 2010\n    }\n  };\n\n  return (\n    <HighchartsChart plotOptions={plotOptions}>\n      <Chart />\n\n      <Title>Solar Employment Growth by Sector, 2010-2016</Title>\n\n      <Subtitle>Source: thesolarfoundation.com</Subtitle>\n\n      <Legend layout=\"vertical\" align=\"right\" verticalAlign=\"middle\" />\n\n      <XAxis>\n        <XAxis.Title>Time</XAxis.Title>\n      </XAxis>\n\n      <YAxis id=\"number\">\n        <YAxis.Title>Number of employees</YAxis.Title>\n        <LineSeries id=\"installation\" name=\"Installation\" data={[43934, 52503, 57177, 69658, 97031, 119931, 137133, 154175]} />\n        <LineSeries id=\"manufacturing\" name=\"Manufacturing\" data={[24916, 24064, 29742, 29851, 32490, 30282, 38121, 40434]} />\n        <LineSeries id=\"sales-distribution\" name=\"Sales & Distribution\" data={[11744, 17722, 16005, 19771, 20185, 24377, 32147, 39387]} />\n        <LineSeries id=\"project-development\" name=\"Project Development\" data={[null, null, 7988, 12169, 15112, 22452, 34400, 34227]} />\n        <LineSeries id=\"other\" name=\"Other\" data={[12908, 5948, 8105, 11248, 8989, 11816, 18274, 18111]} />\n      </YAxis>\n    </HighchartsChart>\n  );\n}";
 
 /***/ }),
-/* 169 */
+/* 166 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2228,7 +2225,7 @@ var _reactDom = __webpack_require__(42);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _App = __webpack_require__(145);
+var _App = __webpack_require__(144);
 
 var _App2 = _interopRequireDefault(_App);
 

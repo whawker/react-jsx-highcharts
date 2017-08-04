@@ -39,9 +39,7 @@ class Axis extends Component {
   }
 
   componentWillUnmount () {
-    const { remove } = this.props;
-
-    remove && remove();
+    this.props.remove();
   }
 
   render () {

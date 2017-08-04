@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import provideChart from '../ChartProvider';
 import providedProps from '../../utils/providedProps';
-import getBoundChartMethod from '../../utils/getBoundChartMethod';
+import { boundContextHelper } from '../../utils/getBoundChartMethod';
 import cleanPropsBeforeUpdate from '../../utils/cleanPropsBeforeUpdate';
 
 function getDisplayName (Component) {
@@ -30,16 +30,18 @@ export default function provideAxis(WrappedComponent) {
       const id = this.props.axisId || this.props.id;
       if (!id) return null;
 
-      const chart = this.props.getChart();
       const axis = this.props.get(id);
-      const update = axis && getBoundChartMethod(chart, axis.update, axis);
-      const remove = axis && getBoundChartMethod(chart, axis.remove, axis);
-      const addPlotBand = axis && getBoundChartMethod(chart, axis.addPlotBand, axis);
-      const removePlotBand = axis && getBoundChartMethod(chart, axis.removePlotBand, axis);
-      const addPlotLine = axis && getBoundChartMethod(chart, axis.addPlotLine, axis);
-      const removePlotLine = axis && getBoundChartMethod(chart, axis.removePlotLine, axis);
-      const getExtremes = axis && getBoundChartMethod(chart, axis.getExtremes, axis);
-      const setExtremes = axis && getBoundChartMethod(chart, axis.setExtremes, axis);
+
+      const getBoundAxisMethod = boundContextHelper(this.props.getChart(), axis);
+
+      const update = getBoundAxisMethod(axis && axis.update);
+      const remove = getBoundAxisMethod(axis && axis.remove);
+      const addPlotBand = getBoundAxisMethod(axis && axis.addPlotBand);
+      const removePlotBand = getBoundAxisMethod(axis && axis.removePlotBand);
+      const addPlotLine = getBoundAxisMethod(axis && axis.addPlotLine);
+      const removePlotLine = getBoundAxisMethod(axis && axis.removePlotLine);
+      const getExtremes = getBoundAxisMethod(axis && axis.getExtremes);
+      const setExtremes = getBoundAxisMethod(axis && axis.setExtremes);
       const getAxis = () => this.props.get(id);
 
       return (
