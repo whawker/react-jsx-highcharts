@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import provideChart from '../ChartProvider';
 import providedProps from '../../utils/providedProps';
-import { boundContextHelper } from '../../utils/getBoundChartMethod';
+import boundContextHelper from '../../utils/boundContextHelper';
 import cleanPropsBeforeUpdate from '../../utils/cleanPropsBeforeUpdate';
 
 function getDisplayName (Component) {

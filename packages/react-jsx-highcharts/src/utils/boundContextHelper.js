@@ -1,6 +1,6 @@
 const noop = () => {};
 
-export default function getBoundChartMethod(chart, method, context) {
+function getBoundChartMethod (chart, method, context) {
   if (!method) {
     return noop;
   }
@@ -16,6 +16,8 @@ export default function getBoundChartMethod(chart, method, context) {
   }
 }
 
-export const boundContextHelper = (chart, context) => method => {
+const boundContextHelper = (chart, context) => method => {
   return getBoundChartMethod(chart, method, context);
-}
+};
+
+export default boundContextHelper;
