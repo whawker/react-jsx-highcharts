@@ -4,6 +4,8 @@ This package exposes everything from `react-jsx-highcharts`, but additionally pr
 
 N.B. You can build *both* Highcharts **and** Highstock charts from this package.
 
+As of 1.2.0 React JSX Highstock supports using [Immutable.js](https://facebook.github.io/immutable-js/) data structures as Series data.
+
 ## Example
 
 ```jsx
