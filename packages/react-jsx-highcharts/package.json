@@ -78,8 +78,7 @@
   "dependencies": {
     "immutable-is": "^3.7.6",
     "is-immutable": "^1.0.1",
-    "lodash": "^4.17.4",
-    "react-immutable-proptypes": "^2.1.0"
+    "lodash": "^4.17.4"
   },
   "peerDependencies": {
     "highcharts": "^5.0.0",
