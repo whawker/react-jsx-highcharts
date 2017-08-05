@@ -14,7 +14,8 @@ const highchartsExamples = [
   { name: 'SplineWithPlotBands' },
   { name: 'SynchronisedCharts', additional: ['promise-polyfill', 'fetch-polyfill'] },
   { name: 'Sparkline', additional: ['promise-polyfill', 'fetch-polyfill'] },
-  { name: 'InvertedChart' }
+  { name: 'InvertedChart' },
+  { name: 'ImmutableJS', additional: ['immutable'] }
 ];
 
 const highstockExamples = [
@@ -45,7 +46,8 @@ const externals = {
   'moment':               'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js',
   'react-day-picker':     'https://unpkg.com/react-day-picker@6.0.5/lib/daypicker.js',
   'promise-polyfill':     'https://www.promisejs.org/polyfills/promise-6.1.0.js',
-  'fetch-polyfill':       'https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.min.js'
+  'fetch-polyfill':       'https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.min.js',
+  'immutable':            'https://cdnjs.cloudflare.com/ajax/libs/immutable/3.8.1/immutable.min.js'
 };
 
 module.exports = {
@@ -65,6 +67,7 @@ module.exports = {
     'highstock-release': 'Highcharts',
     'moment': 'moment',
     'react-day-picker': 'DayPicker',
+    'immutable': 'Immutable',
     'react-jsx-highcharts': 'ReactHighcharts',
     'react-jsx-highstock': 'ReactHighcharts'
   },
