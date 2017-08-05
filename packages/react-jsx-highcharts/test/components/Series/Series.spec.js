@@ -1,6 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import Highcharts from 'highcharts';
+import { List } from 'immutable';
 import Series from '../../../src/components/Series/Series';
 
 describe('<Series />', function ()  {
@@ -68,6 +69,19 @@ describe('<Series />', function ()  {
       expect(Highcharts.addEvent).to.have.been.calledWith('mock-series', 'click', handleClick);
       expect(Highcharts.addEvent).to.have.been.calledWith('mock-series', 'show', handleShow);
     });
+
+    it('supports mounting with Immutable List data', function () {
+      const data = [1, 2, 3, 4, 5];
+      mount(
+        <Series id="mySeries" axisId="myAxis" dimension="y"
+                data={List(data)}
+                addSeries={this.addSeries}
+                getSeries={this.getSeries} />
+      );
+      expect(this.addSeries).to.have.been.calledWith(
+        { id: 'mySeries', yAxis: 'myAxis', type: 'line', data, visible: true, getSeries: this.getSeries }, true
+      );
+    });
   });
 
   describe('update', function () {
@@ -82,7 +96,56 @@ describe('<Series />', function ()  {
           setVisible={this.setVisible} />
       );
       wrapper.setProps({ data: [1, 2, 3] });
-      expect(this.setData).to.have.been.calledWith([1, 2, 3]);
+      expect(this.setData).to.have.been.calledWith([1, 2, 3], true);
+      expect(this.update).not.to.have.been.called;
+      expect(this.setVisible).not.to.have.been.called;
+    });
+
+    it('should NOT use the setData method if the data hasn\'t changed', function () {
+      const wrapper = mount(
+        <Series
+          id="mySeries" axisId="myAxis" dimension="x" data={[1, 2, 3]}
+          addSeries={this.addSeries}
+          getSeries={this.getSeries}
+          update={this.update}
+          setData={this.setData}
+          setVisible={this.setVisible} />
+      );
+      wrapper.setProps({ data: [1, 2, 3] });
+      expect(this.setData).not.to.have.been.called;
+      expect(this.update).not.to.have.been.called;
+      expect(this.setVisible).not.to.have.been.called;
+    });
+
+    it('should use the setData method on the correct series when the Immutable List changes', function () {
+      const wrapper = mount(
+        <Series
+          id="mySeries" axisId="myAxis" dimension="x" data={List([1, 2, 3])}
+          addSeries={this.addSeries}
+          getSeries={this.getSeries}
+          update={this.update}
+          setData={this.setData}
+          setVisible={this.setVisible} />
+      );
+      const newData = [1, 2, 3, 4, 5];
+      wrapper.setProps({ data: List(newData) });
+      expect(this.setData).to.have.been.calledWith(newData, true);
+      expect(this.update).not.to.have.been.called;
+      expect(this.setVisible).not.to.have.been.called;
+    });
+
+    it('should NOT use the setData method if the Immutable List hasn\'t changed', function () {
+      const wrapper = mount(
+        <Series
+          id="mySeries" axisId="myAxis" dimension="x" data={List([1, 2, 3])}
+          addSeries={this.addSeries}
+          getSeries={this.getSeries}
+          update={this.update}
+          setData={this.setData}
+          setVisible={this.setVisible} />
+      );
+      wrapper.setProps({ data: List([1, 2, 3]) });
+      expect(this.setData).not.to.have.been.called;
       expect(this.update).not.to.have.been.called;
       expect(this.setVisible).not.to.have.been.called;
     });

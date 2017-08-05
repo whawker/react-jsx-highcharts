@@ -1,6 +1,6 @@
 {
   "name": "react-jsx-highcharts",
-  "version": "1.1.0",
+  "version": "1.2.2",
   "description": "Highcharts charts built using React components",
   "main": "dist/react-jsx-highcharts.min.js",
   "files": [
@@ -61,6 +61,7 @@
     "highcharts": "^5.0.0",
     "html-webpack-include-assets-plugin": "0.0.6",
     "html-webpack-plugin": "^2.28.0",
+    "immutable": "^3.8.1",
     "jsdom": "^11.0.0",
     "lodash-webpack-plugin": "^0.11.4",
     "mocha": "^3.4.1",
@@ -75,7 +76,10 @@
     "webpack-dev-server": "^2.4.5"
   },
   "dependencies": {
-    "lodash": "^4.17.4"
+    "immutable-is": "^3.7.6",
+    "is-immutable": "^1.0.1",
+    "lodash": "^4.17.4",
+    "react-immutable-proptypes": "^2.1.0"
   },
   "peerDependencies": {
     "highcharts": "^5.0.0",
