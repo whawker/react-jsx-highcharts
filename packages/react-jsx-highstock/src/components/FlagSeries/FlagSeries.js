@@ -9,7 +9,7 @@ class FlagSeries extends Component {
 
   render () {
     return (
-      <Series {...this.props} type="flag" />
+      <Series {...this.props} type="flags" />
     );
   }
 }
