@@ -64,7 +64,7 @@ var example =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 164);
+/******/ 	return __webpack_require__(__webpack_require__.s = 162);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -2090,8 +2090,7 @@ var addDataPoint = exports.addDataPoint = function addDataPoint(data, toAdd) {
 /* 138 */,
 /* 139 */,
 /* 140 */,
-/* 141 */,
-/* 142 */
+/* 141 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2131,7 +2130,7 @@ var _ExampleCode = __webpack_require__(51);
 
 var _ExampleCode2 = _interopRequireDefault(_ExampleCode);
 
-var _exampleCode = __webpack_require__(163);
+var _exampleCode = __webpack_require__(161);
 
 var _exampleCode2 = _interopRequireDefault(_exampleCode);
 
@@ -2147,20 +2146,70 @@ var App = function (_Component) {
 
     var _this = (0, _possibleConstructorReturn3.default)(this, (App.__proto__ || (0, _getPrototypeOf2.default)(App)).call(this, props));
 
+    _this.renderPlotBand = _this.renderPlotBand.bind(_this);
+    _this.renderNavPlotBand = _this.renderNavPlotBand.bind(_this);
+
     var now = Date.now();
+    var unitSales = (0, _dataHelpers.createRandomData)(now, 1e8);
     _this.state = {
-      data1: (0, _dataHelpers.createRandomData)(now, 1e8),
-      data2: (0, _dataHelpers.createRandomData)(now, 1e8)
+      unitSales: unitSales,
+      campaigns: [{
+        from: unitSales[9][0],
+        to: unitSales[23][0],
+        title: 'US TV advert campaign'
+      }, {
+        from: unitSales[50][0],
+        to: unitSales[57][0],
+        title: 'UK Radio advert campaign'
+      }],
+      notableEvents: [{
+        x: unitSales[0][0],
+        title: 'North American Launch Date'
+      }, {
+        x: unitSales[30][0],
+        title: 'European Launch Date'
+      }, {
+        x: unitSales[85][0],
+        title: 'Asian Launch Date'
+      }]
     };
     return _this;
   }
 
   (0, _createClass3.default)(App, [{
+    key: 'renderPlotBand',
+    value: function renderPlotBand(_ref) {
+      var from = _ref.from,
+          to = _ref.to,
+          title = _ref.title;
+
+      var id = 'band-' + from + '-' + to;
+      return _react2.default.createElement(
+        _reactJsxHighstock.PlotBand,
+        { id: id, key: id, from: from, to: to, color: 'rgba(68, 170, 213, 0.3)' },
+        _react2.default.createElement(
+          _reactJsxHighstock.PlotBand.Label,
+          null,
+          title
+        )
+      );
+    }
+  }, {
+    key: 'renderNavPlotBand',
+    value: function renderNavPlotBand(_ref2) {
+      var from = _ref2.from,
+          to = _ref2.to;
+
+      var id = 'nav-band-' + from + '-' + to;
+      return _react2.default.createElement(_reactJsxHighstock.PlotBand, { id: id, key: id, from: from, to: to, color: 'rgba(68, 170, 213, 0.3)' });
+    }
+  }, {
     key: 'render',
     value: function render() {
       var _state = this.state,
-          data1 = _state.data1,
-          data2 = _state.data2;
+          unitSales = _state.unitSales,
+          notableEvents = _state.notableEvents,
+          campaigns = _state.campaigns;
 
 
       return _react2.default.createElement(
@@ -2173,82 +2222,43 @@ var App = function (_Component) {
           _react2.default.createElement(
             _reactJsxHighstock.Title,
             null,
-            'Highstocks Example'
+            'Highstocks with Navigator Plot Bands'
           ),
-          _react2.default.createElement(
-            _reactJsxHighstock.Legend,
-            null,
-            _react2.default.createElement(
-              _reactJsxHighstock.Legend.Title,
-              null,
-              'Key'
-            )
-          ),
-          _react2.default.createElement(
-            _reactJsxHighstock.RangeSelector,
-            null,
-            _react2.default.createElement(
-              _reactJsxHighstock.RangeSelector.Button,
-              { count: 1, type: 'day' },
-              '1d'
-            ),
-            _react2.default.createElement(
-              _reactJsxHighstock.RangeSelector.Button,
-              { count: 7, type: 'day' },
-              '7d'
-            ),
-            _react2.default.createElement(
-              _reactJsxHighstock.RangeSelector.Button,
-              { count: 1, type: 'month' },
-              '1m'
-            ),
-            _react2.default.createElement(
-              _reactJsxHighstock.RangeSelector.Button,
-              { type: 'all' },
-              'All'
-            ),
-            _react2.default.createElement(_reactJsxHighstock.RangeSelector.Input, { boxBorderColor: '#7cb5ec' })
-          ),
-          _react2.default.createElement(_reactJsxHighstock.Tooltip, null),
           _react2.default.createElement(
             _reactJsxHighstock.XAxis,
             null,
             _react2.default.createElement(
               _reactJsxHighstock.XAxis.Title,
               null,
-              'Time'
-            )
+              'Date'
+            ),
+            campaigns.map(this.renderPlotBand)
           ),
           _react2.default.createElement(
             _reactJsxHighstock.YAxis,
-            { id: 'price' },
+            { id: 'sales' },
             _react2.default.createElement(
               _reactJsxHighstock.YAxis.Title,
               null,
-              'Price'
+              'Cars sold per day'
             ),
-            _react2.default.createElement(_reactJsxHighstock.AreaSplineSeries, { id: 'profit', name: 'Profit', data: data1 })
-          ),
-          _react2.default.createElement(
-            _reactJsxHighstock.YAxis,
-            { id: 'social', opposite: true },
-            _react2.default.createElement(
-              _reactJsxHighstock.YAxis.Title,
-              null,
-              'Social Buzz'
-            ),
-            _react2.default.createElement(_reactJsxHighstock.SplineSeries, { id: 'twitter', name: 'Twitter mentions', data: data2 })
+            _react2.default.createElement(_reactJsxHighstock.AreaSplineSeries, { id: 'unitSales', name: 'Unit Sales', data: unitSales }),
+            _react2.default.createElement(_reactJsxHighstock.FlagSeries, { id: 'events', onSeries: 'unitSales', data: notableEvents })
           ),
           _react2.default.createElement(
             _reactJsxHighstock.Navigator,
             null,
-            _react2.default.createElement(_reactJsxHighstock.Navigator.Series, { seriesId: 'profit' }),
-            _react2.default.createElement(_reactJsxHighstock.Navigator.Series, { seriesId: 'twitter' })
+            _react2.default.createElement(_reactJsxHighstock.Navigator.Series, { seriesId: 'unitSales' }),
+            _react2.default.createElement(
+              _reactJsxHighstock.Navigator.XAxis,
+              { labels: { x: 0, y: 12 } },
+              campaigns.map(this.renderNavPlotBand)
+            )
           )
         ),
         _react2.default.createElement(
           _ExampleCode2.default,
-          { name: 'Highstocks' },
+          { name: 'HighstockPlotBands' },
           _exampleCode2.default
         )
       );
@@ -2260,6 +2270,7 @@ var App = function (_Component) {
 exports.default = App;
 
 /***/ }),
+/* 142 */,
 /* 143 */,
 /* 144 */,
 /* 145 */,
@@ -2278,9 +2289,7 @@ exports.default = App;
 /* 158 */,
 /* 159 */,
 /* 160 */,
-/* 161 */,
-/* 162 */,
-/* 163 */
+/* 161 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2289,10 +2298,10 @@ exports.default = App;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = "\n<HighchartsStockChart>\n  <Chart zoomType=\"x\" />\n\n  <Title>Highstocks Example</Title>\n\n  <Legend>\n    <Legend.Title>Key</Legend.Title>\n  </Legend>\n\n  <RangeSelector>\n    <RangeSelector.Button count={1} type=\"day\">1d</RangeSelector.Button>\n    <RangeSelector.Button count={7} type=\"day\">7d</RangeSelector.Button>\n    <RangeSelector.Button count={1} type=\"month\">1m</RangeSelector.Button>\n    <RangeSelector.Button type=\"all\">All</RangeSelector.Button>\n    <RangeSelector.Input boxBorderColor=\"#7cb5ec\" />\n  </RangeSelector>\n\n  <Tooltip />\n\n  <XAxis>\n    <XAxis.Title>Time</XAxis.Title>\n  </XAxis>\n\n  <YAxis id=\"price\">\n    <YAxis.Title>Price</YAxis.Title>\n    <AreaSplineSeries id=\"profit\" name=\"Profit\" data={data1} />\n  </YAxis>\n\n  <YAxis id=\"social\" opposite>\n    <YAxis.Title>Social Buzz</YAxis.Title>\n    <SplineSeries id=\"twitter\" name=\"Twitter mentions\" data={data2} />\n  </YAxis>\n\n  <Navigator>\n    <Navigator.Series seriesId=\"profit\" />\n    <Navigator.Series seriesId=\"twitter\" />\n  </Navigator>\n</HighchartsStockChart>";
+exports.default = "\nrenderPlotBand ({ from, to, title }) {\n  const id = `band-${from}-${to}`;\n  return (\n    <PlotBand id={id} key={id} from={from} to={to} color=\"rgba(68, 170, 213, 0.3)\">\n      <PlotBand.Label>{title}</PlotBand.Label>\n    </PlotBand>\n  );\n}\n\nrenderNavPlotBand ({ from, to }) {\n  const id = `nav-band-${from}-${to}`;\n  return (\n    <PlotBand id={id} key={id} from={from} to={to} color=\"rgba(68, 170, 213, 0.3)\" />\n  );\n}\n\nrender () {\n  const { unitSales, notableEvents, campaigns } = this.state;\n\n  return (\n    <div className=\"app\">\n      <HighchartsStockChart>\n        <Chart zoomType=\"x\" />\n\n        <Title>Highstocks with Navigator Plot Bands</Title>\n\n        <XAxis>\n          <XAxis.Title>Date</XAxis.Title>\n          {campaigns.map(this.renderPlotBand)}\n        </XAxis>\n\n        <YAxis id=\"sales\">\n          <YAxis.Title>Cars sold per day</YAxis.Title>\n          <AreaSplineSeries id=\"unitSales\" name=\"Unit Sales\" data={unitSales} />\n          <FlagSeries id=\"events\" onSeries=\"unitSales\" data={notableEvents} />\n        </YAxis>\n\n        <Navigator>\n          <Navigator.Series seriesId=\"unitSales\" />\n          <Navigator.XAxis labels={{ x: 0, y: 12 }}>\n            {campaigns.map(this.renderNavPlotBand)}\n          </Navigator.XAxis>\n        </Navigator>\n      </HighchartsStockChart>\n    </div>\n  );\n}";
 
 /***/ }),
-/* 164 */
+/* 162 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2306,7 +2315,7 @@ var _reactDom = __webpack_require__(42);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _App = __webpack_require__(142);
+var _App = __webpack_require__(141);
 
 var _App2 = _interopRequireDefault(_App);
 

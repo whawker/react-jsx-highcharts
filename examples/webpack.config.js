@@ -20,7 +20,8 @@ const highchartsExamples = [
 
 const highstockExamples = [
   { name: 'CustomComponent', additional: ['moment', 'react-day-picker'] },
-  { name: 'Highstocks' }
+  { name: 'Highstocks' },
+  { name: 'HighstockPlotBands' }
 ];
 
 const examples = [].concat(
