@@ -1,7 +1,11 @@
 import Navigator from './Navigator';
 import NavigatorSeries from './NavigatorSeries';
+import NavigatorXAxis from './NavigatorXAxis';
+import NavigatorYAxis from './NavigatorYAxis';
 import provideChart from 'react-jsx-highcharts/src/components/ChartProvider';
 import provideSeries from 'react-jsx-highcharts/src/components/SeriesProvider';
 const ChartNavigator = provideChart(Navigator);
 ChartNavigator.Series = provideSeries(NavigatorSeries);
+ChartNavigator.XAxis = NavigatorXAxis;
+ChartNavigator.YAxis = NavigatorYAxis;
 export default ChartNavigator;
