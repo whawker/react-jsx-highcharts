@@ -3,6 +3,7 @@ import forEach from 'lodash/forEach';
 import lowerFirst from 'lodash/lowerFirst';
 import pickBy from 'lodash/pickBy';
 import omitBy from 'lodash/omitBy';
+import isFunction from 'lodash/isFunction';
 
 export const getEventHandlerProps  = props => {
   return pickBy(props, isEventKey);
@@ -21,6 +22,6 @@ export const addEventHandlers = (context, props) => {
   });
 };
 
-const isEventKey = (value, key) => key.indexOf('on') === 0;
+const isEventKey = (value, key) => (key.indexOf('on') === 0) && isFunction(value);
 
 export default addEventHandlers;
