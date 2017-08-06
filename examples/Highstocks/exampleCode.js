@@ -1,6 +1,6 @@
 export default `
 <HighchartsStockChart>
-  <Chart onClick={this.handleClick} zoomType="x" />
+  <Chart zoomType="x" />
 
   <Title>Highstocks Example</Title>
 
