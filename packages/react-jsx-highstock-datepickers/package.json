@@ -1,5 +1,5 @@
 {
-  "name": "react-jsx-highcharts",
+  "name": "react-jsx-highstock-datepickers",
   "version": "1.0.0",
   "description": "Date Pickers for react-jsx-highstock using react-day-picker",
   "main": "dist/index.js",
