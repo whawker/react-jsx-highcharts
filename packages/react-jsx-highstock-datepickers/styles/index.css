@@ -1,0 +1,13 @@
+.date-range-pickers {
+  float: right;
+  position: relative;
+  z-index: 1000;
+}
+
+.date-range-pickers_label {
+  color: #666;
+}
+
+.date-range-pickers__to-label {
+  margin-left: 10px;
+}

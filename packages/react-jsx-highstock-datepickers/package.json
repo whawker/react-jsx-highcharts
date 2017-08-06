@@ -1,0 +1,40 @@
+{
+  "name": "react-jsx-highcharts",
+  "version": "1.0.0",
+  "description": "Date Pickers for react-jsx-highstock using react-day-picker",
+  "main": "dist/index.js",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "build": "./node_modules/.bin/babel src --out-dir dist --presets=es2015,stage-0,react"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/whawker/react-jsx-highcharts.git"
+  },
+  "author": "Will Hawker",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/whawker/react-jsx-highcharts/issues"
+  },
+  "homepage": "https://github.com/whawker/react-jsx-highcharts#readme",
+  "dependencies": {
+    "react-day-picker": "^6.1.0"
+  },
+  "peerDependencies": {
+    "highstock-release": "^5.0.0",
+    "moment": "^2.0.0",
+    "prop-types": "^15.0.0",
+    "react": "^15.0.0",
+    "react-dom": "^15.0.0",
+    "react-jsx-highstock": "^1.1.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1"
+  }
+}
