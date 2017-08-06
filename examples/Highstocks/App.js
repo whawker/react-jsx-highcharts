@@ -25,7 +25,7 @@ class App extends Component {
     return (
       <div className="app">
         <HighchartsStockChart>
-          <Chart onClick={this.handleClick} zoomType="x" />
+          <Chart zoomType="x" />
 
           <Title>Highstocks Example</Title>
 

@@ -1,6 +1,6 @@
 {
   "name": "react-jsx-highcharts",
-  "version": "1.2.2",
+  "version": "1.2.4",
   "description": "Highcharts charts built using React components",
   "main": "dist/react-jsx-highcharts.min.js",
   "files": [
@@ -78,8 +78,7 @@
   "dependencies": {
     "immutable-is": "^3.7.6",
     "is-immutable": "^1.0.1",
-    "lodash": "^4.17.4",
-    "react-immutable-proptypes": "^2.1.0"
+    "lodash": "^4.17.4"
   },
   "peerDependencies": {
     "highcharts": "^5.0.0",

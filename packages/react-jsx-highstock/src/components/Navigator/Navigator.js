@@ -23,6 +23,7 @@ class Navigator extends Component {
     this.handleAddSeries = this.handleAddSeries.bind(this);
 
     this.state = {
+      rendered: false,
       seriesCount: 0
     };
 
@@ -35,6 +36,9 @@ class Navigator extends Component {
     chart.navigator = new Highcharts.Navigator(chart);
     this.updateNavigator({
       ...rest
+    });
+    this.setState({
+      rendered: true
     });
   }
 
@@ -65,7 +69,7 @@ class Navigator extends Component {
 
   render () {
     const { children } = this.props;
-    if (!children) return null;
+    if (!children || !this.state.rendered) return null;
 
     const navChildren = Children.map(children, child => {
       return cloneElement(child, this.state);

@@ -1,6 +1,5 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import ImmutablePropTypes from 'react-immutable-proptypes';
 import isEqual from 'lodash/isEqual';
 import isImmutable from 'is-immutable';
 import immutableEqual from 'immutable-is';
@@ -15,7 +14,7 @@ class Series extends Component {
     type: validSeriesTypes.isRequired,
     axisId: PropTypes.string, // Provided by Axis component
     dimension: PropTypes.string, // Provided by Axis component
-    data: PropTypes.oneOfType([PropTypes.array, ImmutablePropTypes.list]),
+    data: PropTypes.any,
     visible: PropTypes.bool,
     addSeries: PropTypes.func, // Provided by ChartProvider
     update: PropTypes.func, // Provided by SeriesProvider

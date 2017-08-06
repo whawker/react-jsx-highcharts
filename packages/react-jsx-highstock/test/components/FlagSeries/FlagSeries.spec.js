@@ -9,9 +9,9 @@ describe('<FlagSeries />', function ()  {
     expect(wrapper).to.have.type(Series);
   });
 
-  it('renders a <Series type="flag" />', function () {
+  it('renders a <Series type="flags" />', function () {
     const wrapper = shallow(<FlagSeries id="mySeries" />);
-    expect(wrapper).to.have.prop('type').equal('flag');
+    expect(wrapper).to.have.prop('type').equal('flags');
   });
 
   it('passes other props through to <Series />', function () {
