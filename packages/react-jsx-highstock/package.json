@@ -1,6 +1,6 @@
 {
   "name": "react-jsx-highstock",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Highcharts (including Highstock) charts built using React components",
   "main": "dist/react-jsx-highstock.min.js",
   "files": [
@@ -37,7 +37,7 @@
     "data"
   ],
   "dependencies": {
-    "react-jsx-highcharts": "1.2.4"
+    "react-jsx-highcharts": "1.2.5"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
