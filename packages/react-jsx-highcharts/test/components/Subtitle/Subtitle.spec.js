@@ -15,7 +15,7 @@ describe('<Subtitle />', function ()  {
       );
     });
 
-    it('adds should pass additional props through to Highcharts setTitle method', function () {
+    it('should pass additional props through to Highcharts setTitle method', function () {
       mount(<Subtitle align="right" setTitle={this.setTitle}>My Other Subtitle</Subtitle>);
       expect(this.setTitle).to.have.been.calledWith(
         null, { text: 'My Other Subtitle', align: 'right', setTitle: this.setTitle }, true

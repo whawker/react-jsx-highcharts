@@ -24,7 +24,7 @@ describe('<PlotLine.Label />', function ()  {
       });
     });
 
-    it('adds should pass additional props too, to the label or band as appropriate', function () {
+    it('should pass additional props too, to the label or band as appropriate', function () {
       mount(
         <PlotLineLabel id="myPlotLine" align="left" color="red" addPlotLine={this.addPlotLine} removePlotLine={this.removePlotLine}>
           My PlotLine Label

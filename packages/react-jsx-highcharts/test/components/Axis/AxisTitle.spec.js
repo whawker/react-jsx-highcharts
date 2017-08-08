@@ -15,7 +15,7 @@ describe('<Axis.Title />', function ()  {
       });
     });
 
-    it('adds should pass additional props too', function () {
+    it('should pass additional props too', function () {
       mount(<AxisTitle axisId="myAxis" dimension="x" align="high" update={this.update}>My Axis Title</AxisTitle>);
       expect(this.update).to.have.been.calledWith({
         title: { text: 'My Axis Title', align: 'high', update: this.update }

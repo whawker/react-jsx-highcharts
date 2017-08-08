@@ -16,7 +16,7 @@ describe('<PlotLine />', function ()  {
       );
     });
 
-    it('adds should pass additional props through to Axis addPlotLine method', function () {
+    it('should pass additional props through to Axis addPlotLine method', function () {
       mount(<PlotLine borderColor="red" id="My Other PlotLine" from={8.8} to={24.2} addPlotLine={this.addPlotLine} />);
       expect(this.addPlotLine).to.have.been.calledWith(
         { id: 'My Other PlotLine', borderColor: 'red', from: 8.8, to: 24.2, addPlotLine: this.addPlotLine }

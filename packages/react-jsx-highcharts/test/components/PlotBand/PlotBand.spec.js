@@ -16,7 +16,7 @@ describe('<PlotBand />', function ()  {
       );
     });
 
-    it('adds should pass additional props through to Axis addPlotBand method', function () {
+    it('should pass additional props through to Axis addPlotBand method', function () {
       mount(<PlotBand borderColor="red" id="My Other PlotBand" from={8.8} to={24.2} addPlotBand={this.addPlotBand} />);
       expect(this.addPlotBand).to.have.been.calledWith(
         { id: 'My Other PlotBand', borderColor: 'red', from: 8.8, to: 24.2, addPlotBand: this.addPlotBand }

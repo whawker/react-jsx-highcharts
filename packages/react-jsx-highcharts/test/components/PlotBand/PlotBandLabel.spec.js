@@ -24,7 +24,7 @@ describe('<PlotBand.Label />', function ()  {
       });
     });
 
-    it('adds should pass additional props too, to the label or band as appropriate', function () {
+    it('should pass additional props too, to the label or band as appropriate', function () {
       mount(
         <PlotBandLabel id="myPlotBand" align="left" color="red" addPlotBand={this.addPlotBand} removePlotBand={this.removePlotBand}>
           My PlotBand Label
