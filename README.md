@@ -56,6 +56,11 @@ You'll need the peer dependencies too
 ## Documentation
 In progress... [see here](https://github.com/whawker/react-jsx-highcharts/wiki).
 
+## Upcoming Features
+* `<Highcharts3dChart>` component - A helper for 3D charts.
+* React 16 support - all features seem to work with beta 3, just need to modify `peerDependencies` and await Enzyme support for React 16
+* Use `React.PureComponent` instead of `Component`
+
 ## Goals
 
 This project aims to hide the complexity of Highcharts from the React application author, allowing the rendering of charts in a React familiar way. 
