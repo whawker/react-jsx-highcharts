@@ -10,13 +10,14 @@ const ONE_DAY = 86400000;
 class DateRangePickers extends Component {
 
   static propTypes = {
+    axisId: PropTypes.string.isRequired,
     dayFormat: PropTypes.oneOfType([ PropTypes.string, PropTypes.array ]).isRequired,
-    locale: PropTypes.string.isRequired,
+    locale: PropTypes.oneOfType([ PropTypes.string, PropTypes.array ]).isRequired,
     onChangeFromDate: PropTypes.func.isRequired,
     onChangeToDate: PropTypes.func.isRequired,
+    className: PropTypes.string.isRequired,
     fromLabel: PropTypes.string,
     toLabel: PropTypes.string,
-    className: PropTypes.string,
     datePickerClassNames: PropTypes.object
   };
 
