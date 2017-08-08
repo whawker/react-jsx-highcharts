@@ -13,7 +13,7 @@ class RangeSelector extends Component {
   };
 
   static defaultProps = {
-    ...Highcharts.defaultOptions.rangeSelector,
+    ...(Highcharts.defaultOptions && Highcharts.defaultOptions.rangeSelector),
     enabled: true
   };
 
