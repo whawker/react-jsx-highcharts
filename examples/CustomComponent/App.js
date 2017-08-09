@@ -50,6 +50,13 @@ class App extends Component {
           </Navigator>
         </HighchartsStockChart>
 
+        <div className="alert alert-info" role="alert">
+          <p>
+            This custom component is now available as an add-on NPM package:
+            <a href="https://npmjs.com/package/react-jsx-highstock-datepickers" target="_blank"><code>react-jsx-highstock-datepickers</code></a>
+          </p>
+        </div>
+
         <ExampleCode name="CustomComponent">{code}</ExampleCode>
       </div>
     );

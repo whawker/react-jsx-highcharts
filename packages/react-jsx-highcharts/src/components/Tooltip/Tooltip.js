@@ -13,7 +13,7 @@ class Tooltip extends Component {
   };
 
   static defaultProps = {
-    ...Highcharts.defaultOptions.tooltip,
+    ...(Highcharts.defaultOptions && Highcharts.defaultOptions.tooltip),
     enabled: true
   };
 

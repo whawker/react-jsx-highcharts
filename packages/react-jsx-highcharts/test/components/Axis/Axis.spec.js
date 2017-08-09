@@ -36,7 +36,7 @@ describe('<Axis />', function ()  {
       );
     });
 
-    it('adds should pass additional props through to Highcharts addAxis method', function () {
+    it('should pass additional props through to Highcharts addAxis method', function () {
       mount(<Axis id="myAxis" dimension="x" min={10} max={100} reversed addAxis={this.addAxis} getAxis={this.getAxis} />);
       expect(this.addAxis).to.have.been.calledWith(
         { id: 'myAxis', title: { text: null }, min: 10, max: 100, reversed: true, getAxis: this.getAxis }, true, true

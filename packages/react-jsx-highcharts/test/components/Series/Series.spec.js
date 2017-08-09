@@ -43,7 +43,7 @@ describe('<Series />', function ()  {
       );
     });
 
-    it('adds should pass additional props through to Highcharts addSeries method', function () {
+    it('should pass additional props through to Highcharts addSeries method', function () {
       mount(
         <Series id="mySeries" axisId="myAxis" dimension="y" data={[5]} step
           addSeries={this.addSeries}

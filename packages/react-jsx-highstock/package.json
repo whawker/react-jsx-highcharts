@@ -1,6 +1,6 @@
 {
   "name": "react-jsx-highstock",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Highcharts (including Highstock) charts built using React components",
   "main": "dist/react-jsx-highstock.min.js",
   "files": [
@@ -37,7 +37,7 @@
     "data"
   ],
   "dependencies": {
-    "react-jsx-highcharts": "1.2.4"
+    "react-jsx-highcharts": "1.2.5"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
@@ -77,5 +77,11 @@
     "sinon-chai": "^2.10.0",
     "webpack": "^2.5.1",
     "webpack-dev-server": "^2.4.5"
+  },
+  "peerDependencies": {
+    "highstock-release": "^5.0.0",
+    "prop-types": "^15.0.0",
+    "react": "^15.0.0",
+    "react-dom": "^15.0.0"
   }
 }
