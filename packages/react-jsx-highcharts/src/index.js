@@ -32,6 +32,7 @@ export PolygonSeries from './components/PolygonSeries';
 export PyramidSeries from './components/PyramidSeries';
 export ScatterSeries from './components/ScatterSeries';
 export SplineSeries from './components/SplineSeries';
+export TreemapSeries from './components/TreemapSeries';
 export WaterfallSeries from './components/WaterfallSeries';
 
 // Providers

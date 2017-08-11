@@ -64,7 +64,7 @@ var example =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 153);
+/******/ 	return __webpack_require__(__webpack_require__.s = 184);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -2097,40 +2097,7 @@ Object.defineProperty(exports, "default", {
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 97 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-var createDataPoint = exports.createDataPoint = function createDataPoint() {
-  var time = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : Date.now();
-  var magnitude = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1000;
-  var offset = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
-
-  return [time + offset * magnitude, Math.round(Math.random() * 100 * 2) / 2];
-};
-
-var createRandomData = exports.createRandomData = function createRandomData(time, magnitude) {
-  var data = [];
-
-  for (var i = -99; i <= 0; i++) {
-    data.push(createDataPoint(time, magnitude, i));
-  }
-  return data;
-};
-
-var addDataPoint = exports.addDataPoint = function addDataPoint(data, toAdd) {
-  if (!toAdd) toAdd = createDataPoint();
-  var newData = data.slice(0); // Clone
-  newData.push(toAdd);
-  return newData;
-};
-
-/***/ }),
+/* 97 */,
 /* 98 */,
 /* 99 */,
 /* 100 */,
@@ -2169,14 +2136,29 @@ var addDataPoint = exports.addDataPoint = function addDataPoint(data, toAdd) {
 /* 133 */,
 /* 134 */,
 /* 135 */,
-/* 136 */
+/* 136 */,
+/* 137 */,
+/* 138 */,
+/* 139 */,
+/* 140 */,
+/* 141 */,
+/* 142 */,
+/* 143 */,
+/* 144 */,
+/* 145 */,
+/* 146 */,
+/* 147 */,
+/* 148 */,
+/* 149 */,
+/* 150 */,
+/* 151 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
 
 var _getPrototypeOf = __webpack_require__(43);
@@ -2209,183 +2191,134 @@ var _ExampleCode = __webpack_require__(51);
 
 var _ExampleCode2 = _interopRequireDefault(_ExampleCode);
 
-var _exampleCode = __webpack_require__(152);
+var _exampleCode = __webpack_require__(183);
 
 var _exampleCode2 = _interopRequireDefault(_exampleCode);
-
-var _dataHelpers = __webpack_require__(97);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var App = function (_Component) {
-  (0, _inherits3.default)(App, _Component);
+    (0, _inherits3.default)(App, _Component);
 
-  function App(props) {
-    (0, _classCallCheck3.default)(this, App);
-
-    var _this = (0, _possibleConstructorReturn3.default)(this, (App.__proto__ || (0, _getPrototypeOf2.default)(App)).call(this, props));
-
-    _this.createRandomSeries = _this.createRandomSeries.bind(_this);
-    _this.handleAddSeries = _this.handleAddSeries.bind(_this);
-    _this.handleRemoveSeries = _this.handleRemoveSeries.bind(_this);
-    _this.renderSeries = _this.renderSeries.bind(_this);
-
-    var now = Date.now();
-    _this.state = {
-      now: now,
-      series: [{
-        name: 'Profit',
-        data: (0, _dataHelpers.createRandomData)(now, 1e8)
-      }],
-      seriesCounter: 1
-    };
-    return _this;
-  }
-
-  (0, _createClass3.default)(App, [{
-    key: 'createRandomSeries',
-    value: function createRandomSeries(index) {
-      return {
-        name: 'Series' + index,
-        data: (0, _dataHelpers.createRandomData)(this.state.now, 1e8)
-      };
+    function App() {
+        (0, _classCallCheck3.default)(this, App);
+        return (0, _possibleConstructorReturn3.default)(this, (App.__proto__ || (0, _getPrototypeOf2.default)(App)).apply(this, arguments));
     }
-  }, {
-    key: 'handleAddSeries',
-    value: function handleAddSeries(e) {
-      e.preventDefault();
-      var _state = this.state,
-          series = _state.series,
-          seriesCounter = _state.seriesCounter;
 
-      seriesCounter++;
-      series.push(this.createRandomSeries(seriesCounter));
+    (0, _createClass3.default)(App, [{
+        key: 'render',
+        value: function render() {
 
-      this.setState({
-        series: series,
-        seriesCounter: seriesCounter
-      });
-    }
-  }, {
-    key: 'handleRemoveSeries',
-    value: function handleRemoveSeries(e) {
-      e.preventDefault();
-      var series = this.state.series;
+            var treemapData = [{
+                name: 'A',
+                value: 6,
+                colorValue: 1
+            }, {
+                name: 'B',
+                value: 6,
+                colorValue: 2
+            }, {
+                name: 'C',
+                value: 4,
+                colorValue: 3
+            }, {
+                name: 'D',
+                value: 3,
+                colorValue: 4
+            }, {
+                name: 'E',
+                value: 2,
+                colorValue: 5
+            }, {
+                name: 'F',
+                value: 2,
+                colorValue: 6
+            }, {
+                name: 'G',
+                value: 1,
+                colorValue: 7
+            }];
 
-      var randomIndex = Math.floor(Math.random() * series.length);
-      series.splice(randomIndex, 1);
+            var minColor = '#FFFFFF';
+            var maxColor = Highcharts.getOptions().colors[0];
 
-      this.setState({
-        series: series
-      });
-    }
-  }, {
-    key: 'renderSeries',
-    value: function renderSeries(_ref) {
-      var name = _ref.name,
-          data = _ref.data;
-
-      return _react2.default.createElement(_reactJsxHighcharts.LineSeries, { id: name, name: name, key: name, data: data });
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      return _react2.default.createElement(
-        'div',
-        { className: 'app' },
-        _react2.default.createElement(
-          _reactJsxHighcharts.HighchartsChart,
-          null,
-          _react2.default.createElement(
-            _reactJsxHighcharts.Title,
-            null,
-            'Dynamically add/remove series'
-          ),
-          _react2.default.createElement(
-            _reactJsxHighcharts.Legend,
-            { align: 'left' },
-            _react2.default.createElement(
-              _reactJsxHighcharts.Legend.Title,
-              null,
-              'Legend'
-            )
-          ),
-          _react2.default.createElement(
-            _reactJsxHighcharts.XAxis,
-            { type: 'datetime' },
-            _react2.default.createElement(
-              _reactJsxHighcharts.XAxis.Title,
-              null,
-              'Time'
-            )
-          ),
-          _react2.default.createElement(
-            _reactJsxHighcharts.YAxis,
-            { id: 'price' },
-            _react2.default.createElement(
-              _reactJsxHighcharts.YAxis.Title,
-              null,
-              'Price'
-            ),
-            this.state.series.map(this.renderSeries)
-          )
-        ),
-        _react2.default.createElement(
-          'div',
-          { className: 'btn-toolbar', role: 'toolbar' },
-          _react2.default.createElement(
-            'button',
-            { className: 'btn btn-primary', onClick: this.handleAddSeries },
-            'Add line series'
-          ),
-          _react2.default.createElement(
-            'button',
-            { className: 'btn btn-danger', onClick: this.handleRemoveSeries },
-            'Remove line series'
-          )
-        ),
-        _react2.default.createElement(
-          _ExampleCode2.default,
-          { name: 'AddSeries' },
-          _exampleCode2.default
-        )
-      );
-    }
-  }]);
-  return App;
+            return _react2.default.createElement(
+                'div',
+                { className: 'app' },
+                _react2.default.createElement(
+                    _reactJsxHighcharts.HighchartsChart,
+                    null,
+                    _react2.default.createElement(
+                        _reactJsxHighcharts.Title,
+                        null,
+                        'Treemap'
+                    ),
+                    _react2.default.createElement(_reactJsxHighcharts.ColorAxis, { minColor: '#FFFFFF', maxColor: Highcharts.getOptions().colors[1] }),
+                    _react2.default.createElement(_reactJsxHighcharts.XAxis, { id: 'name' }),
+                    _react2.default.createElement(
+                        _reactJsxHighcharts.YAxis,
+                        { id: 'value' },
+                        _react2.default.createElement(_reactJsxHighcharts.TreemapSeries, { id: 'tree', name: 'Tree', data: treemapData, layoutAlgorithm: 'squarified' })
+                    )
+                ),
+                _react2.default.createElement(
+                    _ExampleCode2.default,
+                    { name: 'Treemap' },
+                    _exampleCode2.default
+                )
+            );
+        }
+    }]);
+    return App;
 }(_react.Component);
 
 exports.default = App;
 
 /***/ }),
-/* 137 */,
-/* 138 */,
-/* 139 */,
-/* 140 */,
-/* 141 */,
-/* 142 */,
-/* 143 */,
-/* 144 */,
-/* 145 */,
-/* 146 */,
-/* 147 */,
-/* 148 */,
-/* 149 */,
-/* 150 */,
-/* 151 */,
-/* 152 */
+/* 152 */,
+/* 153 */,
+/* 154 */,
+/* 155 */,
+/* 156 */,
+/* 157 */,
+/* 158 */,
+/* 159 */,
+/* 160 */,
+/* 161 */,
+/* 162 */,
+/* 163 */,
+/* 164 */,
+/* 165 */,
+/* 166 */,
+/* 167 */,
+/* 168 */,
+/* 169 */,
+/* 170 */,
+/* 171 */,
+/* 172 */,
+/* 173 */,
+/* 174 */,
+/* 175 */,
+/* 176 */,
+/* 177 */,
+/* 178 */,
+/* 179 */,
+/* 180 */,
+/* 181 */,
+/* 182 */,
+/* 183 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
-exports.default = "\ncreateRandomSeries (index) {\n  return {\n    name: `Series${index}`,\n    data: createRandomData(this.state.now, 1e8)\n  };\n}\n\nhandleAddSeries (e) {\n  e.preventDefault();\n  let { series, seriesCounter } = this.state;\n  seriesCounter++;\n  series.push(\n    this.createRandomSeries(seriesCounter)\n  );\n\n  this.setState({\n    series,\n    seriesCounter\n  });\n}\n\nhandleRemoveSeries (e) {\n  e.preventDefault();\n  const { series } = this.state;\n  const randomIndex = Math.floor(Math.random() * series.length);\n  series.splice(randomIndex, 1);\n\n  this.setState({\n    series\n  });\n}\n\nrenderSeries ({ name, data }) {\n  return (\n    <LineSeries id={name} name={name} key={name} data={data} />\n  );\n}\n\nrender() {\n  return (\n    <div className=\"app\">\n\n      <HighchartsChart>\n        <Title>Dynamically add/remove series</Title>\n\n        <Legend align=\"left\">\n          <Legend.Title>Legend</Legend.Title>\n        </Legend>\n\n        <XAxis type=\"datetime\">\n          <XAxis.Title>Time</XAxis.Title>\n        </XAxis>\n\n        <YAxis id=\"price\">\n          <YAxis.Title>Price</YAxis.Title>\n          {this.state.series.map(this.renderSeries)}\n        </YAxis>\n      </HighchartsChart>\n\n      <div className=\"btn-toolbar\" role=\"toolbar\">\n        <button className=\"btn btn-primary\" onClick={this.handleAddSeries}>Add line series</button>\n        <button className=\"btn btn-danger\" onClick={this.handleRemoveSeries}>Remove line series</button>\n      </div>\n    </div>\n  );\n}";
+exports.default = "\n  render() {\n\n    const treemapData = [{\n            name: 'A',\n            value: 6,\n            colorValue: 1\n        }, {\n            name: 'B',\n            value: 6,\n            colorValue: 2\n        }, {\n            name: 'C',\n            value: 4,\n            colorValue: 3\n        }, {\n            name: 'D',\n            value: 3,\n            colorValue: 4\n        }, {\n            name: 'E',\n            value: 2,\n            colorValue: 5\n        }, {\n            name: 'F',\n            value: 2,\n            colorValue: 6\n        }, {\n            name: 'G',\n            value: 1,\n            colorValue: 7\n        }]\n\n     \n     var minColor = '#FFFFFF';\n     var maxColor =  Highcharts.getOptions().colors[0];\n    \n\n    return (\n      <div className=\"app\">\n        <HighchartsChart>\n          <Title>Treemap</Title>\n            <XAxis id=\"name\"/>\n            <YAxis id=\"value\">\n                <TreemapSeries id='tree' name='Tree' data={treemapData} layoutAlgorithm='squarified'/>\n            </YAxis>\n        \n        </HighchartsChart>\n\n        <ExampleCode name=\"Treemap\">{code}</ExampleCode>\n      </div>\n    );\n  }\n}\n}";
 
 /***/ }),
-/* 153 */
+/* 184 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2399,7 +2332,7 @@ var _reactDom = __webpack_require__(42);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _App = __webpack_require__(136);
+var _App = __webpack_require__(151);
 
 var _App2 = _interopRequireDefault(_App);
 
