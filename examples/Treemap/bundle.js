@@ -2239,26 +2239,28 @@ var App = function (_Component) {
                 colorValue: 7
             }];
 
-            var minColor = '#FFFFFF';
-            var maxColor = Highcharts.getOptions().colors[0];
+            var colorAxis = {
+                minColor: '#FFFFFF',
+                maxColor: Highcharts.getOptions().colors[0]
+            };
 
             return _react2.default.createElement(
                 'div',
                 { className: 'app' },
                 _react2.default.createElement(
                     _reactJsxHighcharts.HighchartsChart,
-                    null,
+                    { colorAxis: colorAxis },
                     _react2.default.createElement(
                         _reactJsxHighcharts.Title,
                         null,
                         'Treemap'
                     ),
-                    _react2.default.createElement(_reactJsxHighcharts.ColorAxis, { minColor: '#FFFFFF', maxColor: Highcharts.getOptions().colors[1] }),
+                    _react2.default.createElement(_reactJsxHighcharts.Legend, null),
                     _react2.default.createElement(_reactJsxHighcharts.XAxis, { id: 'name' }),
                     _react2.default.createElement(
                         _reactJsxHighcharts.YAxis,
                         { id: 'value' },
-                        _react2.default.createElement(_reactJsxHighcharts.TreemapSeries, { id: 'tree', name: 'Tree', data: treemapData, layoutAlgorithm: 'squarified' })
+                        _react2.default.createElement(_reactJsxHighcharts.Series, { id: 'tree', name: 'Tree', data: treemapData, layoutAlgorithm: 'squarified', type: 'treemap' })
                     )
                 ),
                 _react2.default.createElement(
@@ -2315,7 +2317,7 @@ exports.default = App;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.default = "\n  render() {\n\n    const treemapData = [{\n            name: 'A',\n            value: 6,\n            colorValue: 1\n        }, {\n            name: 'B',\n            value: 6,\n            colorValue: 2\n        }, {\n            name: 'C',\n            value: 4,\n            colorValue: 3\n        }, {\n            name: 'D',\n            value: 3,\n            colorValue: 4\n        }, {\n            name: 'E',\n            value: 2,\n            colorValue: 5\n        }, {\n            name: 'F',\n            value: 2,\n            colorValue: 6\n        }, {\n            name: 'G',\n            value: 1,\n            colorValue: 7\n        }]\n\n     \n     var minColor = '#FFFFFF';\n     var maxColor =  Highcharts.getOptions().colors[0];\n    \n\n    return (\n      <div className=\"app\">\n        <HighchartsChart>\n          <Title>Treemap</Title>\n            <XAxis id=\"name\"/>\n            <YAxis id=\"value\">\n                <TreemapSeries id='tree' name='Tree' data={treemapData} layoutAlgorithm='squarified'/>\n            </YAxis>\n        \n        </HighchartsChart>\n\n        <ExampleCode name=\"Treemap\">{code}</ExampleCode>\n      </div>\n    );\n  }\n}\n}";
+exports.default = "\n  render() {\n\n    const treemapData = [{\n            name: 'A',\n            value: 6,\n            colorValue: 1\n        }, {\n            name: 'B',\n            value: 6,\n            colorValue: 2\n        }, {\n            name: 'C',\n            value: 4,\n            colorValue: 3\n        }, {\n            name: 'D',\n            value: 3,\n            colorValue: 4\n        }, {\n            name: 'E',\n            value: 2,\n            colorValue: 5\n        }, {\n            name: 'F',\n            value: 2,\n            colorValue: 6\n        }, {\n            name: 'G',\n            value: 1,\n            colorValue: 7\n        }]\n\n    const colorAxis = {\n            minColor: '#FFFFFF',\n            maxColor: Highcharts.getOptions().colors[0]\n        };\n    \n\n    return (\n      <div className=\"app\">\n        <HighchartsChart colorAxis={colorAxis}>\n          <Title>Treemap</Title>\n            <Legend/>\n            <XAxis id=\"name\"/>\n            <YAxis id=\"value\">\n                <TreemapSeries id='tree' name='Tree' data={treemapData} layoutAlgorithm='squarified'/>\n            </YAxis>\n        \n        </HighchartsChart>\n\n        <ExampleCode name=\"Treemap\">{code}</ExampleCode>\n      </div>\n    );\n  }\n}\n}";
 
 /***/ }),
 /* 184 */

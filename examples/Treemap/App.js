@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  HighchartsChart, Title, XAxis, YAxis, ColorAxis, TreemapSeries
+  HighchartsChart, Title, XAxis, YAxis, TreemapSeries, Legend
 } from 'react-jsx-highcharts';
 import ExampleCode from '../utils/ExampleCode';
 import code from './exampleCode';
@@ -39,16 +39,17 @@ class App extends Component {
             colorValue: 7
         }]
 
-     
-     var minColor = '#FFFFFF';
-     var maxColor =  Highcharts.getOptions().colors[0];
+    const colorAxis = {
+            minColor: '#FFFFFF',
+            maxColor: Highcharts.getOptions().colors[0]
+        };
     
 
     return (
       <div className="app">
-        <HighchartsChart>
+        <HighchartsChart colorAxis={colorAxis}>
           <Title>Treemap</Title>
-            <ColorAxis minColor='#FFFFFF' maxColor={Highcharts.getOptions().colors[1]}/>
+            <Legend/>
             <XAxis id="name"/>
             <YAxis id="value">
                 <TreemapSeries id='tree' name='Tree' data={treemapData} layoutAlgorithm='squarified'/>

@@ -31,15 +31,17 @@ export default `
             colorValue: 7
         }]
 
-     
-     var minColor = '#FFFFFF';
-     var maxColor =  Highcharts.getOptions().colors[0];
+    const colorAxis = {
+            minColor: '#FFFFFF',
+            maxColor: Highcharts.getOptions().colors[0]
+        };
     
 
     return (
       <div className="app">
-        <HighchartsChart>
+        <HighchartsChart colorAxis={colorAxis}>
           <Title>Treemap</Title>
+            <Legend/>
             <XAxis id="name"/>
             <YAxis id="value">
                 <TreemapSeries id='tree' name='Tree' data={treemapData} layoutAlgorithm='squarified'/>
