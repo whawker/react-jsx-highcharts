@@ -9,6 +9,8 @@ const highchartsExamples = [
   { name: 'Combo', additional: ['highcharts-more'] },
   { name: 'Events' },
   { name: 'Funnel', additional: ['highcharts-funnel'] },
+  { name: 'Treemap', additional: ['highcharts-heatmap', 'highcharts-treemap' ] },
+  { name: 'TreemapDrilldown', additional: ['highcharts-heatmap', 'highcharts-treemap' ] },
   { name: 'LiveUpdate' },
   { name: 'SimpleLine' },
   { name: 'SplineWithPlotBands' },
@@ -32,7 +34,7 @@ const examples = [].concat(
 const exampleNames = examples.map(e => e.name);
 
 const externals = {
-  // 'react-jsx-highcharts': '../../packages/react-jsx-highcharts/dist/react-jsx-highcharts.min.js',
+  //'react-jsx-highcharts': '../../packages/react-jsx-highcharts/dist/react-jsx-highcharts.js',
   // 'react-jsx-highstock':  '../../packages/react-jsx-highstock/dist/react-jsx-highstock.min.js',
   'react-jsx-highcharts': 'https://unpkg.com/react-jsx-highcharts/dist/react-jsx-highcharts.min.js',
   'react-jsx-highstock':  'https://unpkg.com/react-jsx-highstock/dist/react-jsx-highstock.min.js',
@@ -42,6 +44,8 @@ const externals = {
   'highstock-release':    'https://code.highcharts.com/stock/highstock.js',
   'highcharts-more':      'https://code.highcharts.com/highcharts-more.js',
   'highcharts-funnel':    'https://code.highcharts.com/modules/funnel.js',
+  'highcharts-treemap':    'https://code.highcharts.com/modules/treemap.js',
+  'highcharts-heatmap':    'https://code.highcharts.com/modules/heatmap.js',
   'prism':                'https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/prism.min.js',
   'prism-jsx':            'https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/components/prism-jsx.min.js',
   'moment':               'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js',
