@@ -25,16 +25,16 @@ class App extends Component {
         { name: 'F', value: 2, colorValue: 6 },
         { name: 'G', value: 1, colorValue: 7 }
       ]
-    }
+    };
   }
 
-  render() {
+  render () {
     const treemapData = this.state.treemapData;
 
     return (
       <div className="app">
         <HighchartsChart colorAxis={colorAxis}>
-          <Title>Treemap</Title>
+          <Title>Highcharts Treemap</Title>
 
           <Legend />
 
