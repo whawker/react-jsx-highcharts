@@ -1,36 +1,41 @@
 export default `
-  render() {
-    var levels = [{
-      level: 1,
-      dataLabels: {
-        enabled: true
-      },
-      borderWidth: 3
-    }];
-    var dataLabels = {
-      enabled: false
-    };
-    var tooltipText = function (e) {
-      return \`\${this.key}: \${this.point.value}\`;
-    }
+render () {
+  const treeData = this.state.treeData;
+  if (!treeData) return null;
 
+  const levels = [{
+    level: 1,
+    dataLabels: {
+      enabled: true
+    },
+    borderWidth: 3
+  }];
+  const tooltipFormatter = function () {
+    return \`\${this.key}: \${this.point.value}\`;
+  };
 
-    return (
-      <div className="app">
-        <HighchartsChart>
-          <Title>Treemap with Drilldown</Title>
+  return (
+    <div className="app">
+      <HighchartsChart>
+        <Title>Global Mortality Rate 2012, per 100,000 population</Title>
 
-          <XAxis />
+        <Subtitle>Click points to drill down. Source: WHO.</Subtitle>
 
-          <YAxis id="value">
-            <TreemapSeries data={points} layoutAlgorithm="squarified" allowDrillToNode animationLimit={1000} dataLabels={dataLabels} levelIsConstant={false} levels={levels} />
-          </YAxis>
+        <XAxis />
 
-          <Tooltip formatter={tooltipText} />
-        </HighchartsChart>
+        <YAxis id="value">
+          <TreemapSeries
+            data={treeData}
+            allowDrillToNode
+            layoutAlgorithm="squarified"
+            animationLimit={1000}
+            dataLabels={{ enabled: false }}
+            levelIsConstant={false}
+            levels={levels} />
+        </YAxis>
 
-        <ExampleCode name="Treemap">{code}</ExampleCode>
-      </div>
-    );
-  }
+        <Tooltip formatter={tooltipFormatter} />
+      </HighchartsChart>
+    </div>
+  );
 }`;

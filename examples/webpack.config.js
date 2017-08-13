@@ -10,7 +10,7 @@ const highchartsExamples = [
   { name: 'Events' },
   { name: 'Funnel', additional: ['highcharts-funnel'] },
   { name: 'Treemap', additional: ['highcharts-heatmap', 'highcharts-treemap' ] },
-  { name: 'TreemapDrilldown', additional: ['highcharts-heatmap', 'highcharts-treemap' ] },
+  { name: 'TreemapDrilldown', additional: ['promise-polyfill', 'fetch-polyfill', 'highcharts-heatmap', 'highcharts-treemap' ] },
   { name: 'LiveUpdate' },
   { name: 'SimpleLine' },
   { name: 'SplineWithPlotBands' },
