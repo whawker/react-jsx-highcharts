@@ -15,7 +15,8 @@
   },
   "author": "Will Hawker",
   "contributors": [
-    { "name": "Alex Mayants", "url": "https://github.com/AlexMayants" }
+    { "name": "Alex Mayants", "url": "https://github.com/AlexMayants" },
+    { "name": "mrawdon", "url": "https://github.com/mrawdon" }
   ],
   "license": "MIT",
   "repository": {
