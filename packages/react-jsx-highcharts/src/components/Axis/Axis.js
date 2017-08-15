@@ -14,15 +14,25 @@ class Axis extends Component {
     children: PropTypes.node,
     addAxis: PropTypes.func, // Provided by ChartProvider
     update: PropTypes.func, // Provided by AxisProvider
-    remove: PropTypes.func // Provided by AxisProvider
+    remove: PropTypes.func, // Provided by AxisProvider
+    dynamicAxis: PropTypes.bool.isRequired
+  };
+
+  static defaultProps = {
+    dynamicAxis: true
   };
 
   componentWillMount () {
-    const { children, dimension, addAxis, ...rest } = this.props;
-    const isX = dimension.toLowerCase() === 'x';
-
+    const { children, dimension, dynamicAxis, addAxis, update, ...rest } = this.props;
     const nonEventProps = getNonEventHandlerProps(rest);
-    addAxis(Object.assign({ title: { text: null } }, nonEventProps), isX, true);
+
+    if (dynamicAxis) {
+      const isX = dimension.toLowerCase() === 'x';
+      addAxis(Object.assign({title: {text: null}}, nonEventProps), isX, true);
+    } else {
+      // ZAxis cannot be added dynamically, update instead
+      update(Object.assign({ title: { text: null } }, nonEventProps), true);
+    }
   }
 
   componentDidMount () {

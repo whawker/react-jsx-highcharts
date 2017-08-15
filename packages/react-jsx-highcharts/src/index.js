@@ -1,6 +1,7 @@
 // Graphs
 export HighchartsChart from './components/HighchartsChart';
 export HighchartsSparkline from './components/HighchartsSparkline';
+export Highcharts3dChart from './components/Highcharts3dChart';
 
 // Graph parts
 export Chart from './components/Chart';
@@ -13,6 +14,7 @@ export Title from './components/Title';
 export Tooltip from './components/Tooltip';
 export XAxis from './components/XAxis';
 export YAxis from './components/YAxis';
+export ZAxis from './components/ZAxis';
 
 // Series
 export AreaRangeSeries from './components/AreaRangeSeries';
