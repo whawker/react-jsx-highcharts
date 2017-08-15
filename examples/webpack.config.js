@@ -17,7 +17,8 @@ const highchartsExamples = [
   { name: 'SynchronisedCharts', additional: ['promise-polyfill', 'fetch-polyfill'] },
   { name: 'Sparkline', additional: ['promise-polyfill', 'fetch-polyfill'] },
   { name: 'InvertedChart' },
-  { name: 'ImmutableJS', additional: ['immutable'] }
+  { name: 'ImmutableJS', additional: ['immutable'] },
+  { name: '3DChart', additional: ['highcharts-3d', 'highcharts-boost'] }
 ];
 
 const highstockExamples = [
@@ -44,8 +45,10 @@ const externals = {
   'highstock-release':    'https://code.highcharts.com/stock/highstock.js',
   'highcharts-more':      'https://code.highcharts.com/highcharts-more.js',
   'highcharts-funnel':    'https://code.highcharts.com/modules/funnel.js',
-  'highcharts-treemap':    'https://code.highcharts.com/modules/treemap.js',
-  'highcharts-heatmap':    'https://code.highcharts.com/modules/heatmap.js',
+  'highcharts-treemap':   'https://code.highcharts.com/modules/treemap.js',
+  'highcharts-heatmap':   'https://code.highcharts.com/modules/heatmap.js',
+  'highcharts-3d':        'https://code.highcharts.com/highcharts-3d.js',
+  'highcharts-boost':     'https://code.highcharts.com/modules/boost.js',
   'prism':                'https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/prism.min.js',
   'prism-jsx':            'https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/components/prism-jsx.min.js',
   'moment':               'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js',
