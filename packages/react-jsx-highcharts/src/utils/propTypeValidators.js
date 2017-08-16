@@ -17,5 +17,5 @@ export const validAxisTypes = PropTypes.oneOf([
 ]);
 
 export const validAxisDimensions = PropTypes.oneOf([
-  'x', 'y'
+  'x', 'y', 'z'
 ]);
