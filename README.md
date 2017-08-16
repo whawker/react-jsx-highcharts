@@ -6,6 +6,8 @@ A proof of concept for integrating [Highcharts](https://github.com/highcharts/hi
 
 As of 1.2.0 React JSX Highcharts supports using [Immutable.js](https://facebook.github.io/immutable-js/) data structures as Series data.
 
+As of 1.3.0 React JSX Highcharts supports [3D charts](https://whawker.github.io/react-jsx-highcharts/examples/3DChart/index.html).
+
 ## Example
 
 ```jsx
@@ -57,7 +59,7 @@ You'll need the peer dependencies too
 In progress... [see here](https://github.com/whawker/react-jsx-highcharts/wiki).
 
 ## Upcoming Features
-* `<Highcharts3dChart>` component - A helper for 3D charts.
+* ~~`<Highcharts3dChart>` component - A helper for 3D charts.~~ Done! 1.3.0
 * React 16 support - all features seem to work with beta 3, just need to modify `peerDependencies` and await Enzyme support for React 16
 * Use `React.PureComponent` instead of `Component`
 

@@ -5,7 +5,7 @@ export const validSeriesTypes = PropTypes.oneOf([
   'bar', 'boxplot', 'bubble', 'candlestick', 'column',
   'columnrange', 'errorbar', 'flags', 'funnel',
   'line', 'ohlc', 'pie', 'polygon', 'pyramid', 'scatter',
-  'spline', 'waterfall'
+  'spline', 'treemap', 'waterfall'
 ]);
 
 export const validChartTypes = PropTypes.oneOf([
@@ -17,5 +17,5 @@ export const validAxisTypes = PropTypes.oneOf([
 ]);
 
 export const validAxisDimensions = PropTypes.oneOf([
-  'x', 'y'
+  'x', 'y', 'z'
 ]);

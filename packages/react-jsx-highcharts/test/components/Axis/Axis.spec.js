@@ -21,7 +21,7 @@ describe('<Axis />', function ()  {
     sandbox.restore();
   });
 
-  describe('when mounted', function () {
+  describe('when mounted (dynamic)', function () {
     it('adds an X axis using the addAxis method', function () {
       mount(<Axis id="myAxis" dimension="x" addAxis={this.addAxis} getAxis={this.getAxis} />);
       expect(this.addAxis).to.have.been.calledWith(
@@ -50,6 +50,35 @@ describe('<Axis />', function ()  {
       mount(
         <Axis id="myAxis" dimension="x" onSetExtremes={handleSetExtremes} onAfterSetExtremes={handleAfterSetExtremes}
           addAxis={this.addAxis}
+          getAxis={this.getAxis} />
+      );
+      expect(Highcharts.addEvent).to.have.been.calledWith('mock-axis', 'setExtremes', handleSetExtremes);
+      expect(Highcharts.addEvent).to.have.been.calledWith('mock-axis', 'afterSetExtremes', handleAfterSetExtremes);
+    });
+  });
+
+  describe('when mounted (NOT dynamic)', function () {
+    it('updates a non dynamic axis using the update method', function () {
+      mount(<Axis id="myAxis" dimension="z" dynamicAxis={false} update={this.update} getAxis={this.getAxis} />);
+      expect(this.update).to.have.been.calledWith(
+        { id: 'myAxis', title: { text: null }, getAxis: this.getAxis }, true
+      );
+    });
+
+    it('should pass additional props through to Highcharts update method', function () {
+      mount(<Axis id="myAxis" dimension="z" dynamicAxis={false} min={10} max={100} reversed update={this.update} getAxis={this.getAxis} />);
+      expect(this.update).to.have.been.calledWith(
+        { id: 'myAxis', title: { text: null }, min: 10, max: 100, reversed: true, getAxis: this.getAxis }, true
+      );
+    });
+
+    it('subscribes to Highcharts events for props that look like event handlers', function () {
+      const handleSetExtremes = sinon.spy();
+      const handleAfterSetExtremes = sinon.spy();
+
+      mount(
+        <Axis id="myAxis" dimension="z" dynamicAxis={false} onSetExtremes={handleSetExtremes} onAfterSetExtremes={handleAfterSetExtremes}
+          update={this.update}
           getAxis={this.getAxis} />
       );
       expect(Highcharts.addEvent).to.have.been.calledWith('mock-axis', 'setExtremes', handleSetExtremes);
