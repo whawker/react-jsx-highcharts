@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import HighchartsChart from '../HighchartsChart';
 import Options3d from '../Options3d';
 
 class Highcharts3dChart extends Component {
+
+  static propTypes = Options3d.propTypes;
 
   render () {
     const {
