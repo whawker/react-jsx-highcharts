@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import {
-  Highcharts3dChart, Chart, XAxis, YAxis, ZAxis, Title, ScatterSeries
+  Highcharts3dChart, Chart, XAxis, YAxis, ZAxis, Title, Subtitle, ScatterSeries
 } from 'react-jsx-highcharts';
 import zones from './zones';
-// import ExampleCode from '../utils/ExampleCode';
-// import code from './exampleCode';
+import ExampleCode from '../utils/ExampleCode';
+import code from './exampleCode';
 const radian = Math.PI / 180;
 
 class App extends Component {
@@ -12,8 +12,10 @@ class App extends Component {
   constructor (props) {
     super(props);
 
+    this.handleSliderChange = this.handleSliderChange.bind(this);
     this.state = {
-      numRows: 25
+      numRows: 25,
+      beta: 22
     };
   }
 
@@ -37,25 +39,35 @@ class App extends Component {
     });
   }
 
+  handleSliderChange (e) {
+    this.setState({
+      beta: e.target.value
+    });
+  }
+
   render() {
-    const { numRows, data } = this.state;
+    const { numRows, data, beta } = this.state;
     if (!data) return null;
 
     const plotOptions = {
       scatter: {
-        width: 10,
-        height: 10,
-        depth: 10
+        marker: {
+          states: {
+            hover: { enabled: false },
+            select: { enabled: false }
+          }
+        }
       }
     };
 
     return (
       <div className="app">
+        <Highcharts3dChart alpha={30} beta={beta} depth={300} viewDistance={0} plotOptions={plotOptions}>
+          <Chart />
 
-        <Highcharts3dChart alpha={30} beta={45} depth={300} viewDistance={0} plotOptions={plotOptions}>
-          <Chart width={600} />
+          <Title>3D Scatter Chart</Title>
 
-          <Title>Scatter</Title>
+          <Subtitle>Plotting cos(x) * cos(y) (with zones for colours)</Subtitle>
 
           <XAxis min={0} max={numRows} labels={{ enabled: false }} />
 
@@ -65,6 +77,14 @@ class App extends Component {
             <ScatterSeries id="contour" data={data} zones={zones} />
           </ZAxis>
         </Highcharts3dChart>
+
+        <div>
+          <label htmlFor="beta">Beta Angle</label>
+          <input id="beta" type="range" min="0" max="45" step="1" value={beta} onChange={this.handleSliderChange} />
+          <span>{beta}</span>
+        </div>
+        
+        <ExampleCode name="3DChart">{code}</ExampleCode>
       </div>
     );
   }
