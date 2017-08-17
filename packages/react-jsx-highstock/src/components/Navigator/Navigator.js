@@ -1,4 +1,4 @@
-import React, { Component, Children, cloneElement } from 'react';
+import React, { Component, Children, cloneElement, isValidElement } from 'react';
 import PropTypes from 'prop-types';
 import Highcharts from 'highstock-release';
 import Hidden from 'react-jsx-highcharts/src/components/Hidden';
@@ -72,6 +72,7 @@ class Navigator extends Component {
     if (!children || !this.state.rendered) return null;
 
     const navChildren = Children.map(children, child => {
+      if (isValidElement(child) === false) return child;
       return cloneElement(child, this.state);
     });
 

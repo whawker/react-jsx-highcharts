@@ -1,4 +1,4 @@
-import React, { Component, Children, cloneElement } from 'react';
+import React, { Component, Children, cloneElement, isValidElement } from 'react';
 import PropTypes from 'prop-types';
 import Hidden from '../Hidden';
 
@@ -42,6 +42,7 @@ class PlotLine extends Component {
     if (!children || !this.state.rendered) return null;
 
     const bandChildren = Children.map(children, child => {
+      if (isValidElement(child) === false) return child;
       return cloneElement(child, rest);
     });
 
