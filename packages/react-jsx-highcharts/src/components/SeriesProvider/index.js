@@ -40,6 +40,11 @@ export default function provideSeries(WrappedComponent, expectsSeriesExists = tr
       Highcharts.addEvent(getChart(), 'addSeries', this.handleSeriesAdded);
     }
 
+    componentWillUnmount() {
+      const { getChart } = this.props;
+      Highcharts.removeEvent(getChart(), 'addSeries', this.handleSeriesAdded);
+    }
+
     handleSeriesAdded (e) {
       if (e.options.id !== this.props.id) return;
 
