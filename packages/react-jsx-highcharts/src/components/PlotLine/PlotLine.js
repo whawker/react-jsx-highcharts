@@ -8,8 +8,7 @@ class PlotLine extends Component {
     id: PropTypes.string.isRequired,
     axisId: PropTypes.string, // Provided by Axis component
     dimension: PropTypes.string, // Provided by Axis component
-    from: PropTypes.any.isRequired,
-    to: PropTypes.any.isRequired,
+    value: PropTypes.any.isRequired,
     xAxis: PropTypes.string,
     yAxis: PropTypes.string,
     color: PropTypes.string,
@@ -26,11 +25,17 @@ class PlotLine extends Component {
   }
 
   componentDidMount () {
-    const { axisId, dimension, ...rest } = this.props;
+    const { axisId, dimension, children, ...rest } = this.props;
     this.props.addPlotLine(rest);
     this.setState({
       rendered: true
     });
+  }
+
+  componentDidUpdate (prevProps) {
+    this.props.removePlotLine(prevProps.id);
+    const { axisId, dimension, children, ...rest } = this.props;
+    this.props.addPlotLine(rest);
   }
 
   componentWillUnmount () {

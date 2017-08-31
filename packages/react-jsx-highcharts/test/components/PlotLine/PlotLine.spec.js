@@ -10,16 +10,16 @@ describe('<PlotLine />', function ()  {
 
   describe('when mounted', function () {
     it('adds a title using the Axis addPlotLine method', function () {
-      mount(<PlotLine id="My PlotLine" from={1} to={2} addPlotLine={this.addPlotLine} />);
+      mount(<PlotLine id="My PlotLine" from={1} to={2} addPlotLine={this.addPlotLine} removePlotLine={this.removePlotLine} />);
       expect(this.addPlotLine).to.have.been.calledWith(
-        { id: 'My PlotLine', from: 1, to: 2, addPlotLine: this.addPlotLine }
+        { id: 'My PlotLine', from: 1, to: 2, addPlotLine: this.addPlotLine, removePlotLine: this.removePlotLine }
       );
     });
 
     it('should pass additional props through to Axis addPlotLine method', function () {
-      mount(<PlotLine borderColor="red" id="My Other PlotLine" from={8.8} to={24.2} addPlotLine={this.addPlotLine} />);
+      mount(<PlotLine borderColor="red" id="My Other PlotLine" from={8.8} to={24.2} addPlotLine={this.addPlotLine} removePlotLine={this.removePlotLine} />);
       expect(this.addPlotLine).to.have.been.calledWith(
-        { id: 'My Other PlotLine', borderColor: 'red', from: 8.8, to: 24.2, addPlotLine: this.addPlotLine }
+        { id: 'My Other PlotLine', borderColor: 'red', from: 8.8, to: 24.2, addPlotLine: this.addPlotLine, removePlotLine: this.removePlotLine }
       );
     });
   });
@@ -39,12 +39,12 @@ describe('<PlotLine />', function ()  {
       const ChildComponent = props => (<div />);
 
       const child = mount(
-        <PlotLine id="myId" from={10} to={20} addPlotLine={this.addPlotLine}>
+        <PlotLine id="myId" from={10} to={20} addPlotLine={this.addPlotLine} removePlotLine={this.removePlotLine}>
           <ChildComponent />
         </PlotLine>
       ).children();
       expect(child.props()).to.eql(
-        { id: 'myId', from: 10, to: 20, addPlotLine: this.addPlotLine }
+        { id: 'myId', from: 10, to: 20, addPlotLine: this.addPlotLine, removePlotLine: this.removePlotLine }
       );
     });
   });

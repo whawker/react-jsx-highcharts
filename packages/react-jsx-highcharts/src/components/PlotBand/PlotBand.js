@@ -26,11 +26,17 @@ class PlotBand extends Component {
   }
 
   componentDidMount () {
-    const { axisId, dimension, ...rest } = this.props;
+    const { axisId, dimension, children, ...rest } = this.props;
     this.props.addPlotBand(rest);
     this.setState({
       rendered: true
     });
+  }
+
+  componentDidUpdate (prevProps) {
+    this.props.removePlotBand(prevProps.id);
+    const { axisId, dimension, children, ...rest } = this.props;
+    this.props.addPlotBand(rest);
   }
 
   componentWillUnmount () {

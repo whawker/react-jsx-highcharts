@@ -10,16 +10,16 @@ describe('<PlotBand />', function ()  {
 
   describe('when mounted', function () {
     it('adds a title using the Axis addPlotBand method', function () {
-      mount(<PlotBand id="My PlotBand" from={1} to={2} addPlotBand={this.addPlotBand} />);
+      mount(<PlotBand id="My PlotBand" from={1} to={2} addPlotBand={this.addPlotBand} removePlotBand={this.removePlotBand} />);
       expect(this.addPlotBand).to.have.been.calledWith(
-        { id: 'My PlotBand', from: 1, to: 2, addPlotBand: this.addPlotBand }
+        { id: 'My PlotBand', from: 1, to: 2, addPlotBand: this.addPlotBand, removePlotBand: this.removePlotBand }
       );
     });
 
     it('should pass additional props through to Axis addPlotBand method', function () {
-      mount(<PlotBand borderColor="red" id="My Other PlotBand" from={8.8} to={24.2} addPlotBand={this.addPlotBand} />);
+      mount(<PlotBand borderColor="red" id="My Other PlotBand" from={8.8} to={24.2} addPlotBand={this.addPlotBand} removePlotBand={this.removePlotBand} />);
       expect(this.addPlotBand).to.have.been.calledWith(
-        { id: 'My Other PlotBand', borderColor: 'red', from: 8.8, to: 24.2, addPlotBand: this.addPlotBand }
+        { id: 'My Other PlotBand', borderColor: 'red', from: 8.8, to: 24.2, addPlotBand: this.addPlotBand, removePlotBand: this.removePlotBand }
       );
     });
   });
@@ -39,12 +39,12 @@ describe('<PlotBand />', function ()  {
       const ChildComponent = props => (<div />);
 
       const child = mount(
-        <PlotBand id="myId" from={10} to={20} addPlotBand={this.addPlotBand}>
+        <PlotBand id="myId" from={10} to={20} addPlotBand={this.addPlotBand} removePlotBand={this.removePlotBand}>
           <ChildComponent />
         </PlotBand>
       ).children();
       expect(child.props()).to.eql(
-        { id: 'myId', from: 10, to: 20, addPlotBand: this.addPlotBand }
+        { id: 'myId', from: 10, to: 20, addPlotBand: this.addPlotBand, removePlotBand: this.removePlotBand }
       );
     });
   });
