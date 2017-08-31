@@ -5,13 +5,12 @@ import isImmutable from 'is-immutable';
 import immutableEqual from 'immutable-is';
 import addEventProps, { getNonEventHandlerProps } from '../../utils/events';
 import getModifiedProps from '../../utils/getModifiedProps';
-import { validSeriesTypes } from '../../utils/propTypeValidators';
 
 class Series extends Component {
 
   static propTypes = {
     id: PropTypes.string.isRequired,
-    type: validSeriesTypes.isRequired,
+    type: PropTypes.string.isRequired,
     axisId: PropTypes.string, // Provided by Axis component
     dimension: PropTypes.string, // Provided by Axis component
     data: PropTypes.any,

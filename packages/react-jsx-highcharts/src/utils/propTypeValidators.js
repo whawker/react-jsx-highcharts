@@ -1,13 +1,5 @@
 import PropTypes from 'prop-types';
 
-export const validSeriesTypes = PropTypes.oneOf([
-  'area', 'arearange', 'areaspline', 'areasplinerange',
-  'bar', 'boxplot', 'bubble', 'candlestick', 'column',
-  'columnrange', 'errorbar', 'flags', 'funnel',
-  'line', 'ohlc', 'pie', 'polygon', 'pyramid', 'scatter',
-  'spline', 'treemap', 'waterfall'
-]);
-
 export const validChartTypes = PropTypes.oneOf([
   'chart', 'stockChart'
 ]);
