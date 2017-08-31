@@ -7,8 +7,7 @@ class PlotBandLabel extends Component {
   static propTypes = {
     axisId: PropTypes.string,
     id: PropTypes.string,
-    addPlotBand: PropTypes.func, // Provided by AxisProvider
-    removePlotBand: PropTypes.func // Provided by AxisProvider
+    getAxis: PropTypes.func // Provided by AxisProvider
   };
 
   static labelProps = [
@@ -26,14 +25,21 @@ class PlotBandLabel extends Component {
   constructor (props) {
     super(props);
 
-    this.updatePlotBand = this.updatePlotBand.bind(this);
+    this.updatePlotBandLabel = this.updatePlotBandLabel.bind(this);
     this.getLabelProps = this.getLabelProps.bind(this);
-    this.getOtherProps = this.getOtherProps.bind(this);
   }
 
   componentDidMount () {
     const { children, ...rest } = this.props;
-    this.updatePlotBand({
+    this.updatePlotBandLabel({
+      text: children,
+      ...rest
+    });
+  }
+
+  componentDidUpdate () {
+    const { children, ...rest } = this.props;
+    this.updatePlotBandLabel({
       text: children,
       ...rest
     });
@@ -41,7 +47,7 @@ class PlotBandLabel extends Component {
 
   componentWillUnmount () {
     const { children, ...rest } = this.props;
-    this.updatePlotBand({
+    this.updatePlotBandLabel({
       text: null,
       ...rest
     });
@@ -53,23 +59,17 @@ class PlotBandLabel extends Component {
     });
   }
 
-  getOtherProps (props) {
-    return pickBy(props, (value, propName) => {
-      return PlotBandLabel.labelProps.indexOf(propName) === -1;
-    });
-  }
+  updatePlotBandLabel (config) {
+    const { id, getAxis } = this.props;
+    const axis = getAxis();
 
-  updatePlotBand (config) {
-    const { id, addPlotBand, removePlotBand } = this.props;
-    const labelProps = this.getLabelProps(config);
-    const otherProps = this.getOtherProps(config);
-    removePlotBand(id);
-    addPlotBand({
-      ...otherProps,
-      label: {
-        ...labelProps
+    window.setTimeout(() => {
+      const plotBand = axis.plotLinesAndBands.find(band => band.id === id);
+      if (plotBand) {
+        plotBand.options.label = this.getLabelProps(config);
+        plotBand.render();
       }
-    });
+    }, 1);
   }
 
   render () {
