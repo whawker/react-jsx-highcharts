@@ -1,2 +1,3 @@
 import BarSeries from './BarSeries';
-export default BarSeries;
+import provideChart from '../ChartProvider';
+export default provideChart(BarSeries);
