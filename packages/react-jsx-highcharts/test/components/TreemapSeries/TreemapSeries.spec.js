@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import TreemapSeries from '../../../src/components/TreemapSeries/TreemapSeries';
 import Series from '../../../src/components/Series';
 
-describe('<Treemaperies />', function ()  {
+describe('<TreemapSeries />', function ()  {
   it('renders a <Series />', function ()  {
     const wrapper = shallow(<TreemapSeries id="mySeries" />);
     expect(wrapper).to.have.type(Series);
