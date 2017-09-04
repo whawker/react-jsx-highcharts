@@ -21,6 +21,8 @@ class RangeSelector extends Component {
     super(props);
 
     this.updateRangeSelector = this.updateRangeSelector.bind(this);
+    this.renderRangeSelector = this.renderRangeSelector.bind(this);
+
     this.state = {
       rendered: false
     };
@@ -38,13 +40,7 @@ class RangeSelector extends Component {
       rendered: true
     });
 
-    Highcharts.addEvent(
-      chart,
-      'redraw',
-      function (e) {
-        chart.rangeSelector.render(e.min, e.max);
-      }
-    );
+    Highcharts.addEvent(chart, 'redraw', this.renderRangeSelector);
   }
 
   componentDidUpdate (prevProps) {
@@ -58,12 +54,18 @@ class RangeSelector extends Component {
     this.updateRangeSelector({
       enabled: false
     });
+    Highcharts.removeEvent(this.props.getChart(), 'redraw', this.renderRangeSelector);
   }
 
   updateRangeSelector (config) {
     this.props.update({
       rangeSelector: config
     }, true);
+  }
+
+  renderRangeSelector (e) {
+    const chart = this.props.getChart();
+    chart.rangeSelector && chart.rangeSelector.render.call(chart.rangeSelector, e.min, e.max);
   }
 
   render () {
