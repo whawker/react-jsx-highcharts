@@ -1,6 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import PlotBand from '../../../src/components/PlotBand/PlotBand';
+import { createMockAxis } from '../../test-utils';
 
 describe('<PlotBand />', function ()  {
   beforeEach(function () {
@@ -25,12 +26,22 @@ describe('<PlotBand />', function ()  {
   });
 
   describe('when unmounted', function () {
-    it('removes the title by setting the title to text', function () {
+    it('removes the plot band by id (if the parent axis still exists)', function () {
       const wrapper = mount(
-        <PlotBand id="My PlotBand" from={1} to={2} addPlotBand={this.addPlotBand} removePlotBand={this.removePlotBand} />
+        <PlotBand id="My PlotBand" from={1} to={2} addPlotBand={this.addPlotBand} removePlotBand={this.removePlotBand} getAxis={createMockAxis} />
       );
+      this.removePlotBand.reset();
       wrapper.unmount();
       expect(this.removePlotBand).to.have.been.calledWith('My PlotBand');
+    });
+
+    it('does nothing if the axis has already been removed', function () {
+      const wrapper = mount(
+        <PlotBand id="My PlotBand" from={1} to={2} addPlotBand={this.addPlotBand} removePlotBand={this.removePlotBand} getAxis={() => undefined} />
+      );
+      this.removePlotBand.reset();
+      wrapper.unmount();
+      expect(this.removePlotBand).not.to.have.been.called;
     });
   });
 

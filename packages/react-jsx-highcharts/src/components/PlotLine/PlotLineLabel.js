@@ -64,7 +64,7 @@ class PlotLineLabel extends Component {
     const axis = getAxis();
 
     window.setTimeout(() => {
-      const plotLine = axis.plotLinesAndBands.find(line => line.id === id);
+      const plotLine = axis && axis.plotLinesAndBands.find(line => line.id === id);
       if (plotLine) {
         plotLine.options.label = this.getLabelProps(config);
         plotLine.render();

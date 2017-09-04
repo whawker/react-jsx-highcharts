@@ -39,7 +39,9 @@ class PlotLine extends Component {
   }
 
   componentWillUnmount () {
-    this.props.removePlotLine(this.props.id);
+    if (this.props.getAxis()) {
+      this.props.removePlotLine(this.props.id);
+    }
   }
 
   render () {

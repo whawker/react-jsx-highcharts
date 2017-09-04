@@ -64,7 +64,7 @@ class PlotBandLabel extends Component {
     const axis = getAxis();
 
     window.setTimeout(() => {
-      const plotBand = axis.plotLinesAndBands.find(band => band.id === id);
+      const plotBand = axis && axis.plotLinesAndBands.find(band => band.id === id);
       if (plotBand) {
         plotBand.options.label = this.getLabelProps(config);
         plotBand.render();

@@ -40,7 +40,9 @@ class PlotBand extends Component {
   }
 
   componentWillUnmount () {
-    this.props.removePlotBand(this.props.id);
+    if (this.props.getAxis()) {
+      this.props.removePlotBand(this.props.id);
+    }
   }
 
   render () {
