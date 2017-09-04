@@ -31,9 +31,11 @@ class AxisTitle extends Component {
   }
 
   componentWillUnmount () {
-    this.updateAxisTitle({
-      text: null
-    });
+    if (this.props.getAxis()) {
+      this.updateAxisTitle({
+        text: null
+      });
+    }
   }
 
   updateAxisTitle (config) {

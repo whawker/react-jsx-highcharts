@@ -1,6 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import AxisTitle from '../../../src/components/Axis/AxisTitle';
+import { createMockAxis } from '../../test-utils';
 
 describe('<Axis.Title />', function ()  {
   beforeEach(function () {
@@ -34,12 +35,19 @@ describe('<Axis.Title />', function ()  {
   });
 
   describe('when unmounted', function () {
-    it('removes the correct axis title', function () {
-      const wrapper = mount(<AxisTitle axisId="myAxis" dimension="x" update={this.update}>My Axis Title</AxisTitle>);
+    it('removes the correct axis title (if the axis still exists)', function () {
+      const wrapper = mount(<AxisTitle axisId="myAxis" dimension="x" update={this.update} getAxis={createMockAxis}>My Axis Title</AxisTitle>);
       wrapper.unmount();
       expect(this.update).to.have.been.calledWith({
         title: { text: null }
       });
+    });
+
+    it('does nothing if the parent axis has already been removed', function () {
+      const wrapper = mount(<AxisTitle axisId="myAxis" dimension="x" update={this.update} getAxis={() => undefined}>My Axis Title</AxisTitle>);
+      this.update.reset();
+      wrapper.unmount();
+      expect(this.update).not.to.have.been.called;
     });
   });
 });

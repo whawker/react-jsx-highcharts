@@ -65,7 +65,9 @@ class Series extends Component {
   }
 
   componentWillUnmount () {
-    this.props.remove();
+    if (this.props.getSeries()) {
+      this.props.remove(); // Series may have already been removed, i.e. when Axis unmounted
+    }
   }
 
   render () {

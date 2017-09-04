@@ -204,7 +204,7 @@ describe('<Series />', function ()  {
   });
 
   describe('when unmounted', function () {
-    it('removes the correct series', function () {
+    it('removes the correct series (if the series still exists)', function () {
       const wrapper = mount(
         <Series id="mySeries" axisId="myAxis" dimension="y"
           addSeries={this.addSeries}
@@ -213,6 +213,17 @@ describe('<Series />', function ()  {
       );
       wrapper.unmount();
       expect(this.remove).to.have.been.called;
+    });
+
+    it('does nothing if the axis has already been removed', function () {
+      const wrapper = mount(
+        <Series id="mySeries" axisId="myAxis" dimension="y"
+          addSeries={this.addSeries}
+          getSeries={() => {}}
+          remove={this.remove} />
+      );
+      wrapper.unmount();
+      expect(this.remove).not.to.have.been.called;
     });
   });
 });
