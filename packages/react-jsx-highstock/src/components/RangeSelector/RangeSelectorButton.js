@@ -41,8 +41,13 @@ class RangeSelectorButton extends Component {
   }
 
   getButtons () {
-    const { buttons = [] } = this.props.getChart().options.rangeSelector;
-    return buttons;
+    const chart = this.props.getChart()
+    if (chart && chart.options) {
+        const { buttons = [] } = chart.options.rangeSelector;
+        return buttons;
+    }
+
+    return [];
   }
 
   getButtonIndex () {
