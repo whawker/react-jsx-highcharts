@@ -71,7 +71,7 @@ class BaseChart extends Component {
 
   componentWillUnmount () {
     if (this.chart) { // Fixes #14
-      this.chart.destroy();
+      window.setTimeout(this.chart.destroy.bind(this.chart), 1);
       this.chart.__destroyed = true;
     }
   }
