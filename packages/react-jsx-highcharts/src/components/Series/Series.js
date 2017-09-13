@@ -19,7 +19,9 @@ class Series extends Component {
     update: PropTypes.func, // Provided by SeriesProvider
     remove: PropTypes.func, // Provided by SeriesProvider
     setData: PropTypes.func, // Provided by SeriesProvider
-    setVisible: PropTypes.func // Provided by SeriesProvider
+    setVisible: PropTypes.func, // Provided by SeriesProvider
+    getSeries: PropTypes.func, // Provided by SeriesProvider
+    getHighcharts: PropTypes.func.isRequired // Provided by HighchartsProvider
   };
 
   static defaultProps = {
@@ -41,8 +43,8 @@ class Series extends Component {
   }
 
   componentDidMount () {
-    const { getSeries, ...rest } = this.props;
-    addEventProps(getSeries(), rest);
+    const { getHighcharts, getSeries, ...rest } = this.props;
+    addEventProps(getHighcharts(), getSeries(), rest);
   }
 
   componentDidUpdate (prevProps) {

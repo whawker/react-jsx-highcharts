@@ -38,11 +38,13 @@ export TreemapSeries from './components/TreemapSeries';
 export WaterfallSeries from './components/WaterfallSeries';
 
 // Providers
+export provideHighcharts from './components/HighchartsProvider';
 export provideChart from './components/ChartProvider';
 export provideAxis from './components/AxisProvider';
 export provideSeries from './components/SeriesProvider';
 
 // Helpers
+export withHighcharts from './components/WithHighcharts';
 export Axis from './components/Axis';
 export BaseChart from './components/BaseChart';
 export Debug from './components/Debug';

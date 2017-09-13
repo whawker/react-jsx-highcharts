@@ -15,6 +15,8 @@ class Axis extends Component {
     addAxis: PropTypes.func, // Provided by ChartProvider
     update: PropTypes.func, // Provided by AxisProvider
     remove: PropTypes.func, // Provided by AxisProvider
+    getAxis: PropTypes.func, // Provided by AxisProvider
+    getHighcharts: PropTypes.func.isRequired, // Provided by HighchartsProvider
     dynamicAxis: PropTypes.bool.isRequired
   };
 
@@ -36,8 +38,8 @@ class Axis extends Component {
   }
 
   componentDidMount () {
-    const { getAxis, ...rest } = this.props;
-    addEventProps(getAxis(), rest);
+    const { getHighcharts, getAxis, ...rest } = this.props;
+    addEventProps(getHighcharts(), getAxis(), rest);
   }
 
   componentDidUpdate (prevProps) {

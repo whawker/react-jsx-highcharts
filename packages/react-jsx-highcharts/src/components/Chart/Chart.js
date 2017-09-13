@@ -16,7 +16,9 @@ class Chart extends Component {
     onRedraw: PropTypes.func,
     onRender: PropTypes.func,
     onSelection: PropTypes.func,
-    update: PropTypes.func
+    update: PropTypes.func,
+    getChart: PropTypes.func, // Provided by ChartProvider
+    getHighcharts: PropTypes.func.isRequired // Provided by HighchartsProvider
   };
 
   static defaultProps = {
@@ -31,7 +33,7 @@ class Chart extends Component {
   };
 
   componentDidMount () {
-    const { type, children, update, getChart, ...rest } = this.props;
+    const { type, children, update, getHighcharts, getChart, ...rest } = this.props;
 
     const notEventProps = getNonEventHandlerProps(rest);
     update({
@@ -41,7 +43,7 @@ class Chart extends Component {
       }
     });
 
-    addEventProps(getChart(), rest);
+    addEventProps(getHighcharts(), getChart(), rest);
   }
 
   render () {

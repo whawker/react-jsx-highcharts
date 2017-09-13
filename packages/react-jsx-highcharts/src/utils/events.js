@@ -1,4 +1,3 @@
-import Highcharts from 'highcharts';
 import forEach from 'lodash/forEach';
 import lowerFirst from 'lodash/lowerFirst';
 import pickBy from 'lodash/pickBy';
@@ -13,7 +12,7 @@ export const getNonEventHandlerProps = props => {
   return omitBy(props, isEventKey);
 };
 
-export const addEventHandlers = (context, props) => {
+export const addEventHandlers = (Highcharts, context, props) => {
   const eventProps = getEventHandlerProps(props);
 
   forEach(eventProps, (handler, eventName) => {

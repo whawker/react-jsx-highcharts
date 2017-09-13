@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Highcharts from 'highcharts';
 import provideChart from '../ChartProvider';
 import providedProps from '../../utils/providedProps';
 import boundContextHelper from '../../utils/boundContextHelper';
@@ -28,7 +27,7 @@ export default function provideSeries(WrappedComponent, expectsSeriesExists = tr
     }
 
     componentWillMount () {
-      const { get, getChart } = this.props;
+      const { get, getHighcharts, getChart } = this.props;
       const id = this.props.seriesId || this.props.id;
 
       if (get(id)) {
@@ -37,12 +36,12 @@ export default function provideSeries(WrappedComponent, expectsSeriesExists = tr
         });
       }
 
-      Highcharts.addEvent(getChart(), 'addSeries', this.handleSeriesAdded);
+      getHighcharts().addEvent(getChart(), 'addSeries', this.handleSeriesAdded);
     }
 
     componentWillUnmount() {
-      const { getChart } = this.props;
-      Highcharts.removeEvent(getChart(), 'addSeries', this.handleSeriesAdded);
+      const { getHighcharts, getChart } = this.props;
+      getHighcharts().removeEvent(getChart(), 'addSeries', this.handleSeriesAdded);
     }
 
     handleSeriesAdded (e) {
