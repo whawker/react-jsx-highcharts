@@ -85,7 +85,7 @@ class BaseChart extends Component {
   render () {
     return (
       <div
-        className="chart"
+        className={`chart ${this.props.className}`}
         ref={(node) => { this.domNode = node }}>
         {this.state.rendered && this.props.children}
       </div>
