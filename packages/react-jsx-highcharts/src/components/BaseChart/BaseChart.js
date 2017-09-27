@@ -6,6 +6,10 @@ class BaseChart extends Component {
     chart: PropTypes.object
   };
 
+  static defaultProps = {
+    className: ""
+  };
+
   static propTypes = {
     chartCreationFunc: PropTypes.func.isRequired
   };
@@ -85,7 +89,11 @@ class BaseChart extends Component {
   render () {
     return (
       <div
-        className="chart"
+        className={
+          ["chart", this.props.className]
+            .filter(n => n) // removes nulls and empty strings
+            .join(" ")
+        }
         ref={(node) => { this.domNode = node }}>
         {this.state.rendered && this.props.children}
       </div>
