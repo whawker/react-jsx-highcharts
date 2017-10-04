@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { shallow } from 'enzyme';
 import provideChart from '../../../src/components/ChartProvider';
 import { createMockChart } from '../../test-utils';
 

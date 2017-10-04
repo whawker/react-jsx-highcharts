@@ -1,5 +1,4 @@
 import React from 'react';
-import { mount } from 'enzyme';
 import Title from '../../../src/components/Title/Title';
 
 describe('<Title />', function ()  {

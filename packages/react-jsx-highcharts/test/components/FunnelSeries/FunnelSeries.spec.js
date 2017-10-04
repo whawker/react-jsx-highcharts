@@ -1,5 +1,4 @@
 import React from 'react';
-import { shallow } from 'enzyme';
 import FunnelSeries from '../../../src/components/FunnelSeries/FunnelSeries';
 import Series from '../../../src/components/Series';
 

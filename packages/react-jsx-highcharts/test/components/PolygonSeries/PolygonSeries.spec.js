@@ -1,5 +1,4 @@
 import React from 'react';
-import { shallow } from 'enzyme';
 import PolygonSeries from '../../../src/components/PolygonSeries/PolygonSeries';
 import Series from '../../../src/components/Series';
 

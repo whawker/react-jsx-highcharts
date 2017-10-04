@@ -1,5 +1,4 @@
 import React from 'react';
-import { shallow } from 'enzyme';
 import PyramidSeries from '../../../src/components/PyramidSeries/PyramidSeries';
 import Series from '../../../src/components/Series';
 

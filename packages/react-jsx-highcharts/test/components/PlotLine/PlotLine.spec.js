@@ -1,5 +1,4 @@
 import React from 'react';
-import { mount } from 'enzyme';
 import PlotLine from '../../../src/components/PlotLine/PlotLine';
 import { createMockAxis } from '../../test-utils';
 
@@ -49,12 +48,12 @@ describe('<PlotLine />', function ()  {
     it('should pass the ID of the plot band to the children', function () {
       const ChildComponent = props => (<div />);
 
-      const child = mount(
+      const wrapper = mount(
         <PlotLine id="myId" from={10} to={20} addPlotLine={this.addPlotLine} removePlotLine={this.removePlotLine}>
           <ChildComponent />
         </PlotLine>
       ).children();
-      expect(child.props()).to.eql(
+      expect(wrapper.find(ChildComponent).props()).to.eql(
         { id: 'myId', from: 10, to: 20, addPlotLine: this.addPlotLine, removePlotLine: this.removePlotLine }
       );
     });

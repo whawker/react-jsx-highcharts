@@ -1,5 +1,4 @@
 import React from 'react';
-import { mount } from 'enzyme';
 import Highcharts from 'highcharts';
 import { List } from 'immutable';
 import Series from '../../../src/components/Series/Series';

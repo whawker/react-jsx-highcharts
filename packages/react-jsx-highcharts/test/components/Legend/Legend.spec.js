@@ -1,5 +1,4 @@
 import React from 'react';
-import { mount } from 'enzyme';
 import Legend from '../../../src/components/Legend/Legend';
 
 describe('<Legend />', function ()  {

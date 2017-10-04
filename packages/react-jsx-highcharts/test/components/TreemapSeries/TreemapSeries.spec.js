@@ -1,5 +1,4 @@
 import React from 'react';
-import { shallow } from 'enzyme';
 import TreemapSeries from '../../../src/components/TreemapSeries/TreemapSeries';
 import Series from '../../../src/components/Series';
 

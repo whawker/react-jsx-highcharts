@@ -1,5 +1,4 @@
 import React from 'react';
-import { mount } from 'enzyme';
 import PlotBandLabel from '../../../src/components/PlotBand/PlotBandLabel';
 
 describe('<PlotBand.Label />', function ()  {

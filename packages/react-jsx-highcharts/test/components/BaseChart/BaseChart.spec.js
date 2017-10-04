@@ -1,21 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { mount } from 'enzyme';
 import BaseChart from '../../../src/components/BaseChart';
 import { createMockChart } from '../../test-utils';
-
-class ChartContextReceiver extends PureComponent {
-  static contextTypes = {
-    chart: PropTypes.object,
-    chartType: PropTypes.string
-  };
-
-  render () {
-    return (
-      <div />
-    );
-  }
-}
 
 describe('<BaseChart />', function ()  {
   describe('on mount', function () {
@@ -37,18 +23,14 @@ describe('<BaseChart />', function ()  {
       it('should create a Highcharts chart', function () {
         const wrapper = mount(<BaseChart chartCreationFunc={this.chartCreationFunc} />);
         clock.tick(1);
-        expect(this.chartCreationFunc).to.have.been.calledWith(wrapper.node.domNode);
+        expect(this.chartCreationFunc).to.have.been.calledWith(wrapper.getDOMNode());
       });
 
       it('should create a chart context', function () {
-        const wrapper = mount(
-          <BaseChart chartCreationFunc={this.chartCreationFunc}>
-            <ChartContextReceiver />
-          </BaseChart>
-        );
+        const wrapper = mount(<BaseChart chartCreationFunc={this.chartCreationFunc} />);
         clock.tick(1);
-        const child = wrapper.find(ChartContextReceiver).getNode();
-        expect(child.context.chart).to.eql(chart);
+        const context = wrapper.instance().getChildContext();
+        expect(context.chart).to.eql(chart);
       });
     });
 
@@ -58,6 +40,7 @@ describe('<BaseChart />', function ()  {
         clock.tick(1);
         expect(chart.destroy).not.to.have.been.called;
         wrapper.unmount();
+        clock.tick(1);
         expect(chart.destroy).to.have.been.called;
       });
     });

@@ -1,5 +1,4 @@
 import React from 'react';
-import { mount } from 'enzyme';
 import Highcharts from 'highcharts';
 import Axis from '../../../src/components/Axis/Axis';
 
@@ -112,12 +111,12 @@ describe('<Axis />', function ()  {
     it('should pass the ID of the axis to the children', function () {
       const ChildComponent = props => (<div />);
 
-      const child = mount(
+      const wrapper = mount(
         <Axis id="myAxis" dimension="x" addAxis={this.addAxis} getAxis={this.getAxis}>
           <ChildComponent />
         </Axis>
       ).children();
-      expect(child.props()).to.eql(
+      expect(wrapper.find(ChildComponent).props()).to.eql(
         { dimension: 'x', axisId: 'myAxis' }
       );
     });

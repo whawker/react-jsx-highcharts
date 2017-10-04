@@ -1,5 +1,4 @@
 import React from 'react';
-import { shallow } from 'enzyme';
 import AreaSplineSeries from '../../../src/components/AreaSplineSeries/AreaSplineSeries';
 import Series from '../../../src/components/Series';
 

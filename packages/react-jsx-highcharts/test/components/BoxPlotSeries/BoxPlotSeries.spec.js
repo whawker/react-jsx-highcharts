@@ -1,5 +1,4 @@
 import React from 'react';
-import { shallow } from 'enzyme';
 import BoxPlotSeries from '../../../src/components/BoxPlotSeries/BoxPlotSeries';
 import Series from '../../../src/components/Series';
 

@@ -1,5 +1,4 @@
 import React from 'react';
-import { mount } from 'enzyme';
 import PlotLineLabel from '../../../src/components/PlotLine/PlotLineLabel';
 
 describe('<PlotLine.Label />', function ()  {

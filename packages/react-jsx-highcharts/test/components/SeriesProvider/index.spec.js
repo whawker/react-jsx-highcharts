@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { mount } from 'enzyme';
 import provideSeries from '../../../src/components/SeriesProvider';
 import { createMockChart, createMockSeries } from '../../test-utils';
 

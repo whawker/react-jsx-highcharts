@@ -1,5 +1,4 @@
 import React from 'react';
-import { mount } from 'enzyme';
 import Highcharts from 'highcharts';
 import Tooltip from '../../../src/components/Tooltip/Tooltip';
 import { createMockChart } from '../../test-utils';

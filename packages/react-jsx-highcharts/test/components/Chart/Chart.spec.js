@@ -1,5 +1,4 @@
 import React from 'react';
-import { mount } from 'enzyme';
 import Highcharts from 'highcharts';
 import Chart from '../../../src/components/Chart/Chart';
 
