@@ -1,5 +1,4 @@
 import React from 'react';
-import { mount } from 'enzyme';
 import Scrollbar from '../../../src/components/Scrollbar/Scrollbar';
 
 describe('<Scrollbar />', function ()  {

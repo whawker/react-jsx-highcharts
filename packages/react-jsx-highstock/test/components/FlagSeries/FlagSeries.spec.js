@@ -1,5 +1,4 @@
 import React from 'react';
-import { shallow } from 'enzyme';
 import FlagSeries from '../../../src/components/FlagSeries/FlagSeries';
 import Series from 'react-jsx-highcharts/src/components/Series';
 

@@ -1,5 +1,4 @@
 import React from 'react';
-import { mount } from 'enzyme';
 import Highcharts from 'highstock-release';
 import RangeSelector from '../../../src/components/RangeSelector/RangeSelector';
 import { createMockChart } from '../../test-utils';

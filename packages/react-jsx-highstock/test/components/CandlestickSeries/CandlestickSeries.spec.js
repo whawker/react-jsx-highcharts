@@ -1,5 +1,4 @@
 import React from 'react';
-import { shallow } from 'enzyme';
 import CandlestickSeries from '../../../src/components/CandlestickSeries/CandlestickSeries';
 import Series from 'react-jsx-highcharts/src/components/Series';
 
