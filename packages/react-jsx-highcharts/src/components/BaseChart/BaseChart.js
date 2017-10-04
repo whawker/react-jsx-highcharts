@@ -7,7 +7,7 @@ class BaseChart extends Component {
   };
 
   static defaultProps = {
-    className: ""
+    className: ''
   };
 
   static propTypes = {
@@ -89,11 +89,7 @@ class BaseChart extends Component {
   render () {
     return (
       <div
-        className={
-          ["chart", this.props.className]
-            .filter(n => n) // removes nulls and empty strings
-            .join(" ")
-        }
+        className={`chart ${this.props.className}`}
         ref={(node) => { this.domNode = node }}>
         {this.state.rendered && this.props.children}
       </div>
