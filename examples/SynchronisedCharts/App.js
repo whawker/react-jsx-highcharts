@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Highcharts from 'highcharts';
 import {
-  HighchartsChart, XAxis, YAxis, Title, Series, Tooltip
+  HighchartsChart, withHighcharts, XAxis, YAxis, Title, Series, Tooltip
 } from 'react-jsx-highcharts';
 import ExampleCode from '../utils/ExampleCode';
 import code from './exampleCode';
@@ -104,4 +104,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withHighcharts(App, Highcharts);

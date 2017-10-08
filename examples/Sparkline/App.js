@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  HighchartsSparkline, AreaSeries, Tooltip
+  HighchartsSparkline, withHighcharts, AreaSeries, Tooltip
 } from 'react-jsx-highcharts';
 import Highcharts from 'highcharts';
 import mapValues from 'lodash/mapValues';
@@ -143,4 +143,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withHighcharts(App, Highcharts);

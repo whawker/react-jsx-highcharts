@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import Highcharts from 'highcharts';
 import {
-  Highcharts3dChart, Chart, XAxis, YAxis, ZAxis, Title, Subtitle, ScatterSeries
+  Highcharts3dChart, Chart, withHighcharts, XAxis, YAxis, ZAxis, Title, Subtitle, ScatterSeries
 } from 'react-jsx-highcharts';
 import zones from './zones';
 import ExampleCode from '../utils/ExampleCode';
@@ -83,11 +84,11 @@ class App extends Component {
           <input id="beta" type="range" min="0" max="45" step="1" value={beta} onChange={this.handleSliderChange} />
           <span>{beta}</span>
         </div>
-        
+
         <ExampleCode name="3DChart">{code}</ExampleCode>
       </div>
     );
   }
 }
 
-export default App;
+export default withHighcharts(App, Highcharts);
