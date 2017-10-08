@@ -1,5 +1,13 @@
 import sinon from 'sinon';
 
+const noop = () => {};
+export const Highcharts = {
+  chart: noop,
+  addEvent: noop,
+  removeEvent: noop,
+  Tooltip: noop
+};
+
 export const createMockAxis = () => ({
   remove: sinon.stub(),
   addPlotBand: sinon.stub(),

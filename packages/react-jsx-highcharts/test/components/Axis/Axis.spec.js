@@ -1,5 +1,5 @@
 import React from 'react';
-import Highcharts from 'highcharts';
+import { Highcharts } from '../../test-utils';
 import Axis from '../../../src/components/Axis/Axis';
 
 describe('<Axis />', function ()  {
@@ -14,6 +14,14 @@ describe('<Axis />', function ()  {
 
     sandbox = sinon.sandbox.create();
     sandbox.stub(Highcharts, 'addEvent');
+
+    this.propsFromProviders = {
+      addAxis: this.addAxis,
+      remove: this.remove,
+      update: this.update,
+      getAxis: this.getAxis,
+      getHighcharts: () => Highcharts
+    };
   });
 
   afterEach(function () {
@@ -22,23 +30,23 @@ describe('<Axis />', function ()  {
 
   describe('when mounted (dynamic)', function () {
     it('adds an X axis using the addAxis method', function () {
-      mount(<Axis id="myAxis" dimension="x" addAxis={this.addAxis} getAxis={this.getAxis} />);
-      expect(this.addAxis).to.have.been.calledWith(
-        { id: 'myAxis', title: { text: null }, getAxis: this.getAxis }, true, true
+      mount(<Axis id="myAxis" dimension="x" {...this.propsFromProviders} />);
+      expect(this.addAxis).to.have.been.calledWithMatch(
+        { id: 'myAxis', title: { text: null } }, true, true
       );
     });
 
     it('adds a Y axis using the addAxis method', function () {
-      mount(<Axis id="myAxis" dimension="y" addAxis={this.addAxis} getAxis={this.getAxis} />);
-      expect(this.addAxis).to.have.been.calledWith(
-        { id: 'myAxis', title: { text: null }, getAxis: this.getAxis }, false, true
+      mount(<Axis id="myAxis" dimension="y" {...this.propsFromProviders} />);
+      expect(this.addAxis).to.have.been.calledWithMatch(
+        { id: 'myAxis', title: { text: null } }, false, true
       );
     });
 
     it('should pass additional props through to Highcharts addAxis method', function () {
-      mount(<Axis id="myAxis" dimension="x" min={10} max={100} reversed addAxis={this.addAxis} getAxis={this.getAxis} />);
-      expect(this.addAxis).to.have.been.calledWith(
-        { id: 'myAxis', title: { text: null }, min: 10, max: 100, reversed: true, getAxis: this.getAxis }, true, true
+      mount(<Axis id="myAxis" dimension="x" min={10} max={100} reversed {...this.propsFromProviders} />);
+      expect(this.addAxis).to.have.been.calledWithMatch(
+        { id: 'myAxis', title: { text: null }, min: 10, max: 100, reversed: true }, true, true
       );
     });
 
@@ -48,8 +56,7 @@ describe('<Axis />', function ()  {
 
       mount(
         <Axis id="myAxis" dimension="x" onSetExtremes={handleSetExtremes} onAfterSetExtremes={handleAfterSetExtremes}
-          addAxis={this.addAxis}
-          getAxis={this.getAxis} />
+          {...this.propsFromProviders} />
       );
       expect(Highcharts.addEvent).to.have.been.calledWith('mock-axis', 'setExtremes', handleSetExtremes);
       expect(Highcharts.addEvent).to.have.been.calledWith('mock-axis', 'afterSetExtremes', handleAfterSetExtremes);
@@ -58,16 +65,16 @@ describe('<Axis />', function ()  {
 
   describe('when mounted (NOT dynamic)', function () {
     it('updates a non dynamic axis using the update method', function () {
-      mount(<Axis id="myAxis" dimension="z" dynamicAxis={false} update={this.update} getAxis={this.getAxis} />);
-      expect(this.update).to.have.been.calledWith(
-        { id: 'myAxis', title: { text: null }, getAxis: this.getAxis }, true
+      mount(<Axis id="myAxis" dimension="z" dynamicAxis={false} {...this.propsFromProviders} />);
+      expect(this.update).to.have.been.calledWithMatch(
+        { id: 'myAxis', title: { text: null } }, true
       );
     });
 
     it('should pass additional props through to Highcharts update method', function () {
-      mount(<Axis id="myAxis" dimension="z" dynamicAxis={false} min={10} max={100} reversed update={this.update} getAxis={this.getAxis} />);
-      expect(this.update).to.have.been.calledWith(
-        { id: 'myAxis', title: { text: null }, min: 10, max: 100, reversed: true, getAxis: this.getAxis }, true
+      mount(<Axis id="myAxis" dimension="z" dynamicAxis={false} min={10} max={100} reversed {...this.propsFromProviders} />);
+      expect(this.update).to.have.been.calledWithMatch(
+        { id: 'myAxis', title: { text: null }, min: 10, max: 100, reversed: true }, true
       );
     });
 
@@ -77,8 +84,7 @@ describe('<Axis />', function ()  {
 
       mount(
         <Axis id="myAxis" dimension="z" dynamicAxis={false} onSetExtremes={handleSetExtremes} onAfterSetExtremes={handleAfterSetExtremes}
-          update={this.update}
-          getAxis={this.getAxis} />
+          {...this.propsFromProviders} />
       );
       expect(Highcharts.addEvent).to.have.been.calledWith('mock-axis', 'setExtremes', handleSetExtremes);
       expect(Highcharts.addEvent).to.have.been.calledWith('mock-axis', 'afterSetExtremes', handleAfterSetExtremes);
@@ -88,7 +94,7 @@ describe('<Axis />', function ()  {
   describe('update', function () {
     it('should update the axis if the component props change', function () {
       const wrapper = mount(
-        <Axis id="myAxis" dimension="x" addAxis={this.addAxis} getAxis={this.getAxis} update={this.update} />
+        <Axis id="myAxis" dimension="x" {...this.propsFromProviders} />
       );
       wrapper.setProps({ id: 'myAxis', dimension: 'x', newPropName: 'newPropValue' });
       expect(this.update).to.have.been.calledWith({
@@ -100,7 +106,7 @@ describe('<Axis />', function ()  {
   describe('when unmounted', function () {
     it('removes the axis', function () {
       const wrapper = mount(
-        <Axis id="myAxis" dimension="x" addAxis={this.addAxis} getAxis={this.getAxis} remove={this.remove} />
+        <Axis id="myAxis" dimension="x" {...this.propsFromProviders} />
       );
       wrapper.unmount();
       expect(this.remove).to.have.been.called;
@@ -112,7 +118,7 @@ describe('<Axis />', function ()  {
       const ChildComponent = props => (<div />);
 
       const wrapper = mount(
-        <Axis id="myAxis" dimension="x" addAxis={this.addAxis} getAxis={this.getAxis}>
+        <Axis id="myAxis" dimension="x" {...this.propsFromProviders}>
           <ChildComponent />
         </Axis>
       ).children();

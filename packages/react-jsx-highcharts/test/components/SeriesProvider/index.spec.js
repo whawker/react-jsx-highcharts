@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import provideSeries from '../../../src/components/SeriesProvider';
-import { createMockChart, createMockSeries } from '../../test-utils';
+import { Highcharts, createMockChart, createMockSeries } from '../../test-utils';
 
 const WrappedComponent = props => (
   <div />
@@ -14,8 +15,17 @@ describe('<SeriesProvider />', function () {
     this.chart = createMockChart();
     this.chart.get.withArgs('mySeriesId').returns(this.series);
 
-    this.context = {
-      chart: this.chart
+    const context = {
+      chart: this.chart,
+      Highcharts
+    };
+    const childContextTypes = {
+      chart: PropTypes.object,
+      Highcharts: PropTypes.object
+    };
+    this.opts = {
+      context,
+      childContextTypes
     };
   });
 
@@ -28,32 +38,32 @@ describe('<SeriesProvider />', function () {
     });
 
     it('should pass the `update` function of the series to the wrapped component', function () {
-      const wrapper = mount(<SeriesWrappedComponent seriesId="mySeriesId" />, {context: this.context}).find(WrappedComponent);
+      const wrapper = mount(<SeriesWrappedComponent seriesId="mySeriesId" />, this.opts).find(WrappedComponent);
       expect(wrapper.props().update({ prop: 'Test9876' })).to.eql('update method mock');
     });
 
     it('should pass the `remove` function of the series to the wrapped component', function () {
-      const wrapper = mount(<SeriesWrappedComponent seriesId="mySeriesId" />, {context: this.context}).find(WrappedComponent);
+      const wrapper = mount(<SeriesWrappedComponent seriesId="mySeriesId" />, this.opts).find(WrappedComponent);
       expect(wrapper.props().remove({ prop: 'Test1234' })).to.eql('remove method mock');
     });
 
     it('should pass the `setData` function of the series to the wrapped component', function () {
-      const wrapper = mount(<SeriesWrappedComponent seriesId="mySeriesId" />, {context: this.context}).find(WrappedComponent);
+      const wrapper = mount(<SeriesWrappedComponent seriesId="mySeriesId" />, this.opts).find(WrappedComponent);
       expect(wrapper.props().setData({ prop: 'Test4567' })).to.eql('setData method mock');
     });
 
     it('should pass the `setVisible` function of the series to the wrapped component', function () {
-      const wrapper = mount(<SeriesWrappedComponent seriesId="mySeriesId" />, {context: this.context}).find(WrappedComponent);
+      const wrapper = mount(<SeriesWrappedComponent seriesId="mySeriesId" />, this.opts).find(WrappedComponent);
       expect(wrapper.props().setVisible({ prop: 'Test7654' })).to.eql('setVisible method mock');
     });
 
     it('should pass the `getSeries` helper function to the wrapped component', function () {
-      const wrapper = mount(<SeriesWrappedComponent seriesId="mySeriesId" />, {context: this.context}).find(WrappedComponent);
+      const wrapper = mount(<SeriesWrappedComponent seriesId="mySeriesId" />, this.opts).find(WrappedComponent);
       expect(wrapper.props().getSeries()).to.eql(this.series);
     });
 
     it('should pass all other props through to the WrappedComponent', function () {
-      const wrapper = mount(<SeriesWrappedComponent seriesId="mySeriesId" prop1="bob" prop264="dave" />, {context: this.context}).find(WrappedComponent);
+      const wrapper = mount(<SeriesWrappedComponent seriesId="mySeriesId" prop1="bob" prop264="dave" />, this.opts).find(WrappedComponent);
       expect(wrapper.props().prop1).to.eql('bob');
       expect(wrapper.props().prop264).to.eql('dave');
     });
@@ -68,22 +78,22 @@ describe('<SeriesProvider />', function () {
     });
 
     it('the scope of the `update` function should be bound to the series', function () {
-      const wrapper = mount(<SeriesWrappedComponent seriesId="mySeriesId" />, {context: this.context}).find(WrappedComponent);
+      const wrapper = mount(<SeriesWrappedComponent seriesId="mySeriesId" />, this.opts).find(WrappedComponent);
       expect(wrapper.props().update({ prop: 'Test9876' })).to.eql(this.series);
     });
 
     it('the scope of the `remove` function should be bound to the series', function () {
-      const wrapper = mount(<SeriesWrappedComponent seriesId="mySeriesId" />, {context: this.context}).find(WrappedComponent);
+      const wrapper = mount(<SeriesWrappedComponent seriesId="mySeriesId" />, this.opts).find(WrappedComponent);
       expect(wrapper.props().remove({ prop: 'Test1234' })).to.eql(this.series);
     });
 
     it('the scope of the `setData` function should be bound to the series', function () {
-      const wrapper = mount(<SeriesWrappedComponent seriesId="mySeriesId" />, {context: this.context}).find(WrappedComponent);
+      const wrapper = mount(<SeriesWrappedComponent seriesId="mySeriesId" />, this.opts).find(WrappedComponent);
       expect(wrapper.props().setData({ prop: 'Test4567' })).to.eql(this.series);
     });
 
     it('the scope of the `setVisible` function should be bound to the series', function () {
-      const wrapper = mount(<SeriesWrappedComponent seriesId="mySeriesId" />, {context: this.context}).find(WrappedComponent);
+      const wrapper = mount(<SeriesWrappedComponent seriesId="mySeriesId" />, this.opts).find(WrappedComponent);
       expect(wrapper.props().setVisible({ prop: 'Test7654' })).to.eql(this.series);
     });
   });
@@ -94,13 +104,13 @@ describe('<SeriesProvider />', function () {
     });
 
     it('should not render by default', function () {
-      const wrapper = mount(<SeriesWrappedComponent seriesId="notExistsSeries" />, {context: this.context});
+      const wrapper = mount(<SeriesWrappedComponent seriesId="notExistsSeries" />, this.opts);
       expect(wrapper.html()).to.eql(null);
     });
 
     it('should render if we permit series to not exist', function () {
       const SeriesNotExistsWrappedComponent = provideSeries(WrappedComponent, false);
-      const wrapper = mount(<SeriesNotExistsWrappedComponent seriesId="notExistsSeries" />, {context: this.context});
+      const wrapper = mount(<SeriesNotExistsWrappedComponent seriesId="notExistsSeries" />, this.opts);
       expect(wrapper.find(WrappedComponent)).to.be.ok;
       expect(wrapper.html()).to.eql('<div></div>');
     });

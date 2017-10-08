@@ -1,6 +1,6 @@
 import React from 'react';
-import Highcharts from 'highcharts';
 import { List } from 'immutable';
+import { Highcharts } from '../../test-utils';
 import Series from '../../../src/components/Series/Series';
 
 describe('<Series />', function ()  {
@@ -17,6 +17,16 @@ describe('<Series />', function ()  {
 
     sandbox = sinon.sandbox.create();
     sandbox.stub(Highcharts, 'addEvent');
+
+    this.propsFromProviders = {
+      addSeries: this.addSeries,
+      update: this.update,
+      setData: this.setData,
+      setVisible: this.setVisible,
+      remove: this.remove,
+      getSeries: this.getSeries,
+      getHighcharts: () => Highcharts
+    };
   });
 
   afterEach(function () {
@@ -26,31 +36,28 @@ describe('<Series />', function ()  {
   describe('when mounted', function () {
     it('adds an X series using the addSeries method', function () {
       mount(
-        <Series id="mySeries" axisId="myAxis" dimension="x" addSeries={this.addSeries} getSeries={this.getSeries} />
+        <Series id="mySeries" axisId="myAxis" dimension="x" {...this.propsFromProviders} />
       );
-      expect(this.addSeries).to.have.been.calledWith(
-        { id: 'mySeries', xAxis: 'myAxis', type: 'line', data: [], visible: true, getSeries: this.getSeries }, true
+      expect(this.addSeries).to.have.been.calledWithMatch(
+        { id: 'mySeries', xAxis: 'myAxis', type: 'line', data: [], visible: true }, true
       );
     });
 
     it('adds a Y series using the addSeries method', function () {
       mount(
-        <Series id="mySeries" axisId="myAxis" dimension="y" addSeries={this.addSeries} getSeries={this.getSeries} />
+        <Series id="mySeries" axisId="myAxis" dimension="y" {...this.propsFromProviders} />
       );
-      expect(this.addSeries).to.have.been.calledWith(
-        { id: 'mySeries', yAxis: 'myAxis', type: 'line', data: [], visible: true, getSeries: this.getSeries }, true
+      expect(this.addSeries).to.have.been.calledWithMatch(
+        { id: 'mySeries', yAxis: 'myAxis', type: 'line', data: [], visible: true }, true
       );
     });
 
     it('should pass additional props through to Highcharts addSeries method', function () {
       mount(
-        <Series id="mySeries" axisId="myAxis" dimension="y" data={[5]} step
-          addSeries={this.addSeries}
-          getSeries={this.getSeries} />
+        <Series id="mySeries" axisId="myAxis" dimension="y" data={[5]} step {...this.propsFromProviders} />
       );
-      expect(this.addSeries).to.have.been.calledWith({
-        id: 'mySeries', yAxis: 'myAxis', type: 'line', data: [5],
-        visible: true, step: true, getSeries: this.getSeries
+      expect(this.addSeries).to.have.been.calledWithMatch({
+        id: 'mySeries', yAxis: 'myAxis', type: 'line', data: [5], visible: true, step: true
       }, true);
     });
 
@@ -59,11 +66,8 @@ describe('<Series />', function ()  {
       const handleShow = sinon.spy();
 
       mount(
-        <Series id="mySeries" axisId="myAxis" dimension="y"
-          onClick={handleClick}
-          onShow={handleShow}
-          addSeries={this.addSeries}
-          getSeries={this.getSeries} />
+        <Series id="mySeries" axisId="myAxis" dimension="y" onClick={handleClick} onShow={handleShow}
+          {...this.propsFromProviders} />
       );
       expect(Highcharts.addEvent).to.have.been.calledWith('mock-series', 'click', handleClick);
       expect(Highcharts.addEvent).to.have.been.calledWith('mock-series', 'show', handleShow);
@@ -72,13 +76,10 @@ describe('<Series />', function ()  {
     it('supports mounting with Immutable List data', function () {
       const data = [1, 2, 3, 4, 5];
       mount(
-        <Series id="mySeries" axisId="myAxis" dimension="y"
-                data={List(data)}
-                addSeries={this.addSeries}
-                getSeries={this.getSeries} />
+        <Series id="mySeries" axisId="myAxis" dimension="y" data={List(data)} {...this.propsFromProviders} />
       );
-      expect(this.addSeries).to.have.been.calledWith(
-        { id: 'mySeries', yAxis: 'myAxis', type: 'line', data, visible: true, getSeries: this.getSeries }, true
+      expect(this.addSeries).to.have.been.calledWithMatch(
+        { id: 'mySeries', yAxis: 'myAxis', type: 'line', data, visible: true }, true
       );
     });
   });
@@ -87,12 +88,7 @@ describe('<Series />', function ()  {
     it('should use the setData method on the correct series when the data changes', function () {
       const wrapper = mount(
         <Series
-          id="mySeries" axisId="myAxis" dimension="x" data={[]}
-          addSeries={this.addSeries}
-          getSeries={this.getSeries}
-          update={this.update}
-          setData={this.setData}
-          setVisible={this.setVisible} />
+          id="mySeries" axisId="myAxis" dimension="x" data={[]} {...this.propsFromProviders} />
       );
       wrapper.setProps({ data: [1, 2, 3] });
       expect(this.setData).to.have.been.calledWith([1, 2, 3], true);
@@ -103,12 +99,7 @@ describe('<Series />', function ()  {
     it('should NOT use the setData method if the data hasn\'t changed', function () {
       const wrapper = mount(
         <Series
-          id="mySeries" axisId="myAxis" dimension="x" data={[1, 2, 3]}
-          addSeries={this.addSeries}
-          getSeries={this.getSeries}
-          update={this.update}
-          setData={this.setData}
-          setVisible={this.setVisible} />
+          id="mySeries" axisId="myAxis" dimension="x" data={[1, 2, 3]} {...this.propsFromProviders} />
       );
       wrapper.setProps({ data: [1, 2, 3] });
       expect(this.setData).not.to.have.been.called;
@@ -119,12 +110,7 @@ describe('<Series />', function ()  {
     it('should use the setData method on the correct series when the Immutable List changes', function () {
       const wrapper = mount(
         <Series
-          id="mySeries" axisId="myAxis" dimension="x" data={List([1, 2, 3])}
-          addSeries={this.addSeries}
-          getSeries={this.getSeries}
-          update={this.update}
-          setData={this.setData}
-          setVisible={this.setVisible} />
+          id="mySeries" axisId="myAxis" dimension="x" data={List([1, 2, 3])} {...this.propsFromProviders} />
       );
       const newData = [1, 2, 3, 4, 5];
       wrapper.setProps({ data: List(newData) });
@@ -136,12 +122,7 @@ describe('<Series />', function ()  {
     it('should NOT use the setData method if the Immutable List hasn\'t changed', function () {
       const wrapper = mount(
         <Series
-          id="mySeries" axisId="myAxis" dimension="x" data={List([1, 2, 3])}
-          addSeries={this.addSeries}
-          getSeries={this.getSeries}
-          update={this.update}
-          setData={this.setData}
-          setVisible={this.setVisible} />
+          id="mySeries" axisId="myAxis" dimension="x" data={List([1, 2, 3])} {...this.propsFromProviders} />
       );
       wrapper.setProps({ data: List([1, 2, 3]) });
       expect(this.setData).not.to.have.been.called;
@@ -152,12 +133,7 @@ describe('<Series />', function ()  {
     it('should use the setVisible method on the correct series when the visibility changes', function () {
       const wrapper = mount(
         <Series
-          id="mySeries" axisId="myAxis" dimension="x" visible
-          addSeries={this.addSeries}
-          getSeries={this.getSeries}
-          update={this.update}
-          setData={this.setData}
-          setVisible={this.setVisible} />
+          id="mySeries" axisId="myAxis" dimension="x" visible {...this.propsFromProviders} />
       );
       wrapper.setProps({ visible: false });
       expect(this.setVisible).to.have.been.calledWith(false);
@@ -168,12 +144,7 @@ describe('<Series />', function ()  {
     it('should use the update method on correct series if arbritary props change', function () {
       const wrapper = mount(
         <Series
-          id="mySeries" axisId="myAxis" dimension="x" visible
-          addSeries={this.addSeries}
-          getSeries={this.getSeries}
-          update={this.update}
-          setData={this.setData}
-          setVisible={this.setVisible} />
+          id="mySeries" axisId="myAxis" dimension="x" visible {...this.propsFromProviders} />
       );
       wrapper.setProps({ newPropName: 'newPropValue' });
       expect(this.update).to.have.been.calledWith({
@@ -186,12 +157,7 @@ describe('<Series />', function ()  {
     it('should use the most performant method available even when multiple props change', function () {
       const wrapper = mount(
         <Series
-          id="mySeries" axisId="myAxis" dimension="x" data={[]} visible={false}
-          addSeries={this.addSeries}
-          getSeries={this.getSeries}
-          update={this.update}
-          setData={this.setData}
-          setVisible={this.setVisible} />
+          id="mySeries" axisId="myAxis" dimension="x" data={[]} visible={false} {...this.propsFromProviders} />
       );
       wrapper.setProps({ opposite: true, data: [4, 5, 6], visible: true });
       expect(this.setData).to.have.been.calledWith([4, 5, 6]);
@@ -205,10 +171,7 @@ describe('<Series />', function ()  {
   describe('when unmounted', function () {
     it('removes the correct series (if the series still exists)', function () {
       const wrapper = mount(
-        <Series id="mySeries" axisId="myAxis" dimension="y"
-          addSeries={this.addSeries}
-          getSeries={this.getSeries}
-          remove={this.remove} />
+        <Series id="mySeries" axisId="myAxis" dimension="y" {...this.propsFromProviders} />
       );
       wrapper.unmount();
       expect(this.remove).to.have.been.called;
@@ -216,10 +179,7 @@ describe('<Series />', function ()  {
 
     it('does nothing if the axis has already been removed', function () {
       const wrapper = mount(
-        <Series id="mySeries" axisId="myAxis" dimension="y"
-          addSeries={this.addSeries}
-          getSeries={() => {}}
-          remove={this.remove} />
+        <Series id="mySeries" axisId="myAxis" dimension="y" {...this.propsFromProviders} getSeries={() => {}} />
       );
       wrapper.unmount();
       expect(this.remove).not.to.have.been.called;

@@ -1,5 +1,5 @@
 import React from 'react';
-import Highcharts from 'highcharts';
+import { Highcharts } from '../../test-utils';
 import Chart from '../../../src/components/Chart/Chart';
 
 describe('<Chart />', function ()  {
@@ -12,6 +12,12 @@ describe('<Chart />', function ()  {
 
     sandbox = sinon.sandbox.create();
     sandbox.stub(Highcharts, 'addEvent');
+
+    this.propsFromProviders = {
+      update: this.update,
+      getChart: this.getChart,
+      getHighcharts: () => Highcharts
+    };
   });
 
   afterEach(function () {
@@ -20,7 +26,7 @@ describe('<Chart />', function ()  {
 
   describe('when mounted', function () {
     it('updates the chart config with the provided props', function () {
-      mount(<Chart type="bubble" update={this.update} getChart={this.getChart} />);
+      mount(<Chart type="bubble" {...this.propsFromProviders} />);
       expect(this.update).to.have.been.calledWith({
         chart : {
           type: 'bubble'
@@ -30,9 +36,7 @@ describe('<Chart />', function ()  {
 
     it('updates the chart with all props that don\'t look like event handlers', function () {
       mount(
-        <Chart type="spline" propFoo="bar" zoomType="x" onClick={() => {}}
-          update={this.update}
-          getChart={this.getChart} />
+        <Chart type="spline" propFoo="bar" zoomType="x" onClick={() => {}} {...this.propsFromProviders} />
       );
       expect(this.update).to.have.been.calledWith({
         chart : {
@@ -50,8 +54,7 @@ describe('<Chart />', function ()  {
 
       mount(
         <Chart type="area" onClick={handleClick} onRender={handleRender} onBeforePrint={handleBeforePrint}
-          update={this.update}
-          getChart={this.getChart} />
+          {...this.propsFromProviders} />
       );
       expect(Highcharts.addEvent).to.have.been.calledWith('mock-chart', 'click', handleClick);
       expect(Highcharts.addEvent).to.have.been.calledWith('mock-chart', 'render', handleRender);
