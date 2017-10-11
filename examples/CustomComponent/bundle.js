@@ -2058,13 +2058,7 @@ module.exports = Highcharts;
 /***/ }),
 /* 102 */,
 /* 103 */,
-/* 104 */,
-/* 105 */,
-/* 106 */,
-/* 107 */,
-/* 108 */,
-/* 109 */,
-/* 110 */
+/* 104 */
 /***/ (function(module, exports) {
 
 /*
@@ -2146,14 +2140,13 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 111 */,
-/* 112 */,
-/* 113 */,
-/* 114 */,
-/* 115 */,
-/* 116 */,
-/* 117 */,
-/* 118 */
+/* 105 */,
+/* 106 */,
+/* 107 */,
+/* 108 */,
+/* 109 */,
+/* 110 */,
+/* 111 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -2466,6 +2459,13 @@ function updateLink(linkElement, options, obj) {
 
 
 /***/ }),
+/* 112 */,
+/* 113 */,
+/* 114 */,
+/* 115 */,
+/* 116 */,
+/* 117 */,
+/* 118 */,
 /* 119 */
 /***/ (function(module, exports) {
 
@@ -2630,6 +2630,8 @@ var _DateRangePickers2 = _interopRequireDefault(_DateRangePickers);
 
 var _dataHelpers = __webpack_require__(97);
 
+__webpack_require__(292);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var App = function (_Component) {
@@ -2658,7 +2660,7 @@ var App = function (_Component) {
         { className: 'app' },
         _react2.default.createElement(
           _reactJsxHighstock.HighchartsStockChart,
-          null,
+          { className: 'custom-component-chart' },
           _react2.default.createElement(_reactJsxHighstock.Chart, { zoomType: 'x' }),
           _react2.default.createElement(
             _reactJsxHighstock.Title,
@@ -2791,11 +2793,11 @@ var _react = __webpack_require__(14);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _moment = __webpack_require__(295);
+var _moment = __webpack_require__(297);
 
 var _moment2 = _interopRequireDefault(_moment);
 
-var _reactDayPicker = __webpack_require__(293);
+var _reactDayPicker = __webpack_require__(295);
 
 var _reactDayPicker2 = _interopRequireDefault(_reactDayPicker);
 
@@ -2805,7 +2807,7 @@ var _highstockRelease2 = _interopRequireDefault(_highstockRelease);
 
 var _reactJsxHighcharts = __webpack_require__(51);
 
-__webpack_require__(290);
+__webpack_require__(291);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2999,7 +3001,7 @@ _reactDom2.default.render(_react2.default.createElement(_App2.default, null), do
 /* 201 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(110)(undefined);
+exports = module.exports = __webpack_require__(104)(undefined);
 // imports
 
 
@@ -3010,7 +3012,20 @@ exports.push([module.i, ".date-range-pickers {\n  float: right;\n  position: rel
 
 
 /***/ }),
-/* 202 */,
+/* 202 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(104)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, ".custom-component-chart {\n  padding-top: 20px;\n  position: relative;\n}\n\n.custom-component-chart .date-range-pickers {\n  position: absolute;\n  top: 0;\n  right: 0;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
 /* 203 */,
 /* 204 */,
 /* 205 */,
@@ -3098,7 +3113,8 @@ exports.push([module.i, ".date-range-pickers {\n  float: right;\n  position: rel
 /* 287 */,
 /* 288 */,
 /* 289 */,
-/* 290 */
+/* 290 */,
+/* 291 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -3112,7 +3128,7 @@ var transform;
 var options = {}
 options.transform = transform
 // add the styles to the DOM
-var update = __webpack_require__(118)(content, options);
+var update = __webpack_require__(111)(content, options);
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -3129,16 +3145,47 @@ if(false) {
 }
 
 /***/ }),
-/* 291 */,
-/* 292 */,
-/* 293 */
+/* 292 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(202);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// Prepare cssTransformation
+var transform;
+
+var options = {}
+options.transform = transform
+// add the styles to the DOM
+var update = __webpack_require__(111)(content, options);
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../node_modules/css-loader/index.js!./index.css", function() {
+			var newContent = require("!!../node_modules/css-loader/index.js!./index.css");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 293 */,
+/* 294 */,
+/* 295 */
 /***/ (function(module, exports) {
 
 module.exports = DayPicker;
 
 /***/ }),
-/* 294 */,
-/* 295 */
+/* 296 */,
+/* 297 */
 /***/ (function(module, exports) {
 
 module.exports = moment;
