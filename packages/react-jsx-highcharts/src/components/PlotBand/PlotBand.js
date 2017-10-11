@@ -1,4 +1,4 @@
-import React, { Component, Children, cloneElement } from 'react';
+import React, { Component, Children, cloneElement, isValidElement } from 'react';
 import PropTypes from 'prop-types';
 import Hidden from '../Hidden';
 
@@ -26,15 +26,23 @@ class PlotBand extends Component {
   }
 
   componentDidMount () {
-    const { axisId, dimension, ...rest } = this.props;
+    const { axisId, dimension, children, ...rest } = this.props;
     this.props.addPlotBand(rest);
     this.setState({
       rendered: true
     });
   }
 
+  componentDidUpdate (prevProps) {
+    this.props.removePlotBand(prevProps.id);
+    const { axisId, dimension, children, ...rest } = this.props;
+    this.props.addPlotBand(rest);
+  }
+
   componentWillUnmount () {
-    this.props.removePlotBand(this.props.id);
+    if (this.props.getAxis()) {
+      this.props.removePlotBand(this.props.id);
+    }
   }
 
   render () {
@@ -42,6 +50,7 @@ class PlotBand extends Component {
     if (!children || !this.state.rendered) return null;
 
     const bandChildren = Children.map(children, child => {
+      if (isValidElement(child) === false) return child;
       return cloneElement(child, rest);
     });
 

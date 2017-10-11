@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { mount } from 'enzyme';
 import provideAxis from '../../../src/components/AxisProvider';
 import { createMockChart, createMockAxis } from '../../test-utils';
 

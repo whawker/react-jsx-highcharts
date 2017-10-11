@@ -1,5 +1,4 @@
 import React from 'react';
-import { shallow } from 'enzyme';
 import Highcharts from 'highcharts';
 import HighchartsChart from '../../../src/components/HighchartsChart';
 import BaseChart from '../../../src/components/BaseChart';

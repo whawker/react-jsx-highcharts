@@ -1,5 +1,4 @@
 import React from 'react';
-import { mount } from 'enzyme';
 import Highcharts from 'highstock-release';
 import Navigator from '../../../src/components/Navigator/Navigator';
 import { createMockChart } from '../../test-utils';

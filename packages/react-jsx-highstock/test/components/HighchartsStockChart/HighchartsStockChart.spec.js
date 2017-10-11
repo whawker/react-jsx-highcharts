@@ -1,5 +1,4 @@
 import React from 'react';
-import { shallow } from 'enzyme';
 import Highcharts from 'highstock-release';
 import HighchartsStockChart from '../../../src/components/HighchartsStockChart';
 import BaseChart from 'react-jsx-highcharts/src/components/BaseChart';

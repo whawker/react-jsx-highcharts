@@ -1,5 +1,4 @@
 import React from 'react';
-import { mount } from 'enzyme';
 import Options3d from '../../../src/components/Options3d/Options3d';
 
 describe('<Options3d />', function ()  {

@@ -1,4 +1,4 @@
-import React, { Component, Children, cloneElement } from 'react';
+import React, { Component, Children, cloneElement, isValidElement } from 'react';
 import PropTypes from 'prop-types';
 import Hidden from '../Hidden';
 import addEventProps, { getNonEventHandlerProps } from '../../utils/events';
@@ -57,6 +57,7 @@ class Axis extends Component {
     if (!children) return null;
 
     const axisChildren = Children.map(children, child => {
+      if (isValidElement(child) === false) return child;
       return cloneElement(child, { dimension, axisId: id });
     });
 

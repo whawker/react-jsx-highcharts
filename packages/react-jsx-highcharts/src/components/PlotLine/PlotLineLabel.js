@@ -7,8 +7,7 @@ class PlotLineLabel extends Component {
   static propTypes = {
     axisId: PropTypes.string,
     id: PropTypes.string,
-    addPlotLine: PropTypes.func, // Provided by AxisProvider
-    removePlotLine: PropTypes.func // Provided by AxisProvider
+    getAxis: PropTypes.func // Provided by AxisProvider
   };
 
   static labelProps = [
@@ -26,14 +25,21 @@ class PlotLineLabel extends Component {
   constructor (props) {
     super(props);
 
-    this.updatePlotLine = this.updatePlotLine.bind(this);
+    this.updatePlotLineLabel = this.updatePlotLineLabel.bind(this);
     this.getLabelProps = this.getLabelProps.bind(this);
-    this.getOtherProps = this.getOtherProps.bind(this);
   }
 
   componentDidMount () {
     const { children, ...rest } = this.props;
-    this.updatePlotLine({
+    this.updatePlotLineLabel({
+      text: children,
+      ...rest
+    });
+  }
+
+  componentDidUpdate () {
+    const { children, ...rest } = this.props;
+    this.updatePlotLineLabel({
       text: children,
       ...rest
     });
@@ -41,7 +47,7 @@ class PlotLineLabel extends Component {
 
   componentWillUnmount () {
     const { children, ...rest } = this.props;
-    this.updatePlotLine({
+    this.updatePlotLineLabel({
       text: null,
       ...rest
     });
@@ -53,23 +59,17 @@ class PlotLineLabel extends Component {
     });
   }
 
-  getOtherProps (props) {
-    return pickBy(props, (value, propName) => {
-      return PlotLineLabel.labelProps.indexOf(propName) === -1;
-    });
-  }
+  updatePlotLineLabel (config) {
+    const { id, getAxis } = this.props;
+    const axis = getAxis();
 
-  updatePlotLine (config) {
-    const { id, addPlotLine, removePlotLine } = this.props;
-    const labelProps = this.getLabelProps(config);
-    const otherProps = this.getOtherProps(config);
-    removePlotLine(id);
-    addPlotLine({
-      ...otherProps,
-      label: {
-        ...labelProps
+    window.setTimeout(() => {
+      const plotLine = axis && axis.plotLinesAndBands.find(line => line.id === id);
+      if (plotLine) {
+        plotLine.options.label = this.getLabelProps(config);
+        plotLine.render();
       }
-    });
+    }, 1);
   }
 
   render () {

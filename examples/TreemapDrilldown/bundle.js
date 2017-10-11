@@ -64,7 +64,7 @@ var example =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 182);
+/******/ 	return __webpack_require__(__webpack_require__.s = 186);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -2066,7 +2066,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 /* 147 */,
 /* 148 */,
 /* 149 */,
-/* 150 */
+/* 150 */,
+/* 151 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2096,7 +2097,7 @@ var _inherits2 = __webpack_require__(46);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _keys = __webpack_require__(186);
+var _keys = __webpack_require__(190);
 
 var _keys2 = _interopRequireDefault(_keys);
 
@@ -2110,7 +2111,7 @@ var _ExampleCode = __webpack_require__(52);
 
 var _ExampleCode2 = _interopRequireDefault(_ExampleCode);
 
-var _exampleCode = __webpack_require__(181);
+var _exampleCode = __webpack_require__(185);
 
 var _exampleCode2 = _interopRequireDefault(_exampleCode);
 
@@ -2247,7 +2248,6 @@ var App = function (_Component) {
 exports.default = App;
 
 /***/ }),
-/* 151 */,
 /* 152 */,
 /* 153 */,
 /* 154 */,
@@ -2277,7 +2277,11 @@ exports.default = App;
 /* 178 */,
 /* 179 */,
 /* 180 */,
-/* 181 */
+/* 181 */,
+/* 182 */,
+/* 183 */,
+/* 184 */,
+/* 185 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2289,7 +2293,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = "\nrender () {\n  const treeData = this.state.treeData;\n  if (!treeData) return null;\n\n  const levels = [{\n    level: 1,\n    dataLabels: {\n      enabled: true\n    },\n    borderWidth: 3\n  }];\n  const tooltipFormatter = function () {\n    return `${this.key}: ${this.point.value}`;\n  };\n\n  return (\n    <div className=\"app\">\n      <HighchartsChart>\n        <Title>Global Mortality Rate 2012, per 100,000 population</Title>\n\n        <Subtitle>Click points to drill down. Source: WHO.</Subtitle>\n\n        <XAxis />\n\n        <YAxis id=\"value\">\n          <TreemapSeries\n            data={treeData}\n            allowDrillToNode\n            layoutAlgorithm=\"squarified\"\n            animationLimit={1000}\n            dataLabels={{ enabled: false }}\n            levelIsConstant={false}\n            levels={levels} />\n        </YAxis>\n\n        <Tooltip formatter={tooltipFormatter} />\n      </HighchartsChart>\n    </div>\n  );\n}";
 
 /***/ }),
-/* 182 */
+/* 186 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2303,7 +2307,7 @@ var _reactDom = __webpack_require__(42);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _App = __webpack_require__(150);
+var _App = __webpack_require__(151);
 
 var _App2 = _interopRequireDefault(_App);
 
@@ -2312,31 +2316,31 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 _reactDom2.default.render(_react2.default.createElement(_App2.default, null), document.getElementById('root'));
 
 /***/ }),
-/* 183 */,
-/* 184 */,
-/* 185 */,
-/* 186 */
+/* 187 */,
+/* 188 */,
+/* 189 */,
+/* 190 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = { "default": __webpack_require__(188), __esModule: true };
+module.exports = { "default": __webpack_require__(192), __esModule: true };
 
 /***/ }),
-/* 187 */,
-/* 188 */
+/* 191 */,
+/* 192 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(196);
+__webpack_require__(200);
 module.exports = __webpack_require__(0).Object.keys;
 
 /***/ }),
-/* 189 */,
-/* 190 */,
-/* 191 */,
-/* 192 */,
 /* 193 */,
 /* 194 */,
 /* 195 */,
-/* 196 */
+/* 196 */,
+/* 197 */,
+/* 198 */,
+/* 199 */,
+/* 200 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 19.1.2.14 Object.keys(O)

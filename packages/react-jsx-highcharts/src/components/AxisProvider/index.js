@@ -50,9 +50,9 @@ export default function provideAxis(WrappedComponent) {
           update={cleanPropsBeforeUpdate(update)}
           remove={remove}
           addPlotBand={cleanPropsBeforeUpdate(addPlotBand)}
-          removePlotBand={cleanPropsBeforeUpdate(removePlotBand)}
+          removePlotBand={removePlotBand}
           addPlotLine={cleanPropsBeforeUpdate(addPlotLine)}
-          removePlotLine={cleanPropsBeforeUpdate(removePlotLine)}
+          removePlotLine={removePlotLine}
           getExtremes={getExtremes}
           setExtremes={setExtremes}
           getAxis={getAxis} />

@@ -1,5 +1,4 @@
 import React from 'react';
-import { shallow } from 'enzyme';
 import BubbleSeries from '../../../src/components/BubbleSeries/BubbleSeries';
 import Series from '../../../src/components/Series';
 

@@ -1,5 +1,4 @@
 import React from 'react';
-import { shallow } from 'enzyme';
 import OHLCSeries from '../../../src/components/OHLCSeries/OHLCSeries';
 import Series from 'react-jsx-highcharts/src/components/Series';
 

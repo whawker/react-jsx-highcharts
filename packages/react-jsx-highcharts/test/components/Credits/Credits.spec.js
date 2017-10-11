@@ -1,5 +1,4 @@
 import React from 'react';
-import { mount } from 'enzyme';
 import Credits from '../../../src/components/Credits/Credits';
 
 describe('<Credits />', function ()  {

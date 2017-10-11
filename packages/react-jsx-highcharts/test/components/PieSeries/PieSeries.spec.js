@@ -1,5 +1,4 @@
 import React from 'react';
-import { shallow } from 'enzyme';
 import PieSeries from '../../../src/components/PieSeries/PieSeries';
 import Series from '../../../src/components/Series';
 

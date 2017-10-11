@@ -1,5 +1,4 @@
 import React from 'react';
-import { shallow } from 'enzyme';
 import YAxis from '../../../src/components/YAxis/YAxis';
 import Axis from '../../../src/components/Axis';
 

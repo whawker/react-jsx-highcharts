@@ -6,6 +6,10 @@ class BaseChart extends Component {
     chart: PropTypes.object
   };
 
+  static defaultProps = {
+    className: ''
+  };
+
   static propTypes = {
     chartCreationFunc: PropTypes.func.isRequired
   };
@@ -70,8 +74,10 @@ class BaseChart extends Component {
   }
 
   componentWillUnmount () {
-    this.chart.destroy();
-    this.chart.__destroyed = true;
+    if (this.chart) { // Fixes #14
+      window.setTimeout(this.chart.destroy.bind(this.chart), 1);
+      this.chart.__destroyed = true;
+    }
   }
 
   getChildContext () {
@@ -83,7 +89,7 @@ class BaseChart extends Component {
   render () {
     return (
       <div
-        className="chart"
+        className={`chart ${this.props.className}`}
         ref={(node) => { this.domNode = node }}>
         {this.state.rendered && this.props.children}
       </div>

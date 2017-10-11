@@ -34,6 +34,12 @@ global.navigator = {
 };
 global.expect = expect;
 global.sinon = sinon;
+
+var Enzyme = require('enzyme');
+var Adapter = require('enzyme-adapter-react-16');
+Enzyme.configure({ adapter: new Adapter() });
+global.shallow = Enzyme.shallow;
+global.mount = Enzyme.mount;
 copyProps(window, global);
 
 // this has to happen after the globals are set up because `chai-enzyme`

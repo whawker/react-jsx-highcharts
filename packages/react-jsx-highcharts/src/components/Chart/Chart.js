@@ -1,12 +1,11 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import addEventProps, { getNonEventHandlerProps } from '../../utils/events';
-import { validSeriesTypes } from '../../utils/propTypeValidators';
 
 class Chart extends Component {
 
   static propTypes = {
-    type: validSeriesTypes.isRequired,
+    type: PropTypes.string.isRequired,
     width: PropTypes.number,
     height: PropTypes.number,
     addSeries: PropTypes.func,

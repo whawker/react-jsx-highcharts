@@ -46,22 +46,23 @@ As of 1.3.0 React JSX Highcharts supports [3D charts](https://whawker.github.io/
 
 You'll need the peer dependencies too
 
-`npm install --save react react-dom prop-types highcharts`
+`npm install --save react react-dom prop-types highcharts@^5.0.0`
 
 #### Highstock (also includes Highcharts)
 `npm install --save react-jsx-highstock`
 
 You'll need the peer dependencies too
 
-`npm install --save react react-dom prop-types highstock-release` (note: `highstock-release`, not `highcharts`)
+`npm install --save react react-dom prop-types highstock-release@^5.0.0` (note: `highstock-release`, not `highcharts`)
 
 ## Documentation
 In progress... [see here](https://github.com/whawker/react-jsx-highcharts/wiki).
 
 ## Upcoming Features
 * ~~`<Highcharts3dChart>` component - A helper for 3D charts.~~ Done! 1.3.0
-* React 16 support - all features seem to work with beta 3, just need to modify `peerDependencies` and await Enzyme support for React 16
+* ~~React 16 support - all features seem to work with beta 3, just need to modify `peerDependencies` and await Enzyme support for React 16~~ Done! 1.4.0
 * Use `React.PureComponent` instead of `Component`
+* Highcharts 6.0 support
 
 ## Goals
 

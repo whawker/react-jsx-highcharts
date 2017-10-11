@@ -1,4 +1,4 @@
-import React, { Component, Children, cloneElement } from 'react';
+import React, { Component, Children, cloneElement, isValidElement } from 'react';
 import PropTypes from 'prop-types';
 import Hidden from 'react-jsx-highcharts/src/components/Hidden';
 import provideAxis from 'react-jsx-highcharts/src/components/AxisProvider';
@@ -28,6 +28,7 @@ class NavigatorAxis extends Component {
     if (!children) return null;
 
     const axisChildren = Children.map(children, child => {
+      if (isValidElement(child) === false) return child;
       return cloneElement(child, { dimension, axisId });
     });
 

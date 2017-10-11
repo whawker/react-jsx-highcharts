@@ -1,5 +1,4 @@
 import React from 'react';
-import { shallow } from 'enzyme';
 import WaterfallSeries from '../../../src/components/WaterfallSeries/WaterfallSeries';
 import Series from '../../../src/components/Series';
 

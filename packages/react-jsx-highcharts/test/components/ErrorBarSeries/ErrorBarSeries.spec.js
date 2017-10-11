@@ -1,5 +1,4 @@
 import React from 'react';
-import { shallow } from 'enzyme';
 import ErrorBarSeries from '../../../src/components/ErrorBarSeries/ErrorBarSeries';
 import Series from '../../../src/components/Series';
 

@@ -1,5 +1,4 @@
 import React from 'react';
-import { mount } from 'enzyme';
 import Subtitle from '../../../src/components/Subtitle/Subtitle';
 
 describe('<Subtitle />', function ()  {

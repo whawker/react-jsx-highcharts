@@ -64,7 +64,7 @@ var example =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 184);
+/******/ 	return __webpack_require__(__webpack_require__.s = 188);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -2067,7 +2067,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 /* 148 */,
 /* 149 */,
 /* 150 */,
-/* 151 */
+/* 151 */,
+/* 152 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2107,7 +2108,7 @@ var _ExampleCode = __webpack_require__(52);
 
 var _ExampleCode2 = _interopRequireDefault(_ExampleCode);
 
-var _exampleCode = __webpack_require__(183);
+var _exampleCode = __webpack_require__(187);
 
 var _exampleCode2 = _interopRequireDefault(_exampleCode);
 
@@ -2170,7 +2171,6 @@ var App = function (_Component) {
 exports.default = App;
 
 /***/ }),
-/* 152 */,
 /* 153 */,
 /* 154 */,
 /* 155 */,
@@ -2201,7 +2201,11 @@ exports.default = App;
 /* 180 */,
 /* 181 */,
 /* 182 */,
-/* 183 */
+/* 183 */,
+/* 184 */,
+/* 185 */,
+/* 186 */,
+/* 187 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2213,7 +2217,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = "\nconst colorAxis = {\n  minColor: '#FFFFFF',\n  maxColor: Highcharts.getOptions().colors[0]\n};\n\nclass App extends Component {\n\n  constructor (props) {\n    super(props);\n\n    this.state = {\n      treemapData: [\n        { name: 'A', value: 6, colorValue: 1 },\n        { name: 'B', value: 6, colorValue: 2 },\n        { name: 'C', value: 4, colorValue: 3 },\n        { name: 'D', value: 3, colorValue: 4 },\n        { name: 'E', value: 2, colorValue: 5 },\n        { name: 'F', value: 2, colorValue: 6 },\n        { name: 'G', value: 1, colorValue: 7 }\n      ]\n    };\n  }\n\n  render () {\n    const treemapData = this.state.treemapData;\n\n    return (\n      <div className=\"app\">\n        <HighchartsChart colorAxis={colorAxis}>\n          <Title>Treemap</Title>\n\n          <Legend />\n\n          <XAxis />\n\n          <YAxis id=\"value\">\n            <TreemapSeries id=\"tree\" name=\"Tree\" data={treemapData} layoutAlgorithm=\"squarified\" />\n          </YAxis>\n        </HighchartsChart>\n      </div>\n    );\n  }\n}";
 
 /***/ }),
-/* 184 */
+/* 188 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2227,7 +2231,7 @@ var _reactDom = __webpack_require__(42);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _App = __webpack_require__(151);
+var _App = __webpack_require__(152);
 
 var _App2 = _interopRequireDefault(_App);
 
