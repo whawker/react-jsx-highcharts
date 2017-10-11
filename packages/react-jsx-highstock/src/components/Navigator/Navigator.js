@@ -33,7 +33,7 @@ class Navigator extends Component {
   componentDidMount () {
     const { children, getChart, ...rest } = this.props;
     const chart = getChart();
-    chart.navigator = new Highcharts.Navigator(chart);
+    chart.scroller = chart.navigator = new Highcharts.Navigator(chart);
     this.updateNavigator({
       ...rest
     });
