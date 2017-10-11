@@ -1,6 +1,6 @@
 {
   "name": "react-jsx-highstock-datepickers",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Date Pickers for react-jsx-highstock using react-day-picker",
   "main": "dist/react-jsx-highstock-datepickers.min.js",
   "files": [
@@ -22,15 +22,15 @@
   },
   "homepage": "https://github.com/whawker/react-jsx-highcharts#readme",
   "dependencies": {
-    "react-day-picker": "^6.1.0"
+    "react-day-picker": "^6.2.0"
   },
   "peerDependencies": {
     "highstock-release": "^5.0.0",
     "moment": "^2.0.0",
     "prop-types": "^15.0.0",
-    "react": "^15.0.0",
-    "react-dom": "^15.0.0",
-    "react-jsx-highstock": "^1.1.0"
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
+    "react-jsx-highstock": "^1.4.0"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
