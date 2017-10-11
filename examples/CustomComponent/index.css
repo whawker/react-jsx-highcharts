@@ -1,0 +1,10 @@
+.custom-component-chart {
+  padding-top: 20px;
+  position: relative;
+}
+
+.custom-component-chart .date-range-pickers {
+  position: absolute;
+  top: 0;
+  right: 0;
+}

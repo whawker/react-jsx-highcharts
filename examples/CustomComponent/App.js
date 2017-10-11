@@ -6,6 +6,7 @@ import ExampleCode from '../utils/ExampleCode';
 import code from './exampleCode';
 import DateRangePickers from './DateRangePickers';
 import { createRandomData } from '../utils/data-helpers';
+import './index.css';
 
 class App extends Component {
 
@@ -23,7 +24,7 @@ class App extends Component {
 
     return (
       <div className="app">
-        <HighchartsStockChart>
+        <HighchartsStockChart className="custom-component-chart">
           <Chart zoomType="x" />
 
           <Title>Custom Components</Title>
