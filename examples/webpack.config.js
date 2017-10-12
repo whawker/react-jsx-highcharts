@@ -37,8 +37,8 @@ const exampleNames = examples.map(e => e.name);
 const externals = {
   // 'react-jsx-highcharts': '../../packages/react-jsx-highcharts/dist/react-jsx-highcharts.min.js',
   // 'react-jsx-highstock':  '../../packages/react-jsx-highstock/dist/react-jsx-highstock.min.js',
-  'react-jsx-highcharts': 'https://unpkg.com/react-jsx-highcharts@^1/dist/react-jsx-highcharts.min.js',
-  'react-jsx-highstock':  'https://unpkg.com/react-jsx-highstock@^1/dist/react-jsx-highstock.min.js',
+  'react-jsx-highcharts': 'https://unpkg.com/react-jsx-highcharts@^2/dist/react-jsx-highcharts.min.js',
+  'react-jsx-highstock':  'https://unpkg.com/react-jsx-highstock@^2/dist/react-jsx-highstock.min.js',
   'react':                'https://cdnjs.cloudflare.com/ajax/libs/react/16.0.0/umd/react.production.min.js',
   'react-dom':            'https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.0.0/umd/react-dom.production.min.js',
   'highcharts':           'https://code.highcharts.com/5.0.14/highcharts.js',
