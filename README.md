@@ -53,7 +53,8 @@ You'll need the peer dependencies too
 
 You'll need the peer dependencies too
 
-`npm install --save react react-dom prop-types highstock-release@^5.0.0` (note: `highstock-release`, not `highcharts`)
+`npm install --save react react-dom prop-types highcharts@^5.0.0`
+**Note**: import `Highcharts` with `import Highcharts from 'highcharts/highstock'`
 
 ## Documentation
 In progress... [see here](https://github.com/whawker/react-jsx-highcharts/wiki).
