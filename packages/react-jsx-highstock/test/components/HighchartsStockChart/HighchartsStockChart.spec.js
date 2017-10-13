@@ -1,5 +1,5 @@
 import React from 'react';
-import Highcharts from 'highstock-release';
+import { Highcharts } from '../../test-utils';
 import HighchartsStockChart from '../../../src/components/HighchartsStockChart/HighchartsStockChart';
 import BaseChart from 'react-jsx-highcharts/src/components/BaseChart';
 
