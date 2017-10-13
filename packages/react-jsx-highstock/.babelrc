@@ -1,14 +1,5 @@
 {
-  "plugins": [
-    "lodash",
-    "transform-runtime",
-    ["module-resolver", {
-      "root": ["."],
-      "alias": {
-        "highcharts": "highstock-release"
-      }
-    }]
-  ],
+  "plugins": ["lodash", "transform-runtime"],
   "presets": [
     ["env", { "modules": false, "targets": { "node": 4 } }],
     ["es2015", { "modules": false }],
