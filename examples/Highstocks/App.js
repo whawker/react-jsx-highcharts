@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Highcharts from 'highstock-release';
+import Highcharts from 'highcharts/highstock';
 import {
   HighchartsStockChart, Chart, withHighcharts, XAxis, YAxis, Title, Legend,
   AreaSplineSeries, SplineSeries, Navigator, RangeSelector, Tooltip
