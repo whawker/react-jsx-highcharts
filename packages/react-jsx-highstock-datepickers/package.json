@@ -25,12 +25,12 @@
     "react-day-picker": "^6.2.0"
   },
   "peerDependencies": {
-    "highstock-release": "^5.0.0",
+    "highcharts": "^5.0.0",
     "moment": "^2.0.0",
     "prop-types": "^15.0.0",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
-    "react-jsx-highstock": "^1.4.0"
+    "react-jsx-highstock": "^2.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",

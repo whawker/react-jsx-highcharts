@@ -29,10 +29,10 @@ const webpackConfig = {
       amd: 'react-dom',
       root: 'ReactDOM'
     },
-    'highstock-release': {
-      commonjs: 'highstock-release',
-      commonjs2: 'highstock-release',
-      amd: 'highstock-release',
+    'highcharts': {
+      commonjs: 'highcharts',
+      commonjs2: 'highcharts',
+      amd: 'highcharts',
       root: 'Highcharts'
     },
     'immutable': {
