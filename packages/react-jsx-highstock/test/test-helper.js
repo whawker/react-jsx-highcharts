@@ -1,12 +1,4 @@
 require('babel-core/register')({
-  plugins: [
-    ['module-resolver', {
-      root: ['.'],
-      alias: {
-        highcharts: 'highstock-release'
-      }
-    }]
-  ],
   ignore: /node_modules\/(?!react-jsx-highcharts)/
 });
 import { JSDOM } from 'jsdom';

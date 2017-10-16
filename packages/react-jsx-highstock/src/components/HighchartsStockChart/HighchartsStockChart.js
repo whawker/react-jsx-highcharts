@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Highcharts from 'highstock-release';
 import BaseChart from 'react-jsx-highcharts/src/components/BaseChart';
 
 class HighchartsStockChart extends Component {
+  static propTypes = {
+    getHighcharts: PropTypes.func.isRequired // Provided by HighchartsProvider
+  };
+
   static childContextTypes = {
     chartType: PropTypes.string.isRequired
   };
@@ -16,7 +19,7 @@ class HighchartsStockChart extends Component {
 
   render () {
     return (
-      <BaseChart {...this.props} chartCreationFunc={Highcharts.stockChart} />
+      <BaseChart {...this.props} chartCreationFunc={this.props.getHighcharts().stockChart} />
     );
   }
 }

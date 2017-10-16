@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import Highcharts from 'highcharts/highstock';
 import {
-  HighchartsStockChart, Chart, XAxis, YAxis, Title, Legend, AreaSplineSeries,
-  SplineSeries, Navigator, RangeSelector, Tooltip
+  HighchartsStockChart, Chart, withHighcharts, XAxis, YAxis, Title, Legend,
+  AreaSplineSeries, SplineSeries, Navigator, RangeSelector, Tooltip
 } from 'react-jsx-highstock';
 import ExampleCode from '../utils/ExampleCode';
 import code from './exampleCode';
@@ -70,4 +71,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withHighcharts(App, Highcharts);

@@ -1,6 +1,5 @@
 import React, { Component, Children, cloneElement, isValidElement } from 'react';
 import PropTypes from 'prop-types';
-import Highcharts from 'highstock-release';
 import Hidden from 'react-jsx-highcharts/src/components/Hidden';
 import getModifiedProps from 'react-jsx-highcharts/src/utils/getModifiedProps';
 
@@ -9,6 +8,7 @@ class Navigator extends Component {
   static propTypes = {
     update: PropTypes.func, // Provided by ChartProvider
     getChart: PropTypes.func, // Provided by ChartProvider
+    getHighcharts: PropTypes.func.isRequired, // Provided by HighchartsProvider
     enabled: PropTypes.bool.isRequired
   };
 
@@ -27,11 +27,12 @@ class Navigator extends Component {
       seriesCount: 0
     };
 
-    Highcharts.addEvent(props.getChart(), 'addSeries', this.handleAddSeries);
+    props.getHighcharts().addEvent(props.getChart(), 'addSeries', this.handleAddSeries);
   }
 
   componentDidMount () {
-    const { children, getChart, ...rest } = this.props;
+    const { children, getHighcharts, getChart, ...rest } = this.props;
+    const Highcharts = getHighcharts();
     const chart = getChart();
     chart.scroller = chart.navigator = new Highcharts.Navigator(chart);
     this.updateNavigator({
@@ -50,10 +51,11 @@ class Navigator extends Component {
   }
 
   componentWillUnmount () {
+    const { getHighcharts, getChart } = this.props;
     this.updateNavigator({
       enabled: false
     });
-    Highcharts.removeEvent(this.props.getChart(), 'addSeries', this.handleSeriesAdded);
+    getHighcharts().removeEvent(getChart(), 'addSeries', this.handleSeriesAdded);
   }
 
   updateNavigator (config) {

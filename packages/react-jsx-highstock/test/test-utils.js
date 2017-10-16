@@ -1,5 +1,15 @@
 import sinon from 'sinon';
 
+
+const noop = () => {};
+export const Highcharts = {
+  stockChart: noop,
+  addEvent: noop,
+  removeEvent: noop,
+  Navigator: noop,
+  RangeSelector: noop
+};
+
 export const createMockAxis = () => ({
   remove: sinon.stub(),
   addPlotBand: sinon.stub(),

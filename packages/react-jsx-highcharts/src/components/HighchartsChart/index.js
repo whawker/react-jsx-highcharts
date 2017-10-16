@@ -1,2 +1,3 @@
 import HighchartsChart from './HighchartsChart';
-export default HighchartsChart;
+import provideHighcharts from '../HighchartsProvider';
+export default provideHighcharts(HighchartsChart);

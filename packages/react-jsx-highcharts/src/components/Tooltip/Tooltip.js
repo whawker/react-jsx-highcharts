@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Highcharts from 'highcharts';
 import Hidden from '../Hidden';
 import getModifiedProps from '../../utils/getModifiedProps';
+import removeProvidedProps from '../../utils/removeProvidedProps';
 
 class Tooltip extends Component {
 
   static propTypes = {
     update: PropTypes.func, // Provided by ChartProvider
     getChart: PropTypes.func, // Provided by ChartProvider
+    getHighcharts: PropTypes.func.isRequired, // Provided by HighchartsProvider
     enabled: PropTypes.bool.isRequired
   };
 
   static defaultProps = {
-    ...(Highcharts.defaultOptions && Highcharts.defaultOptions.tooltip),
     enabled: true
   };
 
@@ -24,12 +24,17 @@ class Tooltip extends Component {
   }
 
   componentDidMount () {
-    const { children, getChart, ...rest } = this.props;
+    const { children, getHighcharts, getChart, ...rest } = this.props;
+    const Highcharts = getHighcharts();
+
     const chart = getChart();
+    const opts = removeProvidedProps({ ...rest });
+
     chart.tooltip = new Highcharts.Tooltip(chart, {
-      ...rest
+      ...(Highcharts.defaultOptions && Highcharts.defaultOptions.tooltip),
+      ...opts
     });
-    this.updateTooltip(rest);
+    this.updateTooltip(opts);
   }
 
   componentDidUpdate (prevProps) {
