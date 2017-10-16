@@ -1,2 +1,3 @@
 import HighchartsStockChart from './HighchartsStockChart';
-export default HighchartsStockChart;
+import provideHighcharts from 'react-jsx-highcharts/src/components/HighchartsProvider';
+export default provideHighcharts(HighchartsStockChart);

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import moment from 'moment';
 import DayPicker from 'react-day-picker';
-import Highcharts from 'highstock-release';
 import { provideAxis } from 'react-jsx-highcharts';
 import './DateRangePickers.css';
 
@@ -23,13 +22,23 @@ class DateRangePickers extends Component {
   }
 
   componentDidMount () {
-    Highcharts.addEvent(this.props.getAxis(), 'afterSetExtremes', this.handleAfterSetExtremes);
+    const { getHighcharts, getAxis, getExtremes } = this.props;
+    const Highcharts = getHighcharts(); // Get Highcharts injected via withHighcharts
 
-    const { min, max } = this.props.getExtremes();
+    Highcharts.addEvent(getAxis(), 'afterSetExtremes', this.handleAfterSetExtremes);
+
+    const { min, max } = getExtremes();
     this.setState({
       min,
       max
     });
+  }
+
+  componentWillUnmount () {
+    const { getHighcharts, getAxis } = this.props;
+    const Highcharts = getHighcharts(); // Get Highcharts injected via withHighcharts
+
+    Highcharts.removeEvent(getAxis(), 'afterSetExtremes', this.handleAfterSetExtremes);
   }
 
   handleFromDateChange (fromDate) {

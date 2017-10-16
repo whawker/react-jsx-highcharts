@@ -1,7 +1,6 @@
 import React from 'react';
-import Highcharts from 'highstock-release';
 import RangeSelector from '../../../src/components/RangeSelector/RangeSelector';
-import { createMockChart } from '../../test-utils';
+import { Highcharts, createMockChart } from '../../test-utils';
 
 describe('<RangeSelector />', function ()  {
   let sandbox;
@@ -15,6 +14,12 @@ describe('<RangeSelector />', function ()  {
     sandbox = sinon.sandbox.create();
     sandbox.stub(Highcharts, 'RangeSelector');
     sandbox.stub(Highcharts, 'addEvent');
+
+    this.propsFromProviders = {
+      update: this.update,
+      getChart: this.getChart,
+      getHighcharts: () => Highcharts
+    };
   });
 
   afterEach(function () {
@@ -23,21 +28,19 @@ describe('<RangeSelector />', function ()  {
 
   describe('when mounted', function () {
     it('creates a new Highcharts RangeSelector instance', function () {
-      mount(<RangeSelector update={this.update} getChart={this.getChart} />);
+      mount(<RangeSelector {...this.propsFromProviders} />);
       expect(Highcharts.RangeSelector).to.have.been.calledWithNew;
       expect(Highcharts.RangeSelector).to.have.been.calledWith(this.chart);
     });
 
     it('updates the chart with the passed props', function () {
-      mount(<RangeSelector height={100} buttonSpacing={2} update={this.update} getChart={this.getChart} />);
-      expect(this.update).to.have.been.calledWith({
+      mount(<RangeSelector height={100} buttonSpacing={2} {...this.propsFromProviders} />);
+      expect(this.update).to.have.been.calledWithMatch({
         rangeSelector: {
-          ...RangeSelector.defaultProps,
           enabled: true,
           inputEnabled: false,
           height: 100,
-          buttonSpacing: 2,
-          update: this.update
+          buttonSpacing: 2
         }
       });
     });
@@ -45,7 +48,7 @@ describe('<RangeSelector />', function ()  {
 
   describe('update', function () {
     it('should use the update method when props change', function () {
-      const wrapper = mount(<RangeSelector selected={0} update={this.update} getChart={this.getChart} />);
+      const wrapper = mount(<RangeSelector selected={0} {...this.propsFromProviders} />);
       wrapper.setProps({ selected: 2 });
       expect(this.update).to.have.been.calledWith({
         rangeSelector: {
@@ -57,7 +60,7 @@ describe('<RangeSelector />', function ()  {
 
   describe('when unmounted', function () {
     it('should disable the RangeSelector', function () {
-      const wrapper = mount(<RangeSelector update={this.update} getChart={this.getChart} />);
+      const wrapper = mount(<RangeSelector {...this.propsFromProviders} />);
       wrapper.unmount();
       expect(this.update).to.have.been.calledWith({
         rangeSelector: {

@@ -1,7 +1,6 @@
 import React from 'react';
-import Highcharts from 'highcharts';
 import Tooltip from '../../../src/components/Tooltip/Tooltip';
-import { createMockChart } from '../../test-utils';
+import { Highcharts, createMockChart } from '../../test-utils';
 
 describe('<Tooltip />', function ()  {
   let sandbox;
@@ -15,6 +14,12 @@ describe('<Tooltip />', function ()  {
     sandbox = sinon.sandbox.create();
     sandbox.stub(Highcharts, 'Tooltip');
     sandbox.stub(Highcharts, 'addEvent');
+
+    this.propsFromProviders = {
+      update: this.update,
+      getChart: this.getChart,
+      getHighcharts: () => Highcharts
+    };
   });
 
   afterEach(function () {
@@ -23,25 +28,23 @@ describe('<Tooltip />', function ()  {
 
   describe('when mounted', function () {
     it('creates a new Highcharts Tooltip instance', function () {
-      mount(<Tooltip update={this.update} getChart={this.getChart} />);
+      mount(<Tooltip {...this.propsFromProviders} />);
       expect(Highcharts.Tooltip).to.have.been.calledWithNew;
     });
 
     it('updates the chart with the passed props', function () {
-      mount(<Tooltip backgroundColor="red" shadow={false} update={this.update} getChart={this.getChart} />);
-      expect(Highcharts.Tooltip).to.have.been.calledWith(this.chart, {
-        ...Tooltip.defaultProps,
+      mount(<Tooltip backgroundColor="red" shadow={false} {...this.propsFromProviders} />);
+      expect(Highcharts.Tooltip).to.have.been.calledWithMatch(this.chart, {
         backgroundColor: 'red',
         enabled: true,
-        shadow: false,
-        update: this.update
+        shadow: false
       });
     });
   });
 
   describe('update', function () {
     it('should use the update method when props change', function () {
-      const wrapper = mount(<Tooltip selected={0} update={this.update} getChart={this.getChart} />);
+      const wrapper = mount(<Tooltip selected={0} {...this.propsFromProviders} />);
       wrapper.setProps({ padding: 2 });
       expect(this.update).to.have.been.calledWith({
         tooltip: {
@@ -53,7 +56,7 @@ describe('<Tooltip />', function ()  {
 
   describe('when unmounted', function () {
     it('should disable the Tooltip', function () {
-      const wrapper = mount(<Tooltip update={this.update} getChart={this.getChart} />);
+      const wrapper = mount(<Tooltip {...this.propsFromProviders} />);
       wrapper.unmount();
       expect(this.update).to.have.been.calledWith({
         tooltip: {

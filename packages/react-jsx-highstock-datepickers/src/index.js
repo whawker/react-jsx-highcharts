@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import DayPicker from 'react-day-picker';
-import Highcharts from 'highstock-release';
 import { provideAxis } from 'react-jsx-highstock';
 import '../styles/index.css';
 const ONE_DAY = 86400000;
@@ -10,6 +9,7 @@ const ONE_DAY = 86400000;
 class DateRangePickers extends Component {
 
   static propTypes = {
+    getHighcharts: PropTypes.func.isRequired,
     axisId: PropTypes.string.isRequired,
     dayFormat: PropTypes.oneOfType([ PropTypes.string, PropTypes.array ]).isRequired,
     locale: PropTypes.oneOfType([ PropTypes.string, PropTypes.array ]).isRequired,
@@ -43,7 +43,7 @@ class DateRangePickers extends Component {
   }
 
   componentWillMount () {
-    const langOpts = Highcharts.getOptions().lang;
+    const langOpts = this.props.getHighcharts().getOptions().lang;
     const { months: monthsLong, weekdays, shortWeekdays, rangeSelectorFrom, rangeSelectorTo } = langOpts;
 
     const {
@@ -66,13 +66,19 @@ class DateRangePickers extends Component {
   }
 
   componentDidMount () {
-    Highcharts.addEvent(this.props.getAxis(), 'afterSetExtremes', this.handleAfterSetExtremes);
+    const { getHighcharts, getAxis, getExtremes } = this.props;
+    getHighcharts().addEvent(getAxis(), 'afterSetExtremes', this.handleAfterSetExtremes);
 
-    const { min, max } = this.props.getExtremes();
+    const { min, max } = getExtremes();
     this.setState({
       min,
       max
     });
+  }
+
+  componentWillUnmount () {
+    const { getHighcharts, getAxis } = this.props;
+    getHighcharts().removeEvent(getAxis(), 'afterSetExtremes', this.handleAfterSetExtremes);
   }
 
   handleFromDateChange (callback) {

@@ -17,13 +17,23 @@ class DateRangePickers extends Component {
   }
 
   componentDidMount () {
-    Highcharts.addEvent(this.props.getAxis(), 'afterSetExtremes', this.handleAfterSetExtremes);
+    const { getHighcharts, getAxis, getExtremes } = this.props;
+    const Highcharts = getHighcharts(); // Get Highcharts injected via withHighcharts
 
-    const { min, max } = this.props.getExtremes();
+    Highcharts.addEvent(getAxis(), 'afterSetExtremes', this.handleAfterSetExtremes);
+
+    const { min, max } = getExtremes();
     this.setState({
       min,
       max
     });
+  }
+
+  componentWillUnmount () {
+    const { getHighcharts, getAxis } = this.props;
+    const Highcharts = getHighcharts(); // Get Highcharts injected via withHighcharts
+
+    Highcharts.removeEvent(getAxis(), 'afterSetExtremes', this.handleAfterSetExtremes);
   }
 
   handleFromDateChange (fromDate) {

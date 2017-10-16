@@ -1,6 +1,6 @@
 {
   "name": "react-jsx-highstock",
-  "version": "1.4.0",
+  "version": "2.0.0",
   "description": "Highcharts (including Highstock) charts built using React components",
   "main": "dist/react-jsx-highstock.min.js",
   "files": [
@@ -39,7 +39,7 @@
     "data"
   ],
   "dependencies": {
-    "react-jsx-highcharts": "1.4.0"
+    "react-jsx-highcharts": "2.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
@@ -47,7 +47,6 @@
     "babel-eslint": "^7.2.3",
     "babel-loader": "^7.0.0",
     "babel-plugin-lodash": "^3.2.11",
-    "babel-plugin-module-resolver": "^2.7.1",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.5",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.6.0",
@@ -65,7 +64,7 @@
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^5.0.1",
     "eslint-plugin-react": "^7.0.1",
-    "highstock-release": "^5.0.0",
+    "highcharts": "^5.0.0",
     "html-webpack-include-assets-plugin": "0.0.6",
     "html-webpack-plugin": "^2.28.0",
     "jsdom": "^11.0.0",
@@ -82,7 +81,7 @@
     "webpack-dev-server": "^2.4.5"
   },
   "peerDependencies": {
-    "highstock-release": "^5.0.0",
+    "highcharts": "^5.0.0",
     "prop-types": "^15.0.0",
     "react": "^15.0.0 || ^16.0.0",
     "react-dom": "^15.0.0 || ^16.0.0"

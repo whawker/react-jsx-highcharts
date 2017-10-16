@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Highcharts from 'highstock-release';
 import Hidden from 'react-jsx-highcharts/src/components/Hidden';
 import getModifiedProps from 'react-jsx-highcharts/src/utils/getModifiedProps';
 
@@ -9,11 +8,11 @@ class RangeSelector extends Component {
   static propTypes = {
     update: PropTypes.func, // Provided by ChartProvider
     getChart: PropTypes.func, // Provided by ChartProvider
+    getHighcharts: PropTypes.func.isRequired, // Provided by HighchartsProvider
     enabled: PropTypes.bool.isRequired
   };
 
   static defaultProps = {
-    ...(Highcharts.defaultOptions && Highcharts.defaultOptions.rangeSelector),
     enabled: true
   };
 
@@ -29,13 +28,16 @@ class RangeSelector extends Component {
   }
 
   componentDidMount () {
-    const { children, getChart, ...rest } = this.props;
+    const { children, getHighcharts, getChart, ...rest } = this.props;
+    const Highcharts = getHighcharts();
     const chart = getChart();
     chart.rangeSelector = new Highcharts.RangeSelector(chart);
-    this.updateRangeSelector({
+    const opts = {
+      ...(Highcharts.defaultOptions && Highcharts.defaultOptions.rangeSelector),
       ...rest,
       inputEnabled: false
-    });
+    };
+    this.updateRangeSelector(opts);
     this.setState({
       rendered: true
     });
@@ -51,10 +53,11 @@ class RangeSelector extends Component {
   }
 
   componentWillUnmount () {
+    const { getHighcharts, getChart } = this.props;
     this.updateRangeSelector({
       enabled: false
     });
-    Highcharts.removeEvent(this.props.getChart(), 'redraw', this.renderRangeSelector);
+    getHighcharts().removeEvent(getChart(), 'redraw', this.renderRangeSelector);
   }
 
   updateRangeSelector (config) {
