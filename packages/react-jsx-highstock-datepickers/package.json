@@ -1,6 +1,6 @@
 {
   "name": "react-jsx-highstock-datepickers",
-  "version": "2.0.0-beta.1",
+  "version": "2.0.0",
   "description": "Date Pickers for react-jsx-highstock using react-day-picker",
   "main": "dist/react-jsx-highstock-datepickers.min.js",
   "files": [
