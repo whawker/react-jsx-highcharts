@@ -39,4 +39,7 @@ render () {
       </YAxis>
     </HighchartsChart>
   );
-}`;
+}
+
+// Remember to inject Highcharts to exported component
+export default withHighcharts(MyComponent, Highcharts);`;

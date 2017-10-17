@@ -41,4 +41,6 @@ class App extends Component {
       </div>
     );
   }
-}`;
+}
+
+export default withHighcharts(App, Highcharts);`;

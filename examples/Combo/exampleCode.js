@@ -28,4 +28,7 @@ return (
       <PieSeries id="total-consumption" name="Total consumption" data={pieData} center={[100, 80]} size={100} showInLegend={false} />
     </YAxis>
   </HighchartsChart>
-);`;
+);
+
+// Remember to inject Highcharts to component
+export default withHighcharts(MyComponent, Highcharts);`;

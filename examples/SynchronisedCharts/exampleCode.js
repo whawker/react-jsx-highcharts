@@ -81,7 +81,7 @@ class App extends Component {
     });
   }
 
-  render() {
+  render () {
     const { chartData } = this.state;
     if (!chartData) return null;
 
@@ -91,4 +91,6 @@ class App extends Component {
       </div>
     );
   }
-}`;
+}
+
+export default withHighcharts(App, Highcharts);`;

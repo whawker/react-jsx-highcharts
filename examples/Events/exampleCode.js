@@ -17,4 +17,7 @@ export default `
     <ScatterSeries id="my-clicks" name="My clicks" data={myClicks} />
     <ScatterSeries id="user-clicks" name="Your clicks" data={userClicks} onHide={this.handleHide} onShow={this.handleShow} />
   </YAxis>
-</HighchartsChart>`;
+</HighchartsChart>
+
+// Remember to inject Highcharts to exported component
+export default withHighcharts(MyComponent, Highcharts);`;

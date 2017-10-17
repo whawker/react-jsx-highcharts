@@ -36,4 +36,7 @@ export default `
     <Navigator.Series seriesId="profit" />
     <Navigator.Series seriesId="twitter" />
   </Navigator>
-</HighchartsStockChart>`;
+</HighchartsStockChart>
+
+// Remember to inject Highstock to exported component
+export default withHighcharts(MyComponent, Highcharts);`;
