@@ -6,6 +6,49 @@ N.B. You can build *both* Highcharts **and** Highstock charts from this package.
 
 As of 1.2.0 React JSX Highstock supports using [Immutable.js](https://facebook.github.io/immutable-js/) data structures as Series data.
 
+As of 2.x you are required to use the `withHighcharts` HOC  to inject the Highcharts object (see below)
+
+## Upgrading from 1.x to 2.x
+
+React JSX Highstock now **requires** the `withHighcharts` higher order component to render your chart components. This HOC allows you to inject the Highcharts object the library will interact with.
+This means we can use Highcharts in styled mode (style by CSS) - see [example](https://whawker.github.io/react-jsx-highcharts/examples/StyleByCSS/index.html), or perform customisations to the Highcharts object before using it.
+
+Furthermore this approach allows us to simplify the peer-dependencies, so React JSX Highstock **now has a peer-dependency of `highcharts`, rather than `highstock-release`**
+
+Using 1.x your code would have looked something like
+
+```jsx
+import { HighchartsStockChart, Chart, /* etc... */ } from 'react-jsx-highstock';
+import Highcharts from 'highstock-release';
+
+const MyChart = () => (
+  <HighchartsStockChart>
+    <Chart />
+    // etc
+  </HighchartsStockChart>
+);
+
+export default MyChart
+```
+
+But with 2.x you need to
+ - Import Highstock via `highcharts` (note the Highcharts import)
+ - use `withHighcharts`, when exporting the component (note the last line)
+
+```jsx
+import { withHighcharts, HighchartsStockChart, Chart, /* etc... */ } from 'react-jsx-highstock';
+import Highcharts from 'highcharts/highstock';
+
+const MyChart = () => (
+  <HighchartsStockChart>
+    <Chart />
+    // etc
+  </HighchartsStockChart>
+);
+
+export default withHighcharts(MyChart, Highcharts); // Injecting the Highstock object
+```
+
 ## Example
 
 ```jsx
