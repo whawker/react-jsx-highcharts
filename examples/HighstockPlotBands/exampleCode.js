@@ -45,4 +45,7 @@ render () {
       </HighchartsStockChart>
     </div>
   );
-}`;
+}
+
+// Remember to inject Highstock to exported component
+export default withHighcharts(MyComponent, Highcharts);`;

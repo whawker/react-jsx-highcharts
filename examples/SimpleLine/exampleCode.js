@@ -1,12 +1,18 @@
 export default `
-render () {
-  const plotOptions = {
-    series: {
-      pointStart: 2010
-    }
-  };
+import React, { Component } from 'react';
+import Highcharts from 'highcharts';
+import {
+  HighchartsChart, Chart, withHighcharts, XAxis, YAxis, Title, Subtitle, Legend, LineSeries
+} from 'react-jsx-highcharts';
 
-  return (
+const plotOptions = {
+  series: {
+    pointStart: 2010
+  }
+};
+
+const App = () => (
+  <div className="app">
     <HighchartsChart plotOptions={plotOptions}>
       <Chart />
 
@@ -29,5 +35,7 @@ render () {
         <LineSeries id="other" name="Other" data={[12908, 5948, 8105, 11248, 8989, 11816, 18274, 18111]} />
       </YAxis>
     </HighchartsChart>
-  );
-}`;
+  </div>
+);
+
+export default withHighcharts(App, Highcharts);`;

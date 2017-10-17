@@ -21,4 +21,7 @@ export default `
     <input id="beta" type="range" min="0" max="45" step="1" value={beta} onChange={this.handleSliderChange} />
     <span>{beta}</span>
   </div>
-</div>`;
+</div>
+
+// Remember to inject Highcharts to exported component
+export default withHighcharts(MyComponent, Highcharts);`;
