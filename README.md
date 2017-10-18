@@ -136,7 +136,7 @@ You need to use the `withHighcharts` higher order component to inject the Highch
 
 **Uncaught TypeError: Cannot read property 'stockChart' of undefined**
 
-As above, or you are importing High*charts* rather the High*stock*. Change you Highcharts import to...
+As above, or you are importing High*charts* rather than High*stock*. Change you Highcharts import to...
 ```js
 import Highcharts from 'highcharts/highstock';
 ```
