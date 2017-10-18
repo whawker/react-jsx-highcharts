@@ -6,7 +6,7 @@ N.B. You can build *both* Highcharts **and** Highstock charts from this package.
 
 As of 1.2.0 React JSX Highstock supports using [Immutable.js](https://facebook.github.io/immutable-js/) data structures as Series data.
 
-As of 2.x you are required to use the `withHighcharts` HOC  to inject the Highcharts object (see below)
+As of 2.x you are required to use the `withHighcharts` HOC to inject the Highcharts object (see below)
 
 ## Upgrading from 1.x to 2.x
 

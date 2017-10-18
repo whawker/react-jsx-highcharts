@@ -8,7 +8,7 @@ As of 1.2.0 React JSX Highcharts supports using [Immutable.js](https://facebook.
 
 As of 1.3.0 React JSX Highcharts supports [3D charts](https://whawker.github.io/react-jsx-highcharts/examples/3DChart/index.html).
 
-As of 2.x you are required to use the `withHighcharts` HOC  to inject the Highcharts object (see below)
+As of 2.x you are required to use the `withHighcharts` HOC to inject the Highcharts object (see below)
 
 ## Upgrading from 1.x to 2.x
 
@@ -100,6 +100,7 @@ You'll need the peer dependencies too
 You'll need the peer dependencies too
 
 `npm install --save react react-dom prop-types highcharts@^5.0.0`
+
 **Note**: import `Highcharts` with `import Highcharts from 'highcharts/highstock'`
 
 ## Documentation
@@ -130,9 +131,11 @@ In the vast majority of cases, there is no need to use these HOCs directly - but
 ## Common issues
 
 **Uncaught TypeError: Cannot read property 'chart' of undefined**
+
 You need to use the `withHighcharts` higher order component to inject the Highcharts object. [See here](https://github.com/whawker/react-jsx-highcharts/wiki/Higher-Order-Components#withhighcharts-version-200)
 
 **Uncaught TypeError: Cannot read property 'stockChart' of undefined**
+
 As above, or you are importing High*charts* rather the High*stock*. Change you Highcharts import to...
 ```js
 import Highcharts from 'highcharts/highstock';
