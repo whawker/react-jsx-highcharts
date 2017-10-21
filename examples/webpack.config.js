@@ -18,7 +18,8 @@ const highchartsExamples = [
   { name: 'Sparkline', additional: ['promise-polyfill', 'fetch-polyfill'] },
   { name: 'InvertedChart' },
   { name: 'ImmutableJS', additional: ['immutable'] },
-  { name: '3DChart', additional: ['highcharts-3d', 'highcharts-boost'] }
+  { name: '3DChart', additional: ['highcharts-3d', 'highcharts-boost'] },
+  { name: 'ToggleAxis' }
 ];
 
 const highstockExamples = [
