@@ -57,13 +57,13 @@ export default function provideSeries(WrappedComponent, expectsSeriesExists = tr
       const series = this.props.get(id);
       if (!series && expectsSeriesExists) return null;
 
-      const getBoundSeriesMethod = boundContextHelper(this.props.getChart(), series);
-
-      const update = getBoundSeriesMethod(series && series.update);
-      const remove = getBoundSeriesMethod(series && series.remove);
-      const setData = getBoundSeriesMethod(series && series.setData);
-      const setVisible = getBoundSeriesMethod(series && series.setVisible);
       const getSeries = () => this.props.get(id);
+      const getBoundSeriesMethod = boundContextHelper(this.props.getChart(), getSeries);
+
+      const update = getBoundSeriesMethod('update');
+      const remove = getBoundSeriesMethod('remove');
+      const setData = getBoundSeriesMethod('setData');
+      const setVisible = getBoundSeriesMethod('setVisible');
 
       return (
         <WrappedComponent

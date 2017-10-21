@@ -30,19 +30,17 @@ export default function provideAxis(WrappedComponent) {
       const id = this.props.axisId || this.props.id;
       if (!id) return null;
 
-      const axis = this.props.get(id);
-
-      const getBoundAxisMethod = boundContextHelper(this.props.getChart(), axis);
-
-      const update = getBoundAxisMethod(axis && axis.update);
-      const remove = getBoundAxisMethod(axis && axis.remove);
-      const addPlotBand = getBoundAxisMethod(axis && axis.addPlotBand);
-      const removePlotBand = getBoundAxisMethod(axis && axis.removePlotBand);
-      const addPlotLine = getBoundAxisMethod(axis && axis.addPlotLine);
-      const removePlotLine = getBoundAxisMethod(axis && axis.removePlotLine);
-      const getExtremes = getBoundAxisMethod(axis && axis.getExtremes);
-      const setExtremes = getBoundAxisMethod(axis && axis.setExtremes);
       const getAxis = () => this.props.get(id);
+      const getBoundAxisMethod = boundContextHelper(this.props.getChart(), getAxis);
+
+      const update = getBoundAxisMethod('update');
+      const remove = getBoundAxisMethod('remove');
+      const addPlotBand = getBoundAxisMethod('addPlotBand');
+      const removePlotBand = getBoundAxisMethod('removePlotBand');
+      const addPlotLine = getBoundAxisMethod('addPlotLine');
+      const removePlotLine = getBoundAxisMethod('removePlotLine');
+      const getExtremes = getBoundAxisMethod('getExtremes');
+      const setExtremes = getBoundAxisMethod('setExtremes');
 
       return (
         <WrappedComponent
