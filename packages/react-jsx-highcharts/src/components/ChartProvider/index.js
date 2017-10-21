@@ -30,16 +30,16 @@ export default function provideChart(WrappedComponent) {
       const { chart, chartType } = this.context;
       const getChart = () => chart;
       const getChartType = () => chartType;
-      const getBoundChartMethod = boundContextHelper(chart, chart);
+      const getBoundChartMethod = boundContextHelper(chart, getChart);
 
       return (
         <WrappedComponent
           {...this.props}
-          get={chart.get.bind(chart)}
-          update={cleanPropsBeforeUpdate(getBoundChartMethod(chart.update))}
-          addAxis={cleanPropsBeforeUpdate(getBoundChartMethod(chart.addAxis))}
-          addSeries={cleanPropsBeforeUpdate(getBoundChartMethod(chart.addSeries))}
-          setTitle={cleanPropsBeforeUpdate(getBoundChartMethod(chart.setTitle))}
+          get={getBoundChartMethod('get')}
+          update={cleanPropsBeforeUpdate(getBoundChartMethod('update'))}
+          addAxis={cleanPropsBeforeUpdate(getBoundChartMethod('addAxis'))}
+          addSeries={cleanPropsBeforeUpdate(getBoundChartMethod('addSeries'))}
+          setTitle={cleanPropsBeforeUpdate(getBoundChartMethod('setTitle'))}
           getChart={getChart}
           getChartType={getChartType} />
       );
