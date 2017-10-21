@@ -21,7 +21,8 @@ export default function provideAxis(WrappedComponent) {
           'update', 'remove', 'getAxis',
           'addPlotBand', 'removePlotBand',
           'addPlotLine', 'removePlotLine',
-          'getExtremes', 'setExtremes'
+          'getExtremes', 'setExtremes',
+          'setTitle'
         ]
       );
     }
@@ -41,6 +42,7 @@ export default function provideAxis(WrappedComponent) {
       const removePlotLine = getBoundAxisMethod('removePlotLine');
       const getExtremes = getBoundAxisMethod('getExtremes');
       const setExtremes = getBoundAxisMethod('setExtremes');
+      const setTitle = getBoundAxisMethod('setTitle');
 
       return (
         <WrappedComponent
@@ -53,6 +55,7 @@ export default function provideAxis(WrappedComponent) {
           removePlotLine={removePlotLine}
           getExtremes={getExtremes}
           setExtremes={setExtremes}
+          setTitle={setTitle}
           getAxis={getAxis} />
       );
     }
