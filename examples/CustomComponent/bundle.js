@@ -64,7 +64,7 @@ var example =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 163);
+/******/ 	return __webpack_require__(__webpack_require__.s = 164);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -731,6 +731,12 @@ module.exports = ReactHighcharts;
 
 /***/ }),
 /* 44 */
+/***/ (function(module, exports) {
+
+module.exports = Highcharts;
+
+/***/ }),
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -740,7 +746,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _reactPrism = __webpack_require__(51);
+var _reactPrism = __webpack_require__(52);
 
 exports.default = function (_ref) {
   var name = _ref.name,
@@ -766,7 +772,7 @@ exports.default = function (_ref) {
 };
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -810,7 +816,7 @@ emptyFunction.thatReturnsArgument = function (arg) {
 module.exports = emptyFunction;
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -871,7 +877,7 @@ function invariant(condition, format, a, b, c, d, e, f) {
 module.exports = invariant;
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -886,9 +892,9 @@ module.exports = invariant;
 
 
 
-var emptyFunction = __webpack_require__(45);
-var invariant = __webpack_require__(46);
-var ReactPropTypesSecret = __webpack_require__(49);
+var emptyFunction = __webpack_require__(46);
+var invariant = __webpack_require__(47);
+var ReactPropTypesSecret = __webpack_require__(50);
 
 module.exports = function() {
   function shim(props, propName, componentName, location, propFullName, secret) {
@@ -937,7 +943,7 @@ module.exports = function() {
 
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -968,12 +974,12 @@ if (false) {
 } else {
   // By explicitly using `prop-types` you are opting into new production behavior.
   // http://fb.me/prop-types-in-prod
-  module.exports = __webpack_require__(47)();
+  module.exports = __webpack_require__(48)();
 }
 
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -994,7 +1000,7 @@ module.exports = ReactPropTypesSecret;
 
 
 /***/ }),
-/* 50 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1010,7 +1016,7 @@ var _react = __webpack_require__(12);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(48);
+var _propTypes = __webpack_require__(49);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1089,7 +1095,7 @@ PrismCode.defaultProps = {
 exports.default = PrismCode;
 
 /***/ }),
-/* 51 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1099,7 +1105,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _PrismCode = __webpack_require__(50);
+var _PrismCode = __webpack_require__(51);
 
 Object.defineProperty(exports, "PrismCode", {
   enumerable: true,
@@ -1115,12 +1121,6 @@ Object.defineProperty(exports, "default", {
 });
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/***/ }),
-/* 52 */
-/***/ (function(module, exports) {
-
-module.exports = Highcharts;
 
 /***/ }),
 /* 53 */
@@ -2614,27 +2614,27 @@ var _react = __webpack_require__(12);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _highstock = __webpack_require__(52);
+var _highstock = __webpack_require__(44);
 
 var _highstock2 = _interopRequireDefault(_highstock);
 
 var _reactJsxHighstock = __webpack_require__(43);
 
-var _ExampleCode = __webpack_require__(44);
+var _ExampleCode = __webpack_require__(45);
 
 var _ExampleCode2 = _interopRequireDefault(_ExampleCode);
 
-var _exampleCode = __webpack_require__(162);
+var _exampleCode = __webpack_require__(163);
 
 var _exampleCode2 = _interopRequireDefault(_exampleCode);
 
-var _DateRangePickers = __webpack_require__(161);
+var _DateRangePickers = __webpack_require__(162);
 
 var _DateRangePickers2 = _interopRequireDefault(_DateRangePickers);
 
 var _dataHelpers = __webpack_require__(98);
 
-__webpack_require__(296);
+__webpack_require__(298);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2764,7 +2764,8 @@ exports.default = (0, _reactJsxHighstock.withHighcharts)(App, _highstock2.defaul
 /* 158 */,
 /* 159 */,
 /* 160 */,
-/* 161 */
+/* 161 */,
+/* 162 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2798,17 +2799,17 @@ var _react = __webpack_require__(12);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _moment = __webpack_require__(302);
+var _moment = __webpack_require__(304);
 
 var _moment2 = _interopRequireDefault(_moment);
 
-var _reactDayPicker = __webpack_require__(300);
+var _reactDayPicker = __webpack_require__(302);
 
 var _reactDayPicker2 = _interopRequireDefault(_reactDayPicker);
 
 var _reactJsxHighcharts = __webpack_require__(43);
 
-__webpack_require__(295);
+__webpack_require__(297);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2944,7 +2945,7 @@ var DateRangePickers = function (_Component) {
 exports.default = (0, _reactJsxHighcharts.provideAxis)(DateRangePickers);
 
 /***/ }),
-/* 162 */
+/* 163 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2956,7 +2957,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = "\n// Rendered in App.js with <DateRangePickers axisId=\"xAxis\" />\n\nclass DateRangePickers extends Component {\n\n  constructor (props) {\n    super(props);\n\n    this.handleFromDateChange = this.handleFromDateChange.bind(this);\n    this.handleToDateChange = this.handleToDateChange.bind(this);\n    this.handleAfterSetExtremes = this.handleAfterSetExtremes.bind(this);\n\n    this.state = {\n      min: null,\n      max: null\n    };\n  }\n\n  componentDidMount () {\n    const { getHighcharts, getAxis, getExtremes } = this.props;\n    const Highcharts = getHighcharts(); // Get Highcharts injected via withHighcharts\n\n    Highcharts.addEvent(getAxis(), 'afterSetExtremes', this.handleAfterSetExtremes);\n\n    const { min, max } = getExtremes();\n    this.setState({\n      min,\n      max\n    });\n  }\n\n  componentWillUnmount () {\n    const { getHighcharts, getAxis } = this.props;\n    const Highcharts = getHighcharts(); // Get Highcharts injected via withHighcharts\n\n    Highcharts.removeEvent(getAxis(), 'afterSetExtremes', this.handleAfterSetExtremes);\n  }\n\n  handleFromDateChange (fromDate) {\n    let { max } = this.props.getExtremes();\n    let selectedTime = fromDate.startOf('day').valueOf();\n\n    let newMax = (selectedTime >= max) ? selectedTime + 86400000 : max;\n    this.props.setExtremes(selectedTime, newMax);\n  }\n\n  handleToDateChange (toDate) {\n    let { min } = this.props.getExtremes();\n    let selectedTime = toDate.startOf('day').valueOf();\n\n    let newMin = (selectedTime <= min) ? selectedTime - 86400000 : min;\n    this.props.setExtremes(newMin, selectedTime);\n  }\n\n  handleAfterSetExtremes (e) {\n    const { min, max } = e;\n    this.setState({\n      min,\n      max\n    });\n  }\n\n  render () {\n    const axis = this.props.getAxis();\n    if (!axis) return null;\n    const { min, max } = this.state;\n\n    const fromDate = moment(min).format(DAY_FORMAT);\n    const toDate = moment(max).format(DAY_FORMAT);\n\n    return (\n      <div className=\"date-range-pickers\">\n        <span className=\"date-range-pickers__from-label\">From: </span>\n        <DayPicker.Input\n          value={fromDate}\n          onDayChange={this.handleFromDateChange}\n          format={DAY_FORMAT} />\n        <span className=\"date-range-pickers__to-label\">To: </span>\n        <DayPicker.Input\n          value={toDate}\n          onDayChange={this.handleToDateChange}\n          format={DAY_FORMAT} />\n      </div>\n    );\n  }\n}\n\n// The important bit, using the provideAxis HOC to inject Highcharts axis methods\nexport default provideAxis(DateRangePickers);";
 
 /***/ }),
-/* 163 */
+/* 164 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2979,7 +2980,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 _reactDom2.default.render(_react2.default.createElement(_App2.default, null), document.getElementById('root'));
 
 /***/ }),
-/* 164 */,
 /* 165 */,
 /* 166 */,
 /* 167 */,
@@ -3019,7 +3019,9 @@ _reactDom2.default.render(_react2.default.createElement(_App2.default, null), do
 /* 201 */,
 /* 202 */,
 /* 203 */,
-/* 204 */
+/* 204 */,
+/* 205 */,
+/* 206 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(102)(undefined);
@@ -3033,7 +3035,7 @@ exports.push([module.i, ".date-range-pickers {\n  float: right;\n  position: rel
 
 
 /***/ }),
-/* 205 */
+/* 207 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(102)(undefined);
@@ -3047,8 +3049,6 @@ exports.push([module.i, ".custom-component-chart {\n  padding-top: 20px;\n  posi
 
 
 /***/ }),
-/* 206 */,
-/* 207 */,
 /* 208 */,
 /* 209 */,
 /* 210 */,
@@ -3136,13 +3136,15 @@ exports.push([module.i, ".custom-component-chart {\n  padding-top: 20px;\n  posi
 /* 292 */,
 /* 293 */,
 /* 294 */,
-/* 295 */
+/* 295 */,
+/* 296 */,
+/* 297 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(204);
+var content = __webpack_require__(206);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -3167,13 +3169,13 @@ if(false) {
 }
 
 /***/ }),
-/* 296 */
+/* 298 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(205);
+var content = __webpack_require__(207);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -3198,17 +3200,17 @@ if(false) {
 }
 
 /***/ }),
-/* 297 */,
-/* 298 */,
 /* 299 */,
-/* 300 */
+/* 300 */,
+/* 301 */,
+/* 302 */
 /***/ (function(module, exports) {
 
 module.exports = DayPicker;
 
 /***/ }),
-/* 301 */,
-/* 302 */
+/* 303 */,
+/* 304 */
 /***/ (function(module, exports) {
 
 module.exports = moment;

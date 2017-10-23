@@ -64,7 +64,7 @@ var example =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 187);
+/******/ 	return __webpack_require__(__webpack_require__.s = 188);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -731,6 +731,12 @@ module.exports = ReactHighcharts;
 
 /***/ }),
 /* 44 */
+/***/ (function(module, exports) {
+
+module.exports = Highcharts;
+
+/***/ }),
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -740,7 +746,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _reactPrism = __webpack_require__(51);
+var _reactPrism = __webpack_require__(52);
 
 exports.default = function (_ref) {
   var name = _ref.name,
@@ -766,7 +772,7 @@ exports.default = function (_ref) {
 };
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -810,7 +816,7 @@ emptyFunction.thatReturnsArgument = function (arg) {
 module.exports = emptyFunction;
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -871,7 +877,7 @@ function invariant(condition, format, a, b, c, d, e, f) {
 module.exports = invariant;
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -886,9 +892,9 @@ module.exports = invariant;
 
 
 
-var emptyFunction = __webpack_require__(45);
-var invariant = __webpack_require__(46);
-var ReactPropTypesSecret = __webpack_require__(49);
+var emptyFunction = __webpack_require__(46);
+var invariant = __webpack_require__(47);
+var ReactPropTypesSecret = __webpack_require__(50);
 
 module.exports = function() {
   function shim(props, propName, componentName, location, propFullName, secret) {
@@ -937,7 +943,7 @@ module.exports = function() {
 
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -968,12 +974,12 @@ if (false) {
 } else {
   // By explicitly using `prop-types` you are opting into new production behavior.
   // http://fb.me/prop-types-in-prod
-  module.exports = __webpack_require__(47)();
+  module.exports = __webpack_require__(48)();
 }
 
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -994,7 +1000,7 @@ module.exports = ReactPropTypesSecret;
 
 
 /***/ }),
-/* 50 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1010,7 +1016,7 @@ var _react = __webpack_require__(12);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(48);
+var _propTypes = __webpack_require__(49);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1089,7 +1095,7 @@ PrismCode.defaultProps = {
 exports.default = PrismCode;
 
 /***/ }),
-/* 51 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1099,7 +1105,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _PrismCode = __webpack_require__(50);
+var _PrismCode = __webpack_require__(51);
 
 Object.defineProperty(exports, "PrismCode", {
   enumerable: true,
@@ -1115,12 +1121,6 @@ Object.defineProperty(exports, "default", {
 });
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/***/ }),
-/* 52 */
-/***/ (function(module, exports) {
-
-module.exports = Highcharts;
 
 /***/ }),
 /* 53 */
@@ -2106,17 +2106,17 @@ var _react = __webpack_require__(12);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _highcharts = __webpack_require__(52);
+var _highcharts = __webpack_require__(44);
 
 var _highcharts2 = _interopRequireDefault(_highcharts);
 
 var _reactJsxHighcharts = __webpack_require__(43);
 
-var _ExampleCode = __webpack_require__(44);
+var _ExampleCode = __webpack_require__(45);
 
 var _ExampleCode2 = _interopRequireDefault(_ExampleCode);
 
-var _exampleCode = __webpack_require__(186);
+var _exampleCode = __webpack_require__(187);
 
 var _exampleCode2 = _interopRequireDefault(_exampleCode);
 
@@ -2283,7 +2283,8 @@ exports.default = (0, _reactJsxHighcharts.withHighcharts)(App, _highcharts2.defa
 /* 183 */,
 /* 184 */,
 /* 185 */,
-/* 186 */
+/* 186 */,
+/* 187 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2295,7 +2296,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = "\nHighcharts.Pointer.prototype.reset = () => {};\n\nHighcharts.Point.prototype.highlight = function (event) {\n  this.onMouseOver(); // Show the hover marker\n  this.series.chart.tooltip.refresh(this); // Show the tooltip\n  this.series.chart.xAxis[0].drawCrosshair(event, this); // Show the crosshair\n};\n\nclass App extends Component {\n\n  constructor(props) {\n    super(props);\n\n    this.handleMouseMove = this.handleMouseMove.bind(this);\n    this.renderChart = this.renderChart.bind(this);\n    this.state = {\n      chartData: null\n    };\n  }\n\n  componentDidMount () {\n    fetch('activity.json')\n      .then(res => {\n        if (res.ok) {\n          return res.json();\n        }\n        throw new Error('Network response was not ok.');\n      })\n      .then(json => {\n        this.setState({\n          chartData: json\n        })\n      });\n  }\n\n  renderChart (dataset, index) {\n    const tooltipPositioner = function () {\n      return { x: this.chart.chartWidth - this.label.width, y: 10 };\n    };\n    const data = dataset.data.map((val, i) => [this.state.chartData.xData[i], val]);\n    const colour = Highcharts.getOptions().colors[index];\n\n    return (\n      <HighchartsChart key={index}>\n        <Title align=\"left\" margin={30} x={30}>{dataset.name}</Title>\n        <XAxis crosshair labels={{format: '{value} km'}} />\n        <YAxis id=\"y\">\n          <Series\n            id={dataset.name}\n            name={dataset.name}\n            type={dataset.type}\n            data={data}\n            color={colour}\n            tooltip={{ valueSuffix: ` ${dataset.unit}` }} />\n        </YAxis>\n\n        <Tooltip\n          positioner={tooltipPositioner}\n          borderWidth={0}\n          backgroundColor=\"none\"\n          pointFormat=\"{point.y}\"\n          headerFormat=\"\"\n          shadow={false}\n          style={{ fontSize: '18px' }}\n          valueDecimals={dataset.valueDecimals} />\n      </HighchartsChart>\n    );\n  }\n\n  handleMouseMove (e) {\n    let point = null;\n    let event = null;\n\n    Highcharts.charts.forEach(chart => {\n      event = chart.pointer.normalize(e); // Find coordinates within the chart\n      point = chart.series[0].searchPoint(event, true); // Get the hovered point\n      if (point) {\n        point.highlight(e);\n      }\n    });\n  }\n\n  render () {\n    const { chartData } = this.state;\n    if (!chartData) return null;\n\n    return (\n      <div className=\"app\" onMouseMove={this.handleMouseMove}>\n        {chartData.datasets.map(this.renderChart)}\n      </div>\n    );\n  }\n}\n\nexport default withHighcharts(App, Highcharts);";
 
 /***/ }),
-/* 187 */
+/* 188 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

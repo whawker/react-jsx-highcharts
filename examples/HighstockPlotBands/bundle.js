@@ -64,7 +64,7 @@ var example =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 169);
+/******/ 	return __webpack_require__(__webpack_require__.s = 170);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -731,6 +731,12 @@ module.exports = ReactHighcharts;
 
 /***/ }),
 /* 44 */
+/***/ (function(module, exports) {
+
+module.exports = Highcharts;
+
+/***/ }),
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -740,7 +746,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _reactPrism = __webpack_require__(51);
+var _reactPrism = __webpack_require__(52);
 
 exports.default = function (_ref) {
   var name = _ref.name,
@@ -766,7 +772,7 @@ exports.default = function (_ref) {
 };
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -810,7 +816,7 @@ emptyFunction.thatReturnsArgument = function (arg) {
 module.exports = emptyFunction;
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -871,7 +877,7 @@ function invariant(condition, format, a, b, c, d, e, f) {
 module.exports = invariant;
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -886,9 +892,9 @@ module.exports = invariant;
 
 
 
-var emptyFunction = __webpack_require__(45);
-var invariant = __webpack_require__(46);
-var ReactPropTypesSecret = __webpack_require__(49);
+var emptyFunction = __webpack_require__(46);
+var invariant = __webpack_require__(47);
+var ReactPropTypesSecret = __webpack_require__(50);
 
 module.exports = function() {
   function shim(props, propName, componentName, location, propFullName, secret) {
@@ -937,7 +943,7 @@ module.exports = function() {
 
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -968,12 +974,12 @@ if (false) {
 } else {
   // By explicitly using `prop-types` you are opting into new production behavior.
   // http://fb.me/prop-types-in-prod
-  module.exports = __webpack_require__(47)();
+  module.exports = __webpack_require__(48)();
 }
 
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -994,7 +1000,7 @@ module.exports = ReactPropTypesSecret;
 
 
 /***/ }),
-/* 50 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1010,7 +1016,7 @@ var _react = __webpack_require__(12);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(48);
+var _propTypes = __webpack_require__(49);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1089,7 +1095,7 @@ PrismCode.defaultProps = {
 exports.default = PrismCode;
 
 /***/ }),
-/* 51 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1099,7 +1105,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _PrismCode = __webpack_require__(50);
+var _PrismCode = __webpack_require__(51);
 
 Object.defineProperty(exports, "PrismCode", {
   enumerable: true,
@@ -1115,12 +1121,6 @@ Object.defineProperty(exports, "default", {
 });
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/***/ }),
-/* 52 */
-/***/ (function(module, exports) {
-
-module.exports = Highcharts;
 
 /***/ }),
 /* 53 */
@@ -2130,17 +2130,17 @@ var _react = __webpack_require__(12);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _highstock = __webpack_require__(52);
+var _highstock = __webpack_require__(44);
 
 var _highstock2 = _interopRequireDefault(_highstock);
 
 var _reactJsxHighstock = __webpack_require__(43);
 
-var _ExampleCode = __webpack_require__(44);
+var _ExampleCode = __webpack_require__(45);
 
 var _ExampleCode2 = _interopRequireDefault(_ExampleCode);
 
-var _exampleCode = __webpack_require__(168);
+var _exampleCode = __webpack_require__(169);
 
 var _exampleCode2 = _interopRequireDefault(_exampleCode);
 
@@ -2305,7 +2305,8 @@ exports.default = (0, _reactJsxHighstock.withHighcharts)(App, _highstock2.defaul
 /* 165 */,
 /* 166 */,
 /* 167 */,
-/* 168 */
+/* 168 */,
+/* 169 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2317,7 +2318,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = "\nrenderPlotBand ({ from, to, title }) {\n  const id = `band-${from}-${to}`;\n  return (\n    <PlotBand id={id} key={id} from={from} to={to} color=\"rgba(68, 170, 213, 0.3)\">\n      <PlotBand.Label>{title}</PlotBand.Label>\n    </PlotBand>\n  );\n}\n\nrenderNavPlotBand ({ from, to }) {\n  const id = `nav-band-${from}-${to}`;\n  return (\n    <PlotBand id={id} key={id} from={from} to={to} color=\"rgba(68, 170, 213, 0.3)\" />\n  );\n}\n\nrender () {\n  const { unitSales, notableEvents, campaigns } = this.state;\n\n  return (\n    <div className=\"app\">\n      <HighchartsStockChart>\n        <Chart zoomType=\"x\" />\n\n        <Title>Highstocks with Navigator Plot Bands</Title>\n\n        <XAxis>\n          <XAxis.Title>Date</XAxis.Title>\n          {campaigns.map(this.renderPlotBand)}\n        </XAxis>\n\n        <YAxis id=\"sales\">\n          <YAxis.Title>Cars sold per day</YAxis.Title>\n          <AreaSplineSeries id=\"unitSales\" name=\"Unit Sales\" data={unitSales} />\n          <FlagSeries id=\"events\" onSeries=\"unitSales\" data={notableEvents} />\n        </YAxis>\n\n        <Navigator>\n          <Navigator.Series seriesId=\"unitSales\" />\n          <Navigator.XAxis labels={{ x: 0, y: 12 }}>\n            {campaigns.map(this.renderNavPlotBand)}\n          </Navigator.XAxis>\n        </Navigator>\n      </HighchartsStockChart>\n    </div>\n  );\n}\n\n// Remember to inject Highstock to exported component\nexport default withHighcharts(MyComponent, Highcharts);";
 
 /***/ }),
-/* 169 */
+/* 170 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

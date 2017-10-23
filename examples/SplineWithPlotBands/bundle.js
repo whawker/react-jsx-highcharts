@@ -64,7 +64,7 @@ var example =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 183);
+/******/ 	return __webpack_require__(__webpack_require__.s = 184);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -731,6 +731,12 @@ module.exports = ReactHighcharts;
 
 /***/ }),
 /* 44 */
+/***/ (function(module, exports) {
+
+module.exports = Highcharts;
+
+/***/ }),
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -740,7 +746,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _reactPrism = __webpack_require__(51);
+var _reactPrism = __webpack_require__(52);
 
 exports.default = function (_ref) {
   var name = _ref.name,
@@ -766,7 +772,7 @@ exports.default = function (_ref) {
 };
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -810,7 +816,7 @@ emptyFunction.thatReturnsArgument = function (arg) {
 module.exports = emptyFunction;
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -871,7 +877,7 @@ function invariant(condition, format, a, b, c, d, e, f) {
 module.exports = invariant;
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -886,9 +892,9 @@ module.exports = invariant;
 
 
 
-var emptyFunction = __webpack_require__(45);
-var invariant = __webpack_require__(46);
-var ReactPropTypesSecret = __webpack_require__(49);
+var emptyFunction = __webpack_require__(46);
+var invariant = __webpack_require__(47);
+var ReactPropTypesSecret = __webpack_require__(50);
 
 module.exports = function() {
   function shim(props, propName, componentName, location, propFullName, secret) {
@@ -937,7 +943,7 @@ module.exports = function() {
 
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -968,12 +974,12 @@ if (false) {
 } else {
   // By explicitly using `prop-types` you are opting into new production behavior.
   // http://fb.me/prop-types-in-prod
-  module.exports = __webpack_require__(47)();
+  module.exports = __webpack_require__(48)();
 }
 
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -994,7 +1000,7 @@ module.exports = ReactPropTypesSecret;
 
 
 /***/ }),
-/* 50 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1010,7 +1016,7 @@ var _react = __webpack_require__(12);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(48);
+var _propTypes = __webpack_require__(49);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1089,7 +1095,7 @@ PrismCode.defaultProps = {
 exports.default = PrismCode;
 
 /***/ }),
-/* 51 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1099,7 +1105,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _PrismCode = __webpack_require__(50);
+var _PrismCode = __webpack_require__(51);
 
 Object.defineProperty(exports, "PrismCode", {
   enumerable: true,
@@ -1115,12 +1121,6 @@ Object.defineProperty(exports, "default", {
 });
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/***/ }),
-/* 52 */
-/***/ (function(module, exports) {
-
-module.exports = Highcharts;
 
 /***/ }),
 /* 53 */
@@ -2104,17 +2104,17 @@ var _react = __webpack_require__(12);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _highcharts = __webpack_require__(52);
+var _highcharts = __webpack_require__(44);
 
 var _highcharts2 = _interopRequireDefault(_highcharts);
 
 var _reactJsxHighcharts = __webpack_require__(43);
 
-var _ExampleCode = __webpack_require__(44);
+var _ExampleCode = __webpack_require__(45);
 
 var _ExampleCode2 = _interopRequireDefault(_ExampleCode);
 
-var _exampleCode = __webpack_require__(182);
+var _exampleCode = __webpack_require__(183);
 
 var _exampleCode2 = _interopRequireDefault(_exampleCode);
 
@@ -2258,7 +2258,8 @@ exports.default = (0, _reactJsxHighcharts.withHighcharts)(App, _highcharts2.defa
 /* 179 */,
 /* 180 */,
 /* 181 */,
-/* 182 */
+/* 182 */,
+/* 183 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2270,7 +2271,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = "\nrenderPlotBand (band, index) {\n  const { from, to } = band;\n  const id = `${from}-${to}`;\n  const color = (index % 2) ? '#FFFFFF' : 'rgba(68, 170, 213, 0.1)';\n  return (\n    <PlotBand id={id} key={id} from={from} to={to} color={color}>\n      <PlotBand.Label>{band.label}</PlotBand.Label>\n    </PlotBand>\n  );\n}\n\nrender() {\n  const plotOptions =  {\n    spline: {\n      lineWidth: 4,\n        states: {\n        hover: {\n          lineWidth: 5\n        }\n      },\n      marker: {\n        enabled: false\n      },\n      pointInterval: 3600000, // one hour\n      pointStart: Date.UTC(2015, 4, 31, 0, 0, 0)\n    }\n  };\n\n  const bands = [\n    { label: 'Light air', from: 0.5, to: 1.5 },\n    { label: 'Light breeze', from: 1.5, to: 3.3 },\n    { label: 'Gentle breeze', from: 3.3, to: 5.5 },\n    { label: 'Moderate breeze', from: 5.5, to: 8 },\n    { label: 'Fresh breeze', from: 8, to: 11 },\n    { label: 'Strong breeze', from: 11, to: 14 },\n    { label: 'High wind', from: 14, to: 15 }\n  ];\n\n  return (\n    <HighchartsChart plotOptions={plotOptions}>\n      <Chart type=\"spline\" />\n\n      <Title>Wind speed during two days</Title>\n\n      <Subtitle>May 31 and and June 1, 2015 at two locations in Vik i Sogn, Norway</Subtitle>\n\n      <Legend />\n\n      <Tooltip valueSuffix=\" m/s\" />\n\n      <XAxis type=\"datetime\">\n        <XAxis.Title>Time</XAxis.Title>\n      </XAxis>\n\n      <YAxis id=\"y\" minorGridLineWidth={0} gridLineWidth={0} alternateGridColor={null}>\n        <YAxis.Title>Wind speed (m/s)</YAxis.Title>\n        <SplineSeries id=\"hestavollane\" name=\"Hestavollane\" data={[0.2, 0.8, 0.8, 0.8, 1, 1.3, // etc.]} />\n        <SplineSeries id=\"vix\" name=\"Vix\" data={[0, 0, 0.6, 0.9, 0.8, 0.2, 0, 0, 0, 0.1, 0.6, // etc.]} />\n        {bands.map(this.renderPlotBand)}\n      </YAxis>\n    </HighchartsChart>\n  );\n}\n\n// Remember to inject Highcharts to exported component\nexport default withHighcharts(MyComponent, Highcharts);";
 
 /***/ }),
-/* 183 */
+/* 184 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
