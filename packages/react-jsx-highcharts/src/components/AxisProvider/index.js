@@ -55,7 +55,7 @@ export default function provideAxis(WrappedComponent) {
           removePlotLine={removePlotLine}
           getExtremes={getExtremes}
           setExtremes={setExtremes}
-          setTitle={setTitle}
+          setTitle={cleanPropsBeforeUpdate(setTitle)}
           getAxis={getAxis} />
       );
     }
