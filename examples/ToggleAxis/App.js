@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import highcharts from 'highcharts';
-import { HighchartsChart, Chart, XAxis, YAxis, LineSeries, withHighcharts } from 'react-jsx-highcharts';
+import Highcharts from 'highcharts';
+import { HighchartsChart, Chart, XAxis, YAxis, LineSeries } from 'react-jsx-highcharts';
 
 class App extends Component {
   constructor(props) {
@@ -47,4 +47,4 @@ class App extends Component {
   }
 }
 
-export default withHighcharts(App, highcharts);
+export default App;
