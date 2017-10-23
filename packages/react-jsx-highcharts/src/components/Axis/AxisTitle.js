@@ -40,9 +40,7 @@ class AxisTitle extends Component {
 
   updateAxisTitle (config) {
     const { axisId, dimension, ...rest } = config;
-    this.props.update({
-      title: rest
-    }, true);
+    this.props.setTitle(rest, true);
   }
 
   render () {

@@ -39,6 +39,7 @@ describe('<AxisProvider />', function () {
       this.axis.removePlotLine.withArgs({ prop: 'Test5555' }).returns('removePlotLine method mock');
       this.axis.getExtremes.withArgs({ prop: 'Test6666' }).returns('getExtremes method mock');
       this.axis.setExtremes.withArgs({ prop: 'Test7777' }).returns('setExtremes method mock');
+      this.axis.setTitle.withArgs({ prop: 'Test8888' }).returns('setTitle method mock');
     });
 
     it('should pass the `update` function of the axis to the wrapped component', function () {
@@ -81,6 +82,12 @@ describe('<AxisProvider />', function () {
       expect(wrapper.props().setExtremes({ prop: 'Test7777' })).to.eql('setExtremes method mock');
     });
 
+    it('should pass the `setTitle` helper function to the wrapped component', function () {
+      const wrapper = mount(<AxisWrappedComponent axisId="myAxisId" />, this.opts).find(WrappedComponent);
+      expect(wrapper.props().setTitle({ prop: 'Test8888' })).to.eql('setTitle method mock');
+    });
+
+
     it('should pass the `getAxis` helper function to the wrapped component', function () {
       const wrapper = mount(<AxisWrappedComponent axisId="myAxisId" />, this.opts).find(WrappedComponent);
       expect(wrapper.props().getAxis()).to.eql(this.axis);
@@ -103,6 +110,7 @@ describe('<AxisProvider />', function () {
       this.axis.removePlotLine.withArgs({ prop: 'Test5555' }).returnsThis();
       this.axis.getExtremes.withArgs({ prop: 'Test6666' }).returnsThis();
       this.axis.setExtremes.withArgs({ prop: 'Test7777' }).returnsThis();
+      this.axis.setTitle.withArgs({ prop: 'Test8888' }).returnsThis();
     });
 
     it('the scope of the `update` function should be bound to the axis', function () {
@@ -143,6 +151,11 @@ describe('<AxisProvider />', function () {
     it('the scope of the `setExtremes` function should be bound to the axis', function () {
       const wrapper = mount(<AxisWrappedComponent axisId="myAxisId" />, this.opts).find(WrappedComponent);
       expect(wrapper.props().setExtremes({ prop: 'Test7777' })).to.eql(this.axis);
+    });
+
+    it('the scope of the `setTitle` function should be bound to the axis', function () {
+      const wrapper = mount(<AxisWrappedComponent axisId="myAxisId" />, this.opts).find(WrappedComponent);
+      expect(wrapper.props().setTitle({ prop: 'Test8888' })).to.eql(this.axis);
     });
   });
 });

@@ -8,6 +8,45 @@ As of 1.2.0 React JSX Highcharts supports using [Immutable.js](https://facebook.
 
 As of 1.3.0 React JSX Highcharts supports [3D charts](https://whawker.github.io/react-jsx-highcharts/examples/3DChart/index.html).
 
+As of 2.x you are required to use the `withHighcharts` HOC to inject the Highcharts object (see below)
+
+## Upgrading from 1.x to 2.x
+
+React JSX Highcharts now **requires** the `withHighcharts` higher order component to render your chart components. This HOC allows you to inject the Highcharts object the library will interact with.
+This means we can use Highcharts in styled mode (style by CSS) - see [example](https://whawker.github.io/react-jsx-highcharts/examples/StyleByCSS/index.html), or perform customisations to the Highcharts object before using it.
+
+Using 1.x your code would have looked something like
+
+```jsx
+import { HighchartsChart, Chart, /* etc... */ } from 'react-jsx-highcharts';
+import Highcharts from 'highcharts';
+
+const MyChart = () => (
+  <HighchartsChart>
+    <Chart />
+    // etc
+  </HighchartsChart>
+);
+
+export default MyChart
+```
+
+But with 2.x you need to use `withHighcharts`, when exporting the component (note the last line)
+
+```jsx
+import { withHighcharts, HighchartsChart, Chart, /* etc... */ } from 'react-jsx-highcharts';
+import Highcharts from 'highcharts';
+
+const MyChart = () => (
+  <HighchartsChart>
+    <Chart />
+    // etc
+  </HighchartsChart>
+);
+
+export default withHighcharts(MyChart, Highcharts); // Injecting the Highcharts object
+```
+
 ## Example
 
 ```jsx
@@ -61,6 +100,7 @@ You'll need the peer dependencies too
 You'll need the peer dependencies too
 
 `npm install --save react react-dom prop-types highcharts@^5.0.0`
+
 **Note**: import `Highcharts` with `import Highcharts from 'highcharts/highstock'`
 
 ## Documentation
@@ -74,7 +114,7 @@ In progress... [see here](https://github.com/whawker/react-jsx-highcharts/wiki).
 
 ## Goals
 
-This project aims to hide the complexity of Highcharts from the React application author, allowing the rendering of charts in a React familiar way. 
+This project aims to hide the complexity of Highcharts from the React application author, allowing the rendering of charts in a React familiar way.
 
 It also aims to use best React and Highcharts practices where possible - for example if the `data` prop of a Series were to change React JSX Highcharts uses the [`Series.prototype.setData`](http://api.highcharts.com/highstock/Series.setData) method of Highcharts which is much less expensive than `update`.
 
@@ -86,9 +126,20 @@ Rather than passing around a chart object between all the components, we utilise
 
 There are 3 HOCs in this project, [provideChart](https://github.com/whawker/react-jsx-highcharts/blob/master/packages/react-jsx-highcharts/src/components/ChartProvider/index.js), [provideAxis](https://github.com/whawker/react-jsx-highcharts/blob/master/packages/react-jsx-highcharts/src/components/AxisProvider/index.js) and [provideSeries](https://github.com/whawker/react-jsx-highcharts/blob/master/packages/react-jsx-highcharts/src/components/SeriesProvider/index.js).
 
-In the vast majority of cases, there is no need to use these HOCs directly - but they have been exposed anyway - they are useful if you want to create your own components with this library. 
+In the vast majority of cases, there is no need to use these HOCs directly - but they have been exposed anyway - they are useful if you want to create your own components with this library.
 
 ## Common issues
+
+**Uncaught TypeError: Cannot read property 'chart' of undefined**
+
+You need to use the `withHighcharts` higher order component to inject the Highcharts object. [See here](https://github.com/whawker/react-jsx-highcharts/wiki/Higher-Order-Components#withhighcharts-version-200)
+
+**Uncaught TypeError: Cannot read property 'stockChart' of undefined**
+
+As above, or you are importing High*charts* rather than High*stock*. Change you Highcharts import to...
+```js
+import Highcharts from 'highcharts/highstock';
+```
 
 **I updated the data of my chart series, and the chart did not update**
 

@@ -16,7 +16,8 @@ export const createMockAxis = () => ({
   removePlotLine: sinon.stub(),
   getExtremes: sinon.stub(),
   setExtremes: sinon.stub(),
-  update: sinon.stub()
+  update: sinon.stub(),
+  setTitle: sinon.stub()
 });
 
 export const createMockSeries = () => ({

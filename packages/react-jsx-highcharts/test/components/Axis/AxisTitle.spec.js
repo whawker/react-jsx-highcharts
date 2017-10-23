@@ -4,49 +4,49 @@ import { createMockAxis } from '../../test-utils';
 
 describe('<Axis.Title />', function ()  {
   beforeEach(function () {
-    this.update = sinon.spy();
+    this.setTitle = sinon.spy();
   });
 
   describe('when mounted', function () {
     it('sets the correct axis title', function () {
-      mount(<AxisTitle axisId="myAxis" dimension="x" update={this.update}>My Axis Title</AxisTitle>);
-      expect(this.update).to.have.been.calledWith({
-        title: { text: 'My Axis Title', update: this.update }
+      mount(<AxisTitle axisId="myAxis" dimension="x" setTitle={this.setTitle}>My Axis Title</AxisTitle>);
+      expect(this.setTitle).to.have.been.calledWith({
+         text: 'My Axis Title', setTitle: this.setTitle
       });
     });
 
     it('should pass additional props too', function () {
-      mount(<AxisTitle axisId="myAxis" dimension="x" align="high" update={this.update}>My Axis Title</AxisTitle>);
-      expect(this.update).to.have.been.calledWith({
-        title: { text: 'My Axis Title', align: 'high', update: this.update }
+      mount(<AxisTitle axisId="myAxis" dimension="x" align="high" setTitle={this.setTitle}>My Axis Title</AxisTitle>);
+      expect(this.setTitle).to.have.been.calledWith({
+         text: 'My Axis Title', align: 'high', setTitle: this.setTitle
       });
     });
   });
 
-  describe('update', function () {
-    it('should update the correct axis title if the component props change', function () {
-      const wrapper = mount(<AxisTitle axisId="myAxis" dimension="x" update={this.update}>My Axis Title</AxisTitle>);
+  describe('setTitle', function () {
+    it('should setTitle the correct axis title if the component props change', function () {
+      const wrapper = mount(<AxisTitle axisId="myAxis" dimension="x" setTitle={this.setTitle}>My Axis Title</AxisTitle>);
       wrapper.setProps({ axisId: 'myAxis', dimension: 'x', children: 'New Title' });
-      expect(this.update).to.have.been.calledWith({
-        title: { text: 'New Title' }
+      expect(this.setTitle).to.have.been.calledWith({
+         text: 'New Title'
       });
     });
   });
 
   describe('when unmounted', function () {
     it('removes the correct axis title (if the axis still exists)', function () {
-      const wrapper = mount(<AxisTitle axisId="myAxis" dimension="x" update={this.update} getAxis={createMockAxis}>My Axis Title</AxisTitle>);
+      const wrapper = mount(<AxisTitle axisId="myAxis" dimension="x" setTitle={this.setTitle} getAxis={createMockAxis}>My Axis Title</AxisTitle>);
       wrapper.unmount();
-      expect(this.update).to.have.been.calledWith({
-        title: { text: null }
+      expect(this.setTitle).to.have.been.calledWith({
+         text: null
       });
     });
 
     it('does nothing if the parent axis has already been removed', function () {
-      const wrapper = mount(<AxisTitle axisId="myAxis" dimension="x" update={this.update} getAxis={() => undefined}>My Axis Title</AxisTitle>);
-      this.update.reset();
+      const wrapper = mount(<AxisTitle axisId="myAxis" dimension="x" setTitle={this.setTitle} getAxis={() => undefined}>My Axis Title</AxisTitle>);
+      this.setTitle.reset();
       wrapper.unmount();
-      expect(this.update).not.to.have.been.called;
+      expect(this.setTitle).not.to.have.been.called;
     });
   });
 });

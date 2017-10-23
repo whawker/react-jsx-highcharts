@@ -64,7 +64,7 @@ var example =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 160);
+/******/ 	return __webpack_require__(__webpack_require__.s = 161);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -731,6 +731,12 @@ module.exports = ReactHighcharts;
 
 /***/ }),
 /* 44 */
+/***/ (function(module, exports) {
+
+module.exports = Highcharts;
+
+/***/ }),
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -740,7 +746,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _reactPrism = __webpack_require__(51);
+var _reactPrism = __webpack_require__(52);
 
 exports.default = function (_ref) {
   var name = _ref.name,
@@ -766,7 +772,7 @@ exports.default = function (_ref) {
 };
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -810,7 +816,7 @@ emptyFunction.thatReturnsArgument = function (arg) {
 module.exports = emptyFunction;
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -871,7 +877,7 @@ function invariant(condition, format, a, b, c, d, e, f) {
 module.exports = invariant;
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -886,9 +892,9 @@ module.exports = invariant;
 
 
 
-var emptyFunction = __webpack_require__(45);
-var invariant = __webpack_require__(46);
-var ReactPropTypesSecret = __webpack_require__(49);
+var emptyFunction = __webpack_require__(46);
+var invariant = __webpack_require__(47);
+var ReactPropTypesSecret = __webpack_require__(50);
 
 module.exports = function() {
   function shim(props, propName, componentName, location, propFullName, secret) {
@@ -937,7 +943,7 @@ module.exports = function() {
 
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -968,12 +974,12 @@ if (false) {
 } else {
   // By explicitly using `prop-types` you are opting into new production behavior.
   // http://fb.me/prop-types-in-prod
-  module.exports = __webpack_require__(47)();
+  module.exports = __webpack_require__(48)();
 }
 
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -994,7 +1000,7 @@ module.exports = ReactPropTypesSecret;
 
 
 /***/ }),
-/* 50 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1010,7 +1016,7 @@ var _react = __webpack_require__(12);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(48);
+var _propTypes = __webpack_require__(49);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1089,7 +1095,7 @@ PrismCode.defaultProps = {
 exports.default = PrismCode;
 
 /***/ }),
-/* 51 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1099,7 +1105,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _PrismCode = __webpack_require__(50);
+var _PrismCode = __webpack_require__(51);
 
 Object.defineProperty(exports, "PrismCode", {
   enumerable: true,
@@ -1115,12 +1121,6 @@ Object.defineProperty(exports, "default", {
 });
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/***/ }),
-/* 52 */
-/***/ (function(module, exports) {
-
-module.exports = Highcharts;
 
 /***/ }),
 /* 53 */
@@ -2093,17 +2093,17 @@ var _react = __webpack_require__(12);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _highcharts = __webpack_require__(52);
+var _highcharts = __webpack_require__(44);
 
 var _highcharts2 = _interopRequireDefault(_highcharts);
 
 var _reactJsxHighcharts = __webpack_require__(43);
 
-var _ExampleCode = __webpack_require__(44);
+var _ExampleCode = __webpack_require__(45);
 
 var _ExampleCode2 = _interopRequireDefault(_ExampleCode);
 
-var _exampleCode = __webpack_require__(159);
+var _exampleCode = __webpack_require__(160);
 
 var _exampleCode2 = _interopRequireDefault(_exampleCode);
 
@@ -2189,7 +2189,8 @@ exports.default = (0, _reactJsxHighcharts.withHighcharts)(App, _highcharts2.defa
 /* 156 */,
 /* 157 */,
 /* 158 */,
-/* 159 */
+/* 159 */,
+/* 160 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2201,7 +2202,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = "\nconst pieData = [{\n  name: 'Jane',\n  y: 13\n}, {\n  name: 'John',\n  y: 23\n}, {\n  name: 'Joe',\n  y: 19\n}];\n\nreturn (\n  <HighchartsChart>\n    <Chart />\n\n    <Title>Combination chart</Title>\n\n    <Legend />\n\n    <XAxis id=\"x\" categories={['Apples', 'Oranges', 'Pears', 'Bananas', 'Plums']} />\n\n    <YAxis id=\"number\">\n      <ColumnSeries id=\"jane\" name=\"Jane\" data={[3, 2, 1, 3, 4]} />\n      <ColumnSeries id=\"john\" name=\"John\" data={[2, 3, 5, 7, 6]} />\n      <ColumnSeries id=\"joe\" name=\"Joe\" data={[4, 3, 3, 9, 0]} />\n      <SplineSeries id=\"average\" name=\"Average\" data={[3, 2.67, 3, 6.33, 3.33]} />\n      <PieSeries id=\"total-consumption\" name=\"Total consumption\" data={pieData} center={[100, 80]} size={100} showInLegend={false} />\n    </YAxis>\n  </HighchartsChart>\n);\n\n// Remember to inject Highcharts to component\nexport default withHighcharts(MyComponent, Highcharts);";
 
 /***/ }),
-/* 160 */
+/* 161 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

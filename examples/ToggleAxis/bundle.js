@@ -64,7 +64,7 @@ var example =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 188);
+/******/ 	return __webpack_require__(__webpack_require__.s = 189);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -736,393 +736,14 @@ module.exports = ReactHighcharts;
 module.exports = Highcharts;
 
 /***/ }),
-/* 45 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _reactPrism = __webpack_require__(52);
-
-exports.default = function (_ref) {
-  var name = _ref.name,
-      children = _ref.children;
-  return React.createElement(
-    "div",
-    null,
-    React.createElement(
-      "pre",
-      null,
-      React.createElement(
-        _reactPrism.PrismCode,
-        { className: "language-jsx" },
-        children
-      )
-    ),
-    React.createElement(
-      "a",
-      { href: "https://github.com/whawker/react-jsx-highcharts/blob/gh-pages/examples/" + name + "/App.js", className: "btn btn-link" },
-      "See full example code"
-    )
-  );
-};
-
-/***/ }),
-/* 46 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- * 
- */
-
-function makeEmptyFunction(arg) {
-  return function () {
-    return arg;
-  };
-}
-
-/**
- * This function accepts and discards inputs; it has no side effects. This is
- * primarily useful idiomatically for overridable function endpoints which
- * always need to be callable, since JS lacks a null-call idiom ala Cocoa.
- */
-var emptyFunction = function emptyFunction() {};
-
-emptyFunction.thatReturns = makeEmptyFunction;
-emptyFunction.thatReturnsFalse = makeEmptyFunction(false);
-emptyFunction.thatReturnsTrue = makeEmptyFunction(true);
-emptyFunction.thatReturnsNull = makeEmptyFunction(null);
-emptyFunction.thatReturnsThis = function () {
-  return this;
-};
-emptyFunction.thatReturnsArgument = function (arg) {
-  return arg;
-};
-
-module.exports = emptyFunction;
-
-/***/ }),
-/* 47 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- */
-
-
-
-/**
- * Use invariant() to assert state which your program assumes to be true.
- *
- * Provide sprintf-style format (only %s is supported) and arguments
- * to provide information about what broke and what you were
- * expecting.
- *
- * The invariant message will be stripped in production, but the invariant
- * will remain to ensure logic does not differ in production.
- */
-
-var validateFormat = function validateFormat(format) {};
-
-if (false) {
-  validateFormat = function validateFormat(format) {
-    if (format === undefined) {
-      throw new Error('invariant requires an error message argument');
-    }
-  };
-}
-
-function invariant(condition, format, a, b, c, d, e, f) {
-  validateFormat(format);
-
-  if (!condition) {
-    var error;
-    if (format === undefined) {
-      error = new Error('Minified exception occurred; use the non-minified dev environment ' + 'for the full error message and additional helpful warnings.');
-    } else {
-      var args = [a, b, c, d, e, f];
-      var argIndex = 0;
-      error = new Error(format.replace(/%s/g, function () {
-        return args[argIndex++];
-      }));
-      error.name = 'Invariant Violation';
-    }
-
-    error.framesToPop = 1; // we don't care about invariant's own frame
-    throw error;
-  }
-}
-
-module.exports = invariant;
-
-/***/ }),
-/* 48 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- */
-
-
-
-var emptyFunction = __webpack_require__(46);
-var invariant = __webpack_require__(47);
-var ReactPropTypesSecret = __webpack_require__(50);
-
-module.exports = function() {
-  function shim(props, propName, componentName, location, propFullName, secret) {
-    if (secret === ReactPropTypesSecret) {
-      // It is still safe when called from React.
-      return;
-    }
-    invariant(
-      false,
-      'Calling PropTypes validators directly is not supported by the `prop-types` package. ' +
-      'Use PropTypes.checkPropTypes() to call them. ' +
-      'Read more at http://fb.me/use-check-prop-types'
-    );
-  };
-  shim.isRequired = shim;
-  function getShim() {
-    return shim;
-  };
-  // Important!
-  // Keep this list in sync with production version in `./factoryWithTypeCheckers.js`.
-  var ReactPropTypes = {
-    array: shim,
-    bool: shim,
-    func: shim,
-    number: shim,
-    object: shim,
-    string: shim,
-    symbol: shim,
-
-    any: shim,
-    arrayOf: getShim,
-    element: shim,
-    instanceOf: getShim,
-    node: shim,
-    objectOf: getShim,
-    oneOf: getShim,
-    oneOfType: getShim,
-    shape: getShim
-  };
-
-  ReactPropTypes.checkPropTypes = emptyFunction;
-  ReactPropTypes.PropTypes = ReactPropTypes;
-
-  return ReactPropTypes;
-};
-
-
-/***/ }),
-/* 49 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- */
-
-if (false) {
-  var REACT_ELEMENT_TYPE = (typeof Symbol === 'function' &&
-    Symbol.for &&
-    Symbol.for('react.element')) ||
-    0xeac7;
-
-  var isValidElement = function(object) {
-    return typeof object === 'object' &&
-      object !== null &&
-      object.$$typeof === REACT_ELEMENT_TYPE;
-  };
-
-  // By explicitly using `prop-types` you are opting into new development behavior.
-  // http://fb.me/prop-types-in-prod
-  var throwOnDirectAccess = true;
-  module.exports = require('./factoryWithTypeCheckers')(isValidElement, throwOnDirectAccess);
-} else {
-  // By explicitly using `prop-types` you are opting into new production behavior.
-  // http://fb.me/prop-types-in-prod
-  module.exports = __webpack_require__(48)();
-}
-
-
-/***/ }),
-/* 50 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- */
-
-
-
-var ReactPropTypesSecret = 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED';
-
-module.exports = ReactPropTypesSecret;
-
-
-/***/ }),
-/* 51 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(12);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _propTypes = __webpack_require__(49);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* global Prism */
-
-var PrismCode = function (_PureComponent) {
-  _inherits(PrismCode, _PureComponent);
-
-  function PrismCode() {
-    var _ref;
-
-    var _temp, _this, _ret;
-
-    _classCallCheck(this, PrismCode);
-
-    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = PrismCode.__proto__ || Object.getPrototypeOf(PrismCode)).call.apply(_ref, [this].concat(args))), _this), _this._handleRefMount = function (domNode) {
-      _this._domNode = domNode;
-    }, _temp), _possibleConstructorReturn(_this, _ret);
-  }
-
-  _createClass(PrismCode, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      this._hightlight();
-    }
-  }, {
-    key: "componentDidUpdate",
-    value: function componentDidUpdate() {
-      this._hightlight();
-    }
-  }, {
-    key: "_hightlight",
-    value: function _hightlight() {
-      Prism.highlightElement(this._domNode, this.props.async);
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var _props = this.props,
-          className = _props.className,
-          Wrapper = _props.component,
-          children = _props.children;
-
-
-      return _react2.default.createElement(
-        Wrapper,
-        {
-          ref: this._handleRefMount,
-          className: className
-        },
-        children
-      );
-    }
-  }]);
-
-  return PrismCode;
-}(_react.PureComponent);
-
-PrismCode.propTypes = {
-  async: _propTypes.PropTypes.bool,
-  className: _propTypes.PropTypes.string,
-  children: _propTypes.PropTypes.any,
-  component: _propTypes.PropTypes.node
-};
-PrismCode.defaultProps = {
-  component: "code"
-};
-exports.default = PrismCode;
-
-/***/ }),
-/* 52 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _PrismCode = __webpack_require__(51);
-
-Object.defineProperty(exports, "PrismCode", {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_PrismCode).default;
-  }
-});
-Object.defineProperty(exports, "default", {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_PrismCode).default;
-  }
-});
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/***/ }),
+/* 45 */,
+/* 46 */,
+/* 47 */,
+/* 48 */,
+/* 49 */,
+/* 50 */,
+/* 51 */,
+/* 52 */,
 /* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2072,7 +1693,8 @@ for(var collections = ['NodeList', 'DOMTokenList', 'MediaList', 'StyleSheetList'
 /* 148 */,
 /* 149 */,
 /* 150 */,
-/* 151 */
+/* 151 */,
+/* 152 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2112,23 +1734,7 @@ var _highcharts2 = _interopRequireDefault(_highcharts);
 
 var _reactJsxHighcharts = __webpack_require__(43);
 
-var _ExampleCode = __webpack_require__(45);
-
-var _ExampleCode2 = _interopRequireDefault(_ExampleCode);
-
-var _exampleCode = __webpack_require__(187);
-
-var _exampleCode2 = _interopRequireDefault(_exampleCode);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-_highcharts2.default.Pointer.prototype.reset = function () {};
-
-_highcharts2.default.Point.prototype.highlight = function (event) {
-  this.onMouseOver(); // Show the hover marker
-  this.series.chart.tooltip.refresh(this); // Show the tooltip
-  this.series.chart.xAxis[0].drawCrosshair(event, this); // Show the crosshair
-};
 
 var App = function (_Component) {
   (0, _inherits3.default)(App, _Component);
@@ -2138,107 +1744,58 @@ var App = function (_Component) {
 
     var _this = (0, _possibleConstructorReturn3.default)(this, (App.__proto__ || (0, _getPrototypeOf2.default)(App)).call(this, props));
 
-    _this.handleMouseMove = _this.handleMouseMove.bind(_this);
-    _this.renderChart = _this.renderChart.bind(_this);
+    _this.toggleSeries = function () {
+      _this.setState({
+        showSecondarySeries: !_this.state.showSecondarySeries
+      });
+    };
+
     _this.state = {
-      chartData: null
+      showSecondarySeries: false
     };
     return _this;
   }
 
   (0, _createClass3.default)(App, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      var _this2 = this;
-
-      fetch('activity.json').then(function (res) {
-        if (res.ok) {
-          return res.json();
-        }
-        throw new Error('Network response was not ok.');
-      }).then(function (json) {
-        _this2.setState({
-          chartData: json
-        });
-      });
-    }
-  }, {
-    key: 'renderChart',
-    value: function renderChart(dataset, index) {
-      var _this3 = this;
-
-      var tooltipPositioner = function tooltipPositioner() {
-        return { x: this.chart.chartWidth - this.label.width, y: 10 };
-      };
-      var data = dataset.data.map(function (val, i) {
-        return [_this3.state.chartData.xData[i], val];
-      });
-      var colour = _highcharts2.default.getOptions().colors[index];
-
-      return _react2.default.createElement(
-        _reactJsxHighcharts.HighchartsChart,
-        { key: index },
-        _react2.default.createElement(
-          _reactJsxHighcharts.Title,
-          { align: 'left', margin: 30, x: 30 },
-          dataset.name
-        ),
-        _react2.default.createElement(_reactJsxHighcharts.XAxis, { crosshair: true, labels: { format: '{value} km' } }),
-        _react2.default.createElement(
-          _reactJsxHighcharts.YAxis,
-          { id: 'y' },
-          _react2.default.createElement(_reactJsxHighcharts.Series, {
-            id: dataset.name,
-            name: dataset.name,
-            type: dataset.type,
-            data: data,
-            color: colour,
-            tooltip: { valueSuffix: ' ' + dataset.unit } })
-        ),
-        _react2.default.createElement(_reactJsxHighcharts.Tooltip, {
-          positioner: tooltipPositioner,
-          borderWidth: 0,
-          backgroundColor: 'none',
-          pointFormat: '{point.y}',
-          headerFormat: '',
-          shadow: false,
-          style: { fontSize: '18px' },
-          valueDecimals: dataset.valueDecimals })
-      );
-    }
-  }, {
-    key: 'handleMouseMove',
-    value: function handleMouseMove(e) {
-      var point = null;
-      var event = null;
-
-      _highcharts2.default.charts.forEach(function (chart) {
-        event = chart.pointer.normalize(e); // Find coordinates within the chart
-        point = chart.series[0].searchPoint(event, true); // Get the hovered point
-        if (point) {
-          point.highlight(e);
-        }
-      });
-    }
-  }, {
     key: 'render',
     value: function render() {
-      var chartData = this.state.chartData;
-
-      if (!chartData) return null;
-
       return _react2.default.createElement(
         'div',
-        { className: 'app' },
+        { className: 'app', style: { margin: 20 } },
         _react2.default.createElement(
           'div',
-          { onMouseMove: this.handleMouseMove },
-          chartData.datasets.map(this.renderChart)
+          { style: { marginBottom: 20 } },
+          _react2.default.createElement(
+            'button',
+            { onClick: this.toggleSeries },
+            'Toggle data'
+          )
         ),
         _react2.default.createElement(
-          _ExampleCode2.default,
-          { name: 'SynchronisedCharts' },
-          _exampleCode2.default
+          _reactJsxHighcharts.HighchartsChart,
+          null,
+          _react2.default.createElement(_reactJsxHighcharts.Chart, null),
+          _react2.default.createElement(_reactJsxHighcharts.XAxis, null),
+          _react2.default.createElement(
+            _reactJsxHighcharts.YAxis,
+            { id: 'yAxisPrimary' },
+            _react2.default.createElement(
+              _reactJsxHighcharts.YAxis.Title,
+              null,
+              'Primary'
+            ),
+            _react2.default.createElement(_reactJsxHighcharts.LineSeries, { id: 'primary', data: [1, 2, 3, 4, 5] })
+          ),
+          this.state.showSecondarySeries ? _react2.default.createElement(
+            _reactJsxHighcharts.YAxis,
+            { id: 'yAxisSecondary', opposite: true },
+            _react2.default.createElement(
+              _reactJsxHighcharts.YAxis.Title,
+              { opposite: true },
+              'Secondary'
+            ),
+            _react2.default.createElement(_reactJsxHighcharts.LineSeries, { id: 'secondary', data: [5, 4, 3, 2, 1] })
+          ) : undefined
         )
       );
     }
@@ -2249,7 +1806,6 @@ var App = function (_Component) {
 exports.default = (0, _reactJsxHighcharts.withHighcharts)(App, _highcharts2.default);
 
 /***/ }),
-/* 152 */,
 /* 153 */,
 /* 154 */,
 /* 155 */,
@@ -2284,19 +1840,9 @@ exports.default = (0, _reactJsxHighcharts.withHighcharts)(App, _highcharts2.defa
 /* 184 */,
 /* 185 */,
 /* 186 */,
-/* 187 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = "\nHighcharts.Pointer.prototype.reset = () => {};\n\nHighcharts.Point.prototype.highlight = function (event) {\n  this.onMouseOver(); // Show the hover marker\n  this.series.chart.tooltip.refresh(this); // Show the tooltip\n  this.series.chart.xAxis[0].drawCrosshair(event, this); // Show the crosshair\n};\n\nclass App extends Component {\n\n  constructor(props) {\n    super(props);\n\n    this.handleMouseMove = this.handleMouseMove.bind(this);\n    this.renderChart = this.renderChart.bind(this);\n    this.state = {\n      chartData: null\n    };\n  }\n\n  componentDidMount () {\n    fetch('activity.json')\n      .then(res => {\n        if (res.ok) {\n          return res.json();\n        }\n        throw new Error('Network response was not ok.');\n      })\n      .then(json => {\n        this.setState({\n          chartData: json\n        })\n      });\n  }\n\n  renderChart (dataset, index) {\n    const tooltipPositioner = function () {\n      return { x: this.chart.chartWidth - this.label.width, y: 10 };\n    };\n    const data = dataset.data.map((val, i) => [this.state.chartData.xData[i], val]);\n    const colour = Highcharts.getOptions().colors[index];\n\n    return (\n      <HighchartsChart key={index}>\n        <Title align=\"left\" margin={30} x={30}>{dataset.name}</Title>\n        <XAxis crosshair labels={{format: '{value} km'}} />\n        <YAxis id=\"y\">\n          <Series\n            id={dataset.name}\n            name={dataset.name}\n            type={dataset.type}\n            data={data}\n            color={colour}\n            tooltip={{ valueSuffix: ` ${dataset.unit}` }} />\n        </YAxis>\n\n        <Tooltip\n          positioner={tooltipPositioner}\n          borderWidth={0}\n          backgroundColor=\"none\"\n          pointFormat=\"{point.y}\"\n          headerFormat=\"\"\n          shadow={false}\n          style={{ fontSize: '18px' }}\n          valueDecimals={dataset.valueDecimals} />\n      </HighchartsChart>\n    );\n  }\n\n  handleMouseMove (e) {\n    let point = null;\n    let event = null;\n\n    Highcharts.charts.forEach(chart => {\n      event = chart.pointer.normalize(e); // Find coordinates within the chart\n      point = chart.series[0].searchPoint(event, true); // Get the hovered point\n      if (point) {\n        point.highlight(e);\n      }\n    });\n  }\n\n  render () {\n    const { chartData } = this.state;\n    if (!chartData) return null;\n\n    return (\n      <div className=\"app\" onMouseMove={this.handleMouseMove}>\n        {chartData.datasets.map(this.renderChart)}\n      </div>\n    );\n  }\n}\n\nexport default withHighcharts(App, Highcharts);";
-
-/***/ }),
-/* 188 */
+/* 187 */,
+/* 188 */,
+/* 189 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2310,7 +1856,7 @@ var _reactDom = __webpack_require__(29);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _App = __webpack_require__(151);
+var _App = __webpack_require__(152);
 
 var _App2 = _interopRequireDefault(_App);
 
