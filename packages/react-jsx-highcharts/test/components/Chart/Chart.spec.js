@@ -61,4 +61,18 @@ describe('<Chart />', function ()  {
       expect(Highcharts.addEvent).to.have.been.calledWith('mock-chart', 'beforePrint', handleBeforePrint);
     });
   });
+
+  describe('update', function () {
+    it('should use the update method when props change', function () {
+      const wrapper = mount(
+        <Chart {...this.propsFromProviders} />
+      );
+      wrapper.setProps({ backgroundColor: 'red' });
+      expect(this.update).to.have.been.calledWith({
+        chart: {
+          backgroundColor: 'red'
+        }
+      });
+    });
+  });
 });

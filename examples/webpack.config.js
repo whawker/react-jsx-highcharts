@@ -19,7 +19,8 @@ const highchartsExamples = [
   { name: 'InvertedChart' },
   { name: 'ImmutableJS', additional: ['immutable'] },
   { name: '3DChart', additional: ['highcharts-3d', 'highcharts-boost'] },
-  { name: 'ToggleAxis' }
+  { name: 'ToggleAxis' },
+  { name: 'UpdateChart' }
 ];
 
 const highchartsStyledExamples = [
