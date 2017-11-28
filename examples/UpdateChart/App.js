@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Highcharts from 'highcharts';
 import {
-  HighchartsChart, withHighcharts, Chart, XAxis, YAxis, Title, Legend, LineSeries
+  HighchartsChart, Chart, XAxis, YAxis, Title, Legend, LineSeries
 } from 'react-jsx-highcharts';
 import { createRandomData } from '../utils/data-helpers';
 
@@ -70,4 +70,4 @@ class App extends Component {
   }
 }
 
-export default withHighcharts(App, Highcharts);
+export default App;
