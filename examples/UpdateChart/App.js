@@ -5,6 +5,9 @@ import {
 } from 'react-jsx-highcharts';
 import { createRandomData } from '../utils/data-helpers';
 
+const RED = '#FF0000';
+const WHITE = '#FFFFFF';
+
 class App extends Component {
 
   constructor (props) {
@@ -12,7 +15,8 @@ class App extends Component {
 
     this.state = {
       data: createRandomData(Date.now(), 1e8),
-      color: '#FFFFFF',
+      bgColor: WHITE,
+      seriesColor: RED,
       shadow: false
     };
   }
@@ -20,7 +24,8 @@ class App extends Component {
   handleToggleBackground = e => {
     e.preventDefault();
     this.setState({
-      color: this.state.color === '#FFFFFF' ? '#FF0000' : '#FFFFFF'
+      bgColor: this.state.bgColor === WHITE ? RED : WHITE,
+      seriesColor: this.state.seriesColor === RED ? WHITE : RED
     });
   }
 
@@ -32,7 +37,7 @@ class App extends Component {
   }
 
   render() {
-    const { data, color, shadow } = this.state;
+    const { data, bgColor, seriesColor, shadow } = this.state;
 
     return (
       <div className="app">
@@ -40,7 +45,7 @@ class App extends Component {
         <HighchartsChart>
           <Title>Toggle Background Color</Title>
 
-          <Chart backgroundColor={color} shadow={shadow} />
+          <Chart backgroundColor={bgColor} shadow={shadow} />
 
           <Legend align="left">
             <Legend.Title>Legend</Legend.Title>
@@ -52,7 +57,7 @@ class App extends Component {
 
           <YAxis id="price">
             <YAxis.Title>Price</YAxis.Title>
-            <LineSeries id="series1" name="Profit" data={data} />
+            <LineSeries id="series1" name="Profit" data={data} color={seriesColor} />
           </YAxis>
         </HighchartsChart>
 
