@@ -1774,6 +1774,9 @@ var _dataHelpers = __webpack_require__(98);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var RED = '#FF0000';
+var WHITE = '#FFFFFF';
+
 var App = function (_Component) {
   (0, _inherits3.default)(App, _Component);
 
@@ -1785,7 +1788,8 @@ var App = function (_Component) {
     _this.handleToggleBackground = function (e) {
       e.preventDefault();
       _this.setState({
-        color: _this.state.color === '#FFFFFF' ? '#FF0000' : '#FFFFFF'
+        bgColor: _this.state.bgColor === WHITE ? RED : WHITE,
+        seriesColor: _this.state.seriesColor === RED ? WHITE : RED
       });
     };
 
@@ -1798,7 +1802,8 @@ var App = function (_Component) {
 
     _this.state = {
       data: (0, _dataHelpers.createRandomData)(Date.now(), 1e8),
-      color: '#FFFFFF',
+      bgColor: WHITE,
+      seriesColor: RED,
       shadow: false
     };
     return _this;
@@ -1809,7 +1814,8 @@ var App = function (_Component) {
     value: function render() {
       var _state = this.state,
           data = _state.data,
-          color = _state.color,
+          bgColor = _state.bgColor,
+          seriesColor = _state.seriesColor,
           shadow = _state.shadow;
 
 
@@ -1824,7 +1830,7 @@ var App = function (_Component) {
             null,
             'Toggle Background Color'
           ),
-          _react2.default.createElement(_reactJsxHighcharts.Chart, { backgroundColor: color, shadow: shadow }),
+          _react2.default.createElement(_reactJsxHighcharts.Chart, { backgroundColor: bgColor, shadow: shadow }),
           _react2.default.createElement(
             _reactJsxHighcharts.Legend,
             { align: 'left' },
@@ -1851,7 +1857,7 @@ var App = function (_Component) {
               null,
               'Price'
             ),
-            _react2.default.createElement(_reactJsxHighcharts.LineSeries, { id: 'series1', name: 'Profit', data: data })
+            _react2.default.createElement(_reactJsxHighcharts.LineSeries, { id: 'series1', name: 'Profit', data: data, color: seriesColor })
           )
         ),
         _react2.default.createElement(
