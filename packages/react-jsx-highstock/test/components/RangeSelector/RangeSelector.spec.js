@@ -1,14 +1,17 @@
 import React from 'react';
 import Highcharts from 'highstock-release';
 import RangeSelector from '../../../src/components/RangeSelector/RangeSelector';
-import { createMockChart } from '../../test-utils';
+import { createMockChart, createMockAxis } from '../../test-utils';
 
 describe('<RangeSelector />', function ()  {
   let sandbox;
 
   beforeEach(function () {
     this.update = sinon.spy();
+    this.xAxis = createMockAxis();
+    this.xAxis.getExtremes.returns({ min: undefined, max: undefined });
     this.chart = createMockChart();
+    this.chart.xAxis = [this.xAxis];
     this.getChart = sinon.stub();
     this.getChart.returns(this.chart);
 

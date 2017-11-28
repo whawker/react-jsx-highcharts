@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Highcharts from 'highstock-release';
+import isNumber from 'lodash/isNumber';
 import Hidden from 'react-jsx-highcharts/src/components/Hidden';
 import getModifiedProps from 'react-jsx-highcharts/src/utils/getModifiedProps';
 
@@ -41,6 +42,7 @@ class RangeSelector extends Component {
     });
 
     Highcharts.addEvent(chart, 'redraw', this.renderRangeSelector);
+    this.renderRangeSelector()
   }
 
   componentDidUpdate (prevProps) {
@@ -63,9 +65,13 @@ class RangeSelector extends Component {
     }, true);
   }
 
-  renderRangeSelector (e) {
+  renderRangeSelector () {
     const chart = this.props.getChart();
-    chart.rangeSelector && chart.rangeSelector.render.call(chart.rangeSelector, e.min, e.max);
+    const extremes = chart.xAxis[0].getExtremes();
+
+    if (isNumber(extremes.min)) {
+      chart.rangeSelector && chart.rangeSelector.render.call(chart.rangeSelector, extremes.min, extremes.max);
+    }
   }
 
   render () {
