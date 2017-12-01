@@ -19,6 +19,7 @@ const highchartsExamples = [
   { name: 'InvertedChart' },
   { name: 'ImmutableJS', additional: ['immutable'] },
   { name: '3DChart', additional: ['highcharts-3d', 'highcharts-boost'] },
+  { name: 'Reflow', additional: ['re-resizable'] },
   { name: 'ToggleAxis' },
   { name: 'UpdateChart' }
 ];
@@ -61,6 +62,7 @@ const externals = {
   'prism-jsx':            'https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/components/prism-jsx.min.js',
   'moment':               'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js',
   'react-day-picker':     'https://unpkg.com/react-day-picker@6.0.5/lib/daypicker.js',
+  're-resizable':         'https://unpkg.com/re-resizable@^4/lib/re-resizable.umd.js',
   'promise-polyfill':     'https://www.promisejs.org/polyfills/promise-6.1.0.js',
   'fetch-polyfill':       'https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.min.js',
   'immutable':            'https://cdnjs.cloudflare.com/ajax/libs/immutable/3.8.1/immutable.min.js'
@@ -84,6 +86,7 @@ module.exports = {
     'highcharts/highstock': 'Highcharts',
     'moment': 'moment',
     'react-day-picker': 'DayPicker',
+    're-resizable': 'window[\'re-resizable\']',
     'immutable': 'Immutable',
     'react-jsx-highcharts': 'ReactHighcharts',
     'react-jsx-highstock': 'ReactHighcharts'
