@@ -47,8 +47,8 @@ const externals = {
   // 'react-jsx-highstock':  '../../packages/react-jsx-highstock/dist/react-jsx-highstock.min.js',
   'react-jsx-highcharts': 'https://unpkg.com/react-jsx-highcharts@^2/dist/react-jsx-highcharts.min.js',
   'react-jsx-highstock':  'https://unpkg.com/react-jsx-highstock@^2/dist/react-jsx-highstock.min.js',
-  'react':                'https://cdnjs.cloudflare.com/ajax/libs/react/16.0.0/umd/react.production.min.js',
-  'react-dom':            'https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.0.0/umd/react-dom.production.min.js',
+  'react':                'https://unpkg.com/react@^16/umd/react.production.min.js',
+  'react-dom':            'https://unpkg.com/react-dom@^16/umd/react-dom.production.min.js',
   'highcharts':           'https://code.highcharts.com/5.0.14/highcharts.js',
   'highcharts/js/highcharts': 'https://code.highcharts.com/5.0.14/js/highcharts.js',
   'highcharts/highstock': 'https://code.highcharts.com/stock/5.0.14/highstock.js',
@@ -141,7 +141,18 @@ module.exports = {
     // Default dependencies
     new HtmlWebpackIncludeAssetsPlugin({
       files: '**/index.html',
-      assets: ['react', 'react-dom', 'prism', 'prism-jsx'].map(d => externals[d]),
+      assets: ['prism', 'prism-jsx'].map(d => externals[d]),
+      publicPath: false,
+      append: false
+    })
+  ).concat(
+    // Default dependencies
+    new HtmlWebpackIncludeAssetsPlugin({
+      files: '**/index.html',
+      assets: ['react', 'react-dom'].map(d => ({
+        path: externals[d],
+        attributes: { crossorigin: 'true' }
+      })),
       publicPath: false,
       append: false
     })
