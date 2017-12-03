@@ -6,6 +6,7 @@ export Highcharts3dChart from './components/Highcharts3dChart';
 // Graph parts
 export Chart from './components/Chart';
 export Credits from './components/Credits';
+export Loading from './components/Loading';
 export Legend from './components/Legend';
 export PlotBand from './components/PlotBand';
 export PlotLine from './components/PlotLine';

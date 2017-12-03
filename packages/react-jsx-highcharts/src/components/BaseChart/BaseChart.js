@@ -7,11 +7,13 @@ class BaseChart extends Component {
   };
 
   static defaultProps = {
-    className: ''
+    className: '',
+    callback: () => {}
   };
 
   static propTypes = {
-    chartCreationFunc: PropTypes.func.isRequired
+    chartCreationFunc: PropTypes.func.isRequired,
+    callback: PropTypes.func.isRequired
   };
 
   constructor (props, context) {
@@ -33,7 +35,7 @@ class BaseChart extends Component {
       return;
     }
 
-    const { chartCreationFunc, ...rest } = this.props;
+    const { chartCreationFunc, callback, ...rest } = this.props;
 
     const opts = {
       chart: {},
@@ -67,6 +69,8 @@ class BaseChart extends Component {
       ...rest
     };
     this.chart = chartCreationFunc(this.domNode, opts);
+
+    callback(this.chart);
 
     this.setState({
       rendered: true

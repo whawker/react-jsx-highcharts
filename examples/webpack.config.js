@@ -16,9 +16,11 @@ const highchartsExamples = [
   { name: 'SplineWithPlotBands' },
   { name: 'SynchronisedCharts', additional: ['promise-polyfill', 'fetch-polyfill'] },
   { name: 'Sparkline', additional: ['promise-polyfill', 'fetch-polyfill'] },
+  { name: 'Loading', additional: ['promise-polyfill', 'fetch-polyfill'] },
   { name: 'InvertedChart' },
   { name: 'ImmutableJS', additional: ['immutable'] },
   { name: '3DChart', additional: ['highcharts-3d', 'highcharts-boost'] },
+  { name: 'Reflow', additional: ['re-resizable'] },
   { name: 'ToggleAxis' },
   { name: 'UpdateChart' }
 ];
@@ -46,8 +48,8 @@ const externals = {
   // 'react-jsx-highstock':  '../../packages/react-jsx-highstock/dist/react-jsx-highstock.min.js',
   'react-jsx-highcharts': 'https://unpkg.com/react-jsx-highcharts@^2/dist/react-jsx-highcharts.min.js',
   'react-jsx-highstock':  'https://unpkg.com/react-jsx-highstock@^2/dist/react-jsx-highstock.min.js',
-  'react':                'https://cdnjs.cloudflare.com/ajax/libs/react/16.0.0/umd/react.production.min.js',
-  'react-dom':            'https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.0.0/umd/react-dom.production.min.js',
+  'react':                'https://unpkg.com/react@^16/umd/react.production.min.js',
+  'react-dom':            'https://unpkg.com/react-dom@^16/umd/react-dom.production.min.js',
   'highcharts':           'https://code.highcharts.com/5.0.14/highcharts.js',
   'highcharts/js/highcharts': 'https://code.highcharts.com/5.0.14/js/highcharts.js',
   'highcharts/highstock': 'https://code.highcharts.com/stock/5.0.14/highstock.js',
@@ -61,6 +63,7 @@ const externals = {
   'prism-jsx':            'https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/components/prism-jsx.min.js',
   'moment':               'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js',
   'react-day-picker':     'https://unpkg.com/react-day-picker@6.0.5/lib/daypicker.js',
+  're-resizable':         'https://unpkg.com/re-resizable@^4/lib/re-resizable.umd.js',
   'promise-polyfill':     'https://www.promisejs.org/polyfills/promise-6.1.0.js',
   'fetch-polyfill':       'https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.min.js',
   'immutable':            'https://cdnjs.cloudflare.com/ajax/libs/immutable/3.8.1/immutable.min.js'
@@ -84,6 +87,7 @@ module.exports = {
     'highcharts/highstock': 'Highcharts',
     'moment': 'moment',
     'react-day-picker': 'DayPicker',
+    're-resizable': 'window[\'re-resizable\']',
     'immutable': 'Immutable',
     'react-jsx-highcharts': 'ReactHighcharts',
     'react-jsx-highstock': 'ReactHighcharts'
@@ -138,7 +142,18 @@ module.exports = {
     // Default dependencies
     new HtmlWebpackIncludeAssetsPlugin({
       files: '**/index.html',
-      assets: ['react', 'react-dom', 'prism', 'prism-jsx'].map(d => externals[d]),
+      assets: ['prism', 'prism-jsx'].map(d => externals[d]),
+      publicPath: false,
+      append: false
+    })
+  ).concat(
+    // Default dependencies
+    new HtmlWebpackIncludeAssetsPlugin({
+      files: '**/index.html',
+      assets: ['react', 'react-dom'].map(d => ({
+        path: externals[d],
+        attributes: { crossorigin: 'true' }
+      })),
       publicPath: false,
       append: false
     })
