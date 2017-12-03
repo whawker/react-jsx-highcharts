@@ -5,7 +5,7 @@ import {
 import Highcharts from 'highcharts';
 import mapValues from 'lodash/mapValues';
 import ExampleCode from '../utils/ExampleCode';
-//import code from './exampleCode';
+import code from './exampleCode';
 
 Highcharts.setOptions({
   lang: { thousandsSep: ',' }
@@ -22,28 +22,34 @@ const toDataSeries = ({ day, downloads }) => (
   [ new Date(day).getTime(), downloads ]
 );
 
-const delay = () => {
-  // Exaggerate network loading time
-  return new Promise(resolve => {
-    window.setTimeout(() => { resolve() }, 1000);
-  });
+const delay = (start, ms) => {
+  return res => {
+    // Exaggerate network loading time
+    return new Promise(resolve => {
+      const now = Date.now();
+      const delay = (now - start < ms) ? ((start + ms) - now) : 0;
+      window.setTimeout(() => {
+        resolve(res)
+      }, delay);
+    });
+  }
 };
 
 const npmApiDownloadsRange = (period, packages) => {
-  return delay().then(() => {
-    return fetch(`https://api.npmjs.org/downloads/range/${period}/${packages.join(',')}`)
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        throw new Error('Network response was not ok.');
-      })
-      .then(res => {
-        return mapValues(res, pkg => {
-          return pkg.downloads.filter(isWeekDay).map(toDataSeries);
-        });
+  const now = Date.now();
+  return fetch(`https://api.npmjs.org/downloads/range/${period}/${packages.join(',')}`)
+    .then(delay(now, 3000)) // Delay at 3 seconds
+    .then(res => {
+      if (res.ok) {
+        return res.json();
+      }
+      throw new Error('Network response was not ok.');
+    })
+    .then(res => {
+      return mapValues(res, pkg => {
+        return pkg.downloads.filter(isWeekDay).map(toDataSeries);
       });
-  });
+    });
 };
 
 const frameworks = {
@@ -81,7 +87,9 @@ class App extends Component {
   componentWillMount () {
     const { npmPackages } = this.state;
 
-    npmApiDownloadsRange('last-year', npmPackages).then(downloads => this.setState({ downloads, loaded: true }));
+    npmApiDownloadsRange('last-year', npmPackages)
+      .then(downloads => this.setState({ downloads }))
+      .then(() => this.setState({ loaded: true }));
   }
 
   renderSeries (pkgName) {
@@ -98,9 +106,9 @@ class App extends Component {
     return (
       <div className="app">
         <HighchartsChart plotOptions={plotOptions}>
-          <Title>NPM Download Stats of Selected Front End Frameworks</Title>
+          <Title>Display "Fetching data..." Until Async Task Completes</Title>
 
-          <Subtitle>Source: api.npmjs.org</Subtitle>
+          <Subtitle>NPM Download Stats of Selected Front End Frameworks. Source: api.npmjs.org</Subtitle>
 
           <Loading isLoading={!loaded}>Fetching data...</Loading>
 
@@ -117,6 +125,8 @@ class App extends Component {
             {npmPackages.map(this.renderSeries)}
           </YAxis>
         </HighchartsChart>
+
+        <ExampleCode name="Loading">{code}</ExampleCode>
       </div>
     );
   }
