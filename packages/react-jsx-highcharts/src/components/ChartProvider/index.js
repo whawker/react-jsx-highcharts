@@ -23,7 +23,11 @@ export default function provideChart(WrappedComponent) {
 
       providedProps(
         'ChartProvider',
-        ['get', 'update', 'addAxis', 'addSeries', 'setTitle', 'getChart', 'getChartType']
+        [
+          'get', 'update', 'addAxis', 'addSeries',
+          'setTitle', 'showLoading', 'hideLoading',
+          'getChart', 'getChartType'
+        ]
       );
     }
 
@@ -41,6 +45,8 @@ export default function provideChart(WrappedComponent) {
           addAxis={cleanPropsBeforeUpdate(getBoundChartMethod('addAxis'))}
           addSeries={cleanPropsBeforeUpdate(getBoundChartMethod('addSeries'))}
           setTitle={cleanPropsBeforeUpdate(getBoundChartMethod('setTitle'))}
+          showLoading={getBoundChartMethod('showLoading')}
+          hideLoading={getBoundChartMethod('hideLoading')}
           getChart={getChart}
           getChartType={getChartType} />
       );
