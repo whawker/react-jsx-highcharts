@@ -37,6 +37,8 @@ describe('<ChartProvider />', function () {
       this.chart.addAxis.withArgs({ prop: 'Test4567' }).returns('addAxis method mock');
       this.chart.addSeries.withArgs({ prop: 'Test7654' }).returns('addSeries method mock');
       this.chart.setTitle.withArgs({ prop: 'Test8080' }).returns('setTitle method mock');
+      this.chart.showLoading.withArgs({ prop: 'Test1111' }).returns('showLoading method mock');
+      this.chart.hideLoading.withArgs({ prop: 'Test2222' }).returns('hideLoading method mock');
     });
 
     it('should pass the `get` function of Highcharts to the wrapped component', function () {
@@ -64,6 +66,16 @@ describe('<ChartProvider />', function () {
       expect(wrapper.props().setTitle({ prop: 'Test8080' })).to.eql('setTitle method mock');
     });
 
+    it('should pass the `showLoading` function of Highcharts to the wrapped component', function () {
+      const wrapper = mount(<ChartWrappedComponent />, this.opts).find(WrappedComponent);
+      expect(wrapper.props().showLoading({ prop: 'Test1111' })).to.eql('showLoading method mock');
+    });
+
+    it('should pass the `hideLoading` function of Highcharts to the wrapped component', function () {
+      const wrapper = mount(<ChartWrappedComponent />, this.opts).find(WrappedComponent);
+      expect(wrapper.props().hideLoading({ prop: 'Test2222' })).to.eql('hideLoading method mock');
+    });
+
     it('should pass the `getChart` helper function to the wrapped component', function () {
       const wrapper = mount(<ChartWrappedComponent />, this.opts).find(WrappedComponent);
       expect(wrapper.props().getChart()).to.eql(this.chart);
@@ -88,6 +100,8 @@ describe('<ChartProvider />', function () {
       this.chart.addAxis.withArgs({ prop: 'Test4567' }).returnsThis();
       this.chart.addSeries.withArgs({ prop: 'Test7654' }).returnsThis();
       this.chart.setTitle.withArgs({ prop: 'Test8080' }).returnsThis();
+      this.chart.showLoading.withArgs({ prop: 'Test1111' }).returnsThis();
+      this.chart.hideLoading.withArgs({ prop: 'Test2222' }).returnsThis();
     });
 
     it('the scope of the `get` function should be bound to the chart', function () {
@@ -113,6 +127,16 @@ describe('<ChartProvider />', function () {
     it('the scope of the `setTitle` function should be bound to the chart', function () {
       const wrapper = mount(<ChartWrappedComponent />, this.opts).find(WrappedComponent);
       expect(wrapper.props().setTitle({ prop: 'Test8080' })).to.eql(this.chart);
+    });
+
+    it('the scope of the `showLoading` function should be bound to the chart', function () {
+      const wrapper = mount(<ChartWrappedComponent />, this.opts).find(WrappedComponent);
+      expect(wrapper.props().showLoading({ prop: 'Test1111' })).to.eql(this.chart);
+    });
+
+    it('the scope of the `hideLoading` function should be bound to the chart', function () {
+      const wrapper = mount(<ChartWrappedComponent />, this.opts).find(WrappedComponent);
+      expect(wrapper.props().hideLoading({ prop: 'Test2222' })).to.eql(this.chart);
     });
   });
 });

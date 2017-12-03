@@ -33,5 +33,7 @@ export const createMockChart = () => ({
   get: sinon.stub(),
   update: sinon.stub(),
   setTitle: sinon.stub(),
-  destroy: sinon.stub()
+  destroy: sinon.stub(),
+  showLoading: sinon.stub(),
+  hideLoading: sinon.stub()
 });
