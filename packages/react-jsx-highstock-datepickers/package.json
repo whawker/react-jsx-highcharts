@@ -25,7 +25,7 @@
     "react-day-picker": "^6.2.0"
   },
   "peerDependencies": {
-    "highcharts": "^5.0.0",
+    "highcharts": "^5.0.0 || ^6.0.0",
     "moment": "^2.0.0",
     "prop-types": "^15.0.0",
     "react": "^16.0.0",
