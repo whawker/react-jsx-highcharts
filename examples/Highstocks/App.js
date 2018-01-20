@@ -15,8 +15,8 @@ class App extends Component {
 
     const now = Date.now();
     this.state = {
-      data1: createRandomData(now, 1e8),
-      data2: createRandomData(now, 1e8)
+      data1: createRandomData(now, 1e7, 500),
+      data2: createRandomData(now, 1e7, 500)
     };
   }
 
