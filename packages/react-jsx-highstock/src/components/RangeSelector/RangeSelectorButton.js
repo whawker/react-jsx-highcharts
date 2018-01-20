@@ -19,32 +19,34 @@ class RangeSelectorButton extends Component {
 
   componentDidMount () {
     const button = this.getButtonIndex();
-    if (!button) {
-      const { count, type, children } = this.props;
-      const buttons = this.getButtons();
-      buttons.push({
+    if (button > -1) return; // Button already present
+
+    const { count, type, children } = this.props;
+    const buttons = [
+      ...this.getButtons(),
+      {
         count,
         type,
         text: children
-      });
-      this.updateRangeSelectorButtons(buttons);
-    }
+      }
+    ];
+    this.updateRangeSelectorButtons(buttons);
   }
 
   componentWillUnmount () {
     const button = this.getButtonIndex();
-    if (button) {
-      const buttons = this.getButtons();
-      buttons.splice(button, 1);
-      this.updateRangeSelectorButtons(buttons);
-    }
+    if (button === -1) return;
+
+    const buttons = [...this.getButtons()];
+    buttons.splice(button, 1);
+    this.updateRangeSelectorButtons(buttons);
   }
 
   getButtons () {
-    const chart = this.props.getChart()
+    const chart = this.props.getChart();
     if (chart && chart.options) {
-        const { buttons = [] } = chart.options.rangeSelector;
-        return buttons;
+      const { buttons = [] } = chart.options.rangeSelector;
+      return buttons;
     }
 
     return [];
@@ -52,7 +54,7 @@ class RangeSelectorButton extends Component {
 
   getButtonIndex () {
     const { count, type } = this.props;
-    this.getButtons().findIndex(b => {
+    return this.getButtons().findIndex(b => {
       return (b.count === count && b.type === type);
     });
   }
