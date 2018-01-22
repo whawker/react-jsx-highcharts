@@ -36,7 +36,8 @@ class RangeSelector extends Component {
     const opts = {
       ...(Highcharts.defaultOptions && Highcharts.defaultOptions.rangeSelector),
       ...rest,
-      inputEnabled: false
+      inputEnabled: false,
+      buttons: []
     };
     this.updateRangeSelector(opts);
     this.setState({

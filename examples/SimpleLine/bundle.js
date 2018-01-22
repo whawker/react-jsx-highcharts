@@ -64,7 +64,7 @@ var example =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 180);
+/******/ 	return __webpack_require__(__webpack_require__.s = 287);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -76,7 +76,7 @@ module.exports = React;
 
 /***/ }),
 
-/***/ 147:
+/***/ 249:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -96,11 +96,11 @@ var _highcharts2 = _interopRequireDefault(_highcharts);
 
 var _reactJsxHighcharts = __webpack_require__(43);
 
-var _ExampleCode = __webpack_require__(45);
+var _ExampleCode = __webpack_require__(58);
 
 var _ExampleCode2 = _interopRequireDefault(_ExampleCode);
 
-var _exampleCode = __webpack_require__(179);
+var _exampleCode = __webpack_require__(286);
 
 var _exampleCode2 = _interopRequireDefault(_exampleCode);
 
@@ -167,7 +167,7 @@ exports.default = (0, _reactJsxHighcharts.withHighcharts)(App, _highcharts2.defa
 
 /***/ }),
 
-/***/ 179:
+/***/ 286:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -180,7 +180,7 @@ exports.default = "\nimport React, { Component } from 'react';\nimport Highchart
 
 /***/ }),
 
-/***/ 180:
+/***/ 287:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -194,7 +194,7 @@ var _reactDom = __webpack_require__(29);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _App = __webpack_require__(147);
+var _App = __webpack_require__(249);
 
 var _App2 = _interopRequireDefault(_App);
 
@@ -225,7 +225,7 @@ module.exports = Highcharts;
 
 /***/ }),
 
-/***/ 45:
+/***/ 58:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -235,7 +235,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _reactPrism = __webpack_require__(52);
+var _reactPrism = __webpack_require__(96);
 
 exports.default = function (_ref) {
   var name = _ref.name,
@@ -262,7 +262,7 @@ exports.default = function (_ref) {
 
 /***/ }),
 
-/***/ 46:
+/***/ 90:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -270,11 +270,9 @@ exports.default = function (_ref) {
 
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * 
  */
@@ -307,17 +305,15 @@ module.exports = emptyFunction;
 
 /***/ }),
 
-/***/ 47:
+/***/ 91:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
@@ -369,24 +365,22 @@ module.exports = invariant;
 
 /***/ }),
 
-/***/ 48:
+/***/ 92:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  */
 
 
 
-var emptyFunction = __webpack_require__(46);
-var invariant = __webpack_require__(47);
-var ReactPropTypesSecret = __webpack_require__(50);
+var emptyFunction = __webpack_require__(90);
+var invariant = __webpack_require__(91);
+var ReactPropTypesSecret = __webpack_require__(94);
 
 module.exports = function() {
   function shim(props, propName, componentName, location, propFullName, secret) {
@@ -424,7 +418,8 @@ module.exports = function() {
     objectOf: getShim,
     oneOf: getShim,
     oneOfType: getShim,
-    shape: getShim
+    shape: getShim,
+    exact: getShim
   };
 
   ReactPropTypes.checkPropTypes = emptyFunction;
@@ -436,16 +431,14 @@ module.exports = function() {
 
 /***/ }),
 
-/***/ 49:
+/***/ 93:
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  */
 
 if (false) {
@@ -467,23 +460,21 @@ if (false) {
 } else {
   // By explicitly using `prop-types` you are opting into new production behavior.
   // http://fb.me/prop-types-in-prod
-  module.exports = __webpack_require__(48)();
+  module.exports = __webpack_require__(92)();
 }
 
 
 /***/ }),
 
-/***/ 50:
+/***/ 94:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2013-present, Facebook, Inc.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  */
 
 
@@ -495,103 +486,171 @@ module.exports = ReactPropTypesSecret;
 
 /***/ }),
 
-/***/ 51:
+/***/ 95:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
-});
+  value: true,
+})
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _createClass = (function() {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i]
+      descriptor.enumerable = descriptor.enumerable || false
+      descriptor.configurable = true
+      if ("value" in descriptor) descriptor.writable = true
+      Object.defineProperty(target, descriptor.key, descriptor)
+    }
+  }
+  return function(Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps)
+    if (staticProps) defineProperties(Constructor, staticProps)
+    return Constructor
+  }
+})()
 
-var _react = __webpack_require__(12);
+var _react = __webpack_require__(12)
 
-var _react2 = _interopRequireDefault(_react);
+var _react2 = _interopRequireDefault(_react)
 
-var _propTypes = __webpack_require__(49);
+var _propTypes = __webpack_require__(93)
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : { default: obj }
+}
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function")
+  }
+}
 
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+function _possibleConstructorReturn(self, call) {
+  if (!self) {
+    throw new ReferenceError(
+      "this hasn't been initialised - super() hasn't been called"
+    )
+  }
+  return call && (typeof call === "object" || typeof call === "function")
+    ? call
+    : self
+}
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* global Prism */
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError(
+      "Super expression must either be null or a function, not " +
+        typeof superClass
+    )
+  }
+  subClass.prototype = Object.create(superClass && superClass.prototype, {
+    constructor: {
+      value: subClass,
+      enumerable: false,
+      writable: true,
+      configurable: true,
+    },
+  })
+  if (superClass)
+    Object.setPrototypeOf
+      ? Object.setPrototypeOf(subClass, superClass)
+      : (subClass.__proto__ = superClass)
+} /* global Prism */
 
-var PrismCode = function (_PureComponent) {
-  _inherits(PrismCode, _PureComponent);
+var PrismCode = (function(_PureComponent) {
+  _inherits(PrismCode, _PureComponent)
 
   function PrismCode() {
-    var _ref;
+    var _ref
 
-    var _temp, _this, _ret;
+    var _temp, _this, _ret
 
-    _classCallCheck(this, PrismCode);
+    _classCallCheck(this, PrismCode)
 
-    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
+    for (
+      var _len = arguments.length, args = Array(_len), _key = 0;
+      _key < _len;
+      _key++
+    ) {
+      args[_key] = arguments[_key]
     }
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = PrismCode.__proto__ || Object.getPrototypeOf(PrismCode)).call.apply(_ref, [this].concat(args))), _this), _this._handleRefMount = function (domNode) {
-      _this._domNode = domNode;
-    }, _temp), _possibleConstructorReturn(_this, _ret);
+    return (
+      (_ret = ((_temp = ((_this = _possibleConstructorReturn(
+        this,
+        (_ref =
+          PrismCode.__proto__ || Object.getPrototypeOf(PrismCode)).call.apply(
+          _ref,
+          [this].concat(args)
+        )
+      )),
+      _this)),
+      (_this._handleRefMount = function(domNode) {
+        _this._domNode = domNode
+      }),
+      _temp)),
+      _possibleConstructorReturn(_this, _ret)
+    )
   }
 
-  _createClass(PrismCode, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      this._hightlight();
-    }
-  }, {
-    key: "componentDidUpdate",
-    value: function componentDidUpdate() {
-      this._hightlight();
-    }
-  }, {
-    key: "_hightlight",
-    value: function _hightlight() {
-      Prism.highlightElement(this._domNode, this.props.async);
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var _props = this.props,
+  _createClass(PrismCode, [
+    {
+      key: "componentDidMount",
+      value: function componentDidMount() {
+        this._hightlight()
+      },
+    },
+    {
+      key: "componentDidUpdate",
+      value: function componentDidUpdate() {
+        this._hightlight()
+      },
+    },
+    {
+      key: "_hightlight",
+      value: function _hightlight() {
+        Prism.highlightElement(this._domNode, this.props.async)
+      },
+    },
+    {
+      key: "render",
+      value: function render() {
+        var _props = this.props,
           className = _props.className,
           Wrapper = _props.component,
-          children = _props.children;
+          children = _props.children
 
+        return _react2.default.createElement(
+          Wrapper,
+          { ref: this._handleRefMount, className: className },
+          children
+        )
+      },
+    },
+  ])
 
-      return _react2.default.createElement(
-        Wrapper,
-        {
-          ref: this._handleRefMount,
-          className: className
-        },
-        children
-      );
-    }
-  }]);
-
-  return PrismCode;
-}(_react.PureComponent);
+  return PrismCode
+})(_react.PureComponent)
 
 PrismCode.propTypes = {
   async: _propTypes.PropTypes.bool,
   className: _propTypes.PropTypes.string,
   children: _propTypes.PropTypes.any,
-  component: _propTypes.PropTypes.node
-};
+  component: _propTypes.PropTypes.node,
+}
 PrismCode.defaultProps = {
-  component: "code"
-};
-exports.default = PrismCode;
+  component: "code",
+}
+exports.default = PrismCode
+
 
 /***/ }),
 
-/***/ 52:
+/***/ 96:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -601,7 +660,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _PrismCode = __webpack_require__(51);
+var _PrismCode = __webpack_require__(95);
 
 Object.defineProperty(exports, "PrismCode", {
   enumerable: true,

@@ -5,10 +5,10 @@ export const createDataPoint = (time = Date.now(), magnitude = 1000, offset = 0)
   ];
 };
 
-export const createRandomData = (time, magnitude) => {
+export const createRandomData = (time, magnitude, points = 100) => {
   const data = [];
-
-  for (let i = -99; i <= 0; i++) {
+  let i = (points * -1) + 1;
+  for (i; i <= 0; i++) {
     data.push(createDataPoint(time, magnitude, i));
   }
   return data;

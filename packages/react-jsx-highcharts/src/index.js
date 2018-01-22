@@ -33,8 +33,10 @@ export LineSeries from './components/LineSeries';
 export PieSeries from './components/PieSeries';
 export PolygonSeries from './components/PolygonSeries';
 export PyramidSeries from './components/PyramidSeries';
+export SankeySeries from './components/SankeySeries';
 export ScatterSeries from './components/ScatterSeries';
 export SplineSeries from './components/SplineSeries';
+export StreamGraphSeries from './components/StreamGraphSeries';
 export TreemapSeries from './components/TreemapSeries';
 export WaterfallSeries from './components/WaterfallSeries';
 
