@@ -22,7 +22,9 @@ const highchartsExamples = [
   { name: '3DChart', additional: ['highcharts-3d', 'highcharts-boost'] },
   { name: 'Reflow', additional: ['re-resizable'] },
   { name: 'ToggleAxis' },
-  { name: 'UpdateChart' }
+  { name: 'UpdateChart' },
+  { name: 'Sankey', additional: ['highcharts-sankey'] },
+  { name: 'StreamGraph', additional: ['highcharts-streamgraph', 'highcharts-series-label'] }
 ];
 
 const highchartsStyledExamples = [
@@ -59,6 +61,9 @@ const externals = {
   'highcharts-heatmap':   'https://code.highcharts.com/6.0.4/modules/heatmap.js',
   'highcharts-3d':        'https://code.highcharts.com/6.0.4/highcharts-3d.js',
   'highcharts-boost':     'https://code.highcharts.com/6.0.4/modules/boost.js',
+  'highcharts-sankey':    'https://code.highcharts.com/6.0.4/modules/sankey.js',
+  'highcharts-streamgraph': 'https://code.highcharts.com/6.0.4/modules/streamgraph.js',
+  'highcharts-series-label': 'https://code.highcharts.com/6.0.4/modules/series-label.js',
   'prism':                'https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/prism.min.js',
   'prism-jsx':            'https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/components/prism-jsx.min.js',
   'moment':               'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js',
