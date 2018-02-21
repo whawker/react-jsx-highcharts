@@ -58,11 +58,9 @@ Allows you to add a custom callback when the To date is changed
 
 * Defaults to `() => {}` (nothing)
 
-#### `datePickerClassNames`
+#### `datePickerProps`
 ###### `object`
-Allow you to pass config through to React Day Picker's [`classNames`](https://github.com/gpbl/react-day-picker/blob/master/docs/docs/api-input.md#classnames) prop
-
-All other props will be passed straight through to React Day Picker.
+Allows you to pass config through to [React Day Picker](https://github.com/gpbl/react-day-picker/blob/master/docs/docs/api-input.md)
 
 ## Localisation props
 

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import DayPicker from 'react-day-picker';
+import DayPickerInput from 'react-day-picker/DayPickerInput';
 import { provideAxis } from 'react-jsx-highstock';
-import '../styles/index.css';
+import 'react-day-picker/lib/style.css';
 const ONE_DAY = 86400000;
 
 class DateRangePickers extends Component {
@@ -18,7 +18,7 @@ class DateRangePickers extends Component {
     className: PropTypes.string.isRequired,
     fromLabel: PropTypes.string,
     toLabel: PropTypes.string,
-    datePickerClassNames: PropTypes.object
+    datePickerProps: PropTypes.object
   };
 
   static defaultProps = {
@@ -26,7 +26,8 @@ class DateRangePickers extends Component {
     locale: 'en',
     onChangeFromDate: () => {},
     onChangeToDate: () => {},
-    className: 'date-range-pickers'
+    className: 'date-range-pickers',
+    datePickerProps: {}
   };
 
   constructor (props) {
@@ -123,8 +124,7 @@ class DateRangePickers extends Component {
       onChangeFromDate,
       onChangeToDate,
       className,
-      datePickerClassNames,
-      ...datePickerProps
+      datePickerProps
     } = this.props;
     const { min, max } = this.state;
 
@@ -134,19 +134,17 @@ class DateRangePickers extends Component {
     return (
       <div className={className}>
         <span className={`${className}__label ${className}__from-label`}>{fromLabel}: </span>
-        <DayPicker.Input
+        <DayPickerInput
           value={fromDate}
           onDayChange={this.handleFromDateChange(onChangeFromDate)}
           format={dayFormat}
-          classNames={datePickerClassNames}
           {...datePickerProps}
           {...localisationOpts} />
         <span className={`${className}__label ${className}__to-label`}>{toLabel}: </span>
-        <DayPicker.Input
+        <DayPickerInput
           value={toDate}
           onDayChange={this.handleToDateChange(onChangeToDate)}
           format={dayFormat}
-          classNames={datePickerClassNames}
           {...datePickerProps}
           {...localisationOpts} />
       </div>
