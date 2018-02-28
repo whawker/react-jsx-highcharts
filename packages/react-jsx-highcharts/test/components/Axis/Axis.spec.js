@@ -58,8 +58,12 @@ describe('<Axis />', function ()  {
         <Axis id="myAxis" dimension="x" onSetExtremes={handleSetExtremes} onAfterSetExtremes={handleAfterSetExtremes}
           {...this.propsFromProviders} />
       );
-      expect(Highcharts.addEvent).to.have.been.calledWith('mock-axis', 'setExtremes', handleSetExtremes);
-      expect(Highcharts.addEvent).to.have.been.calledWith('mock-axis', 'afterSetExtremes', handleAfterSetExtremes);
+      expect(this.update).to.have.been.calledWith({
+        events: {
+          setExtremes: handleSetExtremes,
+          afterSetExtremes: handleAfterSetExtremes
+        }
+      });
     });
   });
 
@@ -86,8 +90,12 @@ describe('<Axis />', function ()  {
         <Axis id="myAxis" dimension="z" dynamicAxis={false} onSetExtremes={handleSetExtremes} onAfterSetExtremes={handleAfterSetExtremes}
           {...this.propsFromProviders} />
       );
-      expect(Highcharts.addEvent).to.have.been.calledWith('mock-axis', 'setExtremes', handleSetExtremes);
-      expect(Highcharts.addEvent).to.have.been.calledWith('mock-axis', 'afterSetExtremes', handleAfterSetExtremes);
+      expect(this.update).to.have.been.calledWith({
+        events: {
+          setExtremes: handleSetExtremes,
+          afterSetExtremes: handleAfterSetExtremes
+        }
+      });
     });
   });
 

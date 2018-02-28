@@ -38,8 +38,8 @@ class Axis extends Component {
   }
 
   componentDidMount () {
-    const { getHighcharts, getAxis, ...rest } = this.props;
-    addEventProps(getHighcharts(), getAxis(), rest);
+    const { update, ...rest } = this.props;
+    addEventProps(update, rest);
   }
 
   componentDidUpdate (prevProps) {

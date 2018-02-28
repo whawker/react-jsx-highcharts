@@ -69,8 +69,12 @@ describe('<Series />', function ()  {
         <Series id="mySeries" axisId="myAxis" dimension="y" onClick={handleClick} onShow={handleShow}
           {...this.propsFromProviders} />
       );
-      expect(Highcharts.addEvent).to.have.been.calledWith('mock-series', 'click', handleClick);
-      expect(Highcharts.addEvent).to.have.been.calledWith('mock-series', 'show', handleShow);
+      expect(this.update).to.have.been.calledWith({
+        events: {
+          click: handleClick,
+          show: handleShow
+        }
+      });
     });
 
     it('supports mounting with Immutable List data', function () {
@@ -90,6 +94,7 @@ describe('<Series />', function ()  {
         <Series
           id="mySeries" axisId="myAxis" dimension="x" data={[]} {...this.propsFromProviders} />
       );
+      this.update.reset();
       wrapper.setProps({ data: [1, 2, 3] });
       expect(this.setData).to.have.been.calledWith([1, 2, 3], true);
       expect(this.update).not.to.have.been.called;
@@ -101,6 +106,7 @@ describe('<Series />', function ()  {
         <Series
           id="mySeries" axisId="myAxis" dimension="x" data={[1, 2, 3]} {...this.propsFromProviders} />
       );
+      this.update.reset();
       wrapper.setProps({ data: [1, 2, 3] });
       expect(this.setData).not.to.have.been.called;
       expect(this.update).not.to.have.been.called;
@@ -113,6 +119,7 @@ describe('<Series />', function ()  {
           id="mySeries" axisId="myAxis" dimension="x" data={List([1, 2, 3])} {...this.propsFromProviders} />
       );
       const newData = [1, 2, 3, 4, 5];
+      this.update.reset();
       wrapper.setProps({ data: List(newData) });
       expect(this.setData).to.have.been.calledWith(newData, true);
       expect(this.update).not.to.have.been.called;
@@ -124,6 +131,7 @@ describe('<Series />', function ()  {
         <Series
           id="mySeries" axisId="myAxis" dimension="x" data={List([1, 2, 3])} {...this.propsFromProviders} />
       );
+      this.update.reset();
       wrapper.setProps({ data: List([1, 2, 3]) });
       expect(this.setData).not.to.have.been.called;
       expect(this.update).not.to.have.been.called;
@@ -135,6 +143,7 @@ describe('<Series />', function ()  {
         <Series
           id="mySeries" axisId="myAxis" dimension="x" visible {...this.propsFromProviders} />
       );
+      this.update.reset();
       wrapper.setProps({ visible: false });
       expect(this.setVisible).to.have.been.calledWith(false);
       expect(this.update).not.to.have.been.called;
