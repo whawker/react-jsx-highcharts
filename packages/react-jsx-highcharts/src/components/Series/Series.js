@@ -43,8 +43,8 @@ class Series extends Component {
   }
 
   componentDidMount () {
-    const { getHighcharts, getSeries, ...rest } = this.props;
-    addEventProps(getHighcharts(), getSeries(), rest);
+    const { update, ...rest } = this.props;
+    addEventProps(update, rest);
   }
 
   componentDidUpdate (prevProps) {

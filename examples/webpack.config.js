@@ -8,6 +8,7 @@ const highchartsExamples = [
   { name: 'AddSeries' },
   { name: 'Combo', additional: ['highcharts-more'] },
   { name: 'Events' },
+  { name: 'UpdateWithEvents' },
   { name: 'Funnel', additional: ['highcharts-funnel'] },
   { name: 'Treemap', additional: ['highcharts-heatmap', 'highcharts-treemap' ] },
   { name: 'TreemapDrilldown', additional: ['promise-polyfill', 'fetch-polyfill', 'highcharts-heatmap', 'highcharts-treemap' ] },

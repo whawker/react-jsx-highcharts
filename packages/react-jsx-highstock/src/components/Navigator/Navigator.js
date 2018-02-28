@@ -55,7 +55,7 @@ class Navigator extends Component {
     this.updateNavigator({
       enabled: false
     });
-    getHighcharts().removeEvent(getChart(), 'addSeries', this.handleSeriesAdded);
+    getHighcharts().removeEvent(getChart(), 'addSeries', this.handleAddSeries);
   }
 
   updateNavigator (config) {

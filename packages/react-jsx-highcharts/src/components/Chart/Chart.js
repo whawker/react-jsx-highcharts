@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import addEventProps, { getNonEventHandlerProps } from '../../utils/events';
+import { addEventHandlersManually, getNonEventHandlerProps } from '../../utils/events';
 import getModifiedProps from '../../utils/getModifiedProps';
 
 class Chart extends Component {
@@ -48,7 +48,7 @@ class Chart extends Component {
       ...notEventProps
     });
 
-    addEventProps(getHighcharts(), getChart(), rest);
+    addEventHandlersManually(getHighcharts(), getChart(), rest);
   }
 
   componentDidUpdate (prevProps) {

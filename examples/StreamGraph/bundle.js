@@ -64,7 +64,7 @@ var example =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 298);
+/******/ 	return __webpack_require__(__webpack_require__.s = 299);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -312,15 +312,15 @@ var _highcharts2 = _interopRequireDefault(_highcharts);
 
 var _reactJsxHighcharts = __webpack_require__(43);
 
-var _data = __webpack_require__(296);
+var _data = __webpack_require__(297);
 
 var _data2 = _interopRequireDefault(_data);
 
-var _ExampleCode = __webpack_require__(49);
+var _ExampleCode = __webpack_require__(51);
 
 var _ExampleCode2 = _interopRequireDefault(_ExampleCode);
 
-var _exampleCode = __webpack_require__(297);
+var _exampleCode = __webpack_require__(298);
 
 var _exampleCode2 = _interopRequireDefault(_exampleCode);
 
@@ -388,7 +388,7 @@ module.exports = ReactDOM;
 
 /***/ }),
 
-/***/ 296:
+/***/ 297:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -446,7 +446,7 @@ exports.default = {
 
 /***/ }),
 
-/***/ 297:
+/***/ 298:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -459,7 +459,7 @@ exports.default = "\nconst App = () => {\n\n  const plotOptions = {\n    series:
 
 /***/ }),
 
-/***/ 298:
+/***/ 299:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -586,7 +586,7 @@ module.exports = !__webpack_require__(2) && !__webpack_require__(11)(function ()
 
 var has = __webpack_require__(4);
 var toIObject = __webpack_require__(8);
-var arrayIndexOf = __webpack_require__(50)(false);
+var arrayIndexOf = __webpack_require__(49)(false);
 var IE_PROTO = __webpack_require__(20)('IE_PROTO');
 
 module.exports = function (object, names) {
@@ -687,6 +687,50 @@ module.exports = Object('z').propertyIsEnumerable(0) ? Object : function (it) {
 /***/ 49:
 /***/ (function(module, exports, __webpack_require__) {
 
+// false -> Array#indexOf
+// true  -> Array#includes
+var toIObject = __webpack_require__(8);
+var toLength = __webpack_require__(47);
+var toAbsoluteIndex = __webpack_require__(50);
+module.exports = function (IS_INCLUDES) {
+  return function ($this, el, fromIndex) {
+    var O = toIObject($this);
+    var length = toLength(O.length);
+    var index = toAbsoluteIndex(fromIndex, length);
+    var value;
+    // Array#includes uses SameValueZero equality algorithm
+    // eslint-disable-next-line no-self-compare
+    if (IS_INCLUDES && el != el) while (length > index) {
+      value = O[index++];
+      // eslint-disable-next-line no-self-compare
+      if (value != value) return true;
+    // Array#indexOf ignores holes, Array#includes - not
+    } else for (;length > index; index++) if (IS_INCLUDES || index in O) {
+      if (O[index] === el) return IS_INCLUDES || index || 0;
+    } return !IS_INCLUDES && -1;
+  };
+};
+
+
+/***/ }),
+
+/***/ 50:
+/***/ (function(module, exports, __webpack_require__) {
+
+var toInteger = __webpack_require__(17);
+var max = Math.max;
+var min = Math.min;
+module.exports = function (index, length) {
+  index = toInteger(index);
+  return index < 0 ? max(index + length, 0) : min(index, length);
+};
+
+
+/***/ }),
+
+/***/ 51:
+/***/ (function(module, exports, __webpack_require__) {
+
 "use strict";
 
 
@@ -694,7 +738,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _reactPrism = __webpack_require__(58);
+var _reactPrism = __webpack_require__(64);
 
 exports.default = function (_ref) {
   var name = _ref.name,
@@ -721,51 +765,7 @@ exports.default = function (_ref) {
 
 /***/ }),
 
-/***/ 50:
-/***/ (function(module, exports, __webpack_require__) {
-
-// false -> Array#indexOf
-// true  -> Array#includes
-var toIObject = __webpack_require__(8);
-var toLength = __webpack_require__(47);
-var toAbsoluteIndex = __webpack_require__(51);
-module.exports = function (IS_INCLUDES) {
-  return function ($this, el, fromIndex) {
-    var O = toIObject($this);
-    var length = toLength(O.length);
-    var index = toAbsoluteIndex(fromIndex, length);
-    var value;
-    // Array#includes uses SameValueZero equality algorithm
-    // eslint-disable-next-line no-self-compare
-    if (IS_INCLUDES && el != el) while (length > index) {
-      value = O[index++];
-      // eslint-disable-next-line no-self-compare
-      if (value != value) return true;
-    // Array#indexOf ignores holes, Array#includes - not
-    } else for (;length > index; index++) if (IS_INCLUDES || index in O) {
-      if (O[index] === el) return IS_INCLUDES || index || 0;
-    } return !IS_INCLUDES && -1;
-  };
-};
-
-
-/***/ }),
-
-/***/ 51:
-/***/ (function(module, exports, __webpack_require__) {
-
-var toInteger = __webpack_require__(17);
-var max = Math.max;
-var min = Math.min;
-module.exports = function (index, length) {
-  index = toInteger(index);
-  return index < 0 ? max(index + length, 0) : min(index, length);
-};
-
-
-/***/ }),
-
-/***/ 52:
+/***/ 58:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -808,7 +808,7 @@ module.exports = emptyFunction;
 
 /***/ }),
 
-/***/ 53:
+/***/ 59:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -868,7 +868,17 @@ module.exports = invariant;
 
 /***/ }),
 
-/***/ 54:
+/***/ 6:
+/***/ (function(module, exports) {
+
+module.exports = function (it) {
+  return typeof it === 'object' ? it !== null : typeof it === 'function';
+};
+
+
+/***/ }),
+
+/***/ 60:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -881,9 +891,9 @@ module.exports = invariant;
 
 
 
-var emptyFunction = __webpack_require__(52);
-var invariant = __webpack_require__(53);
-var ReactPropTypesSecret = __webpack_require__(56);
+var emptyFunction = __webpack_require__(58);
+var invariant = __webpack_require__(59);
+var ReactPropTypesSecret = __webpack_require__(62);
 
 module.exports = function() {
   function shim(props, propName, componentName, location, propFullName, secret) {
@@ -934,7 +944,7 @@ module.exports = function() {
 
 /***/ }),
 
-/***/ 55:
+/***/ 61:
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -963,13 +973,13 @@ if (false) {
 } else {
   // By explicitly using `prop-types` you are opting into new production behavior.
   // http://fb.me/prop-types-in-prod
-  module.exports = __webpack_require__(54)();
+  module.exports = __webpack_require__(60)();
 }
 
 
 /***/ }),
 
-/***/ 56:
+/***/ 62:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -989,7 +999,7 @@ module.exports = ReactPropTypesSecret;
 
 /***/ }),
 
-/***/ 57:
+/***/ 63:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1020,7 +1030,7 @@ var _react = __webpack_require__(12)
 
 var _react2 = _interopRequireDefault(_react)
 
-var _propTypes = __webpack_require__(55)
+var _propTypes = __webpack_require__(61)
 
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : { default: obj }
@@ -1153,7 +1163,7 @@ exports.default = PrismCode
 
 /***/ }),
 
-/***/ 58:
+/***/ 64:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1163,7 +1173,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _PrismCode = __webpack_require__(57);
+var _PrismCode = __webpack_require__(63);
 
 Object.defineProperty(exports, "PrismCode", {
   enumerable: true,
@@ -1179,16 +1189,6 @@ Object.defineProperty(exports, "default", {
 });
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/***/ }),
-
-/***/ 6:
-/***/ (function(module, exports) {
-
-module.exports = function (it) {
-  return typeof it === 'object' ? it !== null : typeof it === 'function';
-};
-
 
 /***/ }),
 
