@@ -64,7 +64,7 @@ var example =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 287);
+/******/ 	return __webpack_require__(__webpack_require__.s = 292);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -76,7 +76,7 @@ module.exports = React;
 
 /***/ }),
 
-/***/ 249:
+/***/ 250:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -96,11 +96,11 @@ var _highcharts2 = _interopRequireDefault(_highcharts);
 
 var _reactJsxHighcharts = __webpack_require__(43);
 
-var _ExampleCode = __webpack_require__(58);
+var _ExampleCode = __webpack_require__(51);
 
 var _ExampleCode2 = _interopRequireDefault(_ExampleCode);
 
-var _exampleCode = __webpack_require__(286);
+var _exampleCode = __webpack_require__(291);
 
 var _exampleCode2 = _interopRequireDefault(_exampleCode);
 
@@ -167,7 +167,14 @@ exports.default = (0, _reactJsxHighcharts.withHighcharts)(App, _highcharts2.defa
 
 /***/ }),
 
-/***/ 286:
+/***/ 29:
+/***/ (function(module, exports) {
+
+module.exports = ReactDOM;
+
+/***/ }),
+
+/***/ 291:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -180,7 +187,7 @@ exports.default = "\nimport React, { Component } from 'react';\nimport Highchart
 
 /***/ }),
 
-/***/ 287:
+/***/ 292:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -194,20 +201,13 @@ var _reactDom = __webpack_require__(29);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _App = __webpack_require__(249);
+var _App = __webpack_require__(250);
 
 var _App2 = _interopRequireDefault(_App);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 _reactDom2.default.render(_react2.default.createElement(_App2.default, null), document.getElementById('root'));
-
-/***/ }),
-
-/***/ 29:
-/***/ (function(module, exports) {
-
-module.exports = ReactDOM;
 
 /***/ }),
 
@@ -225,7 +225,7 @@ module.exports = Highcharts;
 
 /***/ }),
 
-/***/ 58:
+/***/ 51:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -235,7 +235,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _reactPrism = __webpack_require__(96);
+var _reactPrism = __webpack_require__(64);
 
 exports.default = function (_ref) {
   var name = _ref.name,
@@ -262,7 +262,7 @@ exports.default = function (_ref) {
 
 /***/ }),
 
-/***/ 90:
+/***/ 58:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -305,7 +305,7 @@ module.exports = emptyFunction;
 
 /***/ }),
 
-/***/ 91:
+/***/ 59:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -365,7 +365,7 @@ module.exports = invariant;
 
 /***/ }),
 
-/***/ 92:
+/***/ 60:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -378,9 +378,9 @@ module.exports = invariant;
 
 
 
-var emptyFunction = __webpack_require__(90);
-var invariant = __webpack_require__(91);
-var ReactPropTypesSecret = __webpack_require__(94);
+var emptyFunction = __webpack_require__(58);
+var invariant = __webpack_require__(59);
+var ReactPropTypesSecret = __webpack_require__(62);
 
 module.exports = function() {
   function shim(props, propName, componentName, location, propFullName, secret) {
@@ -431,7 +431,7 @@ module.exports = function() {
 
 /***/ }),
 
-/***/ 93:
+/***/ 61:
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -460,13 +460,13 @@ if (false) {
 } else {
   // By explicitly using `prop-types` you are opting into new production behavior.
   // http://fb.me/prop-types-in-prod
-  module.exports = __webpack_require__(92)();
+  module.exports = __webpack_require__(60)();
 }
 
 
 /***/ }),
 
-/***/ 94:
+/***/ 62:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -486,7 +486,7 @@ module.exports = ReactPropTypesSecret;
 
 /***/ }),
 
-/***/ 95:
+/***/ 63:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -517,7 +517,7 @@ var _react = __webpack_require__(12)
 
 var _react2 = _interopRequireDefault(_react)
 
-var _propTypes = __webpack_require__(93)
+var _propTypes = __webpack_require__(61)
 
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : { default: obj }
@@ -650,7 +650,7 @@ exports.default = PrismCode
 
 /***/ }),
 
-/***/ 96:
+/***/ 64:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -660,7 +660,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _PrismCode = __webpack_require__(95);
+var _PrismCode = __webpack_require__(63);
 
 Object.defineProperty(exports, "PrismCode", {
   enumerable: true,
