@@ -1,13 +1,23 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
+import { getEventsConfig } from 'react-jsx-highcharts/src/utils/events';
 
 class RangeSelectorButton extends Component {
 
   static propTypes = {
     count: PropTypes.number,
-    type: PropTypes.string.isRequired,
+    type: PropTypes.oneOf(['millisecond', 'second', 'minute', 'hour', 'day', 'week', 'month', 'ytd', 'all']),
+    offsetMin: PropTypes.number.isRequired,
+    offsetMax: PropTypes.number.isRequired,
+    dataGrouping: PropTypes.object,
     update: PropTypes.func, // Provided by ChartProvider
     getChart: PropTypes.func // Provided by ChartProvider
+  };
+
+  static defaultProps = {
+    count: 1,
+    offsetMin: 0,
+    offsetMax: 0
   };
 
   constructor (props) {
@@ -21,13 +31,18 @@ class RangeSelectorButton extends Component {
     const button = this.getButtonIndex();
     if (button > -1) return; // Button already present
 
-    const { count, type, children } = this.props;
+    const { count, type, offsetMin, offsetMax, dataGrouping, children, ...rest } = this.props;
+
     const buttons = [
       ...this.getButtons(),
       {
         count,
         type,
-        text: children
+        offsetMin,
+        offsetMax,
+        dataGrouping,
+        text: children,
+        events: getEventsConfig(rest)
       }
     ];
     this.updateRangeSelectorButtons(buttons);
