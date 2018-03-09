@@ -8,7 +8,7 @@ As of 1.2.0 React JSX Highcharts supports using [Immutable.js](https://facebook.
 
 As of 1.3.0 React JSX Highcharts supports [3D charts](https://whawker.github.io/react-jsx-highcharts/examples/3DChart/index.html).
 
-As od 2.1.0 Highcharts 6 is supported
+As of 2.1.0 Highcharts 6 is supported
 
 As of 2.x you are required to use the `withHighcharts` HOC to inject the Highcharts object (see below)
 
