@@ -8,6 +8,8 @@ As of 1.2.0 React JSX Highcharts supports using [Immutable.js](https://facebook.
 
 As of 1.3.0 React JSX Highcharts supports [3D charts](https://whawker.github.io/react-jsx-highcharts/examples/3DChart/index.html).
 
+As od 2.1.0 Highcharts 6 is supported
+
 As of 2.x you are required to use the `withHighcharts` HOC to inject the Highcharts object (see below)
 
 ## Upgrading from 1.x to 2.x
@@ -110,7 +112,7 @@ In progress... [see here](https://github.com/whawker/react-jsx-highcharts/wiki).
 * ~~`<Highcharts3dChart>` component - A helper for 3D charts.~~ Done! 1.3.0
 * ~~React 16 support - all features seem to work with beta 3, just need to modify `peerDependencies` and await Enzyme support for React 16~~ Done! 1.4.0
 * Use `React.PureComponent` instead of `Component`
-* ~~Highcharts 6.0 support~~
+* ~~Highcharts 6.0 support~~ Done 2.1.0
 * Use new context API due to be added in React 16.3
 
 ## Goals
