@@ -144,6 +144,28 @@ As above, or you are importing High*charts* rather than High*stock*. Change you 
 import Highcharts from 'highcharts/highstock';
 ```
 
+**Highcharts error #17**
+
+You likely need to add an extra Highcharts module to support the requested series type, this is usually Highcharts more.
+
+```js
+import Highcharts from 'highcharts';
+import addHighchartsMore from 'highcharts/highcharts-more';
+
+addHighchartsMore(Highcharts);
+```
+
+Alternatively it may be the Heatmap, Treemap, Sankey, [or one of these](https://github.com/highcharts/highcharts/tree/master/js/modules) extra modules.
+
+```js
+import Highcharts from 'highcharts';
+import addHeatmapModule from 'highcharts/modules/heatmap';
+import addTreemapModule from 'highcharts/modules/treemap';
+
+addHeatmapModule(Highcharts);
+addTreemapModule(Highcharts);
+```
+
 **I updated the data of my chart series, and the chart did not update**
 
 As Objects and Arrays are passed by reference, React thought your component props had not changed. You should clone the data object before modifying it. See the [`addDataPoint`](https://github.com/whawker/react-jsx-highcharts/blob/master/examples/utils/data-helpers.js#L19-L20) utility function used in the demos as an example.
