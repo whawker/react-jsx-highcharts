@@ -10,6 +10,9 @@
     },
     "production": {
       "plugins": ["transform-react-remove-prop-types"]
+    },
+    "es": {
+      "plugins": ["./build/use-lodash-es", "transform-react-remove-prop-types"]
     }
   }
 }
