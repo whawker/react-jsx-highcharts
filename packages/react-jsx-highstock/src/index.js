@@ -1,14 +1,14 @@
 export * from 'react-jsx-highcharts/src';
 
 // Charts
-export HighchartsStockChart from './components/HighchartsStockChart';
+export { default as HighchartsStockChart } from './components/HighchartsStockChart';
 
 // Graph parts
-export Navigator from './components/Navigator';
-export RangeSelector from './components/RangeSelector';
-export Scrollbar from './components/Scrollbar';
+export { default as Navigator } from './components/Navigator';
+export { default as RangeSelector } from './components/RangeSelector';
+export { default as Scrollbar } from './components/Scrollbar';
 
 // Series
-export CandlestickSeries from './components/CandlestickSeries';
-export FlagSeries from './components/FlagSeries';
-export OHLCSeries from './components/OHLCSeries';
+export { default as CandlestickSeries } from './components/CandlestickSeries';
+export { default as FlagSeries } from './components/FlagSeries';
+export { default as OHLCSeries } from './components/OHLCSeries';
