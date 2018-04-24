@@ -12,6 +12,9 @@
     },
     "production": {
       "plugins": ["lodash", "transform-runtime", "transform-react-remove-prop-types"]
+    },
+    "es": {
+      "plugins": ["./build/use-lodash-es", "lodash", "transform-runtime", "transform-react-remove-prop-types"]
     }
   }
 }
