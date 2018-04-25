@@ -11,7 +11,7 @@
   ],
   "scripts": {
     "build": "cross-env NODE_ENV=development ./node_modules/.bin/webpack",
-    "build:prod": "cp ../../README.md . && cross-env NODE_ENV=production ./node_modules/.bin/webpack -p",
+    "build:prod": "cp ../../README.md . && cross-env NODE_ENV=production ./node_modules/.bin/webpack",
     "build:es": "BABEL_ENV=es babel src --out-dir dist/es",
     "lint": "./node_modules/.bin/eslint src",
     "test": "cross-env NODE_ENV=test ./node_modules/.bin/mocha --compilers js:babel-core/register --require test/test-helper.js test/**/*.spec.js"
@@ -46,9 +46,7 @@
     "babel-core": "^6.26.0",
     "babel-eslint": "^7.2.3",
     "babel-loader": "^7.1.4",
-    "babel-plugin-lodash": "^3.3.2",
-    "babel-plugin-transform-class-properties": "^6.24.1",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-plugin-lodash": "^3.2.11",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.5",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.6.1",
@@ -65,8 +63,8 @@
     "eslint-plugin-jsx-a11y": "^5.0.1",
     "eslint-plugin-react": "^7.0.1",
     "highcharts": "^6.0.0",
-    "html-webpack-include-assets-plugin": "0.0.6",
-    "html-webpack-plugin": "^2.28.0",
+    "html-webpack-include-assets-plugin": "1.0.4",
+    "html-webpack-plugin": "^3.2.0",
     "immutable": "^3.8.1",
     "jsdom": "^11.0.0",
     "lodash-webpack-plugin": "^0.11.5",
@@ -78,8 +76,9 @@
     "rimraf": "^2.6.1",
     "sinon": "^2.3.0",
     "sinon-chai": "^2.10.0",
-    "webpack": "^2.5.1",
-    "webpack-dev-server": "^2.4.5"
+    "webpack": "^4.5.0",
+    "webpack-cli": "^2.0.14",
+    "webpack-dev-server": "^3.1.3"
   },
   "dependencies": {
     "babel-runtime": "^6.26.0",
