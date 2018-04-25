@@ -8,6 +8,7 @@ const babelSettings = JSON.parse(fs.readFileSync('.babelrc'));
 
 const webpackConfig = {
   mode: 'development',
+
   entry: path.resolve(__dirname, 'src'),
 
   output: {
