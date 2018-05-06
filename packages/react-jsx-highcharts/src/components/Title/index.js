@@ -1,3 +1,3 @@
 import Title from './Title';
-import provideChart from '../ChartProvider/index2';
+import provideChart from '../ChartProvider';
 export default provideChart(Title);

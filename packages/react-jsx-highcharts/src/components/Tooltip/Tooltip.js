@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import getModifiedProps from '../../utils/getModifiedProps';
-import removeProvidedProps from '../../utils/removeProvidedProps';
 
 class Tooltip extends Component {
 
@@ -22,13 +21,12 @@ class Tooltip extends Component {
     const Highcharts = getHighcharts();
 
     const chartObj = getChart().object;
-    const opts = removeProvidedProps({ ...rest });
 
     chartObj.tooltip = new Highcharts.Tooltip(chartObj, {
       ...(Highcharts.defaultOptions && Highcharts.defaultOptions.tooltip),
-      ...opts
+      ...rest
     });
-    this.updateTooltip(opts);
+    this.updateTooltip(rest);
   }
 
   componentDidUpdate (prevProps) {
