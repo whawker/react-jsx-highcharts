@@ -5,7 +5,7 @@ import getModifiedProps from '../../utils/getModifiedProps';
 class Credits extends Component {
 
   static propTypes = {
-    update: PropTypes.func, // Provided by ChartProvider
+    getChart: PropTypes.func.isRequired, // Provided by ChartProvider
     enabled: PropTypes.bool.isRequired
   };
 
@@ -13,17 +13,11 @@ class Credits extends Component {
     enabled: true
   };
 
-  constructor (props) {
-    super(props);
-
-    this.updateCredits = this.updateCredits.bind(this);
-  }
-
   componentDidMount () {
-    const { children, ...rest } = this.props;
+    const { children: text, ...rest } = this.props;
     this.updateCredits({
       ...rest,
-      text: children
+      text
     });
   }
 
@@ -40,8 +34,9 @@ class Credits extends Component {
     });
   }
 
-  updateCredits (config) {
-    this.props.update({
+  updateCredits = config => {
+    const chart = this.props.getChart();
+    chart.update({
       credits: config
     }, true);
   }

@@ -9,12 +9,6 @@ class AxisTitle extends Component {
     update: PropTypes.func // Provided by AxisProvider
   };
 
-  constructor (props) {
-    super(props);
-
-    this.updateAxisTitle = this.updateAxisTitle.bind(this);
-  }
-
   componentDidMount () {
     const { children: text, ...rest } = this.props; // eslint-disable-line no-unused-vars
     this.updateAxisTitle({
@@ -38,9 +32,10 @@ class AxisTitle extends Component {
     }
   }
 
-  updateAxisTitle (config) {
-    const { axisId, dimension, ...rest } = config;
-    this.props.setTitle(rest, true);
+  updateAxisTitle = config => {
+    const { getAxis, ...rest } = config;
+    const axis = getAxis();
+    axis.setTitle(rest, true);
   }
 
   render () {

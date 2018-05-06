@@ -1,72 +1,61 @@
 import React, { Component, Children, cloneElement, isValidElement } from 'react';
 import PropTypes from 'prop-types';
-import Hidden from '../Hidden';
+import { Provider } from '../AxisContext';
 import addEventProps, { getNonEventHandlerProps } from '../../utils/events';
 import getModifiedProps from '../../utils/getModifiedProps';
-import { validAxisDimensions, validAxisTypes } from '../../utils/propTypeValidators';
+import { validAxisTypes } from '../../utils/propTypeValidators';
 
 class Axis extends Component {
 
   static propTypes = {
-    dimension: validAxisDimensions.isRequired,
     type: validAxisTypes,
     id: PropTypes.string.isRequired,
     children: PropTypes.node,
-    addAxis: PropTypes.func, // Provided by ChartProvider
-    update: PropTypes.func, // Provided by AxisProvider
-    remove: PropTypes.func, // Provided by AxisProvider
-    getAxis: PropTypes.func, // Provided by AxisProvider
+    getChart: PropTypes.func, // Provided by ChartProvider
     getHighcharts: PropTypes.func.isRequired, // Provided by HighchartsProvider
     dynamicAxis: PropTypes.bool.isRequired
   };
 
   static defaultProps = {
+    children: null,
     dynamicAxis: true
   };
 
   componentWillMount () {
-    const { children, dimension, dynamicAxis, addAxis, update, ...rest } = this.props;
+    const { dynamicAxis, isX, getChart, ...rest } = this.props;
     const nonEventProps = getNonEventHandlerProps(rest);
+    const chart = getChart();
 
     if (dynamicAxis) {
-      const isX = dimension.toLowerCase() === 'x';
-      addAxis(Object.assign({title: {text: null}}, nonEventProps), isX, true);
+      this.axis = chart.addAxis(Object.assign({title: {text: null}}, nonEventProps), isX, true);
     } else {
       // ZAxis cannot be added dynamically, update instead
-      update(Object.assign({ title: { text: null } }, nonEventProps), true);
+      this.axis = chart.get('zAxis');
+      this.axis.update(Object.assign({ title: { text: null } }, nonEventProps), true);
     }
   }
 
   componentDidMount () {
-    const { update, ...rest } = this.props;
-    addEventProps(update, rest);
+    const update = this.axis.update.bind(this.axis)
+    addEventProps(update, this.props);
   }
 
   componentDidUpdate (prevProps) {
-    const { update, ...rest } = this.props;
-    const modifiedProps = getModifiedProps(prevProps, rest);
+    const modifiedProps = getModifiedProps(prevProps, this.props);
     if (modifiedProps !== false) {
-      update(modifiedProps);
+      this.axis.update(modifiedProps);
     }
   }
 
   componentWillUnmount () {
-    this.props.remove();
+    this.axis.remove();
   }
 
   render () {
-    const { dimension, id, children } = this.props;
-    if (!children) return null;
-
-    const axisChildren = Children.map(children, child => {
-      if (isValidElement(child) === false) return child;
-      return cloneElement(child, { dimension, axisId: id });
-    });
-
     return (
-      <Hidden>
-        {axisChildren}
-      </Hidden>
+      <Provider value={this.axis}>
+        {this.props.children}
+      </Provider>
     );
   }
 }

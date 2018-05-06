@@ -97,6 +97,7 @@
   },
   "dependencies": {
     "babel-runtime": "^6.26.0",
+    "create-react-context": "^0.2.2",
     "immutable-is": "^3.7.6",
     "is-immutable": "^1.0.1",
     "lodash": "^4.17.4",

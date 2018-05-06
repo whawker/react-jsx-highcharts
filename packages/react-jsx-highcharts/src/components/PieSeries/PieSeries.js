@@ -9,7 +9,7 @@ class PieSeries extends Component {
 
   render () {
     return (
-      <Series {...this.props} type="pie" />
+      <Series {...this.props} type="pie" requiresAxis={false} />
     );
   }
 }

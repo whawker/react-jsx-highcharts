@@ -9,7 +9,7 @@ class PyramidSeries extends Component {
 
   render () {
     return (
-      <Series {...this.props} type="pyramid" />
+      <Series {...this.props} type="pyramid" requiresAxis={false} />
     );
   }
 }

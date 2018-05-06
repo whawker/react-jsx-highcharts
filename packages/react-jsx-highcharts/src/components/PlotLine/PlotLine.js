@@ -6,14 +6,11 @@ class PlotLine extends Component {
 
   static propTypes = {
     id: PropTypes.string.isRequired,
-    axisId: PropTypes.string, // Provided by Axis component
-    dimension: PropTypes.string, // Provided by Axis component
     value: PropTypes.any.isRequired,
     xAxis: PropTypes.string,
     yAxis: PropTypes.string,
     color: PropTypes.string,
-    addPlotLine: PropTypes.func, // Provided by AxisProvider
-    removePlotLine: PropTypes.func // Provided by AxisProvider
+    getAxis: PropTypes.func // Provided by AxisProvider
   };
 
   constructor (props) {
@@ -25,22 +22,25 @@ class PlotLine extends Component {
   }
 
   componentDidMount () {
-    const { axisId, dimension, children, ...rest } = this.props;
-    this.props.addPlotLine(rest);
+    const { getAxis, children, ...rest } = this.props;
+    const axis = getAxis();
+    axis.addPlotLine(rest);
     this.setState({
       rendered: true
     });
   }
 
   componentDidUpdate (prevProps) {
-    this.props.removePlotLine(prevProps.id);
-    const { axisId, dimension, children, ...rest } = this.props;
-    this.props.addPlotLine(rest);
+    const { getAxis, children, ...rest } = this.props;
+    const axis = getAxis();
+    axis.removePlotLine(prevProps.id);
+    axis.addPlotLine(rest);
   }
 
   componentWillUnmount () {
-    if (this.props.getAxis()) {
-      this.props.removePlotLine(this.props.id);
+    const axis = this.props.getAxis();
+    if (axis.object) {
+      axis.removePlotLine(this.props.id);
     }
   }
 
@@ -48,14 +48,14 @@ class PlotLine extends Component {
     const { children, ...rest } = this.props;
     if (!children || !this.state.rendered) return null;
 
-    const bandChildren = Children.map(children, child => {
+    const lineChildren = Children.map(children, child => {
       if (isValidElement(child) === false) return child;
       return cloneElement(child, rest);
     });
 
     return (
       <Hidden>
-        {bandChildren}
+        {lineChildren}
       </Hidden>
     );
   }

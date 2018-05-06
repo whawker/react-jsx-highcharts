@@ -5,7 +5,6 @@ import pickBy from 'lodash/pickBy';
 class PlotBandLabel extends Component {
 
   static propTypes = {
-    axisId: PropTypes.string,
     id: PropTypes.string,
     getAxis: PropTypes.func // Provided by AxisProvider
   };
@@ -22,25 +21,18 @@ class PlotBandLabel extends Component {
     'y'
   ];
 
-  constructor (props) {
-    super(props);
-
-    this.updatePlotBandLabel = this.updatePlotBandLabel.bind(this);
-    this.getLabelProps = this.getLabelProps.bind(this);
-  }
-
   componentDidMount () {
-    const { children, ...rest } = this.props;
+    const { children: text, ...rest } = this.props;
     this.updatePlotBandLabel({
-      text: children,
+      text,
       ...rest
     });
   }
 
   componentDidUpdate () {
-    const { children, ...rest } = this.props;
+    const { children: text, ...rest } = this.props;
     this.updatePlotBandLabel({
-      text: children,
+      text,
       ...rest
     });
   }
@@ -53,18 +45,18 @@ class PlotBandLabel extends Component {
     });
   }
 
-  getLabelProps (props) {
+  getLabelProps = props => {
     return pickBy(props, (value, propName) => {
       return PlotBandLabel.labelProps.indexOf(propName) > -1;
     });
   }
 
-  updatePlotBandLabel (config) {
+  updatePlotBandLabel = config => {
     const { id, getAxis } = this.props;
     const axis = getAxis();
 
     window.setTimeout(() => {
-      const plotBand = axis && axis.plotLinesAndBands.find(band => band.id === id);
+      const plotBand = axis.object && axis.object.plotLinesAndBands.find(band => band.id === id);
       if (plotBand) {
         plotBand.options.label = this.getLabelProps(config);
         plotBand.render();

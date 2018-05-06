@@ -13,7 +13,7 @@ class ZAxis extends Component {
 
   render () {
     return (
-      <Axis {...this.props} id="zAxis" dimension="z" dynamicAxis={false} />
+      <Axis {...this.props} id="zAxis" isX={false} dynamicAxis={false} />
     );
   }
 }

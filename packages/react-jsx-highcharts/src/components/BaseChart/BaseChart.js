@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Provider } from '../ChartContext';
 
 class BaseChart extends Component {
   static childContextTypes = {
@@ -7,6 +8,7 @@ class BaseChart extends Component {
   };
 
   static defaultProps = {
+    children: null,
     className: '',
     callback: () => {}
   };
@@ -19,7 +21,6 @@ class BaseChart extends Component {
   constructor (props, context) {
     super(props, context);
 
-    this.initHighcharts = this.initHighcharts.bind(this);
     this.state = {
       rendered: false
     };
@@ -30,7 +31,7 @@ class BaseChart extends Component {
     window.setTimeout(this.initHighcharts, 0);
   }
 
-  initHighcharts () {
+  initHighcharts = () => {
     if (!this.domNode) {
       return;
     }
@@ -91,11 +92,17 @@ class BaseChart extends Component {
   }
 
   render () {
+    const { chartType, children } = this.props;
+
     return (
       <div
         className={`chart ${this.props.className}`}
         ref={(node) => { this.domNode = node }}>
-        {this.state.rendered && this.props.children}
+        {this.state.rendered && (
+          <Provider value={{ chart: this.chart, chartType }}>
+            {this.props.children}
+          </Provider>
+        )}
       </div>
     );
   }

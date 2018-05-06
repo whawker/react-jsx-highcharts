@@ -6,15 +6,12 @@ class PlotBand extends Component {
 
   static propTypes = {
     id: PropTypes.string.isRequired,
-    axisId: PropTypes.string, // Provided by Axis component
-    dimension: PropTypes.string, // Provided by Axis component
     from: PropTypes.any.isRequired,
     to: PropTypes.any.isRequired,
     xAxis: PropTypes.string,
     yAxis: PropTypes.string,
     color: PropTypes.string,
-    addPlotBand: PropTypes.func, // Provided by AxisProvider
-    removePlotBand: PropTypes.func // Provided by AxisProvider
+    getAxis: PropTypes.func // Provided by AxisProvider
   };
 
   constructor (props) {
@@ -26,22 +23,25 @@ class PlotBand extends Component {
   }
 
   componentDidMount () {
-    const { axisId, dimension, children, ...rest } = this.props;
-    this.props.addPlotBand(rest);
+    const { getAxis, children, ...rest } = this.props;
+    const axis = getAxis();
+    axis.addPlotBand(rest);
     this.setState({
       rendered: true
     });
   }
 
   componentDidUpdate (prevProps) {
-    this.props.removePlotBand(prevProps.id);
-    const { axisId, dimension, children, ...rest } = this.props;
-    this.props.addPlotBand(rest);
+    const { getAxis, children, ...rest } = this.props;
+    const axis = getAxis();
+    axis.removePlotBand(prevProps.id);
+    axis.addPlotBand(rest);
   }
 
   componentWillUnmount () {
-    if (this.props.getAxis()) {
-      this.props.removePlotBand(this.props.id);
+    const axis = this.props.getAxis();
+    if (axis.object) {
+      axis.removePlotBand(this.props.id);
     }
   }
 

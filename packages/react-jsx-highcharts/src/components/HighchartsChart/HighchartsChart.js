@@ -19,7 +19,10 @@ class HighchartsChart extends Component {
 
   render () {
     return (
-      <BaseChart {...this.props} chartCreationFunc={this.props.getHighcharts().chart} />
+      <BaseChart
+        {...this.props}
+        chartCreationFunc={this.props.getHighcharts().chart}
+        chartType="chart" />
     );
   }
 }

@@ -41,10 +41,10 @@ export { default as TreemapSeries }  from './components/TreemapSeries';
 export { default as WaterfallSeries }  from './components/WaterfallSeries';
 
 // Providers
-export { default as provideHighcharts }  from './components/HighchartsProvider';
-export { default as provideChart }  from './components/ChartProvider';
-export { default as provideAxis }  from './components/AxisProvider';
-export { default as provideSeries }  from './components/SeriesProvider';
+export { default as provideHighcharts }  from './components/HighchartsProvider/index2';
+export { default as provideChart }  from './components/ChartProvider/index2';
+export { default as provideAxis }  from './components/AxisProvider/index2';
+export { default as provideSeries }  from './components/SeriesProvider/index2';
 
 // Helpers
 export { default as withHighcharts }  from './components/WithHighcharts';

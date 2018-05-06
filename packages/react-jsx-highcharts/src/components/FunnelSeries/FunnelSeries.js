@@ -9,7 +9,7 @@ class FunnelSeries extends Component {
 
   render () {
     return (
-      <Series {...this.props} type="funnel" />
+      <Series {...this.props} type="funnel" requiresAxis={false} />
     );
   }
 }

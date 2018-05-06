@@ -6,7 +6,8 @@ class XAxis extends Component {
 
   static propTypes = {
     id: PropTypes.string.isRequired,
-    type: PropTypes.string
+    type: PropTypes.string,
+    getChart: PropTypes.func.isRequired // Provided by ChartProvider
   };
 
   static defaultProps = {
@@ -14,14 +15,12 @@ class XAxis extends Component {
   };
 
   render () {
-    let { getChartType, type, ...rest } = this.props;
-    if (!type) {
-      const chartType = getChartType();
-      type = (chartType === 'stockChart') ? 'datetime' : 'linear';
-    }
+    let { getChart, ...rest } = this.props;
+    const chart = getChart();
+    const type = (chart.getType() === 'stockChart') ? 'datetime' : 'linear';
 
     return (
-      <Axis {...rest} type={type} dimension="x" />
+      <Axis type={type} {...rest} isX />
     );
   }
 }

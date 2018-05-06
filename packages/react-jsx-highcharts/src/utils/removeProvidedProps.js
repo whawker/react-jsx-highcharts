@@ -1,7 +1,6 @@
 import mapValues from 'lodash/mapValues';
 import omit from 'lodash/omit';
 import isPlainObject from 'lodash/isPlainObject';
-import { getProvidedProps } from './providedProps';
 
 export default function removeProvidedProps (config) {
   const cleanedRoot = cleanProps(config);
@@ -13,5 +12,5 @@ export default function removeProvidedProps (config) {
 }
 
 function cleanProps (config) {
-  return omit(config, getProvidedProps());
+  return omit(config, ['getHighcharts', 'getChart', 'getAxis', 'getSeries']);
 }

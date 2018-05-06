@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Hidden from '../Hidden';
 
 class Options3d extends Component {
 
@@ -11,7 +10,8 @@ class Options3d extends Component {
     depth: PropTypes.number.isRequired,
     fitToPlot: PropTypes.bool.isRequired,
     frame: PropTypes.object,
-    viewDistance: PropTypes.number.isRequired
+    viewDistance: PropTypes.number.isRequired,
+    getChart: PropTypes.func.isRequired // Provided by ChartProvider
   };
 
   static defaultProps = {
@@ -34,12 +34,6 @@ class Options3d extends Component {
     }
   };
 
-  constructor (props) {
-    super(props);
-
-    this.update3dOptions = this.update3dOptions.bind(this);
-  }
-
   componentWillMount () {
     this.update3dOptions();
   }
@@ -48,9 +42,9 @@ class Options3d extends Component {
     this.update3dOptions();
   }
 
-  update3dOptions () {
+  update3dOptions = () => {
     const {
-      alpha, axisLabelPosition, beta, depth, fitToPlot, frame, viewDistance, update
+      alpha, axisLabelPosition, beta, depth, fitToPlot, frame, viewDistance, getChart
     } = this.props;
 
     const opts = {
@@ -67,13 +61,12 @@ class Options3d extends Component {
         }
       }
     };
-    update(opts, true);
+    const chart = getChart();
+    chart.update(opts, true);
   }
 
   render () {
-    return (
-      <Hidden />
-    );
+    return null;
   }
 }
 

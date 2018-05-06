@@ -14,7 +14,7 @@ class YAxis extends Component {
 
   render () {
     return (
-      <Axis {...this.props} dimension="y" />
+      <Axis {...this.props} isX={false} />
     );
   }
 }

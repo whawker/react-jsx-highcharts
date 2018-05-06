@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Hidden from '../Hidden';
 import getModifiedProps from '../../utils/getModifiedProps';
 import removeProvidedProps from '../../utils/removeProvidedProps';
 
@@ -14,23 +13,18 @@ class Tooltip extends Component {
   };
 
   static defaultProps = {
+    children: null,
     enabled: true
   };
-
-  constructor (props) {
-    super(props);
-
-    this.updateTooltip = this.updateTooltip.bind(this);
-  }
 
   componentDidMount () {
     const { children, getHighcharts, getChart, ...rest } = this.props;
     const Highcharts = getHighcharts();
 
-    const chart = getChart();
+    const chartObj = getChart().object;
     const opts = removeProvidedProps({ ...rest });
 
-    chart.tooltip = new Highcharts.Tooltip(chart, {
+    chartObj.tooltip = new Highcharts.Tooltip(chartObj, {
       ...(Highcharts.defaultOptions && Highcharts.defaultOptions.tooltip),
       ...opts
     });
@@ -50,19 +44,15 @@ class Tooltip extends Component {
     });
   }
 
-  updateTooltip (config) {
-    this.props.update({
+  updateTooltip = config => {
+    const chart = this.props.getChart();
+    chart.update({
       tooltip: config
     }, true);
   }
 
   render () {
-    const { children } = this.props;
-    if (!children) return null;
-
-    return (
-      <Hidden>{children}</Hidden>
-    );
+    return null;
   }
 }
 
