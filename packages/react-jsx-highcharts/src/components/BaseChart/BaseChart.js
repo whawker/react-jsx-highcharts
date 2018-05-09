@@ -3,9 +3,6 @@ import PropTypes from 'prop-types';
 import { Provider } from '../ChartContext';
 
 class BaseChart extends Component {
-  static childContextTypes = {
-    chart: PropTypes.object
-  };
 
   static defaultProps = {
     children: null,
@@ -83,12 +80,6 @@ class BaseChart extends Component {
       window.setTimeout(this.chart.destroy.bind(this.chart), 1);
       this.chart.__destroyed = true;
     }
-  }
-
-  getChildContext () {
-    return {
-      chart: this.chart
-    };
   }
 
   render () {

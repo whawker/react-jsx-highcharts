@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import isEqual from 'lodash/isEqual';
 import isImmutable from 'is-immutable';
 import immutableEqual from 'immutable-is';
+import uuid from 'uuid/v4';
 import { Provider } from '../SeriesContext';
 import addEventProps, { getNonEventHandlerProps } from '../../utils/events';
 import getModifiedProps from '../../utils/getModifiedProps';
@@ -26,6 +27,7 @@ class Series extends Component {
   };
 
   static defaultProps = {
+    id: uuid(),
     type: 'line',
     children: null,
     data: [],

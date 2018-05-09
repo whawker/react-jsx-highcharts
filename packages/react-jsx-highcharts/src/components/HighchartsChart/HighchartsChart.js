@@ -7,16 +7,6 @@ class HighchartsChart extends Component {
     getHighcharts: PropTypes.func.isRequired // Provided by HighchartsProvider
   };
 
-  static childContextTypes = {
-    chartType: PropTypes.string.isRequired
-  };
-
-  getChildContext () {
-    return {
-      chartType: 'chart'
-    };
-  }
-
   render () {
     return (
       <BaseChart

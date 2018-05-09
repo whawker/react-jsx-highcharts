@@ -1,5 +1,6 @@
 import React, { Component, Children, cloneElement, isValidElement } from 'react';
 import PropTypes from 'prop-types';
+import uuid from 'uuid/v4';
 import { Provider } from '../AxisContext';
 import addEventProps, { getNonEventHandlerProps } from '../../utils/events';
 import getModifiedProps from '../../utils/getModifiedProps';
@@ -17,6 +18,7 @@ class Axis extends Component {
   };
 
   static defaultProps = {
+    id: uuid(),
     children: null,
     dynamicAxis: true
   };

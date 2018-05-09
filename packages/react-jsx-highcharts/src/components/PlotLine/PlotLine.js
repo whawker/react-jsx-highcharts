@@ -1,5 +1,6 @@
 import React, { Component, Children, cloneElement, isValidElement } from 'react';
 import PropTypes from 'prop-types';
+import uuid from 'uuid/v4';
 import Hidden from '../Hidden';
 
 class PlotLine extends Component {
@@ -11,6 +12,10 @@ class PlotLine extends Component {
     yAxis: PropTypes.string,
     color: PropTypes.string,
     getAxis: PropTypes.func // Provided by AxisProvider
+  };
+
+  static defaultProps = {
+    id: uuid()
   };
 
   constructor (props) {
