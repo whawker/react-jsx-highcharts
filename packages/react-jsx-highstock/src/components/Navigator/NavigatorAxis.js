@@ -1,9 +1,6 @@
 import React, { Component, Children, cloneElement, isValidElement } from 'react';
 import PropTypes from 'prop-types';
-import Hidden from 'react-jsx-highcharts/src/components/Hidden';
-import provideAxis from 'react-jsx-highcharts/src/components/AxisProvider';
-import { getNonEventHandlerProps } from 'react-jsx-highcharts/src/utils/events';
-import getModifiedProps from 'react-jsx-highcharts/src/utils/getModifiedProps';
+import { Hidden, provideAxis, getModifiedProps, getNonEventHandlerProps } from 'react-jsx-highcharts';
 
 class NavigatorAxis extends Component {
   static propTypes = {

@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import isNumber from 'lodash/isNumber';
-import Hidden from 'react-jsx-highcharts/src/components/Hidden';
-import getModifiedProps from 'react-jsx-highcharts/src/utils/getModifiedProps';
+import { Hidden, getModifiedProps } from 'react-jsx-highcharts';
 
 class RangeSelector extends Component {
 

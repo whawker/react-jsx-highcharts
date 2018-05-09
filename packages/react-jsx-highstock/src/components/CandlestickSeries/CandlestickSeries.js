@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Series from 'react-jsx-highcharts/src/components/Series';
+import { Series } from 'react-jsx-highcharts';
 
 class CandlestickSeries extends Component {
   static propTypes = {

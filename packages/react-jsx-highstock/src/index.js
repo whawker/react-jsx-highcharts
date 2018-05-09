@@ -1,4 +1,4 @@
-export * from 'react-jsx-highcharts/src';
+export * from 'react-jsx-highcharts';
 
 // Charts
 export { default as HighchartsStockChart } from './components/HighchartsStockChart';

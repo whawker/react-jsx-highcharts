@@ -1,7 +1,6 @@
 import React, { Component, Children, cloneElement, isValidElement } from 'react';
 import PropTypes from 'prop-types';
-import Hidden from 'react-jsx-highcharts/src/components/Hidden';
-import getModifiedProps from 'react-jsx-highcharts/src/utils/getModifiedProps';
+import { Hidden, getModifiedProps } from 'react-jsx-highcharts';
 
 class Navigator extends Component {
 

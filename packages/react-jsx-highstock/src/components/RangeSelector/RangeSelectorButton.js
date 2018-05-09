@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import { getEventsConfig } from 'react-jsx-highcharts/src/utils/events';
+import { getEventsConfig } from 'react-jsx-highcharts';
 
 class RangeSelectorButton extends Component {
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import BaseChart from 'react-jsx-highcharts/src/components/BaseChart';
+import { BaseChart } from 'react-jsx-highcharts';
 
 class HighchartsStockChart extends Component {
   static propTypes = {
