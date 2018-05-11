@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
+import attempt from 'lodash/attempt';
 import getModifiedProps from '../../utils/getModifiedProps';
 
 class Loading extends Component {
@@ -42,7 +43,7 @@ class Loading extends Component {
 
   componentWillUnmount () {
     const chart = this.props.getChart();
-    chart.hideLoading();
+    attempt(chart.hideLoading);
   }
 
   updateLoading = config => {

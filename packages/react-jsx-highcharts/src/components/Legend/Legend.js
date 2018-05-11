@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
+import attempt from 'lodash/attempt';
 import getModifiedProps from '../../utils/getModifiedProps';
 
 class Legend extends Component {
@@ -29,9 +30,7 @@ class Legend extends Component {
   }
 
   componentWillUnmount () {
-    this.updateLegend({
-      enabled: false
-    });
+    attempt(this.updateLegend, { enabled: false });
   }
 
   updateLegend = config => {

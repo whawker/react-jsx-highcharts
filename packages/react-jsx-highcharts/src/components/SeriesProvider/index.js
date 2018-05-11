@@ -23,7 +23,7 @@ export default function provideSeries(Component) {
 
           const getSeries = () => ({
             object: series,
-            id: series.userOptions.id,
+            id: series.userOptions && series.userOptions.id,
             update: clean(series.update.bind(series)),
             remove: series.remove.bind(series),
             setData: series.update.bind(series),

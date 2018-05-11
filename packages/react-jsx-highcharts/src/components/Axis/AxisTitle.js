@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
+import attempt from 'lodash/attempt';
 import getModifiedProps from '../../utils/getModifiedProps';
 
 class AxisTitle extends Component {
@@ -25,17 +26,12 @@ class AxisTitle extends Component {
   }
 
   componentWillUnmount () {
-    if (this.props.getAxis()) {
-      this.updateAxisTitle({
-        text: null
-      });
-    }
+    attempt(this.updateAxisTitle, { text: null });
   }
 
   updateAxisTitle = config => {
-    const { getAxis, ...rest } = config;
-    const axis = getAxis();
-    axis.setTitle(rest, true);
+    const axis = this.props.getAxis();
+    axis.setTitle(config, true);
   }
 
   render () {

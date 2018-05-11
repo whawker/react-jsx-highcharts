@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
+import attempt from 'lodash/attempt';
 import getModifiedProps from '../../utils/getModifiedProps';
 
 class Credits extends Component {
@@ -29,9 +30,7 @@ class Credits extends Component {
   }
 
   componentWillUnmount () {
-    this.updateCredits({
-      enabled: false
-    });
+    attempt(this.updateCredits, { enabled: false });
   }
 
   updateCredits = config => {

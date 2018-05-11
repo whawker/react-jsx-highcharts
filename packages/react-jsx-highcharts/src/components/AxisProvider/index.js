@@ -26,7 +26,7 @@ export default function provideAxis(Component) {
 
           const getAxis = () => ({
             object: axis,
-            id: axis.userOptions.id,
+            id: axis.userOptions && axis.userOptions.id,
             type: axis.coll,
             update: clean(axis.update.bind(axis)),
             remove: axis.remove.bind(axis),

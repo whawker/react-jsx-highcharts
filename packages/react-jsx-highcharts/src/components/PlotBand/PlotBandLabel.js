@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import pickBy from 'lodash/pickBy';
+import attempt from 'lodash/attempt';
 
 class PlotBandLabel extends Component {
 
@@ -39,10 +40,13 @@ class PlotBandLabel extends Component {
 
   componentWillUnmount () {
     const { children, ...rest } = this.props;
-    this.updatePlotBandLabel({
-      text: null,
-      ...rest
-    });
+    attempt(
+      this.updatePlotBandLabel,
+      {
+        text: null,
+        ...rest
+      }
+    );
   }
 
   getLabelProps = props => {

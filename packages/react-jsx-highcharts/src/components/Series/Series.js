@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import isEqual from 'lodash/isEqual';
+import attempt from 'lodash/attempt';
 import isImmutable from 'is-immutable';
 import immutableEqual from 'immutable-is';
 import uuid from 'uuid/v4';
@@ -79,9 +80,7 @@ class Series extends Component {
   }
 
   componentWillUnmount () {
-    if (this.series) {
-      this.series.remove(); // Series may have already been removed, i.e. when Axis unmounted
-    }
+    attempt(this.series.remove.bind(this.series)); // Series may have already been removed, i.e. when Axis unmounted
   }
 
   render () {

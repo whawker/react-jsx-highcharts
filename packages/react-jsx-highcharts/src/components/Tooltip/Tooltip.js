@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import attempt from 'lodash/attempt';
 import getModifiedProps from '../../utils/getModifiedProps';
 
 class Tooltip extends Component {
@@ -37,9 +38,7 @@ class Tooltip extends Component {
   }
 
   componentWillUnmount () {
-    this.updateTooltip({
-      enabled: false
-    });
+    attempt(this.updateTooltip, { enabled: false });
   }
 
   updateTooltip = config => {

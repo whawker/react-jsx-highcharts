@@ -1,6 +1,7 @@
 import React, { Component, Children, cloneElement, isValidElement } from 'react';
 import PropTypes from 'prop-types';
 import uuid from 'uuid/v4';
+import attempt from 'lodash/attempt';
 import { Provider } from '../AxisContext';
 import addEventProps, { getNonEventHandlerProps } from '../../utils/events';
 import getModifiedProps from '../../utils/getModifiedProps';
@@ -50,7 +51,7 @@ class Axis extends Component {
   }
 
   componentWillUnmount () {
-    this.axis.remove();
+    attempt(this.axis.remove.bind(this.axis)); // Axis may have already been removed, i.e. when Chart unmounted
   }
 
   render () {

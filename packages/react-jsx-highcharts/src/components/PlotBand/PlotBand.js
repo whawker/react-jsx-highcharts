@@ -1,6 +1,7 @@
 import React, { Component, Children, cloneElement, isValidElement } from 'react';
 import PropTypes from 'prop-types';
 import uuid from 'uuid/v4';
+import attempt from 'lodash/attempt';
 import Hidden from '../Hidden';
 
 class PlotBand extends Component {
@@ -45,9 +46,7 @@ class PlotBand extends Component {
 
   componentWillUnmount () {
     const axis = this.props.getAxis();
-    if (axis.object) {
-      axis.removePlotBand(this.props.id);
-    }
+    attempt(axis.removePlotBand, this.props.id);
   }
 
   render () {

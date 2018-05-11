@@ -1,6 +1,7 @@
 import React, { Component, Children, cloneElement, isValidElement } from 'react';
 import PropTypes from 'prop-types';
 import uuid from 'uuid/v4';
+import attempt from 'lodash/attempt';
 import Hidden from '../Hidden';
 
 class PlotLine extends Component {
@@ -44,9 +45,7 @@ class PlotLine extends Component {
 
   componentWillUnmount () {
     const axis = this.props.getAxis();
-    if (axis.object) {
-      axis.removePlotLine(this.props.id);
-    }
+    attempt(axis.removePlotLine, this.props.id);
   }
 
   render () {

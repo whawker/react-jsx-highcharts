@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
+import attempt from 'lodash/attempt';
 import getModifiedProps from '../../utils/getModifiedProps';
 
 class Subtitle extends Component {
@@ -24,9 +25,7 @@ class Subtitle extends Component {
   }
 
   componentWillUnmount () {
-    this.updateSubtitle({
-      text: null
-    });
+    attempt(this.updateSubtitle, { text: null });
   }
 
   updateSubtitle = config => {

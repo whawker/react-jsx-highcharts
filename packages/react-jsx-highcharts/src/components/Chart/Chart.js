@@ -53,7 +53,7 @@ class Chart extends Component {
 
   updateChart = config => {
     const chart = this.props.getChart();
-     chart.update({
+    chart.update({
       chart: config
     }, true);
   }
