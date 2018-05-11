@@ -2,6 +2,7 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 import pickBy from 'lodash/pickBy';
 import attempt from 'lodash/attempt';
+import find from 'lodash/find';
 
 class PlotBandLabel extends Component {
 
@@ -60,7 +61,7 @@ class PlotBandLabel extends Component {
     const axis = getAxis();
 
     window.setTimeout(() => {
-      const plotBand = axis.object && axis.object.plotLinesAndBands.find(band => band.id === id);
+      const plotBand = axis.object && find(axis.object.plotLinesAndBands, band => band.id === id);
       if (plotBand) {
         plotBand.options.label = this.getLabelProps(config);
         plotBand.render();

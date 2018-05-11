@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Provider } from '../ChartContext';
+import { validChartTypes } from '../../utils/propTypeValidators'
 
 class BaseChart extends Component {
 
@@ -12,6 +13,7 @@ class BaseChart extends Component {
 
   static propTypes = {
     chartCreationFunc: PropTypes.func.isRequired,
+    chartType: validChartTypes,
     callback: PropTypes.func.isRequired
   };
 

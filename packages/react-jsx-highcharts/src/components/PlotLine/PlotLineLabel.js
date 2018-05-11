@@ -1,6 +1,8 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import pickBy from 'lodash/pickBy';
+import attempt from 'lodash/attempt';
+import find from 'lodash/find';
 
 class PlotLineLabel extends Component {
 
@@ -39,10 +41,13 @@ class PlotLineLabel extends Component {
 
   componentWillUnmount () {
     const { children, ...rest } = this.props;
-    this.updatePlotLineLabel({
-      text: null,
-      ...rest
-    });
+    attempt(
+      this.updatePlotLineLabel,
+      {
+        text: null,
+        ...rest
+      }
+    );
   }
 
   getLabelProps = props => {
@@ -56,7 +61,7 @@ class PlotLineLabel extends Component {
     const axis = getAxis();
 
     window.setTimeout(() => {
-      const plotLine = axis.object && axis.object.plotLinesAndBands.find(line => line.id === id);
+      const plotLine = axis.object && find(axis.object.plotLinesAndBands, line => line.id === id);
       if (plotLine) {
         plotLine.options.label = this.getLabelProps(config);
         plotLine.render();
