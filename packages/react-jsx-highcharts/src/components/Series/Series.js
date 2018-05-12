@@ -12,7 +12,7 @@ import getModifiedProps from '../../utils/getModifiedProps';
 class Series extends Component {
 
   static propTypes = {
-    id: PropTypes.string.isRequired,
+    id: PropTypes.string,
     type: PropTypes.string.isRequired,
     axisId: PropTypes.string, // Provided by Axis component
     dimension: PropTypes.string, // Provided by Axis component
@@ -28,7 +28,6 @@ class Series extends Component {
   };
 
   static defaultProps = {
-    id: uuid(),
     type: 'line',
     children: null,
     data: [],
@@ -36,8 +35,9 @@ class Series extends Component {
     visible: true
   };
 
-  componentWillMount () {
-    const { data, requiresAxis, getChart, getAxis, children, ...rest } = this.props;
+  componentDidMount () {
+    const { data, requiresAxis, getChart, getAxis, children, id, ...rest } = this.props;
+    rest.id = id || uuid();
     const seriesData = isImmutable(data) ? data.toJS() : data;
     const nonEventProps = getNonEventHandlerProps(rest);
     const chart = getChart();
@@ -53,11 +53,11 @@ class Series extends Component {
     }
 
     this.series = chart.addSeries(opts, true);
-  }
 
-  componentDidMount () {
     const update = this.series.update.bind(this.series)
     addEventProps(update, this.props);
+
+    this.forceUpdate();
   }
 
   componentDidUpdate (prevProps) {
@@ -84,11 +84,16 @@ class Series extends Component {
   }
 
   render () {
-    return (
-      <Provider value={this.series}>
-        {this.props.children}
-      </Provider>
-    )
+    if (this.series) {
+      return (
+        <Provider value={this.series}>
+          {this.props.children}
+        </Provider>
+      )
+    } else {
+      return null;
+    }
+
   }
 }
 
