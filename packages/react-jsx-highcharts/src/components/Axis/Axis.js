@@ -11,7 +11,7 @@ class Axis extends Component {
 
   static propTypes = {
     type: validAxisTypes,
-    id: PropTypes.string.isRequired,
+    id: PropTypes.string,
     children: PropTypes.node,
     getChart: PropTypes.func, // Provided by ChartProvider
     getHighcharts: PropTypes.func.isRequired, // Provided by HighchartsProvider
@@ -19,13 +19,13 @@ class Axis extends Component {
   };
 
   static defaultProps = {
-    id: uuid(),
     children: null,
     dynamicAxis: true
   };
 
-  componentWillMount () {
-    const { dynamicAxis, isX, getChart, ...rest } = this.props;
+  componentDidMount () {
+    const { dynamicAxis, isX, getChart, id, ...rest } = this.props;
+    rest.id = id || uuid();
     const nonEventProps = getNonEventHandlerProps(rest);
     const chart = getChart();
 
@@ -36,11 +36,9 @@ class Axis extends Component {
       this.axis = chart.get('zAxis');
       this.axis.update(Object.assign({ title: { text: null } }, nonEventProps), true);
     }
-  }
-
-  componentDidMount () {
     const update = this.axis.update.bind(this.axis)
     addEventProps(update, this.props);
+    this.forceUpdate();
   }
 
   componentDidUpdate (prevProps) {
@@ -55,11 +53,16 @@ class Axis extends Component {
   }
 
   render () {
-    return (
-      <Provider value={this.axis}>
-        {this.props.children}
-      </Provider>
-    );
+    if (this.axis) {
+      return (
+        <Provider value={this.axis}>
+          {this.props.children}
+        </Provider>
+      );
+    } else {
+      return null;
+    }
+
   }
 }
 
