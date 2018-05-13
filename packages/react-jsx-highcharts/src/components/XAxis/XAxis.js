@@ -10,9 +10,6 @@ class XAxis extends Component {
     getChart: PropTypes.func.isRequired // Provided by ChartProvider
   };
 
-  static defaultProps = {
-    id: 'xAxis'
-  };
 
   render () {
     let { getChart, ...rest } = this.props;
