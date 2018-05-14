@@ -50,7 +50,7 @@ class PlotBand extends Component {
 
   componentWillUnmount () {
     const axis = this.props.getAxis();
-    attempt(axis.removePlotBand, this.props.id);
+    attempt(axis.removePlotBand, this.id);
   }
 
   getPlotBandConfig = () => {
