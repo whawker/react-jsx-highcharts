@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import uuid from 'uuid/v4';
+import isFunction from 'lodash/isFunction';
 import isEqual from 'lodash/isEqual';
 import attempt from 'lodash/attempt';
 import isImmutable from 'is-immutable';
 import immutableEqual from 'immutable-is';
-import uuid from 'uuid/v4';
 import { Provider } from '../SeriesContext';
 import addEventProps, { getNonEventHandlerProps } from '../../utils/events';
 import getModifiedProps from '../../utils/getModifiedProps';
@@ -12,7 +13,7 @@ import getModifiedProps from '../../utils/getModifiedProps';
 class Series extends Component {
 
   static propTypes = {
-    id: PropTypes.string,
+    id: PropTypes.oneOfType([ PropTypes.string, PropTypes.func ]).isRequired,
     type: PropTypes.string.isRequired,
     axisId: PropTypes.string, // Provided by Axis component
     dimension: PropTypes.string, // Provided by Axis component
@@ -29,6 +30,7 @@ class Series extends Component {
 
   static defaultProps = {
     type: 'line',
+    id: uuid,
     children: null,
     data: [],
     requiresAxis: true,
@@ -36,27 +38,16 @@ class Series extends Component {
   };
 
   componentDidMount () {
-    const { data, requiresAxis, getChart, getAxis, children, id, ...rest } = this.props;
-    rest.id = id || uuid();
-    const seriesData = isImmutable(data) ? data.toJS() : data;
-    const nonEventProps = getNonEventHandlerProps(rest);
-    const chart = getChart();
+    const chart = this.props.getChart();
 
-    const opts = {
-      data: seriesData,
-      ...nonEventProps
-    }
-
-    if (requiresAxis) {
-      const axis = getAxis();
-      opts[axis.type] = axis.id;
-    }
-
+    // Create Highcharts Series
+    const opts = this.getSeriesConfig();
     this.series = chart.addSeries(opts, true);
 
     const update = this.series.update.bind(this.series)
     addEventProps(update, this.props);
 
+    // Re-render to pass this.series to Provider
     this.forceUpdate();
   }
 
@@ -83,17 +74,35 @@ class Series extends Component {
     attempt(this.series.remove.bind(this.series)); // Series may have already been removed, i.e. when Axis unmounted
   }
 
-  render () {
-    if (this.series) {
-      return (
-        <Provider value={this.series}>
-          {this.props.children}
-        </Provider>
-      )
-    } else {
-      return null;
+  getSeriesConfig = () => {
+    const { id: seriesId, data: seriesData, requiresAxis, getAxis, children, ...rest } = this.props;
+
+    const id = isFunction(seriesId) ? seriesId() : seriesId
+    const data = isImmutable(seriesData) ? seriesData.toJS() : seriesData;
+    const nonEventProps = getNonEventHandlerProps(rest);
+
+    const config = {
+      id,
+      data,
+      ...nonEventProps
     }
 
+    if (requiresAxis) {
+      const axis = getAxis();
+      config[axis.type] = axis.id;
+    }
+
+    return config;
+  }
+
+  render () {
+    if (!this.series) return null;
+
+    return (
+      <Provider value={this.series}>
+        {this.props.children}
+      </Provider>
+    );
   }
 }
 
