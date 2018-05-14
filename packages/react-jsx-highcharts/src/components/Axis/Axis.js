@@ -58,7 +58,7 @@ class Axis extends Component {
   }
 
   getAxisConfig = () => {
-    const { id: axisId, ...rest } = this.props;
+    const { id: axisId, children, ...rest } = this.props;
 
     const id = isFunction(axisId) ? axisId() : axisId
     const nonEventProps = getNonEventHandlerProps(rest);

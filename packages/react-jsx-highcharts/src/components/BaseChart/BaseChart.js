@@ -35,7 +35,7 @@ class BaseChart extends Component {
       return;
     }
 
-    const { chartCreationFunc, callback, ...rest } = this.props;
+    const { chartCreationFunc, callback, children, ...rest } = this.props;
 
     const opts = {
       chart: {},
@@ -93,7 +93,7 @@ class BaseChart extends Component {
         ref={(node) => { this.domNode = node }}>
         {this.state.rendered && (
           <Provider value={{ chart: this.chart, chartType }}>
-            {this.props.children}
+            {children}
           </Provider>
         )}
       </div>
