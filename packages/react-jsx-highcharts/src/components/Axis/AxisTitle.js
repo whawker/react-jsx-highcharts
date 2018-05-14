@@ -6,8 +6,7 @@ import getModifiedProps from '../../utils/getModifiedProps';
 class AxisTitle extends Component {
 
   static propTypes = {
-    axisId: PropTypes.string,
-    update: PropTypes.func // Provided by AxisProvider
+    getAxis: PropTypes.func // Provided by AxisProvider
   };
 
   componentDidMount () {

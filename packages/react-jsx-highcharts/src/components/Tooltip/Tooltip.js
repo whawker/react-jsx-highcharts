@@ -6,7 +6,6 @@ import getModifiedProps from '../../utils/getModifiedProps';
 class Tooltip extends Component {
 
   static propTypes = {
-    update: PropTypes.func, // Provided by ChartProvider
     getChart: PropTypes.func, // Provided by ChartProvider
     getHighcharts: PropTypes.func.isRequired, // Provided by HighchartsProvider
     enabled: PropTypes.bool.isRequired

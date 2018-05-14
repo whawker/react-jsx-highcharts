@@ -5,7 +5,6 @@ import Axis from '../Axis';
 class XAxis extends Component {
 
   static propTypes = {
-    id: PropTypes.string.isRequired,
     type: PropTypes.string,
     getChart: PropTypes.func.isRequired // Provided by ChartProvider
   };

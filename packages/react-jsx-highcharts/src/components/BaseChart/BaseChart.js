@@ -13,7 +13,7 @@ class BaseChart extends Component {
 
   static propTypes = {
     chartCreationFunc: PropTypes.func.isRequired,
-    chartType: validChartTypes,
+    chartType: validChartTypes.isRequired,
     callback: PropTypes.func.isRequired
   };
 

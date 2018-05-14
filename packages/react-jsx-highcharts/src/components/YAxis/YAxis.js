@@ -4,7 +4,6 @@ import Axis from '../Axis';
 
 class YAxis extends Component {
   static propTypes = {
-    id: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired
   };
 

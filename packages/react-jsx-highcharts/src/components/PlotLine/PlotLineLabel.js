@@ -7,7 +7,7 @@ import find from 'lodash/find';
 class PlotLineLabel extends Component {
 
   static propTypes = {
-    id: PropTypes.string,
+    id: PropTypes.string.isRequired,
     getAxis: PropTypes.func // Provided by AxisProvider
   };
 

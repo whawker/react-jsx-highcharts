@@ -10,8 +10,6 @@ class PlotLine extends Component {
   static propTypes = {
     id: PropTypes.oneOfType([ PropTypes.string, PropTypes.func ]).isRequired,
     value: PropTypes.any.isRequired,
-    xAxis: PropTypes.string,
-    yAxis: PropTypes.string,
     color: PropTypes.string,
     getAxis: PropTypes.func // Provided by AxisProvider
   };

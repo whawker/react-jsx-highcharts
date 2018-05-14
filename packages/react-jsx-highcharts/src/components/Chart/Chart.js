@@ -9,7 +9,7 @@ class Chart extends Component {
     type: PropTypes.string.isRequired,
     width: PropTypes.number,
     height: PropTypes.number,
-    addSeries: PropTypes.func,
+    onAddSeries: PropTypes.func,
     onAfterPrint: PropTypes.func,
     onBeforePrint: PropTypes.func,
     onClick: PropTypes.func,
@@ -23,6 +23,7 @@ class Chart extends Component {
 
   static defaultProps = {
     type: 'line',
+    onAddSeries: () => {},
     onAfterPrint: () => {},
     onBeforePrint: () => {},
     onClick: () => {},

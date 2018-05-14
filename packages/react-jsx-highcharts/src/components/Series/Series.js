@@ -15,17 +15,10 @@ class Series extends Component {
   static propTypes = {
     id: PropTypes.oneOfType([ PropTypes.string, PropTypes.func ]).isRequired,
     type: PropTypes.string.isRequired,
-    axisId: PropTypes.string, // Provided by Axis component
-    dimension: PropTypes.string, // Provided by Axis component
     data: PropTypes.any,
     visible: PropTypes.bool,
-    addSeries: PropTypes.func, // Provided by ChartProvider
-    update: PropTypes.func, // Provided by SeriesProvider
-    remove: PropTypes.func, // Provided by SeriesProvider
-    setData: PropTypes.func, // Provided by SeriesProvider
-    setVisible: PropTypes.func, // Provided by SeriesProvider
-    getSeries: PropTypes.func, // Provided by SeriesProvider
-    getHighcharts: PropTypes.func.isRequired // Provided by HighchartsProvider
+    getChart: PropTypes.func, // Provided by ChartProvider
+    getAxis: PropTypes.func, // Provided by AxisProvider
   };
 
   static defaultProps = {

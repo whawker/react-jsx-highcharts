@@ -15,7 +15,6 @@ class Axis extends Component {
     id: PropTypes.oneOfType([ PropTypes.string, PropTypes.func ]).isRequired,
     children: PropTypes.node,
     getChart: PropTypes.func, // Provided by ChartProvider
-    getHighcharts: PropTypes.func.isRequired, // Provided by HighchartsProvider
     dynamicAxis: PropTypes.bool.isRequired
   };
 

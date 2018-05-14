@@ -11,8 +11,6 @@ class PlotBand extends Component {
     id: PropTypes.oneOfType([ PropTypes.string, PropTypes.func ]).isRequired,
     from: PropTypes.any.isRequired,
     to: PropTypes.any.isRequired,
-    xAxis: PropTypes.string,
-    yAxis: PropTypes.string,
     color: PropTypes.string,
     getAxis: PropTypes.func // Provided by AxisProvider
   };
