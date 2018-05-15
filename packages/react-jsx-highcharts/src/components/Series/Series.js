@@ -68,15 +68,15 @@ class Series extends Component {
   }
 
   getSeriesConfig = () => {
-    const { id: seriesId, data: seriesData, requiresAxis, getAxis, children, ...rest } = this.props;
+    const { id, data, requiresAxis, getAxis, children, ...rest } = this.props;
 
-    const id = isFunction(seriesId) ? seriesId() : seriesId
-    const data = isImmutable(seriesData) ? seriesData.toJS() : seriesData;
+    const seriesId = isFunction(id) ? id() : id
+    const seriesData = isImmutable(data) ? data.toJS() : data;
     const nonEventProps = getNonEventHandlerProps(rest);
 
     const config = {
-      id,
-      data,
+      id: seriesId,
+      data: seriesData,
       ...nonEventProps
     }
 
