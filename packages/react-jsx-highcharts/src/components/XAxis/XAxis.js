@@ -11,12 +11,14 @@ class XAxis extends Component {
 
 
   render () {
-    let { getChart, ...rest } = this.props;
+    let { getChart, id, ...rest } = this.props;
     const chart = getChart();
-    const type = (chart.getType() === 'stockChart') ? 'datetime' : 'linear';
+    const isStockChart = chart.getType() === 'stockChart';
+    const type = isStockChart ? 'datetime' : 'linear';
+    const axisId = isStockChart ? 'xAxis' : id;
 
     return (
-      <Axis type={type} {...rest} isX />
+      <Axis type={type} {...rest} id={axisId} isX />
     );
   }
 }
