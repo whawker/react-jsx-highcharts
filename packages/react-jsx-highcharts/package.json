@@ -14,7 +14,7 @@
     "build:prod": "cp ../../README.md . && cross-env NODE_ENV=production ./node_modules/.bin/webpack",
     "build:es": "BABEL_ENV=es babel src --out-dir dist/es",
     "lint": "./node_modules/.bin/eslint src",
-    "test": "cross-env NODE_ENV=test ./node_modules/.bin/mocha --compilers js:babel-core/register --require test/test-helper.js test/**/*.spec.js"
+    "test": "cross-env NODE_ENV=test ./node_modules/.bin/mocha --require babel-core/register --require test/test-helper.js test/**/*.spec.js"
   },
   "author": "Will Hawker",
   "contributors": [
@@ -83,7 +83,7 @@
     "immutable": "^3.8.1",
     "jsdom": "^11.0.0",
     "lodash-webpack-plugin": "^0.11.5",
-    "mocha": "^3.4.1",
+    "mocha": "^5.1.1",
     "prop-types": "^15.0.0",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
@@ -99,8 +99,8 @@
     "babel-runtime": "^6.26.0",
     "immutable-is": "^3.7.6",
     "is-immutable": "^1.0.1",
-    "lodash": "^4.17.4",
-    "lodash-es": "^4.17.4"
+    "lodash": "^4.17.5",
+    "lodash-es": "^4.17.5"
   },
   "peerDependencies": {
     "highcharts": "^5.0.0 || ^6.0.0",
