@@ -1,4 +1,5 @@
 import React from 'react';
+import DelayRender from '../DelayRender';
 import provideAxis from '../AxisProvider'
 import { Consumer } from '../SeriesContext';
 import getDisplayName from '../../utils/getDisplayName';
@@ -12,29 +13,31 @@ export default function provideSeries(Component) {
     // ... and renders the wrapped component with the context series
     // Notice that we pass through any additional props as well
     return (
-      <Consumer>
-        {series => {
-          if (!series && props.seriesId) {
-            const chart = props.getChart();
-            series = chart.get(props.seriesId);
-          }
+      <DelayRender>
+        <Consumer>
+          {series => {
+            if (!series && props.seriesId) {
+              const chart = props.getChart();
+              series = chart.get(props.seriesId);
+            }
 
-          if (!series) return null;
+            if (!series) return null;
 
-          const getSeries = () => ({
-            object: series,
-            id: series.userOptions && series.userOptions.id,
-            update: clean(series.update.bind(series)),
-            remove: series.remove.bind(series),
-            setData: series.update.bind(series),
-            setVisible: series.setVisible.bind(series)
-          })
+            const getSeries = () => ({
+              object: series,
+              id: series.userOptions && series.userOptions.id,
+              update: clean(series.update.bind(series)),
+              remove: series.remove.bind(series),
+              setData: series.update.bind(series),
+              setVisible: series.setVisible.bind(series)
+            })
 
-          return (
-            <Component {...props} getSeries={getSeries} />
-          )
-        }}
-      </Consumer>
+            return (
+              <Component {...props} getSeries={getSeries} />
+            )
+          }}
+        </Consumer>
+      </DelayRender>
     );
   };
 
