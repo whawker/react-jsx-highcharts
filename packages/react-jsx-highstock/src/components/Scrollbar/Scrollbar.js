@@ -5,7 +5,7 @@ import { Hidden, getModifiedProps } from 'react-jsx-highcharts';
 class Scrollbar extends Component {
 
   static propTypes = {
-    update: PropTypes.func, // Provided by ChartProvider
+    getChart: PropTypes.func, // Provided by ChartProvider
     enabled: PropTypes.bool.isRequired
   };
 
@@ -13,17 +13,9 @@ class Scrollbar extends Component {
     enabled: true
   };
 
-  constructor (props) {
-    super(props);
-
-    this.updateScrollbar = this.updateScrollbar.bind(this);
-  }
-
   componentDidMount () {
     const { children, ...rest } = this.props;
-    this.updateScrollbar({
-      ...rest
-    });
+    this.updateScrollbar(rest);
   }
 
   componentDidUpdate (prevProps) {
@@ -39,8 +31,9 @@ class Scrollbar extends Component {
     });
   }
 
-  updateScrollbar (config) {
-    this.props.update({
+  updateScrollbar = config => {
+    const chart = this.props.getChart();
+    chart.update({
       scrollbar: config
     }, true);
   }

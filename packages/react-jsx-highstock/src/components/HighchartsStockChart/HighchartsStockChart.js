@@ -7,19 +7,12 @@ class HighchartsStockChart extends Component {
     getHighcharts: PropTypes.func.isRequired // Provided by HighchartsProvider
   };
 
-  static childContextTypes = {
-    chartType: PropTypes.string.isRequired
-  };
-
-  getChildContext () {
-    return {
-      chartType: 'stockChart'
-    };
-  }
-
   render () {
     return (
-      <BaseChart {...this.props} chartCreationFunc={this.props.getHighcharts().stockChart} />
+      <BaseChart
+        {...this.props}
+        chartCreationFunc={this.props.getHighcharts().stockChart}
+        chartType="stockChart" />
     );
   }
 }

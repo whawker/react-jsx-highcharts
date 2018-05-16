@@ -15,17 +15,9 @@ class RangeSelectorInput extends Component {
     enabled: true
   };
 
-  constructor (props) {
-    super(props);
-
-    this.updateRangeSelectorInputs = this.updateRangeSelectorInputs.bind(this);
-  }
-
   componentDidMount () {
     const { children, ...rest } = this.props;
-    this.updateRangeSelectorInputs({
-      ...rest
-    });
+    this.updateRangeSelectorInputs(rest);
   }
 
   componentDidUpdate (prevProps) {
@@ -41,12 +33,17 @@ class RangeSelectorInput extends Component {
     });
   }
 
-  updateRangeSelectorInputs (config) {
-    const inputProps = mapKeys(config, (value, key) => {
+  prefixPropsWithInput = config => {
+    return mapKeys(config, (value, key) => {
       return key.indexOf('input') === 0 ? key : `input${upperFirst(key)}`;
     });
+  }
 
-    this.props.update({
+  updateRangeSelectorInputs = config => {
+    const chart = this.props.getChart();
+    const inputProps = this.prefixPropsWithInput(config);
+
+    chart.update({
       rangeSelector: {
         ...inputProps
       }
