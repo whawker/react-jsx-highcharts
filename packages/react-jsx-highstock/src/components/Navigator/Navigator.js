@@ -1,5 +1,6 @@
 import React, { Component, Children, cloneElement, isValidElement } from 'react';
 import PropTypes from 'prop-types';
+import attempt from 'lodash/attempt';
 import { getModifiedProps } from 'react-jsx-highcharts';
 import NavigatorXAxis from './NavigatorXAxis';
 
@@ -47,9 +48,7 @@ class Navigator extends Component {
   }
 
   componentWillUnmount () {
-    this.updateNavigator({
-      enabled: false
-    });
+    attempt(this.updateNavigator, { enabled: false });
   }
 
   updateNavigator = config => {

@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
+import attempt from 'lodash/attempt';
 import findIndex from 'lodash/findIndex';
 import { getEventsConfig } from 'react-jsx-highcharts';
 
@@ -25,31 +26,20 @@ class RangeSelectorButton extends Component {
     if (button > -1) return; // Button already present
 
     const { count, type, offsetMin, offsetMax, dataGrouping, children: text, ...rest } = this.props;
-
-    // Add button to array
-    const buttons = [
-      ...this.getButtons(),
-      {
-        count,
-        type,
-        offsetMin,
-        offsetMax,
-        dataGrouping,
-        text,
-        events: getEventsConfig(rest)
-      }
-    ];
-    this.updateRangeSelectorButtons(buttons);
+    const opts = {
+      count,
+      type,
+      offsetMin,
+      offsetMax,
+      dataGrouping,
+      text,
+      events: getEventsConfig(rest)
+    }
+    this.addButton(opts)
   }
 
   componentWillUnmount () {
-    const button = this.getButtonIndex();
-    if (button === -1) return;
-
-    // Remove button from array
-    const buttons = [...this.getButtons()];
-    buttons.splice(button, 1);
-    this.updateRangeSelectorButtons(buttons);
+    attempt(this.removeButton);
   }
 
   getButtons = () => {
@@ -67,6 +57,25 @@ class RangeSelectorButton extends Component {
     return findIndex(this.getButtons(), b => {
       return (b.count === count && b.type === type);
     });
+  }
+
+  addButton = config => {
+    // Add button to array
+    const buttons = [
+      ...this.getButtons(),
+      config
+    ];
+    this.updateRangeSelectorButtons(buttons);
+  }
+
+  removeButton = () => {
+    const button = this.getButtonIndex();
+    if (button === -1) return;
+
+    // Remove button from array
+    const buttons = [...this.getButtons()];
+    buttons.splice(button, 1);
+    this.updateRangeSelectorButtons(buttons);
   }
 
   updateRangeSelectorButtons = config => {

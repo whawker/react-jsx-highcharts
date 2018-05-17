@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
+import attempt from 'lodash/attempt';
 import mapKeys from 'lodash/mapKeys';
 import upperFirst from 'lodash/upperFirst';
 import { getModifiedProps } from 'react-jsx-highcharts';
@@ -28,9 +29,7 @@ class RangeSelectorInput extends Component {
   }
 
   componentWillUnmount () {
-    this.updateRangeSelectorInputs({
-      enabled: false
-    });
+    attempt(this.updateRangeSelectorInputs, { enabled: false });
   }
 
   prefixPropsWithInput = config => {

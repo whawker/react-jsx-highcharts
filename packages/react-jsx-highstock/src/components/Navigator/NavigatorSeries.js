@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
+import attempt from 'lodash/attempt';
 
 class NavigatorSeries extends Component {
 
@@ -13,7 +14,7 @@ class NavigatorSeries extends Component {
   }
 
   componentWillUnmount () {
-    this.updateNavigatorSeries({ showInNavigator: false });
+    attempt(this.updateNavigatorSeries, { showInNavigator: false });
   }
 
   updateNavigatorSeries = config => {

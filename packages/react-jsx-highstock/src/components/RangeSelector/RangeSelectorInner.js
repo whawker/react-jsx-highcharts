@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import attempt from 'lodash/attempt';
 import { Hidden, getModifiedProps, provideAxis } from 'react-jsx-highcharts';
 
 class RangeSelectorInner extends Component {
@@ -60,9 +61,7 @@ class RangeSelectorInner extends Component {
     const axisObj = getAxis().object;
     getHighcharts().removeEvent(axisObj, 'afterSetExtremes', this.setRendered);
 
-    this.updateRangeSelector({
-      enabled: false
-    });
+    attempt(this.updateRangeSelector, { enabled: false });
   }
 
   setRendered = () => {

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import attempt from 'lodash/attempt';
 import { Hidden, getModifiedProps } from 'react-jsx-highcharts';
 
 class Scrollbar extends Component {
@@ -26,9 +27,7 @@ class Scrollbar extends Component {
   }
 
   componentWillUnmount () {
-    this.updateScrollbar({
-      enabled: false
-    });
+    attempt(this.updateScrollbar, { enabled: false });
   }
 
   updateScrollbar = config => {
