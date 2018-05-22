@@ -9,7 +9,7 @@
   ],
   "scripts": {
     "build": "cross-env NODE_ENV=development ./node_modules/.bin/webpack",
-    "build:prod": "cross-env NODE_ENV=production ./node_modules/.bin/webpack -p"
+    "build:prod": "cross-env NODE_ENV=production ./node_modules/.bin/webpack"
   },
   "repository": {
     "type": "git",
@@ -33,19 +33,20 @@
     "react-jsx-highstock": "^2.0.0"
   },
   "devDependencies": {
-    "babel-cli": "^6.24.1",
-    "babel-core": "^6.25.0",
-    "babel-loader": "^7.1.1",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.4",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.8",
     "babel-plugin-transform-runtime": "^6.23.0",
-    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
-    "babel-preset-stage-0": "^6.24.1",
     "cross-env": "^5.0.5",
-    "css-loader": "^0.28.4",
-    "extract-text-webpack-plugin": "^2.0.0",
+    "css-loader": "^0.28.11",
+    "mini-css-extract-plugin": "^0.4.0",
     "null-loader": "^0.1.1",
-    "style-loader": "^0.18.2",
-    "webpack": "^2.7.0"
+    "webpack": "^4.8.3",
+    "webpack-cli": "^2.1.3"
   }
 }
