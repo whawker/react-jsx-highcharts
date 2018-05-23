@@ -9,6 +9,7 @@ import immutableEqual from 'immutable-is';
 import { Provider } from '../SeriesContext';
 import addEventProps, { getNonEventHandlerProps } from '../../utils/events';
 import getModifiedProps from '../../utils/getModifiedProps';
+import { logSeriesErrorMessage } from '../../utils/warnings';
 
 class Series extends Component {
 
@@ -29,6 +30,16 @@ class Series extends Component {
     requiresAxis: true,
     visible: true
   };
+
+  constructor (props) {
+    super(props);
+
+    if (process.env.NODE_ENV === 'development') {
+      const { type, getHighcharts } = props;
+      const seriesTypes = Object.keys(getHighcharts().seriesTypes);
+      if (seriesTypes.indexOf(type) === -1) logSeriesErrorMessage(type)
+    }
+  }
 
   componentDidMount () {
     const chart = this.props.getChart();
