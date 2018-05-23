@@ -8,7 +8,29 @@ export const Highcharts = {
   Tooltip: noop
 };
 
-export const createMockAxis = () => ({
+export const createMockChart = () => ({
+  addAxis: sinon.stub(),
+  addSeries: sinon.stub(),
+  get: sinon.stub(),
+  update: sinon.stub(),
+  setTitle: sinon.stub(),
+  destroy: sinon.stub(),
+  showLoading: sinon.stub(),
+  hideLoading: sinon.stub()
+})
+
+export const createMockProvidedChart = () => {
+  const chartStubs = createMockChart();
+
+  return {
+    chartStubs,
+    getChart: () => chartStubs
+  }
+};
+
+export const createMockAxis = ({ id, type }) => ({
+  id,
+  type,
   remove: sinon.stub(),
   addPlotBand: sinon.stub(),
   removePlotBand: sinon.stub(),
@@ -20,6 +42,20 @@ export const createMockAxis = () => ({
   setTitle: sinon.stub()
 });
 
+export const createMockProvidedAxis = ({ id, type, object }) => {
+  const axisStubs = createMockAxis({ id, type });
+
+  return {
+    axisStubs,
+    getAxis: () => ({
+      object,
+      id,
+      type,
+      ...axisStubs
+    })
+  }
+};
+
 export const createMockSeries = () => ({
   remove: sinon.stub(),
   setData: sinon.stub(),
@@ -27,13 +63,12 @@ export const createMockSeries = () => ({
   update: sinon.stub()
 });
 
-export const createMockChart = () => ({
-  addAxis: sinon.stub(),
-  addSeries: sinon.stub(),
-  get: sinon.stub(),
-  update: sinon.stub(),
-  setTitle: sinon.stub(),
-  destroy: sinon.stub(),
-  showLoading: sinon.stub(),
-  hideLoading: sinon.stub()
-});
+export const createMockProvidedSeries = () => {
+  const seriesStubs = createMockSeries();
+
+  return {
+    seriesStubs,
+    getSeries: () => seriesStubs
+  }
+};
+

@@ -1,15 +1,21 @@
 import React from 'react';
+import { createMockProvidedChart } from '../../test-utils'
 import Options3d from '../../../src/components/Options3d/Options3d';
 
 describe('<Options3d />', function ()  {
   beforeEach(function () {
-    this.update = sinon.spy();
+    const { chartStubs, getChart } = createMockProvidedChart();
+    this.chartStubs = chartStubs;
+
+    this.propsFromProviders = {
+      getChart
+    };
   });
 
-  describe('when mounted', function () {
+  context('when mounted', function () {
     it('updates the chart with the passed props', function () {
-      mount(<Options3d alpha={10} beta={20} update={this.update} />);
-      expect(this.update).to.have.been.calledWith({
+      mount(<Options3d alpha={10} beta={20} {...this.propsFromProviders} />);
+      expect(this.chartStubs.update).to.have.been.calledWith({
         chart: {
           options3d: {
             ...Options3d.defaultProps,
@@ -22,11 +28,11 @@ describe('<Options3d />', function ()  {
     });
   });
 
-  describe('update', function () {
+  context('update', function () {
     it('should use the update method when props change', function () {
-      const wrapper = mount(<Options3d alpha={0} update={this.update} />);
+      const wrapper = mount(<Options3d alpha={0} {...this.propsFromProviders} />);
       wrapper.setProps({ alpha: 45 });
-      expect(this.update).to.have.been.calledWith({
+      expect(this.chartStubs.update).to.have.been.calledWith({
         chart: {
           options3d: {
             ...Options3d.defaultProps,

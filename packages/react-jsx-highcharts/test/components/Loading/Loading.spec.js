@@ -1,40 +1,38 @@
 import React from 'react';
+import { createMockProvidedChart } from '../../test-utils'
 import Loading from '../../../src/components/Loading/Loading';
 
 describe('<Loading />', function ()  {
   beforeEach(function () {
-    this.update = sinon.spy();
-    this.showLoading = sinon.spy();
-    this.hideLoading = sinon.spy();
+    const { chartStubs, getChart } = createMockProvidedChart();
+    this.chartStubs = chartStubs;
 
     this.propsFromProviders = {
-      update: this.update,
-      showLoading: this.showLoading,
-      hideLoading: this.hideLoading
-    }
+      getChart
+    };
   });
 
-  describe('when mounted', function () {
+  context('when mounted', function () {
     it('displays loading message using the Highcharts showLoading method', function () {
       mount(<Loading {...this.propsFromProviders}>My Loading Message</Loading>);
-      expect(this.showLoading).to.have.been.calledWith('My Loading Message');
+      expect(this.chartStubs.showLoading).to.have.been.calledWith('My Loading Message');
     });
 
     it('does not display loading message if isLoading prop is false', function () {
       mount(<Loading {...this.propsFromProviders} isLoading={false}>My Loading Message</Loading>);
-      expect(this.showLoading).not.to.have.been.called;
+      expect(this.chartStubs.showLoading).not.to.have.been.called;
     });
 
     it('displays loading message using the Highcharts showLoading method if isLoading is true', function () {
       mount(<Loading {...this.propsFromProviders} isLoading>My Is Loading Message</Loading>);
-      expect(this.showLoading).to.have.been.calledWith('My Is Loading Message');
+      expect(this.chartStubs.showLoading).to.have.been.calledWith('My Is Loading Message');
     });
 
     it('updates the loading config with the passed props', function () {
       mount(
         <Loading {...this.propsFromProviders} hideDuration={2500}>Slow hiding loading</Loading>
       );
-      expect(this.update).to.have.been.calledWithMatch({
+      expect(this.chartStubs.update).to.have.been.calledWithMatch({
         loading: {
           hideDuration: 2500
         }
@@ -42,13 +40,13 @@ describe('<Loading />', function ()  {
     });
   });
 
-  describe('update', function () {
+  context('update', function () {
     it('should use the showLoading method when isLoading changes to true', function () {
       const wrapper = mount(
         <Loading {...this.propsFromProviders} isLoading={false}>Changes to true</Loading>
       );
       wrapper.setProps({ isLoading: true });
-      expect(this.showLoading).to.have.been.calledWith('Changes to true');
+      expect(this.chartStubs.showLoading).to.have.been.calledWith('Changes to true');
     });
 
     it('should use the hideLoading method when isLoading changes to false', function () {
@@ -56,7 +54,7 @@ describe('<Loading />', function ()  {
         <Loading {...this.propsFromProviders} isLoading>Changes to true</Loading>
       );
       wrapper.setProps({ isLoading: false });
-      expect(this.hideLoading).to.have.been.called;
+      expect(this.chartStubs.hideLoading).to.have.been.called;
     });
 
     it('should use the update method when other props change', function () {
@@ -64,7 +62,7 @@ describe('<Loading />', function ()  {
         <Loading {...this.propsFromProviders}>Updates style</Loading>
       );
       wrapper.setProps({ style: { color: 'red' } });
-      expect(this.update).to.have.been.calledWithMatch({
+      expect(this.chartStubs.update).to.have.been.calledWithMatch({
         loading: {
           style: { color: 'red' }
         }
@@ -72,11 +70,11 @@ describe('<Loading />', function ()  {
     });
   });
 
-  describe('when unmounted', function () {
+  context('when unmounted', function () {
     it('should hide the loading message', function () {
       const wrapper = mount(<Loading {...this.propsFromProviders}>My unmounting message</Loading>);
       wrapper.unmount();
-      expect(this.hideLoading).to.have.been.called;
+      expect(this.chartStubs.hideLoading).to.have.been.called;
     });
   });
 });

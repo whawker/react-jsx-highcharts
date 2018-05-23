@@ -1,19 +1,24 @@
 import React from 'react';
 import LegendTitle from '../../../src/components/Legend/LegendTitle';
+import { createMockProvidedChart } from '../../test-utils'
 
 describe('<Legend.Title />', function ()  {
   beforeEach(function () {
-    this.update = sinon.spy();
+    const { chartStubs, getChart } = createMockProvidedChart();
+    this.chartStubs = chartStubs;
+
+    this.propsFromProviders = {
+      getChart
+    };
   });
 
-  describe('when mounted', function () {
+  context('when mounted', function () {
     it('add legend using the Highcharts update method', function () {
-      mount(<LegendTitle update={this.update}>My Legend Title</LegendTitle>);
-      expect(this.update).to.have.been.calledWith({
+      mount(<LegendTitle {...this.propsFromProviders}>My Legend Title</LegendTitle>);
+      expect(this.chartStubs.update).to.have.been.calledWithMatch({
         legend: {
           title: {
-            text: 'My Legend Title',
-            update: this.update
+            text: 'My Legend Title'
           }
         }
       });
@@ -21,27 +26,26 @@ describe('<Legend.Title />', function ()  {
 
     it('updates the legend with the passed props', function () {
       mount(
-        <LegendTitle style={{ color: 'red' }} update={this.update}>My Legend Title</LegendTitle>
+        <LegendTitle style={{ color: 'red' }} {...this.propsFromProviders}>My Legend Title</LegendTitle>
       );
-      expect(this.update).to.have.been.calledWith({
+      expect(this.chartStubs.update).to.have.been.calledWithMatch({
         legend: {
           title: {
             text: 'My Legend Title',
-            style: { color: 'red' },
-            update: this.update
+            style: { color: 'red' }
           }
         }
       });
     });
   });
 
-  describe('update', function () {
+  context('update', function () {
     it('should use the update method when props change', function () {
       const wrapper = mount(
-        <LegendTitle update={this.update}>My Legend Title</LegendTitle>
+        <LegendTitle {...this.propsFromProviders}>My Legend Title</LegendTitle>
       );
       wrapper.setProps({ children: 'My New Legend Title' });
-      expect(this.update).to.have.been.calledWith({
+      expect(this.chartStubs.update).to.have.been.calledWithMatch({
         legend: {
           title: {
             text: 'My New Legend Title'
@@ -51,11 +55,11 @@ describe('<Legend.Title />', function ()  {
     });
   });
 
-  describe('when unmounted', function () {
+  context('when unmounted', function () {
     it('should disable the LegendTitle', function () {
-      const wrapper = mount(<LegendTitle update={this.update}>My Legend Title</LegendTitle>);
+      const wrapper = mount(<LegendTitle {...this.propsFromProviders}>My Legend Title</LegendTitle>);
       wrapper.unmount();
-      expect(this.update).to.have.been.calledWith({
+      expect(this.chartStubs.update).to.have.been.calledWithMatch({
         legend: {
           title: {
             text: null

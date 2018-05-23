@@ -1,4 +1,5 @@
 import React from 'react';
+import { createMockProvidedAxis } from '../../test-utils'
 import PlotLineLabel from '../../../src/components/PlotLine/PlotLineLabel';
 
 describe('<PlotLine.Label />', function ()  {
@@ -6,26 +7,33 @@ describe('<PlotLine.Label />', function ()  {
 
   beforeEach(function () {
     clock = sinon.useFakeTimers();
+    const { axisStubs, getAxis } = createMockProvidedAxis({ id: 'myAxis', type: 'yAxis' });
+    this.axisStubs = axisStubs;
+
     this.plotLine      = { id: 'myPlotLine', options: { label: { text: null } }, render: sinon.spy() };
     this.otherPlotLine = { id: 'myOtherPlotLine', options: { label: { text: 'Other' } }, render: sinon.spy() };
 
     this.getAxis = sinon.stub();
-    this.getAxis.returns({
+    this.axisStubs.object = {
       plotLinesAndBands: [
         this.plotLine,
         this.otherPlotLine
       ]
-    })
+    }
+
+    this.propsFromProviders = {
+      getAxis
+    };
   });
 
   afterEach(function () {
     clock.restore();
   });
 
-  describe('when mounted', function () {
+  context('when mounted', function () {
     it('sets the correct plot line label', function () {
       mount(
-        <PlotLineLabel id="myPlotLine" getAxis={this.getAxis}>
+        <PlotLineLabel id="myPlotLine" {...this.propsFromProviders}>
           My PlotLine Label
         </PlotLineLabel>
       );
@@ -42,7 +50,7 @@ describe('<PlotLine.Label />', function ()  {
 
     it('should pass additional props too', function () {
       mount(
-        <PlotLineLabel id="myPlotLine" align="left" color="red" getAxis={this.getAxis}>
+        <PlotLineLabel id="myPlotLine" align="left" color="red" {...this.propsFromProviders}>
           My PlotLine Label
         </PlotLineLabel>
       );
@@ -59,10 +67,10 @@ describe('<PlotLine.Label />', function ()  {
     });
   });
 
-  describe('update', function () {
+  context('update', function () {
     it('should update the correct plot line if the component props change', function () {
       const wrapper = mount(
-        <PlotLineLabel id="myPlotLine" getAxis={this.getAxis}>
+        <PlotLineLabel id="myPlotLine" {...this.propsFromProviders}>
           My PlotLine Label
         </PlotLineLabel>
       );
@@ -81,10 +89,10 @@ describe('<PlotLine.Label />', function ()  {
     });
   });
 
-  describe('when unmounted', function () {
+  context('when unmounted', function () {
     it('removes the correct plot line label', function () {
       const wrapper = mount(
-        <PlotLineLabel id="myPlotLine" getAxis={this.getAxis}>
+        <PlotLineLabel id="myPlotLine" {...this.propsFromProviders}>
           My PlotLine Label
         </PlotLineLabel>
       );
