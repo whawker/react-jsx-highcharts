@@ -14,7 +14,7 @@
     "build:prod": "cp ../../README.md . && cross-env NODE_ENV=production ./node_modules/.bin/webpack",
     "build:es": "BABEL_ENV=es babel src --out-dir dist/es",
     "lint": "./node_modules/.bin/eslint src",
-    "test": "cross-env NODE_ENV=test ./node_modules/.bin/mocha --compilers js:babel-core/register --require test/test-helper.js test/**/**/*.spec.js"
+    "test": "cross-env NODE_ENV=test ./node_modules/.bin/mocha ./test -name '*.spec.js' --recursive --compilers js:babel-core/register --require test/test-helper.js -R spec"
   },
   "author": "Will Hawker",
   "contributors": [
