@@ -1,6 +1,6 @@
 {
   "name": "react-jsx-highcharts",
-  "version": "3.0.0-alpha.7",
+  "version": "3.0.0-alpha.8",
   "description": "Highcharts charts built using React components",
   "main": "dist/react-jsx-highcharts.min.js",
   "module": "dist/es/index.js",
