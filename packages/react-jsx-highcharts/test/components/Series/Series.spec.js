@@ -1,6 +1,6 @@
 import React from 'react';
 import { List } from 'immutable';
-import { Highcharts, createMockProvidedChart, createMockProvidedAxis, createMockSeries } from '../../test-utils';
+import { Highcharts, createMockProvidedChart, createMockProvidedAxis, createMockSeries, uuidRegex } from '../../test-utils';
 import Series from '../../../src/components/Series/Series';
 
 describe('<Series />', function ()  {
@@ -52,6 +52,28 @@ describe('<Series />', function ()  {
       expect(this.chartStubs.addSeries).to.have.been.calledWithMatch(
         { id: 'mySeries', yAxis: 'myYAxisId', type: 'line', data: [], visible: true }, true
       );
+    });
+
+    it('uses the provided ID if id prop is a string', function () {
+      mount(
+        <Series id="mySeriesIdStr" {...this.propsFromProviders} />
+      );
+      expect(this.chartStubs.addSeries.getCall(0).args[0].id).to.equal('mySeriesIdStr');
+    });
+
+    it('resolves the ID if id prop is a function', function () {
+      const idFunc = () => 'mySeriesIdFromFunc'
+      mount(
+        <Series id={idFunc} {...this.propsFromProviders} />
+      );
+      expect(this.chartStubs.addSeries.getCall(0).args[0].id).to.equal('mySeriesIdFromFunc');
+    });
+
+    it('uses a uuid as an ID if no id prop provided', function () {
+      mount(
+        <Series {...this.propsFromProviders} />
+      );
+      expect(this.chartStubs.addSeries.getCall(0).args[0].id).to.match(uuidRegex);
     });
 
     it('should pass additional props through to Highcharts addSeries method', function () {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { createMockProvidedAxis } from '../../test-utils'
+import { createMockProvidedAxis, uuidRegex } from '../../test-utils'
 import PlotBand from '../../../src/components/PlotBand/PlotBand';
 
 describe('<PlotBand />', function ()  {
@@ -25,6 +25,28 @@ describe('<PlotBand />', function ()  {
       expect(this.axisStubs.addPlotBand).to.have.been.calledWithMatch(
         { id: 'My Other PlotBand', borderColor: 'red', from: 8.8, to: 24.2 }
       );
+    });
+
+    it('uses the provided ID if id prop is a string', function () {
+      mount(
+        <PlotBand id="myPlotBandIdStr" from={1} to={2} {...this.propsFromProviders} />
+      );
+      expect(this.axisStubs.addPlotBand.getCall(0).args[0].id).to.equal('myPlotBandIdStr');
+    });
+
+    it('resolves the ID if id prop is a function', function () {
+      const idFunc = () => 'myPlotBandIdFromFunc'
+      mount(
+        <PlotBand id={idFunc} from={1} to={2} {...this.propsFromProviders} />
+      );
+      expect(this.axisStubs.addPlotBand.getCall(0).args[0].id).to.equal('myPlotBandIdFromFunc');
+    });
+
+    it('uses a uuid as an ID if no id prop provided', function () {
+      mount(
+        <PlotBand from={1} to={2} {...this.propsFromProviders} />
+      );
+      expect(this.axisStubs.addPlotBand.getCall(0).args[0].id).to.match(uuidRegex);
     });
   });
 

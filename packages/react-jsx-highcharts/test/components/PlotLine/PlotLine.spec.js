@@ -1,5 +1,5 @@
 import React from 'react';
-import { createMockProvidedAxis } from '../../test-utils'
+import { createMockProvidedAxis, uuidRegex } from '../../test-utils'
 import PlotLine from '../../../src/components/PlotLine/PlotLine';
 
 describe('<PlotLine />', function ()  {
@@ -25,6 +25,28 @@ describe('<PlotLine />', function ()  {
       expect(this.axisStubs.addPlotLine).to.have.been.calledWithMatch(
         { id: 'My Other PlotLine', borderColor: 'red', value: 24.2 }
       );
+    });
+
+    it('uses the provided ID if id prop is a string', function () {
+      mount(
+        <PlotLine id="myPlotLineIdStr" value={2} {...this.propsFromProviders} />
+      );
+      expect(this.axisStubs.addPlotLine.getCall(0).args[0].id).to.equal('myPlotLineIdStr');
+    });
+
+    it('resolves the ID if id prop is a function', function () {
+      const idFunc = () => 'myPlotLineIdFromFunc'
+      mount(
+        <PlotLine id={idFunc} value={2} {...this.propsFromProviders} />
+      );
+      expect(this.axisStubs.addPlotLine.getCall(0).args[0].id).to.equal('myPlotLineIdFromFunc');
+    });
+
+    it('uses a uuid as an ID if no id prop provided', function () {
+      mount(
+        <PlotLine value={2} {...this.propsFromProviders} />
+      );
+      expect(this.axisStubs.addPlotLine.getCall(0).args[0].id).to.match(uuidRegex);
     });
   });
 

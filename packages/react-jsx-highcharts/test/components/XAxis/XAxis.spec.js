@@ -43,6 +43,16 @@ describe('<XAxis />', function ()  {
       const wrapper = shallow(<XAxis {...this.propsFromProviders} />);
       expect(wrapper).to.have.prop('type').equal('linear');
     });
+
+    it('uses the id prop if provided', function () {
+      const wrapper = shallow(<XAxis id='myXAxisId' {...this.propsFromProviders} />);
+      expect(wrapper).to.have.prop('id').equal('myXAxisId');
+    });
+
+    it('does not create an id if id prop not provided', function () {
+      const wrapper = shallow(<XAxis {...this.propsFromProviders} />);
+      expect(wrapper).not.to.have.prop('id');
+    });
   });
 
   describe('Highstock chart', function () {
@@ -58,6 +68,16 @@ describe('<XAxis />', function ()  {
     it('renders the an <Axis type="datetime" /> if no type specified', function () {
       const wrapper = shallow(<XAxis {...this.propsFromProviders} />);
       expect(wrapper).to.have.prop('type').equal('datetime');
+    });
+
+    it('uses the id `xAxis` even if an id prop is provided', function () {
+      const wrapper = shallow(<XAxis id='myXAxisId' {...this.propsFromProviders} />);
+      expect(wrapper).to.have.prop('id').equal('xAxis');
+    });
+
+    it('uses the id `xAxis` if id prop not provided', function () {
+      const wrapper = shallow(<XAxis {...this.propsFromProviders} />);
+      expect(wrapper).to.have.prop('id').equal('xAxis');
     });
   })
 });

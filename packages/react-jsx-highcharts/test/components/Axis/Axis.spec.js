@@ -1,5 +1,5 @@
 import React from 'react';
-import { Highcharts, createMockProvidedChart, createMockAxis } from '../../test-utils';
+import { Highcharts, createMockProvidedChart, createMockAxis, uuidRegex } from '../../test-utils'
 import Axis from '../../../src/components/Axis/Axis';
 
 describe('<Axis />', function ()  {
@@ -38,6 +38,28 @@ describe('<Axis />', function ()  {
       expect(this.chartStubs.addAxis).to.have.been.calledWithMatch(
         { id: 'myAxis', title: { text: null } }, false, true
       );
+    });
+
+    it('uses the provided ID if id prop is a string', function () {
+      mount(
+        <Axis id="myAxisIdStr" {...this.propsFromProviders} />
+      );
+      expect(this.chartStubs.addAxis.getCall(0).args[0].id).to.equal('myAxisIdStr');
+    });
+
+    it('resolves the ID if id prop is a function', function () {
+      const idFunc = () => 'myAxisIdFromFunc'
+      mount(
+        <Axis id={idFunc} {...this.propsFromProviders} />
+      );
+      expect(this.chartStubs.addAxis.getCall(0).args[0].id).to.equal('myAxisIdFromFunc');
+    });
+
+    it('uses a uuid as an ID if no id prop provided', function () {
+      mount(
+        <Axis {...this.propsFromProviders} />
+      );
+      expect(this.chartStubs.addAxis.getCall(0).args[0].id).to.match(uuidRegex);
     });
 
     it('should pass additional props through to Highcharts addAxis method', function () {
