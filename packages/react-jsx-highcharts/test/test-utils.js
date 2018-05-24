@@ -28,9 +28,8 @@ export const createMockProvidedChart = () => {
   }
 };
 
-export const createMockAxis = ({ id, type }) => ({
-  id,
-  type,
+export const createMockAxis = ({ ...additional }) => ({
+  ...additional,
   remove: sinon.stub(),
   addPlotBand: sinon.stub(),
   removePlotBand: sinon.stub(),
@@ -42,33 +41,37 @@ export const createMockAxis = ({ id, type }) => ({
   setTitle: sinon.stub()
 });
 
-export const createMockProvidedAxis = ({ id, type, object }) => {
-  const axisStubs = createMockAxis({ id, type });
+export const createMockProvidedAxis = ({ object, ...additional }) => {
+  const axisStubs = createMockAxis(additional);
 
   return {
     axisStubs,
     getAxis: () => ({
       object,
-      id,
-      type,
+      ...additional,
       ...axisStubs
     })
   }
 };
 
-export const createMockSeries = () => ({
+export const createMockSeries = ({ ...additional }) => ({
+  ...additional,
   remove: sinon.stub(),
   setData: sinon.stub(),
   setVisible: sinon.stub(),
   update: sinon.stub()
 });
 
-export const createMockProvidedSeries = () => {
-  const seriesStubs = createMockSeries();
+export const createMockProvidedSeries = ({ object, ...additional }) => {
+  const seriesStubs = createMockSeries(additional);
 
   return {
     seriesStubs,
-    getSeries: () => seriesStubs
+    getSeries: () => ({
+      object,
+      ...additional,
+      ...seriesStubs
+    })
   }
 };
 

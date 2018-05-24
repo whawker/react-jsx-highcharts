@@ -28,7 +28,7 @@ export default function provideSeries(Component) {
               id: series.userOptions && series.userOptions.id,
               update: clean(series.update.bind(series)),
               remove: series.remove.bind(series),
-              setData: series.update.bind(series),
+              setData: series.setData.bind(series),
               setVisible: series.setVisible.bind(series)
             })
 

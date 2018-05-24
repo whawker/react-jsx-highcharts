@@ -26,7 +26,7 @@ describe('<Tooltip />', function ()  {
     sandbox.restore();
   });
 
-  describe('when mounted', function () {
+  context('when mounted', function () {
     it('creates a new Highcharts Tooltip instance', function () {
       mount(<Tooltip {...this.propsFromProviders} />);
       expect(Highcharts.Tooltip).to.have.been.calledWithNew;
@@ -42,7 +42,7 @@ describe('<Tooltip />', function ()  {
     });
   });
 
-  describe('update', function () {
+  context('update', function () {
     it('should use the update method when props change', function () {
       const wrapper = mount(<Tooltip selected={0} {...this.propsFromProviders} />);
       wrapper.setProps({ padding: 2 });
@@ -54,7 +54,7 @@ describe('<Tooltip />', function ()  {
     });
   });
 
-  describe('when unmounted', function () {
+  context('when unmounted', function () {
     it('should disable the Tooltip', function () {
       const wrapper = mount(<Tooltip {...this.propsFromProviders} />);
       wrapper.unmount();
