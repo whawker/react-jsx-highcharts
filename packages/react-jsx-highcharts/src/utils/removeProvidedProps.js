@@ -24,7 +24,7 @@ function deepCleanConfig (config) {
   return mapValues(cleanedRoot, prop => {
     if (isPlainObject(prop) === false) return prop;
 
-    return cleanConfig(prop);
+    return deepCleanConfig(prop);
   });
 }
 
