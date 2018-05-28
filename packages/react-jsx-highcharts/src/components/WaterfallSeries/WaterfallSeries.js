@@ -4,7 +4,7 @@ import Series from '../Series';
 
 class WaterfallSeries extends Component {
   static propTypes = {
-    id: PropTypes.string.isRequired
+    id: PropTypes.oneOfType([ PropTypes.string, PropTypes.func ])
   };
 
   render () {

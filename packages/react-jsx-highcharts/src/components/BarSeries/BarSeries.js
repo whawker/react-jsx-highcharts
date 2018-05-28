@@ -4,7 +4,7 @@ import Series from '../Series';
 
 class BarSeries extends Component {
   static propTypes = {
-    id: PropTypes.string.isRequired,
+    id: PropTypes.oneOfType([ PropTypes.string, PropTypes.func ]),
     getChart: PropTypes.func.isRequired // Provided by ChartProvider
   };
 
