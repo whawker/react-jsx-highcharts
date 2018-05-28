@@ -37,19 +37,14 @@ class RangeSelectorInner extends Component {
     this.updateRangeSelector(opts);
 
     const axisObj = getAxis().object;
-    Highcharts.addEvent(axisObj, 'afterSetExtremes', this.setRendered);
+    Highcharts.addEvent(axisObj, 'afterSetExtremes', this.renderRangeSelector);
+
+    this.setState({
+      rendered: true
+    });
   }
 
-  componentDidUpdate (prevProps, prevState) {
-    if (this.state.rendered !== prevState.rendered) {
-      const { getChart, getAxis } = this.props;
-      const chartObj = getChart().object;
-      const axis = getAxis();
-      const extremes = axis.getExtremes();
-      // Fixes #40
-      chartObj.rangeSelector.render.call(chartObj.rangeSelector, extremes.min, extremes.max);
-    }
-
+  componentDidUpdate (prevProps) {
     const modifiedProps = getModifiedProps(prevProps, this.props);
     if (modifiedProps !== false) {
       this.updateRangeSelector(modifiedProps);
@@ -59,15 +54,9 @@ class RangeSelectorInner extends Component {
   componentWillUnmount () {
     const { getHighcharts, getAxis } = this.props;
     const axisObj = getAxis().object;
-    getHighcharts().removeEvent(axisObj, 'afterSetExtremes', this.setRendered);
+    getHighcharts().removeEvent(axisObj, 'afterSetExtremes', this.renderRangeSelector);
 
     attempt(this.updateRangeSelector, { enabled: false });
-  }
-
-  setRendered = () => {
-    this.setState({
-      rendered: true
-    });
   }
 
   getRangeSelectorConfig = () => {
@@ -87,6 +76,15 @@ class RangeSelectorInner extends Component {
     chart.update({
       rangeSelector: config
     }, true);
+  }
+
+  renderRangeSelector = () => {
+    const { getChart, getAxis } = this.props;
+    const chartObj = getChart().object;
+    const axis = getAxis();
+    const extremes = axis.getExtremes();
+    // Fixes #40
+    chartObj.rangeSelector.render.call(chartObj.rangeSelector, extremes.min, extremes.max);
   }
 
   render () {
