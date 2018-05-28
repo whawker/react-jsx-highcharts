@@ -1,12 +1,13 @@
 const webpack = require('webpack');
 const path = require('path');
 const fs = require('fs');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 const isProd = (process.env.NODE_ENV === 'production');
 const babelSettings = JSON.parse(fs.readFileSync('.babelrc'));
 
 const webpackConfig = {
+  mode: 'development',
   entry: path.resolve(__dirname, 'src'),
 
   output: {
@@ -66,45 +67,34 @@ const webpackConfig = {
         loader: 'babel-loader',
         exclude: /node_modules/,
         query: babelSettings
+      },
+      {
+        test: /\.css$/,
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader
+          },
+          {
+            loader: "css-loader",
+            options: {
+              sourceMap: true,
+              minimize: true
+            }
+          }
+        ]
       }
     ]
   },
-
   plugins: [
-    new webpack.DefinePlugin({
-      'process.env': {
-        'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
-      }
+    new MiniCssExtractPlugin({
+      filename  : 'index.css'
     })
   ]
 };
 
-const extractStyles = new ExtractTextPlugin({
-  filename  : 'index.css'
-});
-webpackConfig.module.rules.push(
-  {
-    test: /\.css$/,
-    loader: extractStyles.extract({
-      fallback: 'style-loader',
-      use: [
-        {
-          loader: 'css-loader',
-          options: {
-            sourceMap: true,
-            minimize: true
-          }
-        }
-      ]
-    })
-  }
-);
-webpackConfig.plugins.push(extractStyles);
 
 if (isProd) {
-  webpackConfig.plugins.push(
-    new webpack.optimize.UglifyJsPlugin()
-  );
+  webpackConfig.mode = 'production';
 }
 
 module.exports = webpackConfig;
