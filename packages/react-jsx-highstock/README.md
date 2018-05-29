@@ -1,12 +1,20 @@
-# react-jsx-highstock
+![React JSX Highstock](https://user-images.githubusercontent.com/2003804/40682476-c1ea6be4-6383-11e8-826c-a617db5ef726.png)
 
 This package exposes everything from `react-jsx-highcharts`, but additionally provides components for building **Highstock** charts.
 
 N.B. You can build *both* Highcharts **and** Highstock charts from this package.
 
-As of 1.2.0 React JSX Highstock supports using [Immutable.js](https://facebook.github.io/immutable-js/) data structures as Series data.
+## Why React JSX Highstock?
 
-As of 2.x you are required to use the `withHighcharts` HOC to inject the Highcharts object (see below)
+Unlike other React Highcharts wrapper libraries, **React JSX Highcharts** is designed to be dynamic - it is optimised for *interactive* charts that need to adapt to business logic in your React application.
+
+Other Highcharts wrappers completely destroy and recreate the chart when the configuration options change, which is *very* wasteful and inefficient.
+
+React JSX Highcharts uses a different approach, by providing React components for each Highcharts component, we can observe exactly which prop has changed and call the optimal Highcharts method behind the scenes.
+
+For example, if the `data` prop were to change on a `<Series />` component, React JSX Highcharts can follow Highcharts best practices and use the `setData` method rather than the more expensive `update`.
+
+React JSX Highcharts also enables you to write your *own* Highcharts components, via it's powerful higher order components.
 
 ## Upgrading from 1.x to 2.x
 
@@ -48,6 +56,12 @@ const MyChart = () => (
 
 export default withHighcharts(MyChart, Highcharts); // Injecting the Highstock object
 ```
+
+## Changelog
+
+As of 1.2.0 React JSX Highstock supports using [Immutable.js](https://facebook.github.io/immutable-js/) data structures as Series data.
+
+As of 2.x you are required to use the `withHighcharts` HOC to inject the Highcharts object (see below)
 
 ## Example
 

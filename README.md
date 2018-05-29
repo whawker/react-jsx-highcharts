@@ -1,16 +1,20 @@
-# react-jsx-highcharts
+![React JSX Highcharts](https://user-images.githubusercontent.com/2003804/40681848-2d0f5ce2-6382-11e8-8ce9-cd49c409ad2e.png)
 
 ## Introduction
 
 A project for integrating [Highcharts](https://github.com/highcharts/highcharts) into a React app, with proper React components for each Highcharts/Highstock component. Inspired by [Recharts](https://github.com/recharts/recharts), but for Highcharts, obviously.
 
-As of 1.2.0 React JSX Highcharts supports using [Immutable.js](https://facebook.github.io/immutable-js/) data structures as Series data.
+## Why React JSX Highcharts?
 
-As of 1.3.0 React JSX Highcharts supports [3D charts](https://whawker.github.io/react-jsx-highcharts/examples/3DChart/index.html).
+Unlike other React Highcharts wrapper libraries, **React JSX Highcharts** is designed to be dynamic - it is optimised for *interactive* charts that need to adapt to business logic in your React application.
 
-As of 2.1.0 Highcharts 6 is supported
+Other Highcharts wrappers completely destroy and recreate the chart when the configuration options change, which is *very* wasteful and inefficient.
 
-As of 2.x you are required to use the `withHighcharts` HOC to inject the Highcharts object (see below)
+React JSX Highcharts uses a different approach, by providing React components for each Highcharts component, we can observe exactly which prop has changed and call the optimal Highcharts method behind the scenes.
+
+For example, if the `data` prop were to change on a `<Series />` component, React JSX Highcharts can follow Highcharts best practices and use the `setData` method rather than the more expensive `update`.
+
+React JSX Highcharts also enables you to write your *own* Highcharts components, via it's powerful higher order components.
 
 ## Upgrading from 1.x to 2.x
 
@@ -113,7 +117,7 @@ In progress... [see here](https://github.com/whawker/react-jsx-highcharts/wiki).
 * ~~React 16 support - all features seem to work with beta 3, just need to modify `peerDependencies` and await Enzyme support for React 16~~ Done! 1.4.0
 * Use `React.PureComponent` instead of `Component`
 * ~~Highcharts 6.0 support~~ Done 2.1.0
-* Use new context API due to be added in React 16.3
+* ~~Use new context API due to be added in React 16.3~~
 
 ## Goals
 
@@ -130,6 +134,16 @@ Rather than passing around a chart object between all the components, we utilise
 There are 3 HOCs in this project, [provideChart](https://github.com/whawker/react-jsx-highcharts/blob/master/packages/react-jsx-highcharts/src/components/ChartProvider/index.js), [provideAxis](https://github.com/whawker/react-jsx-highcharts/blob/master/packages/react-jsx-highcharts/src/components/AxisProvider/index.js) and [provideSeries](https://github.com/whawker/react-jsx-highcharts/blob/master/packages/react-jsx-highcharts/src/components/SeriesProvider/index.js).
 
 In the vast majority of cases, there is no need to use these HOCs directly - but they have been exposed anyway - they are useful if you want to create your own components with this library.
+
+## Changelog
+
+As of 1.2.0 React JSX Highcharts supports using [Immutable.js](https://facebook.github.io/immutable-js/) data structures as Series data.
+
+As of 1.3.0 React JSX Highcharts supports [3D charts](https://whawker.github.io/react-jsx-highcharts/examples/3DChart/index.html).
+
+As of 2.1.0 Highcharts 6 is supported
+
+As of 2.x you are required to use the `withHighcharts` HOC to inject the Highcharts object (see below)
 
 ## Common issues
 
