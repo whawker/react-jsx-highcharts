@@ -5,9 +5,8 @@ import { createMockProvidedChart } from '../../test-utils'
 
 describe('<XAxis />', function ()  {
   beforeEach(function () {
-    const { chartStubs, getChart } = createMockProvidedChart();
+    const { chartStubs, getChart } = createMockProvidedChart({ type: 'chart' });
     this.chartStubs = chartStubs;
-    this.chartStubs.getType = sinon.stub();
 
     this.propsFromProviders = {
       getChart
@@ -31,7 +30,7 @@ describe('<XAxis />', function ()  {
 
   describe('Highcharts chart', function () {
     beforeEach(function () {
-      this.chartStubs.getType.returns('chart');
+      this.chartStubs.type = 'chart';
     });
 
     it('renders the <Axis /> type if provided', function () {
@@ -57,7 +56,7 @@ describe('<XAxis />', function ()  {
 
   describe('Highstock chart', function () {
     beforeEach(function () {
-      this.chartStubs.getType.returns('stockChart');
+      this.chartStubs.type = 'stockChart';
     });
 
     it('renders the <Axis /> type if provided', function () {

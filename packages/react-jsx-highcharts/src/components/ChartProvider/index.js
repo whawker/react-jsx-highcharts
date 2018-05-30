@@ -18,14 +18,14 @@ export default function provideChart(Component) {
 
           const getChart = () => ({
             object: chart,
+            type: chartType,
             get: chart.get.bind(chart),
             update: clean(chart.update.bind(chart)),
             addAxis: clean(chart.addAxis.bind(chart)),
             addSeries: clean(chart.addSeries.bind(chart)),
             setTitle: clean(chart.setTitle.bind(chart)),
             showLoading: chart.showLoading.bind(chart),
-            hideLoading: chart.hideLoading.bind(chart),
-            getType: () => chartType
+            hideLoading: chart.hideLoading.bind(chart)
           })
 
           return (

@@ -20,7 +20,8 @@ describe('<SeriesProvider />', function () {
   beforeEach(function () {
     this.cleanSpy = sinon.spy(clean, 'default');
     this.series = createMockSeries({
-      userOptions: { id: 'mySeriesId' }
+      userOptions: { id: 'mySeriesId' },
+      type: 'areaspline'
     });
 
     SeriesWrappedComponent = provideSeries(WrappedComponent);
@@ -98,6 +99,7 @@ describe('<SeriesProvider />', function () {
     const series = wrapper.find(WrappedComponent).props().getSeries();
     expect(series.object).to.equal(this.series);
     expect(series.id).to.equal('mySeriesId');
+    expect(series.type).to.equal('areaspline');
     expect(series.update).to.be.a('function');
     expect(series.remove).to.be.a('function');
     expect(series.setData).to.be.a('function');

@@ -93,6 +93,7 @@ describe('<ChartProvider />', function () {
 
     const chart = wrapper.find(WrappedComponent).props().getChart();
     expect(chart.object).to.equal(this.chart);
+    expect(chart.type).to.equal(this.chartType);
     expect(chart.get).to.be.a('function');
     expect(chart.update).to.be.a('function');
     expect(chart.addAxis).to.be.a('function');
@@ -100,7 +101,6 @@ describe('<ChartProvider />', function () {
     expect(chart.setTitle).to.be.a('function');
     expect(chart.showLoading).to.be.a('function');
     expect(chart.hideLoading).to.be.a('function');
-    expect(chart.getType).to.be.a('function');
   });
 
   it('should provide expected chart functions when calling getChart', function () {
@@ -119,6 +119,7 @@ describe('<ChartProvider />', function () {
     );
 
     const chart = wrapper.find(WrappedComponent).props().getChart();
+    expect(chart.type).to.equal(this.chartType);
     expect(chart.get({ prop: 'Test1234' })).to.equal('get method mock');
     expect(chart.update({ prop: 'Test9876' })).to.equal('update method mock');
     expect(chart.addAxis({ prop: 'Test4567' })).to.equal('addAxis method mock');
@@ -126,7 +127,6 @@ describe('<ChartProvider />', function () {
     expect(chart.setTitle({ prop: 'Test8080' })).to.equal('setTitle method mock');
     expect(chart.showLoading({ prop: 'Test1111' })).to.equal('showLoading method mock');
     expect(chart.hideLoading({ prop: 'Test2222' })).to.equal('hideLoading method mock');
-    expect(chart.getType()).to.equal('chart');
   });
 
   it('should provide chart functions bound to the chart when calling getChart', function () {
@@ -145,6 +145,7 @@ describe('<ChartProvider />', function () {
     );
 
     const chart = wrapper.find(WrappedComponent).props().getChart();
+    expect(chart.type).to.equal('stockChart');
     expect(chart.get({ prop: 'Test1234' })).to.equal(this.chart);
     expect(chart.update({ prop: 'Test9876' })).to.equal(this.chart);
     expect(chart.addAxis({ prop: 'Test4567' })).to.equal(this.chart);
@@ -152,7 +153,6 @@ describe('<ChartProvider />', function () {
     expect(chart.setTitle({ prop: 'Test8080' })).to.equal(this.chart);
     expect(chart.showLoading({ prop: 'Test1111' })).to.equal(this.chart);
     expect(chart.hideLoading({ prop: 'Test2222' })).to.equal(this.chart);
-    expect(chart.getType()).to.equal('stockChart');
   });
 
   it('should provide chart functions which will be cleaned prior to being called', function () {
