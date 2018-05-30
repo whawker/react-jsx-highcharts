@@ -7,6 +7,8 @@ const isProd = (process.env.NODE_ENV === 'production');
 const babelSettings = JSON.parse(fs.readFileSync('.babelrc'));
 
 const webpackConfig = {
+  mode: 'development',
+
   entry: path.resolve(__dirname, 'src'),
 
   output: {
@@ -67,9 +69,7 @@ const webpackConfig = {
 };
 
 if (isProd) {
-  webpackConfig.plugins.push(
-    new webpack.optimize.UglifyJsPlugin()
-  );
+  webpackConfig.mode = 'production';
 }
 
 module.exports = webpackConfig;

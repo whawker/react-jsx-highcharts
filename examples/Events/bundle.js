@@ -2453,14 +2453,14 @@ var App = function (_Component) {
           ),
           _react2.default.createElement(
             _reactJsxHighcharts.YAxis,
-            { id: 'scatter' },
+            null,
             _react2.default.createElement(
               _reactJsxHighcharts.YAxis.Title,
               null,
               'Y Coord'
             ),
-            _react2.default.createElement(_reactJsxHighcharts.ScatterSeries, { id: 'my-clicks', name: 'My clicks', data: myClicks }),
-            _react2.default.createElement(_reactJsxHighcharts.ScatterSeries, { id: 'user-clicks', name: 'Your clicks', data: userClicks, onHide: this.handleHide, onShow: this.handleShow })
+            _react2.default.createElement(_reactJsxHighcharts.ScatterSeries, { name: 'My clicks', data: myClicks }),
+            _react2.default.createElement(_reactJsxHighcharts.ScatterSeries, { name: 'Your clicks', data: userClicks, onHide: this.handleHide, onShow: this.handleShow })
           )
         ),
         _react2.default.createElement(
@@ -2526,7 +2526,7 @@ exports.default = (0, _reactJsxHighcharts.withHighcharts)(App, _highcharts2.defa
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = "\n<HighchartsChart>\n  <Chart zoomType=\"xy\" onClick={this.handleClick} />\n\n  <Title>Click to add data</Title>\n\n  <Legend>\n    <Legend.Title>Legend</Legend.Title>\n  </Legend>\n\n  <XAxis>\n    <XAxis.Title>X Coord</XAxis.Title>\n  </XAxis>\n\n  <YAxis id=\"scatter\">\n    <YAxis.Title>Y Coord</YAxis.Title>\n    <ScatterSeries id=\"my-clicks\" name=\"My clicks\" data={myClicks} />\n    <ScatterSeries id=\"user-clicks\" name=\"Your clicks\" data={userClicks} onHide={this.handleHide} onShow={this.handleShow} />\n  </YAxis>\n</HighchartsChart>\n\n// Remember to inject Highcharts to exported component\nexport default withHighcharts(MyComponent, Highcharts);";
+exports.default = "\n<HighchartsChart>\n  <Chart zoomType=\"xy\" onClick={this.handleClick} />\n\n  <Title>Click to add data</Title>\n\n  <Legend>\n    <Legend.Title>Legend</Legend.Title>\n  </Legend>\n\n  <XAxis>\n    <XAxis.Title>X Coord</XAxis.Title>\n  </XAxis>\n\n  <YAxis>\n    <YAxis.Title>Y Coord</YAxis.Title>\n    <ScatterSeries name=\"My clicks\" data={myClicks} />\n    <ScatterSeries name=\"Your clicks\" data={userClicks} onHide={this.handleHide} onShow={this.handleShow} />\n  </YAxis>\n</HighchartsChart>\n\n// Remember to inject Highcharts to exported component\nexport default withHighcharts(MyComponent, Highcharts);";
 
 /***/ }),
 /* 272 */

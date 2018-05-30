@@ -1,20 +1,22 @@
 import React, { Component, Children, cloneElement, isValidElement } from 'react';
 import PropTypes from 'prop-types';
+import uuid from 'uuid/v4';
+import isFunction from 'lodash/isFunction';
+import attempt from 'lodash/attempt';
 import Hidden from '../Hidden';
 
 class PlotBand extends Component {
 
   static propTypes = {
-    id: PropTypes.string.isRequired,
-    axisId: PropTypes.string, // Provided by Axis component
-    dimension: PropTypes.string, // Provided by Axis component
+    id: PropTypes.oneOfType([ PropTypes.string, PropTypes.func ]).isRequired,
     from: PropTypes.any.isRequired,
     to: PropTypes.any.isRequired,
-    xAxis: PropTypes.string,
-    yAxis: PropTypes.string,
     color: PropTypes.string,
-    addPlotBand: PropTypes.func, // Provided by AxisProvider
-    removePlotBand: PropTypes.func // Provided by AxisProvider
+    getAxis: PropTypes.func // Provided by AxisProvider
+  };
+
+  static defaultProps = {
+    id: uuid
   };
 
   constructor (props) {
@@ -26,32 +28,50 @@ class PlotBand extends Component {
   }
 
   componentDidMount () {
-    const { axisId, dimension, children, ...rest } = this.props;
-    this.props.addPlotBand(rest);
+    const axis = this.props.getAxis();
+
+    // Create Highcharts Plot Band on Axis
+    const opts = this.getPlotBandConfig();
+    axis.addPlotBand(opts);
+
     this.setState({
       rendered: true
     });
   }
 
-  componentDidUpdate (prevProps) {
-    this.props.removePlotBand(prevProps.id);
-    const { axisId, dimension, children, ...rest } = this.props;
-    this.props.addPlotBand(rest);
+  componentDidUpdate () {
+    const axis = this.props.getAxis();
+
+    // Plot Bands cannot be updated, we have to remove and re-add
+    const opts = this.getPlotBandConfig();
+    axis.removePlotBand(opts.id);
+    axis.addPlotBand(opts);
   }
 
   componentWillUnmount () {
-    if (this.props.getAxis()) {
-      this.props.removePlotBand(this.props.id);
+    const axis = this.props.getAxis();
+    attempt(axis.removePlotBand, this.id);
+  }
+
+  getPlotBandConfig = () => {
+    const { id, children, ...rest } = this.props;
+    if (!this.id) {
+      this.id = isFunction(id) ? id() : id
+    }
+
+    return {
+      id: this.id,
+      ...rest
     }
   }
 
   render () {
-    const { children, ...rest } = this.props;
+    const { children } = this.props;
     if (!children || !this.state.rendered) return null;
 
     const bandChildren = Children.map(children, child => {
       if (isValidElement(child) === false) return child;
-      return cloneElement(child, rest);
+      return cloneElement(child, { id: this.id });
     });
 
     return (

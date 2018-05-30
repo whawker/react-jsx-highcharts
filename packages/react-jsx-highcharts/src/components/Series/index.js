@@ -1,3 +1,3 @@
 import Series from './Series';
-import provideSeries from '../SeriesProvider';
-export default provideSeries(Series, false);
+import provideAxis from '../AxisProvider';
+export default provideAxis(Series);

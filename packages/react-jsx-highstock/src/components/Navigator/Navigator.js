@@ -1,12 +1,12 @@
 import React, { Component, Children, cloneElement, isValidElement } from 'react';
 import PropTypes from 'prop-types';
-import Hidden from 'react-jsx-highcharts/src/components/Hidden';
-import getModifiedProps from 'react-jsx-highcharts/src/utils/getModifiedProps';
+import attempt from 'lodash/attempt';
+import { getModifiedProps } from 'react-jsx-highcharts';
+import NavigatorXAxis from './NavigatorXAxis';
 
 class Navigator extends Component {
 
   static propTypes = {
-    update: PropTypes.func, // Provided by ChartProvider
     getChart: PropTypes.func, // Provided by ChartProvider
     getHighcharts: PropTypes.func.isRequired, // Provided by HighchartsProvider
     enabled: PropTypes.bool.isRequired
@@ -19,25 +19,22 @@ class Navigator extends Component {
   constructor (props) {
     super(props);
 
-    this.updateNavigator = this.updateNavigator.bind(this);
-    this.handleAddSeries = this.handleAddSeries.bind(this);
-
     this.state = {
-      rendered: false,
-      seriesCount: 0
+      rendered: false
     };
-
-    props.getHighcharts().addEvent(props.getChart(), 'addSeries', this.handleAddSeries);
   }
 
   componentDidMount () {
     const { children, getHighcharts, getChart, ...rest } = this.props;
+
+    // Workaround from http://jsfiddle.net/x40me94t/2/
     const Highcharts = getHighcharts();
-    const chart = getChart();
-    chart.scroller = chart.navigator = new Highcharts.Navigator(chart);
-    this.updateNavigator({
-      ...rest
-    });
+    const chartObj = getChart().object;
+    chartObj.options.navigator.enabled = true;
+    Highcharts.fireEvent(chartObj, 'beforeRender');
+
+    this.updateNavigator(rest);
+
     this.setState({
       rendered: true
     });
@@ -51,23 +48,14 @@ class Navigator extends Component {
   }
 
   componentWillUnmount () {
-    const { getHighcharts, getChart } = this.props;
-    this.updateNavigator({
-      enabled: false
-    });
-    getHighcharts().removeEvent(getChart(), 'addSeries', this.handleAddSeries);
+    attempt(this.updateNavigator, { enabled: false });
   }
 
-  updateNavigator (config) {
-    this.props.update({
+  updateNavigator = config => {
+    const chart = this.props.getChart();
+    chart.update({
       navigator: config
     }, true);
-  }
-
-  handleAddSeries () {
-    this.setState({
-      seriesCount: this.state.seriesCount + 1
-    });
   }
 
   render () {
@@ -80,7 +68,7 @@ class Navigator extends Component {
     });
 
     return (
-      <Hidden>{navChildren}</Hidden>
+      <NavigatorXAxis>{navChildren}</NavigatorXAxis>
     );
   }
 }

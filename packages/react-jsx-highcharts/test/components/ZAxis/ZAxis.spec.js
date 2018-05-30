@@ -18,9 +18,9 @@ describe('<ZAxis />', function ()  {
     expect(wrapper).to.have.prop('dynamicAxis').equal(false);
   });
 
-  it('renders an <Axis dimension="z" />', function () {
+  it('renders an <Axis isX={false} />', function () {
     const wrapper = shallow(<ZAxis id="ZAxis" />);
-    expect(wrapper).to.have.prop('dimension').equal('z');
+    expect(wrapper).to.have.prop('isX').equal(false);
   });
 
   it('passes other props through to <Axis />', function () {

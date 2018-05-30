@@ -1,39 +1,24 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import providedProps from '../../utils/providedProps';
+import React from 'react';
+import { Consumer } from '../HighchartsContext';
+import getDisplayName from '../../utils/getDisplayName';
 
-function getDisplayName (Component) {
-  return Component.displayName || Component.name || 'Component';
-}
+// This is a HOC function.
+// It takes a component...
+export default function provideHighcharts(Component) {
+  // ...and returns another component...
+  const HighchartsWrappedComponent = function (props) {
+    // ... and renders the wrapped component with the context Highcharts global
+    // Notice that we pass through any additional props as well
+    return (
+      <Consumer>
+        {Highcharts => (
+          <Component {...props} getHighcharts={() => Highcharts} />
+        )}
+      </Consumer>
+    );
+  };
 
-export default function provideHighcharts(WrappedComponent) {
-  class HighchartsProvider extends Component {
-    static displayName = `HighchartsProvider(${getDisplayName(WrappedComponent)})`;
+  HighchartsWrappedComponent.displayName = `Highcharts.Provider(${getDisplayName(Component)})`
 
-    static contextTypes = {
-      Highcharts: PropTypes.object
-    };
-
-    constructor (props, context) {
-      super(props, context);
-
-      providedProps(
-        'HighchartsProvider',
-        ['getHighcharts']
-      );
-    }
-
-    render () {
-      const { Highcharts } = this.context;
-      const getHighcharts = () => Highcharts;
-
-      return (
-        <WrappedComponent
-          {...this.props}
-          getHighcharts={getHighcharts} />
-      );
-    }
-  }
-
-  return HighchartsProvider;
+  return HighchartsWrappedComponent;
 }

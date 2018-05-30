@@ -637,17 +637,17 @@ var App = function App() {
       ),
       _react2.default.createElement(
         _reactJsxHighcharts.YAxis,
-        { id: 'cities' },
+        null,
         _react2.default.createElement(
           _reactJsxHighcharts.YAxis.Title,
           null,
           'Temperature (\xB0C)'
         ),
-        _react2.default.createElement(_reactJsxHighcharts.LineSeries, { id: 'tokyo', name: 'Tokyo', data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6] }),
-        _react2.default.createElement(_reactJsxHighcharts.LineSeries, { id: 'new-york', name: 'New York', data: [-0.2, 0.8, 5.7, 11.3, 17.0, 22.0, 24.8, 24.1, 20.1, 14.1, 8.6, 2.5] }),
-        _react2.default.createElement(_reactJsxHighcharts.LineSeries, { id: 'berlin', name: 'Berlin', data: [-0.9, 0.6, 3.5, 8.4, 13.5, 17.0, 18.6, 17.9, 14.3, 9.0, 3.9, 1.0] }),
-        _react2.default.createElement(_reactJsxHighcharts.LineSeries, { id: 'london', name: 'London', data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8] }),
-        _react2.default.createElement(_reactJsxHighcharts.LineSeries, { id: 'sydney', name: 'Sydney', data: [22.1, 22.1, 21.0, 18.4, 15.3, 12.9, 12.0, 13.2, 15.3, 17.7, 19.5, 21.2] })
+        _react2.default.createElement(_reactJsxHighcharts.LineSeries, { name: 'Tokyo', data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6] }),
+        _react2.default.createElement(_reactJsxHighcharts.LineSeries, { name: 'New York', data: [-0.2, 0.8, 5.7, 11.3, 17.0, 22.0, 24.8, 24.1, 20.1, 14.1, 8.6, 2.5] }),
+        _react2.default.createElement(_reactJsxHighcharts.LineSeries, { name: 'Berlin', data: [-0.9, 0.6, 3.5, 8.4, 13.5, 17.0, 18.6, 17.9, 14.3, 9.0, 3.9, 1.0] }),
+        _react2.default.createElement(_reactJsxHighcharts.LineSeries, { name: 'London', data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8] }),
+        _react2.default.createElement(_reactJsxHighcharts.LineSeries, { name: 'Sydney', data: [22.1, 22.1, 21.0, 18.4, 15.3, 12.9, 12.0, 13.2, 15.3, 17.7, 19.5, 21.2] })
       )
     ),
     _react2.default.createElement(
@@ -678,7 +678,7 @@ module.exports = ReactDOM;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = "\nimport Highcharts from 'highcharts/js/highcharts'; // Style by CSS import\nimport {\n  HighchartsChart, Chart, withHighcharts, XAxis, YAxis, Title, Subtitle, Tooltip, Legend, LineSeries\n} from 'react-jsx-highcharts';\nimport './index.css'; // CSS Styles\n\nconst MONTHS = [\n  'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',\n  'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'\n];\n\nconst App = () => (\n  <div className=\"app\">\n    <HighchartsChart>\n      <Chart />\n\n      <Title>Monthly Average Temperature</Title>\n\n      <Subtitle>Source: WorldClimate.com</Subtitle>\n\n      <Legend layout=\"vertical\" align=\"right\" verticalAlign=\"middle\" borderWidth={0} />\n\n      <Tooltip valueSuffix=\" \xB0C\" shared />\n\n      <XAxis categories={MONTHS}>\n        <XAxis.Title>Time</XAxis.Title>\n      </XAxis>\n\n      <YAxis id=\"cities\">\n        <YAxis.Title>Temperature (\xB0C)</YAxis.Title>\n        <LineSeries id=\"tokyo\" name=\"Tokyo\" data={[7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]} />\n        <LineSeries id=\"new-york\" name=\"New York\" data={[-0.2, 0.8, 5.7, 11.3, 17.0, 22.0, 24.8, 24.1, 20.1, 14.1, 8.6, 2.5]} />\n        <LineSeries id=\"berlin\" name=\"Berlin\" data={[-0.9, 0.6, 3.5, 8.4, 13.5, 17.0, 18.6, 17.9, 14.3, 9.0, 3.9, 1.0]} />\n        <LineSeries id=\"london\" name=\"London\" data={[3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8]} />\n        <LineSeries id=\"sydney\" name=\"Sydney\" data={[22.1, 22.1, 21.0, 18.4, 15.3, 12.9, 12.0, 13.2, 15.3, 17.7, 19.5, 21.2]} />\n      </YAxis>\n    </HighchartsChart>\n  </div>\n);\n\nexport default withHighcharts(App, Highcharts);";
+exports.default = "\nimport Highcharts from 'highcharts/js/highcharts'; // Style by CSS import\nimport {\n  HighchartsChart, Chart, withHighcharts, XAxis, YAxis, Title, Subtitle, Tooltip, Legend, LineSeries\n} from 'react-jsx-highcharts';\nimport './index.css'; // CSS Styles\n\nconst MONTHS = [\n  'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',\n  'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'\n];\n\nconst App = () => (\n  <div className=\"app\">\n    <HighchartsChart>\n      <Chart />\n\n      <Title>Monthly Average Temperature</Title>\n\n      <Subtitle>Source: WorldClimate.com</Subtitle>\n\n      <Legend layout=\"vertical\" align=\"right\" verticalAlign=\"middle\" borderWidth={0} />\n\n      <Tooltip valueSuffix=\" \xB0C\" shared />\n\n      <XAxis categories={MONTHS}>\n        <XAxis.Title>Time</XAxis.Title>\n      </XAxis>\n\n      <YAxis>\n        <YAxis.Title>Temperature (\xB0C)</YAxis.Title>\n        <LineSeries name=\"Tokyo\" data={[7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]} />\n        <LineSeries name=\"New York\" data={[-0.2, 0.8, 5.7, 11.3, 17.0, 22.0, 24.8, 24.1, 20.1, 14.1, 8.6, 2.5]} />\n        <LineSeries name=\"Berlin\" data={[-0.9, 0.6, 3.5, 8.4, 13.5, 17.0, 18.6, 17.9, 14.3, 9.0, 3.9, 1.0]} />\n        <LineSeries name=\"London\" data={[3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8]} />\n        <LineSeries name=\"Sydney\" data={[22.1, 22.1, 21.0, 18.4, 15.3, 12.9, 12.0, 13.2, 15.3, 17.7, 19.5, 21.2]} />\n      </YAxis>\n    </HighchartsChart>\n  </div>\n);\n\nexport default withHighcharts(App, Highcharts);";
 
 /***/ }),
 

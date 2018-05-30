@@ -1,24 +1,19 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
+import attempt from 'lodash/attempt';
 import getModifiedProps from '../../utils/getModifiedProps';
 
 class Title extends Component {
 
   static propTypes = {
-    setTitle: PropTypes.func // Provided by ChartProvider
+    getChart: PropTypes.func // Provided by ChartProvider
   };
 
-  constructor (props) {
-    super(props);
-
-    this.updateTitle = this.updateTitle.bind(this);
-  }
-
   componentDidMount () {
-    const { children, ...rest } = this.props;
+    const { children: text, ...rest } = this.props;
     this.updateTitle({
       ...rest,
-      text: children
+      text
     });
   }
 
@@ -30,13 +25,12 @@ class Title extends Component {
   }
 
   componentWillUnmount () {
-    this.updateTitle({
-      text: null
-    });
+    attempt(this.updateTitle, { text: null });
   }
 
-  updateTitle (config) {
-    this.props.setTitle(config, null, true);
+  updateTitle = config => {
+    const chart = this.props.getChart();
+    chart.setTitle(config, null, true);
   }
 
   render () {

@@ -2372,7 +2372,7 @@ var App = function (_Component) {
       var color = index % 2 ? '#FFFFFF' : 'rgba(68, 170, 213, 0.1)';
       return _react2.default.createElement(
         _reactJsxHighcharts.PlotBand,
-        { id: id, key: id, from: from, to: to, color: color },
+        { key: id, from: from, to: to, color: color },
         _react2.default.createElement(
           _reactJsxHighcharts.PlotBand.Label,
           null,
@@ -2431,14 +2431,14 @@ var App = function (_Component) {
           ),
           _react2.default.createElement(
             _reactJsxHighcharts.YAxis,
-            { id: 'y', minorGridLineWidth: 0, gridLineWidth: 0, alternateGridColor: null },
+            { minorGridLineWidth: 0, gridLineWidth: 0, alternateGridColor: null },
             _react2.default.createElement(
               _reactJsxHighcharts.YAxis.Title,
               null,
               'Wind speed (m/s)'
             ),
-            _react2.default.createElement(_reactJsxHighcharts.SplineSeries, { id: 'hestavollane', name: 'Hestavollane', data: [0.2, 0.8, 0.8, 0.8, 1, 1.3, 1.5, 2.9, 1.9, 2.6, 1.6, 3, 4, 3.6, 4.5, 4.2, 4.5, 4.5, 4, 3.1, 2.7, 4, 2.7, 2.3, 2.3, 4.1, 7.7, 7.1, 5.6, 6.1, 5.8, 8.6, 7.2, 9, 10.9, 11.5, 11.6, 11.1, 12, 12.3, 10.7, 9.4, 9.8, 9.6, 9.8, 9.5, 8.5, 7.4, 7.6] }),
-            _react2.default.createElement(_reactJsxHighcharts.SplineSeries, { id: 'vix', name: 'Vix', data: [0, 0, 0.6, 0.9, 0.8, 0.2, 0, 0, 0, 0.1, 0.6, 0.7, 0.8, 0.6, 0.2, 0, 0.1, 0.3, 0.3, 0, 0.1, 0, 0, 0, 0.2, 0.1, 0, 0.3, 0, 0.1, 0.2, 0.1, 0.3, 0.3, 0, 3.1, 3.1, 2.5, 1.5, 1.9, 2.1, 1, 2.3, 1.9, 1.2, 0.7, 1.3, 0.4, 0.3] }),
+            _react2.default.createElement(_reactJsxHighcharts.SplineSeries, { name: 'Hestavollane', data: [0.2, 0.8, 0.8, 0.8, 1, 1.3, 1.5, 2.9, 1.9, 2.6, 1.6, 3, 4, 3.6, 4.5, 4.2, 4.5, 4.5, 4, 3.1, 2.7, 4, 2.7, 2.3, 2.3, 4.1, 7.7, 7.1, 5.6, 6.1, 5.8, 8.6, 7.2, 9, 10.9, 11.5, 11.6, 11.1, 12, 12.3, 10.7, 9.4, 9.8, 9.6, 9.8, 9.5, 8.5, 7.4, 7.6] }),
+            _react2.default.createElement(_reactJsxHighcharts.SplineSeries, { name: 'Vix', data: [0, 0, 0.6, 0.9, 0.8, 0.2, 0, 0, 0, 0.1, 0.6, 0.7, 0.8, 0.6, 0.2, 0, 0.1, 0.3, 0.3, 0, 0.1, 0, 0, 0, 0.2, 0.1, 0, 0.3, 0, 0.1, 0.2, 0.1, 0.3, 0.3, 0, 3.1, 3.1, 2.5, 1.5, 1.9, 2.1, 1, 2.3, 1.9, 1.2, 0.7, 1.3, 0.4, 0.3] }),
             bands.map(this.renderPlotBand)
           )
         ),
@@ -2507,7 +2507,7 @@ exports.default = (0, _reactJsxHighcharts.withHighcharts)(App, _highcharts2.defa
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = "\nrenderPlotBand (band, index) {\n  const { from, to } = band;\n  const id = `${from}-${to}`;\n  const color = (index % 2) ? '#FFFFFF' : 'rgba(68, 170, 213, 0.1)';\n  return (\n    <PlotBand id={id} key={id} from={from} to={to} color={color}>\n      <PlotBand.Label>{band.label}</PlotBand.Label>\n    </PlotBand>\n  );\n}\n\nrender() {\n  const plotOptions =  {\n    spline: {\n      lineWidth: 4,\n        states: {\n        hover: {\n          lineWidth: 5\n        }\n      },\n      marker: {\n        enabled: false\n      },\n      pointInterval: 3600000, // one hour\n      pointStart: Date.UTC(2015, 4, 31, 0, 0, 0)\n    }\n  };\n\n  const bands = [\n    { label: 'Light air', from: 0.5, to: 1.5 },\n    { label: 'Light breeze', from: 1.5, to: 3.3 },\n    { label: 'Gentle breeze', from: 3.3, to: 5.5 },\n    { label: 'Moderate breeze', from: 5.5, to: 8 },\n    { label: 'Fresh breeze', from: 8, to: 11 },\n    { label: 'Strong breeze', from: 11, to: 14 },\n    { label: 'High wind', from: 14, to: 15 }\n  ];\n\n  return (\n    <HighchartsChart plotOptions={plotOptions}>\n      <Chart type=\"spline\" />\n\n      <Title>Wind speed during two days</Title>\n\n      <Subtitle>May 31 and and June 1, 2015 at two locations in Vik i Sogn, Norway</Subtitle>\n\n      <Legend />\n\n      <Tooltip valueSuffix=\" m/s\" />\n\n      <XAxis type=\"datetime\">\n        <XAxis.Title>Time</XAxis.Title>\n      </XAxis>\n\n      <YAxis id=\"y\" minorGridLineWidth={0} gridLineWidth={0} alternateGridColor={null}>\n        <YAxis.Title>Wind speed (m/s)</YAxis.Title>\n        <SplineSeries id=\"hestavollane\" name=\"Hestavollane\" data={[0.2, 0.8, 0.8, 0.8, 1, 1.3, // etc.]} />\n        <SplineSeries id=\"vix\" name=\"Vix\" data={[0, 0, 0.6, 0.9, 0.8, 0.2, 0, 0, 0, 0.1, 0.6, // etc.]} />\n        {bands.map(this.renderPlotBand)}\n      </YAxis>\n    </HighchartsChart>\n  );\n}\n\n// Remember to inject Highcharts to exported component\nexport default withHighcharts(MyComponent, Highcharts);";
+exports.default = "\nrenderPlotBand (band, index) {\n  const { from, to } = band;\n  const id = `${from}-${to}`;\n  const color = (index % 2) ? '#FFFFFF' : 'rgba(68, 170, 213, 0.1)';\n  return (\n    <PlotBand key={id} from={from} to={to} color={color}>\n      <PlotBand.Label>{band.label}</PlotBand.Label>\n    </PlotBand>\n  );\n}\n\nrender() {\n  const plotOptions =  {\n    spline: {\n      lineWidth: 4,\n        states: {\n        hover: {\n          lineWidth: 5\n        }\n      },\n      marker: {\n        enabled: false\n      },\n      pointInterval: 3600000, // one hour\n      pointStart: Date.UTC(2015, 4, 31, 0, 0, 0)\n    }\n  };\n\n  const bands = [\n    { label: 'Light air', from: 0.5, to: 1.5 },\n    { label: 'Light breeze', from: 1.5, to: 3.3 },\n    { label: 'Gentle breeze', from: 3.3, to: 5.5 },\n    { label: 'Moderate breeze', from: 5.5, to: 8 },\n    { label: 'Fresh breeze', from: 8, to: 11 },\n    { label: 'Strong breeze', from: 11, to: 14 },\n    { label: 'High wind', from: 14, to: 15 }\n  ];\n\n  return (\n    <HighchartsChart plotOptions={plotOptions}>\n      <Chart type=\"spline\" />\n\n      <Title>Wind speed during two days</Title>\n\n      <Subtitle>May 31 and and June 1, 2015 at two locations in Vik i Sogn, Norway</Subtitle>\n\n      <Legend />\n\n      <Tooltip valueSuffix=\" m/s\" />\n\n      <XAxis type=\"datetime\">\n        <XAxis.Title>Time</XAxis.Title>\n      </XAxis>\n\n      <YAxis minorGridLineWidth={0} gridLineWidth={0} alternateGridColor={null}>\n        <YAxis.Title>Wind speed (m/s)</YAxis.Title>\n        <SplineSeries name=\"Hestavollane\" data={[0.2, 0.8, 0.8, 0.8, 1, 1.3, // etc.]} />\n        <SplineSeries name=\"Vix\" data={[0, 0, 0.6, 0.9, 0.8, 0.2, 0, 0, 0, 0.1, 0.6, // etc.]} />\n        {bands.map(this.renderPlotBand)}\n      </YAxis>\n    </HighchartsChart>\n  );\n}\n\n// Remember to inject Highcharts to exported component\nexport default withHighcharts(MyComponent, Highcharts);";
 
 /***/ }),
 /* 296 */

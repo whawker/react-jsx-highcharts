@@ -13,8 +13,16 @@ export const getNonEventHandlerProps = props => {
   return omitBy(props, _isEventKey);
 };
 
+export const getEventsConfig = props => {
+  const eventProps = getEventHandlerProps(props);
+
+  return mapKeys(eventProps, (handler, eventName) => {
+    return lowerFirst(eventName.replace(/^on/, ''));
+  });
+}
+
 export const addEventHandlersManually = (Highcharts, context, props) => {
-  const eventProps = _getEventProps(props);
+  const eventProps = getEventsConfig(props);
 
   forEach(eventProps, (handler, eventName) => {
     Highcharts.addEvent(context, eventName, handler);
@@ -22,18 +30,10 @@ export const addEventHandlersManually = (Highcharts, context, props) => {
 };
 
 export const addEventHandlers = (updateFn, props) => {
-  const events = _getEventProps(props);
+  const events = getEventsConfig(props);
   updateFn({ events });
 };
 
 const _isEventKey = (value, key) => (key.indexOf('on') === 0) && isFunction(value);
-
-const _getEventProps = props => {
-  const eventProps = getEventHandlerProps(props);
-
-  return mapKeys(eventProps, (handler, eventName) => {
-    return lowerFirst(eventName.replace(/^on/, ''));
-  });
-}
 
 export default addEventHandlers;

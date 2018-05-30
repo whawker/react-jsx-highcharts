@@ -15,7 +15,8 @@ class Debug extends Component {
 
   componentDidMount () {
     const { varName, getChart } = this.props;
-    window[varName] =  getChart();
+    const chart = getChart()
+    window[varName] =  chart.object;
     console.log(`Chart instance available as global variable as window.${varName}`);
   }
 

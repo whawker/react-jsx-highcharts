@@ -1,19 +1,21 @@
 import React, { Component, Children, cloneElement, isValidElement } from 'react';
 import PropTypes from 'prop-types';
+import uuid from 'uuid/v4';
+import isFunction from 'lodash/isFunction';
+import attempt from 'lodash/attempt';
 import Hidden from '../Hidden';
 
 class PlotLine extends Component {
 
   static propTypes = {
-    id: PropTypes.string.isRequired,
-    axisId: PropTypes.string, // Provided by Axis component
-    dimension: PropTypes.string, // Provided by Axis component
+    id: PropTypes.oneOfType([ PropTypes.string, PropTypes.func ]).isRequired,
     value: PropTypes.any.isRequired,
-    xAxis: PropTypes.string,
-    yAxis: PropTypes.string,
     color: PropTypes.string,
-    addPlotLine: PropTypes.func, // Provided by AxisProvider
-    removePlotLine: PropTypes.func // Provided by AxisProvider
+    getAxis: PropTypes.func // Provided by AxisProvider
+  };
+
+  static defaultProps = {
+    id: uuid
   };
 
   constructor (props) {
@@ -25,37 +27,55 @@ class PlotLine extends Component {
   }
 
   componentDidMount () {
-    const { axisId, dimension, children, ...rest } = this.props;
-    this.props.addPlotLine(rest);
+    const axis = this.props.getAxis();
+
+    // Create Highcharts Plot Line on Axis
+    const opts = this.getPlotLineConfig();
+    axis.addPlotLine(opts);
+
     this.setState({
       rendered: true
     });
   }
 
-  componentDidUpdate (prevProps) {
-    this.props.removePlotLine(prevProps.id);
-    const { axisId, dimension, children, ...rest } = this.props;
-    this.props.addPlotLine(rest);
+  componentDidUpdate () {
+    const axis = this.props.getAxis();
+
+    // Plot Lines cannot be updated, we have to remove and re-add
+    const opts = this.getPlotLineConfig();
+    axis.removePlotLine(opts.id);
+    axis.addPlotLine(opts);
   }
 
   componentWillUnmount () {
-    if (this.props.getAxis()) {
-      this.props.removePlotLine(this.props.id);
+    const axis = this.props.getAxis();
+    attempt(axis.removePlotLine, this.id);
+  }
+
+  getPlotLineConfig = () => {
+    const { id, children, ...rest } = this.props;
+    if (!this.id) {
+      this.id = isFunction(id) ? id() : id
+    }
+
+    return {
+      id: this.id,
+      ...rest
     }
   }
 
   render () {
-    const { children, ...rest } = this.props;
+    const { children } = this.props;
     if (!children || !this.state.rendered) return null;
 
-    const bandChildren = Children.map(children, child => {
+    const lineChildren = Children.map(children, child => {
       if (isValidElement(child) === false) return child;
-      return cloneElement(child, rest);
+      return cloneElement(child, { id: this.id });
     });
 
     return (
       <Hidden>
-        {bandChildren}
+        {lineChildren}
       </Hidden>
     );
   }

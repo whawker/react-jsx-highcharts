@@ -30,21 +30,15 @@ class DateRangePickers extends Component {
     datePickerProps: {}
   };
 
+  state = {
+    min: null,
+    max: null
+  };
+
   constructor (props) {
     super(props);
 
-    this.handleFromDateChange = this.handleFromDateChange.bind(this);
-    this.handleToDateChange = this.handleToDateChange.bind(this);
-    this.handleAfterSetExtremes = this.handleAfterSetExtremes.bind(this);
-
-    this.state = {
-      min: null,
-      max: null
-    };
-  }
-
-  componentWillMount () {
-    const langOpts = this.props.getHighcharts().getOptions().lang;
+    const langOpts = props.getHighcharts().getOptions().lang;
     const { months: monthsLong, weekdays, shortWeekdays, rangeSelectorFrom, rangeSelectorTo } = langOpts;
 
     const {
@@ -54,7 +48,7 @@ class DateRangePickers extends Component {
       weekdaysShort = shortWeekdays,
       fromLabel = rangeSelectorFrom,
       toLabel = rangeSelectorTo,
-    } = this.props;
+    } = props;
 
     this.localisation = {
       locale,
@@ -67,10 +61,13 @@ class DateRangePickers extends Component {
   }
 
   componentDidMount () {
-    const { getHighcharts, getAxis, getExtremes } = this.props;
-    getHighcharts().addEvent(getAxis(), 'afterSetExtremes', this.handleAfterSetExtremes);
+    const { getHighcharts, getAxis } = this.props;
+    const Highcharts = getHighcharts(); // Get Highcharts injected via withHighcharts
+    const axis = getAxis();
 
-    const { min, max } = getExtremes();
+    Highcharts.addEvent(axis.object, 'afterSetExtremes', this.handleAfterSetExtremes);
+
+    const { min, max } = axis.getExtremes();
     this.setState({
       min,
       max
@@ -79,34 +76,40 @@ class DateRangePickers extends Component {
 
   componentWillUnmount () {
     const { getHighcharts, getAxis } = this.props;
-    getHighcharts().removeEvent(getAxis(), 'afterSetExtremes', this.handleAfterSetExtremes);
+    const Highcharts = getHighcharts(); // Get Highcharts injected via withHighcharts
+    const axis = getAxis();
+    if (axis.object) {
+      Highcharts.removeEvent(axis.object, 'afterSetExtremes', this.handleAfterSetExtremes);
+    }
   }
 
-  handleFromDateChange (callback) {
+  handleFromDateChange = callback => {
     return fromDate => {
-      let {max} = this.props.getExtremes();
+      const axis = this.props.getAxis();
+      let { max } = axis.getExtremes();
       let selectedTime = fromDate.startOf('day').valueOf();
 
       let newMax = (selectedTime >= max) ? selectedTime + ONE_DAY : max;
-      this.props.setExtremes(selectedTime, newMax);
+      axis.setExtremes(selectedTime, newMax);
 
       callback(selectedTime);
     };
   }
 
-  handleToDateChange (callback) {
+  handleToDateChange = callback => {
     return toDate => {
-      let {min} = this.props.getExtremes();
+      const axis = this.props.getAxis();
+      let { min } = axis.getExtremes();
       let selectedTime = toDate.startOf('day').valueOf();
 
       let newMin = (selectedTime <= min) ? selectedTime - ONE_DAY : min;
-      this.props.setExtremes(newMin, selectedTime);
+      axis.setExtremes(newMin, selectedTime);
 
       callback(selectedTime);
     };
   }
 
-  handleAfterSetExtremes (e) {
+  handleAfterSetExtremes = e => {
     const { min, max } = e;
     this.setState({
       min,

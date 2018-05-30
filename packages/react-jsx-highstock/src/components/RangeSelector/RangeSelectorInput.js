@@ -1,8 +1,9 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
+import attempt from 'lodash/attempt';
 import mapKeys from 'lodash/mapKeys';
 import upperFirst from 'lodash/upperFirst';
-import getModifiedProps from 'react-jsx-highcharts/src/utils/getModifiedProps';
+import { getModifiedProps } from 'react-jsx-highcharts';
 
 class RangeSelectorInput extends Component {
 
@@ -15,17 +16,9 @@ class RangeSelectorInput extends Component {
     enabled: true
   };
 
-  constructor (props) {
-    super(props);
-
-    this.updateRangeSelectorInputs = this.updateRangeSelectorInputs.bind(this);
-  }
-
   componentDidMount () {
     const { children, ...rest } = this.props;
-    this.updateRangeSelectorInputs({
-      ...rest
-    });
+    this.updateRangeSelectorInputs(rest);
   }
 
   componentDidUpdate (prevProps) {
@@ -36,17 +29,20 @@ class RangeSelectorInput extends Component {
   }
 
   componentWillUnmount () {
-    this.updateRangeSelectorInputs({
-      enabled: false
+    attempt(this.updateRangeSelectorInputs, { enabled: false });
+  }
+
+  prefixPropsWithInput = config => {
+    return mapKeys(config, (value, key) => {
+      return key.indexOf('input') === 0 ? key : `input${upperFirst(key)}`;
     });
   }
 
-  updateRangeSelectorInputs (config) {
-    const inputProps = mapKeys(config, (value, key) => {
-      return key.indexOf('input') === 0 ? key : `input${upperFirst(key)}`;
-    });
+  updateRangeSelectorInputs = config => {
+    const chart = this.props.getChart();
+    const inputProps = this.prefixPropsWithInput(config);
 
-    this.props.update({
+    chart.update({
       rangeSelector: {
         ...inputProps
       }

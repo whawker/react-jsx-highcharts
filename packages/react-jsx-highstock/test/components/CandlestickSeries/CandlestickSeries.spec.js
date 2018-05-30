@@ -1,6 +1,6 @@
 import React from 'react';
+import { Series } from 'react-jsx-highcharts';
 import CandlestickSeries from '../../../src/components/CandlestickSeries/CandlestickSeries';
-import Series from 'react-jsx-highcharts/src/components/Series';
 
 describe('<CandlestickSeries />', function ()  {
   it('renders a <Series />', function ()  {

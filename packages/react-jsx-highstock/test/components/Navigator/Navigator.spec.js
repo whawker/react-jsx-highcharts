@@ -1,23 +1,22 @@
 import React from 'react';
 import Navigator from '../../../src/components/Navigator/Navigator';
-import { Highcharts, createMockChart } from '../../test-utils';
+import { Highcharts, createMockProvidedChart } from '../../test-utils';
 
 describe('<Navigator />', function ()  {
   let sandbox;
 
   beforeEach(function () {
-    this.update = sinon.spy();
-    this.chart = createMockChart();
-    this.getChart = sinon.stub();
-    this.getChart.returns(this.chart);
+    this.object = {
+      options: { navigator: { enabled: false } }
+    };
+    const { chartStubs, getChart } = createMockProvidedChart({ object: this.object });
+    this.chartStubs = chartStubs;
 
     sandbox = sinon.sandbox.create();
-    sandbox.stub(Highcharts, 'Navigator');
-    sandbox.stub(Highcharts, 'addEvent');
+    sandbox.stub(Highcharts, 'fireEvent');
 
     this.propsFromProviders = {
-      update: this.update,
-      getChart: this.getChart,
+      getChart,
       getHighcharts: () => Highcharts
     };
   });
@@ -27,15 +26,19 @@ describe('<Navigator />', function ()  {
   });
 
   describe('when mounted', function () {
-    it('creates a new Highcharts Navigator instance', function () {
+    it('enables the Navigator', function () {
       mount(<Navigator {...this.propsFromProviders} />);
-      expect(Highcharts.Navigator).to.have.been.calledWithNew;
-      expect(Highcharts.Navigator).to.have.been.calledWith(this.chart);
+      expect(this.object.options.navigator.enabled).to.equal(true);
+    });
+
+    it('fires the `beforeRender` event to so Highcharts creates a Navigator', function () {
+      mount(<Navigator {...this.propsFromProviders} />);
+      expect(Highcharts.fireEvent).to.have.been.calledWith(this.object, 'beforeRender');
     });
 
     it('updates the chart with the passed props', function () {
       mount(<Navigator height={100} maskFill="rgba(1,2,3,0.45)" {...this.propsFromProviders} />);
-      expect(this.update).to.have.been.calledWithMatch({
+      expect(this.chartStubs.update).to.have.been.calledWithMatch({
         navigator: {
           enabled: true,
           height: 100,
@@ -49,7 +52,7 @@ describe('<Navigator />', function ()  {
     it('should use the update method when props change', function () {
       const wrapper = mount(<Navigator {...this.propsFromProviders} />);
       wrapper.setProps({ maskInside: false });
-      expect(this.update).to.have.been.calledWith({
+      expect(this.chartStubs.update).to.have.been.calledWith({
         navigator: {
           maskInside: false
         }
@@ -61,7 +64,7 @@ describe('<Navigator />', function ()  {
     it('should disable the Navigator', function () {
       const wrapper = mount(<Navigator {...this.propsFromProviders} />);
       wrapper.unmount();
-      expect(this.update).to.have.been.calledWith({
+      expect(this.chartStubs.update).to.have.been.calledWith({
         navigator: {
           enabled: false
         }

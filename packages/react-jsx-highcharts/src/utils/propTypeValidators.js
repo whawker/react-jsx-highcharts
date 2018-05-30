@@ -7,7 +7,3 @@ export const validChartTypes = PropTypes.oneOf([
 export const validAxisTypes = PropTypes.oneOf([
   'category', 'linear', 'logarithmic', 'datetime'
 ]);
-
-export const validAxisDimensions = PropTypes.oneOf([
-  'x', 'y', 'z'
-]);

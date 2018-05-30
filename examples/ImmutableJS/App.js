@@ -73,10 +73,10 @@ class App extends Component {
             <XAxis.Title>Time</XAxis.Title>
           </XAxis>
 
-          <YAxis id="pressure">
+          <YAxis>
             <YAxis.Title>Pressure (m)</YAxis.Title>
-            <LineSeries id="p1" name="Sensor 1" data={data1} color="#6dbcdb" />
-            <LineSeries id="p2" name="Sensor 2" data={data2} color="#ce424b" />
+            <LineSeries name="Sensor 1" data={data1} color="#6dbcdb" />
+            <LineSeries name="Sensor 2" data={data2} color="#ce424b" />
           </YAxis>
         </HighchartsChart>
 

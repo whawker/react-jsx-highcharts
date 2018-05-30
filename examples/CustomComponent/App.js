@@ -40,7 +40,7 @@ class App extends Component {
             <XAxis.Title>Time</XAxis.Title>
           </XAxis>
 
-          <YAxis id="price">
+          <YAxis>
             <YAxis.Title>Price</YAxis.Title>
             <AreaSplineSeries id="profit" name="Profit" data={data1} />
           </YAxis>

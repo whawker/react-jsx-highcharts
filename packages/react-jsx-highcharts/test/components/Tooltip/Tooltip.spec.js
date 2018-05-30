@@ -1,23 +1,23 @@
 import React from 'react';
+import { Highcharts, createMockProvidedChart } from '../../test-utils'
 import Tooltip from '../../../src/components/Tooltip/Tooltip';
-import { Highcharts, createMockChart } from '../../test-utils';
 
 describe('<Tooltip />', function ()  {
   let sandbox;
 
   beforeEach(function () {
-    this.update = sinon.spy();
-    this.chart = createMockChart();
-    this.getChart = sinon.stub();
-    this.getChart.returns(this.chart);
-
     sandbox = sinon.sandbox.create();
     sandbox.stub(Highcharts, 'Tooltip');
     sandbox.stub(Highcharts, 'addEvent');
 
+    const { chartStubs, getChart } = createMockProvidedChart();
+
+    this.chartStubs = chartStubs;
+    this.chart = {};
+    this.chartStubs.object = this.chart;
+
     this.propsFromProviders = {
-      update: this.update,
-      getChart: this.getChart,
+      getChart,
       getHighcharts: () => Highcharts
     };
   });
@@ -26,7 +26,7 @@ describe('<Tooltip />', function ()  {
     sandbox.restore();
   });
 
-  describe('when mounted', function () {
+  context('when mounted', function () {
     it('creates a new Highcharts Tooltip instance', function () {
       mount(<Tooltip {...this.propsFromProviders} />);
       expect(Highcharts.Tooltip).to.have.been.calledWithNew;
@@ -42,11 +42,11 @@ describe('<Tooltip />', function ()  {
     });
   });
 
-  describe('update', function () {
+  context('update', function () {
     it('should use the update method when props change', function () {
       const wrapper = mount(<Tooltip selected={0} {...this.propsFromProviders} />);
       wrapper.setProps({ padding: 2 });
-      expect(this.update).to.have.been.calledWith({
+      expect(this.chartStubs.update).to.have.been.calledWith({
         tooltip: {
           padding: 2
         }
@@ -54,11 +54,11 @@ describe('<Tooltip />', function ()  {
     });
   });
 
-  describe('when unmounted', function () {
+  context('when unmounted', function () {
     it('should disable the Tooltip', function () {
       const wrapper = mount(<Tooltip {...this.propsFromProviders} />);
       wrapper.unmount();
-      expect(this.update).to.have.been.calledWith({
+      expect(this.chartStubs.update).to.have.been.calledWith({
         tooltip: {
           enabled: false
         }

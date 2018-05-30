@@ -2485,14 +2485,14 @@ var App = function (_Component) {
           ),
           _react2.default.createElement(
             _reactJsxHighcharts.YAxis,
-            { id: 'pressure' },
+            null,
             _react2.default.createElement(
               _reactJsxHighcharts.YAxis.Title,
               null,
               'Pressure (m)'
             ),
-            _react2.default.createElement(_reactJsxHighcharts.LineSeries, { id: 'p1', name: 'Sensor 1', data: data1, color: '#6dbcdb' }),
-            _react2.default.createElement(_reactJsxHighcharts.LineSeries, { id: 'p2', name: 'Sensor 2', data: data2, color: '#ce424b' })
+            _react2.default.createElement(_reactJsxHighcharts.LineSeries, { name: 'Sensor 1', data: data1, color: '#6dbcdb' }),
+            _react2.default.createElement(_reactJsxHighcharts.LineSeries, { name: 'Sensor 2', data: data2, color: '#ce424b' })
           )
         ),
         _react2.default.createElement(
@@ -2566,7 +2566,7 @@ exports.default = (0, _reactJsxHighcharts.withHighcharts)(App, _highcharts2.defa
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = "\nconstructor (props) {\n  super(props);\n  this.updateLiveData = this.updateLiveData.bind(this);\n  this.handleStartLiveUpdate = this.handleStartLiveUpdate.bind(this);\n\n  const now = Date.now();\n  this.state = {\n    data1: Immutable.List(createRandomData(now)),\n    data2: Immutable.List(createRandomData(now)),\n    liveUpdate: false\n  };\n}\n\nupdateLiveData () {\n  const { data1, data2 } = this.state;\n\n  this.setState({\n    data1: data1.push(createDataPoint()),\n    data2: data2.push(createDataPoint())\n  });\n}\n\nhandleStartLiveUpdate (e) {\n  e && e.preventDefault();\n  this.setState({\n    liveUpdate: window.setInterval(this.updateLiveData, 1000)\n  });\n}\n\nrender () {\n  const { data1, data2 } = this.state;\n\n  return (\n    <HighchartsChart>\n      <Chart />\n\n      <Title>Dynamically updating data (2)</Title>\n\n      <Subtitle>Using Immutable.js Lists for data</Subtitle>\n\n      <Legend>\n        <Legend.Title>Legend</Legend.Title>\n      </Legend>\n\n      <XAxis type=\"datetime\">\n        <XAxis.Title>Time</XAxis.Title>\n      </XAxis>\n\n      <YAxis id=\"pressure\">\n        <YAxis.Title>Pressure (m)</YAxis.Title>\n        <LineSeries id=\"p1\" name=\"Sensor 1\" data={data1} color=\"#6dbcdb\" />\n        <LineSeries id=\"p2\" name=\"Sensor 2\" data={data2} color=\"#ce424b\" />\n      </YAxis>\n    </HighchartsChart>\n  );\n}\n\n// Remember to inject Highcharts to exported component\nexport default withHighcharts(MyComponent, Highcharts);";
+exports.default = "\nconstructor (props) {\n  super(props);\n  this.updateLiveData = this.updateLiveData.bind(this);\n  this.handleStartLiveUpdate = this.handleStartLiveUpdate.bind(this);\n\n  const now = Date.now();\n  this.state = {\n    data1: Immutable.List(createRandomData(now)),\n    data2: Immutable.List(createRandomData(now)),\n    liveUpdate: false\n  };\n}\n\nupdateLiveData () {\n  const { data1, data2 } = this.state;\n\n  this.setState({\n    data1: data1.push(createDataPoint()),\n    data2: data2.push(createDataPoint())\n  });\n}\n\nhandleStartLiveUpdate (e) {\n  e && e.preventDefault();\n  this.setState({\n    liveUpdate: window.setInterval(this.updateLiveData, 1000)\n  });\n}\n\nrender () {\n  const { data1, data2 } = this.state;\n\n  return (\n    <HighchartsChart>\n      <Chart />\n\n      <Title>Dynamically updating data (2)</Title>\n\n      <Subtitle>Using Immutable.js Lists for data</Subtitle>\n\n      <Legend>\n        <Legend.Title>Legend</Legend.Title>\n      </Legend>\n\n      <XAxis type=\"datetime\">\n        <XAxis.Title>Time</XAxis.Title>\n      </XAxis>\n\n      <YAxis>\n        <YAxis.Title>Pressure (m)</YAxis.Title>\n        <LineSeries name=\"Sensor 1\" data={data1} color=\"#6dbcdb\" />\n        <LineSeries name=\"Sensor 2\" data={data2} color=\"#ce424b\" />\n      </YAxis>\n    </HighchartsChart>\n  );\n}\n\n// Remember to inject Highcharts to exported component\nexport default withHighcharts(MyComponent, Highcharts);";
 
 /***/ }),
 /* 280 */

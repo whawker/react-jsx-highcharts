@@ -1,57 +1,44 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import provideHighcharts from '../HighchartsProvider';
-import providedProps from '../../utils/providedProps';
-import boundContextHelper from '../../utils/boundContextHelper';
-import cleanPropsBeforeUpdate from '../../utils/cleanPropsBeforeUpdate';
+import React from 'react';
+import { Consumer } from '../ChartContext';
+import provideHighcharts from '../HighchartsProvider'
+import getDisplayName from '../../utils/getDisplayName';
+import clean from '../../utils/removeProvidedProps';
 
-function getDisplayName (Component) {
-  return Component.displayName || Component.name || 'Component';
-}
+// This is a HOC function.
+// It takes a component...
+export default function provideChart(Component) {
+  // ...and returns another component...
+  const ChartWrappedComponent = function(props) {
+    // ... and renders the wrapped component with the context chart
+    // Notice that we pass through any additional props as well
+    return (
+      <Consumer>
+        {({ chart, chartType }) => {
+          if (!chart) return null;
 
-export default function provideChart(WrappedComponent) {
-  class ChartProvider extends Component {
-    static displayName = `ChartProvider(${getDisplayName(WrappedComponent)})`;
+          const getChart = () => ({
+            object: chart,
+            type: chartType,
+            get: chart.get.bind(chart),
+            update: clean(chart.update.bind(chart)),
+            addAxis: clean(chart.addAxis.bind(chart)),
+            addSeries: clean(chart.addSeries.bind(chart)),
+            setTitle: clean(chart.setTitle.bind(chart)),
+            showLoading: chart.showLoading.bind(chart),
+            hideLoading: chart.hideLoading.bind(chart)
+          })
 
-    static contextTypes = {
-      chart: PropTypes.object,
-      chartType: PropTypes.string
-    };
+          return (
+            <Component
+              {...props}
+              getChart={getChart} />
+          )
+        }}
+      </Consumer>
+    );
+  };
 
-    constructor (props, context) {
-      super(props, context);
+  ChartWrappedComponent.displayName = `Chart.Provider(${getDisplayName(Component)})`
 
-      providedProps(
-        'ChartProvider',
-        [
-          'get', 'update', 'addAxis', 'addSeries',
-          'setTitle', 'showLoading', 'hideLoading',
-          'getChart', 'getChartType'
-        ]
-      );
-    }
-
-    render () {
-      const { chart, chartType } = this.context;
-      const getChart = () => chart;
-      const getChartType = () => chartType;
-      const getBoundChartMethod = boundContextHelper(chart, getChart);
-
-      return (
-        <WrappedComponent
-          {...this.props}
-          get={getBoundChartMethod('get')}
-          update={cleanPropsBeforeUpdate(getBoundChartMethod('update'))}
-          addAxis={cleanPropsBeforeUpdate(getBoundChartMethod('addAxis'))}
-          addSeries={cleanPropsBeforeUpdate(getBoundChartMethod('addSeries'))}
-          setTitle={cleanPropsBeforeUpdate(getBoundChartMethod('setTitle'))}
-          showLoading={getBoundChartMethod('showLoading')}
-          hideLoading={getBoundChartMethod('hideLoading')}
-          getChart={getChart}
-          getChartType={getChartType} />
-      );
-    }
-  }
-
-  return provideHighcharts(ChartProvider);
+  return provideHighcharts(ChartWrappedComponent)
 }

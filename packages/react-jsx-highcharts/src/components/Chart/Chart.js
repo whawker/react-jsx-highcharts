@@ -9,7 +9,7 @@ class Chart extends Component {
     type: PropTypes.string.isRequired,
     width: PropTypes.number,
     height: PropTypes.number,
-    addSeries: PropTypes.func,
+    onAddSeries: PropTypes.func,
     onAfterPrint: PropTypes.func,
     onBeforePrint: PropTypes.func,
     onClick: PropTypes.func,
@@ -17,13 +17,13 @@ class Chart extends Component {
     onRedraw: PropTypes.func,
     onRender: PropTypes.func,
     onSelection: PropTypes.func,
-    update: PropTypes.func, // Provided by ChartProvider
-    getChart: PropTypes.func, // Provided by ChartProvider
+    getChart: PropTypes.func.isRequired, // Provided by ChartProvider
     getHighcharts: PropTypes.func.isRequired // Provided by HighchartsProvider
   };
 
   static defaultProps = {
     type: 'line',
+    onAddSeries: () => {},
     onAfterPrint: () => {},
     onBeforePrint: () => {},
     onClick: () => {},
@@ -33,22 +33,16 @@ class Chart extends Component {
     onSelection: () => {}
   };
 
-  constructor (props) {
-    super(props);
-
-    this.updateChart = this.updateChart.bind(this);
-  }
-
   componentDidMount () {
-    const { type, children, update, getHighcharts, getChart, ...rest } = this.props;
-
+    const { getHighcharts, getChart, children, ...rest } = this.props;
     const notEventProps = getNonEventHandlerProps(rest);
+    const chart = getChart();
+
     this.updateChart({
-      type,
       ...notEventProps
     });
 
-    addEventHandlersManually(getHighcharts(), getChart(), rest);
+    addEventHandlersManually(getHighcharts(), chart.object, rest);
   }
 
   componentDidUpdate (prevProps) {
@@ -58,8 +52,9 @@ class Chart extends Component {
     }
   }
 
-  updateChart (config) {
-    this.props.update({
+  updateChart = config => {
+    const chart = this.props.getChart();
+    chart.update({
       chart: config
     }, true);
   }

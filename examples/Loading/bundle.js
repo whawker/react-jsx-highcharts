@@ -6533,7 +6533,7 @@ var App = function (_Component) {
     value: function renderSeries(pkgName) {
       var meta = this.state.frameworks[pkgName];
       var data = this.state.downloads[pkgName];
-      return _react2.default.createElement(_reactJsxHighcharts.LineSeries, (0, _extends3.default)({ id: pkgName }, meta, { data: data, key: pkgName }));
+      return _react2.default.createElement(_reactJsxHighcharts.LineSeries, (0, _extends3.default)({}, meta, { data: data, key: pkgName }));
     }
   }, {
     key: 'render',
@@ -6578,7 +6578,7 @@ var App = function (_Component) {
           ),
           _react2.default.createElement(
             _reactJsxHighcharts.YAxis,
-            { id: 'number', min: 0, max: 500000 },
+            { min: 0, max: 500000 },
             _react2.default.createElement(
               _reactJsxHighcharts.YAxis.Title,
               null,
@@ -6647,7 +6647,7 @@ exports.default = (0, _reactJsxHighcharts.withHighcharts)(App, _highcharts2.defa
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = "\nconst frameworks = {\n  react:          { name: 'React',    color: '#61dafb' },\n  angular:        { name: 'Angular',  color: '#dd1b16' },\n  vue:            { name: 'Vue.js',   color: '#42b983' },\n  'ember-source': { name: 'Ember.js', color: '#dd6a58' },\n  preact:         { name: 'Preact',   color: '#673ab8' }\n};\n\nclass App extends Component {\n\n  constructor (props) {\n    super(props);\n\n    this.renderSeries = this.renderSeries.bind(this);\n\n    this.state = {\n      now: new Date().setHours(0, 0, 0, 0),\n      frameworks,\n      npmPackages: Object.keys(frameworks),\n      downloads: Object.keys(frameworks).reduce((res, name) => { res[name] = []; return res; }, {}),\n      loaded: false\n    };\n  }\n\n  componentWillMount () {\n    const { npmPackages } = this.state;\n\n    npmApiDownloadsRange('last-year', npmPackages)\n      .then(downloads => this.setState({ downloads }))\n      .then(() => this.setState({ loaded: true }));\n  }\n\n  renderSeries (pkgName) {\n    const meta = this.state.frameworks[pkgName];\n    const data = this.state.downloads[pkgName];\n    return (\n      <LineSeries id={pkgName} {...meta} data={data} key={pkgName} />\n    );\n  }\n\n  render() {\n    const { npmPackages, now, loaded } = this.state;\n\n    return (\n      <div className=\"app\">\n        <HighchartsChart>\n          <Title>Display \"Fetching data...\" Until Async Task Completes</Title>\n\n          <Subtitle>NPM Download Stats of Selected Front End Frameworks. Source: api.npmjs.org</Subtitle>\n\n          <Loading isLoading={!loaded}>Fetching data...</Loading>\n\n          <Legend layout=\"vertical\" align=\"right\" verticalAlign=\"middle\" />\n\n          <Tooltip shared />\n\n          <XAxis type=\"datetime\" min={now - YEAR_MS} max={now}>\n            <XAxis.Title>Date</XAxis.Title>\n          </XAxis>\n\n          <YAxis id=\"number\" min={0} max={500000}>\n            <YAxis.Title>Number of downloads</YAxis.Title>\n            {npmPackages.map(this.renderSeries)}\n          </YAxis>\n        </HighchartsChart>\n      </div>\n    );\n  }\n}\n\nexport default withHighcharts(App, Highcharts);";
+exports.default = "\nconst frameworks = {\n  react:          { name: 'React',    color: '#61dafb' },\n  angular:        { name: 'Angular',  color: '#dd1b16' },\n  vue:            { name: 'Vue.js',   color: '#42b983' },\n  'ember-source': { name: 'Ember.js', color: '#dd6a58' },\n  preact:         { name: 'Preact',   color: '#673ab8' }\n};\n\nclass App extends Component {\n\n  constructor (props) {\n    super(props);\n\n    this.renderSeries = this.renderSeries.bind(this);\n\n    this.state = {\n      now: new Date().setHours(0, 0, 0, 0),\n      frameworks,\n      npmPackages: Object.keys(frameworks),\n      downloads: Object.keys(frameworks).reduce((res, name) => { res[name] = []; return res; }, {}),\n      loaded: false\n    };\n  }\n\n  componentWillMount () {\n    const { npmPackages } = this.state;\n\n    npmApiDownloadsRange('last-year', npmPackages)\n      .then(downloads => this.setState({ downloads }))\n      .then(() => this.setState({ loaded: true }));\n  }\n\n  renderSeries (pkgName) {\n    const meta = this.state.frameworks[pkgName];\n    const data = this.state.downloads[pkgName];\n    return (\n      <LineSeries {...meta} data={data} key={pkgName} />\n    );\n  }\n\n  render() {\n    const { npmPackages, now, loaded } = this.state;\n\n    return (\n      <div className=\"app\">\n        <HighchartsChart>\n          <Title>Display \"Fetching data...\" Until Async Task Completes</Title>\n\n          <Subtitle>NPM Download Stats of Selected Front End Frameworks. Source: api.npmjs.org</Subtitle>\n\n          <Loading isLoading={!loaded}>Fetching data...</Loading>\n\n          <Legend layout=\"vertical\" align=\"right\" verticalAlign=\"middle\" />\n\n          <Tooltip shared />\n\n          <XAxis type=\"datetime\" min={now - YEAR_MS} max={now}>\n            <XAxis.Title>Date</XAxis.Title>\n          </XAxis>\n\n          <YAxis min={0} max={500000}>\n            <YAxis.Title>Number of downloads</YAxis.Title>\n            {npmPackages.map(this.renderSeries)}\n          </YAxis>\n        </HighchartsChart>\n      </div>\n    );\n  }\n}\n\nexport default withHighcharts(App, Highcharts);";
 
 /***/ }),
 /* 286 */

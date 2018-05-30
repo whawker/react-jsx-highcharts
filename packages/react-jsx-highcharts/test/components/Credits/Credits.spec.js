@@ -1,45 +1,49 @@
 import React from 'react';
+import { createMockProvidedChart, Highcharts } from '../../test-utils'
 import Credits from '../../../src/components/Credits/Credits';
 
 describe('<Credits />', function ()  {
   beforeEach(function () {
-    this.update = sinon.spy();
+    const { chartStubs, getChart } = createMockProvidedChart();
+    this.chartStubs = chartStubs;
+
+    this.propsFromProviders = {
+      getChart
+    };
   });
 
-  describe('when mounted', function () {
+  context('when mounted', function () {
     it('add credits using the Highcharts update method', function () {
-      mount(<Credits update={this.update}>github.com</Credits>);
-      expect(this.update).to.have.been.calledWith({
+      mount(<Credits {...this.propsFromProviders}>github.com</Credits>);
+      expect(this.chartStubs.update).to.have.been.calledWithMatch({
         credits: {
           enabled: true,
-          text: 'github.com',
-          update: this.update
+          text: 'github.com'
         }
       });
     });
 
     it('updates the credits with the passed props', function () {
       mount(
-        <Credits href="https://www.github.com" update={this.update}>github.com</Credits>
+        <Credits href="https://www.github.com" {...this.propsFromProviders}>github.com</Credits>
       );
-      expect(this.update).to.have.been.calledWith({
+      expect(this.chartStubs.update).to.have.been.calledWithMatch({
         credits: {
           enabled: true,
           href: 'https://www.github.com',
-          text: 'github.com',
-          update: this.update
+          text: 'github.com'
         }
       });
     });
   });
 
-  describe('update', function () {
+  context('update', function () {
     it('should use the update method when props change', function () {
       const wrapper = mount(
-        <Credits href="https://www.github.com" update={this.update}>github.com</Credits>
+        <Credits href="https://www.github.com" {...this.propsFromProviders}>github.com</Credits>
       );
       wrapper.setProps({ href: 'https://www.github.com/whawker' });
-      expect(this.update).to.have.been.calledWith({
+      expect(this.chartStubs.update).to.have.been.calledWithMatch({
         credits: {
           href: 'https://www.github.com/whawker'
         }
@@ -47,11 +51,11 @@ describe('<Credits />', function ()  {
     });
   });
 
-  describe('when unmounted', function () {
+  context('when unmounted', function () {
     it('should disable the Credits', function () {
-      const wrapper = mount(<Credits update={this.update}>github.com</Credits>);
+      const wrapper = mount(<Credits {...this.propsFromProviders}>github.com</Credits>);
       wrapper.unmount();
-      expect(this.update).to.have.been.calledWith({
+      expect(this.chartStubs.update).to.have.been.calledWithMatch({
         credits: {
           enabled: false
         }

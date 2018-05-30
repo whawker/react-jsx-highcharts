@@ -8,6 +8,11 @@ describe('<FunnelSeries />', function ()  {
     expect(wrapper).to.have.type(Series);
   });
 
+  it('does not require an axis', function () {
+    const wrapper = shallow(<FunnelSeries id="mySeries" />);
+    expect(wrapper).to.have.prop('requiresAxis').equal(false);
+  });
+
   it('renders a <Series type="funnel" />', function () {
     const wrapper = shallow(<FunnelSeries id="mySeries" />);
     expect(wrapper).to.have.prop('type').equal('funnel');

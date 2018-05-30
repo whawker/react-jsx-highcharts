@@ -1950,23 +1950,23 @@ var App = function (_Component) {
           _react2.default.createElement(_reactJsxHighcharts.XAxis, null),
           _react2.default.createElement(
             _reactJsxHighcharts.YAxis,
-            { id: 'yAxisPrimary' },
+            null,
             _react2.default.createElement(
               _reactJsxHighcharts.YAxis.Title,
               null,
               'Primary'
             ),
-            _react2.default.createElement(_reactJsxHighcharts.LineSeries, { id: 'primary', data: [1, 2, 3, 4, 5] })
+            _react2.default.createElement(_reactJsxHighcharts.LineSeries, { data: [1, 2, 3, 4, 5] })
           ),
           this.state.showSecondarySeries ? _react2.default.createElement(
             _reactJsxHighcharts.YAxis,
-            { id: 'yAxisSecondary', opposite: true },
+            { opposite: true },
             _react2.default.createElement(
               _reactJsxHighcharts.YAxis.Title,
               { opposite: true },
               'Secondary'
             ),
-            _react2.default.createElement(_reactJsxHighcharts.LineSeries, { id: 'secondary', data: [5, 4, 3, 2, 1] })
+            _react2.default.createElement(_reactJsxHighcharts.LineSeries, { data: [5, 4, 3, 2, 1] })
           ) : undefined
         )
       );

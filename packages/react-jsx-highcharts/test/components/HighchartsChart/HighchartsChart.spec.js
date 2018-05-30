@@ -18,6 +18,11 @@ describe('<HighchartsChart />', function ()  {
     expect(wrapper).to.have.prop('chartCreationFunc').equal(Highcharts.chart);
   });
 
+  it('renders a <BaseChart /> with the correct chart type', function () {
+    const wrapper = shallow(<HighchartsChart getHighcharts={this.getHighcharts} />);
+    expect(wrapper).to.have.prop('chartType').equal('chart');
+  });
+
   it('passes other props through to <BaseChart />', function () {
     const wrapper = shallow(<HighchartsChart getHighcharts={this.getHighcharts} plotOptions={{ a: 'b' }} />);
     expect(wrapper).to.have.prop('plotOptions').eql({ a: 'b' });

@@ -1,19 +1,13 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
+import attempt from 'lodash/attempt';
 import getModifiedProps from '../../utils/getModifiedProps';
 
 class AxisTitle extends Component {
 
   static propTypes = {
-    axisId: PropTypes.string,
-    update: PropTypes.func // Provided by AxisProvider
+    getAxis: PropTypes.func // Provided by AxisProvider
   };
-
-  constructor (props) {
-    super(props);
-
-    this.updateAxisTitle = this.updateAxisTitle.bind(this);
-  }
 
   componentDidMount () {
     const { children: text, ...rest } = this.props; // eslint-disable-line no-unused-vars
@@ -31,16 +25,12 @@ class AxisTitle extends Component {
   }
 
   componentWillUnmount () {
-    if (this.props.getAxis()) {
-      this.updateAxisTitle({
-        text: null
-      });
-    }
+    attempt(this.updateAxisTitle, { text: null });
   }
 
-  updateAxisTitle (config) {
-    const { axisId, dimension, ...rest } = config;
-    this.props.setTitle(rest, true);
+  updateAxisTitle = config => {
+    const axis = this.props.getAxis();
+    axis.setTitle(config, true);
   }
 
   render () {

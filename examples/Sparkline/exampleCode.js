@@ -16,7 +16,7 @@ renderTableRow (pkgName) {
 renderSparklineDefault (pkgName, data) {
   return (
     <HighchartsSparkline>
-      <AreaSeries id={pkgName} data={data} />
+      <AreaSeries data={data} />
     </HighchartsSparkline>
   );
 }
@@ -27,7 +27,7 @@ renderSparklineWithTooltip (name, data) {
   return (
     <HighchartsSparkline
       series={
-        <AreaSeries id={name} name={name} data={data} color="#C12127" />
+        <AreaSeries name={name} data={data} color="#C12127" />
       }>
       <Tooltip
         useHTML
