@@ -16,42 +16,38 @@ For example, if the `data` prop were to change on a `<Series />` component, Reac
 
 React JSX Highcharts also enables you to write your *own* Highcharts components, via it's powerful higher order components.
 
+## Upgrading from 2.x to 3.x
+
+For the vast majority of cases, **if your chart works in v2 of React JSX Highcharts it should work in v3 without any required changes**.
+
+Ok, so what about the minority of cases?
+
+### Dropped React 15 support
+
+v3 is built on top of the new Context API added in [React 16.3](https://reactjs.org/blog/2018/03/29/react-v-16-3.html#official-context-api), using the fantastic [create-react-context](https://www.npmjs.com/package/create-react-context) polyfill for previous React 16 versions.
+
+While polyfills for React 15 exist, I want to minimise the amount of use cases supported, going forward.
+
+### Updates to the Higher Order components (Providers)
+
+This is an advanced feature, but if this impacts you, [see the guide here](https://github.com/whawker/react-jsx-highcharts/wiki/Upgrading-from-2.x-to-3.x#updates-to-the-higher-order-components-providers)
+
 ## Upgrading from 1.x to 2.x
 
-React JSX Highcharts now **requires** the `withHighcharts` higher order component to render your chart components. This HOC allows you to inject the Highcharts object the library will interact with.
-This means we can use Highcharts in styled mode (style by CSS) - see [example](https://whawker.github.io/react-jsx-highcharts/examples/StyleByCSS/index.html), or perform customisations to the Highcharts object before using it.
+See the guide [here](https://github.com/whawker/react-jsx-highcharts/wiki/Upgrading-from-1.x-to-2.x)
 
-Using 1.x your code would have looked something like
+## Changelog
 
-```jsx
-import { HighchartsChart, Chart, /* etc... */ } from 'react-jsx-highcharts';
-import Highcharts from 'highcharts';
+As of 3.x you are no longer required to use IDs for Axis and Series
 
-const MyChart = () => (
-  <HighchartsChart>
-    <Chart />
-    // etc
-  </HighchartsChart>
-);
+As of 2.1.0 Highcharts 6 is supported
 
-export default MyChart
-```
+As of 2.x you are required to use the `withHighcharts` HOC to inject the Highcharts object (see below)
 
-But with 2.x you need to use `withHighcharts`, when exporting the component (note the last line)
+As of 1.3.0 React JSX Highcharts supports [3D charts](https://whawker.github.io/react-jsx-highcharts/examples/3DChart/index.html).
 
-```jsx
-import { withHighcharts, HighchartsChart, Chart, /* etc... */ } from 'react-jsx-highcharts';
-import Highcharts from 'highcharts';
+As of 1.2.0 React JSX Highcharts supports using [Immutable.js](https://facebook.github.io/immutable-js/) data structures as Series data.
 
-const MyChart = () => (
-  <HighchartsChart>
-    <Chart />
-    // etc
-  </HighchartsChart>
-);
-
-export default withHighcharts(MyChart, Highcharts); // Injecting the Highcharts object
-```
 
 ## Example
 
@@ -134,16 +130,6 @@ Rather than passing around a chart object between all the components, we utilise
 There are 3 HOCs in this project, [provideChart](https://github.com/whawker/react-jsx-highcharts/blob/master/packages/react-jsx-highcharts/src/components/ChartProvider/index.js), [provideAxis](https://github.com/whawker/react-jsx-highcharts/blob/master/packages/react-jsx-highcharts/src/components/AxisProvider/index.js) and [provideSeries](https://github.com/whawker/react-jsx-highcharts/blob/master/packages/react-jsx-highcharts/src/components/SeriesProvider/index.js).
 
 In the vast majority of cases, there is no need to use these HOCs directly - but they have been exposed anyway - they are useful if you want to create your own components with this library.
-
-## Changelog
-
-As of 1.2.0 React JSX Highcharts supports using [Immutable.js](https://facebook.github.io/immutable-js/) data structures as Series data.
-
-As of 1.3.0 React JSX Highcharts supports [3D charts](https://whawker.github.io/react-jsx-highcharts/examples/3DChart/index.html).
-
-As of 2.1.0 Highcharts 6 is supported
-
-As of 2.x you are required to use the `withHighcharts` HOC to inject the Highcharts object (see below)
 
 ## Common issues
 
