@@ -34,7 +34,7 @@ class Options3d extends Component {
     }
   };
 
-  componentWillMount () {
+  componentDidMount () {
     this.update3dOptions();
   }
 
