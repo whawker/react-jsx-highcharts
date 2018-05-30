@@ -1,6 +1,6 @@
 {
   "name": "react-jsx-highstock-datepickers",
-  "version": "2.1.0",
+  "version": "3.0.0",
   "description": "Date Pickers for react-jsx-highstock using react-day-picker",
   "main": "dist/react-jsx-highstock-datepickers.min.js",
   "files": [
@@ -30,7 +30,7 @@
     "prop-types": "^15.0.0",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
-    "react-jsx-highstock": "^2.0.0"
+    "react-jsx-highstock": "^3.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
