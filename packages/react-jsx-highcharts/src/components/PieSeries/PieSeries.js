@@ -4,12 +4,12 @@ import Series from '../Series';
 
 class PieSeries extends Component {
   static propTypes = {
-    id: PropTypes.string.isRequired
+    id: PropTypes.oneOfType([ PropTypes.string, PropTypes.func ])
   };
 
   render () {
     return (
-      <Series {...this.props} type="pie" />
+      <Series {...this.props} type="pie" requiresAxis={false} />
     );
   }
 }

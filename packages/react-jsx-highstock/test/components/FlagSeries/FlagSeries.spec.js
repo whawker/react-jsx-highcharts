@@ -1,6 +1,6 @@
 import React from 'react';
+import { Series } from 'react-jsx-highcharts';
 import FlagSeries from '../../../src/components/FlagSeries/FlagSeries';
-import Series from 'react-jsx-highcharts/src/components/Series';
 
 describe('<FlagSeries />', function ()  {
   it('renders a <Series />', function ()  {

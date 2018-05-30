@@ -1,44 +1,48 @@
 import React from 'react';
+import { createMockProvidedChart } from '../../test-utils'
 import Legend from '../../../src/components/Legend/Legend';
 
 describe('<Legend />', function ()  {
   beforeEach(function () {
-    this.update = sinon.spy();
+    const { chartStubs, getChart } = createMockProvidedChart();
+    this.chartStubs = chartStubs;
+
+    this.propsFromProviders = {
+      getChart
+    };
   });
 
-  describe('when mounted', function () {
+  context('when mounted', function () {
     it('add legend using the Highcharts update method', function () {
-      mount(<Legend update={this.update} />);
-      expect(this.update).to.have.been.calledWith({
+      mount(<Legend {...this.propsFromProviders} />);
+      expect(this.chartStubs.update).to.have.been.calledWithMatch({
         legend: {
-          enabled: true,
-          update: this.update
+          enabled: true
         }
       });
     });
 
     it('updates the legend with the passed props', function () {
       mount(
-        <Legend align="left" y={20} update={this.update} />
+        <Legend align="left" y={20} {...this.propsFromProviders} />
       );
-      expect(this.update).to.have.been.calledWith({
+      expect(this.chartStubs.update).to.have.been.calledWithMatch({
         legend: {
           enabled: true,
           align: 'left',
-          y: 20,
-          update: this.update
+          y: 20
         }
       });
     });
   });
 
-  describe('update', function () {
+  context('update', function () {
     it('should use the update method when props change', function () {
       const wrapper = mount(
-        <Legend update={this.update} />
+        <Legend {...this.propsFromProviders} />
       );
       wrapper.setProps({ backgroundColor: 'red' });
-      expect(this.update).to.have.been.calledWith({
+      expect(this.chartStubs.update).to.have.been.calledWithMatch({
         legend: {
           backgroundColor: 'red'
         }
@@ -46,11 +50,11 @@ describe('<Legend />', function ()  {
     });
   });
 
-  describe('when unmounted', function () {
+  context('when unmounted', function () {
     it('should disable the Legend', function () {
-      const wrapper = mount(<Legend update={this.update} />);
+      const wrapper = mount(<Legend {...this.propsFromProviders} />);
       wrapper.unmount();
-      expect(this.update).to.have.been.calledWith({
+      expect(this.chartStubs.update).to.have.been.calledWithMatch({
         legend: {
           enabled: false
         }

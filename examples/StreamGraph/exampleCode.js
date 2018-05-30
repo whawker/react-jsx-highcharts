@@ -24,9 +24,9 @@ const App = () => {
 
         <XAxis type="category" categories={hosts} labels={{ align: 'left', reserveSpace: false, rotation: 270 }} lineWidth={0} tickWidth={0} margin={20} crosshair />
 
-        <YAxis id="medals" visible={false} startOnTick={false} endOnTick={false}>
+        <YAxis visible={false} startOnTick={false} endOnTick={false}>
           {Object.keys(data).map(country => (
-            <StreamGraphSeries key={country} id={country} name={country} data={data[country].data} color={data[country].color} />
+            <StreamGraphSeries key={country} name={country} data={data[country].data} color={data[country].color} />
           ))}
         </YAxis>
 

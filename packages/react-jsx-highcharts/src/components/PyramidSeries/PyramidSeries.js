@@ -4,12 +4,12 @@ import Series from '../Series';
 
 class PyramidSeries extends Component {
   static propTypes = {
-    id: PropTypes.string.isRequired
+    id: PropTypes.oneOfType([ PropTypes.string, PropTypes.func ])
   };
 
   render () {
     return (
-      <Series {...this.props} type="pyramid" />
+      <Series {...this.props} type="pyramid" requiresAxis={false} />
     );
   }
 }

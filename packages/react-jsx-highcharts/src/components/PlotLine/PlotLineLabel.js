@@ -1,12 +1,13 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import pickBy from 'lodash/pickBy';
+import attempt from 'lodash/attempt';
+import find from 'lodash/find';
 
 class PlotLineLabel extends Component {
 
   static propTypes = {
-    axisId: PropTypes.string,
-    id: PropTypes.string,
+    id: PropTypes.string.isRequired,
     getAxis: PropTypes.func // Provided by AxisProvider
   };
 
@@ -22,49 +23,45 @@ class PlotLineLabel extends Component {
     'y'
   ];
 
-  constructor (props) {
-    super(props);
-
-    this.updatePlotLineLabel = this.updatePlotLineLabel.bind(this);
-    this.getLabelProps = this.getLabelProps.bind(this);
-  }
-
   componentDidMount () {
-    const { children, ...rest } = this.props;
+    const { children: text, ...rest } = this.props;
     this.updatePlotLineLabel({
-      text: children,
+      text,
       ...rest
     });
   }
 
   componentDidUpdate () {
-    const { children, ...rest } = this.props;
+    const { children: text, ...rest } = this.props;
     this.updatePlotLineLabel({
-      text: children,
+      text,
       ...rest
     });
   }
 
   componentWillUnmount () {
     const { children, ...rest } = this.props;
-    this.updatePlotLineLabel({
-      text: null,
-      ...rest
-    });
+    attempt(
+      this.updatePlotLineLabel,
+      {
+        text: null,
+        ...rest
+      }
+    );
   }
 
-  getLabelProps (props) {
+  getLabelProps = props => {
     return pickBy(props, (value, propName) => {
       return PlotLineLabel.labelProps.indexOf(propName) > -1;
     });
   }
 
-  updatePlotLineLabel (config) {
+  updatePlotLineLabel = config => {
     const { id, getAxis } = this.props;
     const axis = getAxis();
 
     window.setTimeout(() => {
-      const plotLine = axis && axis.plotLinesAndBands.find(line => line.id === id);
+      const plotLine = axis.object && find(axis.object.plotLinesAndBands, line => line.id === id);
       if (plotLine) {
         plotLine.options.label = this.getLabelProps(config);
         plotLine.render();

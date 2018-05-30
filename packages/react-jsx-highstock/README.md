@@ -1,53 +1,48 @@
-# react-jsx-highstock
+![React JSX Highstock](https://user-images.githubusercontent.com/2003804/40682476-c1ea6be4-6383-11e8-826c-a617db5ef726.png)
 
 This package exposes everything from `react-jsx-highcharts`, but additionally provides components for building **Highstock** charts.
 
 N.B. You can build *both* Highcharts **and** Highstock charts from this package.
 
-As of 1.2.0 React JSX Highstock supports using [Immutable.js](https://facebook.github.io/immutable-js/) data structures as Series data.
+## Why React JSX Highstock?
 
-As of 2.x you are required to use the `withHighcharts` HOC to inject the Highcharts object (see below)
+Unlike other React Highcharts wrapper libraries, **React JSX Highcharts** is designed to be dynamic - it is optimised for *interactive* charts that need to adapt to business logic in your React application.
+
+Other Highcharts wrappers completely destroy and recreate the chart when the configuration options change, which is *very* wasteful and inefficient.
+
+React JSX Highcharts uses a different approach, by providing React components for each Highcharts component, we can observe exactly which prop has changed and call the optimal Highcharts method behind the scenes.
+
+For example, if the `data` prop were to change on a `<Series />` component, React JSX Highcharts can follow Highcharts best practices and use the `setData` method rather than the more expensive `update`.
+
+React JSX Highcharts also enables you to write your *own* Highcharts components, via it's powerful higher order components.
+
+## Upgrading from 2.x to 3.x
+
+For the vast majority of cases, **if your chart works in v2 of React JSX Highstock it should work in v3 without any required changes**.
+
+Ok, so what about the minority of cases?
+
+### Dropped React 15 support
+
+v3 is built on top of the new Context API added in [React 16.3](https://reactjs.org/blog/2018/03/29/react-v-16-3.html#official-context-api), using the fantastic [create-react-context](https://www.npmjs.com/package/create-react-context) polyfill for previous React 16 versions.
+
+While polyfills for React 15 exist, I want to minimise the amount of use cases supported, going forward.
+
+### Updates to the Higher Order components (Providers)
+
+This is an advanced feature, but if this impacts you, [see the guide here](https://github.com/whawker/react-jsx-highcharts/wiki/Upgrading-from-2.x-to-3.x#updates-to-the-higher-order-components-providers)
 
 ## Upgrading from 1.x to 2.x
 
-React JSX Highstock now **requires** the `withHighcharts` higher order component to render your chart components. This HOC allows you to inject the Highcharts object the library will interact with.
-This means we can use Highcharts in styled mode (style by CSS) - see [example](https://whawker.github.io/react-jsx-highcharts/examples/StyleByCSS/index.html), or perform customisations to the Highcharts object before using it.
+See the guide [here](https://github.com/whawker/react-jsx-highcharts/wiki/Upgrading-from-1.x-to-2.x)
 
-Furthermore this approach allows us to simplify the peer-dependencies, so React JSX Highstock **now has a peer-dependency of `highcharts`, rather than `highstock-release`**
+## Changelog
 
-Using 1.x your code would have looked something like
+As of 2.1.0 Highcharts 6 is supported
 
-```jsx
-import { HighchartsStockChart, Chart, /* etc... */ } from 'react-jsx-highstock';
-import Highcharts from 'highstock-release';
+As of 2.x you are required to use the `withHighcharts` HOC to inject the Highcharts object (see below)
 
-const MyChart = () => (
-  <HighchartsStockChart>
-    <Chart />
-    // etc
-  </HighchartsStockChart>
-);
-
-export default MyChart
-```
-
-But with 2.x you need to
- - Import Highstock via `highcharts` (note the Highcharts import)
- - use `withHighcharts`, when exporting the component (note the last line)
-
-```jsx
-import { withHighcharts, HighchartsStockChart, Chart, /* etc... */ } from 'react-jsx-highstock';
-import Highcharts from 'highcharts/highstock';
-
-const MyChart = () => (
-  <HighchartsStockChart>
-    <Chart />
-    // etc
-  </HighchartsStockChart>
-);
-
-export default withHighcharts(MyChart, Highcharts); // Injecting the Highstock object
-```
+As of 1.2.0 React JSX Highstock supports using [Immutable.js](https://facebook.github.io/immutable-js/) data structures as Series data.
 
 ## Example
 

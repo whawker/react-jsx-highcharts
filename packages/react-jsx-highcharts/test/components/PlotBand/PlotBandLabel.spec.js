@@ -1,4 +1,5 @@
 import React from 'react';
+import { createMockProvidedAxis } from '../../test-utils'
 import PlotBandLabel from '../../../src/components/PlotBand/PlotBandLabel';
 
 describe('<PlotBand.Label />', function ()  {
@@ -6,26 +7,33 @@ describe('<PlotBand.Label />', function ()  {
 
   beforeEach(function () {
     clock = sinon.useFakeTimers();
+    const { axisStubs, getAxis } = createMockProvidedAxis({ id: 'myAxis', type: 'yAxis' });
+    this.axisStubs = axisStubs;
+
     this.plotBand      = { id: 'myPlotBand', options: { label: { text: null } }, render: sinon.spy() };
     this.otherPlotBand = { id: 'myOtherPlotBand', options: { label: { text: 'Other' } }, render: sinon.spy() };
 
     this.getAxis = sinon.stub();
-    this.getAxis.returns({
+    this.axisStubs.object = {
       plotLinesAndBands: [
         this.plotBand,
         this.otherPlotBand
       ]
-    })
+    }
+
+    this.propsFromProviders = {
+      getAxis
+    };
   });
 
   afterEach(function () {
     clock.restore();
   });
 
-  describe('when mounted', function () {
+  context('when mounted', function () {
     it('sets the correct plot band label', function () {
       mount(
-        <PlotBandLabel id="myPlotBand" getAxis={this.getAxis}>
+        <PlotBandLabel id="myPlotBand" {...this.propsFromProviders}>
           My PlotBand Label
         </PlotBandLabel>
       );
@@ -42,7 +50,7 @@ describe('<PlotBand.Label />', function ()  {
 
     it('should pass additional props too', function () {
       mount(
-        <PlotBandLabel id="myPlotBand" align="left" color="red" getAxis={this.getAxis}>
+        <PlotBandLabel id="myPlotBand" align="left" color="red" {...this.propsFromProviders}>
           My PlotBand Label
         </PlotBandLabel>
       );
@@ -59,10 +67,10 @@ describe('<PlotBand.Label />', function ()  {
     });
   });
 
-  describe('update', function () {
+  context('update', function () {
     it('should update the correct plot band if the component props change', function () {
       const wrapper = mount(
-        <PlotBandLabel id="myPlotBand" getAxis={this.getAxis}>
+        <PlotBandLabel id="myPlotBand" {...this.propsFromProviders}>
           My PlotBand Label
         </PlotBandLabel>
       );
@@ -81,10 +89,10 @@ describe('<PlotBand.Label />', function ()  {
     });
   });
 
-  describe('when unmounted', function () {
+  context('when unmounted', function () {
     it('removes the correct plot band label', function () {
       const wrapper = mount(
-        <PlotBandLabel id="myPlotBand" getAxis={this.getAxis}>
+        <PlotBandLabel id="myPlotBand" {...this.propsFromProviders}>
           My PlotBand Label
         </PlotBandLabel>
       );

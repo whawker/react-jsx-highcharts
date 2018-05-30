@@ -1,6 +1,6 @@
 import React from 'react';
+import { Series } from 'react-jsx-highcharts';
 import OHLCSeries from '../../../src/components/OHLCSeries/OHLCSeries';
-import Series from 'react-jsx-highcharts/src/components/Series';
 
 describe('<OHLCSeries />', function ()  {
   it('renders a <Series />', function ()  {

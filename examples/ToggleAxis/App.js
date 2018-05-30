@@ -29,16 +29,16 @@ class App extends Component {
 
           <XAxis/>
 
-          <YAxis id="yAxisPrimary">
+          <YAxis>
             <YAxis.Title>Primary</YAxis.Title>
-            <LineSeries id="primary" data={[ 1, 2, 3, 4, 5 ]}/>
+            <LineSeries data={[ 1, 2, 3, 4, 5 ]}/>
           </YAxis>
 
           {this.state.showSecondarySeries
             ?
-            <YAxis id="yAxisSecondary" opposite>
+            <YAxis opposite>
               <YAxis.Title opposite>Secondary</YAxis.Title>
-              <LineSeries id="secondary" data={[ 5, 4, 3, 2, 1 ]}/>
+              <LineSeries data={[ 5, 4, 3, 2, 1 ]}/>
             </YAxis>
             : undefined}
         </HighchartsChart>

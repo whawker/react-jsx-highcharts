@@ -4,12 +4,13 @@ import Series from '../Series';
 
 class BarSeries extends Component {
   static propTypes = {
-    id: PropTypes.string.isRequired,
-    update: PropTypes.func // Provided by ChartProvider
+    id: PropTypes.oneOfType([ PropTypes.string, PropTypes.func ]),
+    getChart: PropTypes.func.isRequired // Provided by ChartProvider
   };
 
   componentDidMount () {
-    this.props.update({
+    const chart = this.props.getChart();
+    chart.update({
       chart: {
         inverted: true
       }

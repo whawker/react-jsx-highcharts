@@ -4,7 +4,7 @@ import { Series } from 'react-jsx-highcharts';
 
 class CandlestickSeries extends Component {
   static propTypes = {
-    id: PropTypes.string.isRequired
+    id: PropTypes.oneOfType([ PropTypes.string, PropTypes.func ])
   };
 
   render () {

@@ -1,82 +1,47 @@
-import React, { Component } from 'react';
-import provideChart from '../ChartProvider';
-import providedProps from '../../utils/providedProps';
-import boundContextHelper from '../../utils/boundContextHelper';
-import cleanPropsBeforeUpdate from '../../utils/cleanPropsBeforeUpdate';
+import React from 'react';
+import DelayRender from '../DelayRender';
+import provideAxis from '../AxisProvider'
+import { Consumer } from '../SeriesContext';
+import getDisplayName from '../../utils/getDisplayName';
+import clean from '../../utils/removeProvidedProps';
 
-function getDisplayName (Component) {
-  return Component.displayName || Component.name || 'Component';
-}
+// This is a HOC function.
+// It takes a component...
+export default function provideSeries(Component) {
+  // ...and returns another component...
+  const SeriesWrappedComponent = function(props) {
+    // ... and renders the wrapped component with the context series
+    // Notice that we pass through any additional props as well
+    return (
+      <DelayRender>
+        <Consumer>
+          {series => {
+            if (!series && props.seriesId) {
+              const chart = props.getChart();
+              series = chart.get(props.seriesId);
+            }
 
-export default function provideSeries(WrappedComponent, expectsSeriesExists = true) {
-  class SeriesProvider extends Component {
-    static displayName = `SeriesProvider(${getDisplayName(WrappedComponent)})`;
+            if (!series) return null;
 
-    constructor (props, context) {
-      super(props, context);
+            const getSeries = () => ({
+              object: series,
+              id: series.userOptions && series.userOptions.id,
+              update: clean(series.update.bind(series)),
+              remove: series.remove.bind(series),
+              setData: series.setData.bind(series),
+              setVisible: series.setVisible.bind(series)
+            })
 
-      providedProps(
-        'SeriesProvider',
-        ['update', 'remove', 'setData', 'setVisible', 'getSeries', 'seriesAdded']
-      );
+            return (
+              <Component {...props} getSeries={getSeries} />
+            )
+          }}
+        </Consumer>
+      </DelayRender>
+    );
+  };
 
-      this.handleSeriesAdded = this.handleSeriesAdded.bind(this);
-      this.state = {
-        seriesAdded: false
-      };
-    }
+  SeriesWrappedComponent.displayName = `Series.Provider(${getDisplayName(Component)})`
 
-    componentWillMount () {
-      const { get, getHighcharts, getChart } = this.props;
-      const id = this.props.seriesId || this.props.id;
-
-      if (get(id)) {
-        return this.setState({
-          seriesAdded: true
-        });
-      }
-
-      getHighcharts().addEvent(getChart(), 'addSeries', this.handleSeriesAdded);
-    }
-
-    componentWillUnmount() {
-      const { getHighcharts, getChart } = this.props;
-      getHighcharts().removeEvent(getChart(), 'addSeries', this.handleSeriesAdded);
-    }
-
-    handleSeriesAdded (e) {
-      if (e.options.id !== this.props.id) return;
-
-      this.setState({
-        seriesAdded: true
-      });
-    }
-
-    render () {
-      const id = this.props.seriesId || this.props.id;
-      const series = this.props.get(id);
-      if (!series && expectsSeriesExists) return null;
-
-      const getSeries = () => this.props.get(id);
-      const getBoundSeriesMethod = boundContextHelper(this.props.getChart(), getSeries);
-
-      const update = getBoundSeriesMethod('update');
-      const remove = getBoundSeriesMethod('remove');
-      const setData = getBoundSeriesMethod('setData');
-      const setVisible = getBoundSeriesMethod('setVisible');
-
-      return (
-        <WrappedComponent
-          {...this.props}
-          update={cleanPropsBeforeUpdate(update)}
-          remove={remove}
-          setData={setData}
-          setVisible={setVisible}
-          getSeries={getSeries}
-          seriesAdded={!!series} />
-      );
-    }
-  }
-
-  return provideChart(SeriesProvider);
+  return provideAxis(SeriesWrappedComponent)
 }

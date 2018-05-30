@@ -55,9 +55,9 @@ class App extends Component {
             <XAxis.Title>Time</XAxis.Title>
           </XAxis>
 
-          <YAxis id="price">
+          <YAxis>
             <YAxis.Title>Price</YAxis.Title>
-            <LineSeries id="series1" name="Profit" data={data} color={seriesColor} />
+            <LineSeries name="Profit" data={data} color={seriesColor} />
           </YAxis>
         </HighchartsChart>
 

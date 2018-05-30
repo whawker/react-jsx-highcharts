@@ -1,53 +1,53 @@
-# react-jsx-highcharts
+![React JSX Highcharts](https://user-images.githubusercontent.com/2003804/40681848-2d0f5ce2-6382-11e8-8ce9-cd49c409ad2e.png)
 
 ## Introduction
 
 A project for integrating [Highcharts](https://github.com/highcharts/highcharts) into a React app, with proper React components for each Highcharts/Highstock component. Inspired by [Recharts](https://github.com/recharts/recharts), but for Highcharts, obviously.
 
-As of 1.2.0 React JSX Highcharts supports using [Immutable.js](https://facebook.github.io/immutable-js/) data structures as Series data.
+## Why React JSX Highcharts?
 
-As of 1.3.0 React JSX Highcharts supports [3D charts](https://whawker.github.io/react-jsx-highcharts/examples/3DChart/index.html).
+Unlike other React Highcharts wrapper libraries, **React JSX Highcharts** is designed to be dynamic - it is optimised for *interactive* charts that need to adapt to business logic in your React application.
+
+Other Highcharts wrappers completely destroy and recreate the chart when the configuration options change, which is *very* wasteful and inefficient.
+
+React JSX Highcharts uses a different approach, by providing React components for each Highcharts component, we can observe exactly which prop has changed and call the optimal Highcharts method behind the scenes.
+
+For example, if the `data` prop were to change on a `<Series />` component, React JSX Highcharts can follow Highcharts best practices and use the `setData` method rather than the more expensive `update`.
+
+React JSX Highcharts also enables you to write your *own* Highcharts components, via it's powerful higher order components.
+
+## Upgrading from 2.x to 3.x
+
+For the vast majority of cases, **if your chart works in v2 of React JSX Highcharts it should work in v3 without any required changes**.
+
+Ok, so what about the minority of cases?
+
+### Dropped React 15 support
+
+v3 is built on top of the new Context API added in [React 16.3](https://reactjs.org/blog/2018/03/29/react-v-16-3.html#official-context-api), using the fantastic [create-react-context](https://www.npmjs.com/package/create-react-context) polyfill for previous React 16 versions.
+
+While polyfills for React 15 exist, I want to minimise the amount of use cases supported, going forward.
+
+### Updates to the Higher Order components (Providers)
+
+This is an advanced feature, but if this impacts you, [see the guide here](https://github.com/whawker/react-jsx-highcharts/wiki/Upgrading-from-2.x-to-3.x#updates-to-the-higher-order-components-providers)
+
+## Upgrading from 1.x to 2.x
+
+See the guide [here](https://github.com/whawker/react-jsx-highcharts/wiki/Upgrading-from-1.x-to-2.x)
+
+## Changelog
+
+As of 3.x you are no longer required to use IDs for Axis and Series
 
 As of 2.1.0 Highcharts 6 is supported
 
 As of 2.x you are required to use the `withHighcharts` HOC to inject the Highcharts object (see below)
 
-## Upgrading from 1.x to 2.x
+As of 1.3.0 React JSX Highcharts supports [3D charts](https://whawker.github.io/react-jsx-highcharts/examples/3DChart/index.html).
 
-React JSX Highcharts now **requires** the `withHighcharts` higher order component to render your chart components. This HOC allows you to inject the Highcharts object the library will interact with.
-This means we can use Highcharts in styled mode (style by CSS) - see [example](https://whawker.github.io/react-jsx-highcharts/examples/StyleByCSS/index.html), or perform customisations to the Highcharts object before using it.
+As of 1.2.0 React JSX Highcharts supports using [Immutable.js](https://facebook.github.io/immutable-js/) data structures as Series data.
 
-Using 1.x your code would have looked something like
-
-```jsx
-import { HighchartsChart, Chart, /* etc... */ } from 'react-jsx-highcharts';
-import Highcharts from 'highcharts';
-
-const MyChart = () => (
-  <HighchartsChart>
-    <Chart />
-    // etc
-  </HighchartsChart>
-);
-
-export default MyChart
-```
-
-But with 2.x you need to use `withHighcharts`, when exporting the component (note the last line)
-
-```jsx
-import { withHighcharts, HighchartsChart, Chart, /* etc... */ } from 'react-jsx-highcharts';
-import Highcharts from 'highcharts';
-
-const MyChart = () => (
-  <HighchartsChart>
-    <Chart />
-    // etc
-  </HighchartsChart>
-);
-
-export default withHighcharts(MyChart, Highcharts); // Injecting the Highcharts object
-```
 
 ## Example
 
@@ -113,7 +113,7 @@ In progress... [see here](https://github.com/whawker/react-jsx-highcharts/wiki).
 * ~~React 16 support - all features seem to work with beta 3, just need to modify `peerDependencies` and await Enzyme support for React 16~~ Done! 1.4.0
 * Use `React.PureComponent` instead of `Component`
 * ~~Highcharts 6.0 support~~ Done 2.1.0
-* Use new context API due to be added in React 16.3
+* ~~Use new context API due to be added in React 16.3~~
 
 ## Goals
 

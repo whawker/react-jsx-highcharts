@@ -1,40 +1,32 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Hidden from '../Hidden';
+import attempt from 'lodash/attempt';
 import getModifiedProps from '../../utils/getModifiedProps';
-import removeProvidedProps from '../../utils/removeProvidedProps';
 
 class Tooltip extends Component {
 
   static propTypes = {
-    update: PropTypes.func, // Provided by ChartProvider
     getChart: PropTypes.func, // Provided by ChartProvider
     getHighcharts: PropTypes.func.isRequired, // Provided by HighchartsProvider
     enabled: PropTypes.bool.isRequired
   };
 
   static defaultProps = {
+    children: null,
     enabled: true
   };
-
-  constructor (props) {
-    super(props);
-
-    this.updateTooltip = this.updateTooltip.bind(this);
-  }
 
   componentDidMount () {
     const { children, getHighcharts, getChart, ...rest } = this.props;
     const Highcharts = getHighcharts();
 
-    const chart = getChart();
-    const opts = removeProvidedProps({ ...rest });
+    const chartObj = getChart().object;
 
-    chart.tooltip = new Highcharts.Tooltip(chart, {
+    chartObj.tooltip = new Highcharts.Tooltip(chartObj, {
       ...(Highcharts.defaultOptions && Highcharts.defaultOptions.tooltip),
-      ...opts
+      ...rest
     });
-    this.updateTooltip(opts);
+    this.updateTooltip(rest);
   }
 
   componentDidUpdate (prevProps) {
@@ -45,24 +37,18 @@ class Tooltip extends Component {
   }
 
   componentWillUnmount () {
-    this.updateTooltip({
-      enabled: false
-    });
+    attempt(this.updateTooltip, { enabled: false });
   }
 
-  updateTooltip (config) {
-    this.props.update({
+  updateTooltip = config => {
+    const chart = this.props.getChart();
+    chart.update({
       tooltip: config
     }, true);
   }
 
   render () {
-    const { children } = this.props;
-    if (!children) return null;
-
-    return (
-      <Hidden>{children}</Hidden>
-    );
+    return null;
   }
 }
 

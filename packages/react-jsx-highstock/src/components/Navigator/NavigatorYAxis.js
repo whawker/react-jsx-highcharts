@@ -4,7 +4,7 @@ import NavigatorAxis from './NavigatorAxis';
 class NavigatorYAxis extends Component {
   render () {
     return (
-      <NavigatorAxis {...this.props} axisId="navigator-y-axis" dimension="y" />
+      <NavigatorAxis {...this.props} axisId="navigator-y-axis" />
     );
   }
 }

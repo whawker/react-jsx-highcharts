@@ -1,21 +1,19 @@
 import React from 'react';
-import { Highcharts } from '../../test-utils';
+import { createMockProvidedChart, Highcharts } from '../../test-utils'
 import Chart from '../../../src/components/Chart/Chart';
 
 describe('<Chart />', function ()  {
   let sandbox;
 
   beforeEach(function () {
-    this.update = sinon.spy();
-    this.getChart = sinon.stub();
-    this.getChart.returns('mock-chart');
-
     sandbox = sinon.sandbox.create();
     sandbox.stub(Highcharts, 'addEvent');
 
+    const { chartStubs, getChart } = createMockProvidedChart();
+    this.chartStubs = chartStubs;
+
     this.propsFromProviders = {
-      update: this.update,
-      getChart: this.getChart,
+      getChart,
       getHighcharts: () => Highcharts
     };
   });
@@ -24,10 +22,10 @@ describe('<Chart />', function ()  {
     sandbox.restore();
   });
 
-  describe('when mounted', function () {
+  context('when mounted', function () {
     it('updates the chart config with the provided props', function () {
       mount(<Chart type="bubble" {...this.propsFromProviders} />);
-      expect(this.update).to.have.been.calledWith({
+      expect(this.chartStubs.update).to.have.been.calledWith({
         chart : {
           type: 'bubble'
         }
@@ -38,7 +36,7 @@ describe('<Chart />', function ()  {
       mount(
         <Chart type="spline" propFoo="bar" zoomType="x" onClick={() => {}} {...this.propsFromProviders} />
       );
-      expect(this.update).to.have.been.calledWith({
+      expect(this.chartStubs.update).to.have.been.calledWith({
         chart : {
           type: 'spline',
           zoomType: 'x',
@@ -48,6 +46,7 @@ describe('<Chart />', function ()  {
     });
 
     it('subscribes to Highcharts events for props that look like event handlers', function () {
+      this.chartStubs.object = 'mock-chart';
       const handleClick = sinon.spy();
       const handleRender = sinon.spy();
       const handleBeforePrint = sinon.spy();
@@ -62,13 +61,13 @@ describe('<Chart />', function ()  {
     });
   });
 
-  describe('update', function () {
+  context('update', function () {
     it('should use the update method when props change', function () {
       const wrapper = mount(
         <Chart {...this.propsFromProviders} />
       );
       wrapper.setProps({ backgroundColor: 'red' });
-      expect(this.update).to.have.been.calledWith({
+      expect(this.chartStubs.update).to.have.been.calledWith({
         chart: {
           backgroundColor: 'red'
         }

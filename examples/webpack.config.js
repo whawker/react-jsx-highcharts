@@ -49,8 +49,8 @@ const exampleNames = examples.map(e => e.name);
 const externals = {
   // 'react-jsx-highcharts': '../../packages/react-jsx-highcharts/dist/react-jsx-highcharts.min.js',
   // 'react-jsx-highstock':  '../../packages/react-jsx-highstock/dist/react-jsx-highstock.min.js',
-  'react-jsx-highcharts': 'https://unpkg.com/react-jsx-highcharts@^2/dist/react-jsx-highcharts.min.js',
-  'react-jsx-highstock':  'https://unpkg.com/react-jsx-highstock@^2/dist/react-jsx-highstock.min.js',
+  'react-jsx-highcharts': 'https://unpkg.com/react-jsx-highcharts@^3/dist/react-jsx-highcharts.min.js',
+  'react-jsx-highstock':  'https://unpkg.com/react-jsx-highstock@^3/dist/react-jsx-highstock.min.js',
   'react':                'https://unpkg.com/react@^16/umd/react.production.min.js',
   'react-dom':            'https://unpkg.com/react-dom@^16/umd/react-dom.production.min.js',
   'highcharts':           'https://code.highcharts.com/6.0.4/highcharts.js',
@@ -69,7 +69,7 @@ const externals = {
   'prism-jsx':            'https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/components/prism-jsx.min.js',
   'moment':               'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js',
   'react-day-picker':     'https://unpkg.com/react-day-picker@6.0.5/lib/daypicker.js',
-  're-resizable':         'https://unpkg.com/re-resizable@^4/lib/re-resizable.umd.js',
+  're-resizable':         'https://unpkg.com/re-resizable@~4.3/lib/re-resizable.umd.js',
   'promise-polyfill':     'https://www.promisejs.org/polyfills/promise-6.1.0.js',
   'fetch-polyfill':       'https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.min.js',
   'immutable':            'https://cdnjs.cloudflare.com/ajax/libs/immutable/3.8.1/immutable.min.js'

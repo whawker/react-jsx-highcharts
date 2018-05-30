@@ -1,65 +1,58 @@
-import React, { Component } from 'react';
+import React from 'react';
+import defaultTo from 'lodash/defaultTo';
+import DelayRender from '../DelayRender';
 import provideChart from '../ChartProvider';
-import providedProps from '../../utils/providedProps';
-import boundContextHelper from '../../utils/boundContextHelper';
-import cleanPropsBeforeUpdate from '../../utils/cleanPropsBeforeUpdate';
+import { Consumer } from '../AxisContext';
+import getDisplayName from '../../utils/getDisplayName';
+import clean from '../../utils/removeProvidedProps';
 
-function getDisplayName (Component) {
-  return Component.displayName || Component.name || 'Component';
-}
+// This is a HOC function.
+// It takes a component...
+export default function provideAxis(Component) {
+  // ...and returns another component...
+  const AxisWrappedComponent = function(props) {
+    // ... and renders the wrapped component with the context axis
+    // Notice that we pass through any additional props as well
+    const requiresAxis = defaultTo(props.requiresAxis, true);
+    return (
+      <DelayRender>
+        <Consumer>
+          {axis => {
+            if (!axis && props.axisId) {
+              const chart = props.getChart();
+              axis = chart.get(props.axisId);
+            }
 
-export default function provideAxis(WrappedComponent) {
-  class AxisProvider extends Component {
-    static displayName = `AxisProvider(${getDisplayName(WrappedComponent)})`;
+            // Some series (such as Pie and Funnel don't require an axis)
+            if (!axis && requiresAxis) return null;
 
-    constructor (props, context) {
-      super(props, context);
+            const getAxis = () => ({
+              object: axis,
+              id: axis.userOptions && axis.userOptions.id,
+              type: axis.coll,
+              update: clean(axis.update.bind(axis)),
+              remove: axis.remove.bind(axis),
+              addPlotBand: clean(axis.addPlotBand.bind(axis)),
+              removePlotBand: axis.removePlotBand.bind(axis),
+              addPlotLine: clean(axis.addPlotLine.bind(axis)),
+              removePlotLine: axis.removePlotLine.bind(axis),
+              getExtremes: axis.getExtremes.bind(axis),
+              setExtremes: axis.setExtremes.bind(axis),
+              setTitle: clean(axis.setTitle.bind(axis))
+            })
 
-      providedProps(
-        'AxisProvider',
-        [
-          'update', 'remove', 'getAxis',
-          'addPlotBand', 'removePlotBand',
-          'addPlotLine', 'removePlotLine',
-          'getExtremes', 'setExtremes',
-          'setTitle'
-        ]
-      );
-    }
+            return (
+              <Component
+                {...props}
+                getAxis={getAxis} />
+            )
+          }}
+        </Consumer>
+      </DelayRender>
+    );
+  };
 
-    render () {
-      const id = this.props.axisId || this.props.id;
-      if (!id) return null;
+  AxisWrappedComponent.displayName = `Axis.Provider(${getDisplayName(Component)})`
 
-      const getAxis = () => this.props.get(id);
-      const getBoundAxisMethod = boundContextHelper(this.props.getChart(), getAxis);
-
-      const update = getBoundAxisMethod('update');
-      const remove = getBoundAxisMethod('remove');
-      const addPlotBand = getBoundAxisMethod('addPlotBand');
-      const removePlotBand = getBoundAxisMethod('removePlotBand');
-      const addPlotLine = getBoundAxisMethod('addPlotLine');
-      const removePlotLine = getBoundAxisMethod('removePlotLine');
-      const getExtremes = getBoundAxisMethod('getExtremes');
-      const setExtremes = getBoundAxisMethod('setExtremes');
-      const setTitle = getBoundAxisMethod('setTitle');
-
-      return (
-        <WrappedComponent
-          {...this.props}
-          update={cleanPropsBeforeUpdate(update)}
-          remove={remove}
-          addPlotBand={cleanPropsBeforeUpdate(addPlotBand)}
-          removePlotBand={removePlotBand}
-          addPlotLine={cleanPropsBeforeUpdate(addPlotLine)}
-          removePlotLine={removePlotLine}
-          getExtremes={getExtremes}
-          setExtremes={setExtremes}
-          setTitle={cleanPropsBeforeUpdate(setTitle)}
-          getAxis={getAxis} />
-      );
-    }
-  }
-
-  return provideChart(AxisProvider);
+  return provideChart(AxisWrappedComponent)
 }

@@ -1,72 +1,90 @@
 import React, { Component, Children, cloneElement, isValidElement } from 'react';
 import PropTypes from 'prop-types';
-import Hidden from '../Hidden';
+import uuid from 'uuid/v4';
+import isFunction from 'lodash/isFunction';
+import attempt from 'lodash/attempt';
+import { Provider } from '../AxisContext';
 import addEventProps, { getNonEventHandlerProps } from '../../utils/events';
 import getModifiedProps from '../../utils/getModifiedProps';
-import { validAxisDimensions, validAxisTypes } from '../../utils/propTypeValidators';
+import { validAxisTypes } from '../../utils/propTypeValidators';
+import { logZAxisErrorMessage } from '../../utils/warnings'
 
 class Axis extends Component {
 
   static propTypes = {
-    dimension: validAxisDimensions.isRequired,
     type: validAxisTypes,
-    id: PropTypes.string.isRequired,
+    id: PropTypes.oneOfType([ PropTypes.string, PropTypes.func ]).isRequired,
     children: PropTypes.node,
-    addAxis: PropTypes.func, // Provided by ChartProvider
-    update: PropTypes.func, // Provided by AxisProvider
-    remove: PropTypes.func, // Provided by AxisProvider
-    getAxis: PropTypes.func, // Provided by AxisProvider
-    getHighcharts: PropTypes.func.isRequired, // Provided by HighchartsProvider
+    getChart: PropTypes.func, // Provided by ChartProvider
     dynamicAxis: PropTypes.bool.isRequired
   };
 
   static defaultProps = {
+    id: uuid,
+    children: null,
     dynamicAxis: true
   };
 
-  componentWillMount () {
-    const { children, dimension, dynamicAxis, addAxis, update, ...rest } = this.props;
-    const nonEventProps = getNonEventHandlerProps(rest);
+  constructor (props) {
+    super(props);
 
-    if (dynamicAxis) {
-      const isX = dimension.toLowerCase() === 'x';
-      addAxis(Object.assign({title: {text: null}}, nonEventProps), isX, true);
-    } else {
-      // ZAxis cannot be added dynamically, update instead
-      update(Object.assign({ title: { text: null } }, nonEventProps), true);
+    if (process.env.NODE_ENV === 'development') {
+      const { id, getHighcharts } = props;
+      if (id === 'zAxis' && !getHighcharts().ZAxis) logZAxisErrorMessage();
     }
   }
 
   componentDidMount () {
-    const { update, ...rest } = this.props;
-    addEventProps(update, rest);
+    const { dynamicAxis, isX, getChart } = this.props;
+    const chart = getChart();
+
+    // Create Highcharts Axis
+    const opts = this.getAxisConfig();
+    if (dynamicAxis) {
+      this.axis = chart.addAxis(opts, isX, true);
+    } else {
+      // ZAxis cannot be added dynamically, update instead
+      this.axis = chart.get('zAxis');
+      this.axis.update(opts, true);
+    }
+
+    const update = this.axis.update.bind(this.axis)
+    addEventProps(update, this.props);
+
+    // Re-render to pass this.axis to Provider
+    this.forceUpdate();
   }
 
   componentDidUpdate (prevProps) {
-    const { update, ...rest } = this.props;
-    const modifiedProps = getModifiedProps(prevProps, rest);
+    const modifiedProps = getModifiedProps(prevProps, this.props);
     if (modifiedProps !== false) {
-      update(modifiedProps);
+      this.axis.update(modifiedProps);
     }
   }
 
   componentWillUnmount () {
-    this.props.remove();
+    attempt(this.axis.remove.bind(this.axis)); // Axis may have already been removed, i.e. when Chart unmounted
+  }
+
+  getAxisConfig = () => {
+    const { id, children, ...rest } = this.props;
+
+    const axisId = isFunction(id) ? id() : id
+    const nonEventProps = getNonEventHandlerProps(rest);
+    return {
+      id: axisId,
+      title: { text: null },
+      ...nonEventProps
+    }
   }
 
   render () {
-    const { dimension, id, children } = this.props;
-    if (!children) return null;
-
-    const axisChildren = Children.map(children, child => {
-      if (isValidElement(child) === false) return child;
-      return cloneElement(child, { dimension, axisId: id });
-    });
+    if (!this.axis) return null;
 
     return (
-      <Hidden>
-        {axisChildren}
-      </Hidden>
+      <Provider value={this.axis}>
+        {this.props.children}
+      </Provider>
     );
   }
 }

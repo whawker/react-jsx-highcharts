@@ -5,23 +5,20 @@ import Axis from '../Axis';
 class XAxis extends Component {
 
   static propTypes = {
-    id: PropTypes.string.isRequired,
-    type: PropTypes.string
+    type: PropTypes.string,
+    getChart: PropTypes.func.isRequired // Provided by ChartProvider
   };
 
-  static defaultProps = {
-    id: 'xAxis'
-  };
 
   render () {
-    let { getChartType, type, ...rest } = this.props;
-    if (!type) {
-      const chartType = getChartType();
-      type = (chartType === 'stockChart') ? 'datetime' : 'linear';
-    }
+    let { getChart, id, ...rest } = this.props;
+    const chart = getChart();
+    const isStockChart = chart.getType() === 'stockChart';
+    const type = isStockChart ? 'datetime' : 'linear';
+    const axisId = isStockChart ? 'xAxis' : id;
 
     return (
-      <Axis {...rest} type={type} dimension="x" />
+      <Axis type={type} {...rest} id={axisId} isX />
     );
   }
 }

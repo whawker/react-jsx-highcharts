@@ -4,7 +4,6 @@ import Axis from '../Axis';
 
 class YAxis extends Component {
   static propTypes = {
-    id: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired
   };
 
@@ -14,7 +13,7 @@ class YAxis extends Component {
 
   render () {
     return (
-      <Axis {...this.props} dimension="y" />
+      <Axis {...this.props} isX={false} />
     );
   }
 }

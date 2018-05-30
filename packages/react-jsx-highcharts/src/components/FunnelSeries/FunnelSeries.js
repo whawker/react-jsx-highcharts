@@ -4,12 +4,12 @@ import Series from '../Series';
 
 class FunnelSeries extends Component {
   static propTypes = {
-    id: PropTypes.string.isRequired
+    id: PropTypes.oneOfType([ PropTypes.string, PropTypes.func ])
   };
 
   render () {
     return (
-      <Series {...this.props} type="funnel" />
+      <Series {...this.props} type="funnel" requiresAxis={false} />
     );
   }
 }

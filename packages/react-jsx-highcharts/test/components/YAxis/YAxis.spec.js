@@ -8,9 +8,9 @@ describe('<YAxis />', function ()  {
     expect(wrapper).to.have.type(Axis);
   });
 
-  it('renders an <Axis dimension="y" />', function () {
+  it('renders an <Axis isX={false} />', function () {
     const wrapper = shallow(<YAxis id="yAxis" />);
-    expect(wrapper).to.have.prop('dimension').equal('y');
+    expect(wrapper).to.have.prop('isX').equal(false);
   });
 
   it('passes other props through to <Axis />', function () {

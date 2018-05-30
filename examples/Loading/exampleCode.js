@@ -35,7 +35,7 @@ class App extends Component {
     const meta = this.state.frameworks[pkgName];
     const data = this.state.downloads[pkgName];
     return (
-      <LineSeries id={pkgName} {...meta} data={data} key={pkgName} />
+      <LineSeries {...meta} data={data} key={pkgName} />
     );
   }
 
@@ -59,7 +59,7 @@ class App extends Component {
             <XAxis.Title>Date</XAxis.Title>
           </XAxis>
 
-          <YAxis id="number" min={0} max={500000}>
+          <YAxis min={0} max={500000}>
             <YAxis.Title>Number of downloads</YAxis.Title>
             {npmPackages.map(this.renderSeries)}
           </YAxis>

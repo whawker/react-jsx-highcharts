@@ -1,32 +1,36 @@
 import React from 'react';
+import { createMockProvidedChart } from '../../test-utils';
 import Scrollbar from '../../../src/components/Scrollbar/Scrollbar';
 
 describe('<Scrollbar />', function ()  {
   beforeEach(function () {
-    this.update = sinon.spy();
+    const { chartStubs, getChart } = createMockProvidedChart({ object: this.object });
+    this.chartStubs = chartStubs;
+
+    this.propsFromProviders = {
+      getChart
+    };
   });
 
   describe('when mounted', function () {
     it('add scrollbar using the Highcharts update method', function () {
-      mount(<Scrollbar update={this.update} />);
-      expect(this.update).to.have.been.calledWith({
+      mount(<Scrollbar {...this.propsFromProviders} />);
+      expect(this.chartStubs.update).to.have.been.calledWithMatch({
         scrollbar: {
-          enabled: true,
-          update: this.update
+          enabled: true
         }
       });
     });
 
     it('updates the scrollbar with the passed props', function () {
       mount(
-        <Scrollbar barBackgroundColor="red" height={20} update={this.update} />
+        <Scrollbar barBackgroundColor="red" height={20} {...this.propsFromProviders} />
       );
-      expect(this.update).to.have.been.calledWith({
+      expect(this.chartStubs.update).to.have.been.calledWithMatch({
         scrollbar: {
           enabled: true,
           barBackgroundColor: 'red',
-          height: 20,
-          update: this.update
+          height: 20
         }
       });
     });
@@ -35,10 +39,10 @@ describe('<Scrollbar />', function ()  {
   describe('update', function () {
     it('should use the update method when props change', function () {
       const wrapper = mount(
-        <Scrollbar update={this.update} />
+        <Scrollbar {...this.propsFromProviders} />
       );
       wrapper.setProps({ height: 12345 });
-      expect(this.update).to.have.been.calledWith({
+      expect(this.chartStubs.update).to.have.been.calledWithMatch({
         scrollbar: {
           height: 12345
         }
@@ -48,9 +52,9 @@ describe('<Scrollbar />', function ()  {
 
   describe('when unmounted', function () {
     it('should disable the Scrollbar', function () {
-      const wrapper = mount(<Scrollbar update={this.update} />);
+      const wrapper = mount(<Scrollbar {...this.propsFromProviders} />);
       wrapper.unmount();
-      expect(this.update).to.have.been.calledWith({
+      expect(this.chartStubs.update).to.have.been.calledWithMatch({
         scrollbar: {
           enabled: false
         }

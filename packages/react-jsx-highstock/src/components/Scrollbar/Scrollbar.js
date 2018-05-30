@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import attempt from 'lodash/attempt';
 import { Hidden, getModifiedProps } from 'react-jsx-highcharts';
 
 class Scrollbar extends Component {
 
   static propTypes = {
-    update: PropTypes.func, // Provided by ChartProvider
+    getChart: PropTypes.func, // Provided by ChartProvider
     enabled: PropTypes.bool.isRequired
   };
 
@@ -13,17 +14,9 @@ class Scrollbar extends Component {
     enabled: true
   };
 
-  constructor (props) {
-    super(props);
-
-    this.updateScrollbar = this.updateScrollbar.bind(this);
-  }
-
   componentDidMount () {
     const { children, ...rest } = this.props;
-    this.updateScrollbar({
-      ...rest
-    });
+    this.updateScrollbar(rest);
   }
 
   componentDidUpdate (prevProps) {
@@ -34,13 +27,12 @@ class Scrollbar extends Component {
   }
 
   componentWillUnmount () {
-    this.updateScrollbar({
-      enabled: false
-    });
+    attempt(this.updateScrollbar, { enabled: false });
   }
 
-  updateScrollbar (config) {
-    this.props.update({
+  updateScrollbar = config => {
+    const chart = this.props.getChart();
+    chart.update({
       scrollbar: config
     }, true);
   }

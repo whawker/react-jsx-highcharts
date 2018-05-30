@@ -8,6 +8,11 @@ describe('<PyramidSeries />', function ()  {
     expect(wrapper).to.have.type(Series);
   });
 
+  it('does not require an axis', function () {
+    const wrapper = shallow(<PyramidSeries id="mySeries" />);
+    expect(wrapper).to.have.prop('requiresAxis').equal(false);
+  });
+
   it('renders a <Series type="pyramid" />', function () {
     const wrapper = shallow(<PyramidSeries id="mySeries" />);
     expect(wrapper).to.have.prop('type').equal('pyramid');
