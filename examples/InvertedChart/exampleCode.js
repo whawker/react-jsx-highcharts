@@ -34,7 +34,7 @@ render () {
           <AreaSplineSeries name="Total Goals" data={totalGoals} color="#38003c" />
         </YAxis>
 
-        <YAxis min={2.4} max={5} gridLineWidth={0} labels={{ enabled: false }}>
+        <YAxis min={2.4} max={7} gridLineWidth={0} labels={{ enabled: false }}>
           <AreaSplineSeries name="Average Goals per Game" data={avgGoalsPerGame} color="#e90052" />
         </YAxis>
 

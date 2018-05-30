@@ -10,8 +10,8 @@ Highcharts.setOptions({
   lang: { thousandsSep: '' }
 });
 
-// Generates 1992-93 through 2016-17
-const seasons = Array.from({length: 25}, (v, k) => {
+// Generates 1992-93 through 2017-18
+const seasons = Array.from({length: 26}, (v, k) => {
   const year = k + 1992;
   return `${year}-${(year + 1).toString().substr(2)}`
 });
@@ -24,12 +24,12 @@ class App extends Component {
     this.state = {
       seasons,
       totalGoals: [
-        1222, 1195, 1195, 988, 970, 1019, 959, 1060, 992, 1001, 1000, 1012,
-        974, 944, 931, 1002, 942, 1053, 1063, 1066, 1063, 1052, 975, 1026, 1064
+        1222, 1195, 1195, 988, 970, 1019, 959, 1060, 992, 1001, 1000, 1012, 974,
+        944, 931, 1002, 942, 1053, 1063, 1066, 1063, 1052, 975, 1026, 1064, 1018
       ],
       avgGoalsPerGame: [
-        2.65, 2.59, 2.59, 2.6, 2.55, 2.68, 2.52, 2.79, 2.61, 2.63, 2.63, 2.66,
-        2.56, 2.48, 2.45, 2.64, 2.48, 2.77, 2.8, 2.81, 2.8, 2.77, 2.57, 2.7, 2.8
+        2.65, 2.59, 2.59, 2.6, 2.55, 2.68, 2.52, 2.79, 2.61, 2.63, 2.63, 2.66, 2.56,
+        2.48, 2.45, 2.64, 2.48, 2.77, 2.8, 2.81, 2.8, 2.77, 2.57, 2.7, 2.8, 2.68
       ]
     };
   }
@@ -57,7 +57,7 @@ class App extends Component {
         <HighchartsChart plotOptions={plotOptions}>
           <Chart inverted marginLeft={300} height={650} />
 
-          <Title>Premier League Goal Stats: 1992-93 to 2016-17</Title>
+          <Title>Premier League Goal Stats: 1992-93 to 2017-18</Title>
 
           <Subtitle>Source: myfootballfacts.com</Subtitle>
 
@@ -69,7 +69,7 @@ class App extends Component {
             <AreaSplineSeries name="Total Goals" data={totalGoals} color="#38003c" />
           </YAxis>
 
-          <YAxis min={2.4} max={5} gridLineWidth={0} labels={{ enabled: false }}>
+          <YAxis min={2.4} max={7} gridLineWidth={0} labels={{ enabled: false }}>
             <AreaSplineSeries name="Average Goals per Game" data={avgGoalsPerGame} color="#e90052" />
           </YAxis>
 
