@@ -94,14 +94,14 @@ export default withHighcharts(MyComponent, Highcharts);
 
 You'll need the peer dependencies too
 
-`npm install --save react react-dom prop-types highcharts@^5.0.0`
+`npm install --save react react-dom prop-types highcharts@^6.0.0`
 
 #### Highstock (also includes Highcharts)
 `npm install --save react-jsx-highstock`
 
 You'll need the peer dependencies too
 
-`npm install --save react react-dom prop-types highcharts@^5.0.0`
+`npm install --save react react-dom prop-types highcharts@^6.0.0`
 
 **Note**: import `Highcharts` with `import Highcharts from 'highcharts/highstock'`
 
