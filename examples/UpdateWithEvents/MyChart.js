@@ -44,12 +44,12 @@ class MyChart extends Component {
         />
 
         <XAxis
-          id="x"
+
           categories={['Apples', 'Oranges', 'Pears', 'Bananas', 'Plums']}
         />
 
-        <YAxis id="number">
-          <ColumnSeries id="column" data={data} onClick={this.handleClick} />
+        <YAxis>
+          <ColumnSeries data={data} onClick={this.handleClick} />
         </YAxis>
       </HighchartsChart>
     );

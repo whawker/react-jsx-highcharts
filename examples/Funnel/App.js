@@ -36,7 +36,7 @@ class App extends Component {
         <HighchartsChart plotOptions={plotOptions}>
           <Title>Sales funnel</Title>
 
-          <FunnelSeries id="unique-users" name="Unique users" data={funnelData} />
+          <FunnelSeries name="Unique users" data={funnelData} />
         </HighchartsChart>
 
         <ExampleCode name="Funnel">{code}</ExampleCode>

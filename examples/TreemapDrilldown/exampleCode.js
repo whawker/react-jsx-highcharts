@@ -23,7 +23,7 @@ render () {
 
         <XAxis />
 
-        <YAxis id="value">
+        <YAxis>
           <TreemapSeries
             data={treeData}
             allowDrillToNode

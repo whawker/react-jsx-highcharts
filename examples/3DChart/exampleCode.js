@@ -9,10 +9,10 @@ export default `
 
     <XAxis min={0} max={numRows} labels={{ enabled: false }} />
 
-    <YAxis id="yAxis" min={-2} max={2} labels={{ enabled: false }} />
+    <YAxis min={-2} max={2} labels={{ enabled: false }} />
 
     <ZAxis min={0} max={numRows} labels={{ enabled: false }}>
-      <ScatterSeries id="contour" data={data} zones={zones} />
+      <ScatterSeries data={data} zones={zones} />
     </ZAxis>
   </Highcharts3dChart>
 

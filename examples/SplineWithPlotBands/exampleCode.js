@@ -4,7 +4,7 @@ renderPlotBand (band, index) {
   const id = \`\${from}-\${to}\`;
   const color = (index % 2) ? '#FFFFFF' : 'rgba(68, 170, 213, 0.1)';
   return (
-    <PlotBand id={id} key={id} from={from} to={to} color={color}>
+    <PlotBand key={id} from={from} to={to} color={color}>
       <PlotBand.Label>{band.label}</PlotBand.Label>
     </PlotBand>
   );
@@ -53,10 +53,10 @@ render() {
         <XAxis.Title>Time</XAxis.Title>
       </XAxis>
 
-      <YAxis id="y" minorGridLineWidth={0} gridLineWidth={0} alternateGridColor={null}>
+      <YAxis minorGridLineWidth={0} gridLineWidth={0} alternateGridColor={null}>
         <YAxis.Title>Wind speed (m/s)</YAxis.Title>
-        <SplineSeries id="hestavollane" name="Hestavollane" data={[0.2, 0.8, 0.8, 0.8, 1, 1.3, // etc.]} />
-        <SplineSeries id="vix" name="Vix" data={[0, 0, 0.6, 0.9, 0.8, 0.2, 0, 0, 0, 0.1, 0.6, // etc.]} />
+        <SplineSeries name="Hestavollane" data={[0.2, 0.8, 0.8, 0.8, 1, 1.3, // etc.]} />
+        <SplineSeries name="Vix" data={[0, 0, 0.6, 0.9, 0.8, 0.2, 0, 0, 0, 0.1, 0.6, // etc.]} />
         {bands.map(this.renderPlotBand)}
       </YAxis>
     </HighchartsChart>

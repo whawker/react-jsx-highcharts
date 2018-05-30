@@ -85,7 +85,7 @@ class App extends Component {
   renderSparklineDefault (pkgName, data) {
     return (
       <HighchartsSparkline>
-        <AreaSeries id={pkgName} data={data} />
+        <AreaSeries data={data} />
       </HighchartsSparkline>
     );
   }
@@ -96,7 +96,7 @@ class App extends Component {
     return (
       <HighchartsSparkline
         series={
-          <AreaSeries id={name} name={name} data={data} color="#C12127" />
+          <AreaSeries name={name} data={data} color="#C12127" />
         }>
         <Tooltip
           useHTML

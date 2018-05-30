@@ -45,9 +45,8 @@ class App extends Component {
       <HighchartsChart key={index}>
         <Title align="left" margin={30} x={30}>{dataset.name}</Title>
         <XAxis crosshair labels={{format: '{value} km'}} />
-        <YAxis id="y">
+        <YAxis>
           <Series
-            id={dataset.name}
             name={dataset.name}
             type={dataset.type}
             data={data}
