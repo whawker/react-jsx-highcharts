@@ -2394,8 +2394,8 @@ var App = function (_Component) {
           _react2.default.createElement(_reactJsxHighcharts.XAxis, null),
           _react2.default.createElement(
             _reactJsxHighcharts.YAxis,
-            { id: 'value' },
-            _react2.default.createElement(_reactJsxHighcharts.TreemapSeries, { id: 'tree', name: 'Tree', data: treemapData, layoutAlgorithm: 'squarified' })
+            null,
+            _react2.default.createElement(_reactJsxHighcharts.TreemapSeries, { name: 'Tree', data: treemapData, layoutAlgorithm: 'squarified' })
           )
         ),
         _react2.default.createElement(
@@ -2468,7 +2468,7 @@ exports.default = (0, _reactJsxHighcharts.withHighcharts)(App, _highcharts2.defa
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = "\nconst colorAxis = {\n  minColor: '#FFFFFF',\n  maxColor: Highcharts.getOptions().colors[0]\n};\n\nclass App extends Component {\n\n  constructor (props) {\n    super(props);\n\n    this.state = {\n      treemapData: [\n        { name: 'A', value: 6, colorValue: 1 },\n        { name: 'B', value: 6, colorValue: 2 },\n        { name: 'C', value: 4, colorValue: 3 },\n        { name: 'D', value: 3, colorValue: 4 },\n        { name: 'E', value: 2, colorValue: 5 },\n        { name: 'F', value: 2, colorValue: 6 },\n        { name: 'G', value: 1, colorValue: 7 }\n      ]\n    };\n  }\n\n  render () {\n    const treemapData = this.state.treemapData;\n\n    return (\n      <div className=\"app\">\n        <HighchartsChart colorAxis={colorAxis}>\n          <Title>Treemap</Title>\n\n          <Legend />\n\n          <XAxis />\n\n          <YAxis id=\"value\">\n            <TreemapSeries id=\"tree\" name=\"Tree\" data={treemapData} layoutAlgorithm=\"squarified\" />\n          </YAxis>\n        </HighchartsChart>\n      </div>\n    );\n  }\n}\n\nexport default withHighcharts(App, Highcharts);";
+exports.default = "\nconst colorAxis = {\n  minColor: '#FFFFFF',\n  maxColor: Highcharts.getOptions().colors[0]\n};\n\nclass App extends Component {\n\n  constructor (props) {\n    super(props);\n\n    this.state = {\n      treemapData: [\n        { name: 'A', value: 6, colorValue: 1 },\n        { name: 'B', value: 6, colorValue: 2 },\n        { name: 'C', value: 4, colorValue: 3 },\n        { name: 'D', value: 3, colorValue: 4 },\n        { name: 'E', value: 2, colorValue: 5 },\n        { name: 'F', value: 2, colorValue: 6 },\n        { name: 'G', value: 1, colorValue: 7 }\n      ]\n    };\n  }\n\n  render () {\n    const treemapData = this.state.treemapData;\n\n    return (\n      <div className=\"app\">\n        <HighchartsChart colorAxis={colorAxis}>\n          <Title>Treemap</Title>\n\n          <Legend />\n\n          <XAxis />\n\n          <YAxis>\n            <TreemapSeries name=\"Tree\" data={treemapData} layoutAlgorithm=\"squarified\" />\n          </YAxis>\n        </HighchartsChart>\n      </div>\n    );\n  }\n}\n\nexport default withHighcharts(App, Highcharts);";
 
 /***/ }),
 /* 306 */

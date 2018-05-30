@@ -2440,7 +2440,7 @@ var App = function (_Component) {
       var name = _ref.name,
           data = _ref.data;
 
-      return _react2.default.createElement(_reactJsxHighcharts.LineSeries, { id: name, name: name, key: name, data: data });
+      return _react2.default.createElement(_reactJsxHighcharts.LineSeries, { name: name, key: name, data: data });
     }
   }, {
     key: 'render',
@@ -2476,7 +2476,7 @@ var App = function (_Component) {
           ),
           _react2.default.createElement(
             _reactJsxHighcharts.YAxis,
-            { id: 'price' },
+            null,
             _react2.default.createElement(
               _reactJsxHighcharts.YAxis.Title,
               null,
@@ -2548,7 +2548,7 @@ exports.default = (0, _reactJsxHighcharts.withHighcharts)(App, _highcharts2.defa
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = "\ncreateRandomSeries (index) {\n  return {\n    name: `Series${index}`,\n    data: createRandomData(this.state.now, 1e8)\n  };\n}\n\nhandleAddSeries (e) {\n  e.preventDefault();\n  let { series, seriesCounter } = this.state;\n  seriesCounter++;\n  series.push(\n    this.createRandomSeries(seriesCounter)\n  );\n\n  this.setState({\n    series,\n    seriesCounter\n  });\n}\n\nhandleRemoveSeries (e) {\n  e.preventDefault();\n  const { series } = this.state;\n  const randomIndex = Math.floor(Math.random() * series.length);\n  series.splice(randomIndex, 1);\n\n  this.setState({\n    series\n  });\n}\n\nrenderSeries ({ name, data }) {\n  return (\n    <LineSeries id={name} name={name} key={name} data={data} />\n  );\n}\n\nrender() {\n  return (\n    <div className=\"app\">\n\n      <HighchartsChart>\n        <Title>Dynamically add/remove series</Title>\n\n        <Legend align=\"left\">\n          <Legend.Title>Legend</Legend.Title>\n        </Legend>\n\n        <XAxis type=\"datetime\">\n          <XAxis.Title>Time</XAxis.Title>\n        </XAxis>\n\n        <YAxis id=\"price\">\n          <YAxis.Title>Price</YAxis.Title>\n          {this.state.series.map(this.renderSeries)}\n        </YAxis>\n      </HighchartsChart>\n\n      <div className=\"btn-toolbar\" role=\"toolbar\">\n        <button className=\"btn btn-primary\" onClick={this.handleAddSeries}>Add line series</button>\n        <button className=\"btn btn-danger\" onClick={this.handleRemoveSeries}>Remove line series</button>\n      </div>\n    </div>\n  );\n}\n\n// Remember to inject Highcharts to exported component\nexport default withHighcharts(MyComponent, Highcharts);";
+exports.default = "\ncreateRandomSeries (index) {\n  return {\n    name: `Series${index}`,\n    data: createRandomData(this.state.now, 1e8)\n  };\n}\n\nhandleAddSeries (e) {\n  e.preventDefault();\n  let { series, seriesCounter } = this.state;\n  seriesCounter++;\n  series.push(\n    this.createRandomSeries(seriesCounter)\n  );\n\n  this.setState({\n    series,\n    seriesCounter\n  });\n}\n\nhandleRemoveSeries (e) {\n  e.preventDefault();\n  const { series } = this.state;\n  const randomIndex = Math.floor(Math.random() * series.length);\n  series.splice(randomIndex, 1);\n\n  this.setState({\n    series\n  });\n}\n\nrenderSeries ({ name, data }) {\n  return (\n    <LineSeries name={name} key={name} data={data} />\n  );\n}\n\nrender() {\n  return (\n    <div className=\"app\">\n\n      <HighchartsChart>\n        <Title>Dynamically add/remove series</Title>\n\n        <Legend align=\"left\">\n          <Legend.Title>Legend</Legend.Title>\n        </Legend>\n\n        <XAxis type=\"datetime\">\n          <XAxis.Title>Time</XAxis.Title>\n        </XAxis>\n\n        <YAxis>\n          <YAxis.Title>Price</YAxis.Title>\n          {this.state.series.map(this.renderSeries)}\n        </YAxis>\n      </HighchartsChart>\n\n      <div className=\"btn-toolbar\" role=\"toolbar\">\n        <button className=\"btn btn-primary\" onClick={this.handleAddSeries}>Add line series</button>\n        <button className=\"btn btn-danger\" onClick={this.handleRemoveSeries}>Remove line series</button>\n      </div>\n    </div>\n  );\n}\n\n// Remember to inject Highcharts to exported component\nexport default withHighcharts(MyComponent, Highcharts);";
 
 /***/ }),
 /* 265 */

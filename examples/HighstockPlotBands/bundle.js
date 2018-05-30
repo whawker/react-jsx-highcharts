@@ -2425,7 +2425,7 @@ var App = function (_Component) {
       var id = 'band-' + from + '-' + to;
       return _react2.default.createElement(
         _reactJsxHighstock.PlotBand,
-        { id: id, key: id, from: from, to: to, color: 'rgba(68, 170, 213, 0.3)' },
+        { key: id, from: from, to: to, color: 'rgba(68, 170, 213, 0.3)' },
         _react2.default.createElement(
           _reactJsxHighstock.PlotBand.Label,
           null,
@@ -2440,7 +2440,7 @@ var App = function (_Component) {
           to = _ref2.to;
 
       var id = 'nav-band-' + from + '-' + to;
-      return _react2.default.createElement(_reactJsxHighstock.PlotBand, { id: id, key: id, from: from, to: to, color: 'rgba(68, 170, 213, 0.3)' });
+      return _react2.default.createElement(_reactJsxHighstock.PlotBand, { key: id, from: from, to: to, color: 'rgba(68, 170, 213, 0.3)' });
     }
   }, {
     key: 'render',
@@ -2475,7 +2475,7 @@ var App = function (_Component) {
           ),
           _react2.default.createElement(
             _reactJsxHighstock.YAxis,
-            { id: 'sales' },
+            null,
             _react2.default.createElement(
               _reactJsxHighstock.YAxis.Title,
               null,
@@ -2550,7 +2550,7 @@ exports.default = (0, _reactJsxHighstock.withHighcharts)(App, _highstock2.defaul
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = "\nrenderPlotBand ({ from, to, title }) {\n  const id = `band-${from}-${to}`;\n  return (\n    <PlotBand id={id} key={id} from={from} to={to} color=\"rgba(68, 170, 213, 0.3)\">\n      <PlotBand.Label>{title}</PlotBand.Label>\n    </PlotBand>\n  );\n}\n\nrenderNavPlotBand ({ from, to }) {\n  const id = `nav-band-${from}-${to}`;\n  return (\n    <PlotBand id={id} key={id} from={from} to={to} color=\"rgba(68, 170, 213, 0.3)\" />\n  );\n}\n\nrender () {\n  const { unitSales, notableEvents, campaigns } = this.state;\n\n  return (\n    <div className=\"app\">\n      <HighchartsStockChart>\n        <Chart zoomType=\"x\" />\n\n        <Title>Highstocks with Navigator Plot Bands</Title>\n\n        <XAxis>\n          <XAxis.Title>Date</XAxis.Title>\n          {campaigns.map(this.renderPlotBand)}\n        </XAxis>\n\n        <YAxis id=\"sales\">\n          <YAxis.Title>Cars sold per day</YAxis.Title>\n          <AreaSplineSeries id=\"unitSales\" name=\"Unit Sales\" data={unitSales} />\n          <FlagSeries id=\"events\" onSeries=\"unitSales\" data={notableEvents} />\n        </YAxis>\n\n        <Navigator>\n          <Navigator.Series seriesId=\"unitSales\" />\n          <Navigator.XAxis labels={{ x: 0, y: 12 }}>\n            {campaigns.map(this.renderNavPlotBand)}\n          </Navigator.XAxis>\n        </Navigator>\n      </HighchartsStockChart>\n    </div>\n  );\n}\n\n// Remember to inject Highstock to exported component\nexport default withHighcharts(MyComponent, Highcharts);";
+exports.default = "\nrenderPlotBand ({ from, to, title }) {\n  const id = `band-${from}-${to}`;\n  return (\n    <PlotBand key={id} from={from} to={to} color=\"rgba(68, 170, 213, 0.3)\">\n      <PlotBand.Label>{title}</PlotBand.Label>\n    </PlotBand>\n  );\n}\n\nrenderNavPlotBand ({ from, to }) {\n  const id = `nav-band-${from}-${to}`;\n  return (\n    <PlotBand key={id} from={from} to={to} color=\"rgba(68, 170, 213, 0.3)\" />\n  );\n}\n\nrender () {\n  const { unitSales, notableEvents, campaigns } = this.state;\n\n  return (\n    <div className=\"app\">\n      <HighchartsStockChart>\n        <Chart zoomType=\"x\" />\n\n        <Title>Highstocks with Navigator Plot Bands</Title>\n\n        <XAxis>\n          <XAxis.Title>Date</XAxis.Title>\n          {campaigns.map(this.renderPlotBand)}\n        </XAxis>\n\n        <YAxis>\n          <YAxis.Title>Cars sold per day</YAxis.Title>\n          <AreaSplineSeries id=\"unitSales\" name=\"Unit Sales\" data={unitSales} />\n          <FlagSeries id=\"events\" onSeries=\"unitSales\" data={notableEvents} />\n        </YAxis>\n\n        <Navigator>\n          <Navigator.Series seriesId=\"unitSales\" />\n          <Navigator.XAxis labels={{ x: 0, y: 12 }}>\n            {campaigns.map(this.renderNavPlotBand)}\n          </Navigator.XAxis>\n        </Navigator>\n      </HighchartsStockChart>\n    </div>\n  );\n}\n\n// Remember to inject Highstock to exported component\nexport default withHighcharts(MyComponent, Highcharts);";
 
 /***/ }),
 /* 276 */

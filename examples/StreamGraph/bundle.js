@@ -362,9 +362,9 @@ var App = function App() {
       _react2.default.createElement(_reactJsxHighcharts.XAxis, { type: 'category', categories: hosts, labels: { align: 'left', reserveSpace: false, rotation: 270 }, lineWidth: 0, tickWidth: 0, margin: 20, crosshair: true }),
       _react2.default.createElement(
         _reactJsxHighcharts.YAxis,
-        { id: 'medals', visible: false, startOnTick: false, endOnTick: false },
+        { visible: false, startOnTick: false, endOnTick: false },
         (0, _keys2.default)(_data2.default).map(function (country) {
-          return _react2.default.createElement(_reactJsxHighcharts.StreamGraphSeries, { key: country, id: country, name: country, data: _data2.default[country].data, color: _data2.default[country].color });
+          return _react2.default.createElement(_reactJsxHighcharts.StreamGraphSeries, { key: country, name: country, data: _data2.default[country].data, color: _data2.default[country].color });
         })
       ),
       _react2.default.createElement(_reactJsxHighcharts.Tooltip, null)
@@ -455,7 +455,7 @@ exports.default = {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = "\nconst App = () => {\n\n  const plotOptions = {\n    series: {\n      label: {\n        minFontSize: 5,\n          maxFontSize: 15,\n          style: {\n          color: 'rgba(255,255,255,0.75)'\n        }\n      }\n    }\n  };\n\n  return (\n    <div className=\"app\">\n      <HighchartsChart plotOptions={plotOptions}>\n        <Chart marginBottom={30} zoomType=\"x\" />\n\n        <Title floating align=\"left\">Winter Olympic Medal Wins</Title>\n\n        <Subtitle floating align=\"left\" y={30}>Source: sports-reference.com</Subtitle>\n\n        <XAxis type=\"category\" categories={hosts} labels={{ align: 'left', reserveSpace: false, rotation: 270 }} lineWidth={0} tickWidth={0} margin={20} crosshair />\n\n        <YAxis id=\"medals\" visible={false} startOnTick={false} endOnTick={false}>\n          {Object.keys(data).map(country => (\n            <StreamGraphSeries key={country} id={country} name={country} data={data[country].data} color={data[country].color} />\n          ))}\n        </YAxis>\n\n        <Tooltip />\n      </HighchartsChart>\n    </div>\n  );\n}\n\nexport default withHighcharts(App, Highcharts);";
+exports.default = "\nconst App = () => {\n\n  const plotOptions = {\n    series: {\n      label: {\n        minFontSize: 5,\n          maxFontSize: 15,\n          style: {\n          color: 'rgba(255,255,255,0.75)'\n        }\n      }\n    }\n  };\n\n  return (\n    <div className=\"app\">\n      <HighchartsChart plotOptions={plotOptions}>\n        <Chart marginBottom={30} zoomType=\"x\" />\n\n        <Title floating align=\"left\">Winter Olympic Medal Wins</Title>\n\n        <Subtitle floating align=\"left\" y={30}>Source: sports-reference.com</Subtitle>\n\n        <XAxis type=\"category\" categories={hosts} labels={{ align: 'left', reserveSpace: false, rotation: 270 }} lineWidth={0} tickWidth={0} margin={20} crosshair />\n\n        <YAxis visible={false} startOnTick={false} endOnTick={false}>\n          {Object.keys(data).map(country => (\n            <StreamGraphSeries key={country} name={country} data={data[country].data} color={data[country].color} />\n          ))}\n        </YAxis>\n\n        <Tooltip />\n      </HighchartsChart>\n    </div>\n  );\n}\n\nexport default withHighcharts(App, Highcharts);";
 
 /***/ }),
 

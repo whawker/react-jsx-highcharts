@@ -2478,14 +2478,14 @@ var App = function (_Component) {
           ),
           _react2.default.createElement(
             _reactJsxHighcharts.YAxis,
-            { id: 'pressure' },
+            null,
             _react2.default.createElement(
               _reactJsxHighcharts.YAxis.Title,
               null,
               'Pressure (m)'
             ),
-            _react2.default.createElement(_reactJsxHighcharts.LineSeries, { id: 'p1', name: 'Sensor 1', data: data1 }),
-            _react2.default.createElement(_reactJsxHighcharts.LineSeries, { id: 'p2', name: 'Sensor 2', data: data2 })
+            _react2.default.createElement(_reactJsxHighcharts.LineSeries, { name: 'Sensor 1', data: data1 }),
+            _react2.default.createElement(_reactJsxHighcharts.LineSeries, { name: 'Sensor 2', data: data2 })
           )
         ),
         _react2.default.createElement(
@@ -2561,7 +2561,7 @@ exports.default = (0, _reactJsxHighcharts.withHighcharts)(App, _highcharts2.defa
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = "\nupdateLiveData () {\n  const { data1, data2 } = this.state;\n\n  this.setState({\n    data1: addDataPoint(data1),\n    data2: addDataPoint(data2)\n  });\n}\n\nhandleStartLiveUpdate (e) {\n  e && e.preventDefault();\n  this.setState({\n    liveUpdate: window.setInterval(this.updateLiveData, 1000)\n  });\n}\n\nrender () {\n  const { data1, data2 } = this.state;\n\n  return (\n    <HighchartsChart>\n      <Chart />\n\n      <Title>Dynamically updating data</Title>\n\n      <Legend>\n        <Legend.Title>Legend</Legend.Title>\n      </Legend>\n\n      <XAxis type=\"datetime\">\n        <XAxis.Title>Time</XAxis.Title>\n      </XAxis>\n\n      <YAxis id=\"pressure\">\n        <YAxis.Title>Pressure (m)</YAxis.Title>\n        <LineSeries id=\"p1\" name=\"Sensor 1\" data={data1} />\n        <LineSeries id=\"p2\" name=\"Sensor 2\" data={data2} />\n      </YAxis>\n    </HighchartsChart>\n  );\n}\n\n// Remember to inject Highcharts to exported component\nexport default withHighcharts(MyComponent, Highcharts);";
+exports.default = "\nupdateLiveData () {\n  const { data1, data2 } = this.state;\n\n  this.setState({\n    data1: addDataPoint(data1),\n    data2: addDataPoint(data2)\n  });\n}\n\nhandleStartLiveUpdate (e) {\n  e && e.preventDefault();\n  this.setState({\n    liveUpdate: window.setInterval(this.updateLiveData, 1000)\n  });\n}\n\nrender () {\n  const { data1, data2 } = this.state;\n\n  return (\n    <HighchartsChart>\n      <Chart />\n\n      <Title>Dynamically updating data</Title>\n\n      <Legend>\n        <Legend.Title>Legend</Legend.Title>\n      </Legend>\n\n      <XAxis type=\"datetime\">\n        <XAxis.Title>Time</XAxis.Title>\n      </XAxis>\n\n      <YAxis>\n        <YAxis.Title>Pressure (m)</YAxis.Title>\n        <LineSeries name=\"Sensor 1\" data={data1} />\n        <LineSeries name=\"Sensor 2\" data={data2} />\n      </YAxis>\n    </HighchartsChart>\n  );\n}\n\n// Remember to inject Highcharts to exported component\nexport default withHighcharts(MyComponent, Highcharts);";
 
 /***/ }),
 /* 284 */

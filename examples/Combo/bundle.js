@@ -2371,15 +2371,15 @@ var App = function (_Component) {
             'Combination chart'
           ),
           _react2.default.createElement(_reactJsxHighcharts.Legend, null),
-          _react2.default.createElement(_reactJsxHighcharts.XAxis, { id: 'x', categories: ['Apples', 'Oranges', 'Pears', 'Bananas', 'Plums'] }),
+          _react2.default.createElement(_reactJsxHighcharts.XAxis, { categories: ['Apples', 'Oranges', 'Pears', 'Bananas', 'Plums'] }),
           _react2.default.createElement(
             _reactJsxHighcharts.YAxis,
-            { id: 'number' },
-            _react2.default.createElement(_reactJsxHighcharts.ColumnSeries, { id: 'jane', name: 'Jane', data: [3, 2, 1, 3, 4] }),
-            _react2.default.createElement(_reactJsxHighcharts.ColumnSeries, { id: 'john', name: 'John', data: [2, 3, 5, 7, 6] }),
-            _react2.default.createElement(_reactJsxHighcharts.ColumnSeries, { id: 'joe', name: 'Joe', data: [4, 3, 3, 9, 0] }),
-            _react2.default.createElement(_reactJsxHighcharts.SplineSeries, { id: 'average', name: 'Average', data: [3, 2.67, 3, 6.33, 3.33] }),
-            _react2.default.createElement(_reactJsxHighcharts.PieSeries, { id: 'total-consumption', name: 'Total consumption', data: pieData, center: [100, 80], size: 100, showInLegend: false })
+            null,
+            _react2.default.createElement(_reactJsxHighcharts.ColumnSeries, { name: 'Jane', data: [3, 2, 1, 3, 4] }),
+            _react2.default.createElement(_reactJsxHighcharts.ColumnSeries, { name: 'John', data: [2, 3, 5, 7, 6] }),
+            _react2.default.createElement(_reactJsxHighcharts.ColumnSeries, { name: 'Joe', data: [4, 3, 3, 9, 0] }),
+            _react2.default.createElement(_reactJsxHighcharts.SplineSeries, { name: 'Average', data: [3, 2.67, 3, 6.33, 3.33] }),
+            _react2.default.createElement(_reactJsxHighcharts.PieSeries, { name: 'Total consumption', data: pieData, center: [100, 80], size: 100, showInLegend: false })
           )
         ),
         _react2.default.createElement(
@@ -2432,7 +2432,7 @@ exports.default = (0, _reactJsxHighcharts.withHighcharts)(App, _highcharts2.defa
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = "\nconst pieData = [{\n  name: 'Jane',\n  y: 13\n}, {\n  name: 'John',\n  y: 23\n}, {\n  name: 'Joe',\n  y: 19\n}];\n\nreturn (\n  <HighchartsChart>\n    <Chart />\n\n    <Title>Combination chart</Title>\n\n    <Legend />\n\n    <XAxis id=\"x\" categories={['Apples', 'Oranges', 'Pears', 'Bananas', 'Plums']} />\n\n    <YAxis id=\"number\">\n      <ColumnSeries id=\"jane\" name=\"Jane\" data={[3, 2, 1, 3, 4]} />\n      <ColumnSeries id=\"john\" name=\"John\" data={[2, 3, 5, 7, 6]} />\n      <ColumnSeries id=\"joe\" name=\"Joe\" data={[4, 3, 3, 9, 0]} />\n      <SplineSeries id=\"average\" name=\"Average\" data={[3, 2.67, 3, 6.33, 3.33]} />\n      <PieSeries id=\"total-consumption\" name=\"Total consumption\" data={pieData} center={[100, 80]} size={100} showInLegend={false} />\n    </YAxis>\n  </HighchartsChart>\n);\n\n// Remember to inject Highcharts to component\nexport default withHighcharts(MyComponent, Highcharts);";
+exports.default = "\nconst pieData = [{\n  name: 'Jane',\n  y: 13\n}, {\n  name: 'John',\n  y: 23\n}, {\n  name: 'Joe',\n  y: 19\n}];\n\nreturn (\n  <HighchartsChart>\n    <Chart />\n\n    <Title>Combination chart</Title>\n\n    <Legend />\n\n    <XAxis categories={['Apples', 'Oranges', 'Pears', 'Bananas', 'Plums']} />\n\n    <YAxis>\n      <ColumnSeries name=\"Jane\" data={[3, 2, 1, 3, 4]} />\n      <ColumnSeries name=\"John\" data={[2, 3, 5, 7, 6]} />\n      <ColumnSeries name=\"Joe\" data={[4, 3, 3, 9, 0]} />\n      <SplineSeries name=\"Average\" data={[3, 2.67, 3, 6.33, 3.33]} />\n      <PieSeries name=\"Total consumption\" data={pieData} center={[100, 80]} size={100} showInLegend={false} />\n    </YAxis>\n  </HighchartsChart>\n);\n\n// Remember to inject Highcharts to component\nexport default withHighcharts(MyComponent, Highcharts);";
 
 /***/ }),
 /* 267 */

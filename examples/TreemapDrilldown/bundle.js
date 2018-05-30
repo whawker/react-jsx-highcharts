@@ -2491,7 +2491,7 @@ var App = function (_Component) {
           _react2.default.createElement(_reactJsxHighcharts.XAxis, null),
           _react2.default.createElement(
             _reactJsxHighcharts.YAxis,
-            { id: 'value' },
+            null,
             _react2.default.createElement(_reactJsxHighcharts.TreemapSeries, {
               data: treeData,
               allowDrillToNode: true,
@@ -2574,7 +2574,7 @@ exports.default = (0, _reactJsxHighcharts.withHighcharts)(App, _highcharts2.defa
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = "\nrender () {\n  const treeData = this.state.treeData;\n  if (!treeData) return null;\n\n  const levels = [{\n    level: 1,\n    dataLabels: {\n      enabled: true\n    },\n    borderWidth: 3\n  }];\n  const tooltipFormatter = function () {\n    return `${this.key}: ${this.point.value}`;\n  };\n\n  return (\n    <div className=\"app\">\n      <HighchartsChart>\n        <Title>Global Mortality Rate 2012, per 100,000 population</Title>\n\n        <Subtitle>Click points to drill down. Source: WHO.</Subtitle>\n\n        <XAxis />\n\n        <YAxis id=\"value\">\n          <TreemapSeries\n            data={treeData}\n            allowDrillToNode\n            layoutAlgorithm=\"squarified\"\n            animationLimit={1000}\n            dataLabels={{ enabled: false }}\n            levelIsConstant={false}\n            levels={levels} />\n        </YAxis>\n\n        <Tooltip formatter={tooltipFormatter} />\n      </HighchartsChart>\n    </div>\n  );\n}\n\n// Remember to inject Highcharts to exported component\nexport default withHighcharts(MyComponent, Highcharts);";
+exports.default = "\nrender () {\n  const treeData = this.state.treeData;\n  if (!treeData) return null;\n\n  const levels = [{\n    level: 1,\n    dataLabels: {\n      enabled: true\n    },\n    borderWidth: 3\n  }];\n  const tooltipFormatter = function () {\n    return `${this.key}: ${this.point.value}`;\n  };\n\n  return (\n    <div className=\"app\">\n      <HighchartsChart>\n        <Title>Global Mortality Rate 2012, per 100,000 population</Title>\n\n        <Subtitle>Click points to drill down. Source: WHO.</Subtitle>\n\n        <XAxis />\n\n        <YAxis>\n          <TreemapSeries\n            data={treeData}\n            allowDrillToNode\n            layoutAlgorithm=\"squarified\"\n            animationLimit={1000}\n            dataLabels={{ enabled: false }}\n            levelIsConstant={false}\n            levels={levels} />\n        </YAxis>\n\n        <Tooltip formatter={tooltipFormatter} />\n      </HighchartsChart>\n    </div>\n  );\n}\n\n// Remember to inject Highcharts to exported component\nexport default withHighcharts(MyComponent, Highcharts);";
 
 /***/ }),
 /* 308 */

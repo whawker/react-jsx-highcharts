@@ -2460,7 +2460,7 @@ var App = function (_Component) {
           ),
           _react2.default.createElement(
             _reactJsxHighstock.YAxis,
-            { id: 'price' },
+            null,
             _react2.default.createElement(
               _reactJsxHighstock.YAxis.Title,
               null,
@@ -2470,7 +2470,7 @@ var App = function (_Component) {
           ),
           _react2.default.createElement(
             _reactJsxHighstock.YAxis,
-            { id: 'social', opposite: true },
+            { opposite: true },
             _react2.default.createElement(
               _reactJsxHighstock.YAxis.Title,
               null,
@@ -2541,7 +2541,7 @@ exports.default = (0, _reactJsxHighstock.withHighcharts)(App, _highstock2.defaul
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = "\n<HighchartsStockChart>\n  <Chart zoomType=\"x\" />\n\n  <Title>Highstocks Example</Title>\n\n  <Legend>\n    <Legend.Title>Key</Legend.Title>\n  </Legend>\n\n  <RangeSelector>\n    <RangeSelector.Button count={1} type=\"day\">1d</RangeSelector.Button>\n    <RangeSelector.Button count={7} type=\"day\">7d</RangeSelector.Button>\n    <RangeSelector.Button count={1} type=\"month\">1m</RangeSelector.Button>\n    <RangeSelector.Button type=\"all\">All</RangeSelector.Button>\n    <RangeSelector.Input boxBorderColor=\"#7cb5ec\" />\n  </RangeSelector>\n\n  <Tooltip />\n\n  <XAxis>\n    <XAxis.Title>Time</XAxis.Title>\n  </XAxis>\n\n  <YAxis id=\"price\">\n    <YAxis.Title>Price</YAxis.Title>\n    <AreaSplineSeries id=\"profit\" name=\"Profit\" data={data1} />\n  </YAxis>\n\n  <YAxis id=\"social\" opposite>\n    <YAxis.Title>Social Buzz</YAxis.Title>\n    <SplineSeries id=\"twitter\" name=\"Twitter mentions\" data={data2} />\n  </YAxis>\n\n  <Navigator>\n    <Navigator.Series seriesId=\"profit\" />\n    <Navigator.Series seriesId=\"twitter\" />\n  </Navigator>\n</HighchartsStockChart>\n\n// Remember to inject Highstock to exported component\nexport default withHighcharts(MyComponent, Highcharts);";
+exports.default = "\n<HighchartsStockChart>\n  <Chart zoomType=\"x\" />\n\n  <Title>Highstocks Example</Title>\n\n  <Legend>\n    <Legend.Title>Key</Legend.Title>\n  </Legend>\n\n  <RangeSelector>\n    <RangeSelector.Button count={1} type=\"day\">1d</RangeSelector.Button>\n    <RangeSelector.Button count={7} type=\"day\">7d</RangeSelector.Button>\n    <RangeSelector.Button count={1} type=\"month\">1m</RangeSelector.Button>\n    <RangeSelector.Button type=\"all\">All</RangeSelector.Button>\n    <RangeSelector.Input boxBorderColor=\"#7cb5ec\" />\n  </RangeSelector>\n\n  <Tooltip />\n\n  <XAxis>\n    <XAxis.Title>Time</XAxis.Title>\n  </XAxis>\n\n  <YAxis>\n    <YAxis.Title>Price</YAxis.Title>\n    <AreaSplineSeries id=\"profit\" name=\"Profit\" data={data1} />\n  </YAxis>\n\n  <YAxis opposite>\n    <YAxis.Title>Social Buzz</YAxis.Title>\n    <SplineSeries id=\"twitter\" name=\"Twitter mentions\" data={data2} />\n  </YAxis>\n\n  <Navigator>\n    <Navigator.Series seriesId=\"profit\" />\n    <Navigator.Series seriesId=\"twitter\" />\n  </Navigator>\n</HighchartsStockChart>\n\n// Remember to inject Highstock to exported component\nexport default withHighcharts(MyComponent, Highcharts);";
 
 /***/ }),
 /* 278 */

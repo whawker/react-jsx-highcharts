@@ -2424,11 +2424,11 @@ var App = function (_Component) {
             'Plotting cos(x) * cos(y) (with zones for colours)'
           ),
           _react2.default.createElement(_reactJsxHighcharts.XAxis, { min: 0, max: numRows, labels: { enabled: false } }),
-          _react2.default.createElement(_reactJsxHighcharts.YAxis, { id: 'yAxis', min: -2, max: 2, labels: { enabled: false } }),
+          _react2.default.createElement(_reactJsxHighcharts.YAxis, { min: -2, max: 2, labels: { enabled: false } }),
           _react2.default.createElement(
             _reactJsxHighcharts.ZAxis,
             { min: 0, max: numRows, labels: { enabled: false } },
-            _react2.default.createElement(_reactJsxHighcharts.ScatterSeries, { id: 'contour', data: data, zones: _zones2.default })
+            _react2.default.createElement(_reactJsxHighcharts.ScatterSeries, { data: data, zones: _zones2.default })
           )
         ),
         _react2.default.createElement(
@@ -2493,7 +2493,7 @@ exports.default = (0, _reactJsxHighcharts.withHighcharts)(App, _highcharts2.defa
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = "\n<div className=\"app\">\n  <Highcharts3dChart alpha={30} beta={beta} depth={300} viewDistance={0} plotOptions={plotOptions}>\n    <Chart />\n\n    <Title>3D Scatter Chart</Title>\n\n    <Subtitle>Plotting cos(x) * cos(y) (with zones for colours)</Subtitle>\n\n    <XAxis min={0} max={numRows} labels={{ enabled: false }} />\n\n    <YAxis id=\"yAxis\" min={-2} max={2} labels={{ enabled: false }} />\n\n    <ZAxis min={0} max={numRows} labels={{ enabled: false }}>\n      <ScatterSeries id=\"contour\" data={data} zones={zones} />\n    </ZAxis>\n  </Highcharts3dChart>\n\n  <div>\n    <label htmlFor=\"beta\">Beta Angle</label>\n    <input id=\"beta\" type=\"range\" min=\"0\" max=\"45\" step=\"1\" value={beta} onChange={this.handleSliderChange} />\n    <span>{beta}</span>\n  </div>\n</div>\n\n// Remember to inject Highcharts to exported component\nexport default withHighcharts(MyComponent, Highcharts);";
+exports.default = "\n<div className=\"app\">\n  <Highcharts3dChart alpha={30} beta={beta} depth={300} viewDistance={0} plotOptions={plotOptions}>\n    <Chart />\n\n    <Title>3D Scatter Chart</Title>\n\n    <Subtitle>Plotting cos(x) * cos(y) (with zones for colours)</Subtitle>\n\n    <XAxis min={0} max={numRows} labels={{ enabled: false }} />\n\n    <YAxis min={-2} max={2} labels={{ enabled: false }} />\n\n    <ZAxis min={0} max={numRows} labels={{ enabled: false }}>\n      <ScatterSeries data={data} zones={zones} />\n    </ZAxis>\n  </Highcharts3dChart>\n\n  <div>\n    <label htmlFor=\"beta\">Beta Angle</label>\n    <input id=\"beta\" type=\"range\" min=\"0\" max=\"45\" step=\"1\" value={beta} onChange={this.handleSliderChange} />\n    <span>{beta}</span>\n  </div>\n</div>\n\n// Remember to inject Highcharts to exported component\nexport default withHighcharts(MyComponent, Highcharts);";
 
 /***/ }),
 /* 262 */

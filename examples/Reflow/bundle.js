@@ -2907,13 +2907,13 @@ var App = function (_Component) {
               ),
               _react2.default.createElement(
                 _reactJsxHighcharts.YAxis,
-                { id: 'y' },
+                null,
                 _react2.default.createElement(
                   _reactJsxHighcharts.YAxis.Title,
                   null,
                   'Frequency'
                 ),
-                _react2.default.createElement(_reactJsxHighcharts.SplineSeries, { id: 'series1', data: [0.2, 0.8, 0.8, 0.8, 1, 1.3, 1.5, 2.9, 1.9, 2.6, 1.6, 3, 4, 3.6, 4.5, 4.2, 4.5, 4.5, 4, 3.1, 2.7, 4, 2.7, 2.3, 2.3, 4.1, 7.7, 7.1, 5.6, 6.1, 5.8, 8.6, 7.2, 9, 10.9, 11.5, 11.6, 11.1, 12, 12.3, 10.7, 9.4, 9.8, 9.6, 9.8, 9.5, 8.5, 7.4, 7.6] })
+                _react2.default.createElement(_reactJsxHighcharts.SplineSeries, { data: [0.2, 0.8, 0.8, 0.8, 1, 1.3, 1.5, 2.9, 1.9, 2.6, 1.6, 3, 4, 3.6, 4.5, 4.2, 4.5, 4.5, 4, 3.1, 2.7, 4, 2.7, 2.3, 2.3, 4.1, 7.7, 7.1, 5.6, 6.1, 5.8, 8.6, 7.2, 9, 10.9, 11.5, 11.6, 11.1, 12, 12.3, 10.7, 9.4, 9.8, 9.6, 9.8, 9.5, 8.5, 7.4, 7.6] })
               )
             )
           )
@@ -2979,7 +2979,7 @@ exports.default = (0, _reactJsxHighcharts.withHighcharts)(App, _highcharts2.defa
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = "\nhandleResize = () => {\n  this.chart.reflow();\n}\n\ngetChart = chart => {\n  this.chart = chart;\n}\n\nrender () {\n  return (\n    <div className=\"app\">\n      <Resizable\n        className=\"box\" defaultSize={{ width: 615, height: 400 }} handleClasses={{ bottomRight: 'handle-se' }}\n        maxWidth={750} maxHeight={500} onResizeStop={this.handleResize} lockAspectRatio>\n\n        <div className=\"chart-container\">\n          <HighchartsChart plotOptions={plotOptions} callback={this.getChart}>\n            <Chart type=\"spline\" height=\"65%\" />\n\n            <Title>Reflow</Title>\n\n            <Subtitle>Resize the chart on demand</Subtitle>\n\n            <XAxis type=\"datetime\">\n              <XAxis.Title>Time</XAxis.Title>\n            </XAxis>\n\n            <YAxis id=\"y\">\n              <YAxis.Title>Frequency</YAxis.Title>\n              <SplineSeries id=\"series1\" data={[0.2, 0.8, 0.8, 0.8, 1, 1.3, 1.5, 2.9, 1.9, 2.6, 1.6, 3, 4, 3.6, 4.5, 4.2, 4.5, 4.5, 4, 3.1, 2.7, 4, 2.7, 2.3, 2.3, 4.1, 7.7, 7.1, 5.6, 6.1, 5.8, 8.6, 7.2, 9, 10.9, 11.5, 11.6, 11.1, 12, 12.3, 10.7, 9.4, 9.8, 9.6, 9.8, 9.5, 8.5, 7.4, 7.6]} />\n            </YAxis>\n          </HighchartsChart>\n        </div>\n\n      </Resizable>\n\n      <ExampleCode name=\"Reflow\">{code}</ExampleCode>\n    </div>\n  );\n}";
+exports.default = "\nhandleResize = () => {\n  this.chart.reflow();\n}\n\ngetChart = chart => {\n  this.chart = chart;\n}\n\nrender () {\n  return (\n    <div className=\"app\">\n      <Resizable\n        className=\"box\" defaultSize={{ width: 615, height: 400 }} handleClasses={{ bottomRight: 'handle-se' }}\n        maxWidth={750} maxHeight={500} onResizeStop={this.handleResize} lockAspectRatio>\n\n        <div className=\"chart-container\">\n          <HighchartsChart plotOptions={plotOptions} callback={this.getChart}>\n            <Chart type=\"spline\" height=\"65%\" />\n\n            <Title>Reflow</Title>\n\n            <Subtitle>Resize the chart on demand</Subtitle>\n\n            <XAxis type=\"datetime\">\n              <XAxis.Title>Time</XAxis.Title>\n            </XAxis>\n\n            <YAxis>\n              <YAxis.Title>Frequency</YAxis.Title>\n              <SplineSeries data={[0.2, 0.8, 0.8, 0.8, 1, 1.3, 1.5, 2.9, 1.9, 2.6, 1.6, 3, 4, 3.6, 4.5, 4.2, 4.5, 4.5, 4, 3.1, 2.7, 4, 2.7, 2.3, 2.3, 4.1, 7.7, 7.1, 5.6, 6.1, 5.8, 8.6, 7.2, 9, 10.9, 11.5, 11.6, 11.1, 12, 12.3, 10.7, 9.4, 9.8, 9.6, 9.8, 9.5, 8.5, 7.4, 7.6]} />\n            </YAxis>\n          </HighchartsChart>\n        </div>\n\n      </Resizable>\n\n      <ExampleCode name=\"Reflow\">{code}</ExampleCode>\n    </div>\n  );\n}";
 
 /***/ }),
 /* 288 */

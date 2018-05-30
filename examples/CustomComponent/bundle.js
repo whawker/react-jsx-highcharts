@@ -2925,7 +2925,7 @@ var App = function (_Component) {
           ),
           _react2.default.createElement(
             _reactJsxHighstock.YAxis,
-            { id: 'price' },
+            null,
             _react2.default.createElement(
               _reactJsxHighstock.YAxis.Title,
               null,
@@ -3042,7 +3042,7 @@ var _reactDayPicker = __webpack_require__(342);
 
 var _reactDayPicker2 = _interopRequireDefault(_reactDayPicker);
 
-var _reactJsxHighcharts = __webpack_require__(43);
+var _reactJsxHighstock = __webpack_require__(43);
 
 __webpack_require__(337);
 
@@ -3074,16 +3074,16 @@ var DateRangePickers = function (_Component) {
     value: function componentDidMount() {
       var _props = this.props,
           getHighcharts = _props.getHighcharts,
-          getAxis = _props.getAxis,
-          getExtremes = _props.getExtremes;
+          getAxis = _props.getAxis;
 
       var Highcharts = getHighcharts(); // Get Highcharts injected via withHighcharts
+      var axis = getAxis();
 
-      Highcharts.addEvent(getAxis(), 'afterSetExtremes', this.handleAfterSetExtremes);
+      Highcharts.addEvent(axis.object, 'afterSetExtremes', this.handleAfterSetExtremes);
 
-      var _getExtremes = getExtremes(),
-          min = _getExtremes.min,
-          max = _getExtremes.max;
+      var _axis$getExtremes = axis.getExtremes(),
+          min = _axis$getExtremes.min,
+          max = _axis$getExtremes.max;
 
       this.setState({
         min: min,
@@ -3099,29 +3099,33 @@ var DateRangePickers = function (_Component) {
 
       var Highcharts = getHighcharts(); // Get Highcharts injected via withHighcharts
 
-      Highcharts.removeEvent(getAxis(), 'afterSetExtremes', this.handleAfterSetExtremes);
+      Highcharts.removeEvent(getAxis().object, 'afterSetExtremes', this.handleAfterSetExtremes);
     }
   }, {
     key: 'handleFromDateChange',
     value: function handleFromDateChange(fromDate) {
-      var _props$getExtremes = this.props.getExtremes(),
-          max = _props$getExtremes.max;
+      var axis = this.props.getAxis();
+
+      var _axis$getExtremes2 = axis.getExtremes(),
+          max = _axis$getExtremes2.max;
 
       var selectedTime = fromDate.startOf('day').valueOf();
 
       var newMax = selectedTime >= max ? selectedTime + 86400000 : max;
-      this.props.setExtremes(selectedTime, newMax);
+      axis.setExtremes(selectedTime, newMax);
     }
   }, {
     key: 'handleToDateChange',
     value: function handleToDateChange(toDate) {
-      var _props$getExtremes2 = this.props.getExtremes(),
-          min = _props$getExtremes2.min;
+      var axis = this.props.getAxis();
+
+      var _axis$getExtremes3 = axis.getExtremes(),
+          min = _axis$getExtremes3.min;
 
       var selectedTime = toDate.startOf('day').valueOf();
 
       var newMin = selectedTime <= min ? selectedTime - 86400000 : min;
-      this.props.setExtremes(newMin, selectedTime);
+      axis.setExtremes(newMin, selectedTime);
     }
   }, {
     key: 'handleAfterSetExtremes',
@@ -3137,8 +3141,6 @@ var DateRangePickers = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
-      var axis = this.props.getAxis();
-      if (!axis) return null;
       var _state = this.state,
           min = _state.min,
           max = _state.max;
@@ -3177,7 +3179,7 @@ var DateRangePickers = function (_Component) {
 // The important bit, using the provideAxis HOC to inject Highcharts axis methods
 
 
-exports.default = (0, _reactJsxHighcharts.provideAxis)(DateRangePickers);
+exports.default = (0, _reactJsxHighstock.provideAxis)(DateRangePickers);
 
 /***/ }),
 /* 269 */
@@ -3189,7 +3191,7 @@ exports.default = (0, _reactJsxHighcharts.provideAxis)(DateRangePickers);
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = "\n// Rendered in App.js with <DateRangePickers axisId=\"xAxis\" />\n\nclass DateRangePickers extends Component {\n\n  constructor (props) {\n    super(props);\n\n    this.handleFromDateChange = this.handleFromDateChange.bind(this);\n    this.handleToDateChange = this.handleToDateChange.bind(this);\n    this.handleAfterSetExtremes = this.handleAfterSetExtremes.bind(this);\n\n    this.state = {\n      min: null,\n      max: null\n    };\n  }\n\n  componentDidMount () {\n    const { getHighcharts, getAxis, getExtremes } = this.props;\n    const Highcharts = getHighcharts(); // Get Highcharts injected via withHighcharts\n\n    Highcharts.addEvent(getAxis(), 'afterSetExtremes', this.handleAfterSetExtremes);\n\n    const { min, max } = getExtremes();\n    this.setState({\n      min,\n      max\n    });\n  }\n\n  componentWillUnmount () {\n    const { getHighcharts, getAxis } = this.props;\n    const Highcharts = getHighcharts(); // Get Highcharts injected via withHighcharts\n\n    Highcharts.removeEvent(getAxis(), 'afterSetExtremes', this.handleAfterSetExtremes);\n  }\n\n  handleFromDateChange (fromDate) {\n    let { max } = this.props.getExtremes();\n    let selectedTime = fromDate.startOf('day').valueOf();\n\n    let newMax = (selectedTime >= max) ? selectedTime + 86400000 : max;\n    this.props.setExtremes(selectedTime, newMax);\n  }\n\n  handleToDateChange (toDate) {\n    let { min } = this.props.getExtremes();\n    let selectedTime = toDate.startOf('day').valueOf();\n\n    let newMin = (selectedTime <= min) ? selectedTime - 86400000 : min;\n    this.props.setExtremes(newMin, selectedTime);\n  }\n\n  handleAfterSetExtremes (e) {\n    const { min, max } = e;\n    this.setState({\n      min,\n      max\n    });\n  }\n\n  render () {\n    const axis = this.props.getAxis();\n    if (!axis) return null;\n    const { min, max } = this.state;\n\n    const fromDate = moment(min).format(DAY_FORMAT);\n    const toDate = moment(max).format(DAY_FORMAT);\n\n    return (\n      <div className=\"date-range-pickers\">\n        <span className=\"date-range-pickers__from-label\">From: </span>\n        <DayPicker.Input\n          value={fromDate}\n          onDayChange={this.handleFromDateChange}\n          format={DAY_FORMAT} />\n        <span className=\"date-range-pickers__to-label\">To: </span>\n        <DayPicker.Input\n          value={toDate}\n          onDayChange={this.handleToDateChange}\n          format={DAY_FORMAT} />\n      </div>\n    );\n  }\n}\n\n// The important bit, using the provideAxis HOC to inject Highcharts axis methods\nexport default provideAxis(DateRangePickers);";
+exports.default = "\n// Rendered in App.js with <DateRangePickers axisId=\"xAxis\" />\n\nclass DateRangePickers extends Component {\n\n  constructor (props) {\n    super(props);\n\n    this.handleFromDateChange = this.handleFromDateChange.bind(this);\n    this.handleToDateChange = this.handleToDateChange.bind(this);\n    this.handleAfterSetExtremes = this.handleAfterSetExtremes.bind(this);\n\n    this.state = {\n      min: null,\n      max: null\n    };\n  }\n\n  componentDidMount () {\n    const { getHighcharts, getAxis, getExtremes } = this.props;\n    const Highcharts = getHighcharts(); // Get Highcharts injected via withHighcharts\n    const axis = getAxis();\n\n    Highcharts.addEvent(axis.object, 'afterSetExtremes', this.handleAfterSetExtremes);\n\n    const { min, max } = axis.getExtremes();\n    this.setState({\n      min,\n      max\n    });\n  }\n\n  componentWillUnmount () {\n    const { getHighcharts, getAxis } = this.props;\n    const Highcharts = getHighcharts(); // Get Highcharts injected via withHighcharts\n\n    Highcharts.removeEvent(getAxis().object, 'afterSetExtremes', this.handleAfterSetExtremes);\n  }\n\n  handleFromDateChange (fromDate) {\n    const axis = this.props.getAxis();\n    let { max } = axis.getExtremes();\n    let selectedTime = fromDate.startOf('day').valueOf();\n\n    let newMax = (selectedTime >= max) ? selectedTime + 86400000 : max;\n    axis.setExtremes(selectedTime, newMax);\n  }\n\n  handleToDateChange (toDate) {\n    const axis = this.props.getAxis();\n    let { min } = axis.getExtremes();\n    let selectedTime = toDate.startOf('day').valueOf();\n\n    let newMin = (selectedTime <= min) ? selectedTime - 86400000 : min;\n    axis.setExtremes(newMin, selectedTime);\n  }\n\n  handleAfterSetExtremes (e) {\n    const { min, max } = e;\n    this.setState({\n      min,\n      max\n    });\n  }\n\n  render () {\n    const { min, max } = this.state;\n\n    const fromDate = moment(min).format(DAY_FORMAT);\n    const toDate = moment(max).format(DAY_FORMAT);\n\n    return (\n      <div className=\"date-range-pickers\">\n        <span className=\"date-range-pickers__from-label\">From: </span>\n        <DayPicker.Input\n          value={fromDate}\n          onDayChange={this.handleFromDateChange}\n          format={DAY_FORMAT} />\n        <span className=\"date-range-pickers__to-label\">To: </span>\n        <DayPicker.Input\n          value={toDate}\n          onDayChange={this.handleToDateChange}\n          format={DAY_FORMAT} />\n      </div>\n    );\n  }\n}\n\n// The important bit, using the provideAxis HOC to inject Highcharts axis methods\nexport default provideAxis(DateRangePickers);";
 
 /***/ }),
 /* 270 */

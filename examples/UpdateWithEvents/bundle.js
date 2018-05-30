@@ -2110,13 +2110,13 @@ var MyChart = function (_Component) {
           formatter: formatterFn
         }),
         _react2.default.createElement(_reactJsxHighcharts.XAxis, {
-          id: 'x',
+
           categories: ['Apples', 'Oranges', 'Pears', 'Bananas', 'Plums']
         }),
         _react2.default.createElement(
           _reactJsxHighcharts.YAxis,
-          { id: 'number' },
-          _react2.default.createElement(_reactJsxHighcharts.ColumnSeries, { id: 'column', data: data, onClick: this.handleClick })
+          null,
+          _react2.default.createElement(_reactJsxHighcharts.ColumnSeries, { data: data, onClick: this.handleClick })
         )
       );
     }

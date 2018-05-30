@@ -142,17 +142,17 @@ var App = function App() {
       ),
       _react2.default.createElement(
         _reactJsxHighcharts.YAxis,
-        { id: 'number' },
+        null,
         _react2.default.createElement(
           _reactJsxHighcharts.YAxis.Title,
           null,
           'Number of employees'
         ),
-        _react2.default.createElement(_reactJsxHighcharts.LineSeries, { id: 'installation', name: 'Installation', data: [43934, 52503, 57177, 69658, 97031, 119931, 137133, 154175] }),
-        _react2.default.createElement(_reactJsxHighcharts.LineSeries, { id: 'manufacturing', name: 'Manufacturing', data: [24916, 24064, 29742, 29851, 32490, 30282, 38121, 40434] }),
-        _react2.default.createElement(_reactJsxHighcharts.LineSeries, { id: 'sales-distribution', name: 'Sales & Distribution', data: [11744, 17722, 16005, 19771, 20185, 24377, 32147, 39387] }),
-        _react2.default.createElement(_reactJsxHighcharts.LineSeries, { id: 'project-development', name: 'Project Development', data: [null, null, 7988, 12169, 15112, 22452, 34400, 34227] }),
-        _react2.default.createElement(_reactJsxHighcharts.LineSeries, { id: 'other', name: 'Other', data: [12908, 5948, 8105, 11248, 8989, 11816, 18274, 18111] })
+        _react2.default.createElement(_reactJsxHighcharts.LineSeries, { name: 'Installation', data: [43934, 52503, 57177, 69658, 97031, 119931, 137133, 154175] }),
+        _react2.default.createElement(_reactJsxHighcharts.LineSeries, { name: 'Manufacturing', data: [24916, 24064, 29742, 29851, 32490, 30282, 38121, 40434] }),
+        _react2.default.createElement(_reactJsxHighcharts.LineSeries, { name: 'Sales & Distribution', data: [11744, 17722, 16005, 19771, 20185, 24377, 32147, 39387] }),
+        _react2.default.createElement(_reactJsxHighcharts.LineSeries, { name: 'Project Development', data: [null, null, 7988, 12169, 15112, 22452, 34400, 34227] }),
+        _react2.default.createElement(_reactJsxHighcharts.LineSeries, { name: 'Other', data: [12908, 5948, 8105, 11248, 8989, 11816, 18274, 18111] })
       )
     ),
     _react2.default.createElement(
@@ -183,7 +183,7 @@ module.exports = ReactDOM;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = "\nimport React, { Component } from 'react';\nimport Highcharts from 'highcharts';\nimport {\n  HighchartsChart, Chart, withHighcharts, XAxis, YAxis, Title, Subtitle, Legend, LineSeries\n} from 'react-jsx-highcharts';\n\nconst plotOptions = {\n  series: {\n    pointStart: 2010\n  }\n};\n\nconst App = () => (\n  <div className=\"app\">\n    <HighchartsChart plotOptions={plotOptions}>\n      <Chart />\n\n      <Title>Solar Employment Growth by Sector, 2010-2016</Title>\n\n      <Subtitle>Source: thesolarfoundation.com</Subtitle>\n\n      <Legend layout=\"vertical\" align=\"right\" verticalAlign=\"middle\" />\n\n      <XAxis>\n        <XAxis.Title>Time</XAxis.Title>\n      </XAxis>\n\n      <YAxis id=\"number\">\n        <YAxis.Title>Number of employees</YAxis.Title>\n        <LineSeries id=\"installation\" name=\"Installation\" data={[43934, 52503, 57177, 69658, 97031, 119931, 137133, 154175]} />\n        <LineSeries id=\"manufacturing\" name=\"Manufacturing\" data={[24916, 24064, 29742, 29851, 32490, 30282, 38121, 40434]} />\n        <LineSeries id=\"sales-distribution\" name=\"Sales & Distribution\" data={[11744, 17722, 16005, 19771, 20185, 24377, 32147, 39387]} />\n        <LineSeries id=\"project-development\" name=\"Project Development\" data={[null, null, 7988, 12169, 15112, 22452, 34400, 34227]} />\n        <LineSeries id=\"other\" name=\"Other\" data={[12908, 5948, 8105, 11248, 8989, 11816, 18274, 18111]} />\n      </YAxis>\n    </HighchartsChart>\n  </div>\n);\n\nexport default withHighcharts(App, Highcharts);";
+exports.default = "\nimport React, { Component } from 'react';\nimport Highcharts from 'highcharts';\nimport {\n  HighchartsChart, Chart, withHighcharts, XAxis, YAxis, Title, Subtitle, Legend, LineSeries\n} from 'react-jsx-highcharts';\n\nconst plotOptions = {\n  series: {\n    pointStart: 2010\n  }\n};\n\nconst App = () => (\n  <div className=\"app\">\n    <HighchartsChart plotOptions={plotOptions}>\n      <Chart />\n\n      <Title>Solar Employment Growth by Sector, 2010-2016</Title>\n\n      <Subtitle>Source: thesolarfoundation.com</Subtitle>\n\n      <Legend layout=\"vertical\" align=\"right\" verticalAlign=\"middle\" />\n\n      <XAxis>\n        <XAxis.Title>Time</XAxis.Title>\n      </XAxis>\n\n      <YAxis>\n        <YAxis.Title>Number of employees</YAxis.Title>\n        <LineSeries name=\"Installation\" data={[43934, 52503, 57177, 69658, 97031, 119931, 137133, 154175]} />\n        <LineSeries name=\"Manufacturing\" data={[24916, 24064, 29742, 29851, 32490, 30282, 38121, 40434]} />\n        <LineSeries name=\"Sales & Distribution\" data={[11744, 17722, 16005, 19771, 20185, 24377, 32147, 39387]} />\n        <LineSeries name=\"Project Development\" data={[null, null, 7988, 12169, 15112, 22452, 34400, 34227]} />\n        <LineSeries name=\"Other\" data={[12908, 5948, 8105, 11248, 8989, 11816, 18274, 18111]} />\n      </YAxis>\n    </HighchartsChart>\n  </div>\n);\n\nexport default withHighcharts(App, Highcharts);";
 
 /***/ }),
 

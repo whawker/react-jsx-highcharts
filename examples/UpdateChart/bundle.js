@@ -2025,13 +2025,13 @@ var App = function (_Component) {
           ),
           _react2.default.createElement(
             _reactJsxHighcharts.YAxis,
-            { id: 'price' },
+            null,
             _react2.default.createElement(
               _reactJsxHighcharts.YAxis.Title,
               null,
               'Price'
             ),
-            _react2.default.createElement(_reactJsxHighcharts.LineSeries, { id: 'series1', name: 'Profit', data: data, color: seriesColor })
+            _react2.default.createElement(_reactJsxHighcharts.LineSeries, { name: 'Profit', data: data, color: seriesColor })
           )
         ),
         _react2.default.createElement(
