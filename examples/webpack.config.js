@@ -25,7 +25,8 @@ const highchartsExamples = [
   { name: 'ToggleAxis' },
   { name: 'UpdateChart' },
   { name: 'Sankey', additional: ['highcharts-sankey'] },
-  { name: 'StreamGraph', additional: ['highcharts-streamgraph', 'highcharts-series-label'] }
+  { name: 'StreamGraph', additional: ['highcharts-streamgraph', 'highcharts-series-label'] },
+  { name: 'Responsive' }
 ];
 
 const highchartsStyledExamples = [
