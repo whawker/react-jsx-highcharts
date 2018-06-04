@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import pickBy from 'lodash/pickBy';
 import attempt from 'lodash/attempt';
 import find from 'lodash/find';
+import getModifiedProps from '../../utils/getModifiedProps';
 
 class PlotLineLabel extends Component {
 
@@ -31,7 +32,9 @@ class PlotLineLabel extends Component {
     });
   }
 
-  componentDidUpdate () {
+  componentDidUpdate (prevProps) {
+    if (getModifiedProps(prevProps, this.props, true) === false) return;
+
     const { children: text, ...rest } = this.props;
     this.updatePlotLineLabel({
       text,
