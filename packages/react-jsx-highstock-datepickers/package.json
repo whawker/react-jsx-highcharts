@@ -9,7 +9,8 @@
   ],
   "scripts": {
     "build": "cross-env NODE_ENV=development ./node_modules/.bin/webpack",
-    "build:prod": "cross-env NODE_ENV=production ./node_modules/.bin/webpack"
+    "build:prod": "cross-env NODE_ENV=production ./node_modules/.bin/webpack",
+    "build:all": "npm run build && npm run build:prod"
   },
   "repository": {
     "type": "git",
@@ -46,6 +47,7 @@
     "css-loader": "^0.28.11",
     "mini-css-extract-plugin": "^0.4.0",
     "null-loader": "^0.1.1",
+    "react-jsx-highstock": "^3.0.0",
     "webpack": "^4.8.3",
     "webpack-cli": "^2.1.3"
   }
