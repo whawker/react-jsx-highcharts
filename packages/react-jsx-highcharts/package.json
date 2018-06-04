@@ -14,7 +14,6 @@
     "build:prod": "cp ../../README.md . && cross-env NODE_ENV=production ./node_modules/.bin/webpack",
     "build:es": "BABEL_ENV=es babel src --out-dir dist/es",
     "build:all": "npm run build && npm run build:prod && npm run build:es",
-    "lint": "./node_modules/.bin/eslint src",
     "test": "cross-env NODE_ENV=test ./node_modules/.bin/mocha ./test -name '*.spec.js' --recursive --require babel-core/register --require test/test-helper.js"
   },
   "author": "Will Hawker",
@@ -58,7 +57,6 @@
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
-    "babel-eslint": "^7.2.3",
     "babel-loader": "^7.1.4",
     "babel-plugin-lodash": "^3.3.2",
     "babel-plugin-transform-class-properties": "^6.24.1",
@@ -72,12 +70,6 @@
     "cross-env": "^5.0.1",
     "enzyme": "~3.3.0",
     "enzyme-adapter-react-16": "~1.1.1",
-    "eslint": "^4.19.1",
-    "eslint-config-react-app": "^2.1.0",
-    "eslint-plugin-flowtype": "^2.33.0",
-    "eslint-plugin-import": "^2.2.0",
-    "eslint-plugin-jsx-a11y": "^5.1.1",
-    "eslint-plugin-react": "^7.8.2",
     "highcharts": "^6.0.0",
     "html-webpack-include-assets-plugin": "1.0.4",
     "html-webpack-plugin": "^3.2.0",
