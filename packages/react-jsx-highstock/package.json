@@ -14,7 +14,7 @@
     "build:prod": "cross-env NODE_ENV=production ./node_modules/.bin/webpack",
     "build:es": "BABEL_ENV=es babel src --out-dir dist/es",
     "build:all": "npm run build && npm run build:prod && npm run build:es",
-    "test": "cross-env NODE_ENV=test ./node_modules/.bin/mocha --require babel-core/register --require test/test-helper.js test/**/*.spec.js"
+    "test": "cross-env NODE_ENV=test ./node_modules/.bin/mocha ./test -name '*.spec.js' --recursive --require babel-core/register --require test/test-helper.js"
   },
   "author": "Will Hawker",
   "contributors": [
