@@ -63,7 +63,8 @@ const webpackConfig = {
       }
     }),
     new LodashModuleReplacementPlugin({
-      collections: true
+      collections: true,
+      paths: true
     })
   ]
 };
