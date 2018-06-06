@@ -1,0 +1,182 @@
+// @flow
+import React from 'react';
+import type { Node, ComponentType, ElementConfig } from 'react';
+import type HighchartsType from 'highcharts';
+
+
+type HighchartsChartProps = {
+  children?: Node
+}
+
+export function HighchartsChart(props: HighchartsChartProps) { }
+
+type HighchartsSparklineProps = {
+  height?: number,
+  width?: number,
+  margin?: Array<number>,
+  style?: {},
+  plotOptions?: {},
+  series?: Node,// note series or children required
+} & HighchartsChartProps
+
+export class HighchartsSparkline extends React.Component<HighchartsSparklineProps> { }
+
+
+type Highcharts3dChartProps = {
+  alpha?: number,
+  axisLabelPosition?: string,
+  beta?: number,
+  depth?: number,
+  fitToPlot?: boolean,
+  frame?: {},
+  viewDistance?: number,
+} & HighchartsChartProps;
+
+export class Highcharts3dChart extends React.Component<Highcharts3dChartProps> {
+
+}
+
+type ChartProps = {
+  type?: string,
+  width?: number,
+  height?: number,
+  onAddSeries?: Function,
+  onAfterPrint?: Function,
+  onBeforePrint?: Function,
+  onClick?: Function,
+  onLoad?: Function,
+  onRedraw?: Function,
+  onRender?: Function,
+  onSelection?: Function,
+}
+export function Chart (props: ChartProps) {}
+type CreditsProps = {
+  enabled?: boolean
+}
+export function Credits (props:CreditsProps) { }
+type LoadingProps = {
+  isLoading?: boolean,
+  hideDuration?: number,
+  labelStyle?: {},
+  showDuration?: number,
+  style?: {},
+}
+export function Loading (props: LoadingProps) { }
+
+type LegendProps = {
+  children?: Node,
+  enabled?: boolean
+}
+type LegendTitleProps = {
+  children?: Node
+}
+function LegendTitle (props: LegendTitleProps) { }
+export function Legend (props: LegendProps) {
+
+}
+Legend.Title = LegendTitle;
+
+type PlotBandProps = {
+  id?: string,
+  from: any,
+  to: any,
+  color?: string,
+}
+type PlotBandLabelProps = {
+  children: Node
+}
+function PlotBandLabel (props: PlotBandLabelProps) { }
+export function PlotBand(props: PlotBandProps) {
+
+}
+PlotBand.Label = PlotBandLabel;
+
+type PlotLineProps = {
+  id?: string,
+  value: any,
+  color?: string,
+}
+type PlotLineLabelProps = {
+  children: Node
+}
+function PlotLineLabel (props: PlotLineLabelProps) { }
+export function PlotLine (props:PlotLineProps) {
+
+}
+PlotLine.Label = PlotLineLabel;
+
+type SubtitleProps = {
+  children: Node
+}
+export function Subtitle (props: SubtitleProps) { }
+
+type TitleProps = {
+  children: Node
+}
+export function Title (props: TitleProps) { }
+
+type TooltipProps = {
+  children: Node,
+  enabled?: boolean
+}
+export function Tooltip (props:TooltipProps) { }
+
+type AxisProps = {
+  type?: 'category' | 'linear' | 'logarithmic' | 'datetime',
+  id?: string,
+  children?: Node
+}
+type AxisTitleProps = {
+  children?: Node
+}
+
+function AxisTitle (props:AxisTitleProps) {
+
+}
+
+export function YAxis (props: AxisProps) {
+
+}
+YAxis.Title = AxisTitle;
+
+export function XAxis (props: AxisProps) {
+
+}
+XAxis.Title = AxisTitle;
+
+export class ZAxis extends React.Component<AxisProps> { }
+
+// this probable needs some refinement
+type DataType = Array<any>
+
+type SeriesProps = {
+  id?: string,
+  data?: DataType,
+  visible?: boolean,
+  children?: Node,
+  className?: string
+}
+export class AreaRangeSeries extends React.Component<SeriesProps> { }
+export class AreaSeries extends React.Component<SeriesProps> { }
+export class AreaSplineRangeSeries extends React.Component<SeriesProps> { }
+export class AreaSplineSeries extends React.Component<SeriesProps> { }
+
+export function BarSeries (props: SeriesProps) { }
+export class BoxPlotSeries extends React.Component<SeriesProps> { }
+export class BubbleSeries extends React.Component<SeriesProps> { }
+export class ColumnRangeSeries extends React.Component<SeriesProps> { }
+export class ColumnSeries extends React.Component<SeriesProps> { }
+export class ErrorBarSeries extends React.Component<SeriesProps> { }
+export class FunnelSeries extends React.Component<SeriesProps> { }
+export class LineSeries extends React.Component<SeriesProps> { }
+export class PieSeries extends React.Component<SeriesProps> { }
+export class PolygonSeries extends React.Component<SeriesProps> { }
+export class PyramidSeries extends React.Component<SeriesProps> { }
+export class SankeySeries extends React.Component<SeriesProps> { }
+export class ScatterSeries extends React.Component<SeriesProps> { }
+export class SplineSeries extends React.Component<SeriesProps> { }
+export class StreamGraphSeries extends React.Component<SeriesProps> { }
+export class TreemapSeries extends React.Component<SeriesProps> { }
+export class WaterfallSeries extends React.Component<SeriesProps> { }
+
+export function withHighcharts (Component: ComponentType<*>, Highcharts: HighchartsType) { }
