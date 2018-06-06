@@ -6,14 +6,6 @@ import {
 import ExampleCode from '../utils/ExampleCode';
 import code from './exampleCode';
 
-Highcharts.Pointer.prototype.reset = () => {};
-
-Highcharts.Point.prototype.highlight = function (event) {
-  this.onMouseOver(); // Show the hover marker
-  this.series.chart.tooltip.refresh(this); // Show the tooltip
-  this.series.chart.xAxis[0].drawCrosshair(event, this); // Show the crosshair
-};
-
 class App extends Component {
 
   constructor(props) {
@@ -103,4 +95,12 @@ class App extends Component {
   }
 }
 
-export default withHighcharts(App, Highcharts);
+export default withHighcharts(App, Highcharts, {
+  'Pointer.prototype.reset': () => {},
+
+  'Point.prototype.highlight': function (func, event) {
+    this.onMouseOver(); // Show the hover marker
+    this.series.chart.tooltip.refresh(this); // Show the tooltip
+    this.series.chart.xAxis[0].drawCrosshair(event, this); // Show the crosshair
+  }
+});

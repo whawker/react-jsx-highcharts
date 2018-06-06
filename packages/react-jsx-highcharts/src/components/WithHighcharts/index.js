@@ -23,10 +23,10 @@ export default function withHighcharts(WrappedComponent, Highcharts, overrides =
     componentDidMount () {
       const originalFunctions = {};
 
-      each(overrides, function (func, path) {
+      each(overrides, function (override, path) {
         originalFunctions[path] = get(Highcharts, path); // Store original function for restoring later
 
-        const wrapped = wrap(originalFunctions[path], func);
+        const wrapped = wrap(originalFunctions[path], override);
         set(Highcharts, path, wrapped);
       });
 
@@ -36,7 +36,7 @@ export default function withHighcharts(WrappedComponent, Highcharts, overrides =
     componentWillUnmount () {
       const originalFunctions = this.originalFunctions;
 
-      each(overrides, function (func, path) {
+      each(overrides, function (_, path) {
         set(Highcharts, path, originalFunctions[path]);
       });
 
