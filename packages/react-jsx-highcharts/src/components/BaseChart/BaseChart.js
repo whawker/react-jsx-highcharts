@@ -17,8 +17,8 @@ class BaseChart extends Component {
     callback: PropTypes.func.isRequired
   };
 
-  constructor (props, context) {
-    super(props, context);
+  constructor (props) {
+    super(props);
 
     this.state = {
       rendered: false
