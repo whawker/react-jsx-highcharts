@@ -46,6 +46,30 @@ describe('<BaseChart />', function ()  {
         done();
       });
     });
+
+    it('should create a angular chart when mounted with the gauge prop', function (done) {
+      expect(chart.angular).to.not.equal(true);
+
+      const wrapper = mount(<BaseChart gauge chartCreationFunc={this.chartCreationFunc} chartType='stockChart' />);
+      clock.tick(1);
+
+      wrapper.setState({ rendered: true }, () => {
+        expect(chart.angular).to.equal(true);
+        done();
+      });
+    });
+
+    it('should create a polar chart when mounted with the polar prop', function (done) {
+      expect(chart.polar).to.not.equal(true);
+
+      const wrapper = mount(<BaseChart polar chartCreationFunc={this.chartCreationFunc} chartType='stockChart' />);
+      clock.tick(1);
+
+      wrapper.setState({ rendered: true }, () => {
+        expect(chart.polar).to.equal(true);
+        done();
+      });
+    });
   });
 
   context('when unmounted', function () {
