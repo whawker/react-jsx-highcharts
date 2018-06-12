@@ -26,7 +26,9 @@ const highchartsExamples = [
   { name: 'UpdateChart' },
   { name: 'Sankey', additional: ['highcharts-sankey'] },
   { name: 'StreamGraph', additional: ['highcharts-streamgraph', 'highcharts-series-label'] },
-  { name: 'Responsive' }
+  { name: 'Responsive' },
+  { name: 'Gauge', additional: ['highcharts-more', 'highcharts-solid-gauge'] },
+  { name: 'Polar', additional: ['highcharts-more'] }
 ];
 
 const highchartsStyledExamples = [
@@ -66,6 +68,7 @@ const externals = {
   'highcharts-sankey':    'https://code.highcharts.com/6.0.7/modules/sankey.js',
   'highcharts-streamgraph': 'https://code.highcharts.com/6.0.7/modules/streamgraph.js',
   'highcharts-series-label': 'https://code.highcharts.com/6.0.7/modules/series-label.js',
+  'highcharts-solid-gauge': 'https://code.highcharts.com/6.0.7/modules/solid-gauge.js',
   'prism':                'https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/prism.min.js',
   'prism-jsx':            'https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/components/prism-jsx.min.js',
   'moment':               'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js',
