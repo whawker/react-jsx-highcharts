@@ -16,7 +16,9 @@ import {
   HighchartsSparkline,
   ScatterSeries,
   BarSeries,
-  PlotBand
+  PlotBand,
+  Series,
+  SankeySeries
 } from "../../src";
 
 //$ExpectError
@@ -79,4 +81,15 @@ export const ScatterSeriesExample = () => {
 export const FailXAxis = () => {
   //$ExpectError
   return <XAxis id={1} />;
+}
+
+export const BaseSeriesFail = () => {
+  //$ExpectError
+  return <Series type={1} />;
+}
+const idFunction = () => {
+  return "" + Math.floor(Math.random() * (1000))
+}
+export const SeriesWithFunctionId = () => {
+  return <SankeySeries id={ idFunction } />;
 }
