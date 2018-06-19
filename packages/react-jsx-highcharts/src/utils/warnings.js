@@ -14,6 +14,7 @@ const moduleToImportPath = {
   threeD: 'highcharts-3d',
   funnel: 'modules/funnel',
   sankey: 'modules/sankey',
+  solidgauge: 'modules/solid-gauge',
   streamgraph: 'modules/streamgraph',
   treemap: 'modules/treemap'
 };
@@ -23,14 +24,16 @@ const moduleToVarName = {
   threeD: 'addHighcharts3DModule',
   funnel: 'addFunnelModule',
   sankey: 'addSankeyModule',
+  solidgauge: 'addSolidGaugeModule',
   streamgraph: 'addStreamGraphModule',
   treemap: 'addTreemapModule'
 };
 
 const moduleToSeriesTypes = {
-  more: ['arearange', 'areasplinerange', 'boxplot', 'bubble', 'columnrange', 'errorbar', 'polygon', 'waterfall'],
+  more: ['arearange', 'areasplinerange', 'boxplot', 'bubble', 'columnrange', 'errorbar', 'polygon', 'waterfall', 'gauge'],
   funnel: ['funnel', 'pyramid'],
   sankey: ['sankey'],
+  solidgauge: ['solidgauge'],
   streamgraph: ['streamgraph'],
   treemap: ['treemap']
 };

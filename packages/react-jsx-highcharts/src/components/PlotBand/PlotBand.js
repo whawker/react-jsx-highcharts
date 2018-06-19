@@ -4,6 +4,7 @@ import uuid from 'uuid/v4';
 import isFunction from 'lodash/isFunction';
 import attempt from 'lodash/attempt';
 import Hidden from '../Hidden';
+import getModifiedProps from '../../utils/getModifiedProps';
 
 class PlotBand extends Component {
 
@@ -39,9 +40,10 @@ class PlotBand extends Component {
     });
   }
 
-  componentDidUpdate () {
-    const axis = this.props.getAxis();
+  componentDidUpdate (prevProps) {
+    if (getModifiedProps(prevProps, this.props) === false) return;
 
+    const axis = this.props.getAxis();
     // Plot Bands cannot be updated, we have to remove and re-add
     const opts = this.getPlotBandConfig();
     axis.removePlotBand(opts.id);

@@ -17,8 +17,8 @@ class BaseChart extends Component {
     callback: PropTypes.func.isRequired
   };
 
-  constructor (props, context) {
-    super(props, context);
+  constructor (props) {
+    super(props);
 
     this.state = {
       rendered: false
@@ -35,7 +35,7 @@ class BaseChart extends Component {
       return;
     }
 
-    const { chartCreationFunc, callback, children, ...rest } = this.props;
+    const { chartCreationFunc, callback, polar, gauge, children, ...rest } = this.props;
 
     const opts = {
       chart: {},
@@ -69,6 +69,9 @@ class BaseChart extends Component {
       ...rest
     };
     this.chart = chartCreationFunc(this.domNode, opts);
+
+    this.chart.polar = polar;
+    this.chart.angular = gauge;
 
     callback(this.chart);
 

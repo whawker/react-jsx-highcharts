@@ -4,6 +4,7 @@ import uuid from 'uuid/v4';
 import isFunction from 'lodash/isFunction';
 import attempt from 'lodash/attempt';
 import Hidden from '../Hidden';
+import getModifiedProps from '../../utils/getModifiedProps';
 
 class PlotLine extends Component {
 
@@ -38,9 +39,10 @@ class PlotLine extends Component {
     });
   }
 
-  componentDidUpdate () {
-    const axis = this.props.getAxis();
+  componentDidUpdate (prevProps) {
+    if (getModifiedProps(prevProps, this.props) === false) return;
 
+    const axis = this.props.getAxis();
     // Plot Lines cannot be updated, we have to remove and re-add
     const opts = this.getPlotLineConfig();
     axis.removePlotLine(opts.id);

@@ -15,7 +15,10 @@ const webpackConfig = {
     filename: isProd ? 'react-jsx-highcharts.min.js' : 'react-jsx-highcharts.js',
     path: path.resolve(__dirname, 'dist'),
     library: 'ReactHighcharts',
-    libraryTarget: 'umd'
+    libraryTarget: 'umd',
+    // Prevents webpack from referencing `window` in the UMD build
+    // Source: https://git.io/vppgU
+    globalObject: "typeof self !== 'undefined' ? self : this"
   },
 
   externals: {

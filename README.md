@@ -16,38 +16,77 @@ For example, if the `data` prop were to change on a `<Series />` component, Reac
 
 React JSX Highcharts also enables you to write your *own* Highcharts components, via it's powerful higher order components.
 
-## Upgrading from 2.x to 3.x
+## Installation
 
-For the vast majority of cases, **if your chart works in v2 of React JSX Highcharts it should work in v3 without any required changes**.
+`npm install --save react-jsx-highcharts`
 
-Ok, so what about the minority of cases?
+You'll need the peer dependencies too
 
-### Dropped React 15 support
+`npm install --save react react-dom prop-types highcharts@^6.0.0`
 
-v3 is built on top of the new Context API added in [React 16.3](https://reactjs.org/blog/2018/03/29/react-v-16-3.html#official-context-api), using the fantastic [create-react-context](https://www.npmjs.com/package/create-react-context) polyfill for previous React 16 versions.
+## Getting started
 
-While polyfills for React 15 exist, I want to minimise the amount of use cases supported, going forward.
+The intention of this library is to provide a very thin abstraction of Highcharts using React components. This has been achieved by passing Highcharts configuration options as component props.
 
-### Updates to the Higher Order components (Providers)
+In the vast majority of cases, the name of the configuration option, and the name of the component prop are the same.
 
-This is an advanced feature, but if this impacts you, [see the guide here](https://github.com/whawker/react-jsx-highcharts/wiki/Upgrading-from-2.x-to-3.x#updates-to-the-higher-order-components-providers)
+#### Example
 
-## Upgrading from 1.x to 2.x
+`<Tooltip />` component
+```jsx
+<Tooltip padding={10} hideDelay={250} shape="square" split />
+```
+This corresponds to the Highcharts' [`tooltip`](http://api.highcharts.com/highcharts/tooltip) configuration of
+```js
+tooltip: {
+  enabled: true, // This is assumed when component is mounted
+  padding: 10,
+  hideDelay: 250,
+  shape: 'square',
+  split: true
+}
+```
+We aim to pass all configuration options using the same name, so we use [Highcharts' documentation](http://api.highcharts.com/highcharts) to figure out how to achieve the same with React JSX Highcharts.
 
-See the guide [here](https://github.com/whawker/react-jsx-highcharts/wiki/Upgrading-from-1.x-to-2.x)
+### Note:
 
-## Changelog
+There are **two** exceptions to the above;
 
-As of 3.x you are no longer required to use IDs for Axis and Series
+#### Exception 1
 
-As of 2.1.0 Highcharts 6 is supported
+Where Highcharts **events** are concerned - instead of passing `events` as an object, we use the React convention *onEventName*.
 
-As of 2.x you are required to use the `withHighcharts` HOC to inject the Highcharts object (see below)
+#### Example
+```jsx
 
-As of 1.3.0 React JSX Highcharts supports [3D charts](https://whawker.github.io/react-jsx-highcharts/examples/3DChart/index.html).
+<SplineSeries id="my-series" data={myData} onHide={this.handleHide} onShow={this.handleShow} />
+```
+This would correspond to the Highcharts configuration
+```js
+series: [{
+  type: 'spline',
+  id: 'my-series',
+  data: myData,
+  events: { hide: this.handleHide, show: this.handleShow }
+}]
+```
 
-As of 1.2.0 React JSX Highcharts supports using [Immutable.js](https://facebook.github.io/immutable-js/) data structures as Series data.
+#### Exception 2
 
+`text` configuration options are passed as a React child
+
+#### Example
+
+```jsx
+<Title>Some Text Here</Title>
+```
+
+This would correspond to the Highcharts configuration
+```js
+title: {
+  text: 'Some Text Here'
+}
+```
 
 ## Example
 
@@ -87,33 +126,41 @@ export default withHighcharts(MyComponent, Highcharts);
 
 [See here](https://whawker.github.io/react-jsx-highcharts/examples/index.html)
 
-## Getting Started
-
-#### Highcharts
-`npm install --save react-jsx-highcharts`
-
-You'll need the peer dependencies too
-
-`npm install --save react react-dom prop-types highcharts@^6.0.0`
-
-#### Highstock (also includes Highcharts)
-`npm install --save react-jsx-highstock`
-
-You'll need the peer dependencies too
-
-`npm install --save react react-dom prop-types highcharts@^6.0.0`
-
-**Note**: import `Highcharts` with `import Highcharts from 'highcharts/highstock'`
-
 ## Documentation
+
 In progress... [see here](https://github.com/whawker/react-jsx-highcharts/wiki).
 
-## Upcoming Features
-* ~~`<Highcharts3dChart>` component - A helper for 3D charts.~~ Done! 1.3.0
-* ~~React 16 support - all features seem to work with beta 3, just need to modify `peerDependencies` and await Enzyme support for React 16~~ Done! 1.4.0
-* Use `React.PureComponent` instead of `Component`
-* ~~Highcharts 6.0 support~~ Done 2.1.0
-* ~~Use new context API due to be added in React 16.3~~
+## Upgrading from 2.x to 3.x
+
+For the vast majority of cases, **if your chart works in v2 of React JSX Highcharts it should work in v3 without any required changes**.
+
+Ok, so what about the minority of cases?
+
+### Dropped React 15 support
+
+v3 is built on top of the new Context API added in [React 16.3](https://reactjs.org/blog/2018/03/29/react-v-16-3.html#official-context-api), using the fantastic [create-react-context](https://www.npmjs.com/package/create-react-context) polyfill for previous React 16 versions.
+
+While polyfills for React 15 exist, I want to minimise the amount of use cases supported, going forward.
+
+### Updates to the Higher Order components (Providers)
+
+This is an advanced feature, but if this impacts you, [see the guide here](https://github.com/whawker/react-jsx-highcharts/wiki/Upgrading-from-2.x-to-3.x#updates-to-the-higher-order-components-providers)
+
+## Upgrading from 1.x to 2.x
+
+See the guide [here](https://github.com/whawker/react-jsx-highcharts/wiki/Upgrading-from-1.x-to-2.x)
+
+## Changelog
+
+As of 3.x you are no longer required to use IDs for Axis, Series and PlotLines/Bands
+
+As of 2.1.0 Highcharts 6 is supported
+
+As of 2.x you are required to use the `withHighcharts` HOC to inject the Highcharts object (see below)
+
+As of 1.3.0 React JSX Highcharts supports [3D charts](https://whawker.github.io/react-jsx-highcharts/examples/3DChart/index.html).
+
+As of 1.2.0 React JSX Highcharts supports using [Immutable.js](https://facebook.github.io/immutable-js/) data structures as Series data.
 
 ## Goals
 
