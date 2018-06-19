@@ -64,26 +64,19 @@ var example =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 58);
+/******/ 	return __webpack_require__(__webpack_require__.s = 298);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 0:
+/***/ 12:
 /***/ (function(module, exports) {
 
 module.exports = React;
 
 /***/ }),
 
-/***/ 13:
-/***/ (function(module, exports) {
-
-module.exports = ReactDOM;
-
-/***/ }),
-
-/***/ 16:
+/***/ 254:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -93,7 +86,144 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _reactPrism = __webpack_require__(37);
+var _react = __webpack_require__(12);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _highcharts = __webpack_require__(44);
+
+var _highcharts2 = _interopRequireDefault(_highcharts);
+
+var _reactJsxHighcharts = __webpack_require__(43);
+
+var _ExampleCode = __webpack_require__(49);
+
+var _ExampleCode2 = _interopRequireDefault(_ExampleCode);
+
+var _exampleCode = __webpack_require__(297);
+
+var _exampleCode2 = _interopRequireDefault(_exampleCode);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var plotOptions = {
+  series: {
+    pointStart: 0,
+    pointInterval: 45
+  },
+  column: {
+    pointPadding: 0,
+    groupPadding: 0
+  }
+};
+
+var labelFormatter = function labelFormatter() {
+  return this.value + '°';
+};
+
+var App = function App() {
+  return _react2.default.createElement(
+    'div',
+    { className: 'app' },
+    _react2.default.createElement(
+      _reactJsxHighcharts.HighchartsChart,
+      { polar: true, plotOptions: plotOptions },
+      _react2.default.createElement(
+        _reactJsxHighcharts.Title,
+        null,
+        'Highcharts Polar Chart'
+      ),
+      _react2.default.createElement(_reactJsxHighcharts.Pane, { startAngle: 0, endAngle: 360 }),
+      _react2.default.createElement(_reactJsxHighcharts.XAxis, { tickInterval: 45, min: 0, max: 360, labels: { formatter: labelFormatter } }),
+      _react2.default.createElement(
+        _reactJsxHighcharts.YAxis,
+        { min: 0 },
+        _react2.default.createElement(_reactJsxHighcharts.ColumnSeries, { name: 'Column', data: [8, 7, 6, 5, 4, 3, 2, 1], pointPlacement: 'between' }),
+        _react2.default.createElement(_reactJsxHighcharts.LineSeries, { name: 'Line', data: [1, 2, 3, 4, 5, 6, 7, 8] }),
+        _react2.default.createElement(_reactJsxHighcharts.AreaSeries, { name: 'Area', data: [1, 8, 2, 7, 3, 6, 4, 5] })
+      )
+    ),
+    _react2.default.createElement(
+      _ExampleCode2.default,
+      { name: 'Gauge' },
+      _exampleCode2.default
+    )
+  );
+};
+
+exports.default = (0, _reactJsxHighcharts.withHighcharts)(App, _highcharts2.default);
+
+/***/ }),
+
+/***/ 29:
+/***/ (function(module, exports) {
+
+module.exports = ReactDOM;
+
+/***/ }),
+
+/***/ 297:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = "\n<HighchartsChart polar plotOptions={plotOptions}>\n  <Title>Highcharts Polar Chart</Title>\n\n  <Pane startAngle={0} endAngle={360} />\n\n  <XAxis tickInterval={45} min={0} max={360} labels={{ formatter: labelFormatter }} />\n\n  <YAxis min={0}>\n    <ColumnSeries name=\"Column\" data={[8, 7, 6, 5, 4, 3, 2, 1]} pointPlacement='between' />\n    <LineSeries name=\"Line\" data={[1, 2, 3, 4, 5, 6, 7, 8]} />\n    <AreaSeries name=\"Area\" data={[1, 8, 2, 7, 3, 6, 4, 5]} />\n  </YAxis>\n</HighchartsChart>\n";
+
+/***/ }),
+
+/***/ 298:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _react = __webpack_require__(12);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = __webpack_require__(29);
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+var _App = __webpack_require__(254);
+
+var _App2 = _interopRequireDefault(_App);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+_reactDom2.default.render(_react2.default.createElement(_App2.default, null), document.getElementById('root'));
+
+/***/ }),
+
+/***/ 43:
+/***/ (function(module, exports) {
+
+module.exports = ReactHighcharts;
+
+/***/ }),
+
+/***/ 44:
+/***/ (function(module, exports) {
+
+module.exports = Highcharts;
+
+/***/ }),
+
+/***/ 49:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _reactPrism = __webpack_require__(58);
 
 exports.default = function (_ref) {
   var name = _ref.name,
@@ -120,7 +250,7 @@ exports.default = function (_ref) {
 
 /***/ }),
 
-/***/ 31:
+/***/ 52:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -163,7 +293,7 @@ module.exports = emptyFunction;
 
 /***/ }),
 
-/***/ 32:
+/***/ 53:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -223,7 +353,7 @@ module.exports = invariant;
 
 /***/ }),
 
-/***/ 33:
+/***/ 54:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -236,9 +366,9 @@ module.exports = invariant;
 
 
 
-var emptyFunction = __webpack_require__(31);
-var invariant = __webpack_require__(32);
-var ReactPropTypesSecret = __webpack_require__(35);
+var emptyFunction = __webpack_require__(52);
+var invariant = __webpack_require__(53);
+var ReactPropTypesSecret = __webpack_require__(56);
 
 module.exports = function() {
   function shim(props, propName, componentName, location, propFullName, secret) {
@@ -289,7 +419,7 @@ module.exports = function() {
 
 /***/ }),
 
-/***/ 34:
+/***/ 55:
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -318,13 +448,13 @@ if (false) {
 } else {
   // By explicitly using `prop-types` you are opting into new production behavior.
   // http://fb.me/prop-types-in-prod
-  module.exports = __webpack_require__(33)();
+  module.exports = __webpack_require__(54)();
 }
 
 
 /***/ }),
 
-/***/ 35:
+/***/ 56:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -344,7 +474,7 @@ module.exports = ReactPropTypesSecret;
 
 /***/ }),
 
-/***/ 36:
+/***/ 57:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -371,11 +501,11 @@ var _createClass = (function() {
   }
 })()
 
-var _react = __webpack_require__(0)
+var _react = __webpack_require__(12)
 
 var _react2 = _interopRequireDefault(_react)
 
-var _propTypes = __webpack_require__(34)
+var _propTypes = __webpack_require__(55)
 
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : { default: obj }
@@ -508,7 +638,7 @@ exports.default = PrismCode
 
 /***/ }),
 
-/***/ 37:
+/***/ 58:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -518,7 +648,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _PrismCode = __webpack_require__(36);
+var _PrismCode = __webpack_require__(57);
 
 Object.defineProperty(exports, "PrismCode", {
   enumerable: true,
@@ -534,136 +664,6 @@ Object.defineProperty(exports, "default", {
 });
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/***/ }),
-
-/***/ 38:
-/***/ (function(module, exports) {
-
-module.exports = Highcharts;
-
-/***/ }),
-
-/***/ 39:
-/***/ (function(module, exports) {
-
-module.exports = ReactHighcharts;
-
-/***/ }),
-
-/***/ 54:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _highcharts = __webpack_require__(38);
-
-var _highcharts2 = _interopRequireDefault(_highcharts);
-
-var _reactJsxHighcharts = __webpack_require__(39);
-
-var _ExampleCode = __webpack_require__(16);
-
-var _ExampleCode2 = _interopRequireDefault(_ExampleCode);
-
-var _exampleCode = __webpack_require__(57);
-
-var _exampleCode2 = _interopRequireDefault(_exampleCode);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var plotOptions = {
-  series: {
-    pointStart: 0,
-    pointInterval: 45
-  },
-  column: {
-    pointPadding: 0,
-    groupPadding: 0
-  }
-};
-
-var labelFormatter = function labelFormatter() {
-  return this.value + '°';
-};
-
-var App = function App() {
-  return _react2.default.createElement(
-    'div',
-    { className: 'app' },
-    _react2.default.createElement(
-      _reactJsxHighcharts.HighchartsChart,
-      { polar: true, plotOptions: plotOptions },
-      _react2.default.createElement(
-        _reactJsxHighcharts.Title,
-        null,
-        'Highcharts Polar Chart'
-      ),
-      _react2.default.createElement(_reactJsxHighcharts.Pane, { startAngle: 0, endAngle: 360 }),
-      _react2.default.createElement(_reactJsxHighcharts.XAxis, { tickInterval: 45, min: 0, max: 360, labels: { formatter: labelFormatter } }),
-      _react2.default.createElement(
-        _reactJsxHighcharts.YAxis,
-        { min: 0 },
-        _react2.default.createElement(_reactJsxHighcharts.ColumnSeries, { name: 'Column', data: [8, 7, 6, 5, 4, 3, 2, 1], pointPlacement: 'between' }),
-        _react2.default.createElement(_reactJsxHighcharts.LineSeries, { name: 'Line', data: [1, 2, 3, 4, 5, 6, 7, 8] }),
-        _react2.default.createElement(_reactJsxHighcharts.AreaSeries, { name: 'Area', data: [1, 8, 2, 7, 3, 6, 4, 5] })
-      )
-    ),
-    _react2.default.createElement(
-      _ExampleCode2.default,
-      { name: 'Gauge' },
-      _exampleCode2.default
-    )
-  );
-};
-
-exports.default = (0, _reactJsxHighcharts.withHighcharts)(App, _highcharts2.default);
-
-/***/ }),
-
-/***/ 57:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = "\n<HighchartsChart polar plotOptions={plotOptions}>\n  <Title>Highcharts Polar Chart</Title>\n\n  <Pane startAngle={0} endAngle={360} />\n\n  <XAxis tickInterval={45} min={0} max={360} labels={{ formatter: labelFormatter }} />\n\n  <YAxis min={0}>\n    <ColumnSeries name=\"Column\" data={[8, 7, 6, 5, 4, 3, 2, 1]} pointPlacement='between' />\n    <LineSeries name=\"Line\" data={[1, 2, 3, 4, 5, 6, 7, 8]} />\n    <AreaSeries name=\"Area\" data={[1, 8, 2, 7, 3, 6, 4, 5]} />\n  </YAxis>\n</HighchartsChart>\n";
-
-/***/ }),
-
-/***/ 58:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactDom = __webpack_require__(13);
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
-
-var _App = __webpack_require__(54);
-
-var _App2 = _interopRequireDefault(_App);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-_reactDom2.default.render(_react2.default.createElement(_App2.default, null), document.getElementById('root'));
 
 /***/ })
 
