@@ -64,7 +64,7 @@ var example =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 290);
+/******/ 	return __webpack_require__(__webpack_require__.s = 308);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -92,18 +92,6 @@ if (typeof __g == 'number') __g = global; // eslint-disable-line no-undef
 /***/ }),
 
 /***/ 10:
-/***/ (function(module, exports, __webpack_require__) {
-
-var isObject = __webpack_require__(6);
-module.exports = function (it) {
-  if (!isObject(it)) throw TypeError(it + ' is not an object!');
-  return it;
-};
-
-
-/***/ }),
-
-/***/ 11:
 /***/ (function(module, exports) {
 
 module.exports = function (exec) {
@@ -117,34 +105,14 @@ module.exports = function (exec) {
 
 /***/ }),
 
-/***/ 111:
+/***/ 11:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = { "default": __webpack_require__(112), __esModule: true };
-
-/***/ }),
-
-/***/ 112:
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(113);
-module.exports = __webpack_require__(0).Object.keys;
-
-
-/***/ }),
-
-/***/ 113:
-/***/ (function(module, exports, __webpack_require__) {
-
-// 19.1.2.14 Object.keys(O)
-var toObject = __webpack_require__(32);
-var $keys = __webpack_require__(15);
-
-__webpack_require__(46)('keys', function () {
-  return function keys(it) {
-    return $keys(toObject(it));
-  };
-});
+var isObject = __webpack_require__(7);
+module.exports = function (it) {
+  if (!isObject(it)) throw TypeError(it + ' is not an object!');
+  return it;
+};
 
 
 /***/ }),
@@ -167,6 +135,38 @@ module.exports = function (bitmap, value) {
     value: value
   };
 };
+
+
+/***/ }),
+
+/***/ 136:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = { "default": __webpack_require__(137), __esModule: true };
+
+/***/ }),
+
+/***/ 137:
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(138);
+module.exports = __webpack_require__(0).Object.keys;
+
+
+/***/ }),
+
+/***/ 138:
+/***/ (function(module, exports, __webpack_require__) {
+
+// 19.1.2.14 Object.keys(O)
+var toObject = __webpack_require__(30);
+var $keys = __webpack_require__(15);
+
+__webpack_require__(47)('keys', function () {
+  return function keys(it) {
+    return $keys(toObject(it));
+  };
+});
 
 
 /***/ }),
@@ -237,7 +237,7 @@ module.exports = (
 /***/ (function(module, exports, __webpack_require__) {
 
 // Thank's IE8 for his funny defineProperty
-module.exports = !__webpack_require__(11)(function () {
+module.exports = !__webpack_require__(10)(function () {
   return Object.defineProperty({}, 'a', { get: function () { return 7; } }).a != 7;
 });
 
@@ -273,7 +273,7 @@ module.exports = function (key) {
 /***/ (function(module, exports, __webpack_require__) {
 
 // 7.1.1 ToPrimitive(input [, PreferredType])
-var isObject = __webpack_require__(6);
+var isObject = __webpack_require__(7);
 // instead of the ES6 spec version, we didn't implement @@toPrimitive case
 // and the second argument - flag - preferred type is a string
 module.exports = function (it, S) {
@@ -288,7 +288,7 @@ module.exports = function (it, S) {
 
 /***/ }),
 
-/***/ 249:
+/***/ 257:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -298,7 +298,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _keys = __webpack_require__(111);
+var _keys = __webpack_require__(136);
 
 var _keys2 = _interopRequireDefault(_keys);
 
@@ -312,11 +312,11 @@ var _highcharts2 = _interopRequireDefault(_highcharts);
 
 var _reactJsxHighcharts = __webpack_require__(43);
 
-var _ExampleCode = __webpack_require__(51);
+var _ExampleCode = __webpack_require__(49);
 
 var _ExampleCode2 = _interopRequireDefault(_ExampleCode);
 
-var _exampleCode = __webpack_require__(289);
+var _exampleCode = __webpack_require__(307);
 
 var _exampleCode2 = _interopRequireDefault(_exampleCode);
 
@@ -377,19 +377,6 @@ exports.default = (0, _reactJsxHighcharts.withHighcharts)(App, _highcharts2.defa
 
 /***/ }),
 
-/***/ 289:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = "\nimport React from 'react';\nimport Highcharts from 'highcharts';\nimport {\n  HighchartsChart, withHighcharts, XAxis, YAxis, Title, SankeySeries, Tooltip\n} from 'react-jsx-highcharts';\n\nconst data = {\n  Brazil: { Portugal: 5, France: 1, Spain: 1, England: 1 },\n  Canada: { Portugal: 1, France: 5, England: 1 },\n  Mexico: { Portugal: 1, France: 1, Spain: 5, England: 1 },\n  USA:    { Portugal: 1, France: 1, Spain: 1, England: 5 },\n  Portugal: { Angola: 2, Senegal: 1, Morocco: 1, 'South Africa': 3 },\n  France:   { Angola: 1, Senegal: 3, Mali: 3, Morocco: 3, 'South Africa': 1 },\n  Spain:    { Senegal: 1, Morocco: 3, 'South Africa': 1 },\n  England:  { Angola: 1, Senegal: 1, Morocco: 2, 'South Africa': 7 },\n  'South Africa': { China: 5, India: 1, Japan: 3 },\n  Angola:         { China: 5, India: 1, Japan: 3 },\n  Senegal:        { China: 5, India: 1, Japan: 3 },\n  Mali:           { China: 5, India: 1, Japan: 3 },\n  Morocco:        { China: 5, India: 1, Japan: 3 }\n};\n\nconst App = () => {\n  const formattedData = Object.keys(data).reduce((arr, from) => {\n    const weights = data[from];\n    return arr.concat(Object.keys(weights).map(to => [from, to, weights[to]]));\n  }, []);\n\n  return (\n    <div className=\"app\">\n      <HighchartsChart>\n        <Title>Highcharts Sankey Diagram</Title>\n\n        <XAxis type=\"category\" />\n\n        <YAxis>\n          <SankeySeries name=\"Sankey demo series\" data={formattedData} keys={['from', 'to', 'weight']} />\n        </YAxis>\n\n        <Tooltip />\n      </HighchartsChart>\n    </div>\n  );\n}\n\nexport default withHighcharts(App, Highcharts);";
-
-/***/ }),
-
 /***/ 29:
 /***/ (function(module, exports) {
 
@@ -397,34 +384,10 @@ module.exports = ReactDOM;
 
 /***/ }),
 
-/***/ 290:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _react = __webpack_require__(12);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactDom = __webpack_require__(29);
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
-
-var _App = __webpack_require__(249);
-
-var _App2 = _interopRequireDefault(_App);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-_reactDom2.default.render(_react2.default.createElement(_App2.default, null), document.getElementById('root'));
-
-/***/ }),
-
 /***/ 3:
 /***/ (function(module, exports, __webpack_require__) {
 
-var anObject = __webpack_require__(10);
+var anObject = __webpack_require__(11);
 var IE8_DOM_DEFINE = __webpack_require__(34);
 var toPrimitive = __webpack_require__(22);
 var dP = Object.defineProperty;
@@ -445,6 +408,55 @@ exports.f = __webpack_require__(2) ? Object.defineProperty : function defineProp
 /***/ }),
 
 /***/ 30:
+/***/ (function(module, exports, __webpack_require__) {
+
+// 7.1.13 ToObject(argument)
+var defined = __webpack_require__(16);
+module.exports = function (it) {
+  return Object(defined(it));
+};
+
+
+/***/ }),
+
+/***/ 307:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = "\nimport React from 'react';\nimport Highcharts from 'highcharts';\nimport {\n  HighchartsChart, withHighcharts, XAxis, YAxis, Title, SankeySeries, Tooltip\n} from 'react-jsx-highcharts';\n\nconst data = {\n  Brazil: { Portugal: 5, France: 1, Spain: 1, England: 1 },\n  Canada: { Portugal: 1, France: 5, England: 1 },\n  Mexico: { Portugal: 1, France: 1, Spain: 5, England: 1 },\n  USA:    { Portugal: 1, France: 1, Spain: 1, England: 5 },\n  Portugal: { Angola: 2, Senegal: 1, Morocco: 1, 'South Africa': 3 },\n  France:   { Angola: 1, Senegal: 3, Mali: 3, Morocco: 3, 'South Africa': 1 },\n  Spain:    { Senegal: 1, Morocco: 3, 'South Africa': 1 },\n  England:  { Angola: 1, Senegal: 1, Morocco: 2, 'South Africa': 7 },\n  'South Africa': { China: 5, India: 1, Japan: 3 },\n  Angola:         { China: 5, India: 1, Japan: 3 },\n  Senegal:        { China: 5, India: 1, Japan: 3 },\n  Mali:           { China: 5, India: 1, Japan: 3 },\n  Morocco:        { China: 5, India: 1, Japan: 3 }\n};\n\nconst App = () => {\n  const formattedData = Object.keys(data).reduce((arr, from) => {\n    const weights = data[from];\n    return arr.concat(Object.keys(weights).map(to => [from, to, weights[to]]));\n  }, []);\n\n  return (\n    <div className=\"app\">\n      <HighchartsChart>\n        <Title>Highcharts Sankey Diagram</Title>\n\n        <XAxis type=\"category\" />\n\n        <YAxis>\n          <SankeySeries name=\"Sankey demo series\" data={formattedData} keys={['from', 'to', 'weight']} />\n        </YAxis>\n\n        <Tooltip />\n      </HighchartsChart>\n    </div>\n  );\n}\n\nexport default withHighcharts(App, Highcharts);";
+
+/***/ }),
+
+/***/ 308:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _react = __webpack_require__(12);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = __webpack_require__(29);
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+var _App = __webpack_require__(257);
+
+var _App2 = _interopRequireDefault(_App);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+_reactDom2.default.render(_react2.default.createElement(_App2.default, null), document.getElementById('root'));
+
+/***/ }),
+
+/***/ 31:
 /***/ (function(module, exports) {
 
 var toString = {}.toString;
@@ -456,7 +468,7 @@ module.exports = function (it) {
 
 /***/ }),
 
-/***/ 31:
+/***/ 32:
 /***/ (function(module, exports, __webpack_require__) {
 
 // optional / simple context binding
@@ -483,22 +495,10 @@ module.exports = function (fn, that, length) {
 
 /***/ }),
 
-/***/ 32:
-/***/ (function(module, exports, __webpack_require__) {
-
-// 7.1.13 ToObject(argument)
-var defined = __webpack_require__(16);
-module.exports = function (it) {
-  return Object(defined(it));
-};
-
-
-/***/ }),
-
 /***/ 33:
 /***/ (function(module, exports, __webpack_require__) {
 
-var isObject = __webpack_require__(6);
+var isObject = __webpack_require__(7);
 var document = __webpack_require__(1).document;
 // typeof document.createElement is 'object' in old IE
 var is = isObject(document) && isObject(document.createElement);
@@ -512,7 +512,7 @@ module.exports = function (it) {
 /***/ 34:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = !__webpack_require__(2) && !__webpack_require__(11)(function () {
+module.exports = !__webpack_require__(2) && !__webpack_require__(10)(function () {
   return Object.defineProperty(__webpack_require__(33)('div'), 'a', { get: function () { return 7; } }).a != 7;
 });
 
@@ -524,7 +524,7 @@ module.exports = !__webpack_require__(2) && !__webpack_require__(11)(function ()
 
 var has = __webpack_require__(4);
 var toIObject = __webpack_require__(8);
-var arrayIndexOf = __webpack_require__(49)(false);
+var arrayIndexOf = __webpack_require__(50)(false);
 var IE_PROTO = __webpack_require__(20)('IE_PROTO');
 
 module.exports = function (object, names) {
@@ -582,10 +582,23 @@ module.exports = function (it) {
 /***/ 46:
 /***/ (function(module, exports, __webpack_require__) {
 
+// fallback for non-array-like ES3 and non-enumerable old V8 strings
+var cof = __webpack_require__(31);
+// eslint-disable-next-line no-prototype-builtins
+module.exports = Object('z').propertyIsEnumerable(0) ? Object : function (it) {
+  return cof(it) == 'String' ? it.split('') : Object(it);
+};
+
+
+/***/ }),
+
+/***/ 47:
+/***/ (function(module, exports, __webpack_require__) {
+
 // most Object methods by ES6 should accept primitives
-var $export = __webpack_require__(7);
+var $export = __webpack_require__(6);
 var core = __webpack_require__(0);
-var fails = __webpack_require__(11);
+var fails = __webpack_require__(10);
 module.exports = function (KEY, exec) {
   var fn = (core.Object || {})[KEY] || Object[KEY];
   var exp = {};
@@ -596,7 +609,7 @@ module.exports = function (KEY, exec) {
 
 /***/ }),
 
-/***/ 47:
+/***/ 48:
 /***/ (function(module, exports, __webpack_require__) {
 
 // 7.1.15 ToLength
@@ -609,64 +622,7 @@ module.exports = function (it) {
 
 /***/ }),
 
-/***/ 48:
-/***/ (function(module, exports, __webpack_require__) {
-
-// fallback for non-array-like ES3 and non-enumerable old V8 strings
-var cof = __webpack_require__(30);
-// eslint-disable-next-line no-prototype-builtins
-module.exports = Object('z').propertyIsEnumerable(0) ? Object : function (it) {
-  return cof(it) == 'String' ? it.split('') : Object(it);
-};
-
-
-/***/ }),
-
 /***/ 49:
-/***/ (function(module, exports, __webpack_require__) {
-
-// false -> Array#indexOf
-// true  -> Array#includes
-var toIObject = __webpack_require__(8);
-var toLength = __webpack_require__(47);
-var toAbsoluteIndex = __webpack_require__(50);
-module.exports = function (IS_INCLUDES) {
-  return function ($this, el, fromIndex) {
-    var O = toIObject($this);
-    var length = toLength(O.length);
-    var index = toAbsoluteIndex(fromIndex, length);
-    var value;
-    // Array#includes uses SameValueZero equality algorithm
-    // eslint-disable-next-line no-self-compare
-    if (IS_INCLUDES && el != el) while (length > index) {
-      value = O[index++];
-      // eslint-disable-next-line no-self-compare
-      if (value != value) return true;
-    // Array#indexOf ignores holes, Array#includes - not
-    } else for (;length > index; index++) if (IS_INCLUDES || index in O) {
-      if (O[index] === el) return IS_INCLUDES || index || 0;
-    } return !IS_INCLUDES && -1;
-  };
-};
-
-
-/***/ }),
-
-/***/ 50:
-/***/ (function(module, exports, __webpack_require__) {
-
-var toInteger = __webpack_require__(17);
-var max = Math.max;
-var min = Math.min;
-module.exports = function (index, length) {
-  index = toInteger(index);
-  return index < 0 ? max(index + length, 0) : min(index, length);
-};
-
-
-/***/ }),
-
-/***/ 51:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -676,7 +632,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _reactPrism = __webpack_require__(64);
+var _reactPrism = __webpack_require__(58);
 
 exports.default = function (_ref) {
   var name = _ref.name,
@@ -703,7 +659,51 @@ exports.default = function (_ref) {
 
 /***/ }),
 
-/***/ 58:
+/***/ 50:
+/***/ (function(module, exports, __webpack_require__) {
+
+// false -> Array#indexOf
+// true  -> Array#includes
+var toIObject = __webpack_require__(8);
+var toLength = __webpack_require__(48);
+var toAbsoluteIndex = __webpack_require__(51);
+module.exports = function (IS_INCLUDES) {
+  return function ($this, el, fromIndex) {
+    var O = toIObject($this);
+    var length = toLength(O.length);
+    var index = toAbsoluteIndex(fromIndex, length);
+    var value;
+    // Array#includes uses SameValueZero equality algorithm
+    // eslint-disable-next-line no-self-compare
+    if (IS_INCLUDES && el != el) while (length > index) {
+      value = O[index++];
+      // eslint-disable-next-line no-self-compare
+      if (value != value) return true;
+    // Array#indexOf ignores holes, Array#includes - not
+    } else for (;length > index; index++) if (IS_INCLUDES || index in O) {
+      if (O[index] === el) return IS_INCLUDES || index || 0;
+    } return !IS_INCLUDES && -1;
+  };
+};
+
+
+/***/ }),
+
+/***/ 51:
+/***/ (function(module, exports, __webpack_require__) {
+
+var toInteger = __webpack_require__(17);
+var max = Math.max;
+var min = Math.min;
+module.exports = function (index, length) {
+  index = toInteger(index);
+  return index < 0 ? max(index + length, 0) : min(index, length);
+};
+
+
+/***/ }),
+
+/***/ 52:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -746,7 +746,7 @@ module.exports = emptyFunction;
 
 /***/ }),
 
-/***/ 59:
+/***/ 53:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -806,17 +806,7 @@ module.exports = invariant;
 
 /***/ }),
 
-/***/ 6:
-/***/ (function(module, exports) {
-
-module.exports = function (it) {
-  return typeof it === 'object' ? it !== null : typeof it === 'function';
-};
-
-
-/***/ }),
-
-/***/ 60:
+/***/ 54:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -829,9 +819,9 @@ module.exports = function (it) {
 
 
 
-var emptyFunction = __webpack_require__(58);
-var invariant = __webpack_require__(59);
-var ReactPropTypesSecret = __webpack_require__(62);
+var emptyFunction = __webpack_require__(52);
+var invariant = __webpack_require__(53);
+var ReactPropTypesSecret = __webpack_require__(56);
 
 module.exports = function() {
   function shim(props, propName, componentName, location, propFullName, secret) {
@@ -882,7 +872,7 @@ module.exports = function() {
 
 /***/ }),
 
-/***/ 61:
+/***/ 55:
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -911,13 +901,13 @@ if (false) {
 } else {
   // By explicitly using `prop-types` you are opting into new production behavior.
   // http://fb.me/prop-types-in-prod
-  module.exports = __webpack_require__(60)();
+  module.exports = __webpack_require__(54)();
 }
 
 
 /***/ }),
 
-/***/ 62:
+/***/ 56:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -937,7 +927,7 @@ module.exports = ReactPropTypesSecret;
 
 /***/ }),
 
-/***/ 63:
+/***/ 57:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -968,7 +958,7 @@ var _react = __webpack_require__(12)
 
 var _react2 = _interopRequireDefault(_react)
 
-var _propTypes = __webpack_require__(61)
+var _propTypes = __webpack_require__(55)
 
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : { default: obj }
@@ -1101,7 +1091,7 @@ exports.default = PrismCode
 
 /***/ }),
 
-/***/ 64:
+/***/ 58:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1111,7 +1101,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _PrismCode = __webpack_require__(63);
+var _PrismCode = __webpack_require__(57);
 
 Object.defineProperty(exports, "PrismCode", {
   enumerable: true,
@@ -1130,12 +1120,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 /***/ }),
 
-/***/ 7:
+/***/ 6:
 /***/ (function(module, exports, __webpack_require__) {
 
 var global = __webpack_require__(1);
 var core = __webpack_require__(0);
-var ctx = __webpack_require__(31);
+var ctx = __webpack_require__(32);
 var hide = __webpack_require__(9);
 var PROTOTYPE = 'prototype';
 
@@ -1198,11 +1188,21 @@ module.exports = $export;
 
 /***/ }),
 
+/***/ 7:
+/***/ (function(module, exports) {
+
+module.exports = function (it) {
+  return typeof it === 'object' ? it !== null : typeof it === 'function';
+};
+
+
+/***/ }),
+
 /***/ 8:
 /***/ (function(module, exports, __webpack_require__) {
 
 // to indexed object, toObject with fallback for non-array-like ES3 strings
-var IObject = __webpack_require__(48);
+var IObject = __webpack_require__(46);
 var defined = __webpack_require__(16);
 module.exports = function (it) {
   return IObject(defined(it));
