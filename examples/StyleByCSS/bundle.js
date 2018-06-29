@@ -64,7 +64,7 @@ var example =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 313);
+/******/ 	return __webpack_require__(__webpack_require__.s = 319);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -569,7 +569,7 @@ module.exports = function (css) {
 
 /***/ }),
 
-/***/ 260:
+/***/ 262:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -589,15 +589,15 @@ var _highcharts2 = _interopRequireDefault(_highcharts);
 
 var _reactJsxHighcharts = __webpack_require__(43);
 
-var _ExampleCode = __webpack_require__(56);
+var _ExampleCode = __webpack_require__(49);
 
 var _ExampleCode2 = _interopRequireDefault(_ExampleCode);
 
-var _exampleCode = __webpack_require__(312);
+var _exampleCode = __webpack_require__(318);
 
 var _exampleCode2 = _interopRequireDefault(_exampleCode);
 
-__webpack_require__(362);
+__webpack_require__(368);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -669,7 +669,7 @@ module.exports = ReactDOM;
 
 /***/ }),
 
-/***/ 312:
+/***/ 318:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -682,7 +682,7 @@ exports.default = "\nimport Highcharts from 'highcharts/js/highcharts'; // Style
 
 /***/ }),
 
-/***/ 313:
+/***/ 319:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -696,7 +696,7 @@ var _reactDom = __webpack_require__(29);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _App = __webpack_require__(260);
+var _App = __webpack_require__(262);
 
 var _App2 = _interopRequireDefault(_App);
 
@@ -706,7 +706,7 @@ _reactDom2.default.render(_react2.default.createElement(_App2.default, null), do
 
 /***/ }),
 
-/***/ 345:
+/***/ 351:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(116)(undefined);
@@ -721,13 +721,13 @@ exports.push([module.i, ".highcharts-title, .highcharts-subtitle {\n  text-trans
 
 /***/ }),
 
-/***/ 362:
+/***/ 368:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(345);
+var content = __webpack_require__(351);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -767,7 +767,7 @@ module.exports = Highcharts;
 
 /***/ }),
 
-/***/ 56:
+/***/ 49:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -777,7 +777,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _reactPrism = __webpack_require__(64);
+var _reactPrism = __webpack_require__(58);
 
 exports.default = function (_ref) {
   var name = _ref.name,
@@ -804,7 +804,7 @@ exports.default = function (_ref) {
 
 /***/ }),
 
-/***/ 58:
+/***/ 52:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -847,7 +847,7 @@ module.exports = emptyFunction;
 
 /***/ }),
 
-/***/ 59:
+/***/ 53:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -907,7 +907,7 @@ module.exports = invariant;
 
 /***/ }),
 
-/***/ 60:
+/***/ 54:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -920,9 +920,9 @@ module.exports = invariant;
 
 
 
-var emptyFunction = __webpack_require__(58);
-var invariant = __webpack_require__(59);
-var ReactPropTypesSecret = __webpack_require__(62);
+var emptyFunction = __webpack_require__(52);
+var invariant = __webpack_require__(53);
+var ReactPropTypesSecret = __webpack_require__(56);
 
 module.exports = function() {
   function shim(props, propName, componentName, location, propFullName, secret) {
@@ -973,7 +973,7 @@ module.exports = function() {
 
 /***/ }),
 
-/***/ 61:
+/***/ 55:
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -1002,13 +1002,13 @@ if (false) {
 } else {
   // By explicitly using `prop-types` you are opting into new production behavior.
   // http://fb.me/prop-types-in-prod
-  module.exports = __webpack_require__(60)();
+  module.exports = __webpack_require__(54)();
 }
 
 
 /***/ }),
 
-/***/ 62:
+/***/ 56:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1028,7 +1028,7 @@ module.exports = ReactPropTypesSecret;
 
 /***/ }),
 
-/***/ 63:
+/***/ 57:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1059,7 +1059,7 @@ var _react = __webpack_require__(12)
 
 var _react2 = _interopRequireDefault(_react)
 
-var _propTypes = __webpack_require__(61)
+var _propTypes = __webpack_require__(55)
 
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : { default: obj }
@@ -1192,7 +1192,7 @@ exports.default = PrismCode
 
 /***/ }),
 
-/***/ 64:
+/***/ 58:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1202,7 +1202,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _PrismCode = __webpack_require__(63);
+var _PrismCode = __webpack_require__(57);
 
 Object.defineProperty(exports, "PrismCode", {
   enumerable: true,
