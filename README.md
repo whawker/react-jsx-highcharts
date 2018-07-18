@@ -10,11 +10,9 @@ Unlike other React Highcharts wrapper libraries, **React JSX Highcharts** is des
 
 Other Highcharts wrappers completely destroy and recreate the chart when the configuration options change, which is *very* wasteful and inefficient.
 
-React JSX Highcharts uses a different approach, by providing React components for each Highcharts component, we can observe exactly which prop has changed and call the optimal Highcharts method behind the scenes.
+React JSX Highcharts uses a different approach. By providing React components for each Highcharts component, we can observe exactly which prop has changed and call the optimal Highcharts method behind the scenes. For example, if the `data` prop were to change on a `<Series />` component, React JSX Highcharts can follow Highcharts best practices and use the `setData` method rather than the more expensive `update`.
 
-For example, if the `data` prop were to change on a `<Series />` component, React JSX Highcharts can follow Highcharts best practices and use the `setData` method rather than the more expensive `update`.
-
-React JSX Highcharts also enables you to write your *own* Highcharts components, via it's powerful higher order components.
+React JSX Highcharts also enables you to write your *own* Highcharts components, via its powerful higher order components.
 
 ## Installation
 
@@ -168,7 +166,7 @@ This project aims to hide the complexity of Highcharts from the React applicatio
 
 It also aims to use best React and Highcharts practices where possible - for example if the `data` prop of a Series were to change React JSX Highcharts uses the [`Series.prototype.setData`](http://api.highcharts.com/highstock/Series.setData) method of Highcharts which is much less expensive than `update`.
 
-Additionally we avoid passing large JSON configuration objects as props, as this leads to painful debugging when trying to work out why your component did or did not re-render, this also helps as an abstraction over the complexity as mentioned above.
+Additionally we avoid passing large JSON configuration objects as props, as this leads to painful debugging when trying to work out why your component did or did not re-render. This also helps as an abstraction over the complexity as mentioned above.
 
 ## Technical approach
 
@@ -193,7 +191,7 @@ import Highcharts from 'highcharts/highstock';
 
 **Highcharts error #17**
 
-You likely need to add an extra Highcharts module to support the requested series type, this is usually Highcharts more.
+You likely need to add an extra Highcharts module to support the requested series type. This is usually `highcharts-more`.
 
 ```js
 import Highcharts from 'highcharts';
@@ -219,4 +217,4 @@ As Objects and Arrays are passed by reference, React thought your component prop
 
 **My stock chart isn't rendering the Navigator and RangeSelector components**
 
-You're probably using a `<HighchartsChart />` at the top level, rather than a `<HighchartsStockChart />`, otherwise please post an issue.
+You're probably using a `<HighchartsChart />` at the top level, rather than a `<HighchartsStockChart />`. Otherwise, please post an issue.
