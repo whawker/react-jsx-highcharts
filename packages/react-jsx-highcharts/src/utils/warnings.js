@@ -12,30 +12,61 @@ const descNewLine = 'font-size: 1px; margin-right: 100%;';
 const moduleToImportPath = {
   more: 'highcharts-more',
   threeD: 'highcharts-3d',
+  bullet: 'modules/bullet',
   funnel: 'modules/funnel',
+  histogram: 'modules/histogram-bellcurve',
+  pareto: 'modules/pareto',
   sankey: 'modules/sankey',
   solidgauge: 'modules/solid-gauge',
   streamgraph: 'modules/streamgraph',
-  treemap: 'modules/treemap'
+  sunburst: 'modules/sunburst',
+  tilemap: 'modules/tilemap',
+  treemap: 'modules/treemap',
+  variablepie: 'modules/variable-pie',
+  variwide: 'modules/variwide',
+  vector: 'modules/vector',
+  windbarb: 'modules/windbarb',
+  xrange: 'modules/xrange'
 };
 
 const moduleToVarName = {
   more: 'addHighchartsMore',
   threeD: 'addHighcharts3DModule',
+  bullet: 'addBulletModule',
   funnel: 'addFunnelModule',
+  histogram: 'addHistogramBellCurveModule',
+  pareto: 'addParetoModule',
   sankey: 'addSankeyModule',
   solidgauge: 'addSolidGaugeModule',
   streamgraph: 'addStreamGraphModule',
-  treemap: 'addTreemapModule'
+  sunburst: 'addSunburstModule',
+  tilemap: 'addTilemapModule',
+  treemap: 'addTreemapModule',
+  variablepie: 'addVariablePieModule',
+  variwide: 'addVariwideModule',
+  vector: 'addVectorModule',
+  windbarb: 'addWindBarbModule',
+  xrange: 'addXRangeModule'
 };
 
 const moduleToSeriesTypes = {
   more: ['arearange', 'areasplinerange', 'boxplot', 'bubble', 'columnrange', 'errorbar', 'polygon', 'waterfall', 'gauge'],
+  threeD: ['scatter3d'],
+  bullet: ['bullet'],
   funnel: ['funnel', 'pyramid'],
+  histogram: ['histogram', 'bellcurve'],
+  pareto: ['pareto'],
   sankey: ['sankey'],
   solidgauge: ['solidgauge'],
   streamgraph: ['streamgraph'],
-  treemap: ['treemap']
+  sunburst: ['sunburst'],
+  tilemap: ['tilemap'],
+  treemap: ['treemap'],
+  variablepie: ['variablepie'],
+  variwide: ['variwide'],
+  vector: ['vector'],
+  windbarb: ['windbarb'],
+  xrange: ['xrange']
 };
 
 const findModule = seriesType => {
