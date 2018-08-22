@@ -64,17 +64,19 @@ var example =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 298);
 /******/ })
 /************************************************************************/
-/******/ ([
-/* 0 */
+/******/ ({
+
+/***/ 12:
 /***/ (function(module, exports) {
 
 module.exports = React;
 
 /***/ }),
-/* 1 */
+
+/***/ 254:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -84,15 +86,15 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _react = __webpack_require__(0);
+var _react = __webpack_require__(12);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _highmaps = __webpack_require__(4);
+var _highmaps = __webpack_require__(44);
 
 var _highmaps2 = _interopRequireDefault(_highmaps);
 
-var _reactJsxHighmaps = __webpack_require__(5);
+var _reactJsxHighmaps = __webpack_require__(43);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -150,27 +152,29 @@ var App = function App() {
 exports.default = (0, _reactJsxHighmaps.withHighcharts)(App, _highmaps2.default);
 
 /***/ }),
-/* 2 */
+
+/***/ 29:
 /***/ (function(module, exports) {
 
 module.exports = ReactDOM;
 
 /***/ }),
-/* 3 */
+
+/***/ 298:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _react = __webpack_require__(0);
+var _react = __webpack_require__(12);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(2);
+var _reactDom = __webpack_require__(29);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _App = __webpack_require__(1);
+var _App = __webpack_require__(254);
 
 var _App2 = _interopRequireDefault(_App);
 
@@ -179,16 +183,19 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 _reactDom2.default.render(_react2.default.createElement(_App2.default, null), document.getElementById('root'));
 
 /***/ }),
-/* 4 */
-/***/ (function(module, exports) {
 
-module.exports = Highcharts;
-
-/***/ }),
-/* 5 */
+/***/ 43:
 /***/ (function(module, exports) {
 
 module.exports = ReactHighcharts;
 
+/***/ }),
+
+/***/ 44:
+/***/ (function(module, exports) {
+
+module.exports = Highcharts;
+
 /***/ })
-/******/ ]);
+
+/******/ });

@@ -42,14 +42,14 @@ const highstockExamples = [
 ];
 
 const highmapsExamples = [
-  { name: 'Map' }
+  { name: 'Map', additional: ['promise-polyfill', 'fetch-polyfill'] }
 ];
 
 const examples = [].concat(
   highchartsExamples.map(({ name, additional = [] }) => ({ name, additional: ['highcharts', 'react-jsx-highcharts'].concat(additional) })),
   highchartsStyledExamples.map(({ name, additional = [] }) => ({ name, additional: ['highcharts/js/highcharts', 'react-jsx-highcharts'].concat(additional) })),
   highstockExamples.map(({ name, additional = [] }) => ({ name, additional: ['highcharts/highstock', 'react-jsx-highstock'].concat(additional) })),
-  highmapsExamples.map(({ name, additional = [] }) => ({ name, additional: ['highcharts/maps/highmaps', 'react-jsx-highmaps'].concat(additional) }))
+  highmapsExamples.map(({ name, additional = [] }) => ({ name, additional: ['highcharts/highmaps', 'react-jsx-highmaps'].concat(additional) }))
 );
 
 const exampleNames = examples.map(e => e.name);
@@ -57,15 +57,16 @@ const exampleNames = examples.map(e => e.name);
 const externals = {
   // 'react-jsx-highcharts': '../../packages/react-jsx-highcharts/dist/react-jsx-highcharts.min.js',
   // 'react-jsx-highstock':  '../../packages/react-jsx-highstock/dist/react-jsx-highstock.min.js',
-  'react-jsx-highmaps':  '../../packages/react-jsx-highmaps/dist/react-jsx-highmaps.min.js',
+  // 'react-jsx-highmaps':  '../../packages/react-jsx-highmaps/dist/react-jsx-highmaps.min.js',
   'react-jsx-highcharts': 'https://unpkg.com/react-jsx-highcharts@^3/dist/react-jsx-highcharts.min.js',
   'react-jsx-highstock':  'https://unpkg.com/react-jsx-highstock@^3/dist/react-jsx-highstock.min.js',
+  'react-jsx-highmaps':   'https://unpkg.com/react-jsx-highmaps@0.1.0-beta.2/dist/react-jsx-highmaps.min.js',
   'react':                'https://unpkg.com/react@^16/umd/react.production.min.js',
   'react-dom':            'https://unpkg.com/react-dom@^16/umd/react-dom.production.min.js',
   'highcharts':           'https://code.highcharts.com/6.1.1/highcharts.js',
   'highcharts/js/highcharts': 'https://code.highcharts.com/6.1.1/js/highcharts.js',
   'highcharts/highstock': 'https://code.highcharts.com/stock/6.1.1/highstock.js',
-  'highcharts/maps/highmaps': 'https://code.highcharts.com/maps/6.1.1/highmaps.js',
+  'highcharts/highmaps':  'https://code.highcharts.com/maps/6.1.1/highmaps.js',
   'highcharts-more':      'https://code.highcharts.com/6.1.1/highcharts-more.js',
   'highcharts-funnel':    'https://code.highcharts.com/6.1.1/modules/funnel.js',
   'highcharts-treemap':   'https://code.highcharts.com/6.1.1/modules/treemap.js',
@@ -102,7 +103,7 @@ module.exports = {
     'highcharts': 'Highcharts',
     'highcharts/js/highcharts': 'Highcharts',
     'highcharts/highstock': 'Highcharts',
-    'highcharts/maps/highmaps': 'Highcharts',
+    'highcharts/highmaps': 'Highcharts',
     'moment': 'moment',
     'react-day-picker': 'DayPicker',
     're-resizable': 'window[\'re-resizable\']',

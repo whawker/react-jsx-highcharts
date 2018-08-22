@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Highcharts from 'highcharts/maps/highmaps';
+import Highcharts from 'highcharts/highmaps';
 import {
   HighchartsMapChart, withHighcharts, MapLoader, XAxis, YAxis, Title, Subtitle, Tooltip, MapSeries, MapNavigation, Credits
 } from 'react-jsx-highmaps';
