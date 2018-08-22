@@ -13,3 +13,6 @@ export { default as MapBubbleSeries } from './components/MapBubbleSeries';
 export { default as MapLineSeries } from './components/MapLineSeries';
 export { default as MapPointSeries } from './components/MapPointSeries';
 export { default as MapSeries } from './components/MapSeries';
+
+// Helpers
+export { default as MapLoader } from './components/MapLoader';

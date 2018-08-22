@@ -42,7 +42,7 @@ const highstockExamples = [
 ];
 
 const highmapsExamples = [
-  { name: 'Map', additional: ['custom/europe'] }
+  { name: 'Map' }
 ];
 
 const examples = [].concat(
@@ -83,8 +83,7 @@ const externals = {
   're-resizable':         'https://unpkg.com/re-resizable@~4.3/lib/re-resizable.umd.js',
   'promise-polyfill':     'https://www.promisejs.org/polyfills/promise-6.1.0.js',
   'fetch-polyfill':       'https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.min.js',
-  'immutable':            'https://cdnjs.cloudflare.com/ajax/libs/immutable/3.8.1/immutable.min.js',
-  'custom/europe':        'https://code.highcharts.com/mapdata/custom/europe.js'
+  'immutable':            'https://cdnjs.cloudflare.com/ajax/libs/immutable/3.8.1/immutable.min.js'
 };
 
 module.exports = {

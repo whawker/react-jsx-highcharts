@@ -12,7 +12,7 @@ class HighchartsMapChart extends Component {
   };
 
   getGeoJSON = map => {
-    if (!map) return
+    if (!map) return;
     return (typeof map === 'string') ? this.props.getHighcharts().maps[map] : map;
   }
 

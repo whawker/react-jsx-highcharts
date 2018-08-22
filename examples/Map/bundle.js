@@ -106,42 +106,44 @@ var App = function App() {
   return _react2.default.createElement(
     'div',
     { className: 'app' },
-    _react2.default.createElement(
-      _reactJsxHighmaps.HighchartsMapChart,
-      { map: 'custom/europe' },
-      _react2.default.createElement(
-        _reactJsxHighmaps.Title,
-        null,
-        'Nordic countries'
-      ),
-      _react2.default.createElement(
-        _reactJsxHighmaps.Subtitle,
-        null,
-        'Demo of drawing all areas in the map, only highlighting partial data'
-      ),
-      _react2.default.createElement(_reactJsxHighmaps.XAxis, null),
-      _react2.default.createElement(
-        _reactJsxHighmaps.YAxis,
-        null,
-        _react2.default.createElement(_reactJsxHighmaps.MapSeries, {
-          name: 'Area',
-          data: [['is', 1], ['no', 1], ['se', 1], ['dk', 1], ['fi', 1]],
-          dataLabels: {
-            enabled: true,
-            color: '#FFFFFF',
-            formatter: labelFormatter
-          }
-        })
-      ),
-      _react2.default.createElement(
-        _reactJsxHighmaps.MapNavigation,
-        null,
-        _react2.default.createElement(_reactJsxHighmaps.MapNavigation.ZoomIn, null),
-        _react2.default.createElement(_reactJsxHighmaps.MapNavigation.ZoomOut, null)
-      ),
-      _react2.default.createElement(_reactJsxHighmaps.Tooltip, null),
-      _react2.default.createElement(_reactJsxHighmaps.Credits, null)
-    )
+    _react2.default.createElement(_reactJsxHighmaps.MapLoader, { url: 'https://code.highcharts.com/mapdata/custom/europe.geo.json', render: function render(geojson) {
+        return _react2.default.createElement(
+          _reactJsxHighmaps.HighchartsMapChart,
+          { map: geojson },
+          _react2.default.createElement(
+            _reactJsxHighmaps.Title,
+            null,
+            'Nordic countries'
+          ),
+          _react2.default.createElement(
+            _reactJsxHighmaps.Subtitle,
+            null,
+            'Demo of drawing all areas in the map, only highlighting partial data'
+          ),
+          _react2.default.createElement(_reactJsxHighmaps.XAxis, null),
+          _react2.default.createElement(
+            _reactJsxHighmaps.YAxis,
+            null,
+            _react2.default.createElement(_reactJsxHighmaps.MapSeries, {
+              name: 'Area',
+              data: [['is', 1], ['no', 1], ['se', 1], ['dk', 1], ['fi', 1]],
+              dataLabels: {
+                enabled: true,
+                color: '#FFFFFF',
+                formatter: labelFormatter
+              }
+            })
+          ),
+          _react2.default.createElement(
+            _reactJsxHighmaps.MapNavigation,
+            null,
+            _react2.default.createElement(_reactJsxHighmaps.MapNavigation.ZoomIn, null),
+            _react2.default.createElement(_reactJsxHighmaps.MapNavigation.ZoomOut, null)
+          ),
+          _react2.default.createElement(_reactJsxHighmaps.Tooltip, null),
+          _react2.default.createElement(_reactJsxHighmaps.Credits, null)
+        );
+      } })
   );
 };
 
