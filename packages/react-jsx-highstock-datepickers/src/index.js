@@ -58,6 +58,10 @@ class DateRangePickers extends Component {
       fromLabel,
       toLabel
     };
+    //For input field value
+		moment.locale(locale, {
+			...langOpts
+		});
   }
 
   componentDidMount () {
