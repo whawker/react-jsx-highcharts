@@ -141,15 +141,15 @@ class DateRangePickers extends Component {
           value={fromDate}
           onDayChange={this.handleFromDateChange(onChangeFromDate)}
           format={dayFormat}
-          {...datePickerProps}
-          {...localisationOpts} />
+          dayPickerProps={{ ...datePickerProps, ...localisationOpts }}
+        />
         <span className={`${className}__label ${className}__to-label`}>{toLabel}: </span>
         <DayPickerInput
           value={toDate}
           onDayChange={this.handleToDateChange(onChangeToDate)}
           format={dayFormat}
-          {...datePickerProps}
-          {...localisationOpts} />
+          dayPickerProps={{ ...datePickerProps, ...localisationOpts }}
+        />
       </div>
     );
   }
