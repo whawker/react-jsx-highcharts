@@ -4,7 +4,6 @@ const fs = require('fs');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 const isProd = (process.env.NODE_ENV === 'production');
-const babelSettings = JSON.parse(fs.readFileSync('.babelrc'));
 
 const webpackConfig = {
   mode: 'development',
@@ -68,8 +67,7 @@ const webpackConfig = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        exclude: /node_modules/,
-        query: babelSettings
+        exclude: /node_modules/
       },
       {
         test: /\.css$/,
