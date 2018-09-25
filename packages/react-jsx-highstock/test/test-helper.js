@@ -1,5 +1,5 @@
-require('babel-core/register')({
-  ignore: /node_modules\/(?!react-jsx-highcharts)/
+require('@babel/register')({
+  ignore: [/node_modules\/(?!react-jsx-highcharts)/]
 });
 import { JSDOM } from 'jsdom';
 import chai, { expect } from 'chai';
