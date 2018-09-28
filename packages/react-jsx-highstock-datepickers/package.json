@@ -9,7 +9,8 @@
   ],
   "scripts": {
     "build": "cross-env NODE_ENV=development ./node_modules/.bin/webpack",
-    "build:prod": "cross-env NODE_ENV=production ./node_modules/.bin/webpack"
+    "build:prod": "cross-env NODE_ENV=production ./node_modules/.bin/webpack",
+    "lint": "./node_modules/.bin/eslint src"
   },
   "repository": {
     "type": "git",
@@ -41,10 +42,18 @@
     "@babel/preset-react": "^7.0.0",
     "@babel/register": "^7.0.0",
     "@babel/runtime": "^7.0.0",
+    "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.0",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.8",
     "cross-env": "^5.0.5",
     "css-loader": "^0.28.11",
+    "moment": "^2.0.0",
+    "prop-types": "^15.0.0",
+    "react": "^16.0.0",
+    "react-jsx-highstock": "^3.0.0",
+    "eslint": "^5.6.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-react": "^7.11.1",
     "mini-css-extract-plugin": "^0.4.0",
     "null-loader": "^0.1.1",
     "webpack": "^4.19.1",

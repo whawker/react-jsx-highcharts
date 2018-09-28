@@ -1,0 +1,16 @@
+{
+  "env": {
+    "node": true,
+    "mocha": true
+  },
+  "rules": {
+    "no-unused-vars": ["warn"]
+  },
+  "globals": {
+    "expect": true,
+    "mount": true,
+    "shallow": true,
+    "render": true,
+    "sinon": true
+  }
+}

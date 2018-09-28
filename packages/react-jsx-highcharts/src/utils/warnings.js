@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import findKey from 'lodash/findKey';
 
 const titleCSS = 'color:red; font-size:20px; font-weight: bold;';

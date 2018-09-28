@@ -1,4 +1,4 @@
-import React, { Component, Children, cloneElement, isValidElement } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import uuid from 'uuid/v4';
 import isFunction from 'lodash/isFunction';
