@@ -1,0 +1,17 @@
+language: node_js
+node_js:
+  - "lts/*"
+cache:
+  directories:
+    - "packages/react-jsx-highcharts/node_modules"
+    - "packages/react-jsx-highstock/node_modules"
+env:
+  - PKG_DIR=packages/react-jsx-highcharts
+  - PKG_DIR=packages/react-jsx-highstock
+before_install:
+  - cd $PKG_DIR
+script:
+  - npm test
+  - npm run lint
+  - npm run build:prod
+  - npm run build:es
