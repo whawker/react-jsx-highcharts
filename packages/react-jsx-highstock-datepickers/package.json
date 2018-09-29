@@ -10,6 +10,7 @@
   "scripts": {
     "build": "cross-env NODE_ENV=development ./node_modules/.bin/webpack",
     "build:prod": "cross-env NODE_ENV=production ./node_modules/.bin/webpack",
+    "test": "echo linting only",
     "lint": "./node_modules/.bin/eslint src"
   },
   "repository": {
