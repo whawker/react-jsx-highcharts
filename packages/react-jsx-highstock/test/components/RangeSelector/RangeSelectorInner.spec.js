@@ -16,7 +16,7 @@ describe('<RangeSelectorInner />', function ()  {
     const { axisStubs, getAxis } = createMockProvidedAxis({ object: this.axisObject });
     this.axisStubs = axisStubs;
 
-    sandbox = sinon.sandbox.create();
+    sandbox = sinon.createSandbox();
     sandbox.stub(Highcharts, 'fireEvent');
     sandbox.stub(Highcharts, 'addEvent');
 

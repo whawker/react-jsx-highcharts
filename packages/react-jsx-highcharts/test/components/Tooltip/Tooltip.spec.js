@@ -6,7 +6,7 @@ describe('<Tooltip />', function ()  {
   let sandbox;
 
   beforeEach(function () {
-    sandbox = sinon.sandbox.create();
+    sandbox = sinon.createSandbox();
     sandbox.stub(Highcharts, 'Tooltip');
     sandbox.stub(Highcharts, 'addEvent');
 
