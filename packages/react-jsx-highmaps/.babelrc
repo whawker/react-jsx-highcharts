@@ -1,18 +1,19 @@
 {
-  "plugins": ["lodash", "transform-runtime", "transform-class-properties", "transform-object-rest-spread"],
+  "plugins": [
+    "@babel/plugin-proposal-class-properties"
+  ],
   "presets": [
-    ["env", { "modules": false }],
-    "react"
+    ["@babel/env", { "modules": false }],
+    "@babel/react"
   ],
   "env": {
     "test": {
-      "plugins": ["transform-es2015-modules-commonjs"]
+      "plugins": ["@babel/transform-modules-commonjs"]
     },
     "production": {
-      "plugins": ["transform-react-remove-prop-types"]
-    },
-    "es": {
-      "plugins": ["./build/use-lodash-es", "transform-react-remove-prop-types"]
+      "plugins": ["transform-react-remove-prop-types",
+        ["@babel/transform-runtime", { "useESModules": true }]
+      ]
     }
   }
 }
