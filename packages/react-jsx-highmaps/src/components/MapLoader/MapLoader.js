@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 class MapLoader extends Component {
   static propTypes = {
     url: PropTypes.string.isRequired,
-    render: PropTypes.func.isRequired,
+    children: PropTypes.func.isRequired,
     renderError: PropTypes.func.isRequired,
     renderLoading: PropTypes.func.isRequired
   };
@@ -47,11 +47,11 @@ class MapLoader extends Component {
   }
 
   render () {
-    const { render, renderError, renderLoading } = this.props;
+    const { children, renderError, renderLoading } = this.props;
     const { data, error } = this.state;
 
     if (data) {
-      return render(data);
+      return children(data);
     } else if (error) {
       return renderError(error);
     } else {
