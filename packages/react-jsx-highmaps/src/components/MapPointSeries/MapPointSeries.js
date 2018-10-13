@@ -9,7 +9,7 @@ class MapPointSeries extends Component {
 
   render () {
     return (
-      <Series {...this.props} type="mappoint" />
+      <Series {...this.props} type="mappoint" axisId="yAxis" />
     );
   }
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import { YAxis } from 'react-jsx-highcharts';
 
 const MapYAxis = ({ ...props }) => (
-  <YAxis {...props} />
+  <YAxis {...props} id="yAxis" dynamicAxis={false} />
 );
 
 MapYAxis.defaultProps = {

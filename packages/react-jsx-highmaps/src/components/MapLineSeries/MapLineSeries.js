@@ -9,7 +9,7 @@ class MapLineSeries extends Component {
 
   render () {
     return (
-      <Series {...this.props} type="mapline" />
+      <Series {...this.props} type="mapline" axisId="yAxis" />
     );
   }
 }

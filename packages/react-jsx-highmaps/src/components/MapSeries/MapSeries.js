@@ -9,7 +9,7 @@ class MapSeries extends Component {
 
   render () {
     return (
-      <Series {...this.props} type="map" />
+      <Series {...this.props} type="map" axisId="yAxis" />
     );
   }
 }

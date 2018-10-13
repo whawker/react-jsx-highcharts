@@ -9,7 +9,7 @@ class MapBubbleSeries extends Component {
 
   render () {
     return (
-      <Series {...this.props} type="mapbubble" />
+      <Series {...this.props} type="mapbubble" axisId="yAxis" />
     );
   }
 }

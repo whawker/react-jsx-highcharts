@@ -34,6 +34,8 @@ class HighchartsMapChart extends Component {
       <BaseChart
         chart={{ ...chart, map: geojson }}
         mapNavigation={{ enabled: false }}
+        xAxis={{ id: 'xAxis' }}
+        yAxis={{ id: 'yAxis' }}
         {...rest}
         callback={this.callback(geojson)}
         chartCreationFunc={this.props.getHighcharts().mapChart}
