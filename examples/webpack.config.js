@@ -42,7 +42,7 @@ const highstockExamples = [
 ];
 
 const highmapsExamples = [
-  { name: 'Map', additional: ['promise-polyfill', 'fetch-polyfill'] }
+  { name: 'Map', additional: ['promise-polyfill', 'fetch-polyfill', 'react-request'] }
 ];
 
 const examples = [].concat(
@@ -60,7 +60,7 @@ const externals = {
   // 'react-jsx-highmaps':  '../../packages/react-jsx-highmaps/dist/react-jsx-highmaps.min.js',
   'react-jsx-highcharts': 'https://unpkg.com/react-jsx-highcharts@^3/dist/react-jsx-highcharts.min.js',
   'react-jsx-highstock':  'https://unpkg.com/react-jsx-highstock@^3/dist/react-jsx-highstock.min.js',
-  'react-jsx-highmaps':   'https://unpkg.com/react-jsx-highmaps@0.1.0-beta.2/dist/react-jsx-highmaps.min.js',
+  'react-jsx-highmaps':   'https://unpkg.com/react-jsx-highmaps@0.1.0-beta.4/dist/react-jsx-highmaps.min.js',
   'react':                'https://unpkg.com/react@^16/umd/react.production.min.js',
   'react-dom':            'https://unpkg.com/react-dom@^16/umd/react-dom.production.min.js',
   'highcharts':           'https://code.highcharts.com/6.1.1/highcharts.js',
@@ -84,7 +84,8 @@ const externals = {
   're-resizable':         'https://unpkg.com/re-resizable@~4.3/lib/re-resizable.umd.js',
   'promise-polyfill':     'https://www.promisejs.org/polyfills/promise-6.1.0.js',
   'fetch-polyfill':       'https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.min.js',
-  'immutable':            'https://cdnjs.cloudflare.com/ajax/libs/immutable/3.8.1/immutable.min.js'
+  'immutable':            'https://cdnjs.cloudflare.com/ajax/libs/immutable/3.8.1/immutable.min.js',
+  'react-request':        'https://unpkg.com/react-request@^3/dist/react-request.min.js'
 };
 
 module.exports = {
@@ -108,6 +109,7 @@ module.exports = {
     'react-day-picker': 'DayPicker',
     're-resizable': 'window[\'re-resizable\']',
     'immutable': 'Immutable',
+    'react-request': 'ReactRequest',
     'react-jsx-highcharts': 'ReactHighcharts',
     'react-jsx-highstock': 'ReactHighcharts',
     'react-jsx-highmaps': 'ReactHighcharts'

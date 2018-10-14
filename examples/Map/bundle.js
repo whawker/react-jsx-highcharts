@@ -90,6 +90,8 @@ var _react = __webpack_require__(12);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactRequest = __webpack_require__(373);
+
 var _highmaps = __webpack_require__(44);
 
 var _highmaps2 = _interopRequireDefault(_highmaps);
@@ -108,24 +110,44 @@ var App = function App() {
   return _react2.default.createElement(
     'div',
     { className: 'app' },
-    _react2.default.createElement(_reactJsxHighmaps.MapLoader, { url: 'https://code.highcharts.com/mapdata/custom/europe.geo.json', render: function render(geojson) {
-        return _react2.default.createElement(
-          _reactJsxHighmaps.HighchartsMapChart,
-          { map: geojson },
-          _react2.default.createElement(
-            _reactJsxHighmaps.Title,
+    _react2.default.createElement(
+      _reactRequest.Fetch,
+      { url: 'https://code.highcharts.com/mapdata/custom/europe.geo.json' },
+      function (_ref) {
+        var fetching = _ref.fetching,
+            failed = _ref.failed,
+            data = _ref.data;
+
+        if (fetching) {
+          return _react2.default.createElement(
+            'div',
             null,
-            'Nordic countries'
-          ),
-          _react2.default.createElement(
-            _reactJsxHighmaps.Subtitle,
+            'Loading\u2026'
+          );
+        }
+
+        if (failed) {
+          return _react2.default.createElement(
+            'div',
             null,
-            'Demo of drawing all areas in the map, only highlighting partial data'
-          ),
-          _react2.default.createElement(_reactJsxHighmaps.XAxis, null),
-          _react2.default.createElement(
-            _reactJsxHighmaps.YAxis,
-            null,
+            'Failed to load map.'
+          );
+        }
+
+        if (data) {
+          return _react2.default.createElement(
+            _reactJsxHighmaps.HighchartsMapChart,
+            { map: data },
+            _react2.default.createElement(
+              _reactJsxHighmaps.Title,
+              null,
+              'Nordic countries'
+            ),
+            _react2.default.createElement(
+              _reactJsxHighmaps.Subtitle,
+              null,
+              'Demo of drawing all areas in the map, only highlighting partial data'
+            ),
             _react2.default.createElement(_reactJsxHighmaps.MapSeries, {
               name: 'Area',
               data: [['is', 1], ['no', 1], ['se', 1], ['dk', 1], ['fi', 1]],
@@ -134,18 +156,22 @@ var App = function App() {
                 color: '#FFFFFF',
                 formatter: labelFormatter
               }
-            })
-          ),
-          _react2.default.createElement(
-            _reactJsxHighmaps.MapNavigation,
-            null,
-            _react2.default.createElement(_reactJsxHighmaps.MapNavigation.ZoomIn, null),
-            _react2.default.createElement(_reactJsxHighmaps.MapNavigation.ZoomOut, null)
-          ),
-          _react2.default.createElement(_reactJsxHighmaps.Tooltip, null),
-          _react2.default.createElement(_reactJsxHighmaps.Credits, null)
-        );
-      } })
+            }),
+            _react2.default.createElement(
+              _reactJsxHighmaps.MapNavigation,
+              null,
+              _react2.default.createElement(_reactJsxHighmaps.MapNavigation.ZoomIn, null),
+              _react2.default.createElement(_reactJsxHighmaps.MapNavigation.ZoomOut, null)
+            ),
+            _react2.default.createElement(_reactJsxHighmaps.Tooltip, null),
+            _react2.default.createElement(_reactJsxHighmaps.Credits, null),
+            _react2.default.createElement(_reactJsxHighmaps.Debug, null)
+          );
+        }
+
+        return null;
+      }
+    )
   );
 };
 
@@ -181,6 +207,13 @@ var _App2 = _interopRequireDefault(_App);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 _reactDom2.default.render(_react2.default.createElement(_App2.default, null), document.getElementById('root'));
+
+/***/ }),
+
+/***/ 373:
+/***/ (function(module, exports) {
+
+module.exports = ReactRequest;
 
 /***/ }),
 
