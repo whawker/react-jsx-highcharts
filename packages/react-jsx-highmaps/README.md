@@ -81,45 +81,51 @@ title: {
 ## Example
 
 ```jsx
-// Import Highmaps from Highcharts
-// import Highcharts from 'highcharts/highmaps'
+// import Highcharts from 'highcharts/highmaps' - Import Highmaps from Highcharts
+// import { Fetch } from 'react-request'
 
 render () {
   return (
-    <HighchartsMapChart map="custom/europe">
-      <Title>Nordic countries</Title>
+    <Fetch url="https://code.highcharts.com/mapdata/custom/europe.geo.json">
+      {({ fetching, failed, data }) => {
+        if (fetching) return <div>Loading…</div>
+        if (failed) return <div>Failed to load map.</div>
 
-      <Subtitle>Demo of drawing all areas in the map, only highlighting partial data</Subtitle>
+        if (data) {
+          return (
+            <HighchartsMapChart map={data}>
+              <Title>Nordic countries</Title>
 
-      <XAxis />
+              <MapSeries
+                data={[
+                  ['is', 1],
+                  ['no', 1],
+                  ['se', 1],
+                  ['dk', 1],
+                  ['fi', 1]
+                ]}
+                dataLabels={{
+                  enabled: true,
+                  color: '#FFFFFF',
+                  format: '{point.name}'
+                }}
+              />
 
-      <YAxis >
-        <MapSeries
-          name="Area"
-          data={[
-            ['is', 1],
-            ['no', 1],
-            ['se', 1],
-            ['dk', 1],
-            ['fi', 1]
-          ]}
-          dataLabels={{
-            enabled: true,
-            color: '#FFFFFF',
-            formatter: labelFormatter
-          }}
-        />
-      </YAxis>
+              <MapNavigation>
+                <MapNavigation.ZoomIn/>
+                <MapNavigation.ZoomOut/>
+              </MapNavigation>
 
-      <MapNavigation>
-        <MapNavigation.ZoomIn />
-        <MapNavigation.ZoomOut />
-      </MapNavigation>
+              <Tooltip/>
 
-      <Tooltip />
+              <Credits/>
+            </HighchartsMapChart>
+          )
+        }
 
-      <Credits />
-    </HighchartsMapChart>
+        return null
+      }}
+    </Fetch>
   );
 }
 
