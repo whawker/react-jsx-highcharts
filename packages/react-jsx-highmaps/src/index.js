@@ -1,4 +1,19 @@
-export * from 'react-jsx-highcharts';
+export {
+  Chart,
+  Credits,
+  Debug,
+  Loading,
+  Legend,
+  Series,
+  Subtitle,
+  Title,
+  Tooltip,
+  provideHighcharts,
+  provideChart,
+  provideAxis,
+  provideSeries,
+  withHighcharts,
+} from 'react-jsx-highcharts';
 
 // Charts
 export { default as HighchartsMapChart } from './components/HighchartsMapChart';
