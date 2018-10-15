@@ -16,7 +16,8 @@ class HighchartsMapChart extends Component {
     return (typeof map === 'string') ? this.props.getHighcharts().maps[map] : map;
   }
 
-  callback = geojson => chart => {
+  callback = chart => {
+    const geojson = this.geojson;
     if (geojson) {
       const format = this.props.getHighcharts().format;
       const { mapText, mapTextFull } = chart.options.credits;
@@ -28,16 +29,16 @@ class HighchartsMapChart extends Component {
 
   render () {
     const { map, chart, ...rest } = this.props;
-    const geojson = this.getGeoJSON(map);
+    this.geojson = this.getGeoJSON(map);
 
     return (
       <BaseChart
-        chart={{ ...chart, map: geojson }}
+        chart={{ ...chart, map: this.geojson }}
         mapNavigation={{ enabled: false }}
         xAxis={{ id: 'xAxis' }}
         yAxis={{ id: 'yAxis' }}
         {...rest}
-        callback={this.callback(geojson)}
+        callback={this.callback}
         chartCreationFunc={this.props.getHighcharts().mapChart}
         chartType="mapChart" />
     );
