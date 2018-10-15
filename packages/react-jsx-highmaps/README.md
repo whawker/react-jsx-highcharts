@@ -46,6 +46,38 @@ There are **two** exceptions to the above;
 
 Where Highcharts **events** are concerned - instead of passing `events` as an object, we use the React convention *onEventName*.
 
+#### Example
+```jsx
+
+<MapBubbleSeries id="my-series" data={myData} onHide={this.handleHide} onShow={this.handleShow} />
+```
+This would correspond to the Highcharts configuration
+```js
+series: [{
+  type: 'mapbubble',
+  id: 'my-series',
+  data: myData,
+  events: { hide: this.handleHide, show: this.handleShow }
+}]
+```
+
+#### Exception 2
+
+`text` configuration options are passed as a React child
+
+#### Example
+
+```jsx
+<Title>Some Text Here</Title>
+```
+
+This would correspond to the Highcharts configuration
+```js
+title: {
+  text: 'Some Text Here'
+}
+```
+
 ## Example
 
 ```jsx
