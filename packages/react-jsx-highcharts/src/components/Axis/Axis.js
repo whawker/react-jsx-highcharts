@@ -35,7 +35,7 @@ class Axis extends Component {
   }
 
   componentDidMount () {
-    const { dynamicAxis, isX, getChart } = this.props;
+    const { id, dynamicAxis, isX, getChart } = this.props;
     const chart = getChart();
 
     // Create Highcharts Axis
@@ -43,8 +43,9 @@ class Axis extends Component {
     if (dynamicAxis) {
       this.axis = chart.addAxis(opts, isX, true);
     } else {
-      // ZAxis cannot be added dynamically, update instead
-      this.axis = chart.get('zAxis');
+      // ZAxis cannot be added dynamically, Maps only have a single axes - update instead
+      const axisId = isFunction(id) ? id() : id
+      this.axis = chart.get(axisId);
       this.axis.update(opts, true);
     }
 

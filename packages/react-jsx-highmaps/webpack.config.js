@@ -10,7 +10,7 @@ const webpackConfig = {
   entry: path.resolve(__dirname, 'src'),
 
   output: {
-    filename: isProd ? 'react-jsx-highcharts.min.js' : 'react-jsx-highcharts.js',
+    filename: isProd ? 'react-jsx-highmaps.min.js' : 'react-jsx-highmaps.js',
     path: path.resolve(__dirname, 'dist'),
     library: 'ReactHighcharts',
     libraryTarget: 'umd',
@@ -51,7 +51,7 @@ const webpackConfig = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        exclude: /node_modules/
+        exclude: /node_modules(\\|\/)(?!react-jsx-highcharts)/
       }
     ]
   },

@@ -91,9 +91,9 @@ describe('<Axis />', function ()  {
       this.chartStubs.get.returns(this.axisStubs)
     })
 
-    it('retrieve the zAxis', function () {
+    it('retrieve the axis by id', function () {
       mount(<Axis id="myAxis" isX={false} dynamicAxis={false} {...this.propsFromProviders} />);
-      expect(this.chartStubs.get).to.have.been.calledWith('zAxis');
+      expect(this.chartStubs.get).to.have.been.calledWith('myAxis');
     });
 
     it('updates a non dynamic axis using the update method', function () {
