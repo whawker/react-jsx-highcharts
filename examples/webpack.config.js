@@ -123,8 +123,11 @@ module.exports = {
         exclude: /node_modules/,
         query: {
           cacheDirectory: true,
-          plugins: ['transform-runtime'],
-          presets: ['es2015', 'react', 'stage-0']
+          plugins: [
+            "@babel/plugin-proposal-class-properties",
+            ["@babel/transform-runtime", { "useESModules": true }]
+          ],
+          presets: [["@babel/env", { "modules": false }], '@babel/react']
         }
       },
       {
