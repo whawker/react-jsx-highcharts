@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { Fetch } from 'react-request'
-import Highcharts from 'highcharts/highmaps'
+import Highmaps from 'highcharts/highmaps'
 import {
-  HighchartsMapChart, withHighcharts, Title, Subtitle, Tooltip, MapSeries, MapNavigation, Credits, Debug
+  HighchartsMapChart, withHighmaps, Title, Subtitle, Tooltip, MapSeries, MapNavigation, Credits
 } from 'react-jsx-highmaps'
 
 const labelFormatter = function () {
@@ -54,8 +54,6 @@ const App = () => (
               <Tooltip/>
 
               <Credits/>
-
-              <Debug />
             </HighchartsMapChart>
           )
         }
@@ -66,4 +64,4 @@ const App = () => (
   </div>
 )
 
-export default withHighcharts(App, Highcharts)
+export default withHighmaps(App, Highmaps)

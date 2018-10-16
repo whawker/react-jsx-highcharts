@@ -64,19 +64,40 @@ var example =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 298);
+/******/ 	return __webpack_require__(__webpack_require__.s = 49);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 12:
+/***/ 13:
 /***/ (function(module, exports) {
 
-module.exports = React;
+module.exports = ReactDOM;
 
 /***/ }),
 
-/***/ 254:
+/***/ 32:
+/***/ (function(module, exports) {
+
+module.exports = Highcharts;
+
+/***/ }),
+
+/***/ 33:
+/***/ (function(module, exports) {
+
+module.exports = ReactHighcharts;
+
+/***/ }),
+
+/***/ 34:
+/***/ (function(module, exports) {
+
+module.exports = ReactRequest;
+
+/***/ }),
+
+/***/ 47:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -86,17 +107,17 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _react = __webpack_require__(12);
+var _react = __webpack_require__(6);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRequest = __webpack_require__(373);
+var _reactRequest = __webpack_require__(34);
 
-var _highmaps = __webpack_require__(44);
+var _highmaps = __webpack_require__(32);
 
 var _highmaps2 = _interopRequireDefault(_highmaps);
 
-var _reactJsxHighmaps = __webpack_require__(43);
+var _reactJsxHighmaps = __webpack_require__(33);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -164,8 +185,7 @@ var App = function App() {
               _react2.default.createElement(_reactJsxHighmaps.MapNavigation.ZoomOut, null)
             ),
             _react2.default.createElement(_reactJsxHighmaps.Tooltip, null),
-            _react2.default.createElement(_reactJsxHighmaps.Credits, null),
-            _react2.default.createElement(_reactJsxHighmaps.Debug, null)
+            _react2.default.createElement(_reactJsxHighmaps.Credits, null)
           );
         }
 
@@ -175,32 +195,25 @@ var App = function App() {
   );
 };
 
-exports.default = (0, _reactJsxHighmaps.withHighcharts)(App, _highmaps2.default);
+exports.default = (0, _reactJsxHighmaps.withHighmaps)(App, _highmaps2.default);
 
 /***/ }),
 
-/***/ 29:
-/***/ (function(module, exports) {
-
-module.exports = ReactDOM;
-
-/***/ }),
-
-/***/ 298:
+/***/ 49:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _react = __webpack_require__(12);
+var _react = __webpack_require__(6);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(29);
+var _reactDom = __webpack_require__(13);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _App = __webpack_require__(254);
+var _App = __webpack_require__(47);
 
 var _App2 = _interopRequireDefault(_App);
 
@@ -210,24 +223,10 @@ _reactDom2.default.render(_react2.default.createElement(_App2.default, null), do
 
 /***/ }),
 
-/***/ 373:
+/***/ 6:
 /***/ (function(module, exports) {
 
-module.exports = ReactRequest;
-
-/***/ }),
-
-/***/ 43:
-/***/ (function(module, exports) {
-
-module.exports = ReactHighcharts;
-
-/***/ }),
-
-/***/ 44:
-/***/ (function(module, exports) {
-
-module.exports = Highcharts;
+module.exports = React;
 
 /***/ })
 

@@ -12,7 +12,7 @@ export {
   provideChart,
   provideAxis,
   provideSeries,
-  withHighcharts,
+  withHighcharts as withHighmaps,
 } from 'react-jsx-highcharts';
 
 // Charts

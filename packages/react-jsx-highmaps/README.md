@@ -81,7 +81,7 @@ title: {
 ## Example
 
 ```jsx
-// import Highcharts from 'highcharts/highmaps' - Import Highmaps from Highcharts
+// import Highmaps from 'highcharts/highmaps' - Import Highmaps from Highcharts
 // import { Fetch } from 'react-request'
 
 render () {
@@ -129,8 +129,8 @@ render () {
   );
 }
 
-// Provide Highcharts (Highmaps) object for library to interact with
-export default withHighcharts(MyComponent, Highcharts);
+// Provide Highmaps object for library to interact with
+export default withHighmaps(MyComponent, Highmaps);
 ```
 
 ## More info
