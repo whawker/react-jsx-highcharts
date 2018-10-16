@@ -1,5 +1,5 @@
 import React from 'react';
-import defaultTo from 'lodash/defaultTo';
+import { defaultTo } from 'lodash-es';
 import DelayRender from '../DelayRender';
 import provideChart from '../ChartProvider';
 import { Consumer } from '../AxisContext';

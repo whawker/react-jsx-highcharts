@@ -1,6 +1,6 @@
 import React, { Component, Children, cloneElement, isValidElement } from 'react';
 import PropTypes from 'prop-types';
-import attempt from 'lodash/attempt';
+import { attempt } from 'lodash-es';
 import { getModifiedProps } from 'react-jsx-highcharts';
 import NavigatorXAxis from './NavigatorXAxis';
 

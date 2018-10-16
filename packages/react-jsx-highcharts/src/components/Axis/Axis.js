@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import uuid from 'uuid/v4';
-import isFunction from 'lodash/isFunction';
-import attempt from 'lodash/attempt';
+import { isFunction } from 'lodash-es';
+import { attempt } from 'lodash-es';
 import { Provider } from '../AxisContext';
 import addEventProps, { getNonEventHandlerProps } from '../../utils/events';
 import getModifiedProps from '../../utils/getModifiedProps';

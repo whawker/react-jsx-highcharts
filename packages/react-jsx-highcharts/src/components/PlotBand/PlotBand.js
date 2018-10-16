@@ -1,8 +1,8 @@
 import React, { Component, Children, cloneElement, isValidElement } from 'react';
 import PropTypes from 'prop-types';
 import uuid from 'uuid/v4';
-import isFunction from 'lodash/isFunction';
-import attempt from 'lodash/attempt';
+import { isFunction } from 'lodash-es';
+import { attempt } from 'lodash-es';
 import Hidden from '../Hidden';
 import getModifiedProps from '../../utils/getModifiedProps';
 

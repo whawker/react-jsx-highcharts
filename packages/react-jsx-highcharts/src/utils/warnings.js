@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import findKey from 'lodash/findKey';
+import { findKey } from 'lodash-es';
 
 const titleCSS = 'color:red; font-size:20px; font-weight: bold;';
 const descCSS = color => `font-size: 16px; color:${color};`;

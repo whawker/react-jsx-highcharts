@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import attempt from 'lodash/attempt';
-import findIndex from 'lodash/findIndex';
+import { attempt } from 'lodash-es';
+import { findIndex } from 'lodash-es';
 import { getEventsConfig } from 'react-jsx-highcharts';
 
 class RangeSelectorButton extends Component {
