@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import attempt from 'lodash/attempt';
+import { attempt } from 'lodash-es';
 import { Hidden, getModifiedProps } from 'react-jsx-highcharts';
 
 class MapNavigation extends Component {

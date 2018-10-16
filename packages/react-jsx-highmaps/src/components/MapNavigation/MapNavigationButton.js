@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import attempt from 'lodash/attempt';
-import isEmpty from 'lodash/isEmpty';
+import { attempt } from 'lodash-es';
+import { isEmpty } from 'lodash-es';
 import { provideChart } from 'react-jsx-highcharts';
 
 class MapNavigationButton extends Component {
