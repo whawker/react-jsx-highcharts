@@ -11,7 +11,7 @@
   ],
   "scripts": {
     "build": "cross-env NODE_ENV=development ./node_modules/.bin/webpack",
-    "build:prod": "cp ../../README.md . && npm run build:umd && npm run build:es",
+    "build:prod": "npm run build:umd && npm run build:es",
     "build:umd": "cross-env NODE_ENV=production ./node_modules/.bin/webpack",
     "build:es": "BABEL_ENV=es babel src --out-dir dist/es",
     "lint": "./node_modules/.bin/eslint src",
