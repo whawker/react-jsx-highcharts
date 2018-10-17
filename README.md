@@ -30,7 +30,7 @@ npm install --save react-jsx-highcharts
 npm install --save react react-dom prop-types highcharts@^6.0.0
 ```
 
-## [Documentation](/wiki)
+## [Documentation](https://github.com/whawker/react-jsx-highcharts/wiki)
 
 ## [Examples](https://whawker.github.io/react-jsx-highcharts/examples)
 
