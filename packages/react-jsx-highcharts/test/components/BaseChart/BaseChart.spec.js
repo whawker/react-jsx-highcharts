@@ -1,7 +1,20 @@
-import React, { Component } from 'react';
+import React, { Component, cloneElement } from 'react';
 import BaseChart from '../../../src/components/BaseChart';
 import { Provider } from '../../../src/components/ChartContext';
 import { createMockChart } from '../../test-utils';
+
+class Wrapper extends Component {
+  getPlotOptions = enabled => {
+    return { series: { marker: { enabled }} }
+  }
+
+  render () {
+    const { markersEnabled, ...rest } = this.props
+    return (
+      <BaseChart {...rest} plotOptions={this.getPlotOptions(markersEnabled)} />
+    )
+  }
+}
 
 describe('<BaseChart />', function ()  {
   let clock;
@@ -69,6 +82,18 @@ describe('<BaseChart />', function ()  {
         expect(chart.polar).to.equal(true);
         done();
       });
+    });
+  });
+
+  context('update', function () {
+    it('should update the chart when the plotOptions change', function () {
+      const wrapper = mount(
+        <Wrapper chartCreationFunc={this.chartCreationFunc} chartType='chart' markersEnabled />
+      );
+      clock.tick(1);
+
+      wrapper.setProps({ markersEnabled: false })
+      expect(chart.update).to.have.been.calledWith({ plotOptions: { series: { marker: { enabled: false } }} });
     });
   });
 
