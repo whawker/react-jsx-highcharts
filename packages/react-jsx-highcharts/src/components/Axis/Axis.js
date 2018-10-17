@@ -64,7 +64,10 @@ class Axis extends Component {
   }
 
   componentWillUnmount () {
-    attempt(this.axis.remove.bind(this.axis)); // Axis may have already been removed, i.e. when Chart unmounted
+    if (this.axis.remove) {
+      // Axis may have already been removed, i.e. when Chart unmounted
+      attempt(this.axis.remove.bind(this.axis));
+    }
   }
 
   getAxisConfig = () => {
