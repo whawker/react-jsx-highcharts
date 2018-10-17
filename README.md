@@ -24,7 +24,7 @@ React JSX Highcharts also enables you to write your *own* Highcharts components,
 # Install the appropriate React JSX package
 npm install --save react-jsx-highcharts
 #               or react-jsx-highstock
-#               or react-jsx-highcharts
+#               or react-jsx-highmaps
 
 # And the peer dependencies
 npm install --save react react-dom prop-types highcharts@^6.0.0
