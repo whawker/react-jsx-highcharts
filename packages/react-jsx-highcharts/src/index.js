@@ -1,3 +1,6 @@
+import PropTypes from 'prop-types';
+import withSeriesType from './components/WithSeriesType'
+
 // Graphs
 export { default as HighchartsChart }  from './components/HighchartsChart';
 export { default as HighchartsSparkline }  from './components/HighchartsSparkline';
@@ -18,43 +21,46 @@ export { default as XAxis }  from './components/XAxis';
 export { default as YAxis }  from './components/YAxis';
 export { default as ZAxis }  from './components/ZAxis';
 
+const axisNotRequired = { additionalProps: { requiresAxis: false } };
+const hasParentSeries = { additionalPropTypes: { baseSeries: PropTypes.string.isRequired } };
+
 // Series
-export { default as AreaRangeSeries }  from './components/AreaRangeSeries';
-export { default as AreaSeries }  from './components/AreaSeries';
-export { default as AreaSplineRangeSeries }  from './components/AreaSplineRangeSeries';
-export { default as AreaSplineSeries }  from './components/AreaSplineSeries';
+export const AreaRangeSeries = withSeriesType('arearange', 'AreaRangeSeries');
+export const AreaSeries = withSeriesType('area', 'AreaSeries');
+export const AreaSplineRangeSeries = withSeriesType('areasplinerange', 'AreaSplineRangeSeries');
+export const AreaSplineSeries = withSeriesType('areaspline', 'AreaSplineSeries');
 export { default as BarSeries }  from './components/BarSeries';
-export { default as BellCurveSeries }  from './components/BellCurveSeries';
-export { default as BoxPlotSeries }  from './components/BoxPlotSeries';
-export { default as BubbleSeries }  from './components/BubbleSeries';
-export { default as BulletSeries }  from './components/BulletSeries';
-export { default as ColumnRangeSeries }  from './components/ColumnRangeSeries';
-export { default as ColumnSeries }  from './components/ColumnSeries';
-export { default as ErrorBarSeries }  from './components/ErrorBarSeries';
-export { default as FunnelSeries }  from './components/FunnelSeries';
-export { default as GaugeSeries }  from './components/GaugeSeries';
-export { default as HeatmapSeries }  from './components/HeatmapSeries';
-export { default as HistogramSeries }  from './components/HistogramSeries';
-export { default as LineSeries }  from './components/LineSeries';
-export { default as ParetoSeries }  from './components/ParetoSeries';
-export { default as PieSeries }  from './components/PieSeries';
-export { default as PolygonSeries }  from './components/PolygonSeries';
-export { default as PyramidSeries }  from './components/PyramidSeries';
-export { default as SankeySeries }  from './components/SankeySeries';
-export { default as ScatterSeries }  from './components/ScatterSeries';
-export { default as Scatter3dSeries }  from './components/Scatter3dSeries';
-export { default as SolidGaugeSeries }  from './components/SolidGaugeSeries';
-export { default as SplineSeries }  from './components/SplineSeries';
-export { default as StreamGraphSeries }  from './components/StreamGraphSeries';
-export { default as SunburstSeries }  from './components/SunburstSeries';
-export { default as TilemapSeries }  from './components/TilemapSeries';
-export { default as TreemapSeries }  from './components/TreemapSeries';
-export { default as VariablePieSeries }  from './components/VariablePieSeries';
-export { default as VariwideSeries }  from './components/VariwideSeries';
-export { default as VectorSeries }  from './components/VectorSeries';
-export { default as WaterfallSeries }  from './components/WaterfallSeries';
-export { default as WindBarbSeries }  from './components/WindBarbSeries';
-export { default as XRangeSeries }  from './components/XRangeSeries';
+export const BellCurveSeries = withSeriesType('bellcurve', 'BellCurveSeries', hasParentSeries);
+export const BoxPlotSeries = withSeriesType('boxplot', 'BoxPlotSeries');
+export const BubbleSeries = withSeriesType('bubble', 'BubbleSeries');
+export const BulletSeries = withSeriesType('bullet', 'BulletSeries');
+export const ColumnRangeSeries = withSeriesType('columnrange', 'ColumnRangeSeries');
+export const ColumnSeries = withSeriesType('column', 'ColumnSeries');
+export const ErrorBarSeries = withSeriesType('errorbar', 'ErrorBarSeries');
+export const FunnelSeries = withSeriesType('funnel', 'FunnelSeries', axisNotRequired);
+export const GaugeSeries = withSeriesType('gauge', 'GaugeSeries');
+export const HeatmapSeries = withSeriesType('heatmap', 'HeatmapSeries');
+export const HistogramSeries = withSeriesType('histogram', 'HistogramSeries', hasParentSeries);
+export const LineSeries = withSeriesType('line', 'LineSeries');
+export const ParetoSeries = withSeriesType('pareto', 'ParetoSeries', hasParentSeries);
+export const PieSeries = withSeriesType('pie', 'PieSeries', axisNotRequired);
+export const PolygonSeries = withSeriesType('polygon', 'PolygonSeries');
+export const PyramidSeries = withSeriesType('pyramid', 'PyramidSeries', axisNotRequired);
+export const SankeySeries = withSeriesType('sankey', 'SankeySeries');
+export const ScatterSeries = withSeriesType('scatter', 'ScatterSeries');
+export const Scatter3dSeries = withSeriesType('scatter3d', 'Scatter3dSeries');
+export const SolidGaugeSeries = withSeriesType('solidgauge', 'SolidGaugeSeries');
+export const SplineSeries = withSeriesType('spline', 'SplineSeries');
+export const StreamGraphSeries = withSeriesType('streamgraph', 'StreamGraphSeries');
+export const SunburstSeries = withSeriesType('sunburst', 'SunburstSeries');
+export const TilemapSeries = withSeriesType('tilemap', 'TilemapSeries');
+export const TreemapSeries = withSeriesType('treemap', 'TreemapSeries');
+export const VariablePieSeries = withSeriesType('variablepie', 'VariablePieSeries', axisNotRequired);
+export const VariwideSeries = withSeriesType('variwide', 'VariwideSeries');
+export const VectorSeries = withSeriesType('vector', 'VectorSeries');
+export const WaterfallSeries = withSeriesType('waterfall', 'WaterfallSeries');
+export const WindBarbSeries = withSeriesType('windbarb', 'WindBarbSeries');
+export const XRangeSeries = withSeriesType('xrange', 'XRangeSeries');
 
 // Providers
 export { default as provideHighcharts }  from './components/HighchartsProvider';
@@ -74,3 +80,4 @@ export { default as Series }  from './components/Series';
 export { default as getModifiedProps } from './utils/getModifiedProps';
 export { getNonEventHandlerProps } from './utils/events';
 export { getEventsConfig } from './utils/events';
+export { withSeriesType }
