@@ -3,6 +3,7 @@ import Highcharts from 'highcharts';
 import {
   HighchartsChart, Chart, withHighcharts, XAxis, YAxis, Title, Subtitle, AreaSplineSeries, Tooltip
 } from 'react-jsx-highcharts';
+import range from 'lodash/range';
 import ExampleCode from '../utils/ExampleCode';
 import code from './exampleCode';
 
@@ -11,7 +12,7 @@ Highcharts.setOptions({
 });
 
 // Generates 1992-93 through 2017-18
-const seasons = Array.from({length: 26}, (v, k) => {
+const seasons = range(0, 26).map(k => {
   const year = k + 1992;
   return `${year}-${(year + 1).toString().substr(2)}`
 });
