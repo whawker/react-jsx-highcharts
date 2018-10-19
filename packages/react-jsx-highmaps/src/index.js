@@ -1,3 +1,4 @@
+import { withSeriesType } from 'react-jsx-highcharts';
 export {
   Chart,
   Credits,
@@ -13,6 +14,7 @@ export {
   provideAxis,
   provideSeries,
   withHighcharts as withHighmaps,
+  withSeriesType
 } from 'react-jsx-highcharts';
 
 // Charts
@@ -24,7 +26,8 @@ export { default as XAxis } from './components/XAxis';
 export { default as YAxis } from './components/YAxis';
 
 // Series
-export { default as MapBubbleSeries } from './components/MapBubbleSeries';
-export { default as MapLineSeries } from './components/MapLineSeries';
-export { default as MapPointSeries } from './components/MapPointSeries';
-export { default as MapSeries } from './components/MapSeries';
+const parentAxisId = { axisId: 'yAxis' };
+export const MapBubbleSeries = withSeriesType('MapBubble', parentAxisId);
+export const MapLineSeries = withSeriesType('MapLine', parentAxisId);
+export const MapPointSeries = withSeriesType('MapPoint', parentAxisId);
+export const MapSeries = withSeriesType('Map', parentAxisId);
