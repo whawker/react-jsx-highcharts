@@ -37,7 +37,7 @@ class App extends Component {
     const { populationData } = this.state
     return (
       <div className="app">
-        <Fetch url="http://code.highcharts.com/mapdata/countries/us/us-all.geo.json">
+        <Fetch url="https://code.highcharts.com/mapdata/countries/us/us-all.geo.json">
           {({ fetching, failed, data }) => {
             if (fetching) return <div>Loading…</div>
             if (failed) return <div>Failed to load map.</div>
