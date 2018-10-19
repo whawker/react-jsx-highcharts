@@ -1,7 +1,7 @@
-import mapValues from 'lodash/mapValues';
-import omit from 'lodash/omit';
-import isPlainObject from 'lodash/isPlainObject';
-import wrap from 'lodash/wrap';
+import { mapValues } from 'lodash-es';
+import { omit } from 'lodash-es';
+import { isPlainObject } from 'lodash-es';
+import { wrap } from 'lodash-es';
 
 const FROM_HIGHCHARTS_PROVIDER = 'getHighcharts';
 const FROM_CHART_PROVIDER = 'getChart';

@@ -1,3 +1,31 @@
 {
-  "extends": "react-app"
+  "root": true,
+  "parser": "babel-eslint",
+  "plugins": ["react", "import"],
+  "parserOptions": {
+    "ecmaVersion": 2018,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "env": {
+    "browser": true,
+    "es6": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:import/errors"
+  ],
+  "rules": {
+    "no-unused-vars": [
+      "error",
+      { "varsIgnorePattern": "^React$", "ignoreRestSiblings": true }
+    ],
+    "react/prop-types": "warn"
+  },
+  "globals": {
+    "process": false
+  }
 }

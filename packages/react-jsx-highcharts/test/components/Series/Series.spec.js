@@ -7,7 +7,7 @@ describe('<Series />', function ()  {
   let sandbox;
 
   beforeEach(function () {
-    sandbox = sinon.sandbox.create();
+    sandbox = sinon.createSandbox();
     sandbox.stub(Highcharts, 'addEvent');
 
     const { chartStubs, getChart } = createMockProvidedChart();

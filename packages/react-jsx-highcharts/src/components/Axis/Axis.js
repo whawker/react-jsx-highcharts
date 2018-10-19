@@ -1,8 +1,8 @@
-import React, { Component, Children, cloneElement, isValidElement } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import uuid from 'uuid/v4';
-import isFunction from 'lodash/isFunction';
-import attempt from 'lodash/attempt';
+import { isFunction } from 'lodash-es';
+import { attempt } from 'lodash-es';
 import { Provider } from '../AxisContext';
 import addEventProps, { getNonEventHandlerProps } from '../../utils/events';
 import getModifiedProps from '../../utils/getModifiedProps';
@@ -35,7 +35,7 @@ class Axis extends Component {
   }
 
   componentDidMount () {
-    const { dynamicAxis, isX, getChart } = this.props;
+    const { id, dynamicAxis, isX, getChart } = this.props;
     const chart = getChart();
 
     // Create Highcharts Axis
@@ -43,8 +43,9 @@ class Axis extends Component {
     if (dynamicAxis) {
       this.axis = chart.addAxis(opts, isX, true);
     } else {
-      // ZAxis cannot be added dynamically, update instead
-      this.axis = chart.get('zAxis');
+      // ZAxis cannot be added dynamically, Maps only have a single axes - update instead
+      const axisId = isFunction(id) ? id() : id
+      this.axis = chart.get(axisId);
       this.axis.update(opts, true);
     }
 
@@ -63,7 +64,10 @@ class Axis extends Component {
   }
 
   componentWillUnmount () {
-    attempt(this.axis.remove.bind(this.axis)); // Axis may have already been removed, i.e. when Chart unmounted
+    if (this.axis.remove) {
+      // Axis may have already been removed, i.e. when Chart unmounted
+      attempt(this.axis.remove.bind(this.axis));
+    }
   }
 
   getAxisConfig = () => {

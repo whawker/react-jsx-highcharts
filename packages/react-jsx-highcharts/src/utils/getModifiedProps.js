@@ -1,6 +1,6 @@
-import isEqual from 'lodash/isEqual';
-import pickBy from 'lodash/pickBy';
-import size from 'lodash/size';
+import { isEqual } from 'lodash-es';
+import { pickBy } from 'lodash-es';
+import { size } from 'lodash-es';
 import { PROVIDED_PROPS } from './removeProvidedProps';
 
 export default function getModifiedProps (prevProps, currProps, childrenIsText = false) {

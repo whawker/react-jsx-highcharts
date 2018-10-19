@@ -1,8 +1,8 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import pickBy from 'lodash/pickBy';
-import attempt from 'lodash/attempt';
-import find from 'lodash/find';
+import { pickBy } from 'lodash-es';
+import { attempt } from 'lodash-es';
+import { find } from 'lodash-es';
 import getModifiedProps from '../../utils/getModifiedProps';
 
 class PlotLineLabel extends Component {

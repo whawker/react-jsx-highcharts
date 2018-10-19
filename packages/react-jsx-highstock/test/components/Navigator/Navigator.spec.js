@@ -12,7 +12,7 @@ describe('<Navigator />', function ()  {
     const { chartStubs, getChart } = createMockProvidedChart({ object: this.object });
     this.chartStubs = chartStubs;
 
-    sandbox = sinon.sandbox.create();
+    sandbox = sinon.createSandbox();
     sandbox.stub(Highcharts, 'fireEvent');
 
     this.propsFromProviders = {

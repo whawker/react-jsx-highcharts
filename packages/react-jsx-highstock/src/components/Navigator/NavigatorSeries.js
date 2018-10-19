@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import attempt from 'lodash/attempt';
+import { attempt } from 'lodash-es';
 
 class NavigatorSeries extends Component {
 

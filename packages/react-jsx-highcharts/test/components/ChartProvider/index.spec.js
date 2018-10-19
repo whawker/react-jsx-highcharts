@@ -101,6 +101,7 @@ describe('<ChartProvider />', function () {
     expect(chart.setTitle).to.be.a('function');
     expect(chart.showLoading).to.be.a('function');
     expect(chart.hideLoading).to.be.a('function');
+    expect(chart.addCredits).to.be.a('function');
   });
 
   it('should provide expected chart functions when calling getChart', function () {
@@ -111,6 +112,7 @@ describe('<ChartProvider />', function () {
     this.chart.setTitle.withArgs({ prop: 'Test8080' }).returns('setTitle method mock');
     this.chart.showLoading.withArgs({ prop: 'Test1111' }).returns('showLoading method mock');
     this.chart.hideLoading.withArgs({ prop: 'Test2222' }).returns('hideLoading method mock');
+    this.chart.addCredits.withArgs({ prop: 'Test3333' }).returns('addCredits method mock');
 
     const wrapper = mount(
       <Provider value={{ chart: this.chart, chartType: this.chartType }}>
@@ -127,6 +129,7 @@ describe('<ChartProvider />', function () {
     expect(chart.setTitle({ prop: 'Test8080' })).to.equal('setTitle method mock');
     expect(chart.showLoading({ prop: 'Test1111' })).to.equal('showLoading method mock');
     expect(chart.hideLoading({ prop: 'Test2222' })).to.equal('hideLoading method mock');
+    expect(chart.addCredits({ prop: 'Test3333' })).to.equal('addCredits method mock');
   });
 
   it('should provide chart functions bound to the chart when calling getChart', function () {
@@ -137,6 +140,7 @@ describe('<ChartProvider />', function () {
     this.chart.setTitle.withArgs({ prop: 'Test8080' }).returnsThis();
     this.chart.showLoading.withArgs({ prop: 'Test1111' }).returnsThis();
     this.chart.hideLoading.withArgs({ prop: 'Test2222' }).returnsThis();
+    this.chart.addCredits.withArgs({ prop: 'Test3333' }).returnsThis();
 
     const wrapper = mount(
       <Provider value={{ chart: this.chart, chartType: 'stockChart' }}>
@@ -153,6 +157,7 @@ describe('<ChartProvider />', function () {
     expect(chart.setTitle({ prop: 'Test8080' })).to.equal(this.chart);
     expect(chart.showLoading({ prop: 'Test1111' })).to.equal(this.chart);
     expect(chart.hideLoading({ prop: 'Test2222' })).to.equal(this.chart);
+    expect(chart.addCredits({ prop: 'Test3333' })).to.equal(this.chart);
   });
 
   it('should provide chart functions which will be cleaned prior to being called', function () {
@@ -162,7 +167,7 @@ describe('<ChartProvider />', function () {
       </Provider>
     );
 
-    const cleanedFunctions = ['update', 'addAxis', 'addSeries', 'setTitle'];
+    const cleanedFunctions = ['update', 'addAxis', 'addSeries', 'setTitle', 'addCredits'];
     wrapper.find(WrappedComponent).props().getChart();
     expect(this.cleanSpy).to.have.callCount(cleanedFunctions.length);
   });

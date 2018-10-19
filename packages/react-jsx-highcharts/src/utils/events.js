@@ -1,9 +1,9 @@
-import forEach from 'lodash/forEach';
-import lowerFirst from 'lodash/lowerFirst';
-import pickBy from 'lodash/pickBy';
-import omitBy from 'lodash/omitBy';
-import mapKeys from 'lodash/mapKeys';
-import isFunction from 'lodash/isFunction';
+import { forEach } from 'lodash-es';
+import { lowerFirst } from 'lodash-es';
+import { pickBy } from 'lodash-es';
+import { omitBy } from 'lodash-es';
+import { mapKeys } from 'lodash-es';
+import { isFunction } from 'lodash-es';
 
 export const getEventHandlerProps  = props => {
   return pickBy(props, _isEventKey);

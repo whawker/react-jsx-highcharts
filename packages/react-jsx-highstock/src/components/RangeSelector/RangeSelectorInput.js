@@ -1,8 +1,8 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import attempt from 'lodash/attempt';
-import mapKeys from 'lodash/mapKeys';
-import upperFirst from 'lodash/upperFirst';
+import { attempt } from 'lodash-es';
+import { mapKeys } from 'lodash-es';
+import { upperFirst } from 'lodash-es';
 import { getModifiedProps } from 'react-jsx-highcharts';
 
 class RangeSelectorInput extends Component {

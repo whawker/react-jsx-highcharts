@@ -1,3 +1,4 @@
+import { withSeriesType } from 'react-jsx-highcharts'
 export * from 'react-jsx-highcharts';
 
 // Charts
@@ -9,6 +10,10 @@ export { default as RangeSelector } from './components/RangeSelector';
 export { default as Scrollbar } from './components/Scrollbar';
 
 // Series
-export { default as CandlestickSeries } from './components/CandlestickSeries';
-export { default as FlagSeries } from './components/FlagSeries';
-export { default as OHLCSeries } from './components/OHLCSeries';
+export const CandlestickSeries = withSeriesType('Candlestick');
+export const FlagsSeries = withSeriesType('Flags');
+export const OHLCSeries = withSeriesType('OHLC');
+
+// Export FlagSeries (non plural) which is a typo in previous versions
+// Ensures 3.3.0+ does not include breaking changes
+export const FlagSeries = withSeriesType('Flags');

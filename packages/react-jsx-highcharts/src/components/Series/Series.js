@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import uuid from 'uuid/v4';
-import isFunction from 'lodash/isFunction';
-import isEqual from 'lodash/isEqual';
-import attempt from 'lodash/attempt';
+import { isFunction } from 'lodash-es';
+import { isEqual } from 'lodash-es';
+import { attempt } from 'lodash-es';
 import isImmutable from 'is-immutable';
 import immutableEqual from 'immutable-is';
 import { Provider } from '../SeriesContext';
@@ -75,7 +75,10 @@ class Series extends Component {
   }
 
   componentWillUnmount () {
-    attempt(this.series.remove.bind(this.series)); // Series may have already been removed, i.e. when Axis unmounted
+    if (this.series && this.series.remove) {
+      // Series may have already been removed, i.e. when Axis unmounted
+      attempt(this.series.remove.bind(this.series));
+    }
   }
 
   getSeriesConfig = () => {

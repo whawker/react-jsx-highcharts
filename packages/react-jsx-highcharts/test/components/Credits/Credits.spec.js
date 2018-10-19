@@ -13,40 +13,34 @@ describe('<Credits />', function ()  {
   });
 
   context('when mounted', function () {
-    it('add credits using the Highcharts update method', function () {
+    it('add credits using the Highcharts addCredits method', function () {
       mount(<Credits {...this.propsFromProviders}>github.com</Credits>);
-      expect(this.chartStubs.update).to.have.been.calledWithMatch({
-        credits: {
-          enabled: true,
-          text: 'github.com'
-        }
+      expect(this.chartStubs.addCredits).to.have.been.calledWithMatch({
+        enabled: true,
+        text: 'github.com'
       });
     });
 
-    it('updates the credits with the passed props', function () {
+    it('addCreditss the credits with the passed props', function () {
       mount(
         <Credits href="https://www.github.com" {...this.propsFromProviders}>github.com</Credits>
       );
-      expect(this.chartStubs.update).to.have.been.calledWithMatch({
-        credits: {
-          enabled: true,
-          href: 'https://www.github.com',
-          text: 'github.com'
-        }
+      expect(this.chartStubs.addCredits).to.have.been.calledWithMatch({
+        enabled: true,
+        href: 'https://www.github.com',
+        text: 'github.com'
       });
     });
   });
 
-  context('update', function () {
-    it('should use the update method when props change', function () {
+  context('addCredits', function () {
+    it('should use the addCredits method when props change', function () {
       const wrapper = mount(
         <Credits href="https://www.github.com" {...this.propsFromProviders}>github.com</Credits>
       );
       wrapper.setProps({ href: 'https://www.github.com/whawker' });
-      expect(this.chartStubs.update).to.have.been.calledWithMatch({
-        credits: {
-          href: 'https://www.github.com/whawker'
-        }
+      expect(this.chartStubs.addCredits).to.have.been.calledWithMatch({
+        href: 'https://www.github.com/whawker'
       });
     });
   });
@@ -55,10 +49,8 @@ describe('<Credits />', function ()  {
     it('should disable the Credits', function () {
       const wrapper = mount(<Credits {...this.propsFromProviders}>github.com</Credits>);
       wrapper.unmount();
-      expect(this.chartStubs.update).to.have.been.calledWithMatch({
-        credits: {
-          enabled: false
-        }
+      expect(this.chartStubs.addCredits).to.have.been.calledWithMatch({
+        enabled: false
       })
     });
   });

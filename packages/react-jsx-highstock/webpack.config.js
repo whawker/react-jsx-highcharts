@@ -4,7 +4,6 @@ const fs = require('fs');
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 
 const isProd = (process.env.NODE_ENV === 'production');
-const babelSettings = JSON.parse(fs.readFileSync('.babelrc'));
 
 const webpackConfig = {
   mode: 'development',
@@ -53,18 +52,12 @@ const webpackConfig = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        exclude: /node_modules(\\|\/)(?!react-jsx-highcharts)/,
-        query: babelSettings
+        exclude: /node_modules(\\|\/)(?!react-jsx-highcharts)/
       }
     ]
   },
 
   plugins: [
-    new webpack.DefinePlugin({
-      'process.env': {
-        'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
-      }
-    }),
     new LodashModuleReplacementPlugin({
       collections: true
     })

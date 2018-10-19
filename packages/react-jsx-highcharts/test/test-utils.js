@@ -18,7 +18,8 @@ export const createMockChart = () => ({
   setTitle: sinon.stub(),
   destroy: sinon.stub(),
   showLoading: sinon.stub(),
-  hideLoading: sinon.stub()
+  hideLoading: sinon.stub(),
+  addCredits: sinon.stub(),
 })
 
 export const createMockProvidedChart = () => {
