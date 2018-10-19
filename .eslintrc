@@ -23,7 +23,8 @@
       "error",
       { "varsIgnorePattern": "^React$", "ignoreRestSiblings": true }
     ],
-    "react/prop-types": "warn"
+    "react/prop-types": "warn",
+    "prefer-object-spread": "warn"
   },
   "globals": {
     "process": false
