@@ -11,5 +11,9 @@ export { default as Scrollbar } from './components/Scrollbar';
 
 // Series
 export const CandlestickSeries = withSeriesType('Candlestick');
-export const FlagSeries = withSeriesType('Flag');
+export const FlagsSeries = withSeriesType('Flags');
 export const OHLCSeries = withSeriesType('OHLC');
+
+// Export FlagSeries (non plural) which is a typo in previous versions
+// Ensures 3.3.0+ does not include breaking changes
+export const FlagSeries = withSeriesType('Flags');
