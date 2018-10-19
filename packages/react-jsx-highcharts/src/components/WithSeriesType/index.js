@@ -3,11 +3,9 @@ import PropTypes from 'prop-types';
 import Series from '../Series';
 
 // This HOC returns Series component with injected type
-export default function withSeriesType(seriesType, componentName, opts = {}) {
-  const { additionalProps, additionalPropTypes } = opts;
-
+export default function withSeriesType(seriesType, additionalProps = {}, additionalPropTypes = {}) {
   const SeriesComponent = props => (
-    <Series {...props} {...additionalProps} type={seriesType} />
+    <Series {...props} {...additionalProps} type={seriesType.toLowerCase()} />
   )
 
   SeriesComponent.propTypes = {
@@ -15,7 +13,7 @@ export default function withSeriesType(seriesType, componentName, opts = {}) {
     ...additionalPropTypes
   };
 
-  SeriesComponent.displayName = componentName;
+  SeriesComponent.displayName = `${seriesType}Series`;
 
   return SeriesComponent;
 }
