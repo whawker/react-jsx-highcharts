@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Highcharts from 'highcharts/highstock';
 import {
-  HighchartsStockChart, Chart, withHighcharts, XAxis, YAxis, Title, AreaSplineSeries, FlagSeries, Navigator, PlotBand
+  HighchartsStockChart, Chart, withHighcharts, XAxis, YAxis, Title, AreaSplineSeries, FlagsSeries, Navigator, PlotBand
 } from 'react-jsx-highstock';
 import ExampleCode from '../utils/ExampleCode';
 import code from './exampleCode';
@@ -82,7 +82,7 @@ class App extends Component {
           <YAxis>
             <YAxis.Title>Cars sold per day</YAxis.Title>
             <AreaSplineSeries id="unitSales" name="Unit Sales" data={unitSales} />
-            <FlagSeries id="events" onSeries="unitSales" data={notableEvents} />
+            <FlagsSeries id="events" onSeries="unitSales" data={notableEvents} />
           </YAxis>
 
           <Navigator>

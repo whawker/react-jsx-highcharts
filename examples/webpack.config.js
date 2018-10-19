@@ -42,7 +42,8 @@ const highstockExamples = [
 ];
 
 const highmapsExamples = [
-  { name: 'Map', additional: ['promise-polyfill', 'fetch-polyfill', 'react-request'] }
+  { name: 'Map', additional: ['promise-polyfill', 'fetch-polyfill', 'react-request'] },
+  { name: 'MapBubble', additional: ['promise-polyfill', 'fetch-polyfill', 'react-request', 'proj4js'] }
 ];
 
 const examples = [].concat(
@@ -60,23 +61,23 @@ const externals = {
   // 'react-jsx-highmaps':  '../../packages/react-jsx-highmaps/dist/react-jsx-highmaps.min.js',
   'react-jsx-highcharts': 'https://unpkg.com/react-jsx-highcharts@^3/dist/react-jsx-highcharts.min.js',
   'react-jsx-highstock':  'https://unpkg.com/react-jsx-highstock@^3/dist/react-jsx-highstock.min.js',
-  'react-jsx-highmaps':   'https://unpkg.com/react-jsx-highmaps@0.1.0-beta.4/dist/react-jsx-highmaps.min.js',
+  'react-jsx-highmaps':   'https://unpkg.com/react-jsx-highmaps@^1/dist/react-jsx-highmaps.min.js',
   'react':                'https://unpkg.com/react@^16/umd/react.production.min.js',
   'react-dom':            'https://unpkg.com/react-dom@^16/umd/react-dom.production.min.js',
-  'highcharts':           'https://code.highcharts.com/6.1.1/highcharts.js',
-  'highcharts/js/highcharts': 'https://code.highcharts.com/6.1.1/js/highcharts.js',
-  'highcharts/highstock': 'https://code.highcharts.com/stock/6.1.1/highstock.js',
-  'highcharts/highmaps':  'https://code.highcharts.com/maps/6.1.1/highmaps.js',
-  'highcharts-more':      'https://code.highcharts.com/6.1.1/highcharts-more.js',
-  'highcharts-funnel':    'https://code.highcharts.com/6.1.1/modules/funnel.js',
-  'highcharts-treemap':   'https://code.highcharts.com/6.1.1/modules/treemap.js',
-  'highcharts-heatmap':   'https://code.highcharts.com/6.1.1/modules/heatmap.js',
-  'highcharts-3d':        'https://code.highcharts.com/6.1.1/highcharts-3d.js',
-  'highcharts-boost':     'https://code.highcharts.com/6.1.1/modules/boost.js',
-  'highcharts-sankey':    'https://code.highcharts.com/6.1.1/modules/sankey.js',
-  'highcharts-streamgraph': 'https://code.highcharts.com/6.1.1/modules/streamgraph.js',
-  'highcharts-series-label': 'https://code.highcharts.com/6.1.1/modules/series-label.js',
-  'highcharts-solid-gauge': 'https://code.highcharts.com/6.1.1/modules/solid-gauge.js',
+  'highcharts':           'https://code.highcharts.com/6.2.0/highcharts.js',
+  'highcharts/js/highcharts': 'https://code.highcharts.com/6.2.0/js/highcharts.js',
+  'highcharts/highstock': 'https://code.highcharts.com/stock/6.2.0/highstock.js',
+  'highcharts/highmaps':  'https://code.highcharts.com/maps/6.2.0/highmaps.js',
+  'highcharts-more':      'https://code.highcharts.com/6.2.0/highcharts-more.js',
+  'highcharts-funnel':    'https://code.highcharts.com/6.2.0/modules/funnel.js',
+  'highcharts-treemap':   'https://code.highcharts.com/6.2.0/modules/treemap.js',
+  'highcharts-heatmap':   'https://code.highcharts.com/6.2.0/modules/heatmap.js',
+  'highcharts-3d':        'https://code.highcharts.com/6.2.0/highcharts-3d.js',
+  'highcharts-boost':     'https://code.highcharts.com/6.2.0/modules/boost.js',
+  'highcharts-sankey':    'https://code.highcharts.com/6.2.0/modules/sankey.js',
+  'highcharts-streamgraph': 'https://code.highcharts.com/6.2.0/modules/streamgraph.js',
+  'highcharts-series-label': 'https://code.highcharts.com/6.2.0/modules/series-label.js',
+  'highcharts-solid-gauge': 'https://code.highcharts.com/6.2.0/modules/solid-gauge.js',
   'prism':                'https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/prism.min.js',
   'prism-jsx':            'https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/components/prism-jsx.min.js',
   'moment':               'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js',
@@ -85,7 +86,8 @@ const externals = {
   'promise-polyfill':     'https://www.promisejs.org/polyfills/promise-6.1.0.js',
   'fetch-polyfill':       'https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.min.js',
   'immutable':            'https://cdnjs.cloudflare.com/ajax/libs/immutable/3.8.1/immutable.min.js',
-  'react-request':        'https://unpkg.com/react-request@^3/dist/react-request.min.js'
+  'react-request':        'https://unpkg.com/react-request@^3/dist/react-request.min.js',
+  'proj4js':              'https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.5.0/proj4.js'
 };
 
 module.exports = {
@@ -110,6 +112,7 @@ module.exports = {
     're-resizable': 'window[\'re-resizable\']',
     'immutable': 'Immutable',
     'react-request': 'ReactRequest',
+    'proj4js': 'proj4',
     'react-jsx-highcharts': 'ReactHighcharts',
     'react-jsx-highstock': 'ReactHighcharts',
     'react-jsx-highmaps': 'ReactHighcharts'

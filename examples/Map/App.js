@@ -4,24 +4,15 @@ import Highmaps from 'highcharts/highmaps'
 import {
   HighchartsMapChart, withHighmaps, Title, Subtitle, Tooltip, MapSeries, MapNavigation, Credits
 } from 'react-jsx-highmaps'
-
-const labelFormatter = function () {
-  if (this.point.value) {
-    return this.point.name
-  }
-}
+import ExampleCode from '../utils/ExampleCode'
+import code from './exampleCode'
 
 const App = () => (
   <div className="app">
     <Fetch url="https://code.highcharts.com/mapdata/custom/europe.geo.json">
       {({ fetching, failed, data }) => {
-        if (fetching) {
-          return <div>Loading…</div>
-        }
-
-        if (failed) {
-          return <div>Failed to load map.</div>
-        }
+        if (fetching) return <div>Loading…</div>
+        if (failed) return <div>Failed to load map.</div>
 
         if (data) {
           return (
@@ -42,7 +33,7 @@ const App = () => (
                 dataLabels={{
                   enabled: true,
                   color: '#FFFFFF',
-                  formatter: labelFormatter
+                  format: '{point.name}'
                 }}
               />
 
@@ -61,6 +52,8 @@ const App = () => (
         return null
       }}
     </Fetch>
+
+    <ExampleCode name="Map">{code}</ExampleCode>
   </div>
 )
 
