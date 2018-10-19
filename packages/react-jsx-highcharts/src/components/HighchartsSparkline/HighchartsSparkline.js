@@ -51,7 +51,7 @@ class HighchartsSparkline extends Component {
   render () {
     const { height, width, margin, style, series, children, ...rest } = this.props;
     const hasSeriesProp = !!series;
-    const chartStyle = Object.assign({ overflow: 'visible' }, style);
+    const chartStyle = { overflow: 'visible', ...style };
     // If you want to use functionality like Tooltips, pass the data component on the `series` prop
     const Series = hasSeriesProp ? series : children;
 
