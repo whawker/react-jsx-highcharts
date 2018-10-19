@@ -1,6 +1,4 @@
-# React JSX Highmaps
-
-This package exposes everything from `react-jsx-highcharts`, but additionally provides components for building Highcharts **maps**.
+![React JSX Highmaps](https://user-images.githubusercontent.com/2003804/47213017-ac588080-d391-11e8-8711-9e7c4e2fadec.png)
 
 ## Introduction
 
