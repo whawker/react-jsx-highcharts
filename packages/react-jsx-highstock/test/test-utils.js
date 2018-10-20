@@ -1,23 +1,21 @@
-import sinon from 'sinon';
-
 const noop = () => {};
 export const Highcharts = {
   stockChart: noop,
-  addEvent: noop,
+  addEvent: jest.fn(),
   removeEvent: noop,
-  fireEvent: noop
+  fireEvent: jest.fn()
 };
 
 export const createMockChart = ({ ...additional }) => ({
   ...additional,
-  addAxis: sinon.stub(),
-  addSeries: sinon.stub(),
-  get: sinon.stub(),
-  update: sinon.stub(),
-  setTitle: sinon.stub(),
-  destroy: sinon.stub(),
-  showLoading: sinon.stub(),
-  hideLoading: sinon.stub()
+  addAxis: jest.fn(),
+  addSeries: jest.fn(),
+  get: jest.fn(),
+  update: jest.fn(),
+  setTitle: jest.fn(),
+  destroy: jest.fn(),
+  showLoading: jest.fn(),
+  hideLoading: jest.fn()
 })
 
 export const createMockProvidedChart = ({ object, ...additional }) => {
@@ -35,15 +33,15 @@ export const createMockProvidedChart = ({ object, ...additional }) => {
 
 export const createMockAxis = ({ ...additional }) => ({
   ...additional,
-  remove: sinon.stub(),
-  addPlotBand: sinon.stub(),
-  removePlotBand: sinon.stub(),
-  addPlotLine: sinon.stub(),
-  removePlotLine: sinon.stub(),
-  getExtremes: sinon.stub(),
-  setExtremes: sinon.stub(),
-  update: sinon.stub(),
-  setTitle: sinon.stub()
+  remove: jest.fn(),
+  addPlotBand: jest.fn(),
+  removePlotBand: jest.fn(),
+  addPlotLine: jest.fn(),
+  removePlotLine: jest.fn(),
+  getExtremes: jest.fn(),
+  setExtremes: jest.fn(),
+  update: jest.fn(),
+  setTitle: jest.fn()
 });
 
 export const createMockProvidedAxis = ({ object, ...additional }) => {
@@ -61,10 +59,10 @@ export const createMockProvidedAxis = ({ object, ...additional }) => {
 
 export const createMockSeries = ({ ...additional }) => ({
   ...additional,
-  remove: sinon.stub(),
-  setData: sinon.stub(),
-  setVisible: sinon.stub(),
-  update: sinon.stub()
+  remove: jest.fn(),
+  setData: jest.fn(),
+  setVisible: jest.fn(),
+  update: jest.fn()
 });
 
 export const createMockProvidedSeries = ({ object, ...additional }) => {
@@ -79,4 +77,3 @@ export const createMockProvidedSeries = ({ object, ...additional }) => {
     })
   }
 };
-

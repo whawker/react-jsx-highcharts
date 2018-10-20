@@ -18,24 +18,24 @@ describe('<Scrollbar />', () => {
   describe('when mounted', () => {
     it('add scrollbar using the Highcharts update method', () => {
       mount(<Scrollbar {...testContext.propsFromProviders} />);
-      expect(testContext.chartStubs.update).to.have.been.calledWithMatch({
-        scrollbar: {
+      expect(testContext.chartStubs.update).toHaveBeenCalledWith({
+        scrollbar: expect.objectContaining({
           enabled: true
-        }
-      });
+        })
+      }, expect.any(Boolean));
     });
 
     it('updates the scrollbar with the passed props', () => {
       mount(
         <Scrollbar barBackgroundColor="red" height={20} {...testContext.propsFromProviders} />
       );
-      expect(testContext.chartStubs.update).to.have.been.calledWithMatch({
-        scrollbar: {
+      expect(testContext.chartStubs.update).toHaveBeenCalledWith({
+        scrollbar: expect.objectContaining({
           enabled: true,
           barBackgroundColor: 'red',
           height: 20
-        }
-      });
+        })
+      }, expect.any(Boolean));
     });
   });
 
@@ -45,11 +45,11 @@ describe('<Scrollbar />', () => {
         <Scrollbar {...testContext.propsFromProviders} />
       );
       wrapper.setProps({ height: 12345 });
-      expect(testContext.chartStubs.update).to.have.been.calledWithMatch({
-        scrollbar: {
+      expect(testContext.chartStubs.update).toHaveBeenCalledWith({
+        scrollbar: expect.objectContaining({
           height: 12345
-        }
-      });
+        })
+      }, expect.any(Boolean));
     });
   });
 
@@ -57,11 +57,11 @@ describe('<Scrollbar />', () => {
     it('should disable the Scrollbar', () => {
       const wrapper = mount(<Scrollbar {...testContext.propsFromProviders} />);
       wrapper.unmount();
-      expect(testContext.chartStubs.update).to.have.been.calledWithMatch({
-        scrollbar: {
+      expect(testContext.chartStubs.update).toHaveBeenCalledWith({
+        scrollbar: expect.objectContaining({
           enabled: false
-        }
-      })
+        })
+      }, expect.any(Boolean))
     });
   });
 });

@@ -11,6 +11,5 @@
     "mount": true,
     "shallow": true,
     "render": true,
-    "sinon": true
   }
 }

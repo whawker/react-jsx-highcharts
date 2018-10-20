@@ -13,21 +13,21 @@ describe('<HighchartsStockChart />', () => {
 
   it('renders a <BaseChart />', () => {
     const wrapper = shallow(<HighchartsStockChart getHighcharts={testContext.getHighcharts} />);
-    expect(wrapper).to.have.type(BaseChart);
+    expect(wrapper.type()).toBe(BaseChart);
   });
 
   it('renders a <BaseChart /> with the correct creation function', () => {
     const wrapper = shallow(<HighchartsStockChart getHighcharts={testContext.getHighcharts} />);
-    expect(wrapper).to.have.prop('chartCreationFunc').equal(Highcharts.stockChart);
+    expect(wrapper).toHaveProp('chartCreationFunc', Highcharts.stockChart);
   });
 
   it('renders a <BaseChart /> with the correct chart type', () => {
     const wrapper = shallow(<HighchartsStockChart getHighcharts={testContext.getHighcharts} />);
-    expect(wrapper).to.have.prop('chartType').equal('stockChart');
+    expect(wrapper).toHaveProp('chartType', 'stockChart');
   });
 
   it('passes other props through to <BaseChart />', () => {
     const wrapper = shallow(<HighchartsStockChart getHighcharts={testContext.getHighcharts} plotOptions={{ c: 'd' }} />);
-    expect(wrapper).to.have.prop('plotOptions').eql({ c: 'd' });
+    expect(wrapper).toHaveProp('plotOptions',{ c: 'd' });
   });
 });

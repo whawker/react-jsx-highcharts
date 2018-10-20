@@ -5,8 +5,6 @@ import { _RangeSelectorInner as RangeSelectorInner } from '../../../src/componen
 describe('<RangeSelectorInner />', () => {
   let testContext;
 
-  let sandbox;
-
   beforeEach(() => {
     testContext = {};
     testContext.object = {
@@ -14,14 +12,10 @@ describe('<RangeSelectorInner />', () => {
     };
     const { chartStubs, getChart } = createMockProvidedChart({ object: testContext.object });
     testContext.chartStubs = chartStubs;
-
+    testContext.chartStubs.update.mockReset();
     testContext.axisObject = {};
     const { axisStubs, getAxis } = createMockProvidedAxis({ object: testContext.axisObject });
     testContext.axisStubs = axisStubs;
-
-    sandbox = sinon.createSandbox();
-    sandbox.stub(Highcharts, 'fireEvent');
-    sandbox.stub(Highcharts, 'addEvent');
 
     testContext.propsFromProviders = {
       getChart,
@@ -30,32 +24,29 @@ describe('<RangeSelectorInner />', () => {
     };
   });
 
-  afterEach(() => {
-    sandbox.restore();
-  });
-
   describe('when mounted', () => {
+
     it('enables the RangeSelector', () => {
       mount(<RangeSelectorInner {...testContext.propsFromProviders} />);
-      expect(testContext.object.options.rangeSelector.enabled).to.equal(true);
+      expect(testContext.object.options.rangeSelector.enabled).toBe(true);
     });
 
     it('fires the initialization event to so Highcharts creates a RangeSelector', () => {
       mount(<RangeSelectorInner {...testContext.propsFromProviders} />);
-      expect(Highcharts.fireEvent).to.have.been.calledWith(testContext.object, 'init');
-      expect(Highcharts.fireEvent).to.have.been.calledWith(testContext.object, 'afterGetContainer');
+      expect(Highcharts.fireEvent).toHaveBeenCalledWith(testContext.object, 'init');
+      expect(Highcharts.fireEvent).toHaveBeenCalledWith(testContext.object, 'afterGetContainer');
     });
 
     it('updates the chart with the passed props', () => {
       mount(<RangeSelectorInner height={100} buttonSpacing={2} {...testContext.propsFromProviders} />);
-      expect(testContext.chartStubs.update).to.have.been.calledWithMatch({
-        rangeSelector: {
+      expect(testContext.chartStubs.update).toHaveBeenCalledWith({
+        rangeSelector: expect.objectContaining({
           enabled: true,
           inputEnabled: false,
           height: 100,
           buttonSpacing: 2
-        }
-      });
+        })
+      }, expect.any(Boolean));
     });
   });
 
@@ -63,11 +54,11 @@ describe('<RangeSelectorInner />', () => {
     it('should use the update method when props change', () => {
       const wrapper = mount(<RangeSelectorInner selected={0} {...testContext.propsFromProviders} />);
       wrapper.setProps({ selected: 2 });
-      expect(testContext.chartStubs.update).to.have.been.calledWith({
+      expect(testContext.chartStubs.update).toHaveBeenCalledWith({
         rangeSelector: {
           selected: 2
         }
-      });
+      }, expect.any(Boolean));
     });
   });
 
@@ -75,11 +66,11 @@ describe('<RangeSelectorInner />', () => {
     it('should disable the RangeSelector', () => {
       const wrapper = mount(<RangeSelectorInner {...testContext.propsFromProviders} />);
       wrapper.unmount();
-      expect(testContext.chartStubs.update).to.have.been.calledWith({
+      expect(testContext.chartStubs.update).toHaveBeenCalledWith({
         rangeSelector: {
           enabled: false
         }
-      })
+      }, expect.any(Boolean));
     });
   });
 });
