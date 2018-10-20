@@ -2,43 +2,46 @@ import React from 'react';
 import Navigator from '../../../src/components/Navigator/Navigator';
 import { Highcharts, createMockProvidedChart } from '../../test-utils';
 
-describe('<Navigator />', function ()  {
+describe('<Navigator />', () => {
+  let testContext;
+
   let sandbox;
 
-  beforeEach(function () {
-    this.object = {
+  beforeEach(() => {
+    testContext = {};
+    testContext.object = {
       options: { navigator: { enabled: false } }
     };
-    const { chartStubs, getChart } = createMockProvidedChart({ object: this.object });
-    this.chartStubs = chartStubs;
+    const { chartStubs, getChart } = createMockProvidedChart({ object: testContext.object });
+    testContext.chartStubs = chartStubs;
 
     sandbox = sinon.createSandbox();
     sandbox.stub(Highcharts, 'fireEvent');
 
-    this.propsFromProviders = {
+    testContext.propsFromProviders = {
       getChart,
       getHighcharts: () => Highcharts
     };
   });
 
-  afterEach(function () {
+  afterEach(() => {
     sandbox.restore();
   });
 
-  describe('when mounted', function () {
-    it('enables the Navigator', function () {
-      mount(<Navigator {...this.propsFromProviders} />);
-      expect(this.object.options.navigator.enabled).to.equal(true);
+  describe('when mounted', () => {
+    it('enables the Navigator', () => {
+      mount(<Navigator {...testContext.propsFromProviders} />);
+      expect(testContext.object.options.navigator.enabled).to.equal(true);
     });
 
-    it('fires the `beforeRender` event to so Highcharts creates a Navigator', function () {
-      mount(<Navigator {...this.propsFromProviders} />);
-      expect(Highcharts.fireEvent).to.have.been.calledWith(this.object, 'beforeRender');
+    it('fires the `beforeRender` event to so Highcharts creates a Navigator', () => {
+      mount(<Navigator {...testContext.propsFromProviders} />);
+      expect(Highcharts.fireEvent).to.have.been.calledWith(testContext.object, 'beforeRender');
     });
 
-    it('updates the chart with the passed props', function () {
-      mount(<Navigator height={100} maskFill="rgba(1,2,3,0.45)" {...this.propsFromProviders} />);
-      expect(this.chartStubs.update).to.have.been.calledWithMatch({
+    it('updates the chart with the passed props', () => {
+      mount(<Navigator height={100} maskFill="rgba(1,2,3,0.45)" {...testContext.propsFromProviders} />);
+      expect(testContext.chartStubs.update).to.have.been.calledWithMatch({
         navigator: {
           enabled: true,
           height: 100,
@@ -48,11 +51,11 @@ describe('<Navigator />', function ()  {
     });
   });
 
-  describe('update', function () {
-    it('should use the update method when props change', function () {
-      const wrapper = mount(<Navigator {...this.propsFromProviders} />);
+  describe('update', () => {
+    it('should use the update method when props change', () => {
+      const wrapper = mount(<Navigator {...testContext.propsFromProviders} />);
       wrapper.setProps({ maskInside: false });
-      expect(this.chartStubs.update).to.have.been.calledWith({
+      expect(testContext.chartStubs.update).to.have.been.calledWith({
         navigator: {
           maskInside: false
         }
@@ -60,11 +63,11 @@ describe('<Navigator />', function ()  {
     });
   });
 
-  describe('when unmounted', function () {
-    it('should disable the Navigator', function () {
-      const wrapper = mount(<Navigator {...this.propsFromProviders} />);
+  describe('when unmounted', () => {
+    it('should disable the Navigator', () => {
+      const wrapper = mount(<Navigator {...testContext.propsFromProviders} />);
       wrapper.unmount();
-      expect(this.chartStubs.update).to.have.been.calledWith({
+      expect(testContext.chartStubs.update).to.have.been.calledWith({
         navigator: {
           enabled: false
         }

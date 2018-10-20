@@ -2,75 +2,78 @@ import React from 'react';
 import { createMockProvidedAxis } from '../../test-utils'
 import PlotLineLabel from '../../../src/components/PlotLine/PlotLineLabel';
 
-describe('<PlotLine.Label />', function ()  {
+describe('<PlotLine.Label />', () => {
+  let testContext;
+
   let clock;
 
-  beforeEach(function () {
+  beforeEach(() => {
+    testContext = {};
     clock = sinon.useFakeTimers();
     const { axisStubs, getAxis } = createMockProvidedAxis({ id: 'myAxis', type: 'yAxis' });
-    this.axisStubs = axisStubs;
+    testContext.axisStubs = axisStubs;
 
-    this.plotLine      = { id: 'myPlotLine', options: { label: { text: null } }, render: sinon.spy() };
-    this.otherPlotLine = { id: 'myOtherPlotLine', options: { label: { text: 'Other' } }, render: sinon.spy() };
+    testContext.plotLine      = { id: 'myPlotLine', options: { label: { text: null } }, render: sinon.spy() };
+    testContext.otherPlotLine = { id: 'myOtherPlotLine', options: { label: { text: 'Other' } }, render: sinon.spy() };
 
-    this.getAxis = sinon.stub();
-    this.axisStubs.object = {
+    testContext.getAxis = sinon.stub();
+    testContext.axisStubs.object = {
       plotLinesAndBands: [
-        this.plotLine,
-        this.otherPlotLine
+        testContext.plotLine,
+        testContext.otherPlotLine
       ]
     }
 
-    this.propsFromProviders = {
+    testContext.propsFromProviders = {
       getAxis
     };
   });
 
-  afterEach(function () {
+  afterEach(() => {
     clock.restore();
   });
 
-  context('when mounted', function () {
-    it('sets the correct plot line label', function () {
+  describe('when mounted', () => {
+    it('sets the correct plot line label', () => {
       mount(
-        <PlotLineLabel id="myPlotLine" {...this.propsFromProviders}>
+        <PlotLineLabel id="myPlotLine" {...testContext.propsFromProviders}>
           My PlotLine Label
         </PlotLineLabel>
       );
       clock.tick(1);
-      expect(this.plotLine.options.label).to.eql({
+      expect(testContext.plotLine.options.label).to.eql({
         text: 'My PlotLine Label'
       });
-      expect(this.otherPlotLine.options.label).to.eql({
+      expect(testContext.otherPlotLine.options.label).to.eql({
         text: 'Other'
       });
-      expect(this.plotLine.render).to.have.been.called;
-      expect(this.otherPlotLine.render).not.to.have.been.called;
+      expect(testContext.plotLine.render).to.have.been.called;
+      expect(testContext.otherPlotLine.render).not.to.have.been.called;
     });
 
-    it('should pass additional props too', function () {
+    it('should pass additional props too', () => {
       mount(
-        <PlotLineLabel id="myPlotLine" align="left" color="red" {...this.propsFromProviders}>
+        <PlotLineLabel id="myPlotLine" align="left" color="red" {...testContext.propsFromProviders}>
           My PlotLine Label
         </PlotLineLabel>
       );
       clock.tick(1);
-      expect(this.plotLine.options.label).to.eql({
+      expect(testContext.plotLine.options.label).to.eql({
         text: 'My PlotLine Label',
         align: 'left'
       });
-      expect(this.otherPlotLine.options.label).to.eql({
+      expect(testContext.otherPlotLine.options.label).to.eql({
         text: 'Other'
       });
-      expect(this.plotLine.render).to.have.been.called;
-      expect(this.otherPlotLine.render).not.to.have.been.called;
+      expect(testContext.plotLine.render).to.have.been.called;
+      expect(testContext.otherPlotLine.render).not.to.have.been.called;
     });
   });
 
-  context('update', function () {
-    it('should update the correct plot line if the component props change', function () {
+  describe('update', () => {
+    it('should update the correct plot line if the component props change', () => {
       const wrapper = mount(
-        <PlotLineLabel id="myPlotLine" {...this.propsFromProviders}>
+        <PlotLineLabel id="myPlotLine" {...testContext.propsFromProviders}>
           My PlotLine Label
         </PlotLineLabel>
       );
@@ -78,21 +81,21 @@ describe('<PlotLine.Label />', function ()  {
       wrapper.setProps({ children: 'My New Label' });
       clock.tick(1);
 
-      expect(this.plotLine.options.label).to.eql({
+      expect(testContext.plotLine.options.label).to.eql({
         text: 'My New Label'
       });
-      expect(this.otherPlotLine.options.label).to.eql({
+      expect(testContext.otherPlotLine.options.label).to.eql({
         text: 'Other'
       });
-      expect(this.plotLine.render).to.have.been.called;
-      expect(this.otherPlotLine.render).not.to.have.been.called;
+      expect(testContext.plotLine.render).to.have.been.called;
+      expect(testContext.otherPlotLine.render).not.to.have.been.called;
     });
   });
 
-  context('when unmounted', function () {
-    it('removes the correct plot line label', function () {
+  describe('when unmounted', () => {
+    it('removes the correct plot line label', () => {
       const wrapper = mount(
-        <PlotLineLabel id="myPlotLine" {...this.propsFromProviders}>
+        <PlotLineLabel id="myPlotLine" {...testContext.propsFromProviders}>
           My PlotLine Label
         </PlotLineLabel>
       );
@@ -100,14 +103,14 @@ describe('<PlotLine.Label />', function ()  {
       wrapper.unmount();
       clock.tick(1);
 
-      expect(this.plotLine.options.label).to.eql({
+      expect(testContext.plotLine.options.label).to.eql({
         text: null
       });
-      expect(this.otherPlotLine.options.label).to.eql({
+      expect(testContext.otherPlotLine.options.label).to.eql({
         text: 'Other'
       });
-      expect(this.plotLine.render).to.have.been.called;
-      expect(this.otherPlotLine.render).not.to.have.been.called;
+      expect(testContext.plotLine.render).to.have.been.called;
+      expect(testContext.otherPlotLine.render).not.to.have.been.called;
     });
   });
 });

@@ -16,30 +16,34 @@ class Wrapper extends Component {
   }
 }
 
-describe('<BaseChart />', function ()  {
+describe('<BaseChart />', () => {
+  let testContext;
+
   let clock;
   let chart;
 
-  beforeEach(function () {
+  beforeEach(() => {
+    testContext = {};
+
     chart = createMockChart();
-    this.chartCreationFunc = sinon.stub();
-    this.chartCreationFunc.returns(chart);
+    testContext.chartCreationFunc = sinon.stub();
+    testContext.chartCreationFunc.returns(chart);
     clock = sinon.useFakeTimers();
   });
 
-  afterEach(function () {
+  afterEach(() => {
     clock.restore();
   });
 
-  context('when mounted', function () {
-    it('should create a Highcharts chart', function () {
-      const wrapper = mount(<BaseChart chartCreationFunc={this.chartCreationFunc} chartType='chart' />);
+  describe('when mounted', () => {
+    it('should create a Highcharts chart', () => {
+      const wrapper = mount(<BaseChart chartCreationFunc={testContext.chartCreationFunc} chartType='chart' />);
       clock.tick(1);
-      expect(this.chartCreationFunc).to.have.been.calledWith(wrapper.getDOMNode());
+      expect(testContext.chartCreationFunc).to.have.been.calledWith(wrapper.getDOMNode());
     });
 
-    it('should create a chart context, with the chart and chart type', function (done) {
-      const wrapper = mount(<BaseChart chartCreationFunc={this.chartCreationFunc} chartType='chart' />);
+    it('should create a chart context, with the chart and chart type', done => {
+      const wrapper = mount(<BaseChart chartCreationFunc={testContext.chartCreationFunc} chartType='chart' />);
       clock.tick(1);
 
       wrapper.setState({ rendered: true }, () => {
@@ -49,8 +53,8 @@ describe('<BaseChart />', function ()  {
       });
     });
 
-    it('should create a chart context, with the chart and stockChart type', function (done) {
-      const wrapper = mount(<BaseChart chartCreationFunc={this.chartCreationFunc} chartType='stockChart' />);
+    it('should create a chart context, with the chart and stockChart type', done => {
+      const wrapper = mount(<BaseChart chartCreationFunc={testContext.chartCreationFunc} chartType='stockChart' />);
       clock.tick(1);
 
       wrapper.setState({ rendered: true }, () => {
@@ -60,10 +64,10 @@ describe('<BaseChart />', function ()  {
       });
     });
 
-    it('should create a angular chart when mounted with the gauge prop', function (done) {
+    it('should create a angular chart when mounted with the gauge prop', done => {
       expect(chart.angular).to.not.equal(true);
 
-      const wrapper = mount(<BaseChart gauge chartCreationFunc={this.chartCreationFunc} chartType='stockChart' />);
+      const wrapper = mount(<BaseChart gauge chartCreationFunc={testContext.chartCreationFunc} chartType='stockChart' />);
       clock.tick(1);
 
       wrapper.setState({ rendered: true }, () => {
@@ -72,10 +76,10 @@ describe('<BaseChart />', function ()  {
       });
     });
 
-    it('should create a polar chart when mounted with the polar prop', function (done) {
+    it('should create a polar chart when mounted with the polar prop', done => {
       expect(chart.polar).to.not.equal(true);
 
-      const wrapper = mount(<BaseChart polar chartCreationFunc={this.chartCreationFunc} chartType='stockChart' />);
+      const wrapper = mount(<BaseChart polar chartCreationFunc={testContext.chartCreationFunc} chartType='stockChart' />);
       clock.tick(1);
 
       wrapper.setState({ rendered: true }, () => {
@@ -85,10 +89,10 @@ describe('<BaseChart />', function ()  {
     });
   });
 
-  context('update', function () {
-    it('should update the chart when the plotOptions change', function () {
+  describe('update', () => {
+    it('should update the chart when the plotOptions change', () => {
       const wrapper = mount(
-        <Wrapper chartCreationFunc={this.chartCreationFunc} chartType='chart' markersEnabled />
+        <Wrapper chartCreationFunc={testContext.chartCreationFunc} chartType='chart' markersEnabled />
       );
       clock.tick(1);
 
@@ -97,9 +101,9 @@ describe('<BaseChart />', function ()  {
     });
   });
 
-  context('when unmounted', function () {
-    it('destroys the chart instance', function () {
-      const wrapper = mount(<BaseChart chartCreationFunc={this.chartCreationFunc} chartType='chart' />);
+  describe('when unmounted', () => {
+    it('destroys the chart instance', () => {
+      const wrapper = mount(<BaseChart chartCreationFunc={testContext.chartCreationFunc} chartType='chart' />);
       clock.tick(1);
       expect(chart.destroy).not.to.have.been.called;
       wrapper.unmount();

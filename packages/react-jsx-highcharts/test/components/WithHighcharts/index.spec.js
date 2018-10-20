@@ -7,8 +7,8 @@ const WrappedComponent = props => (
   <div />
 );
 
-describe('withHighcharts', function ()  {
-  it('should create Highcharts context with the provided object', function () {
+describe('withHighcharts', () => {
+  it('should create Highcharts context with the provided object', () => {
     const WithHighchartsComponent = withHighcharts(WrappedComponent, Highcharts);
     const wrapper = mount(<WithHighchartsComponent />);
 
@@ -16,7 +16,7 @@ describe('withHighcharts', function ()  {
     expect(wrapper.childAt(0)).to.have.prop('value').to.equal(Highcharts);
   });
 
-  it('should create a Highcharts context with the provided object (2)', function () {
+  it('should create a Highcharts context with the provided object (2)', () => {
     const HighchartsWithExtraFunctionality = { ...Highcharts, Extras: () => 'Extras' };
     const WithHighchartsComponent = withHighcharts(WrappedComponent, HighchartsWithExtraFunctionality);
     const wrapper = mount(<WithHighchartsComponent />);

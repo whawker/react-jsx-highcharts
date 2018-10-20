@@ -2,31 +2,34 @@ import React from 'react';
 import { createMockProvidedChart } from '../../test-utils'
 import Legend from '../../../src/components/Legend/Legend';
 
-describe('<Legend />', function ()  {
-  beforeEach(function () {
-    const { chartStubs, getChart } = createMockProvidedChart();
-    this.chartStubs = chartStubs;
+describe('<Legend />', () => {
+  let testContext;
 
-    this.propsFromProviders = {
+  beforeEach(() => {
+    testContext = {};
+    const { chartStubs, getChart } = createMockProvidedChart();
+    testContext.chartStubs = chartStubs;
+
+    testContext.propsFromProviders = {
       getChart
     };
   });
 
-  context('when mounted', function () {
-    it('add legend using the Highcharts update method', function () {
-      mount(<Legend {...this.propsFromProviders} />);
-      expect(this.chartStubs.update).to.have.been.calledWithMatch({
+  describe('when mounted', () => {
+    it('add legend using the Highcharts update method', () => {
+      mount(<Legend {...testContext.propsFromProviders} />);
+      expect(testContext.chartStubs.update).to.have.been.calledWithMatch({
         legend: {
           enabled: true
         }
       });
     });
 
-    it('updates the legend with the passed props', function () {
+    it('updates the legend with the passed props', () => {
       mount(
-        <Legend align="left" y={20} {...this.propsFromProviders} />
+        <Legend align="left" y={20} {...testContext.propsFromProviders} />
       );
-      expect(this.chartStubs.update).to.have.been.calledWithMatch({
+      expect(testContext.chartStubs.update).to.have.been.calledWithMatch({
         legend: {
           enabled: true,
           align: 'left',
@@ -36,13 +39,13 @@ describe('<Legend />', function ()  {
     });
   });
 
-  context('update', function () {
-    it('should use the update method when props change', function () {
+  describe('update', () => {
+    it('should use the update method when props change', () => {
       const wrapper = mount(
-        <Legend {...this.propsFromProviders} />
+        <Legend {...testContext.propsFromProviders} />
       );
       wrapper.setProps({ backgroundColor: 'red' });
-      expect(this.chartStubs.update).to.have.been.calledWithMatch({
+      expect(testContext.chartStubs.update).to.have.been.calledWithMatch({
         legend: {
           backgroundColor: 'red'
         }
@@ -50,11 +53,11 @@ describe('<Legend />', function ()  {
     });
   });
 
-  context('when unmounted', function () {
-    it('should disable the Legend', function () {
-      const wrapper = mount(<Legend {...this.propsFromProviders} />);
+  describe('when unmounted', () => {
+    it('should disable the Legend', () => {
+      const wrapper = mount(<Legend {...testContext.propsFromProviders} />);
       wrapper.unmount();
-      expect(this.chartStubs.update).to.have.been.calledWithMatch({
+      expect(testContext.chartStubs.update).to.have.been.calledWithMatch({
         legend: {
           enabled: false
         }

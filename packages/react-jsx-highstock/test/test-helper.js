@@ -1,7 +1,3 @@
-require('@babel/register')({
-  ignore: [/node_modules\/(?!(react-jsx-highcharts|lodash-es))/]
-});
-
 import { JSDOM } from 'jsdom';
 import chai, { expect } from 'chai';
 import sinon from 'sinon';
@@ -16,8 +12,8 @@ function copyProps(src, target) {
   Object.defineProperties(target, props);
 }
 
-const jsdom = new JSDOM('<!doctype html><html><body></body></html>');
-const { window } = jsdom;
+//const jsdom = new JSDOM('<!doctype html><html><body></body></html>');
+//const { window } = jsdom;
 window.Date = global.Date;
 
 global.window = window;

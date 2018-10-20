@@ -2,82 +2,85 @@ import React from 'react';
 import { Highcharts, createMockProvidedChart, createMockAxis, uuidRegex } from '../../test-utils'
 import Axis from '../../../src/components/Axis/Axis';
 
-describe('<Axis />', function ()  {
+describe('<Axis />', () => {
+  let testContext;
+
   let sandbox = null;
 
-  beforeEach(function () {
+  beforeEach(() => {
+    testContext = {};
     sandbox = sinon.createSandbox();
     sandbox.stub(Highcharts, 'addEvent');
 
     const { chartStubs, getChart } = createMockProvidedChart();
 
-    this.chartStubs = chartStubs;
-    this.axisStubs = createMockAxis({});
-    this.chartStubs.addAxis.returns(this.axisStubs)
+    testContext.chartStubs = chartStubs;
+    testContext.axisStubs = createMockAxis({});
+    testContext.chartStubs.addAxis.returns(testContext.axisStubs)
 
-    this.propsFromProviders = {
+    testContext.propsFromProviders = {
       getChart,
       getHighcharts: () => Highcharts
     };
   });
 
-  afterEach(function () {
+  afterEach(() => {
     sandbox.restore();
   });
 
-  context('when mounted (dynamic)', function () {
-    it('adds an X axis using the addAxis method', function () {
-      mount(<Axis id="myAxis" isX {...this.propsFromProviders} />);
-      expect(this.chartStubs.addAxis).to.have.been.calledWithMatch(
+  describe('when mounted (dynamic)', () => {
+    it('adds an X axis using the addAxis method', () => {
+      mount(<Axis id="myAxis" isX {...testContext.propsFromProviders} />);
+      expect(testContext.chartStubs.addAxis).to.have.been.calledWithMatch(
         { id: 'myAxis', title: { text: null } }, true, true
       );
     });
 
-    it('adds a Y axis using the addAxis method', function () {
-      mount(<Axis id="myAxis" isX={false} {...this.propsFromProviders} />);
-      expect(this.chartStubs.addAxis).to.have.been.calledWithMatch(
+    it('adds a Y axis using the addAxis method', () => {
+      mount(<Axis id="myAxis" isX={false} {...testContext.propsFromProviders} />);
+      expect(testContext.chartStubs.addAxis).to.have.been.calledWithMatch(
         { id: 'myAxis', title: { text: null } }, false, true
       );
     });
 
-    it('uses the provided ID if id prop is a string', function () {
+    it('uses the provided ID if id prop is a string', () => {
       mount(
-        <Axis id="myAxisIdStr" {...this.propsFromProviders} />
+        <Axis id="myAxisIdStr" {...testContext.propsFromProviders} />
       );
-      expect(this.chartStubs.addAxis.getCall(0).args[0].id).to.equal('myAxisIdStr');
+      expect(testContext.chartStubs.addAxis.getCall(0).args[0].id).to.equal('myAxisIdStr');
     });
 
-    it('resolves the ID if id prop is a function', function () {
+    it('resolves the ID if id prop is a function', () => {
       const idFunc = () => 'myAxisIdFromFunc'
       mount(
-        <Axis id={idFunc} {...this.propsFromProviders} />
+        <Axis id={idFunc} {...testContext.propsFromProviders} />
       );
-      expect(this.chartStubs.addAxis.getCall(0).args[0].id).to.equal('myAxisIdFromFunc');
+      expect(testContext.chartStubs.addAxis.getCall(0).args[0].id).to.equal('myAxisIdFromFunc');
     });
 
-    it('uses a uuid as an ID if no id prop provided', function () {
+    it('uses a uuid as an ID if no id prop provided', () => {
       mount(
-        <Axis {...this.propsFromProviders} />
+        <Axis {...testContext.propsFromProviders} />
       );
-      expect(this.chartStubs.addAxis.getCall(0).args[0].id).to.match(uuidRegex);
+      expect(testContext.chartStubs.addAxis.getCall(0).args[0].id).to.match(uuidRegex);
     });
 
-    it('should pass additional props through to Highcharts addAxis method', function () {
-      mount(<Axis id="myAxis" isX min={10} max={100} reversed {...this.propsFromProviders} />);
-      expect(this.chartStubs.addAxis).to.have.been.calledWithMatch(
+    it('should pass additional props through to Highcharts addAxis method', () => {
+      mount(<Axis id="myAxis" isX min={10} max={100} reversed {...testContext.propsFromProviders} />);
+      expect(testContext.chartStubs.addAxis).to.have.been.calledWithMatch(
         { id: 'myAxis', title: { text: null }, min: 10, max: 100, reversed: true }, true, true
       );
     });
 
-    it('subscribes to Highcharts events for props that look like event handlers', function () {
+    it('subscribes to Highcharts events for props that look like event handlers', () => {
       const handleSetExtremes = sinon.spy();
       const handleAfterSetExtremes = sinon.spy();
 
       mount(
         <Axis id="myAxis" isX onSetExtremes={handleSetExtremes} onAfterSetExtremes={handleAfterSetExtremes}
-          {...this.propsFromProviders} />
+          {...testContext.propsFromProviders} />
       );
-      expect(this.axisStubs.update).to.have.been.calledWith({
+      expect(testContext.axisStubs.update).to.have.been.calledWith({
         events: {
           setExtremes: handleSetExtremes,
           afterSetExtremes: handleAfterSetExtremes
@@ -86,39 +89,39 @@ describe('<Axis />', function ()  {
     });
   });
 
-  describe('when mounted (NOT dynamic)', function () {
-    beforeEach(function() {
-      this.chartStubs.get.returns(this.axisStubs)
+  describe('when mounted (NOT dynamic)', () => {
+    beforeEach(() => {
+      testContext.chartStubs.get.returns(testContext.axisStubs)
     })
 
-    it('retrieve the axis by id', function () {
-      mount(<Axis id="myAxis" isX={false} dynamicAxis={false} {...this.propsFromProviders} />);
-      expect(this.chartStubs.get).to.have.been.calledWith('myAxis');
+    it('retrieve the axis by id', () => {
+      mount(<Axis id="myAxis" isX={false} dynamicAxis={false} {...testContext.propsFromProviders} />);
+      expect(testContext.chartStubs.get).to.have.been.calledWith('myAxis');
     });
 
-    it('updates a non dynamic axis using the update method', function () {
-      mount(<Axis id="myAxis" isX={false} dynamicAxis={false} {...this.propsFromProviders} />);
-      expect(this.axisStubs.update).to.have.been.calledWithMatch(
+    it('updates a non dynamic axis using the update method', () => {
+      mount(<Axis id="myAxis" isX={false} dynamicAxis={false} {...testContext.propsFromProviders} />);
+      expect(testContext.axisStubs.update).to.have.been.calledWithMatch(
         { id: 'myAxis', title: { text: null } }, true
       );
     });
 
-    it('should pass additional props through to Highcharts update method', function () {
-      mount(<Axis id="myAxis" isX={false} dynamicAxis={false} min={10} max={100} reversed {...this.propsFromProviders} />);
-      expect(this.axisStubs.update).to.have.been.calledWithMatch(
+    it('should pass additional props through to Highcharts update method', () => {
+      mount(<Axis id="myAxis" isX={false} dynamicAxis={false} min={10} max={100} reversed {...testContext.propsFromProviders} />);
+      expect(testContext.axisStubs.update).to.have.been.calledWithMatch(
         { id: 'myAxis', title: { text: null }, min: 10, max: 100, reversed: true }, true
       );
     });
 
-    it('subscribes to Highcharts events for props that look like event handlers', function () {
+    it('subscribes to Highcharts events for props that look like event handlers', () => {
       const handleSetExtremes = sinon.spy();
       const handleAfterSetExtremes = sinon.spy();
 
       mount(
         <Axis id="myAxis" isX={false} dynamicAxis={false} onSetExtremes={handleSetExtremes} onAfterSetExtremes={handleAfterSetExtremes}
-          {...this.propsFromProviders} />
+          {...testContext.propsFromProviders} />
       );
-      expect(this.axisStubs.update).to.have.been.calledWith({
+      expect(testContext.axisStubs.update).to.have.been.calledWith({
         events: {
           setExtremes: handleSetExtremes,
           afterSetExtremes: handleAfterSetExtremes
@@ -127,25 +130,25 @@ describe('<Axis />', function ()  {
     });
   });
 
-  context('update', function () {
-    it('should update the axis if the component props change', function () {
+  describe('update', () => {
+    it('should update the axis if the component props change', () => {
       const wrapper = mount(
-        <Axis id="myAxis" isX {...this.propsFromProviders} />
+        <Axis id="myAxis" isX {...testContext.propsFromProviders} />
       );
       wrapper.setProps({ newPropName: 'newPropValue' });
-      expect(this.axisStubs.update).to.have.been.calledWith({
+      expect(testContext.axisStubs.update).to.have.been.calledWith({
         newPropName: 'newPropValue'
       });
     });
   });
 
-  context('when unmounted', function () {
-    it('removes the axis', function () {
+  describe('when unmounted', () => {
+    it('removes the axis', () => {
       const wrapper = mount(
-        <Axis id="myAxis" isX {...this.propsFromProviders} />
+        <Axis id="myAxis" isX {...testContext.propsFromProviders} />
       );
       wrapper.unmount();
-      expect(this.axisStubs.remove).to.have.been.called;
+      expect(testContext.axisStubs.remove).to.have.been.called;
     });
   });
 });

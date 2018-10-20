@@ -17,27 +17,27 @@ Object.keys(all).filter(name => /^[A-Z].*Series$/.test(name)).forEach((seriesNam
     props.baseSeries="myBaseSeries";
   }
 
-  describe(`<${seriesName} />`, function ()  {
+  describe(`<${seriesName} />`, () => {
 
-    it('renders a <Series />', function ()  {
+    it('renders a <Series />', () => {
       const wrapper = shallow(<SeriesComponent id="mySeries" {...props} />);
       expect(wrapper).to.have.type(Series);
     });
-    it(`renders a <Series type="${seriesType}" />`, function () {
+    it(`renders a <Series type="${seriesType}" />`, () => {
       const wrapper = shallow(<SeriesComponent id="mySeries" {...props} />);
       expect(wrapper).to.have.prop('type').equal(seriesType);
     });
-    it('passes Data props through to <Series />', function () {
+    it('passes Data props through to <Series />', () => {
       const wrapper = shallow(<SeriesComponent id="myOtherSeries" data={[1, 2, 3, 4]} {...props}/>);
       expect(wrapper).to.have.prop('data').eql([1, 2, 3, 4]);
     });
-    it('passes other props through to <Series />', function () {
+    it('passes other props through to <Series />', () => {
       const wrapper = shallow(<SeriesComponent id="myThirdSeries" zIndex={-1} {...props} />);
       expect(wrapper).to.have.prop('zIndex').eql(-1);
     });
 
     if(noAxisSeries.includes(seriesName)) {
-      it('does not require an axis', function () {
+      it('does not require an axis', () => {
         const wrapper = shallow(<SeriesComponent id="myFourthSeries" {...props}/>);
         expect(wrapper).to.have.prop('requiresAxis').equal(false);
       });

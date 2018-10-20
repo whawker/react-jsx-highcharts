@@ -10,7 +10,6 @@
     "expect": true,
     "mount": true,
     "shallow": true,
-    "render": true,
-    "sinon": true
+    "render": true
   }
 }
