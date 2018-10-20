@@ -5,8 +5,8 @@ describe('utils/events', () => {
     const { getEventHandlerProps } = events;
 
     it('should return all props that look like an event handler', () => {
-      const onEventHandler = sinon.spy();
-      const onOtherEventHandler = sinon.spy();
+      const onEventHandler = jest.fn();
+      const onOtherEventHandler = jest.fn();
 
       const config = {
         enabled: true,
@@ -17,7 +17,7 @@ describe('utils/events', () => {
         count: 14
       }
 
-      expect(getEventHandlerProps(config)).to.deep.equal({
+      expect(getEventHandlerProps(config)).toEqual({
         onEventHandler,
         onOtherEventHandler
       });
@@ -30,14 +30,14 @@ describe('utils/events', () => {
     it('should return all props that don\'t look like an event handler', () => {
       const config = {
         enabled: true,
-        onEventHandler: sinon.spy(),
-        onOtherEventHandler: sinon.spy(),
+        onEventHandler: jest.fn(),
+        onOtherEventHandler: jest.fn(),
         onNotAFunction: 'trip',
         something: 'stringy',
         count: 14
       }
 
-      expect(getNonEventHandlerProps(config)).to.deep.equal({
+      expect(getNonEventHandlerProps(config)).toEqual({
         enabled: true,
         something: 'stringy',
         onNotAFunction: 'trip',
@@ -50,8 +50,8 @@ describe('utils/events', () => {
     const { getEventsConfig } = events;
 
     it('should return all props that look like an event handler, without the `on` prefix', () => {
-      const onEventHandler = sinon.spy();
-      const onOtherEventHandler = sinon.spy();
+      const onEventHandler = jest.fn();
+      const onOtherEventHandler = jest.fn();
 
       const config = {
         enabled: true,
@@ -62,7 +62,7 @@ describe('utils/events', () => {
         count: 14
       }
 
-      expect(getEventsConfig(config)).to.deep.equal({
+      expect(getEventsConfig(config)).toEqual({
         eventHandler: onEventHandler,
         otherEventHandler: onOtherEventHandler
       });
@@ -73,9 +73,9 @@ describe('utils/events', () => {
     const { addEventHandlers } = events;
 
     it('should call the provided function with an events property with things that look like event handlers', () => {
-      const spy = sinon.spy();
-      const onEventHandler = sinon.spy();
-      const onOtherEventHandler = sinon.spy();
+      const spy = jest.fn();
+      const onEventHandler = jest.fn();
+      const onOtherEventHandler = jest.fn();
 
       const config = {
         enabled: true,
@@ -87,7 +87,7 @@ describe('utils/events', () => {
       }
       addEventHandlers(spy, config)
 
-      expect(spy).to.have.been.calledWithExactly({
+      expect(spy).toHaveBeenCalledWith({
         events: {
           eventHandler: onEventHandler,
           otherEventHandler: onOtherEventHandler

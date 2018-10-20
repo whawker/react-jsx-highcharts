@@ -6,15 +6,11 @@ const ChildComponent = props => (
 );
 
 describe('<DelayRender />', () => {
-  let clock;
 
   beforeAll(function () {
-    clock = sinon.useFakeTimers();
+    jest.useFakeTimers();
   });
 
-  afterAll(function () {
-    clock.restore();
-  });
 
   it('initially does not render the child component', () => {
     const wrapper = mount(
@@ -22,7 +18,7 @@ describe('<DelayRender />', () => {
         <ChildComponent/>
       </DelayRender>
     );
-    expect(wrapper.find(ChildComponent)).to.not.exist;
+    expect(wrapper.find(ChildComponent)).not.toExist();
   });
 
   it('renders the children on the next tick', () => {
@@ -31,9 +27,9 @@ describe('<DelayRender />', () => {
         <ChildComponent/>
       </DelayRender>
     );
-    clock.tick(1);
+    jest.advanceTimersByTime(1);
     wrapper.update();
 
-    expect(wrapper.find(ChildComponent)).to.exist;
+    expect(wrapper.find(ChildComponent)).toExist();
   });
 });

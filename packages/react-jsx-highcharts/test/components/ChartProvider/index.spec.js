@@ -16,12 +16,12 @@ describe('<ChartProvider />', () => {
 
   beforeAll(function () {
     suiteContext = {};
-    suiteContext.highchartsProviderStub = sinon.stub(highchartsProvider, 'default').returnsArg(0);
+    suiteContext.highchartsProviderStub = jest.spyOn(highchartsProvider, 'default').mockImplementation(v => v);
   });
 
   beforeEach(() => {
     testContext = {};
-    testContext.cleanSpy = sinon.spy(clean, 'default');
+    testContext.cleanSpy = jest.spyOn(clean, 'default');
 
     testContext.chart = createMockChart();
     testContext.chartType = 'chart';
@@ -30,11 +30,11 @@ describe('<ChartProvider />', () => {
   });
 
   afterEach(() => {
-    testContext.cleanSpy.restore();
+    testContext.cleanSpy.mockClear();
   });
 
   afterAll(function () {
-    suiteContext.highchartsProviderStub.restore();
+    //suiteContext.highchartsProviderStub.reset();
   });
 
   it('should not render the wrapped component if there is no chart context', () => {
@@ -44,7 +44,7 @@ describe('<ChartProvider />', () => {
       </Provider>
     );
 
-    expect(wrapper.find(WrappedComponent)).to.not.exist;
+    expect(wrapper.find(WrappedComponent)).not.toExist();
   });
 
   it('should render the wrapped component if there is a chart context', () => {
@@ -54,7 +54,7 @@ describe('<ChartProvider />', () => {
       </Provider>
     );
 
-    expect(wrapper.find(WrappedComponent)).to.exist;
+    expect(wrapper.find(WrappedComponent)).toExist();
   });
 
   it('should additionally wrap the component with the Highcharts context', () => {
@@ -64,7 +64,7 @@ describe('<ChartProvider />', () => {
       </Provider>
     );
 
-    expect(suiteContext.highchartsProviderStub).to.have.been.calledWith(ChartWrappedComponent);
+    expect(suiteContext.highchartsProviderStub).toHaveBeenCalledWith(ChartWrappedComponent);
   });
 
   it('should provide a getChart prop to the wrapped component', () => {
@@ -74,7 +74,7 @@ describe('<ChartProvider />', () => {
       </Provider>
     );
 
-    expect(wrapper.find(WrappedComponent).prop('getChart')).to.be.a('function');
+    expect(wrapper.find(WrappedComponent).prop('getChart')).toEqual(expect.any(Function));
   });
 
   it('should pass through other props to the wrapped component', () => {
@@ -84,9 +84,9 @@ describe('<ChartProvider />', () => {
       </Provider>
     );
 
-    expect(wrapper.find(WrappedComponent).prop('getChart')).to.be.a('function');
-    expect(wrapper.find(WrappedComponent).prop('someProp')).to.equal('someValue');
-    expect(wrapper.find(WrappedComponent).prop('otherProp')).to.equal('otherValue');
+    expect(wrapper.find(WrappedComponent).prop('getChart')).toEqual(expect.any(Function));
+    expect(wrapper.find(WrappedComponent).prop('someProp')).toEqual('someValue');
+    expect(wrapper.find(WrappedComponent).prop('otherProp')).toEqual('otherValue');
   });
 
   it('should provide chart functions when calling getChart', () => {
@@ -97,27 +97,27 @@ describe('<ChartProvider />', () => {
     );
 
     const chart = wrapper.find(WrappedComponent).props().getChart();
-    expect(chart.object).to.equal(testContext.chart);
-    expect(chart.type).to.equal(testContext.chartType);
-    expect(chart.get).to.be.a('function');
-    expect(chart.update).to.be.a('function');
-    expect(chart.addAxis).to.be.a('function');
-    expect(chart.addSeries).to.be.a('function');
-    expect(chart.setTitle).to.be.a('function');
-    expect(chart.showLoading).to.be.a('function');
-    expect(chart.hideLoading).to.be.a('function');
-    expect(chart.addCredits).to.be.a('function');
+    expect(chart.object).toEqual(testContext.chart);
+    expect(chart.type).toEqual(testContext.chartType);
+    expect(chart.get).toEqual(expect.any(Function))
+    expect(chart.update).toEqual(expect.any(Function))
+    expect(chart.addAxis).toEqual(expect.any(Function))
+    expect(chart.addSeries).toEqual(expect.any(Function))
+    expect(chart.setTitle).toEqual(expect.any(Function))
+    expect(chart.showLoading).toEqual(expect.any(Function))
+    expect(chart.hideLoading).toEqual(expect.any(Function))
+    expect(chart.addCredits).toEqual(expect.any(Function))
   });
 
   it('should provide expected chart functions when calling getChart', () => {
-    testContext.chart.get.withArgs({ prop: 'Test1234' }).returns('get method mock');
-    testContext.chart.update.withArgs({ prop: 'Test9876' }).returns('update method mock');
-    testContext.chart.addAxis.withArgs({ prop: 'Test4567' }).returns('addAxis method mock');
-    testContext.chart.addSeries.withArgs({ prop: 'Test7654' }).returns('addSeries method mock');
-    testContext.chart.setTitle.withArgs({ prop: 'Test8080' }).returns('setTitle method mock');
-    testContext.chart.showLoading.withArgs({ prop: 'Test1111' }).returns('showLoading method mock');
-    testContext.chart.hideLoading.withArgs({ prop: 'Test2222' }).returns('hideLoading method mock');
-    testContext.chart.addCredits.withArgs({ prop: 'Test3333' }).returns('addCredits method mock');
+    testContext.chart.get.mockReturnValueOnce('get method mock');
+    testContext.chart.update.mockReturnValueOnce('update method mock');
+    testContext.chart.addAxis.mockReturnValueOnce('addAxis method mock');
+    testContext.chart.addSeries.mockReturnValueOnce('addSeries method mock');
+    testContext.chart.setTitle.mockReturnValueOnce('setTitle method mock');
+    testContext.chart.showLoading.mockReturnValueOnce('showLoading method mock');
+    testContext.chart.hideLoading.mockReturnValueOnce('hideLoading method mock');
+    testContext.chart.addCredits.mockReturnValueOnce('addCredits method mock');
 
     const wrapper = mount(
       <Provider value={{ chart: testContext.chart, chartType: testContext.chartType }}>
@@ -126,26 +126,26 @@ describe('<ChartProvider />', () => {
     );
 
     const chart = wrapper.find(WrappedComponent).props().getChart();
-    expect(chart.type).to.equal(testContext.chartType);
-    expect(chart.get({ prop: 'Test1234' })).to.equal('get method mock');
-    expect(chart.update({ prop: 'Test9876' })).to.equal('update method mock');
-    expect(chart.addAxis({ prop: 'Test4567' })).to.equal('addAxis method mock');
-    expect(chart.addSeries({ prop: 'Test7654' })).to.equal('addSeries method mock');
-    expect(chart.setTitle({ prop: 'Test8080' })).to.equal('setTitle method mock');
-    expect(chart.showLoading({ prop: 'Test1111' })).to.equal('showLoading method mock');
-    expect(chart.hideLoading({ prop: 'Test2222' })).to.equal('hideLoading method mock');
-    expect(chart.addCredits({ prop: 'Test3333' })).to.equal('addCredits method mock');
+    expect(chart.type).toEqual(testContext.chartType);
+    expect(chart.get({ prop: 'Test1234' })).toEqual('get method mock');
+    expect(chart.update({ prop: 'Test9876' })).toEqual('update method mock');
+    expect(chart.addAxis({ prop: 'Test4567' })).toEqual('addAxis method mock');
+    expect(chart.addSeries({ prop: 'Test7654' })).toEqual('addSeries method mock');
+    expect(chart.setTitle({ prop: 'Test8080' })).toEqual('setTitle method mock');
+    expect(chart.showLoading({ prop: 'Test1111' })).toEqual('showLoading method mock');
+    expect(chart.hideLoading({ prop: 'Test2222' })).toEqual('hideLoading method mock');
+    expect(chart.addCredits({ prop: 'Test3333' })).toEqual('addCredits method mock');
   });
 
   it('should provide chart functions bound to the chart when calling getChart', () => {
-    testContext.chart.get.withArgs({ prop: 'Test1234' }).returnsThis();
-    testContext.chart.update.withArgs({ prop: 'Test9876' }).returnsThis();
-    testContext.chart.addAxis.withArgs({ prop: 'Test4567' }).returnsThis();
-    testContext.chart.addSeries.withArgs({ prop: 'Test7654' }).returnsThis();
-    testContext.chart.setTitle.withArgs({ prop: 'Test8080' }).returnsThis();
-    testContext.chart.showLoading.withArgs({ prop: 'Test1111' }).returnsThis();
-    testContext.chart.hideLoading.withArgs({ prop: 'Test2222' }).returnsThis();
-    testContext.chart.addCredits.withArgs({ prop: 'Test3333' }).returnsThis();
+    testContext.chart.get.mockReturnThis()
+    testContext.chart.update.mockReturnThis();
+    testContext.chart.addAxis.mockReturnThis();
+    testContext.chart.addSeries.mockReturnThis();
+    testContext.chart.setTitle.mockReturnThis();
+    testContext.chart.showLoading.mockReturnThis();
+    testContext.chart.hideLoading.mockReturnThis();
+    testContext.chart.addCredits.mockReturnThis();
 
     const wrapper = mount(
       <Provider value={{ chart: testContext.chart, chartType: 'stockChart' }}>
@@ -154,15 +154,15 @@ describe('<ChartProvider />', () => {
     );
 
     const chart = wrapper.find(WrappedComponent).props().getChart();
-    expect(chart.type).to.equal('stockChart');
-    expect(chart.get({ prop: 'Test1234' })).to.equal(testContext.chart);
-    expect(chart.update({ prop: 'Test9876' })).to.equal(testContext.chart);
-    expect(chart.addAxis({ prop: 'Test4567' })).to.equal(testContext.chart);
-    expect(chart.addSeries({ prop: 'Test7654' })).to.equal(testContext.chart);
-    expect(chart.setTitle({ prop: 'Test8080' })).to.equal(testContext.chart);
-    expect(chart.showLoading({ prop: 'Test1111' })).to.equal(testContext.chart);
-    expect(chart.hideLoading({ prop: 'Test2222' })).to.equal(testContext.chart);
-    expect(chart.addCredits({ prop: 'Test3333' })).to.equal(testContext.chart);
+    expect(chart.type).toEqual('stockChart');
+    expect(chart.get({ prop: 'Test1234' })).toEqual(testContext.chart);
+    expect(chart.update({ prop: 'Test9876' })).toEqual(testContext.chart);
+    expect(chart.addAxis({ prop: 'Test4567' })).toEqual(testContext.chart);
+    expect(chart.addSeries({ prop: 'Test7654' })).toEqual(testContext.chart);
+    expect(chart.setTitle({ prop: 'Test8080' })).toEqual(testContext.chart);
+    expect(chart.showLoading({ prop: 'Test1111' })).toEqual(testContext.chart);
+    expect(chart.hideLoading({ prop: 'Test2222' })).toEqual(testContext.chart);
+    expect(chart.addCredits({ prop: 'Test3333' })).toEqual(testContext.chart);
   });
 
   it('should provide chart functions which will be cleaned prior to being called', () => {
@@ -174,6 +174,6 @@ describe('<ChartProvider />', () => {
 
     const cleanedFunctions = ['update', 'addAxis', 'addSeries', 'setTitle', 'addCredits'];
     wrapper.find(WrappedComponent).props().getChart();
-    expect(testContext.cleanSpy).to.have.callCount(cleanedFunctions.length);
+    expect(testContext.cleanSpy).toHaveBeenCalledTimes(cleanedFunctions.length);
   });
 });

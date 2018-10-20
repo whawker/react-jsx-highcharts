@@ -12,8 +12,8 @@ describe('withHighcharts', () => {
     const WithHighchartsComponent = withHighcharts(WrappedComponent, Highcharts);
     const wrapper = mount(<WithHighchartsComponent />);
 
-    expect(wrapper.childAt(0)).to.have.type(Provider);
-    expect(wrapper.childAt(0)).to.have.prop('value').to.equal(Highcharts);
+    expect(wrapper.childAt(0).type()).toBe(Provider);
+    expect(wrapper.childAt(0)).toHaveProp('value', Highcharts);
   });
 
   it('should create a Highcharts context with the provided object (2)', () => {
@@ -21,7 +21,7 @@ describe('withHighcharts', () => {
     const WithHighchartsComponent = withHighcharts(WrappedComponent, HighchartsWithExtraFunctionality);
     const wrapper = mount(<WithHighchartsComponent />);
 
-    expect(wrapper.childAt(0)).to.have.type(Provider);
-    expect(wrapper.childAt(0)).to.have.prop('value').to.equal(HighchartsWithExtraFunctionality);
+    expect(wrapper.childAt(0).type()).toBe(Provider);
+    expect(wrapper.childAt(0)).toHaveProp('value', HighchartsWithExtraFunctionality);
   });
 });

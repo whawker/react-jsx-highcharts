@@ -5,13 +5,8 @@ import Tooltip from '../../../src/components/Tooltip/Tooltip';
 describe('<Tooltip />', () => {
   let testContext;
 
-  let sandbox;
-
   beforeEach(() => {
     testContext = {};
-    sandbox = sinon.createSandbox();
-    sandbox.stub(Highcharts, 'Tooltip');
-    sandbox.stub(Highcharts, 'addEvent');
 
     const { chartStubs, getChart } = createMockProvidedChart();
 
@@ -25,19 +20,16 @@ describe('<Tooltip />', () => {
     };
   });
 
-  afterEach(() => {
-    sandbox.restore();
-  });
 
   describe('when mounted', () => {
     it('creates a new Highcharts Tooltip instance', () => {
       mount(<Tooltip {...testContext.propsFromProviders} />);
-      expect(Highcharts.Tooltip).to.have.been.calledWithNew;
+      expect(Highcharts.Tooltip).toHaveBeenCalled(); // calledWithNew
     });
 
     it('updates the chart with the passed props', () => {
       mount(<Tooltip backgroundColor="red" shadow={false} {...testContext.propsFromProviders} />);
-      expect(Highcharts.Tooltip).to.have.been.calledWithMatch(testContext.chart, {
+      expect(Highcharts.Tooltip).toHaveBeenCalledWith(testContext.chart, {
         backgroundColor: 'red',
         enabled: true,
         shadow: false
@@ -49,11 +41,11 @@ describe('<Tooltip />', () => {
     it('should use the update method when props change', () => {
       const wrapper = mount(<Tooltip selected={0} {...testContext.propsFromProviders} />);
       wrapper.setProps({ padding: 2 });
-      expect(testContext.chartStubs.update).to.have.been.calledWith({
+      expect(testContext.chartStubs.update).toHaveBeenCalledWith(expect.objectContaining({
         tooltip: {
           padding: 2
         }
-      });
+      }), true);
     });
   });
 
@@ -61,11 +53,11 @@ describe('<Tooltip />', () => {
     it('should disable the Tooltip', () => {
       const wrapper = mount(<Tooltip {...testContext.propsFromProviders} />);
       wrapper.unmount();
-      expect(testContext.chartStubs.update).to.have.been.calledWith({
+      expect(testContext.chartStubs.update).toHaveBeenCalledWith(expect.objectContaining({
         tooltip: {
           enabled: false
         }
-      })
+      }), true)
     });
   });
 });

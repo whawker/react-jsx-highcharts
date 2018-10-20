@@ -18,7 +18,7 @@ describe('<Options3d />', () => {
   describe('when mounted', () => {
     it('updates the chart with the passed props', () => {
       mount(<Options3d alpha={10} beta={20} {...testContext.propsFromProviders} />);
-      expect(testContext.chartStubs.update).to.have.been.calledWith({
+      expect(testContext.chartStubs.update).toHaveBeenCalledWith({
         chart: {
           options3d: {
             ...Options3d.defaultProps,
@@ -27,7 +27,7 @@ describe('<Options3d />', () => {
             beta: 20
           }
         }
-      });
+      }, true);
     });
   });
 
@@ -35,7 +35,7 @@ describe('<Options3d />', () => {
     it('should use the update method when props change', () => {
       const wrapper = mount(<Options3d alpha={0} {...testContext.propsFromProviders} />);
       wrapper.setProps({ alpha: 45 });
-      expect(testContext.chartStubs.update).to.have.been.calledWith({
+      expect(testContext.chartStubs.update).toHaveBeenCalledWith({
         chart: {
           options3d: {
             ...Options3d.defaultProps,
@@ -43,7 +43,7 @@ describe('<Options3d />', () => {
             alpha: 45
           }
         }
-      });
+      }, true);
     });
   });
 });

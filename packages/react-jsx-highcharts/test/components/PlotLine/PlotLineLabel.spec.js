@@ -5,18 +5,17 @@ import PlotLineLabel from '../../../src/components/PlotLine/PlotLineLabel';
 describe('<PlotLine.Label />', () => {
   let testContext;
 
-  let clock;
-
   beforeEach(() => {
     testContext = {};
-    clock = sinon.useFakeTimers();
+    jest.useFakeTimers();
+
     const { axisStubs, getAxis } = createMockProvidedAxis({ id: 'myAxis', type: 'yAxis' });
     testContext.axisStubs = axisStubs;
 
-    testContext.plotLine      = { id: 'myPlotLine', options: { label: { text: null } }, render: sinon.spy() };
-    testContext.otherPlotLine = { id: 'myOtherPlotLine', options: { label: { text: 'Other' } }, render: sinon.spy() };
+    testContext.plotLine      = { id: 'myPlotLine', options: { label: { text: null } }, render: jest.fn() };
+    testContext.otherPlotLine = { id: 'myOtherPlotLine', options: { label: { text: 'Other' } }, render: jest.fn() };
 
-    testContext.getAxis = sinon.stub();
+    testContext.getAxis = jest.fn();
     testContext.axisStubs.object = {
       plotLinesAndBands: [
         testContext.plotLine,
@@ -29,9 +28,7 @@ describe('<PlotLine.Label />', () => {
     };
   });
 
-  afterEach(() => {
-    clock.restore();
-  });
+
 
   describe('when mounted', () => {
     it('sets the correct plot line label', () => {
@@ -40,15 +37,15 @@ describe('<PlotLine.Label />', () => {
           My PlotLine Label
         </PlotLineLabel>
       );
-      clock.tick(1);
-      expect(testContext.plotLine.options.label).to.eql({
+      jest.advanceTimersByTime(1);
+      expect(testContext.plotLine.options.label).toEqual({
         text: 'My PlotLine Label'
       });
-      expect(testContext.otherPlotLine.options.label).to.eql({
+      expect(testContext.otherPlotLine.options.label).toEqual({
         text: 'Other'
       });
-      expect(testContext.plotLine.render).to.have.been.called;
-      expect(testContext.otherPlotLine.render).not.to.have.been.called;
+      expect(testContext.plotLine.render).toHaveBeenCalled();
+      expect(testContext.otherPlotLine.render).not.toHaveBeenCalled();
     });
 
     it('should pass additional props too', () => {
@@ -57,16 +54,16 @@ describe('<PlotLine.Label />', () => {
           My PlotLine Label
         </PlotLineLabel>
       );
-      clock.tick(1);
-      expect(testContext.plotLine.options.label).to.eql({
+      jest.advanceTimersByTime(1);
+      expect(testContext.plotLine.options.label).toEqual({
         text: 'My PlotLine Label',
         align: 'left'
       });
-      expect(testContext.otherPlotLine.options.label).to.eql({
+      expect(testContext.otherPlotLine.options.label).toEqual({
         text: 'Other'
       });
-      expect(testContext.plotLine.render).to.have.been.called;
-      expect(testContext.otherPlotLine.render).not.to.have.been.called;
+      expect(testContext.plotLine.render).toHaveBeenCalled();
+      expect(testContext.otherPlotLine.render).not.toHaveBeenCalled();
     });
   });
 
@@ -77,18 +74,18 @@ describe('<PlotLine.Label />', () => {
           My PlotLine Label
         </PlotLineLabel>
       );
-      clock.tick(1);
+      jest.advanceTimersByTime(1);
       wrapper.setProps({ children: 'My New Label' });
-      clock.tick(1);
+      jest.advanceTimersByTime(1);
 
-      expect(testContext.plotLine.options.label).to.eql({
+      expect(testContext.plotLine.options.label).toEqual({
         text: 'My New Label'
       });
-      expect(testContext.otherPlotLine.options.label).to.eql({
+      expect(testContext.otherPlotLine.options.label).toEqual({
         text: 'Other'
       });
-      expect(testContext.plotLine.render).to.have.been.called;
-      expect(testContext.otherPlotLine.render).not.to.have.been.called;
+      expect(testContext.plotLine.render).toHaveBeenCalled();
+      expect(testContext.otherPlotLine.render).not.toHaveBeenCalled();
     });
   });
 
@@ -99,18 +96,18 @@ describe('<PlotLine.Label />', () => {
           My PlotLine Label
         </PlotLineLabel>
       );
-      clock.tick(1);
+      jest.advanceTimersByTime(1);
       wrapper.unmount();
-      clock.tick(1);
+      jest.advanceTimersByTime(1);
 
-      expect(testContext.plotLine.options.label).to.eql({
+      expect(testContext.plotLine.options.label).toEqual({
         text: null
       });
-      expect(testContext.otherPlotLine.options.label).to.eql({
+      expect(testContext.otherPlotLine.options.label).toEqual({
         text: 'Other'
       });
-      expect(testContext.plotLine.render).to.have.been.called;
-      expect(testContext.otherPlotLine.render).not.to.have.been.called;
+      expect(testContext.plotLine.render).toHaveBeenCalled();
+      expect(testContext.otherPlotLine.render).not.toHaveBeenCalled();
     });
   });
 });

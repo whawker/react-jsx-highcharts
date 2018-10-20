@@ -2,7 +2,7 @@ import clean from '../../src/utils/removeProvidedProps';
 
 describe('utils/removeProvidedProps', () => {
   it('should return a function that cleans config before passing to wrapped function', () => {
-    const spy = sinon.spy();
+    const spy = jest.fn();
     const cleanedSpy = clean(spy);
 
     cleanedSpy({
@@ -12,13 +12,13 @@ describe('utils/removeProvidedProps', () => {
       nested: {
         property: 'value'
       },
-      getHighcharts: sinon.spy(),
-      getChart: sinon.spy(),
-      getAxis: sinon.spy(),
-      getSeries: sinon.spy()
+      getHighcharts: jest.fn(),
+      getChart: jest.fn(),
+      getAxis: jest.fn(),
+      getSeries: jest.fn()
     });
 
-    expect(spy).to.have.been.calledWithExactly({
+    expect(spy).toHaveBeenCalledWith({
       enabled: true,
       text: 'something',
       steps: 12,
@@ -29,24 +29,24 @@ describe('utils/removeProvidedProps', () => {
   });
 
   it('should return a function that deeply cleans config before passing to wrapped function', () => {
-    const spy = sinon.spy();
+    const spy = jest.fn();
     const cleanedSpy = clean(spy);
 
-    const onEventHandler = sinon.spy();
+    const onEventHandler = jest.fn();
     cleanedSpy({
       enabled: false,
       text: 'something else',
       onEventHandler,
       nested: {
         property: 'value',
-        getHighcharts: sinon.spy(),
-        getChart: sinon.spy(),
-        getAxis: sinon.spy(),
-        getSeries: sinon.spy()
+        getHighcharts: jest.fn(),
+        getChart: jest.fn(),
+        getAxis: jest.fn(),
+        getSeries: jest.fn()
       }
     });
 
-    expect(spy).to.have.been.calledWithExactly({
+    expect(spy).toHaveBeenCalledWith({
       enabled: false,
       text: 'something else',
       onEventHandler,
@@ -57,7 +57,7 @@ describe('utils/removeProvidedProps', () => {
   });
 
   it('should return a function that really deeply cleans config before passing to wrapped function', () => {
-    const spy = sinon.spy();
+    const spy = jest.fn();
     const cleanedSpy = clean(spy);
 
     cleanedSpy({
@@ -67,15 +67,15 @@ describe('utils/removeProvidedProps', () => {
         property: 'value',
         deeply: {
           value: Math.PI,
-          getHighcharts: sinon.spy(),
-          getChart: sinon.spy(),
-          getAxis: sinon.spy(),
-          getSeries: sinon.spy()
+          getHighcharts: jest.fn(),
+          getChart: jest.fn(),
+          getAxis: jest.fn(),
+          getSeries: jest.fn()
         }
       }
     });
 
-    expect(spy).to.have.been.calledWithExactly({
+    expect(spy).toHaveBeenCalledWith({
       text: 'the third',
       steps: 12,
       nested: {
@@ -88,21 +88,21 @@ describe('utils/removeProvidedProps', () => {
   });
 
   it('should return a function that passes additional arguments to the original function', () => {
-    const spy = sinon.spy();
+    const spy = jest.fn();
     const cleanedSpy = clean(spy);
 
     cleanedSpy(
       {
         enabled: false,
-        getHighcharts: sinon.spy(),
-        getChart: sinon.spy(),
-        getAxis: sinon.spy(),
-        getSeries: sinon.spy()
+        getHighcharts: jest.fn(),
+        getChart: jest.fn(),
+        getAxis: jest.fn(),
+        getSeries: jest.fn()
       },
       true,
       { option: 'never' }
     );
 
-    expect(spy).to.have.been.calledWithExactly({ enabled: false }, true, { option: 'never' });
+    expect(spy).toHaveBeenCalledWith({ enabled: false }, true, { option: 'never' });
   });
 });

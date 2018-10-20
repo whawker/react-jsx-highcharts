@@ -18,24 +18,24 @@ describe('<Legend />', () => {
   describe('when mounted', () => {
     it('add legend using the Highcharts update method', () => {
       mount(<Legend {...testContext.propsFromProviders} />);
-      expect(testContext.chartStubs.update).to.have.been.calledWithMatch({
-        legend: {
+      expect(testContext.chartStubs.update).toHaveBeenCalledWith({
+        legend: expect.objectContaining({
           enabled: true
-        }
-      });
+        })
+      }, true);
     });
 
     it('updates the legend with the passed props', () => {
       mount(
         <Legend align="left" y={20} {...testContext.propsFromProviders} />
       );
-      expect(testContext.chartStubs.update).to.have.been.calledWithMatch({
-        legend: {
+      expect(testContext.chartStubs.update).toHaveBeenCalledWith({
+        legend: expect.objectContaining({
           enabled: true,
           align: 'left',
           y: 20
-        }
-      });
+        })
+      }, true);
     });
   });
 
@@ -45,11 +45,11 @@ describe('<Legend />', () => {
         <Legend {...testContext.propsFromProviders} />
       );
       wrapper.setProps({ backgroundColor: 'red' });
-      expect(testContext.chartStubs.update).to.have.been.calledWithMatch({
+      expect(testContext.chartStubs.update).toHaveBeenCalledWith(expect.objectContaining({
         legend: {
           backgroundColor: 'red'
         }
-      });
+      }), true);
     });
   });
 
@@ -57,11 +57,11 @@ describe('<Legend />', () => {
     it('should disable the Legend', () => {
       const wrapper = mount(<Legend {...testContext.propsFromProviders} />);
       wrapper.unmount();
-      expect(testContext.chartStubs.update).to.have.been.calledWithMatch({
+      expect(testContext.chartStubs.update).toHaveBeenCalledWith(expect.objectContaining({
         legend: {
           enabled: false
         }
-      })
+      }), true)
     });
   });
 });

@@ -20,7 +20,7 @@ describe('<HighchartsProvider />', () => {
       </Provider>
     );
 
-    expect(wrapper.find(WrappedComponent)).to.exist;
+    expect(wrapper.find(WrappedComponent)).toExist();
   });
 
   it('should provide a getHighcharts prop to the wrapped component', () => {
@@ -30,7 +30,7 @@ describe('<HighchartsProvider />', () => {
       </Provider>
     );
 
-    expect(wrapper.find(WrappedComponent).prop('getHighcharts')).to.be.a('function');
+    expect(wrapper.find(WrappedComponent).prop('getHighcharts')).toEqual(expect.any(Function));
   });
 
   it('should pass through other props to the wrapped component', () => {
@@ -40,9 +40,9 @@ describe('<HighchartsProvider />', () => {
       </Provider>
     );
 
-    expect(wrapper.find(WrappedComponent).prop('getHighcharts')).to.be.a('function');
-    expect(wrapper.find(WrappedComponent).prop('someProp')).to.equal('someValue');
-    expect(wrapper.find(WrappedComponent).prop('otherProp')).to.equal('otherValue');
+    expect(wrapper.find(WrappedComponent).prop('getHighcharts')).toEqual(expect.any(Function));
+    expect(wrapper.find(WrappedComponent).prop('someProp')).toEqual('someValue');
+    expect(wrapper.find(WrappedComponent).prop('otherProp')).toEqual('otherValue');
   });
 
   it('should provide the Highcharts global when calling getHighcharts', () => {
@@ -53,6 +53,6 @@ describe('<HighchartsProvider />', () => {
     );
 
     const obj = wrapper.find(WrappedComponent).props().getHighcharts();
-    expect(obj).to.equal(Highcharts);
+    expect(obj).toEqual(Highcharts);
   });
 });

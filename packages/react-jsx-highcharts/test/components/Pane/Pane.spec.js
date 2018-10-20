@@ -20,12 +20,12 @@ describe('<Pane />', () => {
       mount(
         <Pane center={['50%', '85%']} size='100%' {...testContext.propsFromProviders} />
       );
-      expect(testContext.chartStubs.update).to.have.been.calledWithMatch({
-        pane: {
+      expect(testContext.chartStubs.update).toHaveBeenCalledWith({
+        pane: expect.objectContaining({
           center: ['50%', '85%'],
           size: '100%'
-        }
-      });
+        })
+      }, true);
     });
   });
 
@@ -35,11 +35,11 @@ describe('<Pane />', () => {
         <Pane {...testContext.propsFromProviders} />
       );
       wrapper.setProps({ size: '50%' });
-      expect(testContext.chartStubs.update).to.have.been.calledWithMatch({
+      expect(testContext.chartStubs.update).toHaveBeenCalledWith(expect.objectContaining({
         pane: {
           size: '50%'
         }
-      });
+      }), true);
     });
   });
 
@@ -47,9 +47,9 @@ describe('<Pane />', () => {
     it('should disable the Pane', () => {
       const wrapper = mount(<Pane {...testContext.propsFromProviders} />);
       wrapper.unmount();
-      expect(testContext.chartStubs.update).to.have.been.calledWithMatch({
+      expect(testContext.chartStubs.update).toHaveBeenCalledWith(expect.objectContaining({
         pane: {}
-      })
+      }), true)
     });
   });
 });

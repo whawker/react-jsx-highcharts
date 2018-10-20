@@ -17,13 +17,13 @@ describe('<SeriesProvider />', () => {
 
   beforeAll(function () {
     suiteContext = {};
-    suiteContext.axisProviderStub = sinon.stub(axisProvider, 'default').returnsArg(0);
-    suiteContext.delayRenderStub = sinon.stub(DelayRender, 'default').callsFake(({ children }) => ( <div>{children}</div> ));
+    suiteContext.axisProviderStub = jest.spyOn(axisProvider, 'default').mockImplementation(x => x)
+    suiteContext.delayRenderStub = jest.spyOn(DelayRender, 'default').mockImplementation(({ children }) => ( <div>{children}</div> ));
   });
 
   beforeEach(() => {
     testContext = {};
-    testContext.cleanSpy = sinon.spy(clean, 'default');
+    testContext.cleanSpy = jest.spyOn(clean, 'default');
     testContext.series = createMockSeries({
       userOptions: { id: 'mySeriesId' },
       type: 'areaspline'
@@ -33,8 +33,7 @@ describe('<SeriesProvider />', () => {
   });
 
   afterEach(() => {
-    suiteContext.axisProviderStub.resetHistory();
-    testContext.cleanSpy.restore();
+    testContext.cleanSpy.mockClear();
   });
 
   afterAll(function () {
@@ -49,7 +48,7 @@ describe('<SeriesProvider />', () => {
       </Provider>
     );
 
-    expect(wrapper.find(WrappedComponent)).to.not.exist;
+    expect(wrapper.find(WrappedComponent)).not.toExist();
   });
 
   it('should render the wrapped component if there is an series context', () => {
@@ -59,7 +58,7 @@ describe('<SeriesProvider />', () => {
       </Provider>
     );
 
-    expect(wrapper.find(WrappedComponent)).to.exist;
+    expect(wrapper.find(WrappedComponent)).toExist();
   });
 
   it('should additionally wrap the component with the axis context', () => {
@@ -69,7 +68,7 @@ describe('<SeriesProvider />', () => {
       </Provider>
     );
 
-    expect(suiteContext.axisProviderStub).to.have.been.calledWith(SeriesWrappedComponent);
+    expect(suiteContext.axisProviderStub).toHaveBeenCalledWith(SeriesWrappedComponent);
   });
 
   it('should provide a getSeries prop to the wrapped component', () => {
@@ -79,7 +78,7 @@ describe('<SeriesProvider />', () => {
       </Provider>
     );
 
-    expect(wrapper.find(WrappedComponent).prop('getSeries')).to.be.a('function');
+    expect(wrapper.find(WrappedComponent).prop('getSeries')).toEqual(expect.any(Function))
   });
 
   it('should pass through other props to the wrapped component', () => {
@@ -89,9 +88,9 @@ describe('<SeriesProvider />', () => {
       </Provider>
     );
 
-    expect(wrapper.find(WrappedComponent).prop('getSeries')).to.be.a('function');
-    expect(wrapper.find(WrappedComponent).prop('someProp')).to.equal('someValue');
-    expect(wrapper.find(WrappedComponent).prop('otherProp')).to.equal('otherValue');
+    expect(wrapper.find(WrappedComponent).prop('getSeries')).toEqual(expect.any(Function))
+    expect(wrapper.find(WrappedComponent).prop('someProp')).toEqual('someValue');
+    expect(wrapper.find(WrappedComponent).prop('otherProp')).toEqual('otherValue');
   });
 
   it('should provide series functions when calling getSeries', () => {
@@ -102,20 +101,20 @@ describe('<SeriesProvider />', () => {
     );
 
     const series = wrapper.find(WrappedComponent).props().getSeries();
-    expect(series.object).to.equal(testContext.series);
-    expect(series.id).to.equal('mySeriesId');
-    expect(series.type).to.equal('areaspline');
-    expect(series.update).to.be.a('function');
-    expect(series.remove).to.be.a('function');
-    expect(series.setData).to.be.a('function');
-    expect(series.setVisible).to.be.a('function');
+    expect(series.object).toEqual(testContext.series);
+    expect(series.id).toEqual('mySeriesId');
+    expect(series.type).toEqual('areaspline');
+    expect(series.update).toEqual(expect.any(Function))
+    expect(series.remove).toEqual(expect.any(Function))
+    expect(series.setData).toEqual(expect.any(Function))
+    expect(series.setVisible).toEqual(expect.any(Function))
   });
 
   it('should provide expected series functions when calling getSeries', () => {
-    testContext.series.update.withArgs({ prop: 'Test9876' }).returns('update method mock');
-    testContext.series.remove.withArgs({ prop: 'Test1234' }).returns('remove method mock');
-    testContext.series.setData.withArgs({ prop: 'Test4567' }).returns('setData method mock');
-    testContext.series.setVisible.withArgs({ prop: 'Test7654' }).returns('setVisible method mock');
+    testContext.series.update.mockReturnValueOnce('update method mock');
+    testContext.series.remove.mockReturnValueOnce('remove method mock');
+    testContext.series.setData.mockReturnValueOnce('setData method mock');
+    testContext.series.setVisible.mockReturnValueOnce('setVisible method mock');
 
     const wrapper = mount(
       <Provider value={testContext.series}>
@@ -124,17 +123,17 @@ describe('<SeriesProvider />', () => {
     );
 
     const series = wrapper.find(WrappedComponent).props().getSeries();
-    expect(series.update({ prop: 'Test9876' })).to.equal('update method mock');
-    expect(series.remove({ prop: 'Test1234' })).to.equal('remove method mock');
-    expect(series.setData({ prop: 'Test4567' })).to.equal('setData method mock');
-    expect(series.setVisible({ prop: 'Test7654' })).to.equal('setVisible method mock');
+    expect(series.update({ prop: 'Test9876' })).toEqual('update method mock');
+    expect(series.remove({ prop: 'Test1234' })).toEqual('remove method mock');
+    expect(series.setData({ prop: 'Test4567' })).toEqual('setData method mock');
+    expect(series.setVisible({ prop: 'Test7654' })).toEqual('setVisible method mock');
   });
 
   it('should provide series functions bound to the series when calling getSeries', () => {
-    testContext.series.update.withArgs({ prop: 'Test9876' }).returnsThis();
-    testContext.series.remove.withArgs({ prop: 'Test1234' }).returnsThis();
-    testContext.series.setData.withArgs({ prop: 'Test4567' }).returnsThis();
-    testContext.series.setVisible.withArgs({ prop: 'Test7654' }).returnsThis();
+    testContext.series.update.mockReturnThis();
+    testContext.series.remove.mockReturnThis();
+    testContext.series.setData.mockReturnThis();
+    testContext.series.setVisible.mockReturnThis();
 
     const wrapper = mount(
       <Provider value={testContext.series}>
@@ -143,10 +142,10 @@ describe('<SeriesProvider />', () => {
     );
 
     const series = wrapper.find(WrappedComponent).props().getSeries();
-    expect(series.update({ prop: 'Test9876' })).to.equal(testContext.series);
-    expect(series.remove({ prop: 'Test1234' })).to.equal(testContext.series);
-    expect(series.setData({ prop: 'Test4567' })).to.equal(testContext.series);
-    expect(series.setVisible({ prop: 'Test7654' })).to.equal(testContext.series);
+    expect(series.update({ prop: 'Test9876' })).toEqual(testContext.series);
+    expect(series.remove({ prop: 'Test1234' })).toEqual(testContext.series);
+    expect(series.setData({ prop: 'Test4567' })).toEqual(testContext.series);
+    expect(series.setVisible({ prop: 'Test7654' })).toEqual(testContext.series);
   });
 
   it('should provide series functions which will be cleaned prior to being called', () => {
@@ -158,6 +157,6 @@ describe('<SeriesProvider />', () => {
 
     const cleanedFunctions = ['update'];
     wrapper.find(WrappedComponent).props().getSeries();
-    expect(testContext.cleanSpy).to.have.callCount(cleanedFunctions.length);
+    expect(testContext.cleanSpy).toHaveBeenCalledTimes(cleanedFunctions.length);
   });
 });

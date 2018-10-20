@@ -5,18 +5,14 @@ import Axis from '../../../src/components/Axis/Axis';
 describe('<Axis />', () => {
   let testContext;
 
-  let sandbox = null;
-
   beforeEach(() => {
     testContext = {};
-    sandbox = sinon.createSandbox();
-    sandbox.stub(Highcharts, 'addEvent');
 
     const { chartStubs, getChart } = createMockProvidedChart();
 
     testContext.chartStubs = chartStubs;
     testContext.axisStubs = createMockAxis({});
-    testContext.chartStubs.addAxis.returns(testContext.axisStubs)
+    testContext.chartStubs.addAxis.mockReturnValue(testContext.axisStubs)
 
     testContext.propsFromProviders = {
       getChart,
@@ -24,22 +20,19 @@ describe('<Axis />', () => {
     };
   });
 
-  afterEach(() => {
-    sandbox.restore();
-  });
 
   describe('when mounted (dynamic)', () => {
     it('adds an X axis using the addAxis method', () => {
       mount(<Axis id="myAxis" isX {...testContext.propsFromProviders} />);
-      expect(testContext.chartStubs.addAxis).to.have.been.calledWithMatch(
-        { id: 'myAxis', title: { text: null } }, true, true
+      expect(testContext.chartStubs.addAxis).toHaveBeenCalledWith(
+        expect.objectContaining({ id: 'myAxis', title: { text: null } }), true, true
       );
     });
 
     it('adds a Y axis using the addAxis method', () => {
       mount(<Axis id="myAxis" isX={false} {...testContext.propsFromProviders} />);
-      expect(testContext.chartStubs.addAxis).to.have.been.calledWithMatch(
-        { id: 'myAxis', title: { text: null } }, false, true
+      expect(testContext.chartStubs.addAxis).toHaveBeenCalledWith(
+        expect.objectContaining({ id: 'myAxis', title: { text: null } }), false, true
       );
     });
 
@@ -47,7 +40,7 @@ describe('<Axis />', () => {
       mount(
         <Axis id="myAxisIdStr" {...testContext.propsFromProviders} />
       );
-      expect(testContext.chartStubs.addAxis.getCall(0).args[0].id).to.equal('myAxisIdStr');
+      expect(testContext.chartStubs.addAxis.mock.calls[0][0].id).toEqual('myAxisIdStr');
     });
 
     it('resolves the ID if id prop is a function', () => {
@@ -55,77 +48,77 @@ describe('<Axis />', () => {
       mount(
         <Axis id={idFunc} {...testContext.propsFromProviders} />
       );
-      expect(testContext.chartStubs.addAxis.getCall(0).args[0].id).to.equal('myAxisIdFromFunc');
+      expect(testContext.chartStubs.addAxis.mock.calls[0][0].id).toEqual('myAxisIdFromFunc');
     });
 
     it('uses a uuid as an ID if no id prop provided', () => {
       mount(
         <Axis {...testContext.propsFromProviders} />
       );
-      expect(testContext.chartStubs.addAxis.getCall(0).args[0].id).to.match(uuidRegex);
+      expect(testContext.chartStubs.addAxis.mock.calls[0][0].id).toMatch(uuidRegex);
     });
 
     it('should pass additional props through to Highcharts addAxis method', () => {
       mount(<Axis id="myAxis" isX min={10} max={100} reversed {...testContext.propsFromProviders} />);
-      expect(testContext.chartStubs.addAxis).to.have.been.calledWithMatch(
-        { id: 'myAxis', title: { text: null }, min: 10, max: 100, reversed: true }, true, true
+      expect(testContext.chartStubs.addAxis).toHaveBeenCalledWith(
+        expect.objectContaining({ id: 'myAxis', title: { text: null }, min: 10, max: 100, reversed: true }), true, true
       );
     });
 
     it('subscribes to Highcharts events for props that look like event handlers', () => {
-      const handleSetExtremes = sinon.spy();
-      const handleAfterSetExtremes = sinon.spy();
+      const handleSetExtremes = jest.fn();
+      const handleAfterSetExtremes = jest.fn();
 
       mount(
         <Axis id="myAxis" isX onSetExtremes={handleSetExtremes} onAfterSetExtremes={handleAfterSetExtremes}
           {...testContext.propsFromProviders} />
       );
-      expect(testContext.axisStubs.update).to.have.been.calledWith({
-        events: {
+      expect(testContext.axisStubs.update).toHaveBeenCalledWith({
+        events: expect.objectContaining({
           setExtremes: handleSetExtremes,
           afterSetExtremes: handleAfterSetExtremes
-        }
+        })
       });
     });
   });
 
   describe('when mounted (NOT dynamic)', () => {
     beforeEach(() => {
-      testContext.chartStubs.get.returns(testContext.axisStubs)
+      testContext.chartStubs.get.mockReturnValue(testContext.axisStubs)
     })
 
     it('retrieve the axis by id', () => {
       mount(<Axis id="myAxis" isX={false} dynamicAxis={false} {...testContext.propsFromProviders} />);
-      expect(testContext.chartStubs.get).to.have.been.calledWith('myAxis');
+      expect(testContext.chartStubs.get).toHaveBeenCalledWith('myAxis');
     });
 
     it('updates a non dynamic axis using the update method', () => {
       mount(<Axis id="myAxis" isX={false} dynamicAxis={false} {...testContext.propsFromProviders} />);
-      expect(testContext.axisStubs.update).to.have.been.calledWithMatch(
+      expect(testContext.axisStubs.update).toHaveBeenCalledWith(expect.objectContaining(
         { id: 'myAxis', title: { text: null } }, true
-      );
+      ), expect.any(Boolean));
     });
 
     it('should pass additional props through to Highcharts update method', () => {
       mount(<Axis id="myAxis" isX={false} dynamicAxis={false} min={10} max={100} reversed {...testContext.propsFromProviders} />);
-      expect(testContext.axisStubs.update).to.have.been.calledWithMatch(
+      expect(testContext.axisStubs.update).toHaveBeenCalledWith(expect.objectContaining(
         { id: 'myAxis', title: { text: null }, min: 10, max: 100, reversed: true }, true
-      );
+      ), expect.any(Boolean));
     });
 
     it('subscribes to Highcharts events for props that look like event handlers', () => {
-      const handleSetExtremes = sinon.spy();
-      const handleAfterSetExtremes = sinon.spy();
+      const handleSetExtremes = jest.fn();
+      const handleAfterSetExtremes = jest.fn();
 
       mount(
         <Axis id="myAxis" isX={false} dynamicAxis={false} onSetExtremes={handleSetExtremes} onAfterSetExtremes={handleAfterSetExtremes}
           {...testContext.propsFromProviders} />
       );
-      expect(testContext.axisStubs.update).to.have.been.calledWith({
-        events: {
+      expect(testContext.axisStubs.update).toHaveBeenCalledWith({
+        events: expect.objectContaining({
           setExtremes: handleSetExtremes,
           afterSetExtremes: handleAfterSetExtremes
-        }
+        })
       });
     });
   });
@@ -136,7 +129,7 @@ describe('<Axis />', () => {
         <Axis id="myAxis" isX {...testContext.propsFromProviders} />
       );
       wrapper.setProps({ newPropName: 'newPropValue' });
-      expect(testContext.axisStubs.update).to.have.been.calledWith({
+      expect(testContext.axisStubs.update).toHaveBeenCalledWith({
         newPropName: 'newPropValue'
       });
     });
@@ -148,7 +141,7 @@ describe('<Axis />', () => {
         <Axis id="myAxis" isX {...testContext.propsFromProviders} />
       );
       wrapper.unmount();
-      expect(testContext.axisStubs.remove).to.have.been.called;
+      expect(testContext.axisStubs.remove).toHaveBeenCalled();
     });
   });
 });

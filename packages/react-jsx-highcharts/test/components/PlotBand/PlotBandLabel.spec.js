@@ -5,18 +5,16 @@ import PlotBandLabel from '../../../src/components/PlotBand/PlotBandLabel';
 describe('<PlotBand.Label />', () => {
   let testContext;
 
-  let clock;
-
   beforeEach(() => {
     testContext = {};
-    clock = sinon.useFakeTimers();
+    jest.useFakeTimers();
     const { axisStubs, getAxis } = createMockProvidedAxis({ id: 'myAxis', type: 'yAxis' });
     testContext.axisStubs = axisStubs;
 
-    testContext.plotBand      = { id: 'myPlotBand', options: { label: { text: null } }, render: sinon.spy() };
-    testContext.otherPlotBand = { id: 'myOtherPlotBand', options: { label: { text: 'Other' } }, render: sinon.spy() };
+    testContext.plotBand      = { id: 'myPlotBand', options: { label: { text: null } }, render: jest.fn() };
+    testContext.otherPlotBand = { id: 'myOtherPlotBand', options: { label: { text: 'Other' } }, render: jest.fn() };
 
-    testContext.getAxis = sinon.stub();
+    testContext.getAxis = jest.fn();
     testContext.axisStubs.object = {
       plotLinesAndBands: [
         testContext.plotBand,
@@ -29,9 +27,6 @@ describe('<PlotBand.Label />', () => {
     };
   });
 
-  afterEach(() => {
-    clock.restore();
-  });
 
   describe('when mounted', () => {
     it('sets the correct plot band label', () => {
@@ -40,15 +35,15 @@ describe('<PlotBand.Label />', () => {
           My PlotBand Label
         </PlotBandLabel>
       );
-      clock.tick(1);
-      expect(testContext.plotBand.options.label).to.eql({
+      jest.advanceTimersByTime(1);
+      expect(testContext.plotBand.options.label).toEqual({
         text: 'My PlotBand Label'
       });
-      expect(testContext.otherPlotBand.options.label).to.eql({
+      expect(testContext.otherPlotBand.options.label).toEqual({
         text: 'Other'
       });
-      expect(testContext.plotBand.render).to.have.been.called;
-      expect(testContext.otherPlotBand.render).not.to.have.been.called;
+      expect(testContext.plotBand.render).toHaveBeenCalled();
+      expect(testContext.otherPlotBand.render).not.toHaveBeenCalled();
     });
 
     it('should pass additional props too', () => {
@@ -57,16 +52,16 @@ describe('<PlotBand.Label />', () => {
           My PlotBand Label
         </PlotBandLabel>
       );
-      clock.tick(1);
-      expect(testContext.plotBand.options.label).to.eql({
+      jest.advanceTimersByTime(1);
+      expect(testContext.plotBand.options.label).toEqual({
         text: 'My PlotBand Label',
         align: 'left'
       });
-      expect(testContext.otherPlotBand.options.label).to.eql({
+      expect(testContext.otherPlotBand.options.label).toEqual({
         text: 'Other'
       });
-      expect(testContext.plotBand.render).to.have.been.called;
-      expect(testContext.otherPlotBand.render).not.to.have.been.called;
+      expect(testContext.plotBand.render).toHaveBeenCalled();
+      expect(testContext.otherPlotBand.render).not.toHaveBeenCalled();
     });
   });
 
@@ -77,18 +72,18 @@ describe('<PlotBand.Label />', () => {
           My PlotBand Label
         </PlotBandLabel>
       );
-      clock.tick(1);
+      jest.advanceTimersByTime(1);
       wrapper.setProps({ children: 'My New Label' });
-      clock.tick(1);
+      jest.advanceTimersByTime(1);
 
-      expect(testContext.plotBand.options.label).to.eql({
+      expect(testContext.plotBand.options.label).toEqual({
         text: 'My New Label'
       });
-      expect(testContext.otherPlotBand.options.label).to.eql({
+      expect(testContext.otherPlotBand.options.label).toEqual({
         text: 'Other'
       });
-      expect(testContext.plotBand.render).to.have.been.called;
-      expect(testContext.otherPlotBand.render).not.to.have.been.called;
+      expect(testContext.plotBand.render).toHaveBeenCalled();
+      expect(testContext.otherPlotBand.render).not.toHaveBeenCalled();
     });
   });
 
@@ -99,18 +94,18 @@ describe('<PlotBand.Label />', () => {
           My PlotBand Label
         </PlotBandLabel>
       );
-      clock.tick(1);
+      jest.advanceTimersByTime(1);
       wrapper.unmount();
-      clock.tick(1);
+      jest.advanceTimersByTime(1);
 
-      expect(testContext.plotBand.options.label).to.eql({
+      expect(testContext.plotBand.options.label).toEqual({
         text: null
       });
-      expect(testContext.otherPlotBand.options.label).to.eql({
+      expect(testContext.otherPlotBand.options.label).toEqual({
         text: 'Other'
       });
-      expect(testContext.plotBand.render).to.have.been.called;
-      expect(testContext.otherPlotBand.render).not.to.have.been.called;
+      expect(testContext.plotBand.render).toHaveBeenCalled();
+      expect(testContext.otherPlotBand.render).not.toHaveBeenCalled();
     });
   });
 });

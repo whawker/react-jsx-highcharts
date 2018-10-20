@@ -7,34 +7,34 @@ describe('withSeriesType', () => {
   it('should create Series component', () => {
     const SeriesComponent = withSeriesType('line');
     const wrapper = shallow(<SeriesComponent />);
-    expect(wrapper).to.have.type(Series);
+    expect(wrapper.type()).toBe(Series);
   });
 
   it(`should set type attribute <Series type="line" />`, () => {
     const SeriesComponent = withSeriesType('line');
     const wrapper = shallow(<SeriesComponent />);
-    expect(wrapper).to.have.prop('type').equal('line');
+    expect(wrapper).toHaveProp('type','line');
   });
 
   it(`the created component should pass additional props through to Series`, () => {
     const SeriesComponent = withSeriesType('line');
     const wrapper = shallow(<SeriesComponent data={[1, 2, 3, 4]} />);
-    expect(wrapper).to.have.prop('data').eql([1, 2, 3, 4]);
+    expect(wrapper).toHaveProp('data',[1, 2, 3, 4]);
   });
 
   it(`should set id propType`, () => {
     const SeriesComponent = withSeriesType('line');
-    expect(SeriesComponent.propTypes).to.have.property('id');
+    expect(SeriesComponent.propTypes).toHaveProperty('id');
   });
 
   it(`should add additionalPropTypes`, () => {
     const SeriesComponent = withSeriesType('line', {}, { baseSeries: PropTypes.string.isRequired });
-    expect(SeriesComponent.propTypes).to.have.property('baseSeries');
+    expect(SeriesComponent.propTypes).toHaveProperty('baseSeries');
   });
 
   it(`should pass additionalProps to Series`, () => {
     const SeriesComponent = withSeriesType('line', { requiresAxis: false });
     const wrapper = shallow(<SeriesComponent />);
-    expect(wrapper).to.have.prop('requiresAxis').equal(false);
+    expect(wrapper).toHaveProp('requiresAxis', false);
   });
 });

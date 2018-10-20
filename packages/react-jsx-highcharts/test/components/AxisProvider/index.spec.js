@@ -16,10 +16,10 @@ describe('<AxisProvider />', () => {
 
   beforeEach(() => {
     testContext = {};
-    testContext.chartProviderStub = sinon.stub(chartProvider, 'default').returnsArg(0);
-    testContext.delayRenderStub = sinon.stub(DelayRender, 'default').callsFake(({ children }) => ( <div>{children}</div> ));
+    testContext.chartProviderStub = jest.spyOn(chartProvider, 'default').mockImplementation(x => x)
+    testContext.delayRenderStub = jest.spyOn(DelayRender, 'default').mockImplementation(({ children }) => ( <div>{children}</div> ));
 
-    testContext.cleanSpy = sinon.spy(clean, 'default');
+    testContext.cleanSpy = jest.spyOn(clean, 'default');
     testContext.axis = createMockAxis({
       userOptions: { id: 'myAxisId' },
       coll: 'yAxis'
@@ -29,10 +29,9 @@ describe('<AxisProvider />', () => {
   });
 
   afterEach(() => {
-    testContext.chartProviderStub.resetHistory();
-    testContext.cleanSpy.restore();
-    testContext.chartProviderStub.restore();
-    testContext.delayRenderStub.restore();
+    //testContext.chartProviderStub.mockClear();
+    testContext.cleanSpy.mockClear();
+    //testContext.delayRenderStub.restore();
   });
 
 
@@ -43,7 +42,7 @@ describe('<AxisProvider />', () => {
       </Provider>
     );
 
-    expect(wrapper.find(WrappedComponent)).to.not.exist;
+    expect(wrapper.find(WrappedComponent)).not.toExist();
   });
 
   it('should render the wrapped component if there is an axis context', () => {
@@ -53,7 +52,7 @@ describe('<AxisProvider />', () => {
       </Provider>
     );
 
-    expect(wrapper.find(WrappedComponent)).to.exist;
+    expect(wrapper.find(WrappedComponent)).toExist();
   });
 
   it('should render the wrapped component if it does not require an axis, and there is no axis context', () => {
@@ -63,7 +62,7 @@ describe('<AxisProvider />', () => {
       </Provider>
     );
 
-    expect(wrapper.find(WrappedComponent)).to.exist;
+    expect(wrapper.find(WrappedComponent)).toExist();
   });
 
   it('should render the wrapped component if it does not require an axis, and there is an axis context', () => {
@@ -73,7 +72,7 @@ describe('<AxisProvider />', () => {
       </Provider>
     );
 
-    expect(wrapper.find(WrappedComponent)).to.exist;
+    expect(wrapper.find(WrappedComponent)).toExist();
   });
 
   it('should additionally wrap the component with the chart context', () => {
@@ -83,7 +82,7 @@ describe('<AxisProvider />', () => {
       </Provider>
     );
 
-    expect(testContext.chartProviderStub).to.have.been.calledWith(AxisWrappedComponent);
+    expect(testContext.chartProviderStub).toHaveBeenCalledWith(AxisWrappedComponent);
   });
 
   it('should provide a getAxis prop to the wrapped component', () => {
@@ -93,7 +92,7 @@ describe('<AxisProvider />', () => {
       </Provider>
     );
 
-    expect(wrapper.find(WrappedComponent).prop('getAxis')).to.be.a('function');
+    expect(wrapper.find(WrappedComponent).prop('getAxis')).toEqual(expect.any(Function))
   });
 
   it('should pass through other props to the wrapped component', () => {
@@ -103,9 +102,9 @@ describe('<AxisProvider />', () => {
       </Provider>
     );
 
-    expect(wrapper.find(WrappedComponent).prop('getAxis')).to.be.a('function');
-    expect(wrapper.find(WrappedComponent).prop('someProp')).to.equal('someValue');
-    expect(wrapper.find(WrappedComponent).prop('otherProp')).to.equal('otherValue');
+    expect(wrapper.find(WrappedComponent).prop('getAxis')).toEqual(expect.any(Function))
+    expect(wrapper.find(WrappedComponent).prop('someProp')).toBe('someValue');
+    expect(wrapper.find(WrappedComponent).prop('otherProp')).toBe('otherValue');
   });
 
   it('should provide axis functions when calling getAxis', () => {
@@ -116,30 +115,30 @@ describe('<AxisProvider />', () => {
     );
 
     const axis = wrapper.find(WrappedComponent).props().getAxis();
-    expect(axis.object).to.equal(testContext.axis);
-    expect(axis.id).to.equal('myAxisId');
-    expect(axis.type).to.equal('yAxis');
-    expect(axis.update).to.be.a('function');
-    expect(axis.remove).to.be.a('function');
-    expect(axis.addPlotBand).to.be.a('function');
-    expect(axis.removePlotBand).to.be.a('function');
-    expect(axis.addPlotLine).to.be.a('function');
-    expect(axis.removePlotLine).to.be.a('function');
-    expect(axis.getExtremes).to.be.a('function');
-    expect(axis.setExtremes).to.be.a('function');
-    expect(axis.setTitle).to.be.a('function');
+    expect(axis.object).toBe(testContext.axis);
+    expect(axis.id).toBe('myAxisId');
+    expect(axis.type).toBe('yAxis');
+    expect(axis.update).toEqual(expect.any(Function))
+    expect(axis.remove).toEqual(expect.any(Function))
+    expect(axis.addPlotBand).toEqual(expect.any(Function))
+    expect(axis.removePlotBand).toEqual(expect.any(Function))
+    expect(axis.addPlotLine).toEqual(expect.any(Function))
+    expect(axis.removePlotLine).toEqual(expect.any(Function))
+    expect(axis.getExtremes).toEqual(expect.any(Function))
+    expect(axis.setExtremes).toEqual(expect.any(Function))
+    expect(axis.setTitle).toEqual(expect.any(Function))
   });
 
   it('should provide expected axis functions when calling getAxis', () => {
-    testContext.axis.update.withArgs({ prop: 'Test9876' }).returns('update method mock');
-    testContext.axis.remove.withArgs({ prop: 'Test1234' }).returns('remove method mock');
-    testContext.axis.addPlotBand.withArgs({ prop: 'Test4567' }).returns('addPlotBand method mock');
-    testContext.axis.removePlotBand.withArgs({ prop: 'Test7654' }).returns('removePlotBand method mock');
-    testContext.axis.addPlotLine.withArgs({ prop: 'Test4444' }).returns('addPlotLine method mock');
-    testContext.axis.removePlotLine.withArgs({ prop: 'Test5555' }).returns('removePlotLine method mock');
-    testContext.axis.getExtremes.withArgs({ prop: 'Test6666' }).returns('getExtremes method mock');
-    testContext.axis.setExtremes.withArgs({ prop: 'Test7777' }).returns('setExtremes method mock');
-    testContext.axis.setTitle.withArgs({ prop: 'Test8888' }).returns('setTitle method mock');
+    testContext.axis.update.mockReturnValueOnce('update method mock');
+    testContext.axis.remove.mockReturnValueOnce('remove method mock');
+    testContext.axis.addPlotBand.mockReturnValueOnce('addPlotBand method mock');
+    testContext.axis.removePlotBand.mockReturnValueOnce('removePlotBand method mock');
+    testContext.axis.addPlotLine.mockReturnValueOnce('addPlotLine method mock');
+    testContext.axis.removePlotLine.mockReturnValueOnce('removePlotLine method mock');
+    testContext.axis.getExtremes.mockReturnValueOnce('getExtremes method mock');
+    testContext.axis.setExtremes.mockReturnValueOnce('setExtremes method mock');
+    testContext.axis.setTitle.mockReturnValueOnce('setTitle method mock');
 
     const wrapper = mount(
       <Provider value={testContext.axis}>
@@ -148,27 +147,27 @@ describe('<AxisProvider />', () => {
     );
 
     const axis = wrapper.find(WrappedComponent).props().getAxis();
-    expect(axis.update({ prop: 'Test9876' })).to.equal('update method mock');
-    expect(axis.remove({ prop: 'Test1234' })).to.equal('remove method mock');
-    expect(axis.addPlotBand({ prop: 'Test4567' })).to.equal('addPlotBand method mock');
-    expect(axis.removePlotBand({ prop: 'Test7654' })).to.equal('removePlotBand method mock');
-    expect(axis.addPlotLine({ prop: 'Test4444' })).to.equal('addPlotLine method mock');
-    expect(axis.removePlotLine({ prop: 'Test5555' })).to.equal('removePlotLine method mock');
-    expect(axis.getExtremes({ prop: 'Test6666' })).to.equal('getExtremes method mock');
-    expect(axis.setExtremes({ prop: 'Test7777' })).to.equal('setExtremes method mock');
-    expect(axis.setTitle({ prop: 'Test8888' })).to.equal('setTitle method mock');
+    expect(axis.update({ prop: 'Test9876' })).toBe('update method mock');
+    expect(axis.remove({ prop: 'Test1234' })).toBe('remove method mock');
+    expect(axis.addPlotBand({ prop: 'Test4567' })).toBe('addPlotBand method mock');
+    expect(axis.removePlotBand({ prop: 'Test7654' })).toBe('removePlotBand method mock');
+    expect(axis.addPlotLine({ prop: 'Test4444' })).toBe('addPlotLine method mock');
+    expect(axis.removePlotLine({ prop: 'Test5555' })).toBe('removePlotLine method mock');
+    expect(axis.getExtremes({ prop: 'Test6666' })).toBe('getExtremes method mock');
+    expect(axis.setExtremes({ prop: 'Test7777' })).toBe('setExtremes method mock');
+    expect(axis.setTitle({ prop: 'Test8888' })).toBe('setTitle method mock');
   });
 
   it('should provide axis functions bound to the axis when calling getAxis', () => {
-    testContext.axis.update.withArgs({ prop: 'Test9876' }).returnsThis();
-    testContext.axis.remove.withArgs({ prop: 'Test1234' }).returnsThis();
-    testContext.axis.addPlotBand.withArgs({ prop: 'Test4567' }).returnsThis();
-    testContext.axis.removePlotBand.withArgs({ prop: 'Test7654' }).returnsThis();
-    testContext.axis.addPlotLine.withArgs({ prop: 'Test4444' }).returnsThis();
-    testContext.axis.removePlotLine.withArgs({ prop: 'Test5555' }).returnsThis();
-    testContext.axis.getExtremes.withArgs({ prop: 'Test6666' }).returnsThis();
-    testContext.axis.setExtremes.withArgs({ prop: 'Test7777' }).returnsThis();
-    testContext.axis.setTitle.withArgs({ prop: 'Test8888' }).returnsThis();
+    testContext.axis.update.mockReturnThis();
+    testContext.axis.remove.mockReturnThis();
+    testContext.axis.addPlotBand.mockReturnThis();
+    testContext.axis.removePlotBand.mockReturnThis();
+    testContext.axis.addPlotLine.mockReturnThis();
+    testContext.axis.removePlotLine.mockReturnThis();
+    testContext.axis.getExtremes.mockReturnThis();
+    testContext.axis.setExtremes.mockReturnThis();
+    testContext.axis.setTitle.mockReturnThis();
 
     const wrapper = mount(
       <Provider value={testContext.axis}>
@@ -177,15 +176,15 @@ describe('<AxisProvider />', () => {
     );
 
     const axis = wrapper.find(WrappedComponent).props().getAxis();
-    expect(axis.update({ prop: 'Test9876' })).to.equal(testContext.axis);
-    expect(axis.remove({ prop: 'Test1234' })).to.equal(testContext.axis);
-    expect(axis.addPlotBand({ prop: 'Test4567' })).to.equal(testContext.axis);
-    expect(axis.removePlotBand({ prop: 'Test7654' })).to.equal(testContext.axis);
-    expect(axis.addPlotLine({ prop: 'Test4444' })).to.equal(testContext.axis);
-    expect(axis.removePlotLine({ prop: 'Test5555' })).to.equal(testContext.axis);
-    expect(axis.getExtremes({ prop: 'Test6666' })).to.equal(testContext.axis);
-    expect(axis.setExtremes({ prop: 'Test7777' })).to.equal(testContext.axis);
-    expect(axis.setTitle({ prop: 'Test8888' })).to.equal(testContext.axis);
+    expect(axis.update({ prop: 'Test9876' })).toBe(testContext.axis);
+    expect(axis.remove({ prop: 'Test1234' })).toBe(testContext.axis);
+    expect(axis.addPlotBand({ prop: 'Test4567' })).toBe(testContext.axis);
+    expect(axis.removePlotBand({ prop: 'Test7654' })).toBe(testContext.axis);
+    expect(axis.addPlotLine({ prop: 'Test4444' })).toBe(testContext.axis);
+    expect(axis.removePlotLine({ prop: 'Test5555' })).toBe(testContext.axis);
+    expect(axis.getExtremes({ prop: 'Test6666' })).toBe(testContext.axis);
+    expect(axis.setExtremes({ prop: 'Test7777' })).toBe(testContext.axis);
+    expect(axis.setTitle({ prop: 'Test8888' })).toBe(testContext.axis);
   });
 
   it('should provide axis functions which will be cleaned prior to being called', () => {
@@ -197,6 +196,6 @@ describe('<AxisProvider />', () => {
 
     const cleanedFunctions = ['update', 'addPlotBand', 'addPlotLine', 'setTitle'];
     wrapper.find(WrappedComponent).props().getAxis();
-    expect(testContext.cleanSpy).to.have.callCount(cleanedFunctions.length);
+    expect(testContext.cleanSpy).toHaveBeenCalledTimes(cleanedFunctions.length);
   });
 });

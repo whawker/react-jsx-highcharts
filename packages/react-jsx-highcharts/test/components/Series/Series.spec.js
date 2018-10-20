@@ -6,12 +6,8 @@ import Series from '../../../src/components/Series/Series';
 describe('<Series />', () => {
   let testContext;
 
-  let sandbox;
-
   beforeEach(() => {
     testContext = {};
-    sandbox = sinon.createSandbox();
-    sandbox.stub(Highcharts, 'addEvent');
 
     const { chartStubs, getChart } = createMockProvidedChart();
     const { axisStubs, getAxis } = createMockProvidedAxis({ id: 'myAxis', type: 'yAxis' });
@@ -19,7 +15,7 @@ describe('<Series />', () => {
     testContext.chartStubs = chartStubs;
     testContext.axisStubs = axisStubs;
     testContext.seriesStubs = createMockSeries();
-    testContext.chartStubs.addSeries.returns(testContext.seriesStubs)
+    testContext.chartStubs.addSeries.mockReturnValue(testContext.seriesStubs)
 
     testContext.propsFromProviders = {
       getChart,
@@ -28,9 +24,6 @@ describe('<Series />', () => {
     };
   });
 
-  afterEach(() => {
-    sandbox.restore();
-  });
 
   describe('when mounted', () => {
     it('adds an X series using the addSeries method', () => {
@@ -40,9 +33,9 @@ describe('<Series />', () => {
       mount(
         <Series id="mySeries" {...testContext.propsFromProviders} />
       );
-      expect(testContext.chartStubs.addSeries).to.have.been.calledWithMatch(
+      expect(testContext.chartStubs.addSeries).toHaveBeenCalledWith(expect.objectContaining(
         { id: 'mySeries', xAxis: 'myXAxisId', type: 'line', data: [], visible: true }, true
-      );
+      ), true);
     });
 
     it('adds a Y series using the addSeries method', () => {
@@ -52,16 +45,16 @@ describe('<Series />', () => {
       mount(
         <Series id="mySeries" {...testContext.propsFromProviders} />
       );
-      expect(testContext.chartStubs.addSeries).to.have.been.calledWithMatch(
+      expect(testContext.chartStubs.addSeries).toHaveBeenCalledWith(expect.objectContaining(
         { id: 'mySeries', yAxis: 'myYAxisId', type: 'line', data: [], visible: true }, true
-      );
+      ), true);
     });
 
     it('uses the provided ID if id prop is a string', () => {
       mount(
         <Series id="mySeriesIdStr" {...testContext.propsFromProviders} />
       );
-      expect(testContext.chartStubs.addSeries.getCall(0).args[0].id).to.equal('mySeriesIdStr');
+      expect(testContext.chartStubs.addSeries.mock.calls[0][0].id).toEqual('mySeriesIdStr');
     });
 
     it('resolves the ID if id prop is a function', () => {
@@ -69,34 +62,34 @@ describe('<Series />', () => {
       mount(
         <Series id={idFunc} {...testContext.propsFromProviders} />
       );
-      expect(testContext.chartStubs.addSeries.getCall(0).args[0].id).to.equal('mySeriesIdFromFunc');
+      expect(testContext.chartStubs.addSeries.mock.calls[0][0].id).toEqual('mySeriesIdFromFunc');
     });
 
     it('uses a uuid as an ID if no id prop provided', () => {
       mount(
         <Series {...testContext.propsFromProviders} />
       );
-      expect(testContext.chartStubs.addSeries.getCall(0).args[0].id).to.match(uuidRegex);
+      expect(testContext.chartStubs.addSeries.mock.calls[0][0].id).toMatch(uuidRegex);
     });
 
     it('should pass additional props through to Highcharts addSeries method', () => {
       mount(
         <Series id="mySeries" data={[5]} step {...testContext.propsFromProviders} />
       );
-      expect(testContext.chartStubs.addSeries).to.have.been.calledWithMatch({
+      expect(testContext.chartStubs.addSeries).toHaveBeenCalledWith(expect.objectContaining({
         id: 'mySeries', yAxis: 'myAxis', type: 'line', data: [5], visible: true, step: true
-      }, true);
+      }), true);
     });
 
     it('subscribes to Highcharts events for props that look like event handlers', () => {
-      const handleClick = sinon.spy();
-      const handleShow = sinon.spy();
+      const handleClick = jest.fn();
+      const handleShow = jest.fn();
 
       mount(
         <Series id="mySeries" onClick={handleClick} onShow={handleShow}
           {...testContext.propsFromProviders} />
       );
-      expect(testContext.seriesStubs.update).to.have.been.calledWith({
+      expect(testContext.seriesStubs.update).toHaveBeenCalledWith({
         events: {
           click: handleClick,
           show: handleShow
@@ -109,9 +102,9 @@ describe('<Series />', () => {
       mount(
         <Series id="mySeries" data={List(data)} {...testContext.propsFromProviders} />
       );
-      expect(testContext.chartStubs.addSeries).to.have.been.calledWithMatch(
-        { id: 'mySeries', yAxis: 'myAxis', type: 'line', data, visible: true }, true
-      );
+      expect(testContext.chartStubs.addSeries).toHaveBeenCalledWith(expect.objectContaining(
+        { id: 'mySeries', yAxis: 'myAxis', type: 'line', data, visible: true }
+      ), true);
     });
   });
 
@@ -121,11 +114,11 @@ describe('<Series />', () => {
         <Series
           id="mySeries" data={[]} {...testContext.propsFromProviders} />
       );
-      testContext.seriesStubs.update.reset();
+      testContext.seriesStubs.update.mockReset();
       wrapper.setProps({ data: [1, 2, 3] });
-      expect(testContext.seriesStubs.setData).to.have.been.calledWith([1, 2, 3], true);
-      expect(testContext.seriesStubs.update).not.to.have.been.called;
-      expect(testContext.seriesStubs.setVisible).not.to.have.been.called;
+      expect(testContext.seriesStubs.setData).toHaveBeenCalledWith([1, 2, 3], true);
+      expect(testContext.seriesStubs.update).not.toHaveBeenCalled();
+      expect(testContext.seriesStubs.setVisible).not.toHaveBeenCalled();
     });
 
     it('should NOT use the setData method if the data hasn\'t changed', () => {
@@ -133,11 +126,11 @@ describe('<Series />', () => {
         <Series
           id="mySeries" data={[1, 2, 3]} {...testContext.propsFromProviders} />
       );
-      testContext.seriesStubs.update.reset();
+      testContext.seriesStubs.update.mockReset();
       wrapper.setProps({ data: [1, 2, 3] });
-      expect(testContext.seriesStubs.setData).not.to.have.been.called;
-      expect(testContext.seriesStubs.update).not.to.have.been.called;
-      expect(testContext.seriesStubs.setVisible).not.to.have.been.called;
+      expect(testContext.seriesStubs.setData).not.toHaveBeenCalled();
+      expect(testContext.seriesStubs.update).not.toHaveBeenCalled();
+      expect(testContext.seriesStubs.setVisible).not.toHaveBeenCalled();
     });
 
     it('should use the setData method on the correct series when the Immutable List changes', () => {
@@ -146,11 +139,11 @@ describe('<Series />', () => {
           id="mySeries" data={List([1, 2, 3])} {...testContext.propsFromProviders} />
       );
       const newData = [1, 2, 3, 4, 5];
-      testContext.seriesStubs.update.reset();
+      testContext.seriesStubs.update.mockReset();
       wrapper.setProps({ data: List(newData) });
-      expect(testContext.seriesStubs.setData).to.have.been.calledWith(newData, true);
-      expect(testContext.seriesStubs.update).not.to.have.been.called;
-      expect(testContext.seriesStubs.setVisible).not.to.have.been.called;
+      expect(testContext.seriesStubs.setData).toHaveBeenCalledWith(newData, true);
+      expect(testContext.seriesStubs.update).not.toHaveBeenCalled();
+      expect(testContext.seriesStubs.setVisible).not.toHaveBeenCalled();
     });
 
     it('should NOT use the setData method if the Immutable List hasn\'t changed', () => {
@@ -158,11 +151,11 @@ describe('<Series />', () => {
         <Series
           id="mySeries" data={List([1, 2, 3])} {...testContext.propsFromProviders} />
       );
-      testContext.seriesStubs.update.reset();
+      testContext.seriesStubs.update.mockReset();
       wrapper.setProps({ data: List([1, 2, 3]) });
-      expect(testContext.seriesStubs.setData).not.to.have.been.called;
-      expect(testContext.seriesStubs.update).not.to.have.been.called;
-      expect(testContext.seriesStubs.setVisible).not.to.have.been.called;
+      expect(testContext.seriesStubs.setData).not.toHaveBeenCalled();
+      expect(testContext.seriesStubs.update).not.toHaveBeenCalled();
+      expect(testContext.seriesStubs.setVisible).not.toHaveBeenCalled();
     });
 
     it('should use the setVisible method on the correct series when the visibility changes', () => {
@@ -170,11 +163,11 @@ describe('<Series />', () => {
         <Series
           id="mySeries" visible {...testContext.propsFromProviders} />
       );
-      testContext.seriesStubs.update.reset();
+      testContext.seriesStubs.update.mockReset();
       wrapper.setProps({ visible: false });
-      expect(testContext.seriesStubs.setVisible).to.have.been.calledWith(false);
-      expect(testContext.seriesStubs.update).not.to.have.been.called;
-      expect(testContext.seriesStubs.setData).not.to.have.been.called;
+      expect(testContext.seriesStubs.setVisible).toHaveBeenCalledWith(false);
+      expect(testContext.seriesStubs.update).not.toHaveBeenCalled();
+      expect(testContext.seriesStubs.setData).not.toHaveBeenCalled();
     });
 
     it('should use the update method on correct series if arbritary props change', () => {
@@ -183,11 +176,11 @@ describe('<Series />', () => {
           id="mySeries" visible {...testContext.propsFromProviders} />
       );
       wrapper.setProps({ newPropName: 'newPropValue' });
-      expect(testContext.seriesStubs.update).to.have.been.calledWith({
+      expect(testContext.seriesStubs.update).toHaveBeenCalledWith({
         newPropName: 'newPropValue'
       });
-      expect(testContext.seriesStubs.setData).not.to.have.been.called;
-      expect(testContext.seriesStubs.setVisible).not.to.have.been.called;
+      expect(testContext.seriesStubs.setData).not.toHaveBeenCalled();
+      expect(testContext.seriesStubs.setVisible).not.toHaveBeenCalled();
     });
 
     it('should use the most performant method available even when multiple props change', () => {
@@ -196,9 +189,9 @@ describe('<Series />', () => {
           id="mySeries" data={[]} visible={false} {...testContext.propsFromProviders} />
       );
       wrapper.setProps({ opposite: true, data: [4, 5, 6], visible: true });
-      expect(testContext.seriesStubs.setData).to.have.been.calledWith([4, 5, 6]);
-      expect(testContext.seriesStubs.setVisible).to.have.been.calledWith(true);
-      expect(testContext.seriesStubs.update).to.have.been.calledWith({
+      expect(testContext.seriesStubs.setData).toHaveBeenCalledWith([4, 5, 6], true);
+      expect(testContext.seriesStubs.setVisible).toHaveBeenCalledWith(true);
+      expect(testContext.seriesStubs.update).toHaveBeenCalledWith({
         opposite: true
       });
     });
@@ -210,7 +203,7 @@ describe('<Series />', () => {
         <Series id="mySeries" {...testContext.propsFromProviders} />
       );
       wrapper.unmount();
-      expect(testContext.seriesStubs.remove).to.have.been.called;
+      expect(testContext.seriesStubs.remove).toHaveBeenCalled();
     });
   });
 });

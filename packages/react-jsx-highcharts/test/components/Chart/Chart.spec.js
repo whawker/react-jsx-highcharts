@@ -5,12 +5,8 @@ import Chart from '../../../src/components/Chart/Chart';
 describe('<Chart />', () => {
   let testContext;
 
-  let sandbox;
-
   beforeEach(() => {
     testContext = {};
-    sandbox = sinon.createSandbox();
-    sandbox.stub(Highcharts, 'addEvent');
 
     const { chartStubs, getChart } = createMockProvidedChart();
     testContext.chartStubs = chartStubs;
@@ -21,46 +17,42 @@ describe('<Chart />', () => {
     };
   });
 
-  afterEach(() => {
-    sandbox.restore();
-  });
-
   describe('when mounted', () => {
     it('updates the chart config with the provided props', () => {
       mount(<Chart type="bubble" {...testContext.propsFromProviders} />);
-      expect(testContext.chartStubs.update).to.have.been.calledWith({
+      expect(testContext.chartStubs.update).toHaveBeenCalledWith({
         chart : {
           type: 'bubble'
         }
-      });
+      }, true);
     });
 
     it('updates the chart with all props that don\'t look like event handlers', () => {
       mount(
         <Chart type="spline" propFoo="bar" zoomType="x" onClick={() => {}} {...testContext.propsFromProviders} />
       );
-      expect(testContext.chartStubs.update).to.have.been.calledWith({
+      expect(testContext.chartStubs.update).toHaveBeenCalledWith({
         chart : {
           type: 'spline',
           zoomType: 'x',
           propFoo: 'bar'
         }
-      });
+      }, true);
     });
 
     it('subscribes to Highcharts events for props that look like event handlers', () => {
       testContext.chartStubs.object = 'mock-chart';
-      const handleClick = sinon.spy();
-      const handleRender = sinon.spy();
-      const handleBeforePrint = sinon.spy();
+      const handleClick = jest.fn();
+      const handleRender = jest.fn();
+      const handleBeforePrint = jest.fn();
 
       mount(
         <Chart type="area" onClick={handleClick} onRender={handleRender} onBeforePrint={handleBeforePrint}
           {...testContext.propsFromProviders} />
       );
-      expect(Highcharts.addEvent).to.have.been.calledWith('mock-chart', 'click', handleClick);
-      expect(Highcharts.addEvent).to.have.been.calledWith('mock-chart', 'render', handleRender);
-      expect(Highcharts.addEvent).to.have.been.calledWith('mock-chart', 'beforePrint', handleBeforePrint);
+      expect(Highcharts.addEvent).toHaveBeenCalledWith('mock-chart', 'click', handleClick);
+      expect(Highcharts.addEvent).toHaveBeenCalledWith('mock-chart', 'render', handleRender);
+      expect(Highcharts.addEvent).toHaveBeenCalledWith('mock-chart', 'beforePrint', handleBeforePrint);
     });
   });
 
@@ -70,11 +62,11 @@ describe('<Chart />', () => {
         <Chart {...testContext.propsFromProviders} />
       );
       wrapper.setProps({ backgroundColor: 'red' });
-      expect(testContext.chartStubs.update).to.have.been.calledWith({
+      expect(testContext.chartStubs.update).toHaveBeenCalledWith({
         chart: {
           backgroundColor: 'red'
         }
-      });
+      }, true);
     });
   });
 });
