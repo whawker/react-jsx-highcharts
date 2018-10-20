@@ -1,6 +1,3 @@
-require('@babel/register')({
-  ignore: [/node_modules\/(?!lodash-es)/]
-});
 import { JSDOM } from 'jsdom';
 import chai, { expect } from 'chai';
 import sinon from 'sinon';
@@ -15,8 +12,8 @@ function copyProps(src, target) {
   Object.defineProperties(target, props);
 }
 
-const jsdom = new JSDOM('<!doctype html><html><body></body></html>');
-const { window } = jsdom;
+//const jsdom = new JSDOM('<!doctype html><html><body></body></html>');
+//const { window } = jsdom;
 window.Date = global.Date;
 
 global.window = window;
@@ -24,11 +21,13 @@ global.document = window.document;
 global.navigator = {
   userAgent: 'node.js'
 };
+// store jestExpect for future use
+global.jestExpect = global.expect;
 global.expect = expect;
 global.sinon = sinon;
 
-var Enzyme = require('enzyme');
-var Adapter = require('enzyme-adapter-react-16');
+const Enzyme = require('enzyme');
+const Adapter = require('enzyme-adapter-react-16');
 Enzyme.configure({ adapter: new Adapter() });
 global.shallow = Enzyme.shallow;
 global.mount = Enzyme.mount;

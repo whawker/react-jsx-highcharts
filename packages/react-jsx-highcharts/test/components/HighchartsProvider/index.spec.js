@@ -8,12 +8,12 @@ const WrappedComponent = props => (
 );
 let HighchartsWrappedComponent;
 
-describe('<HighchartsProvider />', function () {
-  beforeEach(function () {
+describe('<HighchartsProvider />', () => {
+  beforeEach(() => {
     HighchartsWrappedComponent = provideHighcharts(WrappedComponent);
   });
 
-  it('should render the wrapped component', function () {
+  it('should render the wrapped component', () => {
     const wrapper = mount(
       <Provider value={Highcharts}>
         <HighchartsWrappedComponent />
@@ -23,7 +23,7 @@ describe('<HighchartsProvider />', function () {
     expect(wrapper.find(WrappedComponent)).to.exist;
   });
 
-  it('should provide a getHighcharts prop to the wrapped component', function () {
+  it('should provide a getHighcharts prop to the wrapped component', () => {
     const wrapper = mount(
       <Provider value={Highcharts}>
         <HighchartsWrappedComponent />
@@ -33,7 +33,7 @@ describe('<HighchartsProvider />', function () {
     expect(wrapper.find(WrappedComponent).prop('getHighcharts')).to.be.a('function');
   });
 
-  it('should pass through other props to the wrapped component', function () {
+  it('should pass through other props to the wrapped component', () => {
     const wrapper = mount(
       <Provider value={Highcharts}>
         <HighchartsWrappedComponent someProp='someValue' otherProp='otherValue' />
@@ -45,7 +45,7 @@ describe('<HighchartsProvider />', function () {
     expect(wrapper.find(WrappedComponent).prop('otherProp')).to.equal('otherValue');
   });
 
-  it('should provide the Highcharts global when calling getHighcharts', function () {
+  it('should provide the Highcharts global when calling getHighcharts', () => {
     const wrapper = mount(
       <Provider value={Highcharts}>
         <HighchartsWrappedComponent />

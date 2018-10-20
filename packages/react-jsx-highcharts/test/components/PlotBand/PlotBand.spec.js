@@ -2,71 +2,74 @@ import React from 'react';
 import { createMockProvidedAxis, uuidRegex } from '../../test-utils'
 import PlotBand from '../../../src/components/PlotBand/PlotBand';
 
-describe('<PlotBand />', function ()  {
-  beforeEach(function () {
-    const { axisStubs, getAxis } = createMockProvidedAxis({ id: 'myAxis', type: 'yAxis' });
-    this.axisStubs = axisStubs;
+describe('<PlotBand />', () => {
+  let testContext;
 
-    this.propsFromProviders = {
+  beforeEach(() => {
+    testContext = {};
+    const { axisStubs, getAxis } = createMockProvidedAxis({ id: 'myAxis', type: 'yAxis' });
+    testContext.axisStubs = axisStubs;
+
+    testContext.propsFromProviders = {
       getAxis
     };
   });
 
-  context('when mounted', function () {
-    it('adds a title using the Axis addPlotBand method', function () {
-      mount(<PlotBand id="My PlotBand" from={1} to={2} {...this.propsFromProviders} />);
-      expect(this.axisStubs.addPlotBand).to.have.been.calledWithMatch(
+  describe('when mounted', () => {
+    it('adds a title using the Axis addPlotBand method', () => {
+      mount(<PlotBand id="My PlotBand" from={1} to={2} {...testContext.propsFromProviders} />);
+      expect(testContext.axisStubs.addPlotBand).to.have.been.calledWithMatch(
         { id: 'My PlotBand', from: 1, to: 2 }
       );
     });
 
-    it('should pass additional props through to Axis addPlotBand method', function () {
-      mount(<PlotBand borderColor="red" id="My Other PlotBand" from={8.8} to={24.2} {...this.propsFromProviders} />);
-      expect(this.axisStubs.addPlotBand).to.have.been.calledWithMatch(
+    it('should pass additional props through to Axis addPlotBand method', () => {
+      mount(<PlotBand borderColor="red" id="My Other PlotBand" from={8.8} to={24.2} {...testContext.propsFromProviders} />);
+      expect(testContext.axisStubs.addPlotBand).to.have.been.calledWithMatch(
         { id: 'My Other PlotBand', borderColor: 'red', from: 8.8, to: 24.2 }
       );
     });
 
-    it('uses the provided ID if id prop is a string', function () {
+    it('uses the provided ID if id prop is a string', () => {
       mount(
-        <PlotBand id="myPlotBandIdStr" from={1} to={2} {...this.propsFromProviders} />
+        <PlotBand id="myPlotBandIdStr" from={1} to={2} {...testContext.propsFromProviders} />
       );
-      expect(this.axisStubs.addPlotBand.getCall(0).args[0].id).to.equal('myPlotBandIdStr');
+      expect(testContext.axisStubs.addPlotBand.getCall(0).args[0].id).to.equal('myPlotBandIdStr');
     });
 
-    it('resolves the ID if id prop is a function', function () {
+    it('resolves the ID if id prop is a function', () => {
       const idFunc = () => 'myPlotBandIdFromFunc'
       mount(
-        <PlotBand id={idFunc} from={1} to={2} {...this.propsFromProviders} />
+        <PlotBand id={idFunc} from={1} to={2} {...testContext.propsFromProviders} />
       );
-      expect(this.axisStubs.addPlotBand.getCall(0).args[0].id).to.equal('myPlotBandIdFromFunc');
+      expect(testContext.axisStubs.addPlotBand.getCall(0).args[0].id).to.equal('myPlotBandIdFromFunc');
     });
 
-    it('uses a uuid as an ID if no id prop provided', function () {
+    it('uses a uuid as an ID if no id prop provided', () => {
       mount(
-        <PlotBand from={1} to={2} {...this.propsFromProviders} />
+        <PlotBand from={1} to={2} {...testContext.propsFromProviders} />
       );
-      expect(this.axisStubs.addPlotBand.getCall(0).args[0].id).to.match(uuidRegex);
+      expect(testContext.axisStubs.addPlotBand.getCall(0).args[0].id).to.match(uuidRegex);
     });
   });
 
-  context('when unmounted', function () {
-    it('removes the plot band by id (if the parent axis still exists)', function () {
+  describe('when unmounted', () => {
+    it('removes the plot band by id (if the parent axis still exists)', () => {
       const wrapper = mount(
-        <PlotBand id="My PlotBand" from={1} to={2} {...this.propsFromProviders} />
+        <PlotBand id="My PlotBand" from={1} to={2} {...testContext.propsFromProviders} />
       );
-      this.axisStubs.removePlotBand.reset();
+      testContext.axisStubs.removePlotBand.reset();
       wrapper.unmount();
-      expect(this.axisStubs.removePlotBand).to.have.been.calledWith('My PlotBand');
+      expect(testContext.axisStubs.removePlotBand).to.have.been.calledWith('My PlotBand');
     });
   });
 
-  context('children', function () {
-    it('should pass the ID of the plot band to the children', function () {
+  describe('children', () => {
+    it('should pass the ID of the plot band to the children', () => {
       const ChildComponent = props => (<div />);
 
       const wrapper = mount(
-        <PlotBand id="myId" from={10} to={20} {...this.propsFromProviders}>
+        <PlotBand id="myId" from={10} to={20} {...testContext.propsFromProviders}>
           <ChildComponent />
         </PlotBand>
       );

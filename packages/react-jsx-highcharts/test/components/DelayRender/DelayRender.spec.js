@@ -5,18 +5,18 @@ const ChildComponent = props => (
   <div />
 );
 
-describe('<DelayRender />', function ()  {
+describe('<DelayRender />', () => {
   let clock;
 
-  before(function () {
+  beforeAll(function () {
     clock = sinon.useFakeTimers();
   });
 
-  after(function () {
+  afterAll(function () {
     clock.restore();
   });
 
-  it('initially does not render the child component', function ()  {
+  it('initially does not render the child component', () => {
     const wrapper = mount(
       <DelayRender>
         <ChildComponent/>
@@ -25,7 +25,7 @@ describe('<DelayRender />', function ()  {
     expect(wrapper.find(ChildComponent)).to.not.exist;
   });
 
-  it('renders the children on the next tick', function ()  {
+  it('renders the children on the next tick', () => {
     const wrapper = mount(
       <DelayRender>
         <ChildComponent/>

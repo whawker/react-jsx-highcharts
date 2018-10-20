@@ -2,37 +2,40 @@ import React from 'react';
 import { createMockProvidedChart } from '../../test-utils'
 import Loading from '../../../src/components/Loading/Loading';
 
-describe('<Loading />', function ()  {
-  beforeEach(function () {
-    const { chartStubs, getChart } = createMockProvidedChart();
-    this.chartStubs = chartStubs;
+describe('<Loading />', () => {
+  let testContext;
 
-    this.propsFromProviders = {
+  beforeEach(() => {
+    testContext = {};
+    const { chartStubs, getChart } = createMockProvidedChart();
+    testContext.chartStubs = chartStubs;
+
+    testContext.propsFromProviders = {
       getChart
     };
   });
 
-  context('when mounted', function () {
-    it('displays loading message using the Highcharts showLoading method', function () {
-      mount(<Loading {...this.propsFromProviders}>My Loading Message</Loading>);
-      expect(this.chartStubs.showLoading).to.have.been.calledWith('My Loading Message');
+  describe('when mounted', () => {
+    it('displays loading message using the Highcharts showLoading method', () => {
+      mount(<Loading {...testContext.propsFromProviders}>My Loading Message</Loading>);
+      expect(testContext.chartStubs.showLoading).to.have.been.calledWith('My Loading Message');
     });
 
-    it('does not display loading message if isLoading prop is false', function () {
-      mount(<Loading {...this.propsFromProviders} isLoading={false}>My Loading Message</Loading>);
-      expect(this.chartStubs.showLoading).not.to.have.been.called;
+    it('does not display loading message if isLoading prop is false', () => {
+      mount(<Loading {...testContext.propsFromProviders} isLoading={false}>My Loading Message</Loading>);
+      expect(testContext.chartStubs.showLoading).not.to.have.been.called;
     });
 
-    it('displays loading message using the Highcharts showLoading method if isLoading is true', function () {
-      mount(<Loading {...this.propsFromProviders} isLoading>My Is Loading Message</Loading>);
-      expect(this.chartStubs.showLoading).to.have.been.calledWith('My Is Loading Message');
+    it('displays loading message using the Highcharts showLoading method if isLoading is true', () => {
+      mount(<Loading {...testContext.propsFromProviders} isLoading>My Is Loading Message</Loading>);
+      expect(testContext.chartStubs.showLoading).to.have.been.calledWith('My Is Loading Message');
     });
 
-    it('updates the loading config with the passed props', function () {
+    it('updates the loading config with the passed props', () => {
       mount(
-        <Loading {...this.propsFromProviders} hideDuration={2500}>Slow hiding loading</Loading>
+        <Loading {...testContext.propsFromProviders} hideDuration={2500}>Slow hiding loading</Loading>
       );
-      expect(this.chartStubs.update).to.have.been.calledWithMatch({
+      expect(testContext.chartStubs.update).to.have.been.calledWithMatch({
         loading: {
           hideDuration: 2500
         }
@@ -40,29 +43,29 @@ describe('<Loading />', function ()  {
     });
   });
 
-  context('update', function () {
-    it('should use the showLoading method when isLoading changes to true', function () {
+  describe('update', () => {
+    it('should use the showLoading method when isLoading changes to true', () => {
       const wrapper = mount(
-        <Loading {...this.propsFromProviders} isLoading={false}>Changes to true</Loading>
+        <Loading {...testContext.propsFromProviders} isLoading={false}>Changes to true</Loading>
       );
       wrapper.setProps({ isLoading: true });
-      expect(this.chartStubs.showLoading).to.have.been.calledWith('Changes to true');
+      expect(testContext.chartStubs.showLoading).to.have.been.calledWith('Changes to true');
     });
 
-    it('should use the hideLoading method when isLoading changes to false', function () {
+    it('should use the hideLoading method when isLoading changes to false', () => {
       const wrapper = mount(
-        <Loading {...this.propsFromProviders} isLoading>Changes to true</Loading>
+        <Loading {...testContext.propsFromProviders} isLoading>Changes to true</Loading>
       );
       wrapper.setProps({ isLoading: false });
-      expect(this.chartStubs.hideLoading).to.have.been.called;
+      expect(testContext.chartStubs.hideLoading).to.have.been.called;
     });
 
-    it('should use the update method when other props change', function () {
+    it('should use the update method when other props change', () => {
       const wrapper = mount(
-        <Loading {...this.propsFromProviders}>Updates style</Loading>
+        <Loading {...testContext.propsFromProviders}>Updates style</Loading>
       );
       wrapper.setProps({ style: { color: 'red' } });
-      expect(this.chartStubs.update).to.have.been.calledWithMatch({
+      expect(testContext.chartStubs.update).to.have.been.calledWithMatch({
         loading: {
           style: { color: 'red' }
         }
@@ -70,11 +73,11 @@ describe('<Loading />', function ()  {
     });
   });
 
-  context('when unmounted', function () {
-    it('should hide the loading message', function () {
-      const wrapper = mount(<Loading {...this.propsFromProviders}>My unmounting message</Loading>);
+  describe('when unmounted', () => {
+    it('should hide the loading message', () => {
+      const wrapper = mount(<Loading {...testContext.propsFromProviders}>My unmounting message</Loading>);
       wrapper.unmount();
-      expect(this.chartStubs.hideLoading).to.have.been.called;
+      expect(testContext.chartStubs.hideLoading).to.have.been.called;
     });
   });
 });

@@ -15,7 +15,8 @@
     "build:umd": "cross-env NODE_ENV=production ./node_modules/.bin/webpack",
     "build:es": "BABEL_ENV=es babel src --out-dir dist/es",
     "lint": "./node_modules/.bin/eslint src",
-    "test": "cross-env NODE_ENV=test ./node_modules/.bin/mocha --require @babel/register --require test/test-helper.js test/**/*.spec.js"
+    "test": "jest",
+    "test:coverage": "jest --coverage"
   },
   "author": "Will Hawker",
   "contributors": [
@@ -68,7 +69,9 @@
     "@babel/preset-env": "^7.1.0",
     "@babel/preset-react": "^7.0.0",
     "@babel/register": "^7.0.0",
+    "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^10.0.1",
+    "babel-jest": "^23.6.0",
     "babel-loader": "^8.0.4",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.19",
     "chai": "^4.2.0",
@@ -80,9 +83,9 @@
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-react": "^7.11.1",
     "highcharts": "^6.0.0",
+    "jest": "^23.6.0",
     "jsdom": "^12.2.0",
     "lodash-webpack-plugin": "^0.11.5",
-    "mocha": "^5.1.1",
     "prop-types": "^15.0.0",
     "react": "~16.2.0",
     "react-dom": "~16.2.0",

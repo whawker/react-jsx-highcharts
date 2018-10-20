@@ -2,75 +2,78 @@ import React from 'react';
 import { createMockProvidedAxis } from '../../test-utils'
 import PlotBandLabel from '../../../src/components/PlotBand/PlotBandLabel';
 
-describe('<PlotBand.Label />', function ()  {
+describe('<PlotBand.Label />', () => {
+  let testContext;
+
   let clock;
 
-  beforeEach(function () {
+  beforeEach(() => {
+    testContext = {};
     clock = sinon.useFakeTimers();
     const { axisStubs, getAxis } = createMockProvidedAxis({ id: 'myAxis', type: 'yAxis' });
-    this.axisStubs = axisStubs;
+    testContext.axisStubs = axisStubs;
 
-    this.plotBand      = { id: 'myPlotBand', options: { label: { text: null } }, render: sinon.spy() };
-    this.otherPlotBand = { id: 'myOtherPlotBand', options: { label: { text: 'Other' } }, render: sinon.spy() };
+    testContext.plotBand      = { id: 'myPlotBand', options: { label: { text: null } }, render: sinon.spy() };
+    testContext.otherPlotBand = { id: 'myOtherPlotBand', options: { label: { text: 'Other' } }, render: sinon.spy() };
 
-    this.getAxis = sinon.stub();
-    this.axisStubs.object = {
+    testContext.getAxis = sinon.stub();
+    testContext.axisStubs.object = {
       plotLinesAndBands: [
-        this.plotBand,
-        this.otherPlotBand
+        testContext.plotBand,
+        testContext.otherPlotBand
       ]
     }
 
-    this.propsFromProviders = {
+    testContext.propsFromProviders = {
       getAxis
     };
   });
 
-  afterEach(function () {
+  afterEach(() => {
     clock.restore();
   });
 
-  context('when mounted', function () {
-    it('sets the correct plot band label', function () {
+  describe('when mounted', () => {
+    it('sets the correct plot band label', () => {
       mount(
-        <PlotBandLabel id="myPlotBand" {...this.propsFromProviders}>
+        <PlotBandLabel id="myPlotBand" {...testContext.propsFromProviders}>
           My PlotBand Label
         </PlotBandLabel>
       );
       clock.tick(1);
-      expect(this.plotBand.options.label).to.eql({
+      expect(testContext.plotBand.options.label).to.eql({
         text: 'My PlotBand Label'
       });
-      expect(this.otherPlotBand.options.label).to.eql({
+      expect(testContext.otherPlotBand.options.label).to.eql({
         text: 'Other'
       });
-      expect(this.plotBand.render).to.have.been.called;
-      expect(this.otherPlotBand.render).not.to.have.been.called;
+      expect(testContext.plotBand.render).to.have.been.called;
+      expect(testContext.otherPlotBand.render).not.to.have.been.called;
     });
 
-    it('should pass additional props too', function () {
+    it('should pass additional props too', () => {
       mount(
-        <PlotBandLabel id="myPlotBand" align="left" color="red" {...this.propsFromProviders}>
+        <PlotBandLabel id="myPlotBand" align="left" color="red" {...testContext.propsFromProviders}>
           My PlotBand Label
         </PlotBandLabel>
       );
       clock.tick(1);
-      expect(this.plotBand.options.label).to.eql({
+      expect(testContext.plotBand.options.label).to.eql({
         text: 'My PlotBand Label',
         align: 'left'
       });
-      expect(this.otherPlotBand.options.label).to.eql({
+      expect(testContext.otherPlotBand.options.label).to.eql({
         text: 'Other'
       });
-      expect(this.plotBand.render).to.have.been.called;
-      expect(this.otherPlotBand.render).not.to.have.been.called;
+      expect(testContext.plotBand.render).to.have.been.called;
+      expect(testContext.otherPlotBand.render).not.to.have.been.called;
     });
   });
 
-  context('update', function () {
-    it('should update the correct plot band if the component props change', function () {
+  describe('update', () => {
+    it('should update the correct plot band if the component props change', () => {
       const wrapper = mount(
-        <PlotBandLabel id="myPlotBand" {...this.propsFromProviders}>
+        <PlotBandLabel id="myPlotBand" {...testContext.propsFromProviders}>
           My PlotBand Label
         </PlotBandLabel>
       );
@@ -78,21 +81,21 @@ describe('<PlotBand.Label />', function ()  {
       wrapper.setProps({ children: 'My New Label' });
       clock.tick(1);
 
-      expect(this.plotBand.options.label).to.eql({
+      expect(testContext.plotBand.options.label).to.eql({
         text: 'My New Label'
       });
-      expect(this.otherPlotBand.options.label).to.eql({
+      expect(testContext.otherPlotBand.options.label).to.eql({
         text: 'Other'
       });
-      expect(this.plotBand.render).to.have.been.called;
-      expect(this.otherPlotBand.render).not.to.have.been.called;
+      expect(testContext.plotBand.render).to.have.been.called;
+      expect(testContext.otherPlotBand.render).not.to.have.been.called;
     });
   });
 
-  context('when unmounted', function () {
-    it('removes the correct plot band label', function () {
+  describe('when unmounted', () => {
+    it('removes the correct plot band label', () => {
       const wrapper = mount(
-        <PlotBandLabel id="myPlotBand" {...this.propsFromProviders}>
+        <PlotBandLabel id="myPlotBand" {...testContext.propsFromProviders}>
           My PlotBand Label
         </PlotBandLabel>
       );
@@ -100,14 +103,14 @@ describe('<PlotBand.Label />', function ()  {
       wrapper.unmount();
       clock.tick(1);
 
-      expect(this.plotBand.options.label).to.eql({
+      expect(testContext.plotBand.options.label).to.eql({
         text: null
       });
-      expect(this.otherPlotBand.options.label).to.eql({
+      expect(testContext.otherPlotBand.options.label).to.eql({
         text: 'Other'
       });
-      expect(this.plotBand.render).to.have.been.called;
-      expect(this.otherPlotBand.render).not.to.have.been.called;
+      expect(testContext.plotBand.render).to.have.been.called;
+      expect(testContext.otherPlotBand.render).not.to.have.been.called;
     });
   });
 });

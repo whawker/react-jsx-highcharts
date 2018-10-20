@@ -1,7 +1,7 @@
 import clean from '../../src/utils/removeProvidedProps';
 
-describe('utils/removeProvidedProps', function () {
-  it('should return a function that cleans config before passing to wrapped function', function () {
+describe('utils/removeProvidedProps', () => {
+  it('should return a function that cleans config before passing to wrapped function', () => {
     const spy = sinon.spy();
     const cleanedSpy = clean(spy);
 
@@ -28,7 +28,7 @@ describe('utils/removeProvidedProps', function () {
     });
   });
 
-  it('should return a function that deeply cleans config before passing to wrapped function', function () {
+  it('should return a function that deeply cleans config before passing to wrapped function', () => {
     const spy = sinon.spy();
     const cleanedSpy = clean(spy);
 
@@ -56,7 +56,7 @@ describe('utils/removeProvidedProps', function () {
     });
   });
 
-  it('should return a function that really deeply cleans config before passing to wrapped function', function () {
+  it('should return a function that really deeply cleans config before passing to wrapped function', () => {
     const spy = sinon.spy();
     const cleanedSpy = clean(spy);
 
@@ -87,7 +87,7 @@ describe('utils/removeProvidedProps', function () {
     });
   });
 
-  it('should return a function that passes additional arguments to the original function', function () {
+  it('should return a function that passes additional arguments to the original function', () => {
     const spy = sinon.spy();
     const cleanedSpy = clean(spy);
 

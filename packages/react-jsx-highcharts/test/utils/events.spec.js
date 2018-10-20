@@ -1,10 +1,10 @@
 import * as events from '../../src/utils/events';
 
-describe('utils/events', function () {
-  describe('getEventHandlerProps', function () {
+describe('utils/events', () => {
+  describe('getEventHandlerProps', () => {
     const { getEventHandlerProps } = events;
 
-    it('should return all props that look like an event handler', function () {
+    it('should return all props that look like an event handler', () => {
       const onEventHandler = sinon.spy();
       const onOtherEventHandler = sinon.spy();
 
@@ -24,10 +24,10 @@ describe('utils/events', function () {
     });
   });
 
-  describe('getNonEventHandlerProps', function () {
+  describe('getNonEventHandlerProps', () => {
     const { getNonEventHandlerProps } = events;
 
-    it('should return all props that don\'t look like an event handler', function () {
+    it('should return all props that don\'t look like an event handler', () => {
       const config = {
         enabled: true,
         onEventHandler: sinon.spy(),
@@ -46,10 +46,10 @@ describe('utils/events', function () {
     });
   });
 
-  describe('getEventsConfig', function () {
+  describe('getEventsConfig', () => {
     const { getEventsConfig } = events;
 
-    it('should return all props that look like an event handler, without the `on` prefix', function () {
+    it('should return all props that look like an event handler, without the `on` prefix', () => {
       const onEventHandler = sinon.spy();
       const onOtherEventHandler = sinon.spy();
 
@@ -69,10 +69,10 @@ describe('utils/events', function () {
     });
   });
 
-  describe('addEventHandlers', function () {
+  describe('addEventHandlers', () => {
     const { addEventHandlers } = events;
 
-    it('should call the provided function with an events property with things that look like event handlers', function () {
+    it('should call the provided function with an events property with things that look like event handlers', () => {
       const spy = sinon.spy();
       const onEventHandler = sinon.spy();
       const onOtherEventHandler = sinon.spy();
