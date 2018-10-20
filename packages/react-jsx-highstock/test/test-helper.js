@@ -12,8 +12,8 @@ function copyProps(src, target) {
   Object.defineProperties(target, props);
 }
 
-const jsdom = new JSDOM('<!doctype html><html><body></body></html>');
-const { window } = jsdom;
+//const jsdom = new JSDOM('<!doctype html><html><body></body></html>');
+//const { window } = jsdom;
 window.Date = global.Date;
 
 global.window = window;
