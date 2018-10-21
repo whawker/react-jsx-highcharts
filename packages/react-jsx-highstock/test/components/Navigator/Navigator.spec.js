@@ -26,7 +26,7 @@ describe('<Navigator />', () => {
   describe('when mounted', () => {
     it('enables the Navigator', () => {
       mount(<Navigator {...testContext.propsFromProviders} />);
-      expect(testContext.object.options.navigator.enabled).toBe(true);
+      expect(testContext.object.options.navigator.enabled).toEqual(true);
     });
 
     it('fires the `beforeRender` event to so Highcharts creates a Navigator', () => {

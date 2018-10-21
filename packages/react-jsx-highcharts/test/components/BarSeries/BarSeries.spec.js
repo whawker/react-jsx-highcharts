@@ -23,7 +23,7 @@ describe('<BarSeries />', () => {
 
   it('renders a <Series />', () => {
     const wrapper = shallow(<BarSeries id="mySeries" {...testContext.propsFromProviders} />);
-    expect(wrapper.type()).toBe(Series);
+    expect(wrapper.type()).toEqual(Series);
   });
 
   it('renders a <Series type="bar" />', () => {

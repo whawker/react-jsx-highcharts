@@ -7,7 +7,7 @@ describe('withSeriesType', () => {
   it('should create Series component', () => {
     const SeriesComponent = withSeriesType('line');
     const wrapper = shallow(<SeriesComponent />);
-    expect(wrapper.type()).toBe(Series);
+    expect(wrapper.type()).toEqual(Series);
   });
 
   it(`should set type attribute <Series type="line" />`, () => {

@@ -115,7 +115,7 @@ describe('<AxisProvider />', () => {
     );
 
     const axis = wrapper.find(WrappedComponent).props().getAxis();
-    expect(axis.object).toBe(testContext.axis);
+    expect(axis.object).toEqual(testContext.axis);
     expect(axis.id).toBe('myAxisId');
     expect(axis.type).toBe('yAxis');
     expect(axis.update).toEqual(expect.any(Function))
@@ -176,15 +176,15 @@ describe('<AxisProvider />', () => {
     );
 
     const axis = wrapper.find(WrappedComponent).props().getAxis();
-    expect(axis.update({ prop: 'Test9876' })).toBe(testContext.axis);
-    expect(axis.remove({ prop: 'Test1234' })).toBe(testContext.axis);
-    expect(axis.addPlotBand({ prop: 'Test4567' })).toBe(testContext.axis);
-    expect(axis.removePlotBand({ prop: 'Test7654' })).toBe(testContext.axis);
-    expect(axis.addPlotLine({ prop: 'Test4444' })).toBe(testContext.axis);
-    expect(axis.removePlotLine({ prop: 'Test5555' })).toBe(testContext.axis);
-    expect(axis.getExtremes({ prop: 'Test6666' })).toBe(testContext.axis);
-    expect(axis.setExtremes({ prop: 'Test7777' })).toBe(testContext.axis);
-    expect(axis.setTitle({ prop: 'Test8888' })).toBe(testContext.axis);
+    expect(axis.update({ prop: 'Test9876' })).toEqual(testContext.axis);
+    expect(axis.remove({ prop: 'Test1234' })).toEqual(testContext.axis);
+    expect(axis.addPlotBand({ prop: 'Test4567' })).toEqual(testContext.axis);
+    expect(axis.removePlotBand({ prop: 'Test7654' })).toEqual(testContext.axis);
+    expect(axis.addPlotLine({ prop: 'Test4444' })).toEqual(testContext.axis);
+    expect(axis.removePlotLine({ prop: 'Test5555' })).toEqual(testContext.axis);
+    expect(axis.getExtremes({ prop: 'Test6666' })).toEqual(testContext.axis);
+    expect(axis.setExtremes({ prop: 'Test7777' })).toEqual(testContext.axis);
+    expect(axis.setTitle({ prop: 'Test8888' })).toEqual(testContext.axis);
   });
 
   it('should provide axis functions which will be cleaned prior to being called', () => {

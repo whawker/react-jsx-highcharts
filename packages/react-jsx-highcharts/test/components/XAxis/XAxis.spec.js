@@ -18,7 +18,7 @@ describe('<XAxis />', () => {
 
   it('renders an <Axis />', () => {
     const wrapper = shallow(<XAxis {...testContext.propsFromProviders} />);
-    expect(wrapper.type()).toBe(Axis);
+    expect(wrapper.type()).toEqual(Axis);
   });
 
   it('renders an <Axis isX />', () => {

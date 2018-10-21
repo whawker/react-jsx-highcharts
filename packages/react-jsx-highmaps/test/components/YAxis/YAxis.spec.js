@@ -5,7 +5,7 @@ import MapYAxis from '../../../src/components/YAxis';
 describe('<YAxis />', () => {
   it('renders a <YAxis />', () => {
     const wrapper = shallow(<MapYAxis />);
-    expect(wrapper.type()).toBe(YAxis);
+    expect(wrapper.type()).toEqual(YAxis);
   });
 
   it('should always have the id `yAxis`', () => {

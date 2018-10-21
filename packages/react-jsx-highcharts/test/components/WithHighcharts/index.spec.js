@@ -12,7 +12,7 @@ describe('withHighcharts', () => {
     const WithHighchartsComponent = withHighcharts(WrappedComponent, Highcharts);
     const wrapper = mount(<WithHighchartsComponent />);
 
-    expect(wrapper.childAt(0).type()).toBe(Provider);
+    expect(wrapper.childAt(0).type()).toEqual(Provider);
     expect(wrapper.childAt(0)).toHaveProp('value', Highcharts);
   });
 
@@ -21,7 +21,7 @@ describe('withHighcharts', () => {
     const WithHighchartsComponent = withHighcharts(WrappedComponent, HighchartsWithExtraFunctionality);
     const wrapper = mount(<WithHighchartsComponent />);
 
-    expect(wrapper.childAt(0).type()).toBe(Provider);
+    expect(wrapper.childAt(0).type()).toEqual(Provider);
     expect(wrapper.childAt(0)).toHaveProp('value', HighchartsWithExtraFunctionality);
   });
 });

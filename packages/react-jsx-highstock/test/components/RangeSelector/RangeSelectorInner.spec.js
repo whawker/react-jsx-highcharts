@@ -28,7 +28,7 @@ describe('<RangeSelectorInner />', () => {
 
     it('enables the RangeSelector', () => {
       mount(<RangeSelectorInner {...testContext.propsFromProviders} />);
-      expect(testContext.object.options.rangeSelector.enabled).toBe(true);
+      expect(testContext.object.options.rangeSelector.enabled).toEqual(true);
     });
 
     it('fires the initialization event to so Highcharts creates a RangeSelector', () => {

@@ -5,7 +5,7 @@ import Axis from '../../../src/components/Axis';
 describe('<YAxis />', () => {
   it('renders an <Axis />', () => {
     const wrapper = shallow(<YAxis id="y" />);
-    expect(wrapper.type()).toBe(Axis);
+    expect(wrapper.type()).toEqual(Axis);
   });
 
   it('renders an <Axis isX={false} />', () => {

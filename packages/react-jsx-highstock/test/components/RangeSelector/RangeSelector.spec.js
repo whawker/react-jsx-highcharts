@@ -5,7 +5,7 @@ import RangeSelectorInner from '../../../src/components/RangeSelector/RangeSelec
 describe('<RangeSelector />', () => {
   it('renders a <RangeSelectorInner />', () => {
     const wrapper = shallow(<RangeSelector />);
-    expect(wrapper.type()).toBe(RangeSelectorInner);
+    expect(wrapper.type()).toEqual(RangeSelectorInner);
   });
 
   it('renders a <RangeSelectorInner axisId="xAxis" />', () => {

@@ -43,7 +43,7 @@ describe('<BaseChart />', () => {
       jest.advanceTimersByTime(1);
 
       wrapper.setState({ rendered: true }, () => {
-        expect(wrapper.childAt(0).childAt(0).type()).toBe(Provider);
+        expect(wrapper.childAt(0).childAt(0).type()).toEqual(Provider);
         expect(wrapper.childAt(0).childAt(0)).toHaveProp('value', { chart, chartType: 'chart' });
         done();
       });
@@ -54,7 +54,7 @@ describe('<BaseChart />', () => {
       jest.advanceTimersByTime(1);
 
       wrapper.setState({ rendered: true }, () => {
-        expect(wrapper.childAt(0).childAt(0).type()).toBe(Provider);
+        expect(wrapper.childAt(0).childAt(0).type()).toEqual(Provider);
         expect(wrapper.childAt(0).childAt(0)).toHaveProp('value', { chart, chartType: 'stockChart' });
         done();
       });

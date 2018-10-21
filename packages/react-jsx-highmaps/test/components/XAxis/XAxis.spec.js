@@ -5,7 +5,7 @@ import MapXAxis from '../../../src/components/XAxis';
 describe('<XAxis />', () => {
   it('renders an <XAxis />', () => {
     const wrapper = shallow(<MapXAxis />);
-    expect(wrapper.type()).toBe(XAxis);
+    expect(wrapper.type()).toEqual(XAxis);
   });
 
   it('should always have the id `xAxis`', () => {

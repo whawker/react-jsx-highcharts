@@ -5,7 +5,7 @@ import Axis from '../../../src/components/Axis';
 describe('<ZAxis />', () => {
   it('renders an <Axis />', () => {
     const wrapper = shallow(<ZAxis />);
-    expect(wrapper.type()).toBe(Axis);
+    expect(wrapper.type()).toEqual(Axis);
   });
 
   it('should always have the id `zAxis`', () => {

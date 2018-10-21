@@ -13,7 +13,7 @@ describe('<HighchartsChart />', () => {
 
   it('renders a <BaseChart />', () => {
     const wrapper = shallow(<HighchartsChart getHighcharts={testContext.getHighcharts} />);
-    expect(wrapper.type()).toBe(BaseChart);
+    expect(wrapper.type()).toEqual(BaseChart);
   });
 
   it('renders a <BaseChart /> with the correct creation function', () => {
