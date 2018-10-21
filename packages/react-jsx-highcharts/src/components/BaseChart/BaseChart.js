@@ -80,7 +80,9 @@ class BaseChart extends Component {
       rendered: true
     })
   }
-
+  setDomNode = (node) => {
+    this.domNode = node;
+  }
   componentDidUpdate (prevProps) {
     const { plotOptions } = this.props
     if (isEqual(prevProps.plotOptions, plotOptions) === false && this.chart) {
@@ -101,7 +103,7 @@ class BaseChart extends Component {
     return (
       <div
         className={`chart ${this.props.className}`}
-        ref={(node) => { this.domNode = node }}>
+        ref={ this.setDomNode }>
         {this.state.rendered && (
           <Provider value={{ chart: this.chart, chartType }}>
             {children}
