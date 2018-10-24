@@ -14,6 +14,7 @@
     "build:prod": "npm run build:umd && npm run build:es",
     "build:umd": "cross-env NODE_ENV=production ./node_modules/.bin/webpack",
     "build:es": "BABEL_ENV=es babel src --out-dir dist/es",
+    "clean": "rimraf dist",
     "lint": "./node_modules/.bin/eslint src",
     "test": "jest",
     "test:coverage": "jest --coverage"
