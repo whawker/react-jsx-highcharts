@@ -12,6 +12,7 @@
     "build:prod": "cross-env NODE_ENV=production ./node_modules/.bin/webpack",
     "clean": "rimraf dist",
     "test": "echo linting only",
+    "test:coverage": "echo linting only",
     "lint": "./node_modules/.bin/eslint src"
   },
   "repository": {
