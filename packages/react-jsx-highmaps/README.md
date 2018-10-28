@@ -1,5 +1,7 @@
 ![React JSX Highmaps](https://user-images.githubusercontent.com/2003804/47213017-ac588080-d391-11e8-8711-9e7c4e2fadec.png)
 
+[![Build Status](https://travis-ci.com/whawker/react-jsx-highcharts.svg?branch=master)](https://travis-ci.com/whawker/react-jsx-highcharts) ![npm version](https://img.shields.io/npm/v/react-jsx-highmaps.svg)
+
 ## Introduction
 
 A project for integrating [Highmaps](https://github.com/highcharts/highcharts) into a React app, with proper React components for each Highmaps component. Inspired by [Recharts](https://github.com/recharts/recharts), but for Highmaps, obviously.

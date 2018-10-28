@@ -1,5 +1,7 @@
 ![React JSX Highstock](https://user-images.githubusercontent.com/2003804/40682476-c1ea6be4-6383-11e8-826c-a617db5ef726.png)
 
+[![Build Status](https://travis-ci.com/whawker/react-jsx-highcharts.svg?branch=master)](https://travis-ci.com/whawker/react-jsx-highcharts) ![npm version](https://img.shields.io/npm/v/react-jsx-highstock.svg)
+
 This package exposes everything from `react-jsx-highcharts`, but additionally provides components for building **Highstock** charts.
 
 N.B. You can build *both* Highcharts **and** Highstock charts from this package.
