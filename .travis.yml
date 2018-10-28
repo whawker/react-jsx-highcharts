@@ -15,7 +15,7 @@ env:
 before_install:
   - cd $PKG_DIR
 script:
-  - npm test:coverage
+  - npm run test:coverage
   - npm run lint
   - npm run build:prod
 after_success:
