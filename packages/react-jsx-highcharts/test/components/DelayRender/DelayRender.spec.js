@@ -32,4 +32,16 @@ describe('<DelayRender />', () => {
 
     expect(wrapper.find(ChildComponent)).toExist();
   });
+
+  it('cancels the timeout if unmounted before tick', () => {
+    const wrapper = mount(
+      <DelayRender>
+        <ChildComponent/>
+      </DelayRender>
+    );
+    wrapper.unmount();
+
+    expect(clearTimeout).toHaveBeenCalledTimes(1);
+    expect(clearTimeout).toHaveBeenLastCalledWith(expect.any(Number));
+  });
 });

@@ -95,6 +95,39 @@ describe('<AxisProvider />', () => {
     expect(wrapper.find(WrappedComponent).prop('getAxis')).toEqual(expect.any(Function))
   });
 
+  it('should render the wrapped component if there is an axisId, and there is no axis context', () => {
+    const get = jest.fn().mockReturnValue(testContext.axis)
+    const wrapper = mount(
+      <Provider value={undefined}>
+        <AxisWrappedComponent getChart={() => ({ get })} axisId='my-passed-axis-id' />
+      </Provider>
+    );
+
+    expect(wrapper.find(WrappedComponent)).toExist();
+  });
+
+  it('should get the axis using the passed axisId', () => {
+    const get = jest.fn().mockReturnValue(testContext.axis)
+    mount(
+      <Provider value={undefined}>
+        <AxisWrappedComponent getChart={() => ({ get })} axisId='my-passed-axis-id' />
+      </Provider>
+    );
+
+    expect(get).toHaveBeenCalledWith('my-passed-axis-id')
+  });
+
+  it('should provide a getAxis prop to the wrapped component when passing an axisId', () => {
+    const get = jest.fn().mockReturnValue(testContext.axis)
+    const wrapper = mount(
+      <Provider value={undefined}>
+        <AxisWrappedComponent getChart={() => ({ get })} axisId='my-passed-axis-id' />
+      </Provider>
+    );
+
+    expect(wrapper.find(WrappedComponent).prop('getAxis')).toEqual(expect.any(Function))
+  });
+
   it('should pass through other props to the wrapped component', () => {
     const wrapper = mount(
       <Provider value={testContext.axis}>

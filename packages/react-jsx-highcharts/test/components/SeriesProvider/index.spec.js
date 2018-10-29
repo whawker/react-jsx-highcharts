@@ -81,6 +81,40 @@ describe('<SeriesProvider />', () => {
     expect(wrapper.find(WrappedComponent).prop('getSeries')).toEqual(expect.any(Function))
   });
 
+  it('should render the wrapped component if there is a seriesId, and there is no series context', () => {
+    const get = jest.fn().mockReturnValue(testContext.series)
+    const wrapper = mount(
+      <Provider value={undefined}>
+        <SeriesWrappedComponent getChart={() => ({ get })} seriesId='my-passed-series-id' />
+      </Provider>
+    );
+
+    expect(wrapper.find(WrappedComponent)).toExist();
+  });
+
+  it('should get the axis using the passed seriesId', () => {
+    const get = jest.fn().mockReturnValue(testContext.series)
+    mount(
+      <Provider value={undefined}>
+        <SeriesWrappedComponent getChart={() => ({ get })} seriesId='my-passed-series-id' />
+      </Provider>
+    );
+
+    expect(get).toHaveBeenCalledWith('my-passed-series-id')
+  });
+
+  it('should provide a getSeries prop to the wrapped component when passing a seriesId', () => {
+    const get = jest.fn().mockReturnValue(testContext.series)
+    const wrapper = mount(
+      <Provider value={undefined}>
+        <SeriesWrappedComponent getChart={() => ({ get })} seriesId='my-passed-series-id' />
+      </Provider>
+    );
+
+    expect(wrapper.find(WrappedComponent).prop('getSeries')).toEqual(expect.any(Function))
+  });
+
+
   it('should pass through other props to the wrapped component', () => {
     const wrapper = mount(
       <Provider value={testContext.series}>
