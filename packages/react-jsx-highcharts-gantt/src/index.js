@@ -17,8 +17,7 @@ export { default as HighchartsGanttChart } from './components/HighchartsGanttCha
 export { default as XAxis } from './components/XAxis';
 export { default as YAxis } from './components/YAxis';
 
-//TODO: create and export Pathfinder component
-//export { default as Pathfinder } from './components/Pathfinder';
+export { default as Pathfinder } from './components/Pathfinder';
 
 // Series
 export const GanttSeries = withSeriesType('gantt');
