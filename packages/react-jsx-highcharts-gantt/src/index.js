@@ -14,8 +14,8 @@ export { default as HighchartsGanttChart } from './components/HighchartsGanttCha
 
 // Graph Parts
 
-export { default as XAxis } from './components/XAxis'; // TODO: ?
-export { default as YAxis } from './components/YAxis'; // TODO: ?
+export { default as XAxis } from './components/XAxis';
+export { default as YAxis } from './components/YAxis';
 
 //TODO: create and export Pathfinder component
 //export { default as Pathfinder } from './components/Pathfinder';
