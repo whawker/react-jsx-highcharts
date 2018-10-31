@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 class HighchartsGanttChart extends Component {
@@ -6,12 +6,17 @@ class HighchartsGanttChart extends Component {
     getHighcharts: PropTypes.func.isRequired // Provided by HighchartsProvider
   };
 
-
-  render () {
-    const { chart, ...rest } = this.props;
+  render() {
+    const {chart, ...rest} = this.props;
 
     return (
-      null
+      <BaseChart
+        chart={{...chart}}
+        xAxis={{id: 'xAxis'}}
+        yAxis={{id: 'yAxis'}}
+        {...rest}
+        chartCreationFunc={this.props.getHighcharts().ganttChart}
+        chartType="ganttChart"/>
     );
   }
 }
