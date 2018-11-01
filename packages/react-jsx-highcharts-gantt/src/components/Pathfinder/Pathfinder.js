@@ -7,13 +7,58 @@ class Pathfinder extends Component {
 
   static propTypes = {
     getChart: PropTypes.func.isRequired, // Provided by ChartProvider
-    enabled: PropTypes.bool.isRequired,
     dashStyle: PropTypes.string(),
-    lineWidth: PropTypes.number()
+    enabled: PropTypes.bool.isRequired,
+    lineColor: PropTypes.string(),
+    lineWidth: PropTypes.number(),
+    type: PropTypes.string()
   };
 
   static defaultProps = {
-    enabled: true
+    algorithmMargin: null,
+    dashStyle: "solid",
+    enabled: true,
+    endMarker: {
+      align: "center",
+      color: null,
+      enabled: false,
+      height: null,
+      inside: false,
+      lineColor: null,
+      lineWidth: 1,
+      radius: null,
+      symbol: "arrow-filled",
+      verticalAlign: "middle",
+      width: null
+    },
+    lineColor: null,
+    lineWidth: 1,
+    marker: {
+      align: "center",
+      color: null,
+      enabled: false,
+      height: null,
+      inside: false,
+      lineColor: null,
+      lineWidth: 1,
+      radius: null,
+      verticalAlign: "middle",
+      width: null
+    },
+    startMarker: {
+      align: "center",
+      color: null,
+      enabled: false,
+      height: null,
+      inside: false,
+      lineColor: null,
+      lineWidth: 1,
+      radius: null,
+      symbol: "diamond",
+      verticalAlign: "middle",
+      width: null
+    },
+    type: "straight|simpleConnect"
   };
 
   constructor (props) {
