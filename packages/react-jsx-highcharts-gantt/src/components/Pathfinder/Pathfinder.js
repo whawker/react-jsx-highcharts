@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { attempt } from 'lodash-es';
+import {getModifiedProps} from 'react-jsx-highcharts';
 
 class Pathfinder extends Component {
 
@@ -20,6 +22,31 @@ class Pathfinder extends Component {
     this.state = {
       rendered: false
     };
+  }
+
+  componentDidMount () {
+    const { children, ...rest } = this.props;
+    this.updatePathfinder({
+      ...rest
+    });
+  }
+
+  componentDidUpdate (prevProps) {
+    const modifiedProps = getModifiedProps(prevProps, this.props);
+    if (modifiedProps !== false) {
+      this.updatePathfinder(modifiedProps);
+    }
+  }
+
+  componentWillUnmount () {
+    attempt(this.updatePathfinder, { enabled: false });
+  }
+
+  updatePathfinder = config => {
+    const chart = this.props.getChart();
+    chart.update({
+      pathfinder: config
+    }, true);
   }
 
   render () {
