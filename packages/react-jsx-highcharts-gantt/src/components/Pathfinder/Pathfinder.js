@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 class Pathfinder extends Component {
 
   static propTypes = {
+    getChart: PropTypes.func.isRequired, // Provided by ChartProvider
     enabled: PropTypes.bool.isRequired,
     dashStyle: PropTypes.string(),
     lineWidth: PropTypes.number()
