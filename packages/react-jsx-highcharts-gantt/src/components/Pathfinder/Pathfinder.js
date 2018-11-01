@@ -63,10 +63,6 @@ class Pathfinder extends Component {
 
   constructor (props) {
     super(props);
-
-    this.state = {
-      rendered: false
-    };
   }
 
   componentDidMount () {
