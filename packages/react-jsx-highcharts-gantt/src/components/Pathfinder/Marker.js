@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 class Marker extends Component {
 
   static propTypes = {
+    getChart: PropTypes.func.isRequired, // Provided by ChartProvider
     enabled: PropTypes.bool.isRequired,
   };
 
