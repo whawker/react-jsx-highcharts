@@ -29,9 +29,9 @@ export const addEventHandlersManually = (Highcharts, context, props) => {
   });
 };
 
-export const addEventHandlers = (updateFn, props) => {
+export const addEventHandlers = (updateFn, props, redraw = true) => {
   const events = getEventsConfig(props);
-  updateFn({ events });
+  updateFn({ events }, redraw);
 };
 
 const _isEventKey = (value, key) => (key.indexOf('on') === 0) && isFunction(value);
