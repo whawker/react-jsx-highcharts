@@ -46,11 +46,18 @@ const highmapsExamples = [
   { name: 'MapBubble', additional: ['promise-polyfill', 'fetch-polyfill', 'react-request', 'proj4js'] }
 ];
 
+const ganttExamples = [
+  { name: 'HighchartsGanttSimple' },
+  { name: 'HighchartsGanttWithSubtasks' },
+  // { name: 'HighchartsGanttWithPathfinder', additional: ['highcharts-pathfinder'] } TODO: example with pathfinder
+]
+
 const examples = [].concat(
   highchartsExamples.map(({ name, additional = [] }) => ({ name, additional: ['highcharts', 'react-jsx-highcharts'].concat(additional) })),
   highchartsStyledExamples.map(({ name, additional = [] }) => ({ name, additional: ['highcharts/js/highcharts', 'react-jsx-highcharts'].concat(additional) })),
   highstockExamples.map(({ name, additional = [] }) => ({ name, additional: ['highcharts/highstock', 'react-jsx-highstock'].concat(additional) })),
-  highmapsExamples.map(({ name, additional = [] }) => ({ name, additional: ['highcharts/highmaps', 'react-jsx-highmaps'].concat(additional) }))
+  highmapsExamples.map(({ name, additional = [] }) => ({ name, additional: ['highcharts/highmaps', 'react-jsx-highmaps'].concat(additional) })),
+  ganttExamples.map(({ name, additional = [] }) => ({ name, additional: ['highcharts/highcharts-gantt', 'react-jsx-highcharts-gantt'].concat(additional) }))
 );
 
 const exampleNames = examples.map(e => e.name);
@@ -59,15 +66,18 @@ const externals = {
   // 'react-jsx-highcharts': '../../packages/react-jsx-highcharts/dist/react-jsx-highcharts.min.js',
   // 'react-jsx-highstock':  '../../packages/react-jsx-highstock/dist/react-jsx-highstock.min.js',
   // 'react-jsx-highmaps':  '../../packages/react-jsx-highmaps/dist/react-jsx-highmaps.min.js',
+  'react-jsx-highcharts-gantt': '../../packages/react-jsx-highcharts-gantt/dist/react-jsx-highcharts-gantt.min.js',
   'react-jsx-highcharts': 'https://unpkg.com/react-jsx-highcharts@^3/dist/react-jsx-highcharts.min.js',
   'react-jsx-highstock':  'https://unpkg.com/react-jsx-highstock@^3/dist/react-jsx-highstock.min.js',
   'react-jsx-highmaps':   'https://unpkg.com/react-jsx-highmaps@^1/dist/react-jsx-highmaps.min.js',
+  // 'react-jsx-highcharts-gantt': 'https://unpkg.com/react-jsx-highcharts-gantt@^1/dist/react-jsx-highcharts-gantt.min.js',
   'react':                'https://unpkg.com/react@^16/umd/react.production.min.js',
   'react-dom':            'https://unpkg.com/react-dom@^16/umd/react-dom.production.min.js',
   'highcharts':           'https://code.highcharts.com/6.2.0/highcharts.js',
   'highcharts/js/highcharts': 'https://code.highcharts.com/6.2.0/js/highcharts.js',
   'highcharts/highstock': 'https://code.highcharts.com/stock/6.2.0/highstock.js',
   'highcharts/highmaps':  'https://code.highcharts.com/maps/6.2.0/highmaps.js',
+  'highcharts/highcharts-gantt': 'https://code.highcharts.com/gantt/6.2.0/highcharts-gantt.js',
   'highcharts-more':      'https://code.highcharts.com/6.2.0/highcharts-more.js',
   'highcharts-funnel':    'https://code.highcharts.com/6.2.0/modules/funnel.js',
   'highcharts-treemap':   'https://code.highcharts.com/6.2.0/modules/treemap.js',
@@ -78,6 +88,7 @@ const externals = {
   'highcharts-streamgraph': 'https://code.highcharts.com/6.2.0/modules/streamgraph.js',
   'highcharts-series-label': 'https://code.highcharts.com/6.2.0/modules/series-label.js',
   'highcharts-solid-gauge': 'https://code.highcharts.com/6.2.0/modules/solid-gauge.js',
+  'highcharts-pathfinder': 'https://code.highcharts.com/6.2.0/modules/pathfinder.js',
   'prism':                'https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/prism.min.js',
   'prism-jsx':            'https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/components/prism-jsx.min.js',
   'moment':               'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js',
@@ -108,6 +119,7 @@ module.exports = {
     'highcharts/js/highcharts': 'Highcharts',
     'highcharts/highstock': 'Highcharts',
     'highcharts/highmaps': 'Highcharts',
+    'highcharts/highcharts-gantt': 'Highcharts',
     'moment': 'moment',
     'react-day-picker': 'DayPicker',
     're-resizable': 'window[\'re-resizable\']',
@@ -116,7 +128,8 @@ module.exports = {
     'proj4js': 'proj4',
     'react-jsx-highcharts': 'ReactHighcharts',
     'react-jsx-highstock': 'ReactHighcharts',
-    'react-jsx-highmaps': 'ReactHighcharts'
+    'react-jsx-highmaps': 'ReactHighcharts',
+    'react-jsx-highcharts-gantt': 'ReactHighcharts'
   },
 
   module: {
