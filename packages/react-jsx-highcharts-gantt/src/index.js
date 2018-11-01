@@ -18,6 +18,7 @@ export { default as XAxis } from './components/XAxis';
 export { default as YAxis } from './components/YAxis';
 
 export { default as Pathfinder } from './components/Pathfinder';
+// TODO: Should Marker be exported here?
 
 // Series
 export const GanttSeries = withSeriesType('gantt');
