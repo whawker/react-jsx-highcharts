@@ -22,7 +22,7 @@ class Pathfinder extends Component {
   }
 
   render () {
-    // TODO: Howto?
+    return this.props.children;
   }
 }
 
