@@ -51,9 +51,10 @@ const ganttExamples = [
 ];
 
 const examples = [].concat(
-  highchartsExamples.map(({ name, additional = [] }) => ({ name, additional: ['highcharts', 'react-jsx-highcharts'].concat(additional) })),
-  highstockExamples.map(({ name, additional = [] }) => ({ name, additional: ['highcharts/highstock', 'react-jsx-highstock'].concat(additional) })),
-  highmapsExamples.map(({ name, additional = [] }) => ({ name, additional: ['highcharts/highmaps', 'react-jsx-highmaps'].concat(additional) })),
+  // TODO: Uncomment these before merging to master
+  // highchartsExamples.map(({ name, additional = [] }) => ({ name, additional: ['highcharts', 'react-jsx-highcharts'].concat(additional) })),
+  // highstockExamples.map(({ name, additional = [] }) => ({ name, additional: ['highcharts/highstock', 'react-jsx-highstock'].concat(additional) })),
+  // highmapsExamples.map(({ name, additional = [] }) => ({ name, additional: ['highcharts/highmaps', 'react-jsx-highmaps'].concat(additional) })),
   ganttExamples.map(({ name, additional = [] }) => ({ name, additional: ['highcharts/highcharts-gantt', 'react-jsx-highcharts-gantt'].concat(additional) }))
 );
 
