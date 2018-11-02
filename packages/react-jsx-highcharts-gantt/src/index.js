@@ -21,4 +21,5 @@ export { default as YAxis } from './components/YAxis';
 export { default as Pathfinder } from './components/Pathfinder';
 
 // Series
-export const GanttSeries = withSeriesType('gantt');
+const parentAxisId = { axisId: 'yAxis' };
+export const GanttSeries = withSeriesType('gantt', parentAxisId);
