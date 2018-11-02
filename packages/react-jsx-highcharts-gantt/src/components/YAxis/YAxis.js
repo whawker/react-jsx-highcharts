@@ -11,8 +11,7 @@ const GanttYAxis = ({ categories, type, ...props }) => {
 GanttYAxis.defaultProps = {
   grid: { enabled: true },
   reversed: true,
-  staticScale: 50,
-  visible: false
+  staticScale: 50
 };
 
 export default GanttYAxis;
