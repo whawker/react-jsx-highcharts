@@ -60,7 +60,7 @@ class Axis extends Component {
     }
   }
 
-  createAxis () {
+  createAxis = () => {
     const { id, dynamicAxis, isX, getChart } = this.props;
     const chart = getChart();
 
