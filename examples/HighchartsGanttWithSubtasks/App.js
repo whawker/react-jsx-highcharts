@@ -79,7 +79,7 @@ class App extends Component {
     return (
       <div className="app">
         <HighchartsGanttChart>
-          <Title>Simple Highcharts Gantt</Title>
+          <Title>Highcharts Gantt With Subtasks</Title>
           <XAxis
             min={today.getTime() - (2 * day)}
             max={today.getTime() + (32 * day)}
