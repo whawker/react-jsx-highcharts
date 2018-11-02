@@ -7,11 +7,6 @@ import code from './exampleCode';
 
 class App extends Component {
 
-  constructor(props) {
-    super(props);
-
-  }
-
   render() {
 
     const today = new Date();
