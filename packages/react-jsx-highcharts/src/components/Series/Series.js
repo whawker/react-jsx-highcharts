@@ -88,7 +88,7 @@ class Series extends Component {
     return config;
   }
 
-  createSeries () {
+  createSeries = () => {
     const chart = this.props.getChart();
 
     // Create Highcharts Series
