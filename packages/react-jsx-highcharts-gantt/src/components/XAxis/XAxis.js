@@ -2,15 +2,13 @@ import React from 'react';
 import { XAxis } from 'react-jsx-highcharts';
 
 const GanttXAxis = ({ ...props }) => (
-  <XAxis {...props} id="xAxis" dynamicAxis={false} />
+  <XAxis {...props} id="xAxis" dynamicAxis={false} type={"datetime"}/>
 );
 
 GanttXAxis.defaultProps = {
-  endOnTick: false,
-  visible: false,
-  minPadding: 0,
-  maxPadding: 0,
-  startOnTick: false
+  grid: { enabled: true },
+  opposite: true,
+  visible: true
 };
 
 export default GanttXAxis;
