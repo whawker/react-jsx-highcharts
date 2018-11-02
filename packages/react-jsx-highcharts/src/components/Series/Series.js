@@ -88,19 +88,21 @@ class Series extends Component {
     return config;
   }
 
+  createSeries () {
+    const chart = this.props.getChart();
+
+    // Create Highcharts Series
+    const opts = this.getSeriesConfig();
+    this.series = chart.addSeries(opts, false);
+
+    const update = this.series.update.bind(this.series);
+
+    // we rely addEventProps to call redraw
+    addEventProps(update, this.props, true);
+  }
+
   render () {
-    if (!this.series) {
-      const chart = this.props.getChart();
-
-      // Create Highcharts Series
-      const opts = this.getSeriesConfig();
-      this.series = chart.addSeries(opts, false);
-
-      const update = this.series.update.bind(this.series);
-
-      // we rely addEventProps to call redraw
-      addEventProps(update, this.props, true);
-    }
+    if (!this.series) this.createSeries();
 
     return (
       <Provider value={this.series}>

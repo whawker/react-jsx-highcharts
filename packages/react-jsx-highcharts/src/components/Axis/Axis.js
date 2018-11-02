@@ -60,27 +60,29 @@ class Axis extends Component {
     }
   }
 
-  render () {
-    if (!this.axis) {
-      const { id, dynamicAxis, isX, getChart } = this.props;
-      const chart = getChart();
+  createAxis () {
+    const { id, dynamicAxis, isX, getChart } = this.props;
+    const chart = getChart();
 
-      // Create Highcharts Axis
-      const opts = this.getAxisConfig();
-      if (dynamicAxis) {
-        this.axis = chart.addAxis(opts, isX, false);
-      } else {
-        // ZAxis cannot be added dynamically, Maps only have a single axes - update instead
-        const axisId = isFunction(id) ? id() : id
-        this.axis = chart.get(axisId);
-        this.axis.update(opts, false);
-      }
-
-      const update = this.axis.update.bind(this.axis);
-
-      // we rely addEventProps to call redraw
-      addEventProps(update, this.props, true);
+    // Create Highcharts Axis
+    const opts = this.getAxisConfig();
+    if (dynamicAxis) {
+      this.axis = chart.addAxis(opts, isX, false);
+    } else {
+      // ZAxis cannot be added dynamically, Maps only have a single axes - update instead
+      const axisId = isFunction(id) ? id() : id
+      this.axis = chart.get(axisId);
+      this.axis.update(opts, false);
     }
+
+    const update = this.axis.update.bind(this.axis);
+
+    // we rely addEventProps to call redraw
+    addEventProps(update, this.props, true);
+  }
+
+  render () {
+    if (!this.axis) this.createAxis();
 
     return (
       <Provider value={this.axis}>
