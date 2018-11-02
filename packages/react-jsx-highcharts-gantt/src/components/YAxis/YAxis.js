@@ -1,17 +1,18 @@
 import React from 'react';
 import { YAxis } from 'react-jsx-highcharts';
 
-const GanttYAxis = ({ ...props }) => (
-  <YAxis {...props} id="yAxis" dynamicAxis={false} />
-);
+const GanttYAxis = ({ categories, type, ...props }) => {
+  const seriesType = categories ? type : 'treegrid';
+  return (
+    <YAxis {...props} id="yAxis" dynamicAxis={false} type={seriesType} />
+  );
+}
 
 GanttYAxis.defaultProps = {
-  endOnTick: false,
-  visible: false,
-  minPadding: 0,
-  maxPadding: 0,
-  startOnTick: false,
-  reversed: true
+  grid: { enabled: true },
+  reversed: true,
+  staticScale: 50,
+  visible: false
 };
 
 export default GanttYAxis;
