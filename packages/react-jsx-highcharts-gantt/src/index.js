@@ -6,6 +6,7 @@ export {
   Title,
   Subtitle,
   Tooltip,
+  withHighcharts
 } from 'react-jsx-highcharts';
 
 
