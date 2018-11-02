@@ -47,6 +47,7 @@ const highmapsExamples = [
 const ganttExamples = [
   { name: 'HighchartsGanttSimple' },
   { name: 'HighchartsGanttWithSubtasks' },
+  { name: 'HighchartsGanttLeftAxisAsTable' },
   // { name: 'HighchartsGanttWithPathfinder', additional: ['highcharts-pathfinder'] } TODO: example with pathfinder
 ];
 
