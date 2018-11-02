@@ -7,8 +7,7 @@ const GanttXAxis = ({ ...props }) => (
 
 GanttXAxis.defaultProps = {
   grid: { enabled: true },
-  opposite: true,
-  visible: true
+  opposite: true
 };
 
 export default GanttXAxis;
