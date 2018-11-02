@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import Highcharts from 'highcharts';
-import {HighchartsGanttChart, Subtitle, Title, GanttSeries, XAxis} from 'react-jsx-highcharts-gantt';
+import Highcharts from 'highcharts/highcharts-gantt';
+import {HighchartsGanttChart, Subtitle, Title, GanttSeries, XAxis, withHighcharts} from 'react-jsx-highcharts-gantt';
 import ExampleCode from '../utils/ExampleCode';
 import code from './exampleCode';
 
