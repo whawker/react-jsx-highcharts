@@ -34,28 +34,6 @@ class Axis extends Component {
     }
   }
 
-  componentDidMount () {
-    const { id, dynamicAxis, isX, getChart } = this.props;
-    const chart = getChart();
-
-    // Create Highcharts Axis
-    const opts = this.getAxisConfig();
-    if (dynamicAxis) {
-      this.axis = chart.addAxis(opts, isX, true);
-    } else {
-      // ZAxis cannot be added dynamically, Maps only have a single axes - update instead
-      const axisId = isFunction(id) ? id() : id
-      this.axis = chart.get(axisId);
-      this.axis.update(opts, true);
-    }
-
-    const update = this.axis.update.bind(this.axis)
-    addEventProps(update, this.props);
-
-    // Re-render to pass this.axis to Provider
-    this.forceUpdate();
-  }
-
   componentDidUpdate (prevProps) {
     const modifiedProps = getModifiedProps(prevProps, this.props);
     if (modifiedProps !== false) {
@@ -82,8 +60,29 @@ class Axis extends Component {
     }
   }
 
+  createAxis = () => {
+    const { id, dynamicAxis, isX, getChart } = this.props;
+    const chart = getChart();
+
+    // Create Highcharts Axis
+    const opts = this.getAxisConfig();
+    if (dynamicAxis) {
+      this.axis = chart.addAxis(opts, isX, false);
+    } else {
+      // ZAxis cannot be added dynamically, Maps only have a single axes - update instead
+      const axisId = isFunction(id) ? id() : id
+      this.axis = chart.get(axisId);
+      this.axis.update(opts, false);
+    }
+
+    const update = this.axis.update.bind(this.axis);
+
+    // we rely addEventProps to call redraw
+    addEventProps(update, this.props, true);
+  }
+
   render () {
-    if (!this.axis) return null;
+    if (!this.axis) this.createAxis();
 
     return (
       <Provider value={this.axis}>

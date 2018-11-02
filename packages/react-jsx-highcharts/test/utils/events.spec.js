@@ -92,7 +92,7 @@ describe('utils/events', () => {
           eventHandler: onEventHandler,
           otherEventHandler: onOtherEventHandler
         }
-      });
+      }, true);
     });
   });
 });

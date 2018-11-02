@@ -35,7 +35,7 @@ describe('<Series />', () => {
       );
       expect(testContext.chartStubs.addSeries).toHaveBeenCalledWith(expect.objectContaining(
         { id: 'mySeries', xAxis: 'myXAxisId', type: 'line', data: [], visible: true }, true
-      ), true);
+      ), false);
     });
 
     it('adds a Y series using the addSeries method', () => {
@@ -47,7 +47,7 @@ describe('<Series />', () => {
       );
       expect(testContext.chartStubs.addSeries).toHaveBeenCalledWith(expect.objectContaining(
         { id: 'mySeries', yAxis: 'myYAxisId', type: 'line', data: [], visible: true }, true
-      ), true);
+      ), false);
     });
 
     it('uses the provided ID if id prop is a string', () => {
@@ -78,7 +78,7 @@ describe('<Series />', () => {
       );
       expect(testContext.chartStubs.addSeries).toHaveBeenCalledWith(expect.objectContaining({
         id: 'mySeries', yAxis: 'myAxis', type: 'line', data: [5], visible: true, step: true
-      }), true);
+      }), false);
     });
 
     it('subscribes to Highcharts events for props that look like event handlers', () => {
@@ -94,7 +94,7 @@ describe('<Series />', () => {
           click: handleClick,
           show: handleShow
         }
-      });
+      }, true);
     });
 
     it('supports mounting with Immutable List data', () => {
@@ -104,7 +104,7 @@ describe('<Series />', () => {
       );
       expect(testContext.chartStubs.addSeries).toHaveBeenCalledWith(expect.objectContaining(
         { id: 'mySeries', yAxis: 'myAxis', type: 'line', data, visible: true }
-      ), true);
+      ), false);
     });
   });
 

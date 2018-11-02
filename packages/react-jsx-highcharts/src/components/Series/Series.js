@@ -41,20 +41,6 @@ class Series extends Component {
     }
   }
 
-  componentDidMount () {
-    const chart = this.props.getChart();
-
-    // Create Highcharts Series
-    const opts = this.getSeriesConfig();
-    this.series = chart.addSeries(opts, true);
-
-    const update = this.series.update.bind(this.series)
-    addEventProps(update, this.props);
-
-    // Re-render to pass this.series to Provider
-    this.forceUpdate();
-  }
-
   componentDidUpdate (prevProps) {
     const { visible, data, ...rest } = this.props;
 
@@ -102,8 +88,21 @@ class Series extends Component {
     return config;
   }
 
+  createSeries = () => {
+    const chart = this.props.getChart();
+
+    // Create Highcharts Series
+    const opts = this.getSeriesConfig();
+    this.series = chart.addSeries(opts, false);
+
+    const update = this.series.update.bind(this.series);
+
+    // we rely addEventProps to call redraw
+    addEventProps(update, this.props, true);
+  }
+
   render () {
-    if (!this.series) return null;
+    if (!this.series) this.createSeries();
 
     return (
       <Provider value={this.series}>
