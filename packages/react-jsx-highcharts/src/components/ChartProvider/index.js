@@ -13,7 +13,7 @@ export default function provideChart(Component) {
     // Notice that we pass through any additional props as well
     return (
       <Consumer>
-        {({ chart, chartType }) => {
+        {({ chart, chartType, needsRedraw }) => {
           if (!chart) return null;
 
           const getChart = () => ({
@@ -32,7 +32,8 @@ export default function provideChart(Component) {
           return (
             <Component
               {...props}
-              getChart={getChart} />
+              getChart={getChart}
+              needsRedraw={needsRedraw} />
           )
         }}
       </Consumer>
