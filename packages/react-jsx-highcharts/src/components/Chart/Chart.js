@@ -34,7 +34,7 @@ class Chart extends Component {
   };
 
   componentDidMount () {
-    const { getHighcharts, getChart, children, ...rest } = this.props;
+    const { getHighcharts, getChart, needsRedraw, children, ...rest } = this.props;
     const notEventProps = getNonEventHandlerProps(rest);
     const chart = getChart();
 
@@ -56,7 +56,8 @@ class Chart extends Component {
     const chart = this.props.getChart();
     chart.update({
       chart: config
-    }, true);
+    }, false);
+    this.props.needsRedraw();
   }
 
   render () {

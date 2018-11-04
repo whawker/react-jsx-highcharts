@@ -38,6 +38,7 @@ describe('<Series />', () => {
       expect(testContext.chartStubs.addSeries).toHaveBeenCalledWith(expect.objectContaining(
         { id: 'mySeries', xAxis: 'myXAxisId', type: 'line', data: [], visible: true }, true
       ), false);
+      expect(testContext.propsFromProviders.needsRedraw).toHaveBeenCalledTimes(1);
     });
 
     it('adds a Y series using the addSeries method', () => {
@@ -117,10 +118,13 @@ describe('<Series />', () => {
           id="mySeries" data={[]} {...testContext.propsFromProviders} />
       );
       testContext.seriesStubs.update.mockReset();
+      testContext.propsFromProviders.needsRedraw.mockClear();
       wrapper.setProps({ data: [1, 2, 3] });
       expect(testContext.seriesStubs.setData).toHaveBeenCalledWith([1, 2, 3], false);
       expect(testContext.seriesStubs.update).not.toHaveBeenCalled();
       expect(testContext.seriesStubs.setVisible).not.toHaveBeenCalled();
+
+      expect(testContext.propsFromProviders.needsRedraw).toHaveBeenCalledTimes(1);
     });
 
     it('should NOT use the setData method if the data hasn\'t changed', () => {
@@ -129,10 +133,12 @@ describe('<Series />', () => {
           id="mySeries" data={[1, 2, 3]} {...testContext.propsFromProviders} />
       );
       testContext.seriesStubs.update.mockReset();
+      testContext.propsFromProviders.needsRedraw.mockClear();
       wrapper.setProps({ data: [1, 2, 3] });
       expect(testContext.seriesStubs.setData).not.toHaveBeenCalled();
       expect(testContext.seriesStubs.update).not.toHaveBeenCalled();
       expect(testContext.seriesStubs.setVisible).not.toHaveBeenCalled();
+      expect(testContext.propsFromProviders.needsRedraw).not.toHaveBeenCalled();
     });
 
     it('should use the setData method on the correct series when the Immutable List changes', () => {
@@ -154,10 +160,14 @@ describe('<Series />', () => {
           id="mySeries" data={List([1, 2, 3])} {...testContext.propsFromProviders} />
       );
       testContext.seriesStubs.update.mockReset();
+      testContext.propsFromProviders.needsRedraw.mockClear();
+
       wrapper.setProps({ data: List([1, 2, 3]) });
       expect(testContext.seriesStubs.setData).not.toHaveBeenCalled();
       expect(testContext.seriesStubs.update).not.toHaveBeenCalled();
       expect(testContext.seriesStubs.setVisible).not.toHaveBeenCalled();
+      expect(testContext.propsFromProviders.needsRedraw).not.toHaveBeenCalled();
+
     });
 
     it('should use the setVisible method on the correct series when the visibility changes', () => {
@@ -208,6 +218,7 @@ describe('<Series />', () => {
       );
       wrapper.unmount();
       expect(testContext.seriesStubs.remove).toHaveBeenCalled();
+      expect(testContext.needsRedraw).toHaveBeenCalledTimes(2);
     });
   });
 });

@@ -24,6 +24,7 @@ describe('<Legend />', () => {
           enabled: true
         })
       }, false);
+      expect(testContext.propsFromProviders.needsRedraw).toHaveBeenCalledTimes(1);
     });
 
     it('updates the legend with the passed props', () => {
@@ -37,6 +38,7 @@ describe('<Legend />', () => {
           y: 20
         })
       }, false);
+      expect(testContext.propsFromProviders.needsRedraw).toHaveBeenCalledTimes(1);
     });
   });
 
@@ -51,6 +53,7 @@ describe('<Legend />', () => {
           backgroundColor: 'red'
         }
       }), false);
+      expect(testContext.propsFromProviders.needsRedraw).toHaveBeenCalledTimes(2);
     });
   });
 
@@ -62,7 +65,8 @@ describe('<Legend />', () => {
         legend: {
           enabled: false
         }
-      }), false)
+      }), false);
+      expect(testContext.propsFromProviders.needsRedraw).toHaveBeenCalledTimes(2);
     });
   });
 });

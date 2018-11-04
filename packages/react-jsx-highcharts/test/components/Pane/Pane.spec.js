@@ -7,11 +7,12 @@ describe('<Pane />', () => {
 
   beforeEach(() => {
     testContext = {};
-    const { chartStubs, getChart } = createMockProvidedChart();
+    const { chartStubs, getChart, needsRedraw } = createMockProvidedChart();
     testContext.chartStubs = chartStubs;
 
     testContext.propsFromProviders = {
-      getChart
+      getChart,
+      needsRedraw
     };
   });
 
@@ -25,7 +26,8 @@ describe('<Pane />', () => {
           center: ['50%', '85%'],
           size: '100%'
         })
-      }, true);
+      }, false);
+      expect(testContext.propsFromProviders.needsRedraw).toHaveBeenCalledTimes(1);
     });
   });
 
@@ -39,7 +41,8 @@ describe('<Pane />', () => {
         pane: {
           size: '50%'
         }
-      }), true);
+      }), false);
+      expect(testContext.propsFromProviders.needsRedraw).toHaveBeenCalledTimes(2);
     });
   });
 
@@ -49,7 +52,8 @@ describe('<Pane />', () => {
       wrapper.unmount();
       expect(testContext.chartStubs.update).toHaveBeenCalledWith(expect.objectContaining({
         pane: {}
-      }), true)
+      }), false);
+      expect(testContext.propsFromProviders.needsRedraw).toHaveBeenCalledTimes(2);
     });
   });
 });

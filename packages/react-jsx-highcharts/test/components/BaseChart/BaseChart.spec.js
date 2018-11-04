@@ -1,5 +1,6 @@
 import React, { Component, cloneElement } from 'react';
 import BaseChart from '../../../src/components/BaseChart';
+import YAxis from '../../../src/components/YAxis';
 import { Provider } from '../../../src/components/ChartContext';
 import { createMockChart } from '../../test-utils';
 
@@ -20,13 +21,11 @@ describe('<BaseChart />', () => {
   let testContext;
 
   let chart;
-  let needsRedraw;
 
   beforeEach(() => {
     testContext = {};
 
     chart = createMockChart();
-    needsRedraw = jest.fn();
     testContext.chartCreationFunc = jest.fn();
     testContext.chartCreationFunc.mockReturnValue(chart);
     jest.useFakeTimers();
@@ -100,7 +99,7 @@ describe('<BaseChart />', () => {
 
       wrapper.setProps({ markersEnabled: false })
 
-      expect(chart.update).toHaveBeenCalledWith({ plotOptions: { series: { marker: { enabled: false } }} }, true);
+      expect(chart.update).toHaveBeenCalledWith({ plotOptions: { series: { marker: { enabled: false } }} }, false);
     });
   });
 

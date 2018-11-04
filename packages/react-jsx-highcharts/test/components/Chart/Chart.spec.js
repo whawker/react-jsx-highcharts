@@ -8,11 +8,12 @@ describe('<Chart />', () => {
   beforeEach(() => {
     testContext = {};
 
-    const { chartStubs, getChart } = createMockProvidedChart();
+    const { chartStubs, getChart, needsRedraw } = createMockProvidedChart();
     testContext.chartStubs = chartStubs;
 
     testContext.propsFromProviders = {
       getChart,
+      needsRedraw,
       getHighcharts: () => Highcharts
     };
   });
@@ -24,7 +25,8 @@ describe('<Chart />', () => {
         chart : {
           type: 'bubble'
         }
-      }, true);
+      }, false);
+      expect(testContext.propsFromProviders.needsRedraw).toHaveBeenCalledTimes(1);
     });
 
     it('updates the chart with all props that don\'t look like event handlers', () => {
@@ -37,7 +39,8 @@ describe('<Chart />', () => {
           zoomType: 'x',
           propFoo: 'bar'
         }
-      }, true);
+      }, false);
+      expect(testContext.propsFromProviders.needsRedraw).toHaveBeenCalledTimes(1);
     });
 
     it('subscribes to Highcharts events for props that look like event handlers', () => {
@@ -66,7 +69,8 @@ describe('<Chart />', () => {
         chart: {
           backgroundColor: 'red'
         }
-      }, true);
+      }, false);
+      expect(testContext.propsFromProviders.needsRedraw).toHaveBeenCalledTimes(2);
     });
   });
 });

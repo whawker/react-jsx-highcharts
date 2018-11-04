@@ -86,7 +86,8 @@ class BaseChart extends Component {
   componentDidUpdate (prevProps) {
     const { plotOptions } = this.props
     if (isEqual(prevProps.plotOptions, plotOptions) === false && this.chart) {
-      this.chart.update({ plotOptions }, true)
+      this.chart.update({ plotOptions }, false);
+      this.needsRedraw();
     }
   }
 

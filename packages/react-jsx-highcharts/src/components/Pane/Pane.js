@@ -35,7 +35,8 @@ class Pane extends Component {
     const chart = this.props.getChart();
     chart.update({
       pane: config
-    }, true);
+    }, false);
+    this.props.needsRedraw();
   }
 
   render () {

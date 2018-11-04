@@ -28,6 +28,7 @@ describe('<Axis />', () => {
       expect(testContext.chartStubs.addAxis).toHaveBeenCalledWith(
         expect.objectContaining({ id: 'myAxis', title: { text: null } }), true, false
       );
+      expect(testContext.propsFromProviders.needsRedraw).toHaveBeenCalledTimes(1);
     });
 
     it('adds a Y axis using the addAxis method', () => {
@@ -35,6 +36,7 @@ describe('<Axis />', () => {
       expect(testContext.chartStubs.addAxis).toHaveBeenCalledWith(
         expect.objectContaining({ id: 'myAxis', title: { text: null } }), false, false
       );
+      expect(testContext.propsFromProviders.needsRedraw).toHaveBeenCalledTimes(1);
     });
 
     it('uses the provided ID if id prop is a string', () => {
@@ -80,6 +82,7 @@ describe('<Axis />', () => {
           afterSetExtremes: handleAfterSetExtremes
         })
       }, false);
+      expect(testContext.propsFromProviders.needsRedraw).toHaveBeenCalledTimes(1);
     });
   });
 
@@ -133,16 +136,20 @@ describe('<Axis />', () => {
       expect(testContext.axisStubs.update).toHaveBeenCalledWith({
         newPropName: 'newPropValue'
       }, false);
+      expect(testContext.propsFromProviders.needsRedraw).toHaveBeenCalledTimes(2);
     });
   });
 
-  describe('when unmounted', () => {
-    it('removes the axis', () => {
+  describe('update', () => {
+    it('should update the axis if the component props change', () => {
       const wrapper = mount(
         <Axis id="myAxis" isX {...testContext.propsFromProviders} />
       );
-      wrapper.unmount();
-      expect(testContext.axisStubs.remove).toHaveBeenCalled();
+      wrapper.setProps({ newPropName: 'newPropValue' });
+      expect(testContext.axisStubs.update).toHaveBeenCalledWith({
+        newPropName: 'newPropValue'
+      }, false);
+      expect(testContext.propsFromProviders.needsRedraw).toHaveBeenCalledTimes(2);
     });
   });
 });
