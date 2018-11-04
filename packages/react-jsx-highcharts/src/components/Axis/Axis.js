@@ -50,7 +50,8 @@ class Axis extends Component {
   componentWillUnmount () {
     if (this.axis.remove) {
       // Axis may have already been removed, i.e. when Chart unmounted
-      attempt(this.axis.remove.bind(this.axis));
+      attempt(this.axis.remove.bind(this.axis), false);
+      this.props.needsRedraw();
     }
   }
 

@@ -75,7 +75,8 @@ class Series extends Component {
   componentWillUnmount () {
     if (this.series && this.series.remove) {
       // Series may have already been removed, i.e. when Axis unmounted
-      attempt(this.series.remove.bind(this.series));
+      attempt(this.series.remove.bind(this.series), false);
+      this.props.needsRedraw();
     }
   }
 
