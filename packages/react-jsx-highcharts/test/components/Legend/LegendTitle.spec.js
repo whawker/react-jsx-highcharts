@@ -7,11 +7,12 @@ describe('<Legend.Title />', () => {
 
   beforeEach(() => {
     testContext = {};
-    const { chartStubs, getChart } = createMockProvidedChart();
+    const { chartStubs, getChart, needsRedraw } = createMockProvidedChart();
     testContext.chartStubs = chartStubs;
 
     testContext.propsFromProviders = {
-      getChart
+      getChart,
+      needsRedraw
     };
   });
 
@@ -24,7 +25,7 @@ describe('<Legend.Title />', () => {
             text: 'My Legend Title'
           })
         }
-      }, true);
+      }, false);
     });
 
     it('updates the legend with the passed props', () => {
@@ -38,7 +39,7 @@ describe('<Legend.Title />', () => {
             style: { color: 'red' }
           })
         }
-      }, true);
+      }, false);
     });
   });
 
@@ -54,7 +55,7 @@ describe('<Legend.Title />', () => {
             text: 'My New Legend Title'
           }
         }
-      }), true);
+      }), false);
     });
   });
 
@@ -68,7 +69,7 @@ describe('<Legend.Title />', () => {
             text: null
           }
         }
-      }), true)
+      }), false)
     });
   });
 });

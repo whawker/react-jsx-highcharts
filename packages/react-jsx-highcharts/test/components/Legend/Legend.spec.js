@@ -7,11 +7,12 @@ describe('<Legend />', () => {
 
   beforeEach(() => {
     testContext = {};
-    const { chartStubs, getChart } = createMockProvidedChart();
+    const { chartStubs, getChart, needsRedraw } = createMockProvidedChart();
     testContext.chartStubs = chartStubs;
 
     testContext.propsFromProviders = {
-      getChart
+      getChart,
+      needsRedraw
     };
   });
 
@@ -22,7 +23,7 @@ describe('<Legend />', () => {
         legend: expect.objectContaining({
           enabled: true
         })
-      }, true);
+      }, false);
     });
 
     it('updates the legend with the passed props', () => {
@@ -35,7 +36,7 @@ describe('<Legend />', () => {
           align: 'left',
           y: 20
         })
-      }, true);
+      }, false);
     });
   });
 
@@ -49,7 +50,7 @@ describe('<Legend />', () => {
         legend: {
           backgroundColor: 'red'
         }
-      }), true);
+      }), false);
     });
   });
 
@@ -61,7 +62,7 @@ describe('<Legend />', () => {
         legend: {
           enabled: false
         }
-      }), true)
+      }), false)
     });
   });
 });

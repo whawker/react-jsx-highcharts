@@ -6,7 +6,8 @@ import getModifiedProps from '../../utils/getModifiedProps';
 class Title extends Component {
 
   static propTypes = {
-    getChart: PropTypes.func // Provided by ChartProvider
+    getChart: PropTypes.func, // Provided by ChartProvider
+    needsRedraw: PropTypes.func // Provided by ChartProvider
   };
 
   componentDidMount () {
@@ -30,7 +31,8 @@ class Title extends Component {
 
   updateTitle = config => {
     const chart = this.props.getChart();
-    chart.setTitle(config, null, true);
+    chart.setTitle(config, null, false);
+    this.props.needsRedraw();
   }
 
   render () {
