@@ -25,7 +25,8 @@ export const createMockProvidedChart = () => {
 
   return {
     chartStubs,
-    getChart: () => chartStubs
+    getChart: () => chartStubs,
+    needsRedraw: jest.fn()
   }
 };
 

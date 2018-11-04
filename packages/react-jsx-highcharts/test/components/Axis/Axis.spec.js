@@ -8,7 +8,7 @@ describe('<Axis />', () => {
   beforeEach(() => {
     testContext = {};
 
-    const { chartStubs, getChart } = createMockProvidedChart();
+    const { chartStubs, getChart, needsRedraw } = createMockProvidedChart();
 
     testContext.chartStubs = chartStubs;
     testContext.axisStubs = createMockAxis({});
@@ -16,6 +16,7 @@ describe('<Axis />', () => {
 
     testContext.propsFromProviders = {
       getChart,
+      needsRedraw,
       getHighcharts: () => Highcharts
     };
   });
@@ -78,7 +79,7 @@ describe('<Axis />', () => {
           setExtremes: handleSetExtremes,
           afterSetExtremes: handleAfterSetExtremes
         })
-      }, true);
+      }, false);
     });
   });
 
@@ -119,7 +120,7 @@ describe('<Axis />', () => {
           setExtremes: handleSetExtremes,
           afterSetExtremes: handleAfterSetExtremes
         })
-      }, true);
+      }, false);
     });
   });
 
@@ -131,7 +132,7 @@ describe('<Axis />', () => {
       wrapper.setProps({ newPropName: 'newPropValue' });
       expect(testContext.axisStubs.update).toHaveBeenCalledWith({
         newPropName: 'newPropValue'
-      });
+      }, false);
     });
   });
 

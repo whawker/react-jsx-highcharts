@@ -9,17 +9,19 @@ describe('<Series />', () => {
   beforeEach(() => {
     testContext = {};
 
-    const { chartStubs, getChart } = createMockProvidedChart();
+    const { chartStubs, getChart, needsRedraw } = createMockProvidedChart();
     const { axisStubs, getAxis } = createMockProvidedAxis({ id: 'myAxis', type: 'yAxis' });
 
     testContext.chartStubs = chartStubs;
     testContext.axisStubs = axisStubs;
     testContext.seriesStubs = createMockSeries();
-    testContext.chartStubs.addSeries.mockReturnValue(testContext.seriesStubs)
+    testContext.chartStubs.addSeries.mockReturnValue(testContext.seriesStubs);
+    testContext.needsRedraw = needsRedraw;
 
     testContext.propsFromProviders = {
       getChart,
       getAxis,
+      needsRedraw,
       getHighcharts: () => Highcharts
     };
   });
@@ -94,7 +96,7 @@ describe('<Series />', () => {
           click: handleClick,
           show: handleShow
         }
-      }, true);
+      }, false);
     });
 
     it('supports mounting with Immutable List data', () => {
@@ -116,7 +118,7 @@ describe('<Series />', () => {
       );
       testContext.seriesStubs.update.mockReset();
       wrapper.setProps({ data: [1, 2, 3] });
-      expect(testContext.seriesStubs.setData).toHaveBeenCalledWith([1, 2, 3], true);
+      expect(testContext.seriesStubs.setData).toHaveBeenCalledWith([1, 2, 3], false);
       expect(testContext.seriesStubs.update).not.toHaveBeenCalled();
       expect(testContext.seriesStubs.setVisible).not.toHaveBeenCalled();
     });
@@ -141,7 +143,7 @@ describe('<Series />', () => {
       const newData = [1, 2, 3, 4, 5];
       testContext.seriesStubs.update.mockReset();
       wrapper.setProps({ data: List(newData) });
-      expect(testContext.seriesStubs.setData).toHaveBeenCalledWith(newData, true);
+      expect(testContext.seriesStubs.setData).toHaveBeenCalledWith(newData, false);
       expect(testContext.seriesStubs.update).not.toHaveBeenCalled();
       expect(testContext.seriesStubs.setVisible).not.toHaveBeenCalled();
     });
@@ -165,7 +167,7 @@ describe('<Series />', () => {
       );
       testContext.seriesStubs.update.mockReset();
       wrapper.setProps({ visible: false });
-      expect(testContext.seriesStubs.setVisible).toHaveBeenCalledWith(false);
+      expect(testContext.seriesStubs.setVisible).toHaveBeenCalledWith(false, false);
       expect(testContext.seriesStubs.update).not.toHaveBeenCalled();
       expect(testContext.seriesStubs.setData).not.toHaveBeenCalled();
     });
@@ -178,7 +180,7 @@ describe('<Series />', () => {
       wrapper.setProps({ newPropName: 'newPropValue' });
       expect(testContext.seriesStubs.update).toHaveBeenCalledWith({
         newPropName: 'newPropValue'
-      });
+      }, false);
       expect(testContext.seriesStubs.setData).not.toHaveBeenCalled();
       expect(testContext.seriesStubs.setVisible).not.toHaveBeenCalled();
     });
@@ -188,12 +190,14 @@ describe('<Series />', () => {
         <Series
           id="mySeries" data={[]} visible={false} {...testContext.propsFromProviders} />
       );
+      testContext.needsRedraw.mockClear();
       wrapper.setProps({ opposite: true, data: [4, 5, 6], visible: true });
-      expect(testContext.seriesStubs.setData).toHaveBeenCalledWith([4, 5, 6], true);
-      expect(testContext.seriesStubs.setVisible).toHaveBeenCalledWith(true);
+      expect(testContext.seriesStubs.setData).toHaveBeenCalledWith([4, 5, 6], false);
+      expect(testContext.seriesStubs.setVisible).toHaveBeenCalledWith(true, false);
       expect(testContext.seriesStubs.update).toHaveBeenCalledWith({
         opposite: true
-      });
+      }, false);
+      expect(testContext.needsRedraw).toHaveBeenCalledTimes(1);
     });
   });
 
