@@ -62,6 +62,7 @@ class Series extends Component {
     const modifiedProps = getModifiedProps(prevProps, rest);
     if (modifiedProps !== false) {
       this.series.update(modifiedProps, false);
+      needsRedraw = true;
     }
     if (needsRedraw) {
       this.props.needsRedraw();
