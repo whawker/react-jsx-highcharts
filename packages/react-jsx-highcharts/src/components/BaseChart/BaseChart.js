@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { isEqual, debounce } from 'lodash-es'
+import { isEqual, debounce, attempt } from 'lodash-es'
 import { Provider } from '../ChartContext';
 import { validChartTypes } from '../../utils/propTypeValidators'
 
@@ -99,7 +99,9 @@ class BaseChart extends Component {
   }
 
   needsRedraw = debounce(() => {
-    this.chart.redraw();
+    if(!this.chart.__destroyed) {
+      attempt(this.chart.redraw.bind(this.chart));
+    }
   }, 0);
 
   render () {
