@@ -9,17 +9,19 @@ describe('<Series />', () => {
   beforeEach(() => {
     testContext = {};
 
-    const { chartStubs, getChart } = createMockProvidedChart();
+    const { chartStubs, getChart, needsRedraw } = createMockProvidedChart();
     const { axisStubs, getAxis } = createMockProvidedAxis({ id: 'myAxis', type: 'yAxis' });
 
     testContext.chartStubs = chartStubs;
     testContext.axisStubs = axisStubs;
     testContext.seriesStubs = createMockSeries();
-    testContext.chartStubs.addSeries.mockReturnValue(testContext.seriesStubs)
+    testContext.chartStubs.addSeries.mockReturnValue(testContext.seriesStubs);
+    testContext.needsRedraw = needsRedraw;
 
     testContext.propsFromProviders = {
       getChart,
       getAxis,
+      needsRedraw,
       getHighcharts: () => Highcharts
     };
   });
@@ -36,6 +38,7 @@ describe('<Series />', () => {
       expect(testContext.chartStubs.addSeries).toHaveBeenCalledWith(expect.objectContaining(
         { id: 'mySeries', xAxis: 'myXAxisId', type: 'line', data: [], visible: true }, true
       ), false);
+      expect(testContext.propsFromProviders.needsRedraw).toHaveBeenCalledTimes(1);
     });
 
     it('adds a Y series using the addSeries method', () => {
@@ -94,7 +97,7 @@ describe('<Series />', () => {
           click: handleClick,
           show: handleShow
         }
-      }, true);
+      }, false);
     });
 
     it('supports mounting with Immutable List data', () => {
@@ -115,10 +118,13 @@ describe('<Series />', () => {
           id="mySeries" data={[]} {...testContext.propsFromProviders} />
       );
       testContext.seriesStubs.update.mockReset();
+      testContext.propsFromProviders.needsRedraw.mockClear();
       wrapper.setProps({ data: [1, 2, 3] });
-      expect(testContext.seriesStubs.setData).toHaveBeenCalledWith([1, 2, 3], true);
+      expect(testContext.seriesStubs.setData).toHaveBeenCalledWith([1, 2, 3], false);
       expect(testContext.seriesStubs.update).not.toHaveBeenCalled();
       expect(testContext.seriesStubs.setVisible).not.toHaveBeenCalled();
+
+      expect(testContext.propsFromProviders.needsRedraw).toHaveBeenCalledTimes(1);
     });
 
     it('should NOT use the setData method if the data hasn\'t changed', () => {
@@ -127,10 +133,12 @@ describe('<Series />', () => {
           id="mySeries" data={[1, 2, 3]} {...testContext.propsFromProviders} />
       );
       testContext.seriesStubs.update.mockReset();
+      testContext.propsFromProviders.needsRedraw.mockClear();
       wrapper.setProps({ data: [1, 2, 3] });
       expect(testContext.seriesStubs.setData).not.toHaveBeenCalled();
       expect(testContext.seriesStubs.update).not.toHaveBeenCalled();
       expect(testContext.seriesStubs.setVisible).not.toHaveBeenCalled();
+      expect(testContext.propsFromProviders.needsRedraw).not.toHaveBeenCalled();
     });
 
     it('should use the setData method on the correct series when the Immutable List changes', () => {
@@ -141,7 +149,7 @@ describe('<Series />', () => {
       const newData = [1, 2, 3, 4, 5];
       testContext.seriesStubs.update.mockReset();
       wrapper.setProps({ data: List(newData) });
-      expect(testContext.seriesStubs.setData).toHaveBeenCalledWith(newData, true);
+      expect(testContext.seriesStubs.setData).toHaveBeenCalledWith(newData, false);
       expect(testContext.seriesStubs.update).not.toHaveBeenCalled();
       expect(testContext.seriesStubs.setVisible).not.toHaveBeenCalled();
     });
@@ -152,10 +160,14 @@ describe('<Series />', () => {
           id="mySeries" data={List([1, 2, 3])} {...testContext.propsFromProviders} />
       );
       testContext.seriesStubs.update.mockReset();
+      testContext.propsFromProviders.needsRedraw.mockClear();
+
       wrapper.setProps({ data: List([1, 2, 3]) });
       expect(testContext.seriesStubs.setData).not.toHaveBeenCalled();
       expect(testContext.seriesStubs.update).not.toHaveBeenCalled();
       expect(testContext.seriesStubs.setVisible).not.toHaveBeenCalled();
+      expect(testContext.propsFromProviders.needsRedraw).not.toHaveBeenCalled();
+
     });
 
     it('should use the setVisible method on the correct series when the visibility changes', () => {
@@ -165,7 +177,7 @@ describe('<Series />', () => {
       );
       testContext.seriesStubs.update.mockReset();
       wrapper.setProps({ visible: false });
-      expect(testContext.seriesStubs.setVisible).toHaveBeenCalledWith(false);
+      expect(testContext.seriesStubs.setVisible).toHaveBeenCalledWith(false, false);
       expect(testContext.seriesStubs.update).not.toHaveBeenCalled();
       expect(testContext.seriesStubs.setData).not.toHaveBeenCalled();
     });
@@ -178,7 +190,7 @@ describe('<Series />', () => {
       wrapper.setProps({ newPropName: 'newPropValue' });
       expect(testContext.seriesStubs.update).toHaveBeenCalledWith({
         newPropName: 'newPropValue'
-      });
+      }, false);
       expect(testContext.seriesStubs.setData).not.toHaveBeenCalled();
       expect(testContext.seriesStubs.setVisible).not.toHaveBeenCalled();
     });
@@ -188,12 +200,14 @@ describe('<Series />', () => {
         <Series
           id="mySeries" data={[]} visible={false} {...testContext.propsFromProviders} />
       );
+      testContext.needsRedraw.mockClear();
       wrapper.setProps({ opposite: true, data: [4, 5, 6], visible: true });
-      expect(testContext.seriesStubs.setData).toHaveBeenCalledWith([4, 5, 6], true);
-      expect(testContext.seriesStubs.setVisible).toHaveBeenCalledWith(true);
+      expect(testContext.seriesStubs.setData).toHaveBeenCalledWith([4, 5, 6], false);
+      expect(testContext.seriesStubs.setVisible).toHaveBeenCalledWith(true, false);
       expect(testContext.seriesStubs.update).toHaveBeenCalledWith({
         opposite: true
-      });
+      }, false);
+      expect(testContext.needsRedraw).toHaveBeenCalledTimes(1);
     });
   });
 
@@ -204,6 +218,7 @@ describe('<Series />', () => {
       );
       wrapper.unmount();
       expect(testContext.seriesStubs.remove).toHaveBeenCalled();
+      expect(testContext.needsRedraw).toHaveBeenCalledTimes(2);
     });
   });
 });

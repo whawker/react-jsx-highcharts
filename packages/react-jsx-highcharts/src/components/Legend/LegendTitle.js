@@ -7,6 +7,7 @@ class LegendTitle extends Component {
 
   static propTypes = {
     getChart: PropTypes.func.isRequired, // Provided by ChartProvider
+    needsRedraw: PropTypes.func.isRequired // Provided by ChartProvider
   };
 
   componentDidMount () {
@@ -34,7 +35,8 @@ class LegendTitle extends Component {
       legend: {
         title: config
       }
-    }, true);
+    }, false);
+    this.props.needsRedraw();
   }
 
   render () {

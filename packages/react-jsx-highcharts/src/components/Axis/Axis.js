@@ -16,6 +16,7 @@ class Axis extends Component {
     id: PropTypes.oneOfType([ PropTypes.string, PropTypes.func ]).isRequired,
     children: PropTypes.node,
     getChart: PropTypes.func, // Provided by ChartProvider
+    needsRedraw: PropTypes.func, // Provided by ChartProvider
     dynamicAxis: PropTypes.bool.isRequired
   };
 
@@ -37,14 +38,20 @@ class Axis extends Component {
   componentDidUpdate (prevProps) {
     const modifiedProps = getModifiedProps(prevProps, this.props);
     if (modifiedProps !== false) {
-      this.axis.update(modifiedProps);
+      this.axis.update(modifiedProps, false);
+      this.props.needsRedraw();
     }
+  }
+
+  componentDidMount () {
+    this.props.needsRedraw();
   }
 
   componentWillUnmount () {
     if (this.axis.remove) {
       // Axis may have already been removed, i.e. when Chart unmounted
-      attempt(this.axis.remove.bind(this.axis));
+      attempt(this.axis.remove.bind(this.axis), false);
+      this.props.needsRedraw();
     }
   }
 
@@ -77,8 +84,7 @@ class Axis extends Component {
 
     const update = this.axis.update.bind(this.axis);
 
-    // we rely addEventProps to call redraw
-    addEventProps(update, this.props, true);
+    addEventProps(update, this.props, false);
   }
 
   render () {

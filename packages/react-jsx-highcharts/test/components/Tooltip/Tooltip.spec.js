@@ -8,7 +8,7 @@ describe('<Tooltip />', () => {
   beforeEach(() => {
     testContext = {};
 
-    const { chartStubs, getChart } = createMockProvidedChart();
+    const { chartStubs, getChart, needsRedraw } = createMockProvidedChart();
 
     testContext.chartStubs = chartStubs;
     testContext.chart = {};
@@ -16,6 +16,7 @@ describe('<Tooltip />', () => {
 
     testContext.propsFromProviders = {
       getChart,
+      needsRedraw,
       getHighcharts: () => Highcharts
     };
   });
@@ -45,7 +46,7 @@ describe('<Tooltip />', () => {
         tooltip: {
           padding: 2
         }
-      }), true);
+      }), false);
     });
   });
 
@@ -57,7 +58,7 @@ describe('<Tooltip />', () => {
         tooltip: {
           enabled: false
         }
-      }), true)
+      }), false)
     });
   });
 });

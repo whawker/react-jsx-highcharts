@@ -19,7 +19,8 @@ class Series extends Component {
     data: PropTypes.any,
     visible: PropTypes.bool,
     getChart: PropTypes.func, // Provided by ChartProvider
-    getAxis: PropTypes.func, // Provided by AxisProvider
+    needsRedraw: PropTypes.func, // Provided by ChartProvider
+    getAxis: PropTypes.func // Provided by AxisProvider
   };
 
   static defaultProps = {
@@ -44,26 +45,38 @@ class Series extends Component {
   componentDidUpdate (prevProps) {
     const { visible, data, ...rest } = this.props;
 
+    let needsRedraw = false;
     // Using setData is more performant than update
     if (isImmutable(data) && immutableEqual(data, prevProps.data) === false) {
-      this.series.setData(data.toJS(), true);
+      this.series.setData(data.toJS(), false);
+      needsRedraw = true;
     } else if (isEqual(data, prevProps.data) === false) {
-      this.series.setData(data, true);
+      this.series.setData(data, false);
+      needsRedraw = true;
     }
     if (visible !== prevProps.visible) {
-      this.series.setVisible(visible);
+      this.series.setVisible(visible, false);
+      needsRedraw = true;
     }
 
     const modifiedProps = getModifiedProps(prevProps, rest);
     if (modifiedProps !== false) {
-      this.series.update(modifiedProps);
+      this.series.update(modifiedProps, false);
+      needsRedraw = true;
     }
+    if (needsRedraw) {
+      this.props.needsRedraw();
+    }
+  }
+  componentDidMount () {
+    this.props.needsRedraw();
   }
 
   componentWillUnmount () {
     if (this.series && this.series.remove) {
       // Series may have already been removed, i.e. when Axis unmounted
-      attempt(this.series.remove.bind(this.series));
+      attempt(this.series.remove.bind(this.series), false);
+      this.props.needsRedraw();
     }
   }
 
@@ -97,8 +110,7 @@ class Series extends Component {
 
     const update = this.series.update.bind(this.series);
 
-    // we rely addEventProps to call redraw
-    addEventProps(update, this.props, true);
+    addEventProps(update, this.props, false);
   }
 
   render () {

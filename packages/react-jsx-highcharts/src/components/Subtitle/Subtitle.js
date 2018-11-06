@@ -6,7 +6,8 @@ import getModifiedProps from '../../utils/getModifiedProps';
 class Subtitle extends Component {
 
   static propTypes = {
-    getChart: PropTypes.func // Provided by ChartProvider
+    getChart: PropTypes.func, // Provided by ChartProvider
+    needsRedraw: PropTypes.func // Provided by ChartProvider
   };
 
   componentDidMount () {
@@ -30,7 +31,8 @@ class Subtitle extends Component {
 
   updateSubtitle = config => {
     const chart = this.props.getChart();
-    chart.setTitle(null, config, true);
+    chart.setTitle(null, config, false);
+    this.props.needsRedraw();
   }
 
   render () {

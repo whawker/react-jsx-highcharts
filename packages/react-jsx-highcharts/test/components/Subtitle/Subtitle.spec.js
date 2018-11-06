@@ -7,11 +7,12 @@ describe('<Subtitle />', () => {
 
   beforeEach(() => {
     testContext = {};
-    const { chartStubs, getChart } = createMockProvidedChart();
+    const { chartStubs, getChart, needsRedraw } = createMockProvidedChart();
     testContext.chartStubs = chartStubs;
 
     testContext.propsFromProviders = {
-      getChart
+      getChart,
+      needsRedraw
     };
   });
 
@@ -19,14 +20,14 @@ describe('<Subtitle />', () => {
     it('adds a subtitle using the Highcharts setTitle method', () => {
       mount(<Subtitle {...testContext.propsFromProviders}>My Subtitle</Subtitle>);
       expect(testContext.chartStubs.setTitle).toHaveBeenCalledWith(
-        null, expect.objectContaining({ text: 'My Subtitle' }), true
+        null, expect.objectContaining({ text: 'My Subtitle' }), false
       );
     });
 
     it('should pass additional props through to Highcharts setTitle method', () => {
       mount(<Subtitle align="right" {...testContext.propsFromProviders}>My Other Subtitle</Subtitle>);
       expect(testContext.chartStubs.setTitle).toHaveBeenCalledWith(
-        null, expect.objectContaining({ text: 'My Other Subtitle', align: 'right' }), true
+        null, expect.objectContaining({ text: 'My Other Subtitle', align: 'right' }), false
       );
     });
   });
@@ -37,7 +38,7 @@ describe('<Subtitle />', () => {
         <Subtitle {...testContext.propsFromProviders}>My Subtitle</Subtitle>
       );
       wrapper.setProps({ x: 10, y: 20, children: 'My New Subtitle' });
-      expect(testContext.chartStubs.setTitle).toHaveBeenCalledWith(null, { x: 10, y: 20, text: 'My New Subtitle' }, true);
+      expect(testContext.chartStubs.setTitle).toHaveBeenCalledWith(null, { x: 10, y: 20, text: 'My New Subtitle' }, false);
     });
   });
 
@@ -45,7 +46,7 @@ describe('<Subtitle />', () => {
     it('removes the subtitle by setting the subtitle to text', () => {
       const wrapper = mount(<Subtitle {...testContext.propsFromProviders}>My Subtitle</Subtitle>);
       wrapper.unmount();
-      expect(testContext.chartStubs.setTitle).toHaveBeenCalledWith(null, { text: null }, true);
+      expect(testContext.chartStubs.setTitle).toHaveBeenCalledWith(null, { text: null }, false);
     });
   });
 });

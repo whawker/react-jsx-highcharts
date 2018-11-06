@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { isEqual } from 'lodash-es'
+import { isEqual, debounce, attempt } from 'lodash-es'
 import { Provider } from '../ChartContext';
 import { validChartTypes } from '../../utils/propTypeValidators'
 
@@ -86,7 +86,8 @@ class BaseChart extends Component {
   componentDidUpdate (prevProps) {
     const { plotOptions } = this.props
     if (isEqual(prevProps.plotOptions, plotOptions) === false && this.chart) {
-      this.chart.update({ plotOptions }, true)
+      this.chart.update({ plotOptions }, false);
+      this.needsRedraw();
     }
   }
 
@@ -97,6 +98,12 @@ class BaseChart extends Component {
     }
   }
 
+  needsRedraw = debounce(() => {
+    if(!this.chart.__destroyed) {
+      attempt(this.chart.redraw.bind(this.chart));
+    }
+  }, 0);
+
   render () {
     const { chartType, children } = this.props;
 
@@ -105,7 +112,7 @@ class BaseChart extends Component {
         className={`chart ${this.props.className}`}
         ref={ this.setDomNode }>
         {this.state.rendered && (
-          <Provider value={{ chart: this.chart, chartType }}>
+          <Provider value={{ chart: this.chart, chartType, needsRedraw: this.needsRedraw }}>
             {children}
           </Provider>
         )}

@@ -7,6 +7,7 @@ class Tooltip extends Component {
 
   static propTypes = {
     getChart: PropTypes.func, // Provided by ChartProvider
+    needsRedraw: PropTypes.func, // Provided by ChartProvider
     getHighcharts: PropTypes.func.isRequired, // Provided by HighchartsProvider
     enabled: PropTypes.bool.isRequired
   };
@@ -17,7 +18,7 @@ class Tooltip extends Component {
   };
 
   componentDidMount () {
-    const { children, getHighcharts, getChart, ...rest } = this.props;
+    const { children, getHighcharts, getChart, needsRedraw, ...rest } = this.props;
     const Highcharts = getHighcharts();
 
     const chartObj = getChart().object;
@@ -44,7 +45,8 @@ class Tooltip extends Component {
     const chart = this.props.getChart();
     chart.update({
       tooltip: config
-    }, true);
+    }, false);
+    this.props.needsRedraw();
   }
 
   render () {

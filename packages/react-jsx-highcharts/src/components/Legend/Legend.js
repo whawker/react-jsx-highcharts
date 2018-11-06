@@ -7,6 +7,7 @@ class Legend extends Component {
 
   static propTypes = {
     getChart: PropTypes.func.isRequired, // Provided by ChartProvider
+    needsRedraw: PropTypes.func.isRequired, // Provided by ChartProvider
     enabled: PropTypes.bool.isRequired
   };
 
@@ -37,7 +38,8 @@ class Legend extends Component {
     const chart = this.props.getChart();
     chart.update({
       legend: config
-    }, true);
+    }, false);
+    this.props.needsRedraw();
   }
 
   render () {

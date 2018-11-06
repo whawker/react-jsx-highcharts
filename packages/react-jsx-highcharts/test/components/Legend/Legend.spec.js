@@ -7,11 +7,12 @@ describe('<Legend />', () => {
 
   beforeEach(() => {
     testContext = {};
-    const { chartStubs, getChart } = createMockProvidedChart();
+    const { chartStubs, getChart, needsRedraw } = createMockProvidedChart();
     testContext.chartStubs = chartStubs;
 
     testContext.propsFromProviders = {
-      getChart
+      getChart,
+      needsRedraw
     };
   });
 
@@ -22,7 +23,8 @@ describe('<Legend />', () => {
         legend: expect.objectContaining({
           enabled: true
         })
-      }, true);
+      }, false);
+      expect(testContext.propsFromProviders.needsRedraw).toHaveBeenCalledTimes(1);
     });
 
     it('updates the legend with the passed props', () => {
@@ -35,7 +37,8 @@ describe('<Legend />', () => {
           align: 'left',
           y: 20
         })
-      }, true);
+      }, false);
+      expect(testContext.propsFromProviders.needsRedraw).toHaveBeenCalledTimes(1);
     });
   });
 
@@ -49,7 +52,8 @@ describe('<Legend />', () => {
         legend: {
           backgroundColor: 'red'
         }
-      }), true);
+      }), false);
+      expect(testContext.propsFromProviders.needsRedraw).toHaveBeenCalledTimes(2);
     });
   });
 
@@ -61,7 +65,8 @@ describe('<Legend />', () => {
         legend: {
           enabled: false
         }
-      }), true)
+      }), false);
+      expect(testContext.propsFromProviders.needsRedraw).toHaveBeenCalledTimes(2);
     });
   });
 });
