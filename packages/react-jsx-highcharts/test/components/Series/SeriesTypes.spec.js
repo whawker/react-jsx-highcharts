@@ -1,6 +1,21 @@
 import React from 'react';
+import Highcharts from 'highcharts'
+import addSankey from 'highcharts/modules/sankey';
+import {
+  HighchartsChart,
+  Chart,
+  YAxis,
+  XAxis,
+  Navigator,
+  withHighcharts,
+  Title
+} from '../../../src';
+import { renderIntoDocument } from 'react-dom/test-utils'
+
 import * as all from '../../../src';
 import Series from '../../../src/components/Series';
+
+addSankey(Highcharts);
 
 const skippedSeries = ['BarSeries'];
 const noAxisSeries = ['PieSeries', 'VariablePieSeries','PyramidSeries', 'FunnelSeries'];
@@ -40,6 +55,30 @@ Object.keys(all).filter(name => /^[A-Z].*Series$/.test(name)).forEach((seriesNam
       it('does not require an axis', () => {
         const wrapper = shallow(<SeriesComponent id="myFourthSeries" {...props}/>);
         expect(wrapper).toHaveProp('requiresAxis', false);
+      });
+    }
+
+    if(seriesType in Highcharts.seriesTypes) {
+      it('renders with real highcharts', (done) => {
+        const afterAddSeries = (event) => {
+          expect(event.target.series.length).toBe(1);
+          expect(event.target.series[0].type).toBe(seriesType);
+          done();
+        }
+        const Component = (props) => {
+          return (
+            <HighchartsChart>
+              <Chart zoomType="x" onAfterAddSeries={afterAddSeries}/>
+              <XAxis>
+              </XAxis>
+              <YAxis>
+                <SeriesComponent data={[1,2,3,4]}/>
+              </YAxis>
+            </HighchartsChart>
+          )
+        };
+        const WithComponent = withHighcharts(Component, Highcharts);
+        const renderedChart = renderIntoDocument(<WithComponent />);
       });
     }
   });
