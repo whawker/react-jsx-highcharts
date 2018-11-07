@@ -51,6 +51,7 @@ const ganttExamples = [
   { name: 'HighchartsGanttInvertedChart' },
   { name: 'HighchartsGanttWithHighstockNavigation' },
   { name: 'HighchartsGanttProjectManagement' },
+  { name: 'HighchartsGanttTweakASingleDependency', additional: ['highcharts-pathfinder'] },
   // { name: 'HighchartsGanttWithPathfinder', additional: ['highcharts-pathfinder'] } TODO: example with pathfinder
 ];
 
