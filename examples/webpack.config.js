@@ -48,6 +48,9 @@ const ganttExamples = [
   { name: 'HighchartsGanttSimple' },
   { name: 'HighchartsGanttWithSubtasks' },
   { name: 'HighchartsGanttLeftAxisAsTable' },
+  { name: 'HighchartsGanttInvertedChart' },
+  { name: 'HighchartsGanttWithHighstockNavigation' },
+  { name: 'HighchartsGanttProjectManagement' },
   // { name: 'HighchartsGanttWithPathfinder', additional: ['highcharts-pathfinder'] } TODO: example with pathfinder
 ];
 
