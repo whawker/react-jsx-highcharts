@@ -109,13 +109,7 @@ class Series extends Component {
     // Create Highcharts Series
     const opts = this.getSeriesConfig();
 
-    /* a hack to make sankey series work
-    for details: https://github.com/highcharts/highcharts/issues/9300
-    remove if fixed in highcharts
-    */
-    let redrawOnAdd = this.props.type === 'sankey';
-
-    this.series = chart.addSeries(opts, redrawOnAdd);
+    this.series = chart.addSeries(opts, false);
   }
 
   render () {
