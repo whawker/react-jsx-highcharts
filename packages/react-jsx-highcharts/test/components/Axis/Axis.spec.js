@@ -76,12 +76,12 @@ describe('<Axis />', () => {
         <Axis id="myAxis" isX onSetExtremes={handleSetExtremes} onAfterSetExtremes={handleAfterSetExtremes}
           {...testContext.propsFromProviders} />
       );
-      expect(testContext.axisStubs.update).toHaveBeenCalledWith({
+      expect(testContext.chartStubs.addAxis).toHaveBeenCalledWith(expect.objectContaining({
         events: expect.objectContaining({
           setExtremes: handleSetExtremes,
           afterSetExtremes: handleAfterSetExtremes
         })
-      }, false);
+      }), true, false);
       expect(testContext.propsFromProviders.needsRedraw).toHaveBeenCalledTimes(1);
     });
   });
@@ -118,12 +118,12 @@ describe('<Axis />', () => {
         <Axis id="myAxis" isX={false} dynamicAxis={false} onSetExtremes={handleSetExtremes} onAfterSetExtremes={handleAfterSetExtremes}
           {...testContext.propsFromProviders} />
       );
-      expect(testContext.axisStubs.update).toHaveBeenCalledWith({
+      expect(testContext.axisStubs.update).toHaveBeenCalledWith(expect.objectContaining({
         events: expect.objectContaining({
           setExtremes: handleSetExtremes,
           afterSetExtremes: handleAfterSetExtremes
         })
-      }, false);
+      }), false);
     });
   });
 
