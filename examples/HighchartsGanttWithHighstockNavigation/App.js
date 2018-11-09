@@ -23,21 +23,19 @@ class App extends Component {
         <HighchartsGanttChart>
           <Title>Gantt Chart with Highstock Navigation</Title>
           <YAxis
-            uniqueNames={true}
+            uniqueNames
           />
-          <Navigator enabled={true}>
+          <Navigator>
             <Navigator.Series
               type={"gantt"}
               pointPlacement={0.5}
               pointPadding={0.25}
             />
-            <Navigator.YAxis min={0} max={3} reversed={true} categories={[]}/>
+            <Navigator.YAxis min={0} max={3} reversed categories={[]}/>
           </Navigator>
-          <Scrollbar
-            enabled={true}
-          />
+          <Scrollbar/>
           <RangeSelector
-            enabled={true}
+            enabled
             selected={0}
           />
           <GanttSeries
