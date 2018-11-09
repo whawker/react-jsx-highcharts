@@ -4,7 +4,7 @@ import uuid from 'uuid/v4';
 import { isFunction } from 'lodash-es';
 import { attempt } from 'lodash-es';
 import { Provider } from '../AxisContext';
-import addEventProps, { getNonEventHandlerProps } from '../../utils/events';
+import { getNonEventHandlerProps, getEventsConfig } from '../../utils/events';
 import getModifiedProps from '../../utils/getModifiedProps';
 import { validAxisTypes } from '../../utils/propTypeValidators';
 import { logZAxisErrorMessage } from '../../utils/warnings'
@@ -60,9 +60,12 @@ class Axis extends Component {
 
     const axisId = isFunction(id) ? id() : id
     const nonEventProps = getNonEventHandlerProps(rest);
+    const events = getEventsConfig(rest);
+
     return {
       id: axisId,
       title: { text: null },
+      events,
       ...nonEventProps
     }
   }
@@ -81,10 +84,6 @@ class Axis extends Component {
       this.axis = chart.get(axisId);
       this.axis.update(opts, false);
     }
-
-    const update = this.axis.update.bind(this.axis);
-
-    addEventProps(update, this.props, false);
   }
 
   render () {

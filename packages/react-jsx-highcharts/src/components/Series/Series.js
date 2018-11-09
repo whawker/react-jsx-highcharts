@@ -7,7 +7,7 @@ import { attempt } from 'lodash-es';
 import isImmutable from 'is-immutable';
 import immutableEqual from 'immutable-is';
 import { Provider } from '../SeriesContext';
-import addEventProps, { getNonEventHandlerProps } from '../../utils/events';
+import { getNonEventHandlerProps, getEventsConfig } from '../../utils/events';
 import getModifiedProps from '../../utils/getModifiedProps';
 import { logSeriesErrorMessage } from '../../utils/warnings';
 
@@ -86,10 +86,12 @@ class Series extends Component {
     const seriesId = isFunction(id) ? id() : id
     const seriesData = isImmutable(data) ? data.toJS() : data;
     const nonEventProps = getNonEventHandlerProps(rest);
+    const events = getEventsConfig(rest);
 
     const config = {
       id: seriesId,
       data: seriesData,
+      events,
       ...nonEventProps
     }
 
@@ -107,17 +109,7 @@ class Series extends Component {
     // Create Highcharts Series
     const opts = this.getSeriesConfig();
 
-    /* a hack to make sankey series work
-    for details: https://github.com/highcharts/highcharts/issues/9300
-    remove if fixed in highcharts
-    */
-    let redrawOnAdd = this.props.type === 'sankey';
-
-    this.series = chart.addSeries(opts, redrawOnAdd);
-
-    const update = this.series.update.bind(this.series);
-
-    addEventProps(update, this.props, false);
+    this.series = chart.addSeries(opts, false);
   }
 
   render () {

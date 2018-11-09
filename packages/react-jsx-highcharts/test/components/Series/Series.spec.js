@@ -92,12 +92,12 @@ describe('<Series />', () => {
         <Series id="mySeries" onClick={handleClick} onShow={handleShow}
           {...testContext.propsFromProviders} />
       );
-      expect(testContext.seriesStubs.update).toHaveBeenCalledWith({
+      expect(testContext.chartStubs.addSeries).toHaveBeenCalledWith(expect.objectContaining({
         events: {
           click: handleClick,
           show: handleShow
         }
-      }, false);
+      }), false);
     });
 
     it('supports mounting with Immutable List data', () => {

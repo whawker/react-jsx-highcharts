@@ -80,6 +80,31 @@ Object.keys(all).filter(name => /^[A-Z].*Series$/.test(name)).forEach((seriesNam
         const WithComponent = withHighcharts(Component, Highcharts);
         const renderedChart = renderIntoDocument(<WithComponent />);
       });
+      it('binds hide event correctly', (done) => {
+        const afterAddSeries = (event) => {
+          expect(event.target.series[0].visible).toBe(true);
+          event.target.series[0].hide();
+        }
+        const onHide = (event) => {
+          expect(event.target.visible).toBe(false);
+          done();
+        }
+        const Component = (props) => {
+          return (
+            <HighchartsChart>
+              <Chart zoomType="x" onAfterAddSeries={afterAddSeries}/>
+              <XAxis>
+              </XAxis>
+              <YAxis>
+                <SeriesComponent data={[1,2,3,4]} onHide={ onHide }/>
+              </YAxis>
+            </HighchartsChart>
+          )
+        };
+        const WithComponent = withHighcharts(Component, Highcharts);
+        const renderedChart = renderIntoDocument(<WithComponent />);
+
+      });
     }
   });
 });
