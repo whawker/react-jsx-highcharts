@@ -52,6 +52,8 @@ const ganttExamples = [
   { name: 'HighchartsGanttWithHighstockNavigation' },
   { name: 'HighchartsGanttProjectManagement' },
   { name: 'HighchartsGanttResourceManagement' },
+  { name: 'HighchartsGanttWithUniqueNames' },
+  { name: 'HighchartsGanttCategorisedYAxisWithGrouping' },
   { name: 'HighchartsGanttTweakASingleDependency', additional: ['highcharts-pathfinder'] },
   // { name: 'HighchartsGanttWithPathfinder', additional: ['highcharts-pathfinder'] } TODO: example with pathfinder
 ];
