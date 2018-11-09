@@ -24,18 +24,7 @@ class App extends Component {
           plotBorderWidth={1}
         >
           <Title>Inverted Gantt Chart</Title>
-          <XAxis>
-            {
-              [
-                {
-                  opposite: false
-                },
-                {
-                  opposite: false
-                }
-              ]
-            }
-          </XAxis>
+          <XAxis opposite={false}/>
           <YAxis
             uniqueNames={true}
             opposite={true}
