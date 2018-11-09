@@ -23,3 +23,4 @@ export { default as Pathfinder } from './components/Pathfinder';
 // Series
 const parentAxisId = { axisId: 'yAxis' };
 export const GanttSeries = withSeriesType('gantt', parentAxisId);
+export const XRangeSeries = withSeriesType('xrange', parentAxisId);
