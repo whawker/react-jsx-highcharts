@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {
   GanttSeries,
+  Chart,
   HighchartsGanttChart,
   Subtitle,
   Title,
@@ -19,10 +20,9 @@ class App extends Component {
 
     return (
       <div className="app">
-        <HighchartsGanttChart
-          inverted={true}
-          plotBorderWidth={1}
-        >
+        <HighchartsGanttChart>
+          <Chart inverted={true}
+                 plotBorderWidth={1}/>
           <Title>Inverted Gantt Chart</Title>
           <XAxis opposite={false}/>
           <YAxis
