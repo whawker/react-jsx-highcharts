@@ -82,7 +82,7 @@ class App extends Component {
         <HighchartsGanttChart>
           <Title>Gantt Project Management</Title>
           <XAxis
-            currentDateIndicator={true}
+            currentDateIndicator
             min={today - 3 * day}
             max={today + 18 * day}
           />
