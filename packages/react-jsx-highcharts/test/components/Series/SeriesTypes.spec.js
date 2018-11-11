@@ -1,6 +1,24 @@
 import React from 'react';
 import Highcharts from 'highcharts'
-import addSankey from 'highcharts/modules/sankey';
+
+import addHighchartsMore from 'highcharts/highcharts-more';
+//import addHighcharts3DModule from 'highcharts/highcharts-3d';
+import addBulletModule from 'highcharts/modules/bullet';
+import addFunnelModule from 'highcharts/modules/funnel';
+//import addHistogramBellCurveModule from 'highcharts/modules/histogram-bellcurve';
+//import addParetoModule from 'highcharts/modules/pareto';
+import addSankeyModule from 'highcharts/modules/sankey';
+import addSolidGaugeModule from 'highcharts/modules/solid-gauge';
+import addStreamGraphModule from 'highcharts/modules/streamgraph';
+//import addSunburstModule from 'highcharts/modules/sunburst';
+//import addTilemapModule from 'highcharts/modules/tilemap';
+//import addTreemapModule from 'highcharts/modules/treemap';
+import addVariablePieModule from 'highcharts/modules/variable-pie';
+import addVariwideModule from 'highcharts/modules/variwide';
+import addVectorModule from 'highcharts/modules/vector';
+import addWindBarbModule from 'highcharts/modules/windbarb';
+import addXRangeModule from 'highcharts/modules/xrange';
+
 import {
   HighchartsChart,
   Chart,
@@ -15,7 +33,23 @@ import { renderIntoDocument } from 'react-dom/test-utils'
 import * as all from '../../../src';
 import Series from '../../../src/components/Series';
 
-addSankey(Highcharts);
+addHighchartsMore(Highcharts)
+//addHighcharts3DModule(Highcharts);
+addBulletModule(Highcharts);
+addFunnelModule(Highcharts);
+//addHistogramBellCurveModule(Highcharts);
+//addParetoModule(Highcharts);
+addSankeyModule(Highcharts);
+addSolidGaugeModule(Highcharts);
+addStreamGraphModule(Highcharts);
+//addSunburstModule(Highcharts);
+//addTilemapModule(Highcharts);
+//addTreemapModule(Highcharts);
+addVariablePieModule(Highcharts);
+addVariwideModule(Highcharts);
+addVectorModule(Highcharts);
+addWindBarbModule(Highcharts);
+addXRangeModule(Highcharts);
 
 const skippedSeries = ['BarSeries'];
 const noAxisSeries = ['PieSeries', 'VariablePieSeries','PyramidSeries', 'FunnelSeries'];
