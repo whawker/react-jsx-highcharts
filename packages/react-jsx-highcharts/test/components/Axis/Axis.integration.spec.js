@@ -7,7 +7,7 @@ import {
 import Axis from '../../../src/components/Axis';
 import { renderIntoDocument } from 'react-dom/test-utils'
 
-describe('<Axis />', () => {
+describe('<Axis /> integration', () => {
   let testContext;
 
   beforeEach(() => {
