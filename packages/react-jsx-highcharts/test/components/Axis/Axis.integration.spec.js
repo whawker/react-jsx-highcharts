@@ -1,5 +1,5 @@
 import React from 'react';
-import Highcharts from 'Highcharts';
+import Highcharts from 'highcharts';
 import {
   HighchartsChart,
   withHighcharts
