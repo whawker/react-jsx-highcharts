@@ -1,5 +1,4 @@
 import { pickBy } from 'lodash-es';
-import { size } from 'lodash-es';
 import { PROVIDED_PROPS } from './removeProvidedProps';
 
 export default function getModifiedProps (prevProps, currProps, childrenIsText = false) {
@@ -15,7 +14,7 @@ export default function getModifiedProps (prevProps, currProps, childrenIsText =
     modifiedProps.text = children;
   }
 
-  if (size(modifiedProps) > 0) {
+  if (Object.keys(modifiedProps).length > 0) {
     return modifiedProps;
   }
 
