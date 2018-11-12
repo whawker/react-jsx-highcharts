@@ -1,4 +1,3 @@
-import { forEach } from 'lodash-es';
 import { lowerFirst } from 'lodash-es';
 import { pickBy } from 'lodash-es';
 import { omitBy } from 'lodash-es';
@@ -23,8 +22,8 @@ export const getEventsConfig = props => {
 export const addEventHandlersManually = (Highcharts, context, props) => {
   const eventProps = getEventsConfig(props);
 
-  forEach(eventProps, (handler, eventName) => {
-    Highcharts.addEvent(context, eventName, handler);
+  Object.keys(eventProps).forEach((eventName) => {
+    Highcharts.addEvent(context, eventName, eventProps[eventName]);
   });
 };
 
