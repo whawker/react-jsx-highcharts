@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import uuid from 'uuid/v4';
-import { isFunction } from 'lodash-es';
 import { attempt } from 'lodash-es';
 import { Provider } from '../SeriesContext';
 import { getNonEventHandlerProps, getEventsConfig } from '../../utils/events';
@@ -77,7 +76,7 @@ class Series extends PureComponent {
   getSeriesConfig = () => {
     const { id, data, requiresAxis, getAxis, children, ...rest } = this.props;
 
-    const seriesId = isFunction(id) ? id() : id
+    const seriesId = typeof id === 'function' ? id() : id
     const nonEventProps = getNonEventHandlerProps(rest);
     const events = getEventsConfig(rest);
 

@@ -1,7 +1,6 @@
 import React, { Component, Children, cloneElement, isValidElement } from 'react';
 import PropTypes from 'prop-types';
 import uuid from 'uuid/v4';
-import { isFunction } from 'lodash-es';
 import { attempt } from 'lodash-es';
 import Hidden from '../Hidden';
 import getModifiedProps from '../../utils/getModifiedProps';
@@ -57,7 +56,7 @@ class PlotLine extends Component {
   getPlotLineConfig = () => {
     const { id, children, ...rest } = this.props;
     if (!this.id) {
-      this.id = isFunction(id) ? id() : id
+      this.id = typeof id === 'function' ? id() : id
     }
 
     return {

@@ -3,7 +3,6 @@ import { lowerFirst } from 'lodash-es';
 import { pickBy } from 'lodash-es';
 import { omitBy } from 'lodash-es';
 import { mapKeys } from 'lodash-es';
-import { isFunction } from 'lodash-es';
 
 export const getEventHandlerProps  = props => {
   return pickBy(props, _isEventKey);
@@ -34,6 +33,6 @@ export const addEventHandlers = (updateFn, props, redraw = true) => {
   updateFn({ events }, redraw);
 };
 
-const _isEventKey = (value, key) => (key.indexOf('on') === 0) && isFunction(value);
+const _isEventKey = (value, key) => (key.indexOf('on') === 0) && typeof value === 'function';
 
 export default addEventHandlers;
