@@ -1,5 +1,4 @@
 import { mapValues } from 'lodash-es';
-import { omit } from 'lodash-es';
 import { isPlainObject } from 'lodash-es';
 import { wrap } from 'lodash-es';
 
@@ -15,8 +14,13 @@ export const PROVIDED_PROPS = [
   FROM_SERIES_PROVIDER
 ];
 
-function cleanConfig (config) {
-  return omit(config, PROVIDED_PROPS);
+function cleanConfig(config) {
+  return Object.keys(config).reduce((object, key) => {
+    if (PROVIDED_PROPS.indexOf(key) < 0) {
+      object[key] = config[key];
+    }
+    return object;
+  }, {});
 }
 
 function deepCleanConfig (config) {
