@@ -119,9 +119,10 @@ describe('<Series />', () => {
 
     it('should NOT use the setData method if the data hasn\'t changed', () => {
       const data = [1, 2, 3];
+      const onClick = jest.fn();
       const wrapper = mount(
         <Series
-          id="mySeries" data={data} {...testContext.propsFromProviders} />
+          id="mySeries" onClick={onClick} data={data} {...testContext.propsFromProviders} />
       );
       testContext.seriesStubs.update.mockReset();
       testContext.propsFromProviders.needsRedraw.mockClear();

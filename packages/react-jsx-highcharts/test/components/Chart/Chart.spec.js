@@ -57,6 +57,21 @@ describe('<Chart />', () => {
       expect(Highcharts.addEvent).toHaveBeenCalledWith('mock-chart', 'render', handleRender);
       expect(Highcharts.addEvent).toHaveBeenCalledWith('mock-chart', 'beforePrint', handleBeforePrint);
     });
+
+    it('does not subscribe to Highcharts events when they are not changed', () => {
+      testContext.chartStubs.object = 'mock-chart';
+      const handleClick = jest.fn();
+      const handleRender = jest.fn();
+      const handleBeforePrint = jest.fn();
+
+      const wrapper = mount(
+        <Chart type="area" onClick={handleClick} onRender={handleRender} onBeforePrint={handleBeforePrint}
+          {...testContext.propsFromProviders} />
+      );
+      Highcharts.addEvent.mockClear();
+      wrapper.setProps({ backgroundColor: 'red' });
+      expect(Highcharts.addEvent).not.toHaveBeenCalled();
+    });
   });
 
   describe('update', () => {
