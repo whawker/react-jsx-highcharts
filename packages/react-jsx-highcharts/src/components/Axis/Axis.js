@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import uuid from 'uuid/v4';
-import { isFunction } from 'lodash-es';
 import { attempt } from 'lodash-es';
 import { Provider } from '../AxisContext';
 import { getNonEventHandlerProps, getEventsConfig } from '../../utils/events';
@@ -58,7 +57,7 @@ class Axis extends Component {
   getAxisConfig = () => {
     const { id, children, ...rest } = this.props;
 
-    const axisId = isFunction(id) ? id() : id
+    const axisId = typeof id === 'function' ? id() : id
     const nonEventProps = getNonEventHandlerProps(rest);
     const events = getEventsConfig(rest);
 
@@ -80,7 +79,7 @@ class Axis extends Component {
       this.axis = chart.addAxis(opts, isX, false);
     } else {
       // ZAxis cannot be added dynamically, Maps only have a single axes - update instead
-      const axisId = isFunction(id) ? id() : id
+      const axisId = typeof id === 'function' ? id() : id
       this.axis = chart.get(axisId);
       this.axis.update(opts, false);
     }

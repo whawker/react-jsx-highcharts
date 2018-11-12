@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import uuid from 'uuid/v4';
-import { isFunction } from 'lodash-es';
 import { isEqual } from 'lodash-es';
 import { attempt } from 'lodash-es';
 import isImmutable from 'is-immutable';
@@ -83,7 +82,7 @@ class Series extends Component {
   getSeriesConfig = () => {
     const { id, data, requiresAxis, getAxis, children, ...rest } = this.props;
 
-    const seriesId = isFunction(id) ? id() : id
+    const seriesId = typeof id === 'function' ? id() : id
     const seriesData = isImmutable(data) ? data.toJS() : data;
     const nonEventProps = getNonEventHandlerProps(rest);
     const events = getEventsConfig(rest);
