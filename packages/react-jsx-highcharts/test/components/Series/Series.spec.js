@@ -1,5 +1,4 @@
 import React from 'react';
-import { List } from 'immutable';
 import { Highcharts, createMockProvidedChart, createMockProvidedAxis, createMockSeries, uuidRegex } from '../../test-utils';
 import Series from '../../../src/components/Series/Series';
 
@@ -100,15 +99,6 @@ describe('<Series />', () => {
       }), false);
     });
 
-    it('supports mounting with Immutable List data', () => {
-      const data = [1, 2, 3, 4, 5];
-      mount(
-        <Series id="mySeries" data={List(data)} {...testContext.propsFromProviders} />
-      );
-      expect(testContext.chartStubs.addSeries).toHaveBeenCalledWith(expect.objectContaining(
-        { id: 'mySeries', yAxis: 'myAxis', type: 'line', data, visible: true }
-      ), false);
-    });
   });
 
   describe('update', () => {
@@ -128,47 +118,20 @@ describe('<Series />', () => {
     });
 
     it('should NOT use the setData method if the data hasn\'t changed', () => {
+      const data = [1, 2, 3];
       const wrapper = mount(
         <Series
-          id="mySeries" data={[1, 2, 3]} {...testContext.propsFromProviders} />
+          id="mySeries" data={data} {...testContext.propsFromProviders} />
       );
       testContext.seriesStubs.update.mockReset();
       testContext.propsFromProviders.needsRedraw.mockClear();
-      wrapper.setProps({ data: [1, 2, 3] });
+      wrapper.setProps({ data: data });
       expect(testContext.seriesStubs.setData).not.toHaveBeenCalled();
       expect(testContext.seriesStubs.update).not.toHaveBeenCalled();
       expect(testContext.seriesStubs.setVisible).not.toHaveBeenCalled();
       expect(testContext.propsFromProviders.needsRedraw).not.toHaveBeenCalled();
     });
 
-    it('should use the setData method on the correct series when the Immutable List changes', () => {
-      const wrapper = mount(
-        <Series
-          id="mySeries" data={List([1, 2, 3])} {...testContext.propsFromProviders} />
-      );
-      const newData = [1, 2, 3, 4, 5];
-      testContext.seriesStubs.update.mockReset();
-      wrapper.setProps({ data: List(newData) });
-      expect(testContext.seriesStubs.setData).toHaveBeenCalledWith(newData, false);
-      expect(testContext.seriesStubs.update).not.toHaveBeenCalled();
-      expect(testContext.seriesStubs.setVisible).not.toHaveBeenCalled();
-    });
-
-    it('should NOT use the setData method if the Immutable List hasn\'t changed', () => {
-      const wrapper = mount(
-        <Series
-          id="mySeries" data={List([1, 2, 3])} {...testContext.propsFromProviders} />
-      );
-      testContext.seriesStubs.update.mockReset();
-      testContext.propsFromProviders.needsRedraw.mockClear();
-
-      wrapper.setProps({ data: List([1, 2, 3]) });
-      expect(testContext.seriesStubs.setData).not.toHaveBeenCalled();
-      expect(testContext.seriesStubs.update).not.toHaveBeenCalled();
-      expect(testContext.seriesStubs.setVisible).not.toHaveBeenCalled();
-      expect(testContext.propsFromProviders.needsRedraw).not.toHaveBeenCalled();
-
-    });
 
     it('should use the setVisible method on the correct series when the visibility changes', () => {
       const wrapper = mount(

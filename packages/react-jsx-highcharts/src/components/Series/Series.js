@@ -1,17 +1,14 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import uuid from 'uuid/v4';
 import { isFunction } from 'lodash-es';
-import { isEqual } from 'lodash-es';
 import { attempt } from 'lodash-es';
-import isImmutable from 'is-immutable';
-import immutableEqual from 'immutable-is';
 import { Provider } from '../SeriesContext';
 import { getNonEventHandlerProps, getEventsConfig } from '../../utils/events';
 import getModifiedProps from '../../utils/getModifiedProps';
 import { logSeriesErrorMessage } from '../../utils/warnings';
 
-class Series extends Component {
+class Series extends PureComponent {
 
   static propTypes = {
     id: PropTypes.oneOfType([ PropTypes.string, PropTypes.func ]).isRequired,
@@ -47,10 +44,7 @@ class Series extends Component {
 
     let needsRedraw = false;
     // Using setData is more performant than update
-    if (isImmutable(data) && immutableEqual(data, prevProps.data) === false) {
-      this.series.setData(data.toJS(), false);
-      needsRedraw = true;
-    } else if (isEqual(data, prevProps.data) === false) {
+    if (data !== prevProps.data) {
       this.series.setData(data, false);
       needsRedraw = true;
     }
@@ -84,13 +78,12 @@ class Series extends Component {
     const { id, data, requiresAxis, getAxis, children, ...rest } = this.props;
 
     const seriesId = isFunction(id) ? id() : id
-    const seriesData = isImmutable(data) ? data.toJS() : data;
     const nonEventProps = getNonEventHandlerProps(rest);
     const events = getEventsConfig(rest);
 
     const config = {
       id: seriesId,
-      data: seriesData,
+      data,
       events,
       ...nonEventProps
     }

@@ -1,4 +1,3 @@
-import { isEqual } from 'lodash-es';
 import { pickBy } from 'lodash-es';
 import { size } from 'lodash-es';
 import { PROVIDED_PROPS } from './removeProvidedProps';
@@ -9,10 +8,10 @@ export default function getModifiedProps (prevProps, currProps, childrenIsText =
   const modifiedProps = pickBy(rest, (value, propName) => {
     if (PROVIDED_PROPS.indexOf(propName) > -1) return false;
 
-    return isEqual(value, prevProps[propName]) === false;
+    return value !== prevProps[propName];
   });
 
-  if (childrenIsText && isEqual(prevProps.children, children) === false) {
+  if (childrenIsText && prevProps.children !== children) {
     modifiedProps.text = children;
   }
 

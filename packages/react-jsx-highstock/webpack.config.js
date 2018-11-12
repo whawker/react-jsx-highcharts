@@ -38,12 +38,6 @@ const webpackConfig = {
       commonjs2: 'highcharts',
       amd: 'highcharts',
       root: 'Highcharts'
-    },
-    'immutable': {
-      commonjs: 'immutable',
-      commonjs2: 'immutable',
-      amd: 'immutable',
-      root: 'Immutable'
     }
   },
 
