@@ -1,6 +1,5 @@
 import { mapValues } from 'lodash-es';
 import { isPlainObject } from 'lodash-es';
-import { wrap } from 'lodash-es';
 
 const FROM_HIGHCHARTS_PROVIDER = 'getHighcharts';
 const FROM_CHART_PROVIDER = 'getChart';
@@ -34,8 +33,8 @@ function deepCleanConfig (config) {
 }
 
 export default function removeProvidedProps (func) {
-  return wrap(func, function (origFunc, config, ...rest) {
+  return (config, ...rest) => {
     const cleanedConfig = deepCleanConfig(config);
-    return origFunc(cleanedConfig, ...rest);
-  });
+    return func(cleanedConfig, ...rest);
+  };
 }
