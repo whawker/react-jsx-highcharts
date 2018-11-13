@@ -15,12 +15,13 @@ export const PROVIDED_PROPS = [
 ];
 
 function cleanConfig(config) {
-  return Object.keys(config).reduce((object, key) => {
-    if (PROVIDED_PROPS.indexOf(key) < 0) {
+  // omit provided props
+  return Object.keys(config)
+    .filter(key => PROVIDED_PROPS.indexOf(key) < 0)
+    .reduce((object, key) => {
       object[key] = config[key];
-    }
-    return object;
-  }, {});
+      return object;
+    }, {});
 }
 
 function deepCleanConfig (config) {
