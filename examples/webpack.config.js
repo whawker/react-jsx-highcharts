@@ -6,6 +6,7 @@ const zipObject = require('lodash/zipObject');
 
 const highchartsExamples = [
   { name: 'AddSeries' },
+  { name: 'AreaWithAnnotations', additional: ['highcharts-annotations'] },
   { name: 'Combo', additional: ['highcharts-more'] },
   { name: 'Events' },
   { name: 'UpdateWithEvents' },
@@ -73,6 +74,7 @@ const externals = {
   'highcharts-treemap':   'https://code.highcharts.com/6.2.0/modules/treemap.js',
   'highcharts-heatmap':   'https://code.highcharts.com/6.2.0/modules/heatmap.js',
   'highcharts-3d':        'https://code.highcharts.com/6.2.0/highcharts-3d.js',
+  'highcharts-annotations':  'https://code.highcharts.com/6.2.0/modules/annotations.js',
   'highcharts-boost':     'https://code.highcharts.com/6.2.0/modules/boost.js',
   'highcharts-sankey':    'https://code.highcharts.com/6.2.0/modules/sankey.js',
   'highcharts-streamgraph': 'https://code.highcharts.com/6.2.0/modules/streamgraph.js',
