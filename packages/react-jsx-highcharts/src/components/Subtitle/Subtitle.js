@@ -31,7 +31,7 @@ class Subtitle extends Component {
 
   updateSubtitle = config => {
     const chart = this.props.getChart();
-    chart.setTitle(null, config, false);
+    chart.setTitle(undefined, config, false);
     this.props.needsRedraw();
   }
 

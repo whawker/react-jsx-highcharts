@@ -16,7 +16,7 @@ export const PROVIDED_PROPS = [
   DEBOUNCED_REDRAW
 ];
 
-function cleanConfig(config) {
+function cleanConfig(config = {}) {
   // omit provided props
   return Object.keys(config)
     .filter(key => PROVIDED_PROPS.indexOf(key) < 0)

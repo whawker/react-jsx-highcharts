@@ -105,4 +105,16 @@ describe('utils/removeProvidedProps', () => {
 
     expect(spy).toHaveBeenCalledWith({ enabled: false }, true, { option: 'never' });
   });
+
+  it('should not error when the config object is undefined', () => {
+    const spy = jest.fn();
+    const cleanedSpy = clean(spy);
+
+    cleanedSpy(
+      undefined,
+      false
+    );
+
+    expect(spy).toHaveBeenCalledWith({}, false);
+  })
 });
