@@ -74,6 +74,22 @@ describe('<Annotation />', () => {
     });
   });
 
+  describe('when updated', () => {
+    it('removes and re-adds annotation with new props', () => {
+      const wrapper = mount(
+        <Annotation id="My Annotation" labels={[{ text: "label", point: { x: 200, y: 200} }]} {...testContext.propsFromProviders} />
+      );
+      testContext.chartStubs.addAnnotation.mockReset();
+      wrapper.setProps({ labels: [{ text: "label", point: { x: 100, y: 100} }]});
+      expect(testContext.chartStubs.removeAnnotation).toHaveBeenCalledWith('My Annotation');
+
+      expect(testContext.chartStubs.addAnnotation).toHaveBeenCalledWith(expect.objectContaining({
+        id: 'My Annotation',
+        labels: [{ text: "label", point: { x: 100, y: 100} }]
+      }));
+    });
+  });
+
   describe('children', () => {
     it('should pass the ID of the plot band to the children', () => {
       const ChildComponent = props => (<div />);
