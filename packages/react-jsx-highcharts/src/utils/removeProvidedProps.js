@@ -6,11 +6,14 @@ const FROM_CHART_PROVIDER = 'getChart';
 const FROM_AXIS_PROVIDER = 'getAxis';
 const FROM_SERIES_PROVIDER = 'getSeries';
 
+const DEBOUNCED_REDRAW = 'needsRedraw';
+
 export const PROVIDED_PROPS = [
   FROM_HIGHCHARTS_PROVIDER,
   FROM_CHART_PROVIDER,
   FROM_AXIS_PROVIDER,
-  FROM_SERIES_PROVIDER
+  FROM_SERIES_PROVIDER,
+  DEBOUNCED_REDRAW
 ];
 
 function cleanConfig(config) {
