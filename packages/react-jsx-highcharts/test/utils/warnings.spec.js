@@ -5,15 +5,22 @@ import {
 
 
 describe('utils/warnings', () => {
-  process.env.NODE_ENV = 'development'
+  const OLD_ENV = process.env.NODE_ENV;
+
   jest.spyOn(console, "log").mockImplementation(() => {});
   jest.spyOn(console, "warn").mockImplementation(() => {});
   jest.spyOn(console, "group").mockImplementation(() => {});
 
   beforeEach(() => {
+    process.env.NODE_ENV = 'development'
+
     console.log.mockClear();
     console.warn.mockClear();
     console.group.mockClear();
+  });
+
+  afterEach(() => {
+    process.env.NODE_ENV = OLD_ENV;
   });
 
   describe('logSeriesErrorMessage', () => {
