@@ -81,7 +81,7 @@ class Axis extends Component {
       // ZAxis cannot be added dynamically, Maps only have a single axes - update instead
       const axisId = typeof id === 'function' ? id() : id
       this.axis = chart.get(axisId);
-      this.axis.update(opts, false);
+      this.axis.update.call(this.axis, opts, false);
     }
   }
 
