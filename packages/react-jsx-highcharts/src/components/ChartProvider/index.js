@@ -26,7 +26,9 @@ export default function provideChart(Component) {
             setTitle: clean(chart.setTitle.bind(chart)),
             showLoading: chart.showLoading.bind(chart),
             hideLoading: chart.hideLoading.bind(chart),
-            addCredits: clean(chart.addCredits.bind(chart))
+            addCredits: clean(chart.addCredits.bind(chart)),
+            addAnnotation: chart.addAnnotation ? clean(chart.addAnnotation.bind(chart)) : null,
+            removeAnnotation: chart.removeAnnotation ? chart.removeAnnotation.bind(chart) : null
           })
 
           return (
