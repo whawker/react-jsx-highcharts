@@ -52,7 +52,7 @@ const moduleToVarName = {
   xrange: 'addXRangeModule'
 };
 
-const moduleToSeriesTypes = {
+const moduleToFeatureMap = {
   annotations: ['annotations'],
   more: ['arearange', 'areasplinerange', 'boxplot', 'bubble', 'columnrange', 'errorbar', 'polygon', 'waterfall', 'gauge'],
   threeD: ['scatter3d'],
@@ -73,8 +73,8 @@ const moduleToSeriesTypes = {
   xrange: ['xrange']
 };
 
-const findModule = seriesType => {
-  return findKey(moduleToSeriesTypes, seriesTypes => seriesTypes.indexOf(seriesType) !== -1)
+const findModule = feature => {
+  return findKey(moduleToFeatureMap, features => features.indexOf(feature) !== -1)
 }
 
 const logDetailedErrorMessage = (warning, module) => {
