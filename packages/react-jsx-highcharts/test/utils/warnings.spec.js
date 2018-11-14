@@ -1,4 +1,5 @@
 import {
+  logModuleErrorMessage,
   logSeriesErrorMessage,
   logZAxisErrorMessage
 } from "../../src/utils/warnings";
@@ -25,6 +26,18 @@ describe('utils/warnings', () => {
       );
     });
   });
+
+  describe('logModuleErrorMessage', () => {
+    it('logs message to console.log', () => {
+      logModuleErrorMessage('Annotation', 'annotations');
+
+      expect(console.log).toHaveBeenCalledWith(
+        expect.stringContaining('This component "Annotation" requires an additional Highcharts module'),
+        expect.anything()
+      );
+    });
+  });
+
   describe('logZAxisErrorMessage', () => {
     it('logs message to console.log', () => {
       logZAxisErrorMessage();
