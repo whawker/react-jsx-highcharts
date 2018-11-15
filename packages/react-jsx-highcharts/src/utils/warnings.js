@@ -11,6 +11,7 @@ const descCommentCSS = descCSS('#808080') + 'font-style:italic;';
 const descNewLine = 'font-size: 1px; margin-right: 100%;';
 
 const moduleToImportPath = {
+  annotations: 'modules/annotations',
   more: 'highcharts-more',
   threeD: 'highcharts-3d',
   bullet: 'modules/bullet',
@@ -31,6 +32,7 @@ const moduleToImportPath = {
 };
 
 const moduleToVarName = {
+  annotations: 'addAnnotations',
   more: 'addHighchartsMore',
   threeD: 'addHighcharts3DModule',
   bullet: 'addBulletModule',
@@ -50,7 +52,8 @@ const moduleToVarName = {
   xrange: 'addXRangeModule'
 };
 
-const moduleToSeriesTypes = {
+const moduleToFeatureMap = {
+  annotations: ['annotations'],
   more: ['arearange', 'areasplinerange', 'boxplot', 'bubble', 'columnrange', 'errorbar', 'polygon', 'waterfall', 'gauge'],
   threeD: ['scatter3d'],
   bullet: ['bullet'],
@@ -70,8 +73,8 @@ const moduleToSeriesTypes = {
   xrange: ['xrange']
 };
 
-const findModule = seriesType => {
-  return findKey(moduleToSeriesTypes, seriesTypes => seriesTypes.indexOf(seriesType) !== -1)
+const findModule = feature => {
+  return findKey(moduleToFeatureMap, features => features.indexOf(feature) !== -1)
 }
 
 const logDetailedErrorMessage = (warning, module) => {
@@ -82,8 +85,8 @@ const logDetailedErrorMessage = (warning, module) => {
   console.log(`%c${warning}`, titleCSS);
   console.log('More information: https://github.com/whawker/react-jsx-highcharts/wiki/Highcharts-error-%2317');
   console.log(
-    `You likely need to import the additional module, try adding 
-    %c  
+    `You likely need to import the additional module, try adding
+    %c
     %c %cimport %cHighcharts %cfrom %c'highcharts'%c;
     %c %cimport %c${varName} %cfrom %c'highcharts/${importPath}'%c;
     %c
@@ -103,6 +106,20 @@ export const logSeriesErrorMessage = seriesType => {
   if (process.env.NODE_ENV === 'development') {
     const warning = `This series type "${seriesType}" requires an additional Highcharts module`;
     const module = findModule(seriesType);
+
+    if (!module) {
+      console.warn(`${warning}, or is invalid.`);
+      return
+    }
+
+    logDetailedErrorMessage(warning, module);
+  }
+}
+
+export const logModuleErrorMessage = (componentName, moduleName) => {
+  if (process.env.NODE_ENV === 'development') {
+    const warning = `This component "${componentName}" requires an additional Highcharts module`;
+    const module = findModule(moduleName);
 
     if (!module) {
       console.warn(`${warning}, or is invalid.`);
