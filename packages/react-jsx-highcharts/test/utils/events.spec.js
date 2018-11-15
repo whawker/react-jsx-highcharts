@@ -131,6 +131,7 @@ describe('utils/events', () => {
         context, 'onNotAFunction', 'trip'
       );
     });
+
     it('should not call the Highcharts.addEvent when props is undefined', () => {
       const onEventHandler = jest.fn();
       const onOtherEventHandler = jest.fn();
@@ -141,6 +142,7 @@ describe('utils/events', () => {
 
       expect(Highcharts.addEvent).not.toHaveBeenCalled();
     });
+
     it('should not call the Highcharts.addEvent when props is null', () => {
       const onEventHandler = jest.fn();
       const onOtherEventHandler = jest.fn();
