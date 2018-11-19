@@ -60,7 +60,7 @@
     "react": "^16.0.0",
     "react-jsx-highstock": "^3.0.0",
     "rimraf": "^2.6.1",
-    "webpack": "^4.20.2",
+    "webpack": "^4.26.0",
     "webpack-cli": "^3.1.2"
   }
 }
