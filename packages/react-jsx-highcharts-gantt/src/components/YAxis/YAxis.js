@@ -11,8 +11,10 @@ const GanttYAxis = ({ categories, type, ...props }) => {
 GanttYAxis.defaultProps = {
   grid: { enabled: true },
   reversed: true,
-  uniqueNames: true,
-  staticScale: 50
+  staticScale: 50,
+  type: 'treegrid'
 };
+
+GanttYAxis.Title = YAxis.Title
 
 export default GanttYAxis;

@@ -15,13 +15,15 @@ class Axis extends Component {
     children: PropTypes.node,
     getChart: PropTypes.func, // Provided by ChartProvider
     needsRedraw: PropTypes.func, // Provided by ChartProvider
-    dynamicAxis: PropTypes.bool.isRequired
+    dynamicAxis: PropTypes.bool.isRequired,
+    callback: PropTypes.func.isRequired
   };
 
   static defaultProps = {
     id: uuid,
     children: null,
-    dynamicAxis: true
+    dynamicAxis: true,
+    callback: () => {}
   };
 
   componentDidUpdate (prevProps) {
@@ -60,7 +62,7 @@ class Axis extends Component {
   }
 
   createAxis = () => {
-    const { id, dynamicAxis, isX, getChart } = this.props;
+    const { id, dynamicAxis, isX, getChart, callback } = this.props;
     const chart = getChart();
 
     // Create Highcharts Axis
@@ -73,6 +75,7 @@ class Axis extends Component {
       this.axis = chart.get(axisId);
       this.axis.update.call(this.axis, opts, false);
     }
+    callback(this.axis);
   }
 
   render () {

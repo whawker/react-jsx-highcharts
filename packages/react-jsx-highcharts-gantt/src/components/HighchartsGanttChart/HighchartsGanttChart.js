@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { BaseChart } from 'react-jsx-highcharts';
 
@@ -8,14 +8,11 @@ class HighchartsGanttChart extends Component {
   };
 
   render() {
-    const {chart, ...rest} = this.props;
-
     return (
       <BaseChart
-        chart={{...chart}}
-        xAxis={{id: 'xAxis'}}
-        yAxis={{id: 'yAxis'}}
-        {...rest}
+        xAxis={{ id: 'xAxis' }}
+        yAxis={{ id: 'yAxis' }}
+        {...this.props}
         chartCreationFunc={this.props.getHighcharts().ganttChart}
         chartType="ganttChart"/>
     );

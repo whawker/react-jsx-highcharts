@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { attempt } from 'lodash-es';
-import {getModifiedProps} from 'react-jsx-highcharts';
+import { getModifiedProps } from 'react-jsx-highcharts';
 
 class Pathfinder extends Component {
 
@@ -16,49 +16,20 @@ class Pathfinder extends Component {
 
   static defaultProps = {
     algorithmMargin: null,
-    dashStyle: "solid",
+    dashStyle: 'solid',
     enabled: true,
-    endMarker: {
-      align: "center",
-      color: null,
-      enabled: false,
-      height: null,
-      inside: false,
-      lineColor: null,
-      lineWidth: 1,
-      radius: null,
-      symbol: "arrow-filled",
-      verticalAlign: "middle",
-      width: null
-    },
     lineColor: null,
     lineWidth: 1,
     marker: {
-      align: "center",
-      color: null,
-      enabled: false,
-      height: null,
-      inside: false,
-      lineColor: null,
-      lineWidth: 1,
-      radius: null,
-      verticalAlign: "middle",
-      width: null
+      enabled: false
     },
     startMarker: {
-      align: "center",
-      color: null,
-      enabled: false,
-      height: null,
-      inside: false,
-      lineColor: null,
-      lineWidth: 1,
-      radius: null,
-      symbol: "diamond",
-      verticalAlign: "middle",
-      width: null
+      enabled: false
     },
-    type: "straight|simpleConnect"
+    endMarker: {
+      enabled: false
+    },
+    type: 'straight|simpleConnect'
   };
 
   constructor (props) {

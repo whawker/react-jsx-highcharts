@@ -1,8 +1,8 @@
 import React from 'react';
 import { XAxis } from 'react-jsx-highcharts';
 
-const GanttXAxis = ({ ...props }) => (
-  <XAxis {...props} id="xAxis" dynamicAxis={false} type={"datetime"}/>
+const GanttXAxis = props => (
+  <XAxis {...props} id="xAxis" dynamicAxis={false} type="datetime"/>
 );
 
 GanttXAxis.defaultProps = {
@@ -10,5 +10,7 @@ GanttXAxis.defaultProps = {
   opposite: true,
   uniqueNames: true
 };
+
+GanttXAxis.Title = XAxis.Title
 
 export default GanttXAxis;
