@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import Highcharts from 'highcharts/highcharts-gantt';
 import {
   GanttSeries,
@@ -8,38 +8,36 @@ import {
   withHighcharts,
   YAxis
 } from 'react-jsx-highcharts-gantt';
+import { Scrollbar, RangeSelector, Navigator } from 'react-jsx-highstock';
 import ExampleCode from '../utils/ExampleCode';
 import code from './exampleCode';
-import {Scrollbar, RangeSelector, Navigator} from 'react-jsx-highstock';
-
 
 class App extends Component {
 
-  render() {
-
-
+  render () {
     return (
       <div className="app">
         <HighchartsGanttChart>
           <Title>Gantt Chart with Highstock Navigation</Title>
-          <YAxis
-            uniqueNames
-          />
+
+          <YAxis uniqueNames />
+
           <Navigator>
-            <Navigator.Series
-              type={"gantt"}
-              pointPlacement={0.5}
-              pointPadding={0.25}
-            />
-            <Navigator.YAxis min={0} max={3} reversed categories={[]}/>
+            <Navigator.YAxis min={0} max={3} reversed categories={[]}>
+              <Navigator.Series
+                type="gantt"
+                pointPlacement={0.5}
+                pointPadding={0.25}
+              />
+            </Navigator.YAxis>
           </Navigator>
-          <Scrollbar/>
-          <RangeSelector
-            enabled
-            selected={0}
-          />
+
+          <Scrollbar />
+
+          <RangeSelector selected={0} />
+
           <GanttSeries
-            name={"Project 1"}
+            name="Project 1"
             data={
               [{
                 start: Date.UTC(2017, 11, 1),

@@ -135,7 +135,7 @@ module.exports = {
     'react-jsx-highcharts': 'ReactHighcharts',
     'react-jsx-highstock': 'ReactHighcharts',
     'react-jsx-highmaps': 'ReactHighcharts',
-    'react-jsx-highcharts-gantt': 'ReactHighcharts'
+    'react-jsx-highcharts-gantt': 'ReactHighchartsGantt'
   },
 
   module: {

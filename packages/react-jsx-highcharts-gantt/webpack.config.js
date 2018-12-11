@@ -12,7 +12,7 @@ const webpackConfig = {
   output: {
     filename: isProd ? 'react-jsx-highcharts-gantt.min.js' : 'react-jsx-highcharts-gantt.js',
     path: path.resolve(__dirname, 'dist'),
-    library: 'ReactHighcharts',
+    library: 'ReactHighchartsGantt',
     libraryTarget: 'umd',
     // Prevents webpack from referencing `window` in the UMD build
     // Source: https://git.io/vppgU

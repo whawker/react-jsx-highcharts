@@ -1,14 +1,12 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import Highcharts from 'highcharts/highcharts-gantt';
-import {GanttSeries, HighchartsGanttChart, Subtitle, Title, withHighcharts, YAxis} from 'react-jsx-highcharts-gantt';
+import { GanttSeries, HighchartsGanttChart, Subtitle, Title, withHighcharts, YAxis } from 'react-jsx-highcharts-gantt';
 import ExampleCode from '../utils/ExampleCode';
 import code from './exampleCode';
 
-
 class App extends Component {
 
-  render() {
-
+  render () {
     return (
       <div className="app">
         <HighchartsGanttChart
@@ -19,12 +17,9 @@ class App extends Component {
           }}
         >
           <Title>Highcharts Gantt - Categorised Y-axis with grouping</Title>
-          <YAxis
-            type={"category"}
-          />
-          <GanttSeries
-            data={
-              [
+          <YAxis type="category">
+            <GanttSeries
+              data={[
                 {
                   start: 2,
                   end: 3,
@@ -43,12 +38,10 @@ class App extends Component {
                   y: 2,
                   color: 'green'
                 }
-              ]
-            }
-          />
-          <GanttSeries
-            data={
-              [
+              ]}
+            />
+            <GanttSeries
+              data={[
                 {
                   start: 1,
                   end: 4,
@@ -67,9 +60,9 @@ class App extends Component {
                   y: 2,
                   color: "orange"
                 }
-              ]
-            }
-          />
+              ]}
+            />
+          </YAxis>
         </HighchartsGanttChart>
 
         <ExampleCode name="Gantt">{code}</ExampleCode>
