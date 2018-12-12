@@ -22,22 +22,19 @@ renderSparklineDefault (pkgName, data) {
 }
 
 renderSparklineWithTooltip (name, data) {
-  const positioner = (w, h, point) => ({ x: point.plotX - w / 2, y: point.plotY - h });
-
   return (
     <HighchartsSparkline
       series={
         <AreaSeries name={name} data={data} color="#C12127" />
       }>
       <Tooltip
-        useHTML
+        outside
         borderWidth={1}
         shadow={false}
         hideDelay={0}
         padding={8}
         headerFormat={\`<b>\${name}:</b> \`}
-        pointFormat={'{point.y:,.0f}'}
-        positioner={positioner} />
+        pointFormat={'{point.y:,.0f}'} />
     </HighchartsSparkline>
   );
 }
