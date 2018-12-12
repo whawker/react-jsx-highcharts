@@ -28,7 +28,7 @@ React JSX Highcharts also enables you to write your *own* Highcharts components,
 
 You'll need the peer dependencies too
 
-`npm install --save react react-dom prop-types highcharts@^6.0.0`
+`npm install --save react react-dom prop-types highcharts@^7.0.0`
 
 ## Getting started
 
@@ -139,7 +139,7 @@ render () {
         <Navigator.Series seriesId="twitter" />
       </Navigator>
     </HighchartsStockChart>
-    );
+  );
 }
 
 // Provide Highcharts (Highstock) object for library to interact with
