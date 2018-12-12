@@ -29,10 +29,7 @@ const highchartsExamples = [
   { name: 'StreamGraph', additional: ['highcharts-streamgraph', 'highcharts-series-label'] },
   { name: 'Responsive' },
   { name: 'Gauge', additional: ['highcharts-more', 'highcharts-solid-gauge'] },
-  { name: 'Polar', additional: ['highcharts-more'] }
-];
-
-const highchartsStyledExamples = [
+  { name: 'Polar', additional: ['highcharts-more'] },
   { name: 'StyleByCSS' }
 ];
 
@@ -49,7 +46,6 @@ const highmapsExamples = [
 
 const examples = [].concat(
   highchartsExamples.map(({ name, additional = [] }) => ({ name, additional: ['highcharts', 'react-jsx-highcharts'].concat(additional) })),
-  highchartsStyledExamples.map(({ name, additional = [] }) => ({ name, additional: ['highcharts/js/highcharts', 'react-jsx-highcharts'].concat(additional) })),
   highstockExamples.map(({ name, additional = [] }) => ({ name, additional: ['highcharts/highstock', 'react-jsx-highstock'].concat(additional) })),
   highmapsExamples.map(({ name, additional = [] }) => ({ name, additional: ['highcharts/highmaps', 'react-jsx-highmaps'].concat(additional) }))
 );
@@ -65,21 +61,20 @@ const externals = {
   'react-jsx-highmaps':   'https://unpkg.com/react-jsx-highmaps@^1/dist/react-jsx-highmaps.min.js',
   'react':                'https://unpkg.com/react@^16/umd/react.production.min.js',
   'react-dom':            'https://unpkg.com/react-dom@^16/umd/react-dom.production.min.js',
-  'highcharts':           'https://code.highcharts.com/6.2.0/highcharts.js',
-  'highcharts/js/highcharts': 'https://code.highcharts.com/6.2.0/js/highcharts.js',
-  'highcharts/highstock': 'https://code.highcharts.com/stock/6.2.0/highstock.js',
-  'highcharts/highmaps':  'https://code.highcharts.com/maps/6.2.0/highmaps.js',
-  'highcharts-more':      'https://code.highcharts.com/6.2.0/highcharts-more.js',
-  'highcharts-funnel':    'https://code.highcharts.com/6.2.0/modules/funnel.js',
-  'highcharts-treemap':   'https://code.highcharts.com/6.2.0/modules/treemap.js',
-  'highcharts-heatmap':   'https://code.highcharts.com/6.2.0/modules/heatmap.js',
-  'highcharts-3d':        'https://code.highcharts.com/6.2.0/highcharts-3d.js',
-  'highcharts-annotations':  'https://code.highcharts.com/6.2.0/modules/annotations.js',
-  'highcharts-boost':     'https://code.highcharts.com/6.2.0/modules/boost.js',
-  'highcharts-sankey':    'https://code.highcharts.com/6.2.0/modules/sankey.js',
-  'highcharts-streamgraph': 'https://code.highcharts.com/6.2.0/modules/streamgraph.js',
-  'highcharts-series-label': 'https://code.highcharts.com/6.2.0/modules/series-label.js',
-  'highcharts-solid-gauge': 'https://code.highcharts.com/6.2.0/modules/solid-gauge.js',
+  'highcharts':           'https://code.highcharts.com/7.0.0/highcharts.js',
+  'highcharts/highstock': 'https://code.highcharts.com/stock/7.0.0/highstock.js',
+  'highcharts/highmaps':  'https://code.highcharts.com/maps/7.0.0/highmaps.js',
+  'highcharts-more':      'https://code.highcharts.com/7.0.0/highcharts-more.js',
+  'highcharts-funnel':    'https://code.highcharts.com/7.0.0/modules/funnel.js',
+  'highcharts-treemap':   'https://code.highcharts.com/7.0.0/modules/treemap.js',
+  'highcharts-heatmap':   'https://code.highcharts.com/7.0.0/modules/heatmap.js',
+  'highcharts-3d':        'https://code.highcharts.com/7.0.0/highcharts-3d.js',
+  'highcharts-annotations':  'https://code.highcharts.com/7.0.0/modules/annotations.js',
+  'highcharts-boost':     'https://code.highcharts.com/7.0.0/modules/boost.js',
+  'highcharts-sankey':    'https://code.highcharts.com/7.0.0/modules/sankey.js',
+  'highcharts-streamgraph': 'https://code.highcharts.com/7.0.0/modules/streamgraph.js',
+  'highcharts-series-label': 'https://code.highcharts.com/7.0.0/modules/series-label.js',
+  'highcharts-solid-gauge': 'https://code.highcharts.com/7.0.0/modules/solid-gauge.js',
   'prism':                'https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/prism.min.js',
   'prism-jsx':            'https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/components/prism-jsx.min.js',
   'moment':               'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js',
