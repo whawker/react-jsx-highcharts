@@ -6,7 +6,6 @@ import { Provider } from '../AxisContext';
 import { getNonEventHandlerProps, getEventsConfig } from '../../utils/events';
 import getModifiedProps from '../../utils/getModifiedProps';
 import { validAxisTypes } from '../../utils/propTypeValidators';
-import { logZAxisErrorMessage } from '../../utils/warnings'
 
 class Axis extends Component {
 
@@ -24,15 +23,6 @@ class Axis extends Component {
     children: null,
     dynamicAxis: true
   };
-
-  constructor (props) {
-    super(props);
-
-    if (process.env.NODE_ENV === 'development') {
-      const { id, getHighcharts } = props;
-      if (id === 'zAxis' && !getHighcharts().ZAxis) logZAxisErrorMessage();
-    }
-  }
 
   componentDidUpdate (prevProps) {
     const modifiedProps = getModifiedProps(prevProps, this.props);

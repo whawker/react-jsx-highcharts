@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { log3DModuleErrorMessage } from '../../utils/warnings'
 
 class Options3d extends Component {
 
@@ -33,6 +34,14 @@ class Options3d extends Component {
       front: {}
     }
   };
+
+  constructor (props) {
+    super(props);
+
+    if (process.env.NODE_ENV === 'development') {
+      if (!props.getHighcharts().ZAxis) log3DModuleErrorMessage();
+    }
+  }
 
   componentDidMount () {
     this.update3dOptions();

@@ -139,8 +139,8 @@ export const logModuleErrorMessage = (componentName, moduleName) => {
   }
 }
 
-export const logZAxisErrorMessage = () => {
+export const log3DModuleErrorMessage = () => {
   if (process.env.NODE_ENV === 'development') {
-    logDetailedErrorMessage('This axis type "ZAxis" requires an additional Highcharts module', 'threeD');
+    logDetailedErrorMessage('3D features such as "ZAxis" require an additional Highcharts module', 'threeD');
   }
 }
