@@ -5,7 +5,7 @@ import * as all from '../../../src';
 import Series from '../../../src/components/Series';
 
 const skippedSeries = ['BarSeries'];
-const noAxisSeries = ['PieSeries', 'VariablePieSeries','PyramidSeries', 'FunnelSeries'];
+const noAxisSeries = ['PieSeries', 'VariablePieSeries','PyramidSeries', 'FunnelSeries', 'VennSeries'];
 const needParentSeries = ['BellCurveSeries','HistogramSeries', 'ParetoSeries'];
 
 Object.keys(all).filter(name => /^[A-Z].*Series$/.test(name)).forEach((seriesName) => {

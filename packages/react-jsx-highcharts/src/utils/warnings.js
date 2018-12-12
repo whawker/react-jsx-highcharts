@@ -27,6 +27,7 @@ const moduleToImportPath = {
   variablepie: 'modules/variable-pie',
   variwide: 'modules/variwide',
   vector: 'modules/vector',
+  venn: 'modules/venn',
   windbarb: 'modules/windbarb',
   xrange: 'modules/xrange'
 };
@@ -48,6 +49,7 @@ const moduleToVarName = {
   variablepie: 'addVariablePieModule',
   variwide: 'addVariwideModule',
   vector: 'addVectorModule',
+  venn: 'addVennModule',
   windbarb: 'addWindBarbModule',
   xrange: 'addXRangeModule'
 };
@@ -69,6 +71,7 @@ const moduleToFeatureMap = {
   variablepie: ['variablepie'],
   variwide: ['variwide'],
   vector: ['vector'],
+  venn: ['venn'],
   windbarb: ['windbarb'],
   xrange: ['xrange']
 };

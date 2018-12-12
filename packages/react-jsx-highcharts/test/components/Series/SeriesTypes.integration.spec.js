@@ -17,6 +17,7 @@ import addTreemapModule from 'highcharts/modules/treemap';
 import addVariablePieModule from 'highcharts/modules/variable-pie';
 import addVariwideModule from 'highcharts/modules/variwide';
 import addVectorModule from 'highcharts/modules/vector';
+import addVennModule from 'highcharts/modules/venn';
 import addWindBarbModule from 'highcharts/modules/windbarb';
 import addXRangeModule from 'highcharts/modules/xrange';
 
@@ -50,11 +51,12 @@ addTreemapModule(Highcharts);
 addVariablePieModule(Highcharts);
 addVariwideModule(Highcharts);
 addVectorModule(Highcharts);
+addVennModule(Highcharts);
 addWindBarbModule(Highcharts);
 addXRangeModule(Highcharts);
 
 const skippedSeries = ['BarSeries'];
-const noAxisSeries = ['PieSeries', 'VariablePieSeries','PyramidSeries', 'FunnelSeries'];
+const noAxisSeries = ['PieSeries', 'VariablePieSeries','PyramidSeries', 'FunnelSeries', 'VennSeries'];
 const needParentSeries = ['BellCurveSeries','HistogramSeries', 'ParetoSeries'];
 
 Object.keys(all).filter(name => /^[A-Z].*Series$/.test(name)).forEach((seriesName) => {

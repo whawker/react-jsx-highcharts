@@ -58,6 +58,7 @@ export const TilemapSeries = withSeriesType('Tilemap');
 export const TreemapSeries = withSeriesType('Treemap');
 export const VariablePieSeries = withSeriesType('VariablePie', axisNotRequired);
 export const VariwideSeries = withSeriesType('Variwide');
+export const VennSeries = withSeriesType('Venn', axisNotRequired);
 export const VectorSeries = withSeriesType('Vector');
 export const WaterfallSeries = withSeriesType('Waterfall');
 export const WindBarbSeries = withSeriesType('WindBarb');
