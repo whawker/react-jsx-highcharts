@@ -56,7 +56,10 @@ const moduleToVarName = {
 
 const moduleToFeatureMap = {
   annotations: ['annotations'],
-  more: ['arearange', 'areasplinerange', 'boxplot', 'bubble', 'columnrange', 'columnpyramid', 'errorbar', 'polygon', 'waterfall', 'gauge'],
+  more: [
+    'arearange', 'areasplinerange', 'boxplot', 'bubble', 'columnrange', 'columnpyramid',
+    'errorbar', 'gauge', 'packedbubble', 'polygon', 'waterfall'
+  ],
   threeD: ['scatter3d'],
   bullet: ['bullet'],
   funnel: ['funnel', 'pyramid'],
