@@ -35,6 +35,7 @@ export const BellCurveSeries = withSeriesType('BellCurve', {}, hasParentSeries);
 export const BoxPlotSeries = withSeriesType('BoxPlot');
 export const BubbleSeries = withSeriesType('Bubble');
 export const BulletSeries = withSeriesType('Bullet');
+export const ColumnPyramidSeries = withSeriesType('ColumnPyramid');
 export const ColumnRangeSeries = withSeriesType('ColumnRange');
 export const ColumnSeries = withSeriesType('Column');
 export const ErrorBarSeries = withSeriesType('ErrorBar');
