@@ -44,6 +44,7 @@ export const GaugeSeries = withSeriesType('Gauge');
 export const HeatmapSeries = withSeriesType('Heatmap');
 export const HistogramSeries = withSeriesType('Histogram', {}, hasParentSeries);
 export const LineSeries = withSeriesType('Line');
+export const NetworkGraphSeries = withSeriesType('NetworkGraph');
 export const PackedBubbleSeries = withSeriesType('PackedBubble');
 export const ParetoSeries = withSeriesType('Pareto', {}, hasParentSeries);
 export const PieSeries = withSeriesType('Pie', axisNotRequired);
