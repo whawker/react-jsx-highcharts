@@ -108,5 +108,6 @@ title: {
 
 Thanks to [Recharts](https://github.com/recharts/recharts) for the inspiration of building charts with separate components.
 
-Thanks to Highcharts themselves, obviously
+Thanks to Highcharts themselves, obviously.
 
+Thanks to @anajavi for all the help and support in maintaining this project.
