@@ -32,6 +32,10 @@ npm install --save react-jsx-highcharts
 npm install --save react react-dom prop-types highcharts@^6.0.0
 ```
 
+## Licensing
+
+React JSX Highcharts is free to use, however **Highcharts** itself requires a license for **commercial** use. [Highcharts license FAQs](https://shop.highsoft.com/faq).
+
 ## [Documentation](https://github.com/whawker/react-jsx-highcharts/wiki)
 
 ## [Examples](https://whawker.github.io/react-jsx-highcharts/examples)

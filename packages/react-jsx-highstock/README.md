@@ -30,6 +30,10 @@ You'll need the peer dependencies too
 
 `npm install --save react react-dom prop-types highcharts@^7.0.0`
 
+## Licensing
+
+React JSX Highstock is free to use, however **Highcharts** itself requires a license for **commercial** use. [Highcharts license FAQs](https://shop.highsoft.com/faq).
+
 ## Getting started
 
 The intention of this library is to provide a very thin abstraction of Highcharts using React components. This has been achieved by passing Highcharts configuration options as component props.
