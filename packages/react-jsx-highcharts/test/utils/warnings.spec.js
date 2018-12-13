@@ -1,7 +1,7 @@
 import {
   logModuleErrorMessage,
   logSeriesErrorMessage,
-  logZAxisErrorMessage
+  log3DModuleErrorMessage
 } from "../../src/utils/warnings";
 
 
@@ -45,12 +45,12 @@ describe('utils/warnings', () => {
     });
   });
 
-  describe('logZAxisErrorMessage', () => {
+  describe('log3DModuleErrorMessage', () => {
     it('logs message to console.log', () => {
-      logZAxisErrorMessage();
+      log3DModuleErrorMessage();
 
       expect(console.log).toHaveBeenCalledWith(
-        expect.stringContaining('This axis type "ZAxis" requires an additional Highcharts module'),
+        expect.stringContaining('3D features such as "ZAxis" require an additional Highcharts module'),
         expect.anything()
       );
     });

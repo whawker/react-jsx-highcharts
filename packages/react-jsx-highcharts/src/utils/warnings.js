@@ -15,8 +15,10 @@ const moduleToImportPath = {
   more: 'highcharts-more',
   threeD: 'highcharts-3d',
   bullet: 'modules/bullet',
+  cylinder: 'modules/cylinder',
   funnel: 'modules/funnel',
   histogram: 'modules/histogram-bellcurve',
+  networkgraph: 'modules/networkgraph',
   pareto: 'modules/pareto',
   sankey: 'modules/sankey',
   solidgauge: 'modules/solid-gauge',
@@ -27,6 +29,7 @@ const moduleToImportPath = {
   variablepie: 'modules/variable-pie',
   variwide: 'modules/variwide',
   vector: 'modules/vector',
+  venn: 'modules/venn',
   windbarb: 'modules/windbarb',
   xrange: 'modules/xrange'
 };
@@ -36,8 +39,10 @@ const moduleToVarName = {
   more: 'addHighchartsMore',
   threeD: 'addHighcharts3DModule',
   bullet: 'addBulletModule',
+  cylinder: 'addCylinderModule',
   funnel: 'addFunnelModule',
   histogram: 'addHistogramBellCurveModule',
+  networkgraph: 'addNetworkGraphModule',
   pareto: 'addParetoModule',
   sankey: 'addSankeyModule',
   solidgauge: 'addSolidGaugeModule',
@@ -48,17 +53,23 @@ const moduleToVarName = {
   variablepie: 'addVariablePieModule',
   variwide: 'addVariwideModule',
   vector: 'addVectorModule',
+  venn: 'addVennModule',
   windbarb: 'addWindBarbModule',
   xrange: 'addXRangeModule'
 };
 
 const moduleToFeatureMap = {
   annotations: ['annotations'],
-  more: ['arearange', 'areasplinerange', 'boxplot', 'bubble', 'columnrange', 'errorbar', 'polygon', 'waterfall', 'gauge'],
+  more: [
+    'arearange', 'areasplinerange', 'boxplot', 'bubble', 'columnrange', 'columnpyramid',
+    'errorbar', 'gauge', 'packedbubble', 'polygon', 'waterfall'
+  ],
   threeD: ['scatter3d'],
   bullet: ['bullet'],
+  cylinder: ['cylinder'],
   funnel: ['funnel', 'pyramid'],
   histogram: ['histogram', 'bellcurve'],
+  networkgraph: ['networkgraph'],
   pareto: ['pareto'],
   sankey: ['sankey'],
   solidgauge: ['solidgauge'],
@@ -69,6 +80,7 @@ const moduleToFeatureMap = {
   variablepie: ['variablepie'],
   variwide: ['variwide'],
   vector: ['vector'],
+  venn: ['venn'],
   windbarb: ['windbarb'],
   xrange: ['xrange']
 };
@@ -130,8 +142,8 @@ export const logModuleErrorMessage = (componentName, moduleName) => {
   }
 }
 
-export const logZAxisErrorMessage = () => {
+export const log3DModuleErrorMessage = () => {
   if (process.env.NODE_ENV === 'development') {
-    logDetailedErrorMessage('This axis type "ZAxis" requires an additional Highcharts module', 'threeD');
+    logDetailedErrorMessage('3D features such as "ZAxis" require an additional Highcharts module', 'threeD');
   }
 }

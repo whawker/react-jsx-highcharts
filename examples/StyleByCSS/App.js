@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import Highcharts from 'highcharts/js/highcharts'; // Style by CSS import
+import React from 'react';
+import Highcharts from 'highcharts';
 import {
   HighchartsChart, Chart, withHighcharts, XAxis, YAxis, Title, Subtitle, Tooltip, Legend, LineSeries
 } from 'react-jsx-highcharts';
@@ -14,7 +14,7 @@ const MONTHS = [
 
 const App = () => (
   <div className="app">
-    <HighchartsChart>
+    <HighchartsChart styledMode>
       <Chart />
 
       <Title>Monthly Average Temperature</Title>

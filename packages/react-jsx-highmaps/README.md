@@ -12,7 +12,7 @@ A project for integrating [Highmaps](https://github.com/highcharts/highcharts) i
 
 You'll need the peer dependencies too
 
-`npm install --save react react-dom prop-types highcharts@^6.0.0`
+`npm install --save react react-dom prop-types highcharts@^7.0.0`
 
 ## Getting started
 

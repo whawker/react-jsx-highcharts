@@ -9,6 +9,7 @@ class BaseChart extends Component {
   static defaultProps = {
     children: null,
     className: '',
+    styledMode: false,
     callback: () => {}
   };
 
@@ -36,10 +37,13 @@ class BaseChart extends Component {
       return;
     }
 
-    const { chartCreationFunc, callback, polar, gauge, children, ...rest } = this.props;
+    const { chartCreationFunc, callback, chart, polar, gauge, styledMode, children, ...rest } = this.props;
 
     const opts = {
-      chart: {},
+      chart: {
+        styledMode,
+        ...chart,
+      },
       title: {
         text: null
       },

@@ -88,6 +88,18 @@ describe('<BaseChart />', () => {
         done();
       });
     });
+
+    it('should create a chart with styledMode=false by default', () => {
+      const wrapper = mount(<BaseChart {...testContext} chartType='chart' />);
+      jest.advanceTimersByTime(1);
+      expect(testContext.chartCreationFunc).toHaveBeenCalledWith(wrapper.getDOMNode(), expect.objectContaining({ chart: { styledMode: false } }));
+    });
+
+    it('should create a chart with styledMode=true if the styledMode prop is passed', () => {
+      const wrapper = mount(<BaseChart {...testContext} styledMode chartType='chart' />);
+      jest.advanceTimersByTime(1);
+      expect(testContext.chartCreationFunc).toHaveBeenCalledWith(wrapper.getDOMNode(), expect.objectContaining({ chart: { styledMode: true } }));
+    });
   });
 
   describe('update', () => {

@@ -5,8 +5,10 @@ import addHighchartsMore from 'highcharts/highcharts-more';
 //import addHighcharts3DModule from 'highcharts/highcharts-3d';
 import addBulletModule from 'highcharts/modules/bullet';
 import addFunnelModule from 'highcharts/modules/funnel';
+//import addCylinderModule from 'highcharts/modules/cylinder';
 import addHeatmapModule from 'highcharts/modules/heatmap';
 //import addHistogramBellCurveModule from 'highcharts/modules/histogram-bellcurve';
+import addNetworkGraphModule from 'highcharts/modules/networkgraph';
 //import addParetoModule from 'highcharts/modules/pareto';
 import addSankeyModule from 'highcharts/modules/sankey';
 import addSolidGaugeModule from 'highcharts/modules/solid-gauge';
@@ -17,6 +19,7 @@ import addTreemapModule from 'highcharts/modules/treemap';
 import addVariablePieModule from 'highcharts/modules/variable-pie';
 import addVariwideModule from 'highcharts/modules/variwide';
 import addVectorModule from 'highcharts/modules/vector';
+import addVennModule from 'highcharts/modules/venn';
 import addWindBarbModule from 'highcharts/modules/windbarb';
 import addXRangeModule from 'highcharts/modules/xrange';
 
@@ -37,9 +40,11 @@ import Series from '../../../src/components/Series';
 addHighchartsMore(Highcharts)
 //addHighcharts3DModule(Highcharts);
 addBulletModule(Highcharts);
+//addCylinderModule(Highcharts);
 addFunnelModule(Highcharts);
 addHeatmapModule(Highcharts);
 //addHistogramBellCurveModule(Highcharts);
+addNetworkGraphModule(Highcharts);
 //addParetoModule(Highcharts);
 addSankeyModule(Highcharts);
 addSolidGaugeModule(Highcharts);
@@ -50,11 +55,12 @@ addTreemapModule(Highcharts);
 addVariablePieModule(Highcharts);
 addVariwideModule(Highcharts);
 addVectorModule(Highcharts);
+addVennModule(Highcharts);
 addWindBarbModule(Highcharts);
 addXRangeModule(Highcharts);
 
 const skippedSeries = ['BarSeries'];
-const noAxisSeries = ['PieSeries', 'VariablePieSeries','PyramidSeries', 'FunnelSeries'];
+const noAxisSeries = ['PieSeries', 'VariablePieSeries','PyramidSeries', 'FunnelSeries', 'VennSeries'];
 const needParentSeries = ['BellCurveSeries','HistogramSeries', 'ParetoSeries'];
 
 Object.keys(all).filter(name => /^[A-Z].*Series$/.test(name)).forEach((seriesName) => {
