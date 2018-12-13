@@ -29,7 +29,7 @@ npm install --save react-jsx-highcharts
 #               or react-jsx-highmaps
 
 # And the peer dependencies
-npm install --save react react-dom prop-types highcharts@^6.0.0
+npm install --save react react-dom prop-types highcharts@^7.0.0
 ```
 
 ## Licensing
