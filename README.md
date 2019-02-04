@@ -29,8 +29,12 @@ npm install --save react-jsx-highcharts
 #               or react-jsx-highmaps
 
 # And the peer dependencies
-npm install --save react react-dom prop-types highcharts@^6.0.0
+npm install --save react react-dom prop-types highcharts@^7.0.0
 ```
+
+## Licensing
+
+React JSX Highcharts is free to use, however **Highcharts** itself requires a license for **commercial** use. [Highcharts license FAQs](https://shop.highsoft.com/faq).
 
 ## [Documentation](https://github.com/whawker/react-jsx-highcharts/wiki)
 
@@ -104,5 +108,6 @@ title: {
 
 Thanks to [Recharts](https://github.com/recharts/recharts) for the inspiration of building charts with separate components.
 
-Thanks to Highcharts themselves, obviously
+Thanks to Highcharts themselves, obviously.
 
+Thanks to @anajavi for all the help and support in maintaining this project.
