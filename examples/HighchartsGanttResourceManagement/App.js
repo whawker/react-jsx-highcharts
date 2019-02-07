@@ -1,4 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
+import map from 'lodash/map';
+import startOfToday from 'date-fns/start_of_today';
 import Highcharts, { dateFormat } from 'highcharts/highcharts-gantt';
 import {
   GanttSeries,
@@ -14,16 +16,8 @@ import {
 import ExampleCode from '../utils/ExampleCode';
 import code from './exampleCode';
 
-// Set to 00:00:00:000 today
-let today = new Date();
-const day = 1000 * 60 * 60 * 24;
-
-// Set to 00:00:00:000 today
-today.setUTCHours(0);
-today.setUTCMinutes(0);
-today.setUTCSeconds(0);
-today.setUTCMilliseconds(0);
-today = today.getTime();
+const today = startOfToday().getTime();
+const day = 24 * 60 * 60 * 1000;
 
 const cars = [{
   model: 'Nissan Leaf',
@@ -128,54 +122,41 @@ const series = cars.map(function (car, i) {
 
 const pointFormat = '<span>Rented To: {point.rentedTo}</span><br/><span>From: {point.start:%e. %b}</span><br/><span>To: {point.end:%e. %b}</span>';
 
-class App extends Component {
+const App = () => (
+  <div className="app">
+    <HighchartsGanttChart>
+      <Title>Car Rental Schedule</Title>
 
-  render () {
+      <XAxis currentDateIndicator />
 
+      <YAxis type="category" categories={map(series, 'name')} visible={false}>
 
-    console.log('series', JSON.parse(JSON.stringify(series)), series)
+        <GridColumn categories={series.map(s => dateFormat('%e. %b', s.current.to))}>
+          <GridColumn.Title>To</GridColumn.Title>
+        </GridColumn>
 
-    // TODO: Table to the left is not rendered correctly
-    return (
-      <div className="app">
-        <HighchartsGanttChart>
-          <Title>Car Rental Schedule</Title>
+        <GridColumn categories={series.map(s => dateFormat('%e. %b', s.current.from))}>
+          <GridColumn.Title>From</GridColumn.Title>
+        </GridColumn>
 
-          <XAxis currentDateIndicator />
+        <GridColumn categories={map(series, 'current.rentedTo')}>
+          <GridColumn.Title>Rented To</GridColumn.Title>
+        </GridColumn>
 
-          <YAxis type="category" categories={series.map(s => s.name)} visible={false}>
+        <GridColumn categories={map(series, 'name')}>
+          <GridColumn.Title>Model</GridColumn.Title>
+        </GridColumn>
 
-            <GridColumn categories={series.map(s => dateFormat('%e. %b', s.current.to))}>
-              <GridColumn.Title>To</GridColumn.Title>
-            </GridColumn>
+        {series.map(s => (
+          <GanttSeries key={s.name} {...s} />
+        ))}
+      </YAxis>
 
-            <GridColumn categories={series.map(s => dateFormat('%e. %b', s.current.from))}>
-              <GridColumn.Title>From</GridColumn.Title>
-            </GridColumn>
+      <Tooltip pointFormat={pointFormat} />
+    </HighchartsGanttChart>
 
-            <GridColumn categories={series.map(s => s.current.rentedTo)}>
-              <GridColumn.Title>Rented To</GridColumn.Title>
-            </GridColumn>
-
-            <GridColumn categories={series.map(s => s.name)}>
-              <GridColumn.Title>Model</GridColumn.Title>
-            </GridColumn>
-
-            {series.map(s => (
-              <GanttSeries
-                key={s.name}
-                {...s}
-              />
-            ))}
-          </YAxis>
-
-          <Tooltip pointFormat={pointFormat} />
-        </HighchartsGanttChart>
-
-        <ExampleCode name="Gantt">{code}</ExampleCode>
-      </div>
-    );
-  }
-}
+    <ExampleCode name="Gantt">{code}</ExampleCode>
+  </div>
+);
 
 export default withHighcharts(App, Highcharts);
