@@ -69,6 +69,7 @@ export const WindBarbSeries = withSeriesType('WindBarb');
 export const XRangeSeries = withSeriesType('XRange');
 
 // Providers
+export { Consumer, Provider } from './components/HighchartsContext';
 export { default as provideHighcharts }  from './components/HighchartsProvider';
 export { default as provideChart }  from './components/ChartProvider';
 export { default as provideAxis }  from './components/AxisProvider';
