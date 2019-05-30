@@ -74,7 +74,7 @@
     "eslint": "^5.15.3",
     "eslint-plugin-import": "^2.16.0",
     "eslint-plugin-react": "^7.12.4",
-    "highcharts": "^7.0.3",
+    "highcharts": "^7.1.2",
     "immutable": "^4.0.0-0",
     "immutable3": "npm:immutable@^3.8.1",
     "jest": "^24.5.0",
