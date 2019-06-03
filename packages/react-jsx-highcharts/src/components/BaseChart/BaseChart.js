@@ -84,11 +84,13 @@ class BaseChart extends Component {
       rendered: true
     })
   }
+
   setDomNode = (node) => {
     this.domNode = node;
   }
+
   componentDidUpdate (prevProps) {
-    const { plotOptions } = this.props
+    const { plotOptions } = this.props;
     if (isEqual(prevProps.plotOptions, plotOptions) === false && this.chart) {
       this.chart.update({ plotOptions }, false);
       this.needsRedraw();
