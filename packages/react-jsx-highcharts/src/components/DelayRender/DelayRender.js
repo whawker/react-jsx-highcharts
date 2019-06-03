@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class DelayRender extends Component {
   state = {
     render: false
-  }
+  };
 
   unmounted = false;
 
@@ -23,6 +23,7 @@ class DelayRender extends Component {
       window.clearTimeout(this.renderTimeout);
     }
   }
+
   render () {
     if (!this.state.render) return null;
 
