@@ -3,7 +3,8 @@ import React, { Component } from 'react';
 class DelayRender extends Component {
   state = {
     render: false
-  }
+  };
+
   renderTimeout = null;
 
   componentDidMount () {
@@ -14,11 +15,13 @@ class DelayRender extends Component {
       this.renderTimeout = null;
     }, 1);
   }
+
   componentWillUnmount() {
     if(this.renderTimeout !== null) {
       window.clearTimeout(this.renderTimeout);
     }
   }
+
   render () {
     if (!this.state.render) return null;
 
