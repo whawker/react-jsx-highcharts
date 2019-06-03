@@ -4,17 +4,21 @@ class DelayRender extends Component {
   state = {
     render: false
   }
+
+  unmounted = false;
+
   renderTimeout = null;
 
   componentDidMount () {
     this.renderTimeout = window.setTimeout(() => {
-      this.setState({
-        render: true
-      });
+      if (this.unmounted) return;
+      this.setState({ render: true });
       this.renderTimeout = null;
     }, 1);
   }
-  componentWillUnmount() {
+
+  componentWillUnmount () {
+    this.unmounted = true;
     if(this.renderTimeout !== null) {
       window.clearTimeout(this.renderTimeout);
     }
