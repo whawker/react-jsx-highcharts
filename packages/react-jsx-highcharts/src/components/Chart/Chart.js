@@ -34,19 +34,23 @@ class Chart extends Component {
   };
 
   componentDidMount () {
-    const { getHighcharts, getChart, needsRedraw, children, ...rest } = this.props;
+    const { width, height, getHighcharts, getChart, needsRedraw, children, ...rest } = this.props;
     const notEventProps = getNonEventHandlerProps(rest);
     const chart = getChart();
 
-    this.updateChart({
-      ...notEventProps
-    });
-
+    chart.setSize(width, height);
+    this.updateChart(notEventProps);
     addEventHandlersManually(getHighcharts(), chart.object, rest);
   }
 
   componentDidUpdate (prevProps) {
-    const modifiedProps = getModifiedProps(prevProps, this.props);
+    const { width, height, getChart, ...rest } = this.props;
+
+    if (width !== prevProps.width || height !== prevProps.height) {
+      getChart().setSize(width, height);
+    }
+
+    const modifiedProps = getModifiedProps(prevProps, rest);
     if (modifiedProps !== false) {
       this.updateChart(modifiedProps);
     }

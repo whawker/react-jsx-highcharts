@@ -11,6 +11,7 @@ export const createMockChart = ({ ...additional }) => ({
   addAxis: jest.fn(),
   addSeries: jest.fn(),
   get: jest.fn(),
+  setSize: jest.fn(),
   update: jest.fn(),
   setTitle: jest.fn(),
   destroy: jest.fn(),

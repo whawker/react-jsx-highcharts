@@ -43,6 +43,11 @@ describe('<Chart />', () => {
       expect(testContext.propsFromProviders.needsRedraw).toHaveBeenCalledTimes(1);
     });
 
+    it('sets the size of the chart using the width and height props', () => {
+      mount(<Chart type="line" width={400} height='75%' {...testContext.propsFromProviders} />);
+      expect(testContext.chartStubs.setSize).toHaveBeenCalledWith(400, '75%');
+    });
+
     it('subscribes to Highcharts events for props that look like event handlers', () => {
       testContext.chartStubs.object = 'mock-chart';
       const handleClick = jest.fn();
@@ -71,6 +76,19 @@ describe('<Chart />', () => {
         }
       }, false);
       expect(testContext.propsFromProviders.needsRedraw).toHaveBeenCalledTimes(2);
+    });
+
+    it('updates the size of the chart if the width or height change', () => {
+      const wrapper = mount(<Chart width={400} height='75%' {...testContext.propsFromProviders} />);
+
+      wrapper.setProps({ height: '65%' });
+      expect(testContext.chartStubs.setSize).toHaveBeenCalledWith(400, '65%');
+
+      wrapper.setProps({ width: 550 });
+      expect(testContext.chartStubs.setSize).toHaveBeenCalledWith(550, '65%');
+
+      wrapper.setProps({ width: 600, height: 400 });
+      expect(testContext.chartStubs.setSize).toHaveBeenCalledWith(600, 400);
     });
   });
 });
