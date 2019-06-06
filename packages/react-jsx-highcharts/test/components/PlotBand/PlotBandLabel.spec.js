@@ -7,7 +7,6 @@ describe('<PlotBand.Label />', () => {
 
   beforeEach(() => {
     testContext = {};
-    jest.useFakeTimers();
     const { axisStubs, getAxis } = createMockProvidedAxis({ id: 'myAxis', type: 'yAxis' });
     testContext.axisStubs = axisStubs;
 
@@ -25,8 +24,13 @@ describe('<PlotBand.Label />', () => {
     testContext.propsFromProviders = {
       getAxis
     };
+
+    jest.spyOn(window, 'requestAnimationFrame').mockImplementation(cb => cb());
   });
 
+  afterEach(() => {
+    window.requestAnimationFrame.mockRestore();
+  });
 
   describe('when mounted', () => {
     it('sets the correct plot band label', () => {
@@ -35,7 +39,6 @@ describe('<PlotBand.Label />', () => {
           My PlotBand Label
         </PlotBandLabel>
       );
-      jest.advanceTimersByTime(1);
       expect(testContext.plotBand.options.label).toEqual({
         text: 'My PlotBand Label'
       });
@@ -52,7 +55,6 @@ describe('<PlotBand.Label />', () => {
           My PlotBand Label
         </PlotBandLabel>
       );
-      jest.advanceTimersByTime(1);
       expect(testContext.plotBand.options.label).toEqual({
         text: 'My PlotBand Label',
         align: 'left'
@@ -72,9 +74,7 @@ describe('<PlotBand.Label />', () => {
           My PlotBand Label
         </PlotBandLabel>
       );
-      jest.advanceTimersByTime(1);
       wrapper.setProps({ children: 'My New Label' });
-      jest.advanceTimersByTime(1);
 
       expect(testContext.plotBand.options.label).toEqual({
         text: 'My New Label'
@@ -94,9 +94,7 @@ describe('<PlotBand.Label />', () => {
           My PlotBand Label
         </PlotBandLabel>
       );
-      jest.advanceTimersByTime(1);
       wrapper.unmount();
-      jest.advanceTimersByTime(1);
 
       expect(testContext.plotBand.options.label).toEqual({
         text: null

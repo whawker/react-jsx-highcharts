@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { isEqual, debounce, attempt } from 'lodash-es'
+import debounce from 'debounce-raf';
+import { isEqual, attempt } from 'lodash-es'
 import { Provider } from '../ChartContext';
 import { validChartTypes } from '../../utils/propTypeValidators'
 
@@ -29,7 +30,7 @@ class BaseChart extends Component {
 
   componentDidMount () {
     // Need to wait for CSS to be applied to parent nodes, or chart is rendered at wrong size
-    window.setTimeout(this.initHighcharts, 0);
+    window.requestAnimationFrame(this.initHighcharts);
   }
 
   initHighcharts = () => {
@@ -99,7 +100,7 @@ class BaseChart extends Component {
 
   componentWillUnmount () {
     if (this.chart) { // Fixes #14
-      window.setTimeout(this.chart.destroy.bind(this.chart), 1);
+      window.requestAnimationFrame(this.chart.destroy.bind(this.chart));
       this.chart.__destroyed = true;
     }
   }
@@ -108,7 +109,7 @@ class BaseChart extends Component {
     if(!this.chart.__destroyed) {
       attempt(this.chart.redraw.bind(this.chart));
     }
-  }, 0);
+  });
 
   render () {
     const { chartType, children } = this.props;

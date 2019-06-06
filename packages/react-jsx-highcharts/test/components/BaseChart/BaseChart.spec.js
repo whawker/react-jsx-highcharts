@@ -1,16 +1,15 @@
 import React, { Component, cloneElement } from 'react';
 import BaseChart from '../../../src/components/BaseChart';
-import YAxis from '../../../src/components/YAxis';
 import { Provider } from '../../../src/components/ChartContext';
 import { createMockChart } from '../../test-utils';
 
 class Wrapper extends Component {
   getPlotOptions = enabled => {
-    return { series: { marker: { enabled }} }
+    return { series: { marker: { enabled }} };
   }
 
   render () {
-    const { markersEnabled, ...rest } = this.props
+    const { markersEnabled, ...rest } = this.props;
     return (
       <BaseChart {...rest} plotOptions={this.getPlotOptions(markersEnabled)} />
     )
@@ -19,7 +18,6 @@ class Wrapper extends Component {
 
 describe('<BaseChart />', () => {
   let testContext;
-
   let chart;
 
   beforeEach(() => {
@@ -28,20 +26,22 @@ describe('<BaseChart />', () => {
     chart = createMockChart();
     testContext.chartCreationFunc = jest.fn();
     testContext.chartCreationFunc.mockReturnValue(chart);
-    jest.useFakeTimers();
+
+    jest.spyOn(window, 'requestAnimationFrame').mockImplementation(cb => cb());
   });
 
+  afterEach(() => {
+    window.requestAnimationFrame.mockRestore();
+  });
 
   describe('when mounted', () => {
     it('should create a Highcharts chart', () => {
       const wrapper = mount(<BaseChart {...testContext} chartType='chart' />);
-      jest.advanceTimersByTime(1);
       expect(testContext.chartCreationFunc).toHaveBeenCalledWith(wrapper.getDOMNode(), expect.anything());
     });
 
     it('should create a chart context, with the chart and chart type', done => {
       const wrapper = mount(<BaseChart {...testContext} chartType='chart' />);
-      jest.advanceTimersByTime(1);
 
       wrapper.setState({ rendered: true }, () => {
         expect(wrapper.childAt(0).childAt(0).type()).toEqual(Provider);
@@ -54,7 +54,6 @@ describe('<BaseChart />', () => {
 
     it('should create a chart context, with the chart and stockChart type', done => {
       const wrapper = mount(<BaseChart {...testContext} chartType='stockChart' />);
-      jest.advanceTimersByTime(1);
 
       wrapper.setState({ rendered: true }, () => {
         expect(wrapper.childAt(0).childAt(0).type()).toEqual(Provider);
@@ -69,8 +68,6 @@ describe('<BaseChart />', () => {
       expect(chart.angular).toBeFalsy();
 
       const wrapper = mount(<BaseChart gauge {...testContext} chartType='stockChart' />);
-      jest.advanceTimersByTime(1);
-
       wrapper.setState({ rendered: true }, () => {
         expect(chart.angular).toEqual(true);
         done();
@@ -81,8 +78,6 @@ describe('<BaseChart />', () => {
       expect(chart.polar).toBeFalsy();
 
       const wrapper = mount(<BaseChart polar {...testContext} chartType='stockChart' />);
-      jest.advanceTimersByTime(1);
-
       wrapper.setState({ rendered: true }, () => {
         expect(chart.polar).toBe(true);
         done();
@@ -91,13 +86,11 @@ describe('<BaseChart />', () => {
 
     it('should create a chart with styledMode=false by default', () => {
       const wrapper = mount(<BaseChart {...testContext} chartType='chart' />);
-      jest.advanceTimersByTime(1);
       expect(testContext.chartCreationFunc).toHaveBeenCalledWith(wrapper.getDOMNode(), expect.objectContaining({ chart: { styledMode: false } }));
     });
 
     it('should create a chart with styledMode=true if the styledMode prop is passed', () => {
       const wrapper = mount(<BaseChart {...testContext} styledMode chartType='chart' />);
-      jest.advanceTimersByTime(1);
       expect(testContext.chartCreationFunc).toHaveBeenCalledWith(wrapper.getDOMNode(), expect.objectContaining({ chart: { styledMode: true } }));
     });
   });
@@ -107,9 +100,7 @@ describe('<BaseChart />', () => {
       const wrapper = mount(
         <Wrapper {...testContext} chartType='chart' markersEnabled />
       );
-      jest.advanceTimersByTime(1);
-
-      wrapper.setProps({ markersEnabled: false })
+      wrapper.setProps({ markersEnabled: false });
 
       expect(chart.update).toHaveBeenCalledWith({ plotOptions: { series: { marker: { enabled: false } }} }, false);
     });
@@ -118,10 +109,9 @@ describe('<BaseChart />', () => {
   describe('when unmounted', () => {
     it('destroys the chart instance', () => {
       const wrapper = mount(<BaseChart {...testContext} chartType='chart' />);
-      jest.advanceTimersByTime(1);
       expect(chart.destroy).not.toHaveBeenCalled();
+
       wrapper.unmount();
-      jest.advanceTimersByTime(1);
       expect(chart.destroy).toHaveBeenCalled();
     });
   });

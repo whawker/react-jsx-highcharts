@@ -63,13 +63,13 @@ class PlotBandLabel extends Component {
     const { id, getAxis } = this.props;
     const axis = getAxis();
 
-    window.setTimeout(() => {
+    window.requestAnimationFrame(() => {
       const plotBand = axis.object && find(axis.object.plotLinesAndBands, band => band.id === id);
       if (plotBand) {
         plotBand.options.label = this.getLabelProps(config);
         plotBand.render();
       }
-    }, 1);
+    });
   }
 
   render () {

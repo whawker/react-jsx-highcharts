@@ -7,7 +7,6 @@ describe('<PlotLine.Label />', () => {
 
   beforeEach(() => {
     testContext = {};
-    jest.useFakeTimers();
 
     const { axisStubs, getAxis } = createMockProvidedAxis({ id: 'myAxis', type: 'yAxis' });
     testContext.axisStubs = axisStubs;
@@ -26,9 +25,13 @@ describe('<PlotLine.Label />', () => {
     testContext.propsFromProviders = {
       getAxis
     };
+
+    jest.spyOn(window, 'requestAnimationFrame').mockImplementation(cb => cb());
   });
 
-
+  afterEach(() => {
+    window.requestAnimationFrame.mockRestore();
+  });
 
   describe('when mounted', () => {
     it('sets the correct plot line label', () => {
@@ -37,7 +40,6 @@ describe('<PlotLine.Label />', () => {
           My PlotLine Label
         </PlotLineLabel>
       );
-      jest.advanceTimersByTime(1);
       expect(testContext.plotLine.options.label).toEqual({
         text: 'My PlotLine Label'
       });
@@ -54,7 +56,6 @@ describe('<PlotLine.Label />', () => {
           My PlotLine Label
         </PlotLineLabel>
       );
-      jest.advanceTimersByTime(1);
       expect(testContext.plotLine.options.label).toEqual({
         text: 'My PlotLine Label',
         align: 'left'
@@ -74,9 +75,7 @@ describe('<PlotLine.Label />', () => {
           My PlotLine Label
         </PlotLineLabel>
       );
-      jest.advanceTimersByTime(1);
       wrapper.setProps({ children: 'My New Label' });
-      jest.advanceTimersByTime(1);
 
       expect(testContext.plotLine.options.label).toEqual({
         text: 'My New Label'
@@ -96,9 +95,7 @@ describe('<PlotLine.Label />', () => {
           My PlotLine Label
         </PlotLineLabel>
       );
-      jest.advanceTimersByTime(1);
       wrapper.unmount();
-      jest.advanceTimersByTime(1);
 
       expect(testContext.plotLine.options.label).toEqual({
         text: null
