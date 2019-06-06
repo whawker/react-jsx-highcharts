@@ -20,6 +20,7 @@ export default function provideChart(Component) {
             object: chart,
             type: chartType,
             get: chart.get.bind(chart),
+            setSize: chart.setSize.bind(chart),
             update: clean(chart.update.bind(chart)),
             addAxis: clean(chart.addAxis.bind(chart)),
             addSeries: clean(chart.addSeries.bind(chart)),

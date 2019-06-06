@@ -99,18 +99,20 @@ describe('<ChartProvider />', () => {
     const chart = wrapper.find(WrappedComponent).props().getChart();
     expect(chart.object).toEqual(testContext.chart);
     expect(chart.type).toEqual(testContext.chartType);
-    expect(chart.get).toEqual(expect.any(Function))
-    expect(chart.update).toEqual(expect.any(Function))
-    expect(chart.addAxis).toEqual(expect.any(Function))
-    expect(chart.addSeries).toEqual(expect.any(Function))
-    expect(chart.setTitle).toEqual(expect.any(Function))
-    expect(chart.showLoading).toEqual(expect.any(Function))
-    expect(chart.hideLoading).toEqual(expect.any(Function))
-    expect(chart.addCredits).toEqual(expect.any(Function))
+    expect(chart.get).toEqual(expect.any(Function));
+    expect(chart.setSize).toEqual(expect.any(Function));
+    expect(chart.update).toEqual(expect.any(Function));
+    expect(chart.addAxis).toEqual(expect.any(Function));
+    expect(chart.addSeries).toEqual(expect.any(Function));
+    expect(chart.setTitle).toEqual(expect.any(Function));
+    expect(chart.showLoading).toEqual(expect.any(Function));
+    expect(chart.hideLoading).toEqual(expect.any(Function));
+    expect(chart.addCredits).toEqual(expect.any(Function));
   });
 
   it('should provide expected chart functions when calling getChart', () => {
     testContext.chart.get.mockReturnValueOnce('get method mock');
+    testContext.chart.setSize.mockReturnValueOnce('setSize method mock');
     testContext.chart.update.mockReturnValueOnce('update method mock');
     testContext.chart.addAxis.mockReturnValueOnce('addAxis method mock');
     testContext.chart.addSeries.mockReturnValueOnce('addSeries method mock');
@@ -128,6 +130,7 @@ describe('<ChartProvider />', () => {
     const chart = wrapper.find(WrappedComponent).props().getChart();
     expect(chart.type).toEqual(testContext.chartType);
     expect(chart.get({ prop: 'Test1234' })).toEqual('get method mock');
+    expect(chart.setSize({ prop: 'Test5678' })).toEqual('setSize method mock');
     expect(chart.update({ prop: 'Test9876' })).toEqual('update method mock');
     expect(chart.addAxis({ prop: 'Test4567' })).toEqual('addAxis method mock');
     expect(chart.addSeries({ prop: 'Test7654' })).toEqual('addSeries method mock');
@@ -138,7 +141,8 @@ describe('<ChartProvider />', () => {
   });
 
   it('should provide chart functions bound to the chart when calling getChart', () => {
-    testContext.chart.get.mockReturnThis()
+    testContext.chart.get.mockReturnThis();
+    testContext.chart.setSize.mockReturnThis();
     testContext.chart.update.mockReturnThis();
     testContext.chart.addAxis.mockReturnThis();
     testContext.chart.addSeries.mockReturnThis();
@@ -156,6 +160,7 @@ describe('<ChartProvider />', () => {
     const chart = wrapper.find(WrappedComponent).props().getChart();
     expect(chart.type).toEqual('stockChart');
     expect(chart.get({ prop: 'Test1234' })).toEqual(testContext.chart);
+    expect(chart.setSize({ prop: 'Test5678' })).toEqual(testContext.chart);
     expect(chart.update({ prop: 'Test9876' })).toEqual(testContext.chart);
     expect(chart.addAxis({ prop: 'Test4567' })).toEqual(testContext.chart);
     expect(chart.addSeries({ prop: 'Test7654' })).toEqual(testContext.chart);
