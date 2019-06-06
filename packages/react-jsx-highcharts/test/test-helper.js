@@ -1,6 +1,5 @@
 import 'jest-enzyme'
 
-
 function copyProps(src, target) {
   const props = Object.getOwnPropertyNames(src)
     .filter(prop => typeof target[prop] === 'undefined')

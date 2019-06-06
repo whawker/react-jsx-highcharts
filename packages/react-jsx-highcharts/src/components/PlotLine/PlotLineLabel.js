@@ -63,13 +63,13 @@ class PlotLineLabel extends Component {
     const { id, getAxis } = this.props;
     const axis = getAxis();
 
-    window.setTimeout(() => {
+    window.requestAnimationFrame(() => {
       const plotLine = axis.object && find(axis.object.plotLinesAndBands, line => line.id === id);
       if (plotLine) {
         plotLine.options.label = this.getLabelProps(config);
         plotLine.render();
       }
-    }, 1);
+    });
   }
 
   render () {

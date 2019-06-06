@@ -91,6 +91,7 @@
   "dependencies": {
     "@babel/runtime": "^7.4.2",
     "create-react-context": "^0.2.2",
+    "debounce-raf": "^1.0.1",
     "immutable-is": "^3.7.6",
     "is-immutable": "^1.0.1",
     "lodash-es": "^4.17.5",
