@@ -7,14 +7,19 @@ class DelayRender extends Component {
 
   renderTimeout = null;
 
+  unmounted = false;
+
   componentDidMount () {
     this.renderTimeout = window.requestAnimationFrame(() => {
-      this.setState({ render: true });
+      if (this.unmounted === false) {
+        this.setState({ render: true });
+      }
       this.renderTimeout = null;
     });
   }
 
   componentWillUnmount() {
+    this.unmounted = true;
     if(this.renderTimeout !== null) {
       window.cancelAnimationFrame(this.renderTimeout);
     }
