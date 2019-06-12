@@ -34,14 +34,6 @@ class App extends Component {
             <Legend.Title>Key</Legend.Title>
           </Legend>
 
-          <RangeSelector>
-            <RangeSelector.Button count={1} type="day">1d</RangeSelector.Button>
-            <RangeSelector.Button count={7} type="day">7d</RangeSelector.Button>
-            <RangeSelector.Button count={1} type="month">1m</RangeSelector.Button>
-            <RangeSelector.Button type="all">All</RangeSelector.Button>
-            <RangeSelector.Input boxBorderColor="#7cb5ec" />
-          </RangeSelector>
-
           <Tooltip />
 
           <XAxis>
@@ -57,6 +49,14 @@ class App extends Component {
             <YAxis.Title>Social Buzz</YAxis.Title>
             <SplineSeries id="twitter" name="Twitter mentions" data={data2} />
           </YAxis>
+
+          <RangeSelector selected={1}>
+            <RangeSelector.Button count={1} type="day">1d</RangeSelector.Button>
+            <RangeSelector.Button count={7} type="day">7d</RangeSelector.Button>
+            <RangeSelector.Button count={1} type="month">1m</RangeSelector.Button>
+            <RangeSelector.Button type="all">All</RangeSelector.Button>
+            <RangeSelector.Input boxBorderColor="#7cb5ec" />
+          </RangeSelector>
 
           <Navigator>
             <Navigator.Series seriesId="profit" />
