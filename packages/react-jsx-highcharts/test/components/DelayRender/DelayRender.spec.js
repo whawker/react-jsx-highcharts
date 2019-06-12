@@ -54,4 +54,29 @@ describe('<DelayRender />', () => {
     expect(cancelAnimationFrame).toHaveBeenCalledTimes(1);
     expect(cancelAnimationFrame).toHaveBeenLastCalledWith(expect.any(Number));
   });
+
+  it('calls setState if the component is still mounted after tick', () => {
+    const wrapper = mount(
+      <DelayRender>
+        <ChildComponent/>
+      </DelayRender>
+    );
+    const setStateSpy = spyOn(wrapper.instance(), 'setState');
+    jest.advanceTimersByTime(1);
+
+    expect(setStateSpy).toHaveBeenCalledWith({ render: true });
+  });
+
+  it('does not setState if the component has been unmounted before tick', () => {
+    const wrapper = mount(
+      <DelayRender>
+        <ChildComponent/>
+      </DelayRender>
+    );
+    const setStateSpy = spyOn(wrapper.instance(), 'setState');
+    wrapper.unmount();
+    jest.advanceTimersByTime(1);
+
+    expect(setStateSpy).not.toHaveBeenCalled();
+  });
 });
