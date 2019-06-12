@@ -1,6 +1,6 @@
 import React, { Component, cloneElement } from 'react';
 import BaseChart from '../../../src/components/BaseChart';
-import { Provider } from '../../../src/components/ChartContext';
+import { Consumer } from '../../../src/components/ChartContext';
 import { createMockChart } from '../../test-utils';
 
 class Wrapper extends Component {
@@ -41,11 +41,22 @@ describe('<BaseChart />', () => {
     });
 
     it('should create a chart context, with the chart and chart type', done => {
-      const wrapper = mount(<BaseChart {...testContext} chartType='chart' />);
+      const ChildComponent = ({ value }) => (
+        <div/>
+      )
+      const wrapper = mount(
+        <BaseChart {...testContext} chartType='chart'>
+          <Consumer>
+            { value => (
+              <ChildComponent value={ value } />
+            )}
+          </Consumer>
+        </BaseChart>
+      );
 
       wrapper.setState({ rendered: true }, () => {
-        expect(wrapper.childAt(0).childAt(0).type()).toEqual(Provider);
-        expect(wrapper.childAt(0).childAt(0)).toHaveProp('value',
+        const child = wrapper.find(ChildComponent);
+        expect(child).toHaveProp('value',
           { chart, chartType: 'chart', needsRedraw: expect.any(Function) }
         );
         done();
@@ -53,11 +64,22 @@ describe('<BaseChart />', () => {
     });
 
     it('should create a chart context, with the chart and stockChart type', done => {
-      const wrapper = mount(<BaseChart {...testContext} chartType='stockChart' />);
+      const ChildComponent = ({ value }) => (
+        <div>{ value.chartType }</div>
+      )
+      const wrapper = mount(
+        <BaseChart {...testContext} chartType='stockChart'>
+          <Consumer>
+            { value => (
+              <ChildComponent value={ value } />
+            )}
+          </Consumer>
+        </BaseChart>
+      );
 
       wrapper.setState({ rendered: true }, () => {
-        expect(wrapper.childAt(0).childAt(0).type()).toEqual(Provider);
-        expect(wrapper.childAt(0).childAt(0)).toHaveProp('value',
+        const child = wrapper.find(ChildComponent);
+        expect(child).toHaveProp('value',
           { chart, chartType: 'stockChart', needsRedraw: expect.any(Function) }
         );
         done();
