@@ -78,8 +78,7 @@ const webpackConfig = {
           {
             loader: "css-loader",
             options: {
-              sourceMap: true,
-              minimize: true
+              sourceMap: true
             }
           }
         ]
