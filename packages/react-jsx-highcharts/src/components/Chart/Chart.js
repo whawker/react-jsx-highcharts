@@ -7,8 +7,14 @@ class Chart extends Component {
 
   static propTypes = {
     type: PropTypes.string.isRequired,
-    width: PropTypes.number,
-    height: PropTypes.number,
+    width: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number
+    ]),
+    height: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number
+    ]),
     onAddSeries: PropTypes.func,
     onAfterPrint: PropTypes.func,
     onBeforePrint: PropTypes.func,
