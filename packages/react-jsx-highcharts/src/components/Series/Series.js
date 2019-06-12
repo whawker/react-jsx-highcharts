@@ -67,6 +67,7 @@ class Series extends Component {
       this.props.needsRedraw();
     }
   }
+
   componentDidMount () {
     this.props.needsRedraw();
   }

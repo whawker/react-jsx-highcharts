@@ -3,22 +3,28 @@ import React, { Component } from 'react';
 class DelayRender extends Component {
   state = {
     render: false
-  }
+  };
+
   renderTimeout = null;
 
+  unmounted = false;
+
   componentDidMount () {
-    this.renderTimeout = window.setTimeout(() => {
-      this.setState({
-        render: true
-      });
+    this.renderTimeout = window.requestAnimationFrame(() => {
+      if (this.unmounted === false) {
+        this.setState({ render: true });
+      }
       this.renderTimeout = null;
-    }, 1);
+    });
   }
+
   componentWillUnmount() {
+    this.unmounted = true;
     if(this.renderTimeout !== null) {
-      window.clearTimeout(this.renderTimeout);
+      window.cancelAnimationFrame(this.renderTimeout);
     }
   }
+
   render () {
     if (!this.state.render) return null;
 
