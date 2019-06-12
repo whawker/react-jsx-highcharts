@@ -1,4 +1,4 @@
-import createContext from 'create-react-context';
+import createContext from 'mini-create-react-context';
 
 const AxisContext = createContext();
 

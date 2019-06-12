@@ -166,7 +166,7 @@ Ok, so what about the minority of cases?
 
 ### Dropped React 15 support
 
-v3 is built on top of the new Context API added in [React 16.3](https://reactjs.org/blog/2018/03/29/react-v-16-3.html#official-context-api), using the fantastic [create-react-context](https://www.npmjs.com/package/create-react-context) polyfill for previous React 16 versions.
+v3 is built on top of the new Context API added in [React 16.3](https://reactjs.org/blog/2018/03/29/react-v-16-3.html#official-context-api), using the fantastic [mini-create-react-context](https://www.npmjs.com/package/mini-create-react-context) polyfill for previous React 16 versions.
 
 While polyfills for React 15 exist, I want to minimise the amount of use cases supported, going forward.
 
