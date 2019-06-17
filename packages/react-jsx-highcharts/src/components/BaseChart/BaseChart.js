@@ -5,6 +5,7 @@ import debounce from '../../utils/debounce-raf';
 import { isEqual, attempt } from 'lodash-es'
 import { Provider } from '../ChartContext';
 import { validChartTypes } from '../../utils/propTypeValidators'
+import clean from '../../utils/removeProvidedProps';
 
 class BaseChart extends Component {
 
@@ -113,11 +114,27 @@ class BaseChart extends Component {
   });
 
   getProviderValue = memoizeOne((chart, chartType, needsRedraw ) => {
-    return { chart, chartType, needsRedraw };
+    const getChart = () => ({
+      object: chart,
+      type: chartType,
+      get: chart.get.bind(chart),
+      setSize: chart.setSize.bind(chart),
+      update: clean(chart.update.bind(chart)),
+      addAxis: clean(chart.addAxis.bind(chart)),
+      addSeries: clean(chart.addSeries.bind(chart)),
+      setTitle: clean(chart.setTitle.bind(chart)),
+      showLoading: chart.showLoading.bind(chart),
+      hideLoading: chart.hideLoading.bind(chart),
+      addCredits: clean(chart.addCredits.bind(chart)),
+      addAnnotation: chart.addAnnotation ? clean(chart.addAnnotation.bind(chart)) : null,
+      removeAnnotation: chart.removeAnnotation ? chart.removeAnnotation.bind(chart) : null
+    });
+
+    return { chart, chartType, getChart, needsRedraw };
   })
 
   render () {
-    const { chartType, children } = this.props;
+    const { children, chartType } = this.props;
 
     return (
       <div
