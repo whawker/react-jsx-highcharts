@@ -92,7 +92,7 @@
     "debounce-raf": "^1.0.1",
     "immutable-is": "^3.7.6",
     "is-immutable": "^1.0.1",
-    "lodash-es": "^4.17.5",
+    "lodash-es": "^4.17.12",
     "mini-create-react-context": "^0.3.2",
     "uuid": "^3.2.1"
   },

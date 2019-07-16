@@ -59,7 +59,7 @@
   ],
   "dependencies": {
     "@babel/runtime": "^7.4.5",
-    "lodash-es": "^4.17.5",
+    "lodash-es": "^4.17.12",
     "react-jsx-highcharts": "3.6.0"
   },
   "devDependencies": {
