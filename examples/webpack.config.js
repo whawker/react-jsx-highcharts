@@ -1,6 +1,6 @@
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plugin');
+const HtmlTagsPlugin = require('html-webpack-tags-plugin');
 const path = require('path');
 const zipObject = require('lodash/zipObject');
 
@@ -159,26 +159,26 @@ module.exports = {
   ).concat(
     // Additional dependencies
     examples.map(({ name, additional = [] }) => {
-      return new HtmlWebpackIncludeAssetsPlugin({
+      return new HtmlTagsPlugin({
         files: `${name}/index.html`,
-        assets: additional.map(d => externals[d]),
+        scripts: additional.map(d => externals[d]),
         publicPath: false,
         append: false
       });
     })
   ).concat(
     // Default dependencies
-    new HtmlWebpackIncludeAssetsPlugin({
+    new HtmlTagsPlugin({
       files: '**/index.html',
-      assets: ['prism', 'prism-jsx'].map(d => externals[d]),
+      scripts: ['prism', 'prism-jsx'].map(d => externals[d]),
       publicPath: false,
       append: false
     })
   ).concat(
     // Default dependencies
-    new HtmlWebpackIncludeAssetsPlugin({
+    new HtmlTagsPlugin({
       files: '**/index.html',
-      assets: ['assign-polyfill', 'react', 'react-dom'].map(d => ({
+      scripts: ['assign-polyfill', 'react', 'react-dom'].map(d => ({
         path: externals[d],
         attributes: { crossorigin: 'true' }
       })),
