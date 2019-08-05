@@ -88,6 +88,7 @@
     "webpack-cli": "^3.3.6"
   },
   "dependencies": {
+    "@babel/runtime": "^7.5.5",
     "immutable-is": "^3.7.6",
     "is-immutable": "^1.0.1",
     "lodash-es": "^4.17.13",
