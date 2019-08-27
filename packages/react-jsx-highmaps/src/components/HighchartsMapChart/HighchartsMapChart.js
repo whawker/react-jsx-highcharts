@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { BaseChart } from 'react-jsx-highcharts';
+import memoizeOne from 'memoize-one';
+
+const XAXIS = { id: 'xAxis' };
+const YAXIS = { id: 'yAxis' };
+const MAP_NAVIGATION = { enabled: false };
 
 class HighchartsMapChart extends Component {
   static propTypes = {
@@ -11,10 +16,15 @@ class HighchartsMapChart extends Component {
     callback: () => {}
   };
 
-  getGeoJSON = map => {
+  createGeoJSON = map => {
     if (!map) return;
-    return (typeof map === 'string') ? this.props.getHighcharts().maps[map] : map;
+    this.geojson = (typeof map === 'string') ? this.props.getHighcharts().maps[map] : map;
   }
+
+  getChartConfig = memoizeOne((chart, map) => {
+    this.createGeoJSON(map);
+    return { ...chart, map: this.geojson };
+  })
 
   callback = chart => {
     const geojson = this.geojson;
@@ -29,14 +39,14 @@ class HighchartsMapChart extends Component {
 
   render () {
     const { map, chart, ...rest } = this.props;
-    this.geojson = this.getGeoJSON(map);
+    const chartConfig = this.getChartConfig(chart, map);
 
     return (
       <BaseChart
-        chart={{ ...chart, map: this.geojson }}
-        mapNavigation={{ enabled: false }}
-        xAxis={{ id: 'xAxis' }}
-        yAxis={{ id: 'yAxis' }}
+        chart={chartConfig}
+        mapNavigation={MAP_NAVIGATION}
+        xAxis={XAXIS}
+        yAxis={YAXIS}
         {...rest}
         callback={this.callback}
         chartCreationFunc={this.props.getHighcharts().mapChart}
