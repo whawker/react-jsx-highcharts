@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import memoizeOne from 'memoize-one';
 import debounce from '../../utils/debounce-raf';
 import { isEqual, attempt } from 'lodash-es'
 import { Provider } from '../ChartContext';
@@ -111,6 +112,10 @@ class BaseChart extends Component {
     }
   });
 
+  getProviderValue = memoizeOne((chart, chartType, needsRedraw ) => {
+    return { chart, chartType, needsRedraw };
+  })
+
   render () {
     const { chartType, children } = this.props;
 
@@ -119,7 +124,7 @@ class BaseChart extends Component {
         className={`chart ${this.props.className}`}
         ref={ this.setDomNode }>
         {this.state.rendered && (
-          <Provider value={{ chart: this.chart, chartType, needsRedraw: this.needsRedraw }}>
+          <Provider value={this.getProviderValue(this.chart, chartType, this.needsRedraw)}>
             {children}
           </Provider>
         )}

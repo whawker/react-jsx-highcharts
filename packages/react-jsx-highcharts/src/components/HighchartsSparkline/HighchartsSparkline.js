@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import memoizeOne from 'memoize-one';
 import HighchartsChart from '../HighchartsChart';
 import Chart from '../Chart';
 import XAxis from '../XAxis';
@@ -52,10 +53,14 @@ class HighchartsSparkline extends Component {
     plotOptions: defaultSparklinePlotOptions
   };
 
+  getChartStyle = memoizeOne((style) => {
+    return { overflow: 'visible', ...style };
+  })
+
   render () {
     const { height, width, margin, style, series, children, ...rest } = this.props;
     const hasSeriesProp = !!series;
-    const chartStyle = { overflow: 'visible', ...style };
+    const chartStyle = this.getChartStyle(style);
     // If you want to use functionality like Tooltips, pass the data component on the `series` prop
     const Series = hasSeriesProp ? series : children;
 
