@@ -8,6 +8,8 @@ const WrappedComponent = props => (
 );
 let HighchartsWrappedComponent;
 
+const getHighcharts = () => Highcharts;
+
 describe('<HighchartsProvider />', () => {
   beforeEach(() => {
     HighchartsWrappedComponent = provideHighcharts(WrappedComponent);
@@ -15,7 +17,7 @@ describe('<HighchartsProvider />', () => {
 
   it('should render the wrapped component', () => {
     const wrapper = mount(
-      <Provider value={Highcharts}>
+      <Provider value={getHighcharts}>
         <HighchartsWrappedComponent />
       </Provider>
     );
@@ -25,7 +27,7 @@ describe('<HighchartsProvider />', () => {
 
   it('should provide a getHighcharts prop to the wrapped component', () => {
     const wrapper = mount(
-      <Provider value={Highcharts}>
+      <Provider value={getHighcharts}>
         <HighchartsWrappedComponent />
       </Provider>
     );
@@ -35,7 +37,7 @@ describe('<HighchartsProvider />', () => {
 
   it('should pass through other props to the wrapped component', () => {
     const wrapper = mount(
-      <Provider value={Highcharts}>
+      <Provider value={getHighcharts}>
         <HighchartsWrappedComponent someProp='someValue' otherProp='otherValue' />
       </Provider>
     );
@@ -47,7 +49,7 @@ describe('<HighchartsProvider />', () => {
 
   it('should provide the Highcharts global when calling getHighcharts', () => {
     const wrapper = mount(
-      <Provider value={Highcharts}>
+      <Provider value={getHighcharts}>
         <HighchartsWrappedComponent />
       </Provider>
     );
