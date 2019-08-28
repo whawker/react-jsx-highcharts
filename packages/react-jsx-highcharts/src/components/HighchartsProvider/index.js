@@ -7,9 +7,8 @@ import getDisplayName from '../../utils/getDisplayName';
 // It takes a component...
 export default function provideHighcharts(Component) {
 
-  const createGetHighcharts = memoizeOne((Highcharts) => {
-    return () => Highcharts;
-  })
+  const createGetHighcharts = memoizeOne(Highcharts => () => Highcharts);
+
   // ...and returns another component...
   const HighchartsWrappedComponent = function (props) {
     // ... and renders the wrapped component with the context Highcharts global

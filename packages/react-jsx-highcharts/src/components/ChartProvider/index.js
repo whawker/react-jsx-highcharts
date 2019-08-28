@@ -9,23 +9,22 @@ import clean from '../../utils/removeProvidedProps';
 // It takes a component...
 export default function provideChart(Component) {
 
-  const createGetChart = memoizeOne((chart, chartType) => {
-    return () => ({
-      object: chart,
-      type: chartType,
-      get: chart.get.bind(chart),
-      setSize: chart.setSize.bind(chart),
-      update: clean(chart.update.bind(chart)),
-      addAxis: clean(chart.addAxis.bind(chart)),
-      addSeries: clean(chart.addSeries.bind(chart)),
-      setTitle: clean(chart.setTitle.bind(chart)),
-      showLoading: chart.showLoading.bind(chart),
-      hideLoading: chart.hideLoading.bind(chart),
-      addCredits: clean(chart.addCredits.bind(chart)),
-      addAnnotation: chart.addAnnotation ? clean(chart.addAnnotation.bind(chart)) : null,
-      removeAnnotation: chart.removeAnnotation ? chart.removeAnnotation.bind(chart) : null
-    })
-  })
+  const createGetChart = memoizeOne((chart, chartType) => () => ({
+    object: chart,
+    type: chartType,
+    get: chart.get.bind(chart),
+    setSize: chart.setSize.bind(chart),
+    update: clean(chart.update.bind(chart)),
+    addAxis: clean(chart.addAxis.bind(chart)),
+    addSeries: clean(chart.addSeries.bind(chart)),
+    setTitle: clean(chart.setTitle.bind(chart)),
+    showLoading: chart.showLoading.bind(chart),
+    hideLoading: chart.hideLoading.bind(chart),
+    addCredits: clean(chart.addCredits.bind(chart)),
+    addAnnotation: chart.addAnnotation ? clean(chart.addAnnotation.bind(chart)) : null,
+    removeAnnotation: chart.removeAnnotation ? chart.removeAnnotation.bind(chart) : null
+  }));
+
 
   // ...and returns another component...
   const ChartWrappedComponent = function(props) {

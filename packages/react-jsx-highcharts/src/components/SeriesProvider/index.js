@@ -10,17 +10,15 @@ import clean from '../../utils/removeProvidedProps';
 // It takes a component...
 export default function provideSeries(Component) {
 
-  const createGetSeries = memoizeOne((series) => {
-    return () => ({
-      object: series,
-      id: series.userOptions && series.userOptions.id,
-      type: series.type,
-      update: clean(series.update.bind(series)),
-      remove: series.remove.bind(series),
-      setData: series.setData.bind(series),
-      setVisible: series.setVisible.bind(series)
-    });
-  });
+  const createGetSeries = memoizeOne(series => () => ({
+    object: series,
+    id: series.userOptions && series.userOptions.id,
+    type: series.type,
+    update: clean(series.update.bind(series)),
+    remove: series.remove.bind(series),
+    setData: series.setData.bind(series),
+    setVisible: series.setVisible.bind(series)
+  }));
 
   // ...and returns another component...
   const SeriesWrappedComponent = function(props) {
