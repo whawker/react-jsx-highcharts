@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/whawker/react-jsx-highcharts#readme",
   "dependencies": {
+    "memoize-one": "^5.1.1",
     "react-day-picker": "^6.2.0"
   },
   "peerDependencies": {
@@ -52,6 +53,7 @@
     "eslint": "^5.16.0",
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-react": "^7.13.0",
+    "eslint-plugin-react-perf": "^3.2.0",
     "mini-css-extract-plugin": "^0.8.0",
     "moment": "^2.24.0",
     "null-loader": "^3.0.0",

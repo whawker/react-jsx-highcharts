@@ -2,6 +2,13 @@ import React, { Component } from 'react';
 import HighchartsChart from '../HighchartsChart';
 import Options3d from '../Options3d';
 
+const CHART = {
+  options3d: { enabled: true }
+};
+const ZAXIS = {
+  id: 'zAxis'
+};
+
 class Highcharts3dChart extends Component {
 
   static propTypes = Options3d.propTypes;
@@ -11,15 +18,8 @@ class Highcharts3dChart extends Component {
       children, alpha, axisLabelPosition, beta, depth, fitToPlot, frame, viewDistance, ...rest
     } = this.props;
 
-    const chart = {
-      options3d: { enabled: true }
-    };
-    const zAxis = {
-      id: 'zAxis'
-    };
-
     return (
-      <HighchartsChart chart={chart} zAxis={zAxis} {...rest}>
+      <HighchartsChart chart={CHART} zAxis={ZAXIS} {...rest}>
         <Options3d
           alpha={alpha}
           axisLabelPosition={axisLabelPosition}

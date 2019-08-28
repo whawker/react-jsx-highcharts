@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import memoizeOne from 'memoize-one';
 import HighchartsChart from '../HighchartsChart';
 import Chart from '../Chart';
 import XAxis from '../XAxis';
@@ -28,6 +29,10 @@ const defaultSparklinePlotOptions = {
   }
 };
 
+const EMPTY_ARRAY = [];
+const ZERO_ARRAY = [0];
+const LABELS_DISABLED = { enabled: false };
+
 class HighchartsSparkline extends Component {
 
   static propTypes = {
@@ -48,10 +53,14 @@ class HighchartsSparkline extends Component {
     plotOptions: defaultSparklinePlotOptions
   };
 
+  getChartStyle = memoizeOne((style) => {
+    return { overflow: 'visible', ...style };
+  })
+
   render () {
     const { height, width, margin, style, series, children, ...rest } = this.props;
     const hasSeriesProp = !!series;
-    const chartStyle = { overflow: 'visible', ...style };
+    const chartStyle = this.getChartStyle(style);
     // If you want to use functionality like Tooltips, pass the data component on the `series` prop
     const Series = hasSeriesProp ? series : children;
 
@@ -68,9 +77,9 @@ class HighchartsSparkline extends Component {
           style={chartStyle}
           skipClone />
 
-        <XAxis labels={{ enabled: false }} startOnTick={false} endOnTick={false} tickPositions={[]} />
+        <XAxis labels={LABELS_DISABLED} startOnTick={false} endOnTick={false} tickPositions={EMPTY_ARRAY} />
 
-        <YAxis id="sparkline" labels={{ enabled: false }} startOnTick={false} endOnTick={false} tickPositions={[0]}>
+        <YAxis id="sparkline" labels={LABELS_DISABLED} startOnTick={false} endOnTick={false} tickPositions={ZERO_ARRAY}>
           {Series}
         </YAxis>
 

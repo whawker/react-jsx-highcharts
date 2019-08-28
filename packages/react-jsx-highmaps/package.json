@@ -44,6 +44,7 @@
   "dependencies": {
     "@babel/runtime": "^7.5.5",
     "lodash-es": "^4.17.13",
+    "memoize-one": "^5.1.1",
     "react-jsx-highcharts": "~3.6.0"
   },
   "devDependencies": {
@@ -62,6 +63,7 @@
     "eslint": "^5.16.0",
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-react": "^7.14.2",
+    "eslint-plugin-react-perf": "^3.2.0",
     "highcharts": "^7.1.2",
     "jest": "^24.8.0",
     "jest-enzyme": "^7.0.2",

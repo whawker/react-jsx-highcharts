@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import memoizeOne from 'memoize-one';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import { provideAxis } from 'react-jsx-highstock';
 import 'react-day-picker/lib/style.css';
@@ -121,6 +122,10 @@ class DateRangePickers extends Component {
     });
   }
 
+  getDayPickerProps = memoizeOne((datePickerProps, localisationOpts) => {
+    return { ...datePickerProps, ...localisationOpts };
+  })
+
   render () {
     const axis = this.props.getAxis();
     if (!axis) return null;
@@ -138,6 +143,8 @@ class DateRangePickers extends Component {
     const fromDate = moment(min).format(dayFormat);
     const toDate = moment(max).format(dayFormat);
 
+    const dayPickerProps = this.getDayPickerProps(datePickerProps, localisationOpts);
+
     return (
       <div className={className}>
         <span className={`${className}__label ${className}__from-label`}>{fromLabel}: </span>
@@ -145,14 +152,14 @@ class DateRangePickers extends Component {
           value={fromDate}
           onDayChange={this.handleFromDateChange(onChangeFromDate)}
           format={dayFormat}
-          dayPickerProps={{ ...datePickerProps, ...localisationOpts }}
+          dayPickerProps={dayPickerProps}
         />
         <span className={`${className}__label ${className}__to-label`}>{toLabel}: </span>
         <DayPickerInput
           value={toDate}
           onDayChange={this.handleToDateChange(onChangeToDate)}
           format={dayFormat}
-          dayPickerProps={{ ...datePickerProps, ...localisationOpts }}
+          dayPickerProps={dayPickerProps}
         />
       </div>
     );

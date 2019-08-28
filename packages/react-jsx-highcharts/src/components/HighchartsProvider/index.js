@@ -1,10 +1,14 @@
 import React from 'react';
+import memoizeOne from 'memoize-one';
 import { Consumer } from '../HighchartsContext';
 import getDisplayName from '../../utils/getDisplayName';
 
 // This is a HOC function.
 // It takes a component...
 export default function provideHighcharts(Component) {
+
+  const createGetHighcharts = memoizeOne(Highcharts => () => Highcharts);
+
   // ...and returns another component...
   const HighchartsWrappedComponent = function (props) {
     // ... and renders the wrapped component with the context Highcharts global
@@ -12,7 +16,7 @@ export default function provideHighcharts(Component) {
     return (
       <Consumer>
         {Highcharts => (
-          <Component {...props} getHighcharts={() => Highcharts} />
+          <Component {...props} getHighcharts={createGetHighcharts(Highcharts)} />
         )}
       </Consumer>
     );
