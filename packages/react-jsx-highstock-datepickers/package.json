@@ -60,8 +60,8 @@
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-jsx-highstock": "^3.5.0",
-    "rimraf": "^2.6.3",
-    "webpack": "^4.36.1",
-    "webpack-cli": "^3.3.6"
+    "rimraf": "^3.0.0",
+    "webpack": "^4.39.3",
+    "webpack-cli": "^3.3.7"
   }
 }
