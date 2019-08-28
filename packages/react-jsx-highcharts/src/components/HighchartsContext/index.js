@@ -1,4 +1,4 @@
-import createContext from 'mini-create-react-context';
+import { createContext } from 'react';
 
 const HighchartsContext = createContext();
 
