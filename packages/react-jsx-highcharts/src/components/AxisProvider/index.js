@@ -1,5 +1,4 @@
 import React from 'react';
-import { defaultTo } from 'lodash-es';
 import memoizeOne from 'memoize-one';
 import DelayRender from '../DelayRender';
 import provideChart from '../ChartProvider';
@@ -11,26 +10,29 @@ import clean from '../../utils/removeProvidedProps';
 // It takes a component...
 export default function provideAxis(Component) {
 
-  const createGetAxis = memoizeOne(axis => () => ({
-    object: axis,
-    id: axis.userOptions && axis.userOptions.id,
-    type: axis.coll,
-    update: clean(axis.update.bind(axis)),
-    remove: axis.remove.bind(axis),
-    addPlotBand: clean(axis.addPlotBand.bind(axis)),
-    removePlotBand: axis.removePlotBand.bind(axis),
-    addPlotLine: clean(axis.addPlotLine.bind(axis)),
-    removePlotLine: axis.removePlotLine.bind(axis),
-    getExtremes: axis.getExtremes.bind(axis),
-    setExtremes: axis.setExtremes.bind(axis),
-    setTitle: clean(axis.setTitle.bind(axis))
-  }));
+  const createGetAxis = memoizeOne(axis => () => {
+    if(!axis) return null;
+
+    return {
+      object: axis,
+      id: axis.userOptions && axis.userOptions.id,
+      type: axis.coll,
+      update: clean(axis.update.bind(axis)),
+      remove: axis.remove.bind(axis),
+      addPlotBand: clean(axis.addPlotBand.bind(axis)),
+      removePlotBand: axis.removePlotBand.bind(axis),
+      addPlotLine: clean(axis.addPlotLine.bind(axis)),
+      removePlotLine: axis.removePlotLine.bind(axis),
+      getExtremes: axis.getExtremes.bind(axis),
+      setExtremes: axis.setExtremes.bind(axis),
+      setTitle: clean(axis.setTitle.bind(axis))
+    }
+  });
 
   // ...and returns another component...
   const AxisWrappedComponent = function(props) {
     // ... and renders the wrapped component with the context axis
     // Notice that we pass through any additional props as well
-    const requiresAxis = defaultTo(props.requiresAxis, true);
     return (
       <DelayRender>
         <Consumer>
@@ -39,9 +41,6 @@ export default function provideAxis(Component) {
               const chart = props.getChart();
               axis = chart.get(props.axisId);
             }
-
-            // Some series (such as Pie and Funnel don't require an axis)
-            if (!axis && requiresAxis) return null;
 
             const getAxis = createGetAxis(axis);
 

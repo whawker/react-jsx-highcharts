@@ -113,7 +113,26 @@ describe('<Series />', () => {
         // test immutable 3
         testContext.chartStubs.addSeries.mockClear();
       });
-    })
+    });
+
+    it('throws Error when requiresAxis=true and mounted without axis', () => {
+      testContext.propsFromProviders.getAxis = () => null;
+
+      expect(() => {
+        shallow(
+          <Series id="mySeries" requiresAxis={true} {...testContext.propsFromProviders} />
+        );
+      }).toThrow();
+    });
+
+    it('does not throw Error when requiresAxis=false and mounted without axis', () => {
+      testContext.propsFromProviders.getAxis = () => null;
+      expect(() => {
+        shallow(
+          <Series id="mySeries" requiresAxis={false} {...testContext.propsFromProviders} />
+        );
+      }).not.toThrow();
+    });
   });
 
   describe('update', () => {

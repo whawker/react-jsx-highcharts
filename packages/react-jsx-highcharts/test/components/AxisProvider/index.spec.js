@@ -35,14 +35,14 @@ describe('<AxisProvider />', () => {
   });
 
 
-  it('should not render the wrapped component if there is no axis context', () => {
+  it('should render the wrapped component even if there is no axis context', () => {
     const wrapper = mount(
       <Provider value={undefined}>
         <AxisWrappedComponent />
       </Provider>
     );
 
-    expect(wrapper.find(WrappedComponent)).not.toExist();
+    expect(wrapper.find(WrappedComponent)).toExist();
   });
 
   it('should render the wrapped component if there is an axis context', () => {

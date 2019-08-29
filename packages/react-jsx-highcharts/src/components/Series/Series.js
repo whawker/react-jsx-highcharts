@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import uuid from 'uuid/v4';
 import { isEqual } from 'lodash-es';
 import { attempt } from 'lodash-es';
+import { defaultTo } from 'lodash-es';
 import isImmutable from 'is-immutable';
 import immutableEqual from 'immutable-is';
 import { Provider } from '../SeriesContext';
@@ -95,8 +96,9 @@ class Series extends Component {
       ...nonEventProps
     }
 
-    if (requiresAxis) {
+    if (defaultTo(requiresAxis, true)) {
       const axis = getAxis();
+      if(!axis) throw new Error(`Series type="${this.props.type}" should be wrapped inside Axis`)
       config[axis.type] = axis.id;
     }
 
