@@ -38,6 +38,6 @@ const Legend = memo(({ children = null, enabled = true, ...restProps}) => {
 Legend.propTypes = {
   enabled: PropTypes.bool
 }
-Legend.displayName = Legend;
+Legend.displayName = 'Legend';
 
 export default Legend;
