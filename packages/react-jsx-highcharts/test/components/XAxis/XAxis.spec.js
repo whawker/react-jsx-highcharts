@@ -1,34 +1,41 @@
 import React from 'react';
 import XAxis from '../../../src/components/XAxis/XAxis';
 import Axis from '../../../src/components/Axis';
+import { Provider } from '../../../src/components/ChartContext';
 import { createMockProvidedChart } from '../../test-utils'
 
 describe('<XAxis />', () => {
   let testContext;
-
+  let ProvidedAxis;
   beforeEach(() => {
     testContext = {};
-    const { chartStubs, getChart } = createMockProvidedChart({ type: 'chart' });
+    const { chartStubs, getChart, needsRedraw } = createMockProvidedChart({ type: 'chart' });
     testContext.chartStubs = chartStubs;
 
-    testContext.propsFromProviders = {
-      getChart
-    };
+    ProvidedAxis = (props) => (
+      <Provider value={{ getChart, needsRedraw }}>
+        <XAxis {...props}/>
+      </Provider>
+    );
+
   });
 
   it('renders an <Axis />', () => {
-    const wrapper = shallow(<XAxis {...testContext.propsFromProviders} />);
-    expect(wrapper.type()).toEqual(Axis);
+    const wrapper = mount(<ProvidedAxis />);
+    const axis = wrapper.find(Axis);
+    expect(axis).toExist();
   });
 
   it('renders an <Axis isX />', () => {
-    const wrapper = shallow(<XAxis {...testContext.propsFromProviders} />);
-    expect(wrapper).toHaveProp('isX', true);
+    const wrapper = mount(<ProvidedAxis />);
+    const axis = wrapper.find(Axis);
+    expect(axis).toHaveProp('isX', true);
   });
 
   it('passes other props through to <Axis />', () => {
-    const wrapper = shallow(<XAxis {...testContext.propsFromProviders} tickLength={1337} />);
-    expect(wrapper).toHaveProp('tickLength', 1337);
+    const wrapper = mount(<ProvidedAxis tickLength={1337} />);
+    const axis = wrapper.find(Axis);
+    expect(axis).toHaveProp('tickLength', 1337);
   });
 
   describe('Highcharts chart', () => {
@@ -37,23 +44,27 @@ describe('<XAxis />', () => {
     });
 
     it('renders the <Axis /> type if provided', () => {
-      const wrapper = shallow(<XAxis {...testContext.propsFromProviders} type="logarithmic"/>);
-      expect(wrapper).toHaveProp('type','logarithmic');
+      const wrapper = mount(<ProvidedAxis  type="logarithmic"/>);
+      const axis = wrapper.find(Axis);
+      expect(axis).toHaveProp('type','logarithmic');
     });
 
     it('renders the an <Axis type="linear" /> if no type specified', () => {
-      const wrapper = shallow(<XAxis {...testContext.propsFromProviders} />);
-      expect(wrapper).toHaveProp('type','linear');
+      const wrapper = mount(<ProvidedAxis {...testContext.propsFromProviders} />);
+      const axis = wrapper.find(Axis);
+      expect(axis).toHaveProp('type','linear');
     });
 
     it('uses the id prop if provided', () => {
-      const wrapper = shallow(<XAxis id='myXAxisId' {...testContext.propsFromProviders} />);
-      expect(wrapper).toHaveProp('id', 'myXAxisId');
+      const wrapper = mount(<ProvidedAxis id='myXAxisId' />);
+      const axis = wrapper.find(Axis);
+      expect(axis).toHaveProp('id', 'myXAxisId');
     });
 
     it('does not create an id if id prop not provided', () => {
-      const wrapper = shallow(<XAxis {...testContext.propsFromProviders} />);
-      expect(wrapper.props().id).not.toBeDefined();
+      const wrapper = mount(<ProvidedAxis />);
+      const axis = wrapper.find(Axis);
+      expect(axis.props().id).not.toBeDefined();
     });
   });
 
@@ -63,23 +74,27 @@ describe('<XAxis />', () => {
     });
 
     it('renders the <Axis /> type if provided', () => {
-      const wrapper = shallow(<XAxis {...testContext.propsFromProviders} type="logarithmic"/>);
-      expect(wrapper).toHaveProp('type','logarithmic');
+      const wrapper = mount(<ProvidedAxis  type="logarithmic"/>);
+      const axis = wrapper.find(Axis);
+      expect(axis).toHaveProp('type','logarithmic');
     });
 
     it('renders the an <Axis type="datetime" /> if no type specified', () => {
-      const wrapper = shallow(<XAxis {...testContext.propsFromProviders} />);
-      expect(wrapper).toHaveProp('type','datetime');
+      const wrapper = mount(<ProvidedAxis />);
+      const axis = wrapper.find(Axis);
+      expect(axis).toHaveProp('type','datetime');
     });
 
     it('uses the id `xAxis` even if an id prop is provided', () => {
-      const wrapper = shallow(<XAxis id='myXAxisId' {...testContext.propsFromProviders} />);
-      expect(wrapper).toHaveProp('id', 'xAxis');
+      const wrapper = mount(<ProvidedAxis id='myXAxisId' />);
+      const axis = wrapper.find(Axis);
+      expect(axis).toHaveProp('id', 'xAxis');
     });
 
     it('uses the id `xAxis` if id prop not provided', () => {
-      const wrapper = shallow(<XAxis {...testContext.propsFromProviders} />);
-      expect(wrapper).toHaveProp('id', 'xAxis');
+      const wrapper = mount(<ProvidedAxis />);
+      const axis = wrapper.find(Axis);
+      expect(axis).toHaveProp('id', 'xAxis');
     });
   })
 });
