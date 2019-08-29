@@ -1,47 +1,41 @@
-import { Component } from 'react';
-import PropTypes from 'prop-types';
+import { useEffect, useCallback, memo } from 'react';
 import { attempt } from 'lodash-es';
-import getModifiedProps from '../../utils/getModifiedProps';
+import useChart from '../UseChart';
+import useModifiedProps from '../UseModifiedProps';
 
-class LegendTitle extends Component {
 
-  static propTypes = {
-    getChart: PropTypes.func.isRequired, // Provided by ChartProvider
-    needsRedraw: PropTypes.func.isRequired // Provided by ChartProvider
-  };
+const LegendTitle = memo(({ children = null, ...restProps}) => {
 
-  componentDidMount () {
-    const { children: text, ...rest } = this.props;
-    this.updateLegendTitle({
-      ...rest,
-      text
-    });
-  }
+  const modifiedProps = useModifiedProps({ text: children, ...restProps});
 
-  componentDidUpdate (prevProps) {
-    const modifiedProps = getModifiedProps(prevProps, this.props, true);
-    if (modifiedProps !== false) {
-      this.updateLegendTitle(modifiedProps);
-    }
-  }
+  const { getChart, needsRedraw } = useChart();
 
-  componentWillUnmount () {
-    attempt(this.updateLegendTitle, { text: null });
-  }
-
-  updateLegendTitle = config => {
-    const chart = this.props.getChart();
+  const updateLegendTitle = useCallback(config => {
+    const chart = getChart();
     chart.update({
       legend: {
         title: config
       }
     }, false);
-    this.props.needsRedraw();
-  }
+    needsRedraw();
+  }, [getChart, needsRedraw]);
 
-  render () {
-    return null;
-  }
-}
+  // componentDidMount && componentDidUpdate
+  useEffect(() => {
+    if (modifiedProps !== false) {
+      updateLegendTitle(modifiedProps);
+    }
+  },[modifiedProps, updateLegendTitle]);
+
+  useEffect(() => {
+    // componentWillUnmount
+    return () => attempt(updateLegendTitle, { text: null });
+  },[updateLegendTitle]);
+
+  return children;
+})
+
+LegendTitle.displayName = 'LegendTitle';
 
 export default LegendTitle;
+
