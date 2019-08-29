@@ -8,6 +8,8 @@ export default function getModifiedProps (prevProps, currProps, childrenIsText =
   const modifiedProps = pickBy(rest, (value, propName) => {
     if (PROVIDED_PROPS.indexOf(propName) > -1) return false;
 
+    if (!prevProps) return true;
+
     return isEqual(value, prevProps[propName]) === false;
   });
 
