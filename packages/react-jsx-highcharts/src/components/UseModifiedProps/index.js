@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useDebugValue } from 'react';
 import getModifiedProps from '../../utils/getModifiedProps';
 
 export default function useModifiedProps(props) {
@@ -6,5 +6,9 @@ export default function useModifiedProps(props) {
   useEffect(() => {
     ref.current = props;
   });
-  return getModifiedProps(ref.current, props);
+  const modifiedProps = getModifiedProps(ref.current, props);
+
+  useDebugValue(modifiedProps ? 'Modified' : 'Not modified');
+
+  return modifiedProps;
 }
