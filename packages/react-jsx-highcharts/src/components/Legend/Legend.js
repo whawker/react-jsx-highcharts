@@ -1,50 +1,43 @@
-import { Component } from 'react';
+import { useEffect, useCallback, memo } from 'react';
 import PropTypes from 'prop-types';
 import { attempt } from 'lodash-es';
-import getModifiedProps from '../../utils/getModifiedProps';
+import useChart from '../UseChart';
+import useModifiedProps from '../UseModifiedProps';
 
-class Legend extends Component {
 
-  static propTypes = {
-    getChart: PropTypes.func.isRequired, // Provided by ChartProvider
-    needsRedraw: PropTypes.func.isRequired, // Provided by ChartProvider
-    enabled: PropTypes.bool.isRequired
-  };
+const Legend = memo(({ children = null, enabled = true, ...restProps}) => {
 
-  static defaultProps = {
-    children: null,
-    enabled: true
-  };
+  const modifiedProps = useModifiedProps({ enabled, ...restProps});
 
-  componentDidMount () {
-    const { children, ...rest } = this.props;
-    this.updateLegend({
-      ...rest
-    });
-  }
+  const { getChart, needsRedraw } = useChart();
 
-  componentDidUpdate (prevProps) {
-    const modifiedProps = getModifiedProps(prevProps, this.props);
-    if (modifiedProps !== false) {
-      this.updateLegend(modifiedProps);
-    }
-  }
-
-  componentWillUnmount () {
-    attempt(this.updateLegend, { enabled: false });
-  }
-
-  updateLegend = config => {
-    const chart = this.props.getChart();
+  const updateLegend = useCallback(config => {
+    const chart = getChart();
     chart.update({
       legend: config
     }, false);
-    this.props.needsRedraw();
-  }
+    needsRedraw();
+  }, [getChart, needsRedraw]);
 
-  render () {
-    return this.props.children;
-  }
+  // componentDidMount && componentDidUpdate
+  useEffect(() => {
+    if (modifiedProps !== false) {
+
+      updateLegend(modifiedProps);
+    }
+  },[modifiedProps, updateLegend]);
+
+  useEffect(() => {
+    // componentWillUnmount
+    return () => attempt(updateLegend, { enabled: false });
+  },[updateLegend]);
+
+  return children;
+})
+
+Legend.propTypes = {
+  enabled: PropTypes.bool
 }
+Legend.displayName = Legend;
 
 export default Legend;
