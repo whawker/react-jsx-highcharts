@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { memo, useMemo, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import uuid from 'uuid/v4';
 import { isEqual } from 'lodash-es';
@@ -10,119 +10,118 @@ import { Provider } from '../SeriesContext';
 import { getNonEventHandlerProps, getEventsConfig } from '../../utils/events';
 import getModifiedProps from '../../utils/getModifiedProps';
 import { logSeriesErrorMessage } from '../../utils/warnings';
+import usePrevious from '../UsePrevious';
 
-class Series extends Component {
+const Series = memo(({children = null, getAxis, getHighcharts, getChart, needsRedraw, ...restProps}) => {
 
-  static propTypes = {
-    id: PropTypes.oneOfType([ PropTypes.string, PropTypes.func ]).isRequired,
-    type: PropTypes.string.isRequired,
-    data: PropTypes.any,
-    visible: PropTypes.bool,
-    getChart: PropTypes.func, // Provided by ChartProvider
-    needsRedraw: PropTypes.func, // Provided by ChartProvider
-    getAxis: PropTypes.func // Provided by AxisProvider
-  };
-
-  static defaultProps = {
-    type: 'line',
-    id: uuid,
-    children: null,
-    data: [],
-    requiresAxis: true,
-    visible: true
-  };
-
-  constructor (props) {
-    super(props);
-
-    if (process.env.NODE_ENV === 'development') {
-      const { type, getHighcharts } = props;
-      const seriesTypes = Object.keys(getHighcharts().seriesTypes);
-      if (seriesTypes.indexOf(type) === -1) logSeriesErrorMessage(type)
-    }
+  if (process.env.NODE_ENV === 'development') {
+    const { type } = restProps;
+    const seriesTypes = Object.keys(getHighcharts().seriesTypes);
+    if (seriesTypes.indexOf(type) === -1) logSeriesErrorMessage(type)
   }
 
-  componentDidUpdate (prevProps) {
-    const { visible, data, ...rest } = this.props;
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const series = useMemo(() => createSeries(getChart(), restProps, getAxis),[]);
 
-    let needsRedraw = false;
+  useEffect(() => {
+    needsRedraw();
+    return () => {
+      if (series && series.remove) {
+        // Series may have already been removed, i.e. when Axis unmounted
+        attempt(series.remove.bind(series), false);
+        needsRedraw();
+      }
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[]);
+
+  const prevProps = usePrevious(restProps);
+
+  useEffect(() => {
+    if(!prevProps) return;
+    const { visible, data, ...rest } = restProps;
+
+    let doRedraw = false;
     // Using setData is more performant than update
     if (isImmutable(data) && immutableEqual(data, prevProps.data) === false) {
-      this.series.setData(data.toJS(), false);
-      needsRedraw = true;
+      series.setData(data.toJS(), false);
+      doRedraw = true;
     } else if (isEqual(data, prevProps.data) === false) {
-      this.series.setData(data, false);
-      needsRedraw = true;
+      series.setData(data, false);
+      doRedraw = true;
     }
     if (visible !== prevProps.visible) {
-      this.series.setVisible(visible, false);
-      needsRedraw = true;
+      series.setVisible(visible, false);
+      doRedraw = true;
     }
 
     const modifiedProps = getModifiedProps(prevProps, rest);
     if (modifiedProps !== false) {
-      this.series.update(modifiedProps, false);
-      needsRedraw = true;
+      series.update(modifiedProps, false);
+      doRedraw = true;
     }
-    if (needsRedraw) {
-      this.props.needsRedraw();
+    if (doRedraw) {
+      needsRedraw();
     }
-  }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [restProps]);
 
-  componentDidMount () {
-    this.props.needsRedraw();
-  }
 
-  componentWillUnmount () {
-    if (this.series && this.series.remove) {
-      // Series may have already been removed, i.e. when Axis unmounted
-      attempt(this.series.remove.bind(this.series), false);
-      this.props.needsRedraw();
-    }
-  }
+  return (
+    <Provider value={series}>
+      {children}
+    </Provider>
+  );
+})
 
-  getSeriesConfig = () => {
-    const { id, data, requiresAxis, getAxis, children, ...rest } = this.props;
+Series.displayName = 'Series';
 
-    const seriesId = typeof id === 'function' ? id() : id
-    const seriesData = isImmutable(data) ? data.toJS() : data;
-    const nonEventProps = getNonEventHandlerProps(rest);
-    const events = getEventsConfig(rest);
-
-    const config = {
-      id: seriesId,
-      data: seriesData,
-      events,
-      ...nonEventProps
-    }
-
-    if (defaultTo(requiresAxis, true)) {
-      const axis = getAxis();
-      if(!axis) throw new Error(`Series type="${this.props.type}" should be wrapped inside Axis`)
-      config[axis.type] = axis.id;
-    }
-
-    return config;
-  }
-
-  createSeries = () => {
-    const chart = this.props.getChart();
-
-    // Create Highcharts Series
-    const opts = this.getSeriesConfig();
-
-    this.series = chart.addSeries(opts, false);
-  }
-
-  render () {
-    if (!this.series) this.createSeries();
-
-    return (
-      <Provider value={this.series}>
-        {this.props.children}
-      </Provider>
-    );
-  }
+Series.defaultProps = {
+  type: 'line',
+  id: uuid,
+  data: [],
+  requiresAxis: true,
+  visible: true
 }
+Series.propTypes = {
+  id: PropTypes.oneOfType([ PropTypes.string, PropTypes.func ]).isRequired,
+  type: PropTypes.string.isRequired,
+  data: PropTypes.any,
+  visible: PropTypes.bool,
+  getAxis: PropTypes.func // Provided by AxisProvider
+}
+
+const getSeriesConfig = (props, getAxis) => {
+  const { id, requiresAxis, children, data, ...rest } = props;
+
+  const seriesId = typeof id === 'function' ? id() : id
+  const seriesData = isImmutable(data) ? data.toJS() : data;
+  const nonEventProps = getNonEventHandlerProps(rest);
+  const events = getEventsConfig(rest);
+
+  const config = {
+    id: seriesId,
+    data: seriesData,
+    events,
+    ...nonEventProps
+  }
+
+  if (defaultTo(requiresAxis, true)) {
+    const axis = getAxis();
+    if(!axis) throw new Error(`Series type="${props.type}" should be wrapped inside Axis`)
+    config[axis.type] = axis.id;
+  }
+
+  return config;
+}
+
+const createSeries = (chart, props, getAxis) => {
+
+  // Create Highcharts Series
+  const opts = getSeriesConfig(props, getAxis);
+
+  return chart.addSeries(opts, false);
+}
+
 
 export default Series;
