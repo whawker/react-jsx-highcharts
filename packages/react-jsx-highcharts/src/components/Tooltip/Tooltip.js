@@ -1,57 +1,56 @@
-import React, { Component } from 'react';
+import React, { useEffect, memo } from 'react';
 import PropTypes from 'prop-types';
 import { attempt } from 'lodash-es';
-import getModifiedProps from '../../utils/getModifiedProps';
+import { defaultTo } from 'lodash-es';
+import useChart from '../UseChart';
+import useHighcharts from '../UseHighcharts';
 
-class Tooltip extends Component {
+import useModifiedProps from '../UseModifiedProps';
 
-  static propTypes = {
-    getChart: PropTypes.func, // Provided by ChartProvider
-    needsRedraw: PropTypes.func, // Provided by ChartProvider
-    getHighcharts: PropTypes.func.isRequired, // Provided by HighchartsProvider
-    enabled: PropTypes.bool.isRequired
+const Tooltip = memo((props) => {
+  // eslint-disable-next-line no-unused-vars
+  const { children = null, ...restProps } = props;
+  const { getChart, needsRedraw } = useChart();
+  const getHighcharts = useHighcharts();
+  const modifiedProps = useModifiedProps(restProps);
+
+  restProps.enabled = defaultTo(props.enabled, true);
+
+  const updateTooltip = config => {
+    const chart = getChart();
+    chart.update({
+      tooltip: config
+    }, false);
+    needsRedraw();
   };
 
-  static defaultProps = {
-    children: null,
-    enabled: true
-  };
-
-  componentDidMount () {
-    const { children, getHighcharts, getChart, needsRedraw, ...rest } = this.props;
+  useEffect(() => {
     const Highcharts = getHighcharts();
-
     const chartObj = getChart().object;
 
     chartObj.tooltip = new Highcharts.Tooltip(chartObj, {
       ...(Highcharts.defaultOptions && Highcharts.defaultOptions.tooltip),
-      ...rest
+      ...restProps
     });
-    this.updateTooltip(rest);
-  }
+    return () => attempt(updateTooltip, { enabled: false });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
-  componentDidUpdate (prevProps) {
-    const modifiedProps = getModifiedProps(prevProps, this.props);
+  useEffect(() => {
     if (modifiedProps !== false) {
-      this.updateTooltip(modifiedProps);
+      updateTooltip(modifiedProps);
     }
-  }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props]);
 
-  componentWillUnmount () {
-    attempt(this.updateTooltip, { enabled: false });
-  }
+  return null;
+});
 
-  updateTooltip = config => {
-    const chart = this.props.getChart();
-    chart.update({
-      tooltip: config
-    }, false);
-    this.props.needsRedraw();
-  }
+Tooltip.displayName = 'Tooltip';
 
-  render () {
-    return null;
-  }
-}
+Tooltip.propTypes = {
+  enabled: PropTypes.bool
+};
+
 
 export default Tooltip;
