@@ -1,43 +1,32 @@
-import { Component } from 'react';
-import PropTypes from 'prop-types';
+import { useEffect, memo } from 'react';
 import { attempt } from 'lodash-es';
-import getModifiedProps from '../../utils/getModifiedProps';
+import useChart from '../UseChart';
+import useModifiedProps from '../UseModifiedProps';
 
-class Subtitle extends Component {
+const Subtitle = memo((props) => {
 
-  static propTypes = {
-    getChart: PropTypes.func, // Provided by ChartProvider
-    needsRedraw: PropTypes.func // Provided by ChartProvider
-  };
+  const { getChart, needsRedraw } = useChart();
 
-  componentDidMount () {
-    const { children: text, ...rest } = this.props;
-    this.updateSubtitle({
-      ...rest,
-      text
-    });
-  }
+  const modifiedProps = useModifiedProps(props, true);
 
-  componentDidUpdate (prevProps) {
-    const modifiedProps = getModifiedProps(prevProps, this.props, true);
-    if (modifiedProps !== false) {
-      this.updateSubtitle(modifiedProps);
-    }
-  }
-
-  componentWillUnmount () {
-    attempt(this.updateSubtitle, { text: null });
-  }
-
-  updateSubtitle = config => {
-    const chart = this.props.getChart();
+  const updateSubtitle = config => {
+    const chart = getChart();
     chart.setTitle(undefined, config, false);
-    this.props.needsRedraw();
+    needsRedraw();
   }
 
-  render () {
-    return null
-  }
-}
+  useEffect(() => {
+    if (modifiedProps !== false) {
+      updateSubtitle(modifiedProps);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[props]);
+
+  useEffect(() => {
+    return () => attempt(updateSubtitle, { text: null });
+  },[]);
+
+  return null;
+})
 
 export default Subtitle;
