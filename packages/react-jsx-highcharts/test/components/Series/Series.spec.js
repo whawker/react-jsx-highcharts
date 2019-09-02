@@ -39,6 +39,7 @@ describe('<Series />', () => {
       expect(testContext.chartStubs.addSeries).toHaveBeenCalledWith(expect.objectContaining(
         { id: 'mySeries', xAxis: 'myXAxisId', type: 'line', data: [], visible: true }, true
       ), false);
+      expect(testContext.chartStubs.addSeries).toHaveBeenCalledTimes(1);
       expect(testContext.propsFromProviders.needsRedraw).toHaveBeenCalledTimes(1);
     });
 
@@ -201,10 +202,12 @@ describe('<Series />', () => {
           id="mySeries" visible {...testContext.propsFromProviders} />
       );
       testContext.seriesStubs.update.mockReset();
+      testContext.needsRedraw.mockClear();
       wrapper.setProps({ visible: false });
       expect(testContext.seriesStubs.setVisible).toHaveBeenCalledWith(false, false);
       expect(testContext.seriesStubs.update).not.toHaveBeenCalled();
       expect(testContext.seriesStubs.setData).not.toHaveBeenCalled();
+      expect(testContext.needsRedraw).toHaveBeenCalledTimes(1);
     });
 
     it('should use the update method on correct series if arbritary props change', () => {
@@ -212,12 +215,14 @@ describe('<Series />', () => {
         <Series
           id="mySeries" visible {...testContext.propsFromProviders} />
       );
+      testContext.needsRedraw.mockClear();
       wrapper.setProps({ newPropName: 'newPropValue' });
       expect(testContext.seriesStubs.update).toHaveBeenCalledWith({
         newPropName: 'newPropValue'
       }, false);
       expect(testContext.seriesStubs.setData).not.toHaveBeenCalled();
       expect(testContext.seriesStubs.setVisible).not.toHaveBeenCalled();
+      expect(testContext.needsRedraw).toHaveBeenCalledTimes(1);
     });
 
     it('should use the most performant method available even when multiple props change', () => {
@@ -241,9 +246,10 @@ describe('<Series />', () => {
       const wrapper = mount(
         <Series id="mySeries" {...testContext.propsFromProviders} />
       );
+      testContext.needsRedraw.mockClear();
       wrapper.unmount();
-      expect(testContext.seriesStubs.remove).toHaveBeenCalled();
-      expect(testContext.needsRedraw).toHaveBeenCalledTimes(2);
+      expect(testContext.seriesStubs.remove).toHaveBeenCalledTimes(1);
+      expect(testContext.needsRedraw).toHaveBeenCalledTimes(1);
     });
   });
 });

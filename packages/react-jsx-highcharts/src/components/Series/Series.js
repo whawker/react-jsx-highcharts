@@ -1,4 +1,4 @@
-import React, { memo, useMemo, useEffect } from 'react';
+import React, { memo, useRef, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import uuid from 'uuid/v4';
 import { isEqual } from 'lodash-es';
@@ -20,15 +20,25 @@ const Series = memo(({children = null, getAxis, getHighcharts, getChart, needsRe
     if (seriesTypes.indexOf(type) === -1) logSeriesErrorMessage(type)
   }
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const series = useMemo(() => createSeries(getChart(), restProps, getAxis),[]);
+  if (defaultTo(restProps.requiresAxis, true)) {
+    const axis = getAxis();
+    if(!axis) throw new Error(`Series type="${restProps.type}" should be wrapped inside Axis`);
+  }
+
+
+  const seriesRef = useRef();
+  const [, setSeriesCreated] = useState(false);
+
+  const series = seriesRef.current;
 
   useEffect(() => {
+    seriesRef.current = createSeries(getChart(), restProps, getAxis);
+    setSeriesCreated(true);
     needsRedraw();
     return () => {
-      if (series && series.remove) {
+      if (seriesRef.current && seriesRef.current.remove) {
         // Series may have already been removed, i.e. when Axis unmounted
-        attempt(series.remove.bind(series), false);
+        attempt(seriesRef.current.remove.bind(series), false);
         needsRedraw();
       }
     }
@@ -38,7 +48,7 @@ const Series = memo(({children = null, getAxis, getHighcharts, getChart, needsRe
   const prevProps = usePrevious(restProps);
 
   useEffect(() => {
-    if(!prevProps) return;
+    if(!prevProps || !series) return;
     const { visible, data, ...rest } = restProps;
 
     let doRedraw = false;
@@ -66,6 +76,7 @@ const Series = memo(({children = null, getAxis, getHighcharts, getChart, needsRe
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [restProps]);
 
+  if(!series) return null;
 
   return (
     <Provider value={series}>
@@ -76,6 +87,7 @@ const Series = memo(({children = null, getAxis, getHighcharts, getChart, needsRe
 
 Series.displayName = 'Series';
 
+// TODO remove defaultProps, it is deprecated on functional components
 Series.defaultProps = {
   type: 'line',
   id: uuid,
@@ -108,7 +120,6 @@ const getSeriesConfig = (props, getAxis) => {
 
   if (defaultTo(requiresAxis, true)) {
     const axis = getAxis();
-    if(!axis) throw new Error(`Series type="${props.type}" should be wrapped inside Axis`)
     config[axis.type] = axis.id;
   }
 
