@@ -27,13 +27,13 @@ const Series = memo(({children = null, getAxis, getHighcharts, getChart, needsRe
 
 
   const seriesRef = useRef();
-  const [, setSeriesCreated] = useState(false);
+  const [hasSeries, setHasSeries] = useState(false);
 
   const series = seriesRef.current;
 
   useEffect(() => {
     seriesRef.current = createSeries(getChart(), restProps, getAxis);
-    setSeriesCreated(true);
+    setHasSeries(true);
     needsRedraw();
     return () => {
       if (seriesRef.current && seriesRef.current.remove) {
@@ -48,7 +48,7 @@ const Series = memo(({children = null, getAxis, getHighcharts, getChart, needsRe
   const prevProps = usePrevious(restProps);
 
   useEffect(() => {
-    if(!prevProps || !series) return;
+    if(!prevProps || !hasSeries) return;
     const { visible, data, ...rest } = restProps;
 
     let doRedraw = false;

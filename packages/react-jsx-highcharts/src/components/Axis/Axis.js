@@ -1,89 +1,99 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import uuid from 'uuid/v4';
 import { attempt } from 'lodash-es';
 import { Provider } from '../AxisContext';
 import { getNonEventHandlerProps, getEventsConfig } from '../../utils/events';
-import getModifiedProps from '../../utils/getModifiedProps';
 import { validAxisTypes } from '../../utils/propTypeValidators';
+import useModifiedProps from '../UseModifiedProps';
+import useChart from '../UseChart';
 
-class Axis extends Component {
 
-  static propTypes = {
-    type: validAxisTypes,
-    id: PropTypes.oneOfType([ PropTypes.string, PropTypes.func ]).isRequired,
-    children: PropTypes.node,
-    getChart: PropTypes.func, // Provided by ChartProvider
-    needsRedraw: PropTypes.func, // Provided by ChartProvider
-    dynamicAxis: PropTypes.bool.isRequired
-  };
+const Axis = (props) => {
+  const { children = null, ...restProps } = props;
 
-  static defaultProps = {
-    id: uuid,
-    children: null,
-    dynamicAxis: true
-  };
+  const { getChart, needsRedraw } = useChart();
 
-  componentDidUpdate (prevProps) {
-    const modifiedProps = getModifiedProps(prevProps, this.props);
+  const axisRef = useRef(null);
+  const [hasAxis, setHasAxis] = useState(false);
+
+  useEffect(() => {
+    axisRef.current = createAxis(restProps, getChart());
+    setHasAxis(true);
+    needsRedraw();
+    return () => {
+      const axis = axisRef.current;
+      if (axis.remove) {
+        // Axis may have already been removed, i.e. when Chart unmounted
+        attempt(axis.remove.bind(axis), false);
+        needsRedraw();
+      }
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[]);
+
+  const modifiedProps = useModifiedProps(restProps);
+
+  useEffect(() => {
+    if (!hasAxis) return;
     if (modifiedProps !== false) {
-      this.axis.update(modifiedProps, false);
-      this.props.needsRedraw();
+      const axis = axisRef.current;
+      axis.update(modifiedProps, false);
+      needsRedraw();
     }
-  }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props]);
 
-  componentDidMount () {
-    this.props.needsRedraw();
-  }
+  if (!hasAxis) return null;
 
-  componentWillUnmount () {
-    if (this.axis.remove) {
-      // Axis may have already been removed, i.e. when Chart unmounted
-      attempt(this.axis.remove.bind(this.axis), false);
-      this.props.needsRedraw();
-    }
-  }
+  return (
+    <Provider value={axisRef.current}>
+      {children}
+    </Provider>
+  );
+}
 
-  getAxisConfig = () => {
-    const { id, children, ...rest } = this.props;
+const getAxisConfig = (props) => {
+  const { id = uuid, ...rest } = props;
 
-    const axisId = typeof id === 'function' ? id() : id
-    const nonEventProps = getNonEventHandlerProps(rest);
-    const events = getEventsConfig(rest);
+  const axisId = typeof id === 'function' ? id() : id
+  const nonEventProps = getNonEventHandlerProps(rest);
+  const events = getEventsConfig(rest);
 
-    return {
-      id: axisId,
-      title: { text: null },
-      events,
-      ...nonEventProps
-    }
-  }
-
-  createAxis = () => {
-    const { id, dynamicAxis, isX, getChart } = this.props;
-    const chart = getChart();
-
-    // Create Highcharts Axis
-    const opts = this.getAxisConfig();
-    if (dynamicAxis) {
-      this.axis = chart.addAxis(opts, isX, false);
-    } else {
-      // ZAxis cannot be added dynamically, Maps only have a single axes - update instead
-      const axisId = typeof id === 'function' ? id() : id
-      this.axis = chart.get(axisId);
-      this.axis.update.call(this.axis, opts, false);
-    }
-  }
-
-  render () {
-    if (!this.axis) this.createAxis();
-
-    return (
-      <Provider value={this.axis}>
-        {this.props.children}
-      </Provider>
-    );
+  return {
+    id: axisId,
+    title: { text: null },
+    events,
+    ...nonEventProps
   }
 }
+
+const createAxis = (props, chart) => {
+  const { id = uuid, dynamicAxis, isX } = props;
+
+  // Create Highcharts Axis
+  const opts = getAxisConfig(props);
+  let axis;
+  if (dynamicAxis) {
+    axis = chart.addAxis(opts, isX, false);
+  } else {
+    // ZAxis cannot be added dynamically, Maps only have a single axes - update instead
+    const axisId = typeof id === 'function' ? id() : id
+    axis = chart.get(axisId);
+    axis.update.call(axis, opts, false);
+  }
+  return axis;
+}
+
+Axis.propTypes = {
+  type: validAxisTypes,
+  id: PropTypes.oneOfType([ PropTypes.string, PropTypes.func ]),
+  children: PropTypes.node,
+  dynamicAxis: PropTypes.bool.isRequired
+};
+
+Axis.defaultProps = {
+  dynamicAxis: true
+};
 
 export default Axis;
