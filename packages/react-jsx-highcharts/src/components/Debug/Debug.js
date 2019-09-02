@@ -4,7 +4,7 @@ import Hidden from '../Hidden';
 import useChart from '../UseChart';
 
 const Debug = ({ varName = 'chart' }) => {
-  const getChart = useChart();
+  const { getChart } = useChart();
 
   useEffect(() => {
     const chart = getChart()
