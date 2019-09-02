@@ -1,9 +1,9 @@
-import { useEffect } from 'react';
+import { useEffect, memo } from 'react';
 import { attempt } from 'lodash-es';
 import useChart from '../UseChart';
 import useModifiedProps from '../UseModifiedProps';
 
-const Title = (props) => {
+const Title = memo((props) => {
 
   const { getChart, needsRedraw } = useChart();
 
@@ -27,6 +27,6 @@ const Title = (props) => {
   },[]);
 
   return null;
-}
+})
 
 export default Title;
