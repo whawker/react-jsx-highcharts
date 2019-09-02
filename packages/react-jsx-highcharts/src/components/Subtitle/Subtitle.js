@@ -24,6 +24,7 @@ const Subtitle = memo((props) => {
 
   useEffect(() => {
     return () => attempt(updateSubtitle, { text: null });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   },[]);
 
   return null;
