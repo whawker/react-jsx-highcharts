@@ -13,7 +13,7 @@ export default function getModifiedProps (prevProps, currProps, childrenIsText =
     return isEqual(value, prevProps[propName]) === false;
   });
 
-  if (childrenIsText && isEqual(prevProps.children, children) === false) {
+  if (childrenIsText && (!prevProps || isEqual(prevProps.children, children) === false)) {
     modifiedProps.text = children;
   }
 
