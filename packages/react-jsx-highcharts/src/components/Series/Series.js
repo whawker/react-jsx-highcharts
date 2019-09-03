@@ -26,19 +26,21 @@ const Series = memo(({children = null, getAxis, getHighcharts, getChart, needsRe
   }
 
 
-  const seriesRef = useRef();
-  const [hasSeries, setHasSeries] = useState(false);
+  const seriesRef = useRef(null);
+  const [, setHasSeries] = useState(false);
 
-  const series = seriesRef.current;
+
 
   useEffect(() => {
     seriesRef.current = createSeries(getChart(), restProps, getAxis);
     setHasSeries(true);
     needsRedraw();
     return () => {
-      if (seriesRef.current && seriesRef.current.remove) {
+      const series = seriesRef.current;
+      if (series && series.remove) {
         // Series may have already been removed, i.e. when Axis unmounted
-        attempt(seriesRef.current.remove.bind(series), false);
+        attempt(series.remove.bind(series), false);
+        seriesRef.current = null;
         needsRedraw();
       }
     }
@@ -48,7 +50,8 @@ const Series = memo(({children = null, getAxis, getHighcharts, getChart, needsRe
   const prevProps = usePrevious(restProps);
 
   useEffect(() => {
-    if(!prevProps || !hasSeries) return;
+    if(!prevProps || !seriesRef.current) return;
+    const series = seriesRef.current;
     const { visible, data, ...rest } = restProps;
 
     let doRedraw = false;
@@ -76,10 +79,10 @@ const Series = memo(({children = null, getAxis, getHighcharts, getChart, needsRe
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [restProps]);
 
-  if(!series) return null;
+  if(!seriesRef.current) return null;
 
   return (
-    <Provider value={series}>
+    <Provider value={seriesRef.current}>
       {children}
     </Provider>
   );
