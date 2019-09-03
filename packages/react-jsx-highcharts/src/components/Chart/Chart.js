@@ -1,78 +1,85 @@
-import { Component } from 'react';
+import { useEffect, useRef, memo } from 'react';
 import PropTypes from 'prop-types';
 import { addEventHandlersManually, getNonEventHandlerProps } from '../../utils/events';
-import getModifiedProps from '../../utils/getModifiedProps';
+import useModifiedProps from '../UseModifiedProps';
+import useChart from '../UseChart';
+import useHighcharts from '../UseHighcharts';
 
-class Chart extends Component {
+const Chart = memo((props) => {
+  const { getChart, needsRedraw } = useChart();
+  const getHighcharts = useHighcharts();
+  const mounted = useRef(false);
 
-  static propTypes = {
-    type: PropTypes.string.isRequired,
-    width: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number
-    ]),
-    height: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number
-    ]),
-    onAddSeries: PropTypes.func,
-    onAfterPrint: PropTypes.func,
-    onBeforePrint: PropTypes.func,
-    onClick: PropTypes.func,
-    onLoad: PropTypes.func,
-    onRedraw: PropTypes.func,
-    onRender: PropTypes.func,
-    onSelection: PropTypes.func,
-    getChart: PropTypes.func.isRequired, // Provided by ChartProvider
-    getHighcharts: PropTypes.func.isRequired // Provided by HighchartsProvider
-  };
+  const modifiedProps = useModifiedProps(props);
 
-  static defaultProps = {
-    type: 'line',
-    onAddSeries: () => {},
-    onAfterPrint: () => {},
-    onBeforePrint: () => {},
-    onClick: () => {},
-    onLoad: () => {},
-    onRedraw: () => {},
-    onRender: () => {},
-    onSelection: () => {}
-  };
+  useEffect(() => {
+    if(modifiedProps !== false && mounted.current) {
+      const { width, height, ...restModified } = modifiedProps;
+      if(width || height) {
+        getChart().setSize(props.width, props.height);
+      }
+      if(Object.getOwnPropertyNames(restModified).length > 0) {
+        updateChart(restModified, getChart(), needsRedraw);
+      }
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[props]);
 
-  componentDidMount () {
-    const { width, height, getHighcharts, getChart, needsRedraw, children, ...rest } = this.props;
+  useEffect(() => {
+    const { width, height, ...rest } = props;
+
     const notEventProps = getNonEventHandlerProps(rest);
     const chart = getChart();
 
     chart.setSize(width, height);
-    this.updateChart(notEventProps);
+    updateChart(notEventProps, getChart(), needsRedraw);
     addEventHandlersManually(getHighcharts(), chart.object, rest);
-  }
+    mounted.current = true;
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[]);
 
-  componentDidUpdate (prevProps) {
-    const { width, height, getChart, ...rest } = this.props;
+  return null;
+})
 
-    if (width !== prevProps.width || height !== prevProps.height) {
-      getChart().setSize(width, height);
-    }
-
-    const modifiedProps = getModifiedProps(prevProps, rest);
-    if (modifiedProps !== false) {
-      this.updateChart(modifiedProps);
-    }
-  }
-
-  updateChart = config => {
-    const chart = this.props.getChart();
-    chart.update({
-      chart: config
-    }, false);
-    this.props.needsRedraw();
-  }
-
-  render () {
-    return null;
-  }
+const updateChart = (config, chart, needsRedraw) => {
+  chart.update({
+    chart: config
+  }, false);
+  needsRedraw();
 }
+
+Chart.propTypes = {
+  type: PropTypes.string.isRequired,
+  width: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number
+  ]),
+  height: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number
+  ]),
+  onAddSeries: PropTypes.func,
+  onAfterPrint: PropTypes.func,
+  onBeforePrint: PropTypes.func,
+  onClick: PropTypes.func,
+  onLoad: PropTypes.func,
+  onRedraw: PropTypes.func,
+  onRender: PropTypes.func,
+  onSelection: PropTypes.func
+};
+
+Chart.defaultProps = {
+  type: 'line',
+  onAddSeries: () => {},
+  onAfterPrint: () => {},
+  onBeforePrint: () => {},
+  onClick: () => {},
+  onLoad: () => {},
+  onRedraw: () => {},
+  onRender: () => {},
+  onSelection: () => {}
+};
+
+Chart.displayName = 'Chart';
 
 export default Chart;
