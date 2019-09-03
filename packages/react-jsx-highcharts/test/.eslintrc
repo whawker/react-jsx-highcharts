@@ -7,7 +7,11 @@
     "jest": true
   },
   "rules": {
-    "no-unused-vars": ["warn"]
+    "no-unused-vars": ["warn"],
+    "react-perf/jsx-no-new-function-as-prop": "off",
+    "react-perf/jsx-no-new-object-as-prop": "off",
+    "react-perf/jsx-no-new-array-as-prop": "off",
+    "react/display-name": "off"
   },
   "globals": {
     "mount": true,

@@ -61,7 +61,7 @@ describe('<DelayRender />', () => {
         <ChildComponent/>
       </DelayRender>
     );
-    const setStateSpy = spyOn(wrapper.instance(), 'setState');
+    const setStateSpy = jest.spyOn(wrapper.instance(), 'setState');
     jest.advanceTimersByTime(1);
 
     expect(setStateSpy).toHaveBeenCalledWith({ render: true });
@@ -73,7 +73,7 @@ describe('<DelayRender />', () => {
         <ChildComponent/>
       </DelayRender>
     );
-    const setStateSpy = spyOn(wrapper.instance(), 'setState');
+    const setStateSpy = jest.spyOn(wrapper.instance(), 'setState');
     wrapper.unmount();
     jest.advanceTimersByTime(1);
 

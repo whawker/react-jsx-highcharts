@@ -28,9 +28,7 @@ import {
   Chart,
   YAxis,
   XAxis,
-  Navigator,
-  withHighcharts,
-  Title
+  withHighcharts
 } from '../../../src';
 import { renderIntoDocument } from 'react-dom/test-utils'
 
