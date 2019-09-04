@@ -20,6 +20,7 @@ export const createMockChart = () => ({
   hideLoading: jest.fn(),
   addCredits: jest.fn(),
   redraw: jest.fn(),
+  setCaption: jest.fn(),
 })
 
 export const createMockProvidedChart = () => {

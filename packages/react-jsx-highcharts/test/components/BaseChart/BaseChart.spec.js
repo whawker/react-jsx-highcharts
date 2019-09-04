@@ -155,6 +155,7 @@ describe('<BaseChart />', () => {
         expect(chartProp.addAxis).toEqual(expect.any(Function));
         expect(chartProp.addSeries).toEqual(expect.any(Function));
         expect(chartProp.setTitle).toEqual(expect.any(Function));
+        expect(chartProp.setCaption).toEqual(expect.any(Function));
         expect(chartProp.showLoading).toEqual(expect.any(Function));
         expect(chartProp.hideLoading).toEqual(expect.any(Function));
         expect(chartProp.addCredits).toEqual(expect.any(Function));
@@ -169,6 +170,7 @@ describe('<BaseChart />', () => {
       chart.addAxis.mockReturnValueOnce('addAxis method mock');
       chart.addSeries.mockReturnValueOnce('addSeries method mock');
       chart.setTitle.mockReturnValueOnce('setTitle method mock');
+      chart.setCaption.mockReturnValueOnce('setCaption method mock');
       chart.showLoading.mockReturnValueOnce('showLoading method mock');
       chart.hideLoading.mockReturnValueOnce('hideLoading method mock');
       chart.addCredits.mockReturnValueOnce('addCredits method mock');
@@ -192,6 +194,7 @@ describe('<BaseChart />', () => {
         expect(chartProp.addAxis({ prop: 'Test4567' })).toEqual('addAxis method mock');
         expect(chartProp.addSeries({ prop: 'Test7654' })).toEqual('addSeries method mock');
         expect(chartProp.setTitle({ prop: 'Test8080' })).toEqual('setTitle method mock');
+        expect(chartProp.setCaption({ prop: 'Test8080' })).toEqual('setCaption method mock');
         expect(chartProp.showLoading({ prop: 'Test1111' })).toEqual('showLoading method mock');
         expect(chartProp.hideLoading({ prop: 'Test2222' })).toEqual('hideLoading method mock');
         expect(chartProp.addCredits({ prop: 'Test3333' })).toEqual('addCredits method mock');
@@ -206,6 +209,7 @@ describe('<BaseChart />', () => {
       chart.addAxis.mockReturnThis();
       chart.addSeries.mockReturnThis();
       chart.setTitle.mockReturnThis();
+      chart.setCaption.mockReturnThis();
       chart.showLoading.mockReturnThis();
       chart.hideLoading.mockReturnThis();
       chart.addCredits.mockReturnThis();
@@ -229,6 +233,7 @@ describe('<BaseChart />', () => {
         expect(chartProp.addAxis({ prop: 'Test4567' })).toEqual(chart);
         expect(chartProp.addSeries({ prop: 'Test7654' })).toEqual(chart);
         expect(chartProp.setTitle({ prop: 'Test8080' })).toEqual(chart);
+        expect(chartProp.setCaption({ prop: 'Test8080' })).toEqual(chart);
         expect(chartProp.showLoading({ prop: 'Test1111' })).toEqual(chart);
         expect(chartProp.hideLoading({ prop: 'Test2222' })).toEqual(chart);
         expect(chartProp.addCredits({ prop: 'Test3333' })).toEqual(chart);
@@ -249,7 +254,7 @@ describe('<BaseChart />', () => {
 
       wrapper.setState({ rendered: true }, () => {
         const child = wrapper.find(ChildComponent).props().getChart();
-        const cleanedFunctions = ['update', 'addAxis', 'addSeries', 'setTitle', 'addCredits'];
+        const cleanedFunctions = ['update', 'addAxis', 'addSeries', 'setTitle', 'addCredits', 'setCaption'];
         expect(cleanSpy).toHaveBeenCalledTimes(cleanedFunctions.length);
         done();
       });

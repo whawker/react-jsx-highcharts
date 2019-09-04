@@ -123,6 +123,7 @@ class BaseChart extends Component {
       addAxis: clean(chart.addAxis.bind(chart)),
       addSeries: clean(chart.addSeries.bind(chart)),
       setTitle: clean(chart.setTitle.bind(chart)),
+      setCaption: chart.setCaption ? clean(chart.setCaption.bind(chart)) : null,
       showLoading: chart.showLoading.bind(chart),
       hideLoading: chart.hideLoading.bind(chart),
       addCredits: clean(chart.addCredits.bind(chart)),
