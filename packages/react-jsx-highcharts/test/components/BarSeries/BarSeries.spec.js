@@ -2,42 +2,42 @@ import React from 'react';
 import { createMockProvidedChart, createMockProvidedAxis } from '../../test-utils'
 import Series from '../../../src/components/Series';
 import BarSeries from '../../../src/components/BarSeries/BarSeries';
+import ChartContext from '../../../src/components/ChartContext';
 
 describe('<BarSeries />', () => {
   let testContext;
-
+  let ProvidedBarSeries;
   beforeEach(() => {
     testContext = {};
 
     const { chartStubs, getChart } = createMockProvidedChart();
-    const { axisStubs, getAxis } = createMockProvidedAxis({ id: 'myAxis', type: 'yAxis' });
 
     testContext.chartStubs = chartStubs;
-    testContext.axisStubs = axisStubs;
 
-    testContext.propsFromProviders = {
-      getChart,
-      getAxis
-    };
+    ProvidedBarSeries = (props) => (
+      <ChartContext.Provider value={{ getChart }}>
+        <BarSeries {...props} />
+      </ChartContext.Provider>
+    )
   });
 
   it('renders a <Series />', () => {
-    const wrapper = shallow(<BarSeries id="mySeries" {...testContext.propsFromProviders} />);
-    expect(wrapper.type()).toEqual(Series);
+    const wrapper = mount(<ProvidedBarSeries id="mySeries" />);
+    expect(wrapper.find(Series)).toExist();
   });
 
   it('renders a <Series type="bar" />', () => {
-    const wrapper = shallow(<BarSeries id="mySeries" {...testContext.propsFromProviders} />);
-    expect(wrapper).toHaveProp('type','bar');
+    const wrapper = mount(<ProvidedBarSeries id="mySeries" />);
+    expect(wrapper.find(Series)).toHaveProp('type','bar');
   });
 
   it('passes other props through to <Series />', () => {
-    const wrapper = shallow(<BarSeries id="myOtherSeries" data={[1, 2, 3, 4]} {...testContext.propsFromProviders} />);
-    expect(wrapper).toHaveProp('data',[1, 2, 3, 4]);
+    const wrapper = mount(<ProvidedBarSeries id="myOtherSeries" data={[1, 2, 3, 4]} />);
+    expect(wrapper.find(Series)).toHaveProp('data',[1, 2, 3, 4]);
   });
 
   it('inverts the chart on mount', () => {
-    shallow(<BarSeries id="mySeries" {...testContext.propsFromProviders} />);
+    mount(<ProvidedBarSeries id="mySeries" />);
     expect(testContext.chartStubs.update).toHaveBeenCalledWith({
       chart: {
         inverted: true

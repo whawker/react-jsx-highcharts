@@ -1,27 +1,26 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Series from '../Series';
+import useChart from '../UseChart';
 
-class BarSeries extends Component {
-  static propTypes = {
-    id: PropTypes.oneOfType([ PropTypes.string, PropTypes.func ]),
-    getChart: PropTypes.func.isRequired // Provided by ChartProvider
-  };
+const BarSeries = (props) => {
+  const { getChart } = useChart();
 
-  componentDidMount () {
-    const chart = this.props.getChart();
+  useEffect(() => {
+    const chart = getChart();
     chart.update({
       chart: {
         inverted: true
       }
     });
-  }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[]);
 
-  render () {
-    return (
-      <Series {...this.props} type="bar" />
-    );
-  }
+  return (
+    <Series {...props} type="bar" />
+  );
 }
-
+BarSeries.propTypes = {
+  id: PropTypes.oneOfType([ PropTypes.string, PropTypes.func ])
+};
 export default BarSeries;
