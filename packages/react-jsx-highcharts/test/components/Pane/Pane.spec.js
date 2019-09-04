@@ -1,25 +1,28 @@
 import React from 'react';
 import { createMockProvidedChart } from '../../test-utils'
 import Pane from '../../../src/components/Pane/Pane';
+import ChartContext from '../../../src/components/ChartContext';
 
 describe('<Pane />', () => {
   let testContext;
-
+  let ProvidedPane;
   beforeEach(() => {
     testContext = {};
     const { chartStubs, getChart, needsRedraw } = createMockProvidedChart();
     testContext.chartStubs = chartStubs;
+    testContext.needsRedraw = needsRedraw;
 
-    testContext.propsFromProviders = {
-      getChart,
-      needsRedraw
-    };
+    ProvidedPane = props => (
+      <ChartContext.Provider value={{ getChart, needsRedraw }}>
+        <Pane {...props}/>
+      </ChartContext.Provider>
+    );
   });
 
   describe('when mounted', () => {
     it('set Pane options using the Highcharts update method', () => {
       mount(
-        <Pane center={['50%', '85%']} size='100%' {...testContext.propsFromProviders} />
+        <ProvidedPane center={['50%', '85%']} size='100%' />
       );
       expect(testContext.chartStubs.update).toHaveBeenCalledWith({
         pane: expect.objectContaining({
@@ -27,14 +30,22 @@ describe('<Pane />', () => {
           size: '100%'
         })
       }, false);
-      expect(testContext.propsFromProviders.needsRedraw).toHaveBeenCalledTimes(1);
+      expect(testContext.needsRedraw).toHaveBeenCalledTimes(1);
+    });
+
+    it('does not add pane with empty props', () => {
+      mount(
+        <ProvidedPane />
+      );
+      expect(testContext.chartStubs.update).not.toHaveBeenCalled();
+      expect(testContext.needsRedraw).not.toHaveBeenCalled();
     });
   });
 
   describe('update', () => {
     it('should use the update method when props change', () => {
       const wrapper = mount(
-        <Pane {...testContext.propsFromProviders} />
+        <ProvidedPane />
       );
       wrapper.setProps({ size: '50%' });
       expect(testContext.chartStubs.update).toHaveBeenCalledWith(expect.objectContaining({
@@ -42,18 +53,20 @@ describe('<Pane />', () => {
           size: '50%'
         }
       }), false);
-      expect(testContext.propsFromProviders.needsRedraw).toHaveBeenCalledTimes(2);
+      expect(testContext.needsRedraw).toHaveBeenCalledTimes(1);
     });
   });
 
   describe('when unmounted', () => {
     it('should disable the Pane', () => {
-      const wrapper = mount(<Pane {...testContext.propsFromProviders} />);
+      const wrapper = mount(<ProvidedPane size='100%' />);
+      expect(testContext.needsRedraw).toHaveBeenCalledTimes(1);
+      testContext.needsRedraw.mockClear();
       wrapper.unmount();
       expect(testContext.chartStubs.update).toHaveBeenCalledWith(expect.objectContaining({
         pane: {}
       }), false);
-      expect(testContext.propsFromProviders.needsRedraw).toHaveBeenCalledTimes(2);
+      expect(testContext.needsRedraw).toHaveBeenCalledTimes(1);
     });
   });
 });

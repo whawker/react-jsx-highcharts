@@ -1,47 +1,34 @@
-import { Component } from 'react';
-import PropTypes from 'prop-types';
+import { useEffect, memo } from 'react';
 import { attempt } from 'lodash-es';
-import getModifiedProps from '../../utils/getModifiedProps';
+import useChart from '../UseChart';
+import useModifiedProps from '../UseModifiedProps';
 
-class Pane extends Component {
+const Pane = memo((props) => {
+  const { getChart, needsRedraw } = useChart();
 
-  static propTypes = {
-    getChart: PropTypes.func.isRequired // Provided by ChartProvider
-  };
 
-  static defaultProps = {
-    children: null
-  };
+  const modifiedProps = useModifiedProps(props);
 
-  componentDidMount () {
-    const { children, ...rest } = this.props;
-    this.updatePane({
-      ...rest
-    });
-  }
-
-  componentDidUpdate (prevProps) {
-    const modifiedProps = getModifiedProps(prevProps, this.props);
+  useEffect(()=> {
     if (modifiedProps !== false) {
-      this.updatePane(modifiedProps);
+      updatePane(modifiedProps, getChart(), needsRedraw);
     }
-  }
+  })
 
-  componentWillUnmount () {
-    attempt(this.updatePane, {});
-  }
+  useEffect(() => {
+    return () => attempt(updatePane, {}, getChart(), needsRedraw);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[]);
 
-  updatePane = config => {
-    const chart = this.props.getChart();
-    chart.update({
-      pane: config
-    }, false);
-    this.props.needsRedraw();
-  }
+  return null;
+})
 
-  render () {
-    return null;
-  }
+const updatePane = (config, chart, needsRedraw) => {
+  chart.update({
+    pane: config
+  }, false);
+  needsRedraw();
 }
+Pane.displayName = 'Pane';
 
 export default Pane;
