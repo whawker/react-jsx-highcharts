@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { createMockChart } from '../../test-utils';
 import * as clean from '../../../src/utils/removeProvidedProps';
-import * as highchartsProvider from '../../../src/components/HighchartsProvider';
 import { Provider } from '../../../src/components/ChartContext';
 import provideChart from '../../../src/components/ChartProvider';
+import HighchartsContext from '../../../src/components/HighchartsContext';
 
 const WrappedComponent = props => (
   <div />
@@ -11,13 +11,7 @@ const WrappedComponent = props => (
 let ChartWrappedComponent;
 
 describe('<ChartProvider />', () => {
-  let suiteContext;
   let testContext;
-
-  beforeAll(function () {
-    suiteContext = {};
-    suiteContext.highchartsProviderStub = jest.spyOn(highchartsProvider, 'default').mockImplementation(v => v);
-  });
 
   beforeEach(() => {
     testContext = {};
@@ -57,14 +51,16 @@ describe('<ChartProvider />', () => {
     expect(wrapper.find(WrappedComponent)).toExist();
   });
 
-  it('should additionally wrap the component with the Highcharts context', () => {
-    mount(
-      <Provider value={{ chart: testContext.chart, chartType: testContext.chartType }}>
-        <ChartWrappedComponent />
-      </Provider>
+  it('should additionally provide the component with getHighcharts', () => {
+    const getHighcharts = jest.fn();
+    const wrapper = mount(
+      <HighchartsContext.Provider value={getHighcharts}>
+        <Provider value={{ getChart: () => null }}>
+          <ChartWrappedComponent />
+        </Provider>
+      </HighchartsContext.Provider>
     );
-
-    expect(suiteContext.highchartsProviderStub).toHaveBeenCalledWith(ChartWrappedComponent);
+    expect(wrapper.find(WrappedComponent).prop('getHighcharts')).toEqual(getHighcharts);
   });
 
   it('should provide a getChart prop to the wrapped component', () => {
