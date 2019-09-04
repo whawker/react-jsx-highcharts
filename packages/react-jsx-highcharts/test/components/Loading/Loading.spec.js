@@ -1,39 +1,42 @@
 import React from 'react';
 import { createMockProvidedChart } from '../../test-utils'
 import Loading from '../../../src/components/Loading/Loading';
+import ChartContext from '../../../src/components/ChartContext';
 
 describe('<Loading />', () => {
   let testContext;
-
+  let ProvidedLoading;
   beforeEach(() => {
     testContext = {};
     const { chartStubs, getChart } = createMockProvidedChart();
     testContext.chartStubs = chartStubs;
+    ProvidedLoading = (props) => (
+      <ChartContext.Provider value={{ getChart }}>
+        <Loading {...props} />
+      </ChartContext.Provider>
+    )
 
-    testContext.propsFromProviders = {
-      getChart
-    };
   });
 
   describe('when mounted', () => {
     it('displays loading message using the Highcharts showLoading method', () => {
-      mount(<Loading {...testContext.propsFromProviders}>My Loading Message</Loading>);
+      mount(<ProvidedLoading>My Loading Message</ProvidedLoading>);
       expect(testContext.chartStubs.showLoading).toHaveBeenCalledWith('My Loading Message');
     });
 
     it('does not display loading message if isLoading prop is false', () => {
-      mount(<Loading {...testContext.propsFromProviders} isLoading={false}>My Loading Message</Loading>);
+      mount(<ProvidedLoading isLoading={false}>My Loading Message</ProvidedLoading>);
       expect(testContext.chartStubs.showLoading).not.toHaveBeenCalled();
     });
 
     it('displays loading message using the Highcharts showLoading method if isLoading is true', () => {
-      mount(<Loading {...testContext.propsFromProviders} isLoading>My Is Loading Message</Loading>);
+      mount(<ProvidedLoading isLoading>My Is Loading Message</ProvidedLoading>);
       expect(testContext.chartStubs.showLoading).toHaveBeenCalledWith('My Is Loading Message');
     });
 
     it('updates the loading config with the passed props', () => {
       mount(
-        <Loading {...testContext.propsFromProviders} hideDuration={2500}>Slow hiding loading</Loading>
+        <ProvidedLoading hideDuration={2500}>Slow hiding loading</ProvidedLoading>
       );
       expect(testContext.chartStubs.update).toHaveBeenCalledWith(expect.objectContaining({
         loading: {
@@ -46,7 +49,7 @@ describe('<Loading />', () => {
   describe('update', () => {
     it('should use the showLoading method when isLoading changes to true', () => {
       const wrapper = mount(
-        <Loading {...testContext.propsFromProviders} isLoading={false}>Changes to true</Loading>
+        <ProvidedLoading isLoading={false}>Changes to true</ProvidedLoading>
       );
       wrapper.setProps({ isLoading: true });
       expect(testContext.chartStubs.showLoading).toHaveBeenCalledWith('Changes to true');
@@ -54,7 +57,7 @@ describe('<Loading />', () => {
 
     it('should use the hideLoading method when isLoading changes to false', () => {
       const wrapper = mount(
-        <Loading {...testContext.propsFromProviders} isLoading>Changes to true</Loading>
+        <ProvidedLoading isLoading>Changes to true</ProvidedLoading>
       );
       wrapper.setProps({ isLoading: false });
       expect(testContext.chartStubs.hideLoading).toHaveBeenCalled();
@@ -62,7 +65,7 @@ describe('<Loading />', () => {
 
     it('should use the update method when other props change', () => {
       const wrapper = mount(
-        <Loading {...testContext.propsFromProviders}>Updates style</Loading>
+        <ProvidedLoading>Updates style</ProvidedLoading>
       );
       wrapper.setProps({ style: { color: 'red' } });
       expect(testContext.chartStubs.update).toHaveBeenCalledWith(expect.objectContaining({
@@ -75,7 +78,7 @@ describe('<Loading />', () => {
 
   describe('when unmounted', () => {
     it('should hide the loading message', () => {
-      const wrapper = mount(<Loading {...testContext.propsFromProviders}>My unmounting message</Loading>);
+      const wrapper = mount(<ProvidedLoading>My unmounting message</ProvidedLoading>);
       wrapper.unmount();
       expect(testContext.chartStubs.hideLoading).toHaveBeenCalled();
     });
