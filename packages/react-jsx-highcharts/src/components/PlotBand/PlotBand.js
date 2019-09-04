@@ -1,86 +1,54 @@
-import React, { Component, Children, cloneElement, isValidElement } from 'react';
+import React, { useRef, useEffect, useState, memo, Children, cloneElement, isValidElement } from 'react';
 import PropTypes from 'prop-types';
 import uuid from 'uuid/v4';
 import { attempt } from 'lodash-es';
 import Hidden from '../Hidden';
-import getModifiedProps from '../../utils/getModifiedProps';
 
-class PlotBand extends Component {
+const PlotBand = memo((props) => {
+  const { id = uuid, children, getAxis, ...rest } = props;
 
-  static propTypes = {
-    id: PropTypes.oneOfType([ PropTypes.string, PropTypes.func ]).isRequired,
-    from: PropTypes.any.isRequired,
-    to: PropTypes.any.isRequired,
-    color: PropTypes.string,
-    getAxis: PropTypes.func // Provided by AxisProvider
-  };
+  const idRef = useRef();
 
-  static defaultProps = {
-    id: uuid
-  };
+  const [rendered, setRendered] = useState(false);
 
-  constructor (props) {
-    super(props);
-
-    this.state = {
-      rendered: false
-    };
-  }
-
-  componentDidMount () {
-    const axis = this.props.getAxis();
-
-    // Create Highcharts Plot Band on Axis
-    const opts = this.getPlotBandConfig();
-    axis.addPlotBand(opts);
-
-    this.setState({
-      rendered: true
-    });
-  }
-
-  componentDidUpdate (prevProps) {
-    if (getModifiedProps(prevProps, this.props) === false) return;
-
-    const axis = this.props.getAxis();
-    // Plot Bands cannot be updated, we have to remove and re-add
-    const opts = this.getPlotBandConfig();
-    axis.removePlotBand(opts.id);
-    axis.addPlotBand(opts);
-  }
-
-  componentWillUnmount () {
-    const axis = this.props.getAxis();
-    attempt(axis.removePlotBand, this.id);
-  }
-
-  getPlotBandConfig = () => {
-    const { id, children, ...rest } = this.props;
-    if (!this.id) {
-      this.id = typeof id === 'function' ? id() : id
-    }
-
-    return {
-      id: this.id,
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    idRef.current = typeof id === 'function' ? id() : id;
+    const myId = idRef.current;
+    const axis = getAxis();
+    const opts = {
+      id: myId,
       ...rest
     }
-  }
+    axis.addPlotBand(opts);
+    if(!rendered) setRendered(true);
+    return () => {
+      const axis = getAxis();
+      attempt(axis.removePlotBand, myId);
+    }
+  });
 
-  render () {
-    const { children } = this.props;
-    if (!children || !this.state.rendered) return null;
+  if (!children || !rendered) return null;
 
-    const bandChildren = Children.map(children, child => {
-      if (isValidElement(child) === false) return child;
-      return cloneElement(child, { id: this.id });
-    });
+  const bandChildren = Children.map(children, child => {
+    if (isValidElement(child) === false) return child;
+    return cloneElement(child, { id: idRef.current });
+  });
 
-    return (
-      <Hidden>
-        {bandChildren}
-      </Hidden>
-    );
-  }
-}
+  return (
+    <Hidden>
+      {bandChildren}
+    </Hidden>
+  );
+})
 
+PlotBand.propTypes = {
+  id: PropTypes.oneOfType([ PropTypes.string, PropTypes.func ]),
+  from: PropTypes.any.isRequired,
+  to: PropTypes.any.isRequired,
+  color: PropTypes.string,
+  getAxis: PropTypes.func // Provided by AxisProvider
+};
+
+PlotBand.displayName = 'PlotBand';
 export default PlotBand;

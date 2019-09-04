@@ -1,85 +1,53 @@
-import React, { Component, Children, cloneElement, isValidElement } from 'react';
+import React, { useRef, useEffect, useState, memo, Children, cloneElement, isValidElement } from 'react';
 import PropTypes from 'prop-types';
 import uuid from 'uuid/v4';
 import { attempt } from 'lodash-es';
 import Hidden from '../Hidden';
-import getModifiedProps from '../../utils/getModifiedProps';
 
-class PlotLine extends Component {
+const PlotLine = memo((props) => {
+  const { id = uuid, children, getAxis, ...rest } = props;
 
-  static propTypes = {
-    id: PropTypes.oneOfType([ PropTypes.string, PropTypes.func ]).isRequired,
-    value: PropTypes.any.isRequired,
-    color: PropTypes.string,
-    getAxis: PropTypes.func // Provided by AxisProvider
-  };
+  const idRef = useRef();
 
-  static defaultProps = {
-    id: uuid
-  };
+  const [rendered, setRendered] = useState(false);
 
-  constructor (props) {
-    super(props);
-
-    this.state = {
-      rendered: false
-    };
-  }
-
-  componentDidMount () {
-    const axis = this.props.getAxis();
-
-    // Create Highcharts Plot Line on Axis
-    const opts = this.getPlotLineConfig();
-    axis.addPlotLine(opts);
-
-    this.setState({
-      rendered: true
-    });
-  }
-
-  componentDidUpdate (prevProps) {
-    if (getModifiedProps(prevProps, this.props) === false) return;
-
-    const axis = this.props.getAxis();
-    // Plot Lines cannot be updated, we have to remove and re-add
-    const opts = this.getPlotLineConfig();
-    axis.removePlotLine(opts.id);
-    axis.addPlotLine(opts);
-  }
-
-  componentWillUnmount () {
-    const axis = this.props.getAxis();
-    attempt(axis.removePlotLine, this.id);
-  }
-
-  getPlotLineConfig = () => {
-    const { id, children, ...rest } = this.props;
-    if (!this.id) {
-      this.id = typeof id === 'function' ? id() : id
-    }
-
-    return {
-      id: this.id,
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    idRef.current = typeof id === 'function' ? id() : id;
+    const myId = idRef.current;
+    const axis = getAxis();
+    const opts = {
+      id: myId,
       ...rest
     }
-  }
+    axis.addPlotLine(opts);
+    if(!rendered) setRendered(true);
+    return () => {
+      const axis = getAxis();
+      attempt(axis.removePlotLine, myId);
+    }
+  });
 
-  render () {
-    const { children } = this.props;
-    if (!children || !this.state.rendered) return null;
+  if (!children || !rendered) return null;
 
-    const lineChildren = Children.map(children, child => {
-      if (isValidElement(child) === false) return child;
-      return cloneElement(child, { id: this.id });
-    });
+  const lineChildren = Children.map(children, child => {
+    if (isValidElement(child) === false) return child;
+    return cloneElement(child, { id: idRef.current });
+  });
 
-    return (
-      <Hidden>
-        {lineChildren}
-      </Hidden>
-    );
-  }
-}
+  return (
+    <Hidden>
+      {lineChildren}
+    </Hidden>
+  );
+})
 
+PlotLine.propTypes = {
+  id: PropTypes.oneOfType([ PropTypes.string, PropTypes.func ]),
+  value: PropTypes.any.isRequired,
+  color: PropTypes.string,
+  getAxis: PropTypes.func // Provided by AxisProvider
+};
+
+PlotLine.displayName = 'PlotLine';
 export default PlotLine;
