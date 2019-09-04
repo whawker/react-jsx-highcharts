@@ -30,4 +30,6 @@ const Title = memo((props) => {
   return null;
 })
 
+Title.displayName = 'Title';
+
 export default Title;
