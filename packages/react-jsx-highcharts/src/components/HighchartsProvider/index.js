@@ -1,20 +1,17 @@
 import React from 'react';
-import { Consumer } from '../HighchartsContext';
 import getDisplayName from '../../utils/getDisplayName';
+import useHighcharts from '../UseHighcharts';
 
 // This is a HOC function.
 // It takes a component...
 export default function provideHighcharts(Component) {
   // ...and returns another component...
   const HighchartsWrappedComponent = function (props) {
+    const getHighcharts = useHighcharts();
     // ... and renders the wrapped component with the context Highcharts global
     // Notice that we pass through any additional props as well
     return (
-      <Consumer>
-        {getHighcharts => (
-          <Component {...props} getHighcharts={getHighcharts} />
-        )}
-      </Consumer>
+      <Component {...props} getHighcharts={getHighcharts} />
     );
   };
 
