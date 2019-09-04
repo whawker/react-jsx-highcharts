@@ -1,23 +1,28 @@
 import React from 'react';
 import { createMockProvidedChart, Highcharts } from '../../test-utils'
 import Credits from '../../../src/components/Credits/Credits';
+import ChartContext from '../../../src/components/ChartContext';
 
 describe('<Credits />', () => {
   let testContext;
+  let ProvidedCredits;
 
   beforeEach(() => {
     testContext = {};
     const { chartStubs, getChart } = createMockProvidedChart();
     testContext.chartStubs = chartStubs;
 
-    testContext.propsFromProviders = {
-      getChart
-    };
+    ProvidedCredits = (props) => (
+      <ChartContext.Provider value={{ getChart }}>
+        <Credits {...props} />
+      </ChartContext.Provider>
+    )
+
   });
 
   describe('when mounted', () => {
     it('add credits using the Highcharts addCredits method', () => {
-      mount(<Credits {...testContext.propsFromProviders}>github.com</Credits>);
+      mount(<ProvidedCredits>github.com</ProvidedCredits>);
       expect(testContext.chartStubs.addCredits).toHaveBeenCalledWith(expect.objectContaining({
         enabled: true,
         text: 'github.com'
@@ -26,7 +31,7 @@ describe('<Credits />', () => {
 
     it('addCreditss the credits with the passed props', () => {
       mount(
-        <Credits href="https://www.github.com" {...testContext.propsFromProviders}>github.com</Credits>
+        <ProvidedCredits href="https://www.github.com">github.com</ProvidedCredits>
       );
       expect(testContext.chartStubs.addCredits).toHaveBeenCalledWith(expect.objectContaining({
         enabled: true,
@@ -39,7 +44,7 @@ describe('<Credits />', () => {
   describe('addCredits', () => {
     it('should use the addCredits method when props change', () => {
       const wrapper = mount(
-        <Credits href="https://www.github.com" {...testContext.propsFromProviders}>github.com</Credits>
+        <ProvidedCredits href="https://www.github.com">github.com</ProvidedCredits>
       );
       wrapper.setProps({ href: 'https://www.github.com/whawker' });
       expect(testContext.chartStubs.addCredits).toHaveBeenCalledWith(expect.objectContaining({
@@ -50,7 +55,7 @@ describe('<Credits />', () => {
 
   describe('when unmounted', () => {
     it('should disable the Credits', () => {
-      const wrapper = mount(<Credits {...testContext.propsFromProviders}>github.com</Credits>);
+      const wrapper = mount(<ProvidedCredits>github.com</ProvidedCredits>);
       wrapper.unmount();
       expect(testContext.chartStubs.addCredits).toHaveBeenCalledWith(expect.objectContaining({
         enabled: false

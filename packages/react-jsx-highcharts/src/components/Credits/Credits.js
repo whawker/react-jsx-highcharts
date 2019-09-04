@@ -1,48 +1,37 @@
-import { Component } from 'react';
+import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { attempt } from 'lodash-es';
-import getModifiedProps from '../../utils/getModifiedProps';
+import useModifiedProps from '../UseModifiedProps';
+import useChart from '../UseChart';
 
-class Credits extends Component {
+const Credits = (props) => {
+  const { getChart } = useChart();
+  const modifiedProps = useModifiedProps(props, true);
 
-  static propTypes = {
-    getChart: PropTypes.func.isRequired, // Provided by ChartProvider
-    enabled: PropTypes.bool.isRequired
-  };
-
-  static defaultProps = {
-    enabled: true
-  };
-
-  componentDidMount () {
-    const { children: text, ...rest } = this.props;
-    this.updateCredits({
-      ...rest,
-      text
-    });
-  }
-
-  componentDidUpdate (prevProps) {
-    const modifiedProps = getModifiedProps(prevProps, this.props, true);
+  useEffect(() => {
     if (modifiedProps !== false) {
-      this.updateCredits(modifiedProps);
+      updateCredits(modifiedProps, getChart());
     }
-  }
+  })
 
-  componentWillUnmount () {
-    attempt(this.updateCredits, { enabled: false });
-  }
+  useEffect(() => {
+    return () => attempt(updateCredits, { enabled: false }, getChart());
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[])
 
-  updateCredits = config => {
-    const chart = this.props.getChart();
-    // Use default Highcharts value if text is not explicitly set
-    if ('text' in config && !config.text) delete config.text
-    chart.addCredits(config, true);
-  }
-
-  render () {
-    return null
-  }
+  return null;
 }
 
+const updateCredits = (config, chart) => {
+  // Use default Highcharts value if text is not explicitly set
+  if ('text' in config && !config.text) delete config.text
+  chart.addCredits(config, true);
+}
+
+Credits.defaultProps = {
+  enabled: true
+};
+Credits.propTypes = {
+  enabled: PropTypes.bool
+};
 export default Credits;
