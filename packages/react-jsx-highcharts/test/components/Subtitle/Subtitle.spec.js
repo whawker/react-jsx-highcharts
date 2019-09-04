@@ -3,7 +3,7 @@ import { createMockProvidedChart } from '../../test-utils'
 import Subtitle from '../../../src/components/Subtitle/Subtitle';
 import { Provider } from '../../../src/components/ChartContext';
 
-describe('<ProvidedSubtitle />', () => {
+describe('<Subtitle />', () => {
   let testContext;
   let ProvidedSubtitle;
 

@@ -30,4 +30,6 @@ const Subtitle = memo((props) => {
   return null;
 })
 
+Subtitle.displayName = 'Subtitle';
+
 export default Subtitle;
