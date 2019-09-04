@@ -1,9 +1,11 @@
 import React from 'react';
 import { createMockProvidedChart, uuidRegex } from '../../test-utils'
 import Annotation from '../../../src/components/Annotation/Annotation';
+import ChartContext from '../../../src/components/ChartContext';
 
 describe('<Annotation />', () => {
   let testContext;
+  let ProvidedAnnotation;
 
   beforeEach(() => {
     testContext = {};
@@ -12,27 +14,27 @@ describe('<Annotation />', () => {
     chartStubs.addAnnotation = jest.fn();
     chartStubs.removeAnnotation = jest.fn();
     testContext.chartStubs = chartStubs;
-
-    testContext.propsFromProviders = {
-      getChart,
-      needsRedraw
-    };
+    ProvidedAnnotation = (props) => (
+      <ChartContext.Provider value={ {getChart }}>
+        <Annotation {...props} />
+      </ChartContext.Provider>
+    )
   });
 
   describe('when mounted', () => {
     it('adds an annotation using the chart addAnnotation method', () => {
-      mount(<Annotation id="My Annotation" {...testContext.propsFromProviders} />);
+      mount(<ProvidedAnnotation id="My Annotation" />);
       expect(testContext.chartStubs.addAnnotation).toHaveBeenCalledWith(expect.objectContaining(
         { id: 'My Annotation' }
       ));
     });
 
     it('should pass additional props through to chart addAnnotation method', () => {
-      mount(<Annotation
+      mount(<ProvidedAnnotation
         id="My Other Annotation"
         labels={ [{ text: "label", point: { x: 200, y: 200} }] }
         labelOptions={ { borderColor: 'red' }}
-        {...testContext.propsFromProviders} />);
+        />);
       expect(testContext.chartStubs.addAnnotation).toHaveBeenCalledWith(expect.objectContaining({
         id: 'My Other Annotation',
         labelOptions: { borderColor: 'red' },
@@ -42,7 +44,7 @@ describe('<Annotation />', () => {
 
     it('uses the provided ID if id prop is a string', () => {
       mount(
-        <Annotation id="myPlotLineIdStr" value={2} {...testContext.propsFromProviders} />
+        <ProvidedAnnotation id="myPlotLineIdStr" value={2} />
       );
       expect(testContext.chartStubs.addAnnotation.mock.calls[0][0].id).toBe('myPlotLineIdStr');
     });
@@ -50,14 +52,14 @@ describe('<Annotation />', () => {
     it('resolves the ID if id prop is a function', () => {
       const idFunc = () => 'myPlotLineIdFromFunc'
       mount(
-        <Annotation id={idFunc} value={2} {...testContext.propsFromProviders} />
+        <ProvidedAnnotation id={idFunc} value={2} />
       );
       expect(testContext.chartStubs.addAnnotation.mock.calls[0][0].id).toBe('myPlotLineIdFromFunc');
     });
 
     it('uses a uuid as an ID if no id prop provided', () => {
       mount(
-        <Annotation {...testContext.propsFromProviders} />
+        <ProvidedAnnotation />
       );
       expect(testContext.chartStubs.addAnnotation.mock.calls[0][0].id).toMatch(uuidRegex);
     });
@@ -66,7 +68,7 @@ describe('<Annotation />', () => {
   describe('when unmounted', () => {
     it('removes the annotation by id (if the parent chart still exists)', () => {
       const wrapper = mount(
-        <Annotation id="My Annotation" {...testContext.propsFromProviders} />
+        <ProvidedAnnotation id="My Annotation" />
       );
       testContext.chartStubs.removeAnnotation.mockReset();
       wrapper.unmount();
@@ -77,7 +79,7 @@ describe('<Annotation />', () => {
   describe('when updated', () => {
     it('removes and re-adds annotation with new props', () => {
       const wrapper = mount(
-        <Annotation id="My Annotation" labels={[{ text: "label", point: { x: 200, y: 200} }]} {...testContext.propsFromProviders} />
+        <ProvidedAnnotation id="My Annotation" labels={[{ text: "label", point: { x: 200, y: 200} }]} />
       );
       testContext.chartStubs.addAnnotation.mockReset();
       wrapper.setProps({ labels: [{ text: "label", point: { x: 100, y: 100} }]});
@@ -95,9 +97,9 @@ describe('<Annotation />', () => {
       const ChildComponent = props => (<div />);
 
       const wrapper = mount(
-        <Annotation id="myId" {...testContext.propsFromProviders}>
+        <ProvidedAnnotation id="myId">
           <ChildComponent />
-        </Annotation>
+        </ProvidedAnnotation>
       ).children();
       expect(wrapper.find(ChildComponent)).toHaveProp('id', 'myId');
     });

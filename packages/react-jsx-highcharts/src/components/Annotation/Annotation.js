@@ -1,88 +1,62 @@
-import React, { Component, Children, cloneElement, isValidElement } from 'react';
+import React, { useRef, useEffect, useState, memo, Children, cloneElement, isValidElement } from 'react';
 import PropTypes from 'prop-types';
 import uuid from 'uuid/v4';
 import { attempt } from 'lodash-es';
 import Hidden from '../Hidden';
-import getModifiedProps from '../../utils/getModifiedProps';
 import { logModuleErrorMessage } from '../../utils/warnings';
+import useChart from '../UseChart';
 
-class Annotation extends Component {
+const Annotation = memo((props) => {
+  const { id = uuid, children, ...rest } = props;
 
-  static propTypes = {
-    getChart: PropTypes.func.isRequired // Provided by ChartProvider
-  };
+  const { getChart } = useChart();
 
-  static defaultProps = {
-    id: uuid
-  };
-
-  constructor (props) {
-    super(props);
-
-    this.state = {
-      rendered: false
-    };
-    if (process.env.NODE_ENV === 'development') {
-      const { getChart } = props;
-      if (getChart().addAnnotation === null) {
-        logModuleErrorMessage('<Annotation />', 'annotations');
-      }
+  if (process.env.NODE_ENV === 'development') {
+    if (getChart().addAnnotation === null) {
+      logModuleErrorMessage('<Annotation />', 'annotations');
     }
   }
 
-  componentDidMount () {
-    const chart = this.props.getChart();
+  const idRef = useRef();
 
-    // Create Highcharts Annotation
-    const opts = this.getAnnotationConfig();
-    chart.addAnnotation(opts);
-    this.setState({
-      rendered: true
-    });
-  }
+  const [rendered, setRendered] = useState(false);
 
-  componentDidUpdate (prevProps) {
-    if (getModifiedProps(prevProps, this.props) === false) return;
-
-    const chart = this.props.getChart();
-    // Annotations cannot be updated, we have to remove and re-add
-    const opts = this.getAnnotationConfig();
-    chart.removeAnnotation(opts.id);
-    chart.addAnnotation(opts);
-  }
-
-  componentWillUnmount () {
-    const chart = this.props.getChart();
-    attempt(chart.removeAnnotation, this.id);
-  }
-
-  getAnnotationConfig = () => {
-    const { id, children, ...rest } = this.props;
-    if (!this.id) {
-      this.id = typeof id === 'function' ? id() : id
-    }
-
-    return {
-      id: this.id,
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    idRef.current = typeof id === 'function' ? id() : id;
+    const myId = idRef.current;
+    const chart = getChart();
+    const opts = {
+      id: myId,
       ...rest
     }
-  }
+    chart.addAnnotation(opts);
+    if(!rendered) setRendered(true);
+    return () => {
+      const chart = getChart();
+      attempt(chart.removeAnnotation, myId);
+    }
+  });
 
-  render () {
-    const { children } = this.props;
-    if (!children || !this.state.rendered) return null;
+  if (!children || !rendered) return null;
 
-    const annotationChildren = Children.map(children, child => {
-      if (isValidElement(child) === false) return child;
-      return cloneElement(child, { id: this.id });
-    });
+  const annotationChildren = Children.map(children, child => {
+    if (isValidElement(child) === false) return child;
+    return cloneElement(child, { id: idRef.current});
+  });
 
-    return (
-      <Hidden>
-        {annotationChildren}
-      </Hidden>
-    );
-  }
-}
+  return (
+    <Hidden>
+      {annotationChildren}
+    </Hidden>
+  );
+})
+
+Annotation.propTypes = {
+  id: PropTypes.oneOfType([ PropTypes.string, PropTypes.func ]),
+  children: PropTypes.node
+};
+
+Annotation.displayName = 'Annotation';
 
 export default Annotation;
