@@ -9,11 +9,11 @@ describe('<Credits />', () => {
 
   beforeEach(() => {
     testContext = {};
-    const { chartStubs, getChart } = createMockProvidedChart();
+    const { chartStubs, getChart, needsRedraw } = createMockProvidedChart();
     testContext.chartStubs = chartStubs;
 
     ProvidedCredits = (props) => (
-      <ChartContext.Provider value={{ getChart }}>
+      <ChartContext.Provider value={{ getChart, needsRedraw }}>
         <Credits {...props} />
       </ChartContext.Provider>
     )

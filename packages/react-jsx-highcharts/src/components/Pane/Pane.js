@@ -1,34 +1,20 @@
-import { useEffect, memo } from 'react';
-import { attempt } from 'lodash-es';
-import useChart from '../UseChart';
-import useModifiedProps from '../UseModifiedProps';
+import { memo } from 'react';
+import useChartUpdate from '../UseChartUpdate';
 
-const Pane = memo((props) => {
-  const { getChart, needsRedraw } = useChart();
-
-
-  const modifiedProps = useModifiedProps(props);
-
-  useEffect(()=> {
-    if (modifiedProps !== false) {
-      updatePane(modifiedProps, getChart(), needsRedraw);
-    }
-  })
-
-  useEffect(() => {
-    return () => attempt(updatePane, {}, getChart(), needsRedraw);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[]);
+const Pane = memo(({ children, ...restProps}) => {
+  useChartUpdate(restProps, updatePane, chart => updatePane(chart, {}), false);
 
   return null;
-})
+});
 
-const updatePane = (config, chart, needsRedraw) => {
-  chart.update({
-    pane: config
-  }, false);
-  needsRedraw();
-}
+const updatePane = (chart, config) => {
+  chart.update(
+    {
+      pane: config
+    },
+    false
+  );
+};
 Pane.displayName = 'Pane';
 
 export default Pane;

@@ -1,34 +1,17 @@
-import { useEffect, memo } from 'react';
-import { attempt } from 'lodash-es';
-import useChart from '../UseChart';
-import useModifiedProps from '../UseModifiedProps';
+import { memo } from 'react';
+import useChartUpdate from '../UseChartUpdate';
 
-const Title = memo((props) => {
-
-  const { getChart, needsRedraw } = useChart();
-
-  const modifiedProps = useModifiedProps(props, true);
-
-  const updateTitle = config => {
-    const chart = getChart();
-    chart.setTitle(config, null, false);
-    needsRedraw();
-  }
-
-  useEffect(() => {
-    if (modifiedProps !== false) {
-      updateTitle(modifiedProps);
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[props]);
-
-  useEffect(() => {
-    return () => attempt(updateTitle, { text: null });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[]);
+const Title = memo(props => {
+  useChartUpdate(props, updateTitle, chart =>
+    updateTitle(chart, { text: null })
+  );
 
   return null;
-})
+});
+
+const updateTitle = (chart, config) => {
+  chart.setTitle(config, null, false);
+};
 
 Title.displayName = 'Title';
 

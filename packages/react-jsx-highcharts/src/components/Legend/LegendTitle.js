@@ -1,41 +1,25 @@
-import { useEffect, useCallback, memo } from 'react';
-import { attempt } from 'lodash-es';
-import useChart from '../UseChart';
-import useModifiedProps from '../UseModifiedProps';
+import { memo } from 'react';
+import useChartUpdate from '../UseChartUpdate';
 
+const LegendTitle = memo(props => {
+  useChartUpdate(props, updateLegendTitle, chart =>
+    updateLegendTitle(chart, { text: null })
+  );
 
-const LegendTitle = memo(({ children = null, ...restProps}) => {
+  return null;
+});
 
-  const modifiedProps = useModifiedProps({ text: children, ...restProps});
-
-  const { getChart, needsRedraw } = useChart();
-
-  const updateLegendTitle = useCallback(config => {
-    const chart = getChart();
-    chart.update({
+const updateLegendTitle = (chart, config) => {
+  chart.update(
+    {
       legend: {
         title: config
       }
-    }, false);
-    needsRedraw();
-  }, [getChart, needsRedraw]);
-
-  // componentDidMount && componentDidUpdate
-  useEffect(() => {
-    if (modifiedProps !== false) {
-      updateLegendTitle(modifiedProps);
-    }
-  },[modifiedProps, updateLegendTitle]);
-
-  useEffect(() => {
-    // componentWillUnmount
-    return () => attempt(updateLegendTitle, { text: null });
-  },[updateLegendTitle]);
-
-  return children;
-})
+    },
+    false
+  );
+};
 
 LegendTitle.displayName = 'LegendTitle';
 
 export default LegendTitle;
-
