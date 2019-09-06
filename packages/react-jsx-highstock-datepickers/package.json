@@ -48,7 +48,7 @@
     "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.6",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
-    "cross-env": "^5.0.5",
+    "cross-env": "^5.2.1",
     "css-loader": "^3.1.0",
     "eslint": "^5.16.0",
     "eslint-plugin-import": "^2.18.2",
@@ -62,6 +62,6 @@
     "react-jsx-highstock": "^3.5.0",
     "rimraf": "^3.0.0",
     "webpack": "^4.39.3",
-    "webpack-cli": "^3.3.7"
+    "webpack-cli": "^3.3.8"
   }
 }
