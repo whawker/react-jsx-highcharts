@@ -51,18 +51,6 @@ describe('<ChartProvider />', () => {
     expect(wrapper.find(WrappedComponent)).toExist();
   });
 
-  it('should additionally provide the component with getHighcharts', () => {
-    const getHighcharts = jest.fn();
-    const wrapper = mount(
-      <HighchartsContext.Provider value={getHighcharts}>
-        <Provider value={{ getChart: () => null }}>
-          <ChartWrappedComponent />
-        </Provider>
-      </HighchartsContext.Provider>
-    );
-    expect(wrapper.find(WrappedComponent).prop('getHighcharts')).toEqual(getHighcharts);
-  });
-
   it('should provide a getChart prop to the wrapped component', () => {
     const wrapper = mount(
       <Provider value={{ getChart: () => null }}>

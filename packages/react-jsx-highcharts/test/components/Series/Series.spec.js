@@ -3,9 +3,12 @@ import { List as List4 } from 'immutable';
 import { List as List3 } from 'immutable3';
 import { Highcharts, createMockProvidedChart, createMockProvidedAxis, createMockSeries, uuidRegex } from '../../test-utils';
 import Series from '../../../src/components/Series/Series';
+import HighchartsContext from '../../../src/components/HighchartsContext';
+import ChartContext from '../../../src/components/ChartContext';
 
 describe('<Series />', () => {
   let testContext;
+  let ProvidedSeries;
 
   beforeEach(() => {
     testContext = {};
@@ -20,11 +23,15 @@ describe('<Series />', () => {
     testContext.needsRedraw = needsRedraw;
 
     testContext.propsFromProviders = {
-      getChart,
       getAxis,
-      needsRedraw,
-      getHighcharts: () => Highcharts
     };
+    ProvidedSeries = props => (
+      <HighchartsContext.Provider value = { () => Highcharts }>
+        <ChartContext.Provider value = {{ getChart, needsRedraw }}>
+          <Series {...props} />
+        </ChartContext.Provider>
+      </HighchartsContext.Provider>
+    )
   });
 
 
@@ -34,13 +41,13 @@ describe('<Series />', () => {
       testContext.axisStubs.type = 'xAxis';
 
       mount(
-        <Series id="mySeries" {...testContext.propsFromProviders} />
+        <ProvidedSeries id="mySeries" {...testContext.propsFromProviders} />
       );
       expect(testContext.chartStubs.addSeries).toHaveBeenCalledWith(expect.objectContaining(
         { id: 'mySeries', xAxis: 'myXAxisId', type: 'line', data: [], visible: true }, true
       ), false);
       expect(testContext.chartStubs.addSeries).toHaveBeenCalledTimes(1);
-      expect(testContext.propsFromProviders.needsRedraw).toHaveBeenCalledTimes(1);
+      expect(testContext.needsRedraw).toHaveBeenCalledTimes(1);
     });
 
     it('adds a Y series using the addSeries method', () => {
@@ -48,7 +55,7 @@ describe('<Series />', () => {
       testContext.axisStubs.type = 'yAxis';
 
       mount(
-        <Series id="mySeries" {...testContext.propsFromProviders} />
+        <ProvidedSeries id="mySeries" {...testContext.propsFromProviders} />
       );
       expect(testContext.chartStubs.addSeries).toHaveBeenCalledWith(expect.objectContaining(
         { id: 'mySeries', yAxis: 'myYAxisId', type: 'line', data: [], visible: true }, true
@@ -57,7 +64,7 @@ describe('<Series />', () => {
 
     it('uses the provided ID if id prop is a string', () => {
       mount(
-        <Series id="mySeriesIdStr" {...testContext.propsFromProviders} />
+        <ProvidedSeries id="mySeriesIdStr" {...testContext.propsFromProviders} />
       );
       expect(testContext.chartStubs.addSeries.mock.calls[0][0].id).toEqual('mySeriesIdStr');
     });
@@ -65,21 +72,21 @@ describe('<Series />', () => {
     it('resolves the ID if id prop is a function', () => {
       const idFunc = () => 'mySeriesIdFromFunc'
       mount(
-        <Series id={idFunc} {...testContext.propsFromProviders} />
+        <ProvidedSeries id={idFunc} {...testContext.propsFromProviders} />
       );
       expect(testContext.chartStubs.addSeries.mock.calls[0][0].id).toEqual('mySeriesIdFromFunc');
     });
 
     it('uses a uuid as an ID if no id prop provided', () => {
       mount(
-        <Series {...testContext.propsFromProviders} />
+        <ProvidedSeries {...testContext.propsFromProviders} />
       );
       expect(testContext.chartStubs.addSeries.mock.calls[0][0].id).toMatch(uuidRegex);
     });
 
     it('should pass additional props through to Highcharts addSeries method', () => {
       mount(
-        <Series id="mySeries" data={[5]} step {...testContext.propsFromProviders} />
+        <ProvidedSeries id="mySeries" data={[5]} step {...testContext.propsFromProviders} />
       );
       expect(testContext.chartStubs.addSeries).toHaveBeenCalledWith(expect.objectContaining({
         id: 'mySeries', yAxis: 'myAxis', type: 'line', data: [5], visible: true, step: true
@@ -91,7 +98,7 @@ describe('<Series />', () => {
       const handleShow = jest.fn();
 
       mount(
-        <Series id="mySeries" onClick={handleClick} onShow={handleShow}
+        <ProvidedSeries id="mySeries" onClick={handleClick} onShow={handleShow}
           {...testContext.propsFromProviders} />
       );
       expect(testContext.chartStubs.addSeries).toHaveBeenCalledWith(expect.objectContaining({
@@ -106,7 +113,7 @@ describe('<Series />', () => {
       it('supports mounting with Immutable List data', () => {
         const data = [1, 2, 3, 4, 5];
         mount(
-          <Series id="mySeries" data={List(data)} {...testContext.propsFromProviders} />
+          <ProvidedSeries id="mySeries" data={List(data)} {...testContext.propsFromProviders} />
         );
         expect(testContext.chartStubs.addSeries).toHaveBeenCalledWith(expect.objectContaining(
           { id: 'mySeries', yAxis: 'myAxis', type: 'line', data, visible: true }
@@ -129,8 +136,8 @@ describe('<Series />', () => {
     it('does not throw Error when requiresAxis=false and mounted without axis', () => {
       testContext.propsFromProviders.getAxis = () => null;
       expect(() => {
-        shallow(
-          <Series id="mySeries" requiresAxis={false} {...testContext.propsFromProviders} />
+        mount(
+          <ProvidedSeries id="mySeries" requiresAxis={false} {...testContext.propsFromProviders} />
         );
       }).not.toThrow();
     });
@@ -139,36 +146,36 @@ describe('<Series />', () => {
   describe('update', () => {
     it('should use the setData method on the correct series when the data changes', () => {
       const wrapper = mount(
-        <Series
+        <ProvidedSeries
           id="mySeries" data={[]} {...testContext.propsFromProviders} />
       );
       testContext.seriesStubs.update.mockReset();
-      testContext.propsFromProviders.needsRedraw.mockClear();
+      testContext.needsRedraw.mockClear();
       wrapper.setProps({ data: [1, 2, 3] });
       expect(testContext.seriesStubs.setData).toHaveBeenCalledWith([1, 2, 3], false);
       expect(testContext.seriesStubs.update).not.toHaveBeenCalled();
       expect(testContext.seriesStubs.setVisible).not.toHaveBeenCalled();
 
-      expect(testContext.propsFromProviders.needsRedraw).toHaveBeenCalledTimes(1);
+      expect(testContext.needsRedraw).toHaveBeenCalledTimes(1);
     });
 
     it('should NOT use the setData method if the data hasn\'t changed', () => {
       const wrapper = mount(
-        <Series
+        <ProvidedSeries
           id="mySeries" data={[1, 2, 3]} {...testContext.propsFromProviders} />
       );
       testContext.seriesStubs.update.mockReset();
-      testContext.propsFromProviders.needsRedraw.mockClear();
+      testContext.needsRedraw.mockClear();
       wrapper.setProps({ data: [1, 2, 3] });
       expect(testContext.seriesStubs.setData).not.toHaveBeenCalled();
       expect(testContext.seriesStubs.update).not.toHaveBeenCalled();
       expect(testContext.seriesStubs.setVisible).not.toHaveBeenCalled();
-      expect(testContext.propsFromProviders.needsRedraw).not.toHaveBeenCalled();
+      expect(testContext.needsRedraw).not.toHaveBeenCalled();
     });
     [List3, List4].forEach((List) => {
       it('should use the setData method on the correct series when the Immutable List changes', () => {
         const wrapper = mount(
-          <Series
+          <ProvidedSeries
             id="mySeries" data={List([1, 2, 3])} {...testContext.propsFromProviders} />
         );
         const newData = [1, 2, 3, 4, 5];
@@ -182,23 +189,23 @@ describe('<Series />', () => {
     [List3, List4].forEach((List) => {
       it('should NOT use the setData method if the Immutable List hasn\'t changed', () => {
         const wrapper = mount(
-          <Series
+          <ProvidedSeries
             id="mySeries" data={List([1, 2, 3])} {...testContext.propsFromProviders} />
         );
         testContext.seriesStubs.update.mockReset();
-        testContext.propsFromProviders.needsRedraw.mockClear();
+        testContext.needsRedraw.mockClear();
 
         wrapper.setProps({ data: List([1, 2, 3]) });
         expect(testContext.seriesStubs.setData).not.toHaveBeenCalled();
         expect(testContext.seriesStubs.update).not.toHaveBeenCalled();
         expect(testContext.seriesStubs.setVisible).not.toHaveBeenCalled();
-        expect(testContext.propsFromProviders.needsRedraw).not.toHaveBeenCalled();
+        expect(testContext.needsRedraw).not.toHaveBeenCalled();
       });
   });
 
     it('should use the setVisible method on the correct series when the visibility changes', () => {
       const wrapper = mount(
-        <Series
+        <ProvidedSeries
           id="mySeries" visible {...testContext.propsFromProviders} />
       );
       testContext.seriesStubs.update.mockReset();
@@ -212,7 +219,7 @@ describe('<Series />', () => {
 
     it('should use the update method on correct series if arbritary props change', () => {
       const wrapper = mount(
-        <Series
+        <ProvidedSeries
           id="mySeries" visible {...testContext.propsFromProviders} />
       );
       testContext.needsRedraw.mockClear();
@@ -227,7 +234,7 @@ describe('<Series />', () => {
 
     it('should use the most performant method available even when multiple props change', () => {
       const wrapper = mount(
-        <Series
+        <ProvidedSeries
           id="mySeries" data={[]} visible={false} {...testContext.propsFromProviders} />
       );
       testContext.needsRedraw.mockClear();
@@ -244,7 +251,7 @@ describe('<Series />', () => {
   describe('when unmounted', () => {
     it('removes the correct series (if the series still exists)', () => {
       const wrapper = mount(
-        <Series id="mySeries" {...testContext.propsFromProviders} />
+        <ProvidedSeries id="mySeries" {...testContext.propsFromProviders} />
       );
       testContext.needsRedraw.mockClear();
       wrapper.unmount();

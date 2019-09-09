@@ -11,20 +11,24 @@ import { getNonEventHandlerProps, getEventsConfig } from '../../utils/events';
 import getModifiedProps from '../../utils/getModifiedProps';
 import { logSeriesErrorMessage } from '../../utils/warnings';
 import usePrevious from '../UsePrevious';
+import useHighcharts from '../UseHighcharts';
+import useChart from '../UseChart';
 
-const Series = memo(({children = null, getAxis, getHighcharts, getChart, needsRedraw, ...restProps}) => {
-
-  if (process.env.NODE_ENV === 'development') {
-    const { type } = restProps;
-    const seriesTypes = Object.keys(getHighcharts().seriesTypes);
-    if (seriesTypes.indexOf(type) === -1) logSeriesErrorMessage(type)
-  }
+const Series = memo(({children = null, getAxis, ...restProps}) => {
 
   if (defaultTo(restProps.requiresAxis, true)) {
     const axis = getAxis();
     if(!axis) throw new Error(`Series type="${restProps.type}" should be wrapped inside Axis`);
   }
 
+  const getHighcharts = useHighcharts();
+  const { getChart, needsRedraw } = useChart();
+
+  if (process.env.NODE_ENV === 'development') {
+    const { type } = restProps;
+    const seriesTypes = Object.keys(getHighcharts().seriesTypes);
+    if (seriesTypes.indexOf(type) === -1) logSeriesErrorMessage(type)
+  }
 
   const seriesRef = useRef(null);
   const [, setHasSeries] = useState(false);

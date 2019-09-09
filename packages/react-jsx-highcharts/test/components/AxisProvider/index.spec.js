@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { createMockAxis } from '../../test-utils';
 import * as clean from '../../../src/utils/removeProvidedProps';
-import * as chartProvider from '../../../src/components/ChartProvider';
 import * as DelayRender from '../../../src/components/DelayRender';
 import { Provider } from '../../../src/components/AxisContext';
 import provideAxis from '../../../src/components/AxisProvider';
+import ChartContext from '../../../src/components/ChartContext';
 
 const WrappedComponent = props => (
   <div />
@@ -16,7 +16,6 @@ describe('<AxisProvider />', () => {
 
   beforeEach(() => {
     testContext = {};
-    testContext.chartProviderStub = jest.spyOn(chartProvider, 'default').mockImplementation(x => x)
     testContext.delayRenderStub = jest.spyOn(DelayRender, 'default').mockImplementation(({ children }) => ( <div>{children}</div> ));
 
     testContext.cleanSpy = jest.spyOn(clean, 'default');
@@ -24,8 +23,15 @@ describe('<AxisProvider />', () => {
       userOptions: { id: 'myAxisId' },
       coll: 'yAxis'
     });
+    testContext.get = jest.fn().mockReturnValue(testContext.axis)
 
-    AxisWrappedComponent = provideAxis(WrappedComponent);
+    let AxisProvidedComponent = provideAxis(WrappedComponent);
+
+    AxisWrappedComponent = props => (
+      <ChartContext.Provider value={{ getChart: () => ({ get: testContext.get }) }}>
+        <AxisProvidedComponent {...props} />
+      </ChartContext.Provider>
+    );
   });
 
   afterEach(() => {
@@ -75,16 +81,6 @@ describe('<AxisProvider />', () => {
     expect(wrapper.find(WrappedComponent)).toExist();
   });
 
-  it('should additionally wrap the component with the chart context', () => {
-    mount(
-      <Provider value={testContext.axis}>
-        <AxisWrappedComponent />
-      </Provider>
-    );
-
-    expect(testContext.chartProviderStub).toHaveBeenCalledWith(AxisWrappedComponent);
-  });
-
   it('should provide a getAxis prop to the wrapped component', () => {
     const wrapper = mount(
       <Provider value={testContext.axis}>
@@ -96,10 +92,9 @@ describe('<AxisProvider />', () => {
   });
 
   it('should render the wrapped component if there is an axisId, and there is no axis context', () => {
-    const get = jest.fn().mockReturnValue(testContext.axis)
     const wrapper = mount(
       <Provider value={undefined}>
-        <AxisWrappedComponent getChart={() => ({ get })} axisId='my-passed-axis-id' />
+        <AxisWrappedComponent axisId='my-passed-axis-id' />
       </Provider>
     );
 
@@ -107,21 +102,19 @@ describe('<AxisProvider />', () => {
   });
 
   it('should get the axis using the passed axisId', () => {
-    const get = jest.fn().mockReturnValue(testContext.axis)
     mount(
       <Provider value={undefined}>
-        <AxisWrappedComponent getChart={() => ({ get })} axisId='my-passed-axis-id' />
+        <AxisWrappedComponent axisId='my-passed-axis-id' />
       </Provider>
     );
 
-    expect(get).toHaveBeenCalledWith('my-passed-axis-id')
+    expect(testContext.get).toHaveBeenCalledWith('my-passed-axis-id')
   });
 
   it('should provide a getAxis prop to the wrapped component when passing an axisId', () => {
-    const get = jest.fn().mockReturnValue(testContext.axis)
     const wrapper = mount(
       <Provider value={undefined}>
-        <AxisWrappedComponent getChart={() => ({ get })} axisId='my-passed-axis-id' />
+        <AxisWrappedComponent axisId='my-passed-axis-id' />
       </Provider>
     );
 

@@ -5,6 +5,7 @@ import provideChart from '../ChartProvider';
 import { Consumer } from '../AxisContext';
 import getDisplayName from '../../utils/getDisplayName';
 import clean from '../../utils/removeProvidedProps';
+import useChart from '../UseChart';
 
 // This is a HOC function.
 // It takes a component...
@@ -31,6 +32,7 @@ export default function provideAxis(Component) {
 
   // ...and returns another component...
   const AxisWrappedComponent = function(props) {
+    const { getChart } = useChart();
     // ... and renders the wrapped component with the context axis
     // Notice that we pass through any additional props as well
     return (
@@ -38,7 +40,7 @@ export default function provideAxis(Component) {
         <Consumer>
           {axis => {
             if (!axis && props.axisId) {
-              const chart = props.getChart();
+              const chart = getChart();
               axis = chart.get(props.axisId);
             }
 
@@ -57,5 +59,5 @@ export default function provideAxis(Component) {
 
   AxisWrappedComponent.displayName = `Axis.Provider(${getDisplayName(Component)})`
 
-  return provideChart(AxisWrappedComponent)
+  return AxisWrappedComponent;
 }
