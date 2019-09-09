@@ -6,7 +6,7 @@ import useModifiedProps from '../UseModifiedProps';
 
 const noop = c => c;
 
-const useChartUpdate = (props, updateFn = noop, destroyfn, childrenIsText = true) => {
+const useChartUpdate = (props, updateFn = noop, destroyfn = noop, childrenIsText = true) => {
   const { getChart, needsRedraw } = useChart();
 
   const modifiedProps = useModifiedProps(props, childrenIsText);

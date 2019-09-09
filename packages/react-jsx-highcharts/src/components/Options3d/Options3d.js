@@ -1,82 +1,82 @@
-import React, { Component } from 'react';
+import React, { useEffect, memo } from 'react';
 import PropTypes from 'prop-types';
-import { log3DModuleErrorMessage } from '../../utils/warnings'
+import { log3DModuleErrorMessage } from '../../utils/warnings';
+import useHighcharts from '../UseHighcharts';
+import useChart from '../UseChart';
 
-class Options3d extends Component {
+const Options3d = memo(props => {
+  const getHighcharts = useHighcharts();
+  const { getChart } = useChart();
 
-  static propTypes = {
-    alpha: PropTypes.number.isRequired,
-    axisLabelPosition: PropTypes.string,
-    beta: PropTypes.number.isRequired,
-    depth: PropTypes.number.isRequired,
-    fitToPlot: PropTypes.bool.isRequired,
-    frame: PropTypes.object,
-    viewDistance: PropTypes.number.isRequired,
-    getChart: PropTypes.func.isRequired // Provided by ChartProvider
-  };
-
-  static defaultProps = {
-    enabled: false,
-    alpha: 0,
-    beta: 0,
-    depth: 100,
-    fitToPlot: true,
-    viewDistance: 25,
-    axisLabelPosition: 'default',
-    frame: {
-      visible: 'default',
-      size: 1,
-      bottom: {},
-      top: {},
-      left: {},
-      right: {},
-      back: {},
-      front: {}
-    }
-  };
-
-  constructor (props) {
-    super(props);
-
-    if (process.env.NODE_ENV === 'development') {
-      if (!props.getHighcharts().ZAxis) log3DModuleErrorMessage();
-    }
+  if (process.env.NODE_ENV === 'development') {
+    if (!getHighcharts().ZAxis) log3DModuleErrorMessage();
   }
 
-  componentDidMount () {
-    this.update3dOptions();
-  }
+  useEffect(() => {
+    update3dOptions(getChart(), props);
+  });
 
-  componentDidUpdate () {
-    this.update3dOptions();
-  }
+  return null;
+});
 
-  update3dOptions = () => {
-    const {
-      alpha, axisLabelPosition, beta, depth, fitToPlot, frame, viewDistance, getChart
-    } = this.props;
+const update3dOptions = (chart, props) => {
+  const {
+    alpha,
+    axisLabelPosition,
+    beta,
+    depth,
+    fitToPlot,
+    frame,
+    viewDistance
+  } = props;
 
-    const opts = {
-      chart: {
-        options3d: {
-          enabled: true,
-          alpha,
-          axisLabelPosition,
-          beta,
-          depth,
-          fitToPlot,
-          frame,
-          viewDistance
-        }
+  const opts = {
+    chart: {
+      options3d: {
+        enabled: true,
+        alpha,
+        axisLabelPosition,
+        beta,
+        depth,
+        fitToPlot,
+        frame,
+        viewDistance
       }
-    };
-    const chart = getChart();
-    chart.update(opts, true);
-  }
+    }
+  };
+  chart.update(opts, true);
+};
 
-  render () {
-    return null;
+Options3d.propTypes = {
+  alpha: PropTypes.number.isRequired,
+  axisLabelPosition: PropTypes.string,
+  beta: PropTypes.number.isRequired,
+  depth: PropTypes.number.isRequired,
+  fitToPlot: PropTypes.bool.isRequired,
+  frame: PropTypes.object,
+  viewDistance: PropTypes.number.isRequired
+};
+
+Options3d.defaultProps = {
+  enabled: false,
+  alpha: 0,
+  beta: 0,
+  depth: 100,
+  fitToPlot: true,
+  viewDistance: 25,
+  axisLabelPosition: 'default',
+  frame: {
+    visible: 'default',
+    size: 1,
+    bottom: {},
+    top: {},
+    left: {},
+    right: {},
+    back: {},
+    front: {}
   }
-}
+};
+
+Options3d.displayName = 'Options3d';
 
 export default Options3d;
