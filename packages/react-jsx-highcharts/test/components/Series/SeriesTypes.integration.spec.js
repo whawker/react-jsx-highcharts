@@ -30,7 +30,7 @@ import {
   XAxis,
   withHighcharts
 } from '../../../src';
-import { renderIntoDocument } from 'react-dom/test-utils'
+import { act, renderIntoDocument } from 'react-dom/test-utils'
 
 import * as all from '../../../src';
 import Series from '../../../src/components/Series';
@@ -69,6 +69,20 @@ Object.keys(all).filter(name => /^[A-Z].*Series$/.test(name)).forEach((seriesNam
 
   describe(`<${seriesName} /> integration`, () => {
 
+    beforeAll(function () {
+      jest.useFakeTimers();
+    });
+
+    beforeEach(() => {
+      jest.spyOn(window, 'requestAnimationFrame').mockImplementation(cb => window.setTimeout(cb, 0));
+      jest.spyOn(window, 'cancelAnimationFrame');
+    });
+
+    afterEach(() => {
+      window.requestAnimationFrame.mockRestore();
+      window.cancelAnimationFrame.mockRestore();
+    });
+
     if(seriesType in Highcharts.seriesTypes) {
       it('renders with real highcharts', (done) => {
         const afterAddSeries = (event) => {
@@ -90,6 +104,9 @@ Object.keys(all).filter(name => /^[A-Z].*Series$/.test(name)).forEach((seriesNam
         };
         const WithComponent = withHighcharts(Component, Highcharts);
         const renderedChart = renderIntoDocument(<WithComponent />);
+        act(() => {
+          jest.runAllTimers();
+        });
       });
       it('binds hide event correctly', (done) => {
         const afterAddSeries = (event) => {
@@ -114,7 +131,9 @@ Object.keys(all).filter(name => /^[A-Z].*Series$/.test(name)).forEach((seriesNam
         };
         const WithComponent = withHighcharts(Component, Highcharts);
         const renderedChart = renderIntoDocument(<WithComponent />);
-
+        act(() => {
+          jest.runAllTimers();
+        });
       });
     }
   });

@@ -1,33 +1,30 @@
 import { useEffect, memo } from 'react';
-import PropTypes from 'prop-types';
 import { attempt } from 'lodash-es';
-import useModifiedProps from '../UseModifiedProps';
+import useAxis from '../UseAxis';
 
-const AxisTitle = memo((props) => {
-  const { getAxis } = props;
-
-  const modifiedProps = useModifiedProps(props, true);
+const AxisTitle = memo(({ children: text, axisId, ...restProps}) => {
+  const getAxis = useAxis(axisId);
 
   useEffect(() => {
-    if (modifiedProps !== false) {
-      updateAxisTitle(modifiedProps, getAxis());
+    if (getAxis) {
+      updateAxisTitle({ text, ...restProps}, getAxis());
     }
   });
 
   useEffect(() => {
-    return () => attempt(updateAxisTitle, { text: null }, getAxis());
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[]);
+    return () => {
+      if (getAxis) attempt(updateAxisTitle, { text: null }, getAxis());
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [getAxis]);
 
   return null;
-})
+});
 
 const updateAxisTitle = (config, axis) => {
   axis.setTitle(config, true);
-}
-
-AxisTitle.propTypes = {
-  getAxis: PropTypes.func.isRequired // Provided by AxisProvider
 };
+
+AxisTitle.displayName = 'AxisTitle';
 
 export default AxisTitle;

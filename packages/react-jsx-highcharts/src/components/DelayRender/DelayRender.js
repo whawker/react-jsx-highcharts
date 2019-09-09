@@ -1,35 +1,16 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
+import useDelay from '../UseDelay';
 
-class DelayRender extends Component {
-  state = {
-    render: false
-  };
+const DelayRender = ({ children }) => {
+  const [render, setRender] = useState(false);
+  useDelay(()=> {
+    if(!render) setRender(true);
+  });
 
-  renderTimeout = null;
+  if (!render) return null;
 
-  unmounted = false;
+  return children;
 
-  componentDidMount () {
-    this.renderTimeout = window.requestAnimationFrame(() => {
-      if (this.unmounted === false) {
-        this.setState({ render: true });
-      }
-      this.renderTimeout = null;
-    });
-  }
-
-  componentWillUnmount() {
-    this.unmounted = true;
-    if(this.renderTimeout !== null) {
-      window.cancelAnimationFrame(this.renderTimeout);
-    }
-  }
-
-  render () {
-    if (!this.state.render) return null;
-
-    return this.props.children;
-  }
 }
 
 export default DelayRender;

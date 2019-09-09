@@ -1,5 +1,6 @@
 import React from 'react';
 import DelayRender from '../../../src/components/DelayRender/index';
+import { act } from 'react-dom/test-utils';
 
 const ChildComponent = props => (
   <div />
@@ -37,7 +38,9 @@ describe('<DelayRender />', () => {
         <ChildComponent/>
       </DelayRender>
     );
-    jest.advanceTimersByTime(1);
+    act(() => {
+      jest.advanceTimersByTime(1);
+    });
     wrapper.update();
 
     expect(wrapper.find(ChildComponent)).toExist();
@@ -54,7 +57,7 @@ describe('<DelayRender />', () => {
     expect(cancelAnimationFrame).toHaveBeenCalledTimes(1);
     expect(cancelAnimationFrame).toHaveBeenLastCalledWith(expect.any(Number));
   });
-
+/* TODO move these tests to useDelay
   it('calls setState if the component is still mounted after tick', () => {
     const wrapper = mount(
       <DelayRender>
@@ -79,4 +82,5 @@ describe('<DelayRender />', () => {
 
     expect(setStateSpy).not.toHaveBeenCalled();
   });
+  */
 });

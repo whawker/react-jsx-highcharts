@@ -13,14 +13,16 @@ import { logSeriesErrorMessage } from '../../utils/warnings';
 import usePrevious from '../UsePrevious';
 import useHighcharts from '../UseHighcharts';
 import useChart from '../UseChart';
+import useAxis from '../UseAxis';
 
-const Series = memo(({children = null, getAxis, ...restProps}) => {
+const Series = memo(({children = null, ...restProps}) => {
 
+  /*
   if (defaultTo(restProps.requiresAxis, true)) {
     const axis = getAxis();
     if(!axis) throw new Error(`Series type="${restProps.type}" should be wrapped inside Axis`);
   }
-
+*/
   const getHighcharts = useHighcharts();
   const { getChart, needsRedraw } = useChart();
 
@@ -33,9 +35,10 @@ const Series = memo(({children = null, getAxis, ...restProps}) => {
   const seriesRef = useRef(null);
   const [, setHasSeries] = useState(false);
 
-
+  const getAxis = useAxis(restProps.axisId);
 
   useEffect(() => {
+    if(restProps.requiresAxis && !getAxis) return;
     seriesRef.current = createSeries(getChart(), restProps, getAxis);
     setHasSeries(true);
     needsRedraw();
@@ -49,7 +52,7 @@ const Series = memo(({children = null, getAxis, ...restProps}) => {
       }
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[]);
+  },[getAxis]);
 
   const prevProps = usePrevious(restProps);
 
