@@ -1,7 +1,6 @@
 import React from 'react';
 import memoizeOne from 'memoize-one';
 import DelayRender from '../DelayRender';
-import provideChart from '../ChartProvider';
 import { Consumer } from '../AxisContext';
 import getDisplayName from '../../utils/getDisplayName';
 import clean from '../../utils/removeProvidedProps';
