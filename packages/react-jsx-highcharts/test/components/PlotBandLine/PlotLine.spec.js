@@ -1,6 +1,6 @@
 import React from 'react';
 import { createMockProvidedAxis, uuidRegex } from '../../test-utils'
-import PlotLine from '../../../src/components/PlotLine/PlotLine';
+import PlotLine from '../../../src/components/PlotBandLine/PlotLine';
 
 describe('<PlotLine />', () => {
   let testContext;
@@ -61,19 +61,6 @@ describe('<PlotLine />', () => {
       testContext.axisStubs.removePlotLine.mockReset();
       wrapper.unmount();
       expect(testContext.axisStubs.removePlotLine).toHaveBeenCalledWith('My PlotLine');
-    });
-  });
-
-  describe('children', () => {
-    it('should pass the ID of the plot band to the children', () => {
-      const ChildComponent = props => (<div />);
-
-      const wrapper = mount(
-        <PlotLine id="myId" value={20} {...testContext.propsFromProviders}>
-          <ChildComponent />
-        </PlotLine>
-      ).children();
-      expect(wrapper.find(ChildComponent)).toHaveProp('id', 'myId');
     });
   });
 });
