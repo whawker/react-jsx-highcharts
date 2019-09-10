@@ -1,51 +1,13 @@
-import React, { useRef, useEffect, useState, memo } from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
-import uuid from 'uuid/v4';
-import { attempt } from 'lodash-es';
 import PlotBandLineContext from './PlotBandLineContext';
-import useModifiedProps from '../UseModifiedProps';
-import useAxis from '../UseAxis';
+import usePlotBandLine from './usePlotBandLine';
+
 
 const PlotBand = memo(props => {
-  const { id = uuid, children, ...rest } = props;
+  const plotband = usePlotBandLine(props, 'plotBands');
 
-  const getAxis = useAxis();
-  const idRef = useRef();
-  const [plotband, setPlotband] = useState(null);
-  const modifiedProps = useModifiedProps(rest);
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => {
-    if (!getAxis) return;
-    if (modifiedProps !== false && plotband) {
-      const axis = getAxis();
-      axis.removePlotBand(idRef.current);
-      const opts = {
-        id: idRef.current,
-        ...modifiedProps
-      };
-      setPlotband(axis.addPlotBand(opts));
-    }
-  });
-
-  // create plotline
-  useEffect(() => {
-    if (!getAxis) return;
-    idRef.current = typeof id === 'function' ? id() : id;
-    const myId = idRef.current;
-    const opts = {
-      id: myId,
-      ...rest
-    };
-    const axis = getAxis();
-    setPlotband(axis.addPlotBand(opts));
-
-    return () => {
-      const axis = getAxis();
-      attempt(axis.removePlotBand, idRef.current);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ getAxis ]);
+  const { children } = props;
 
   if (!children && !plotband) return null;
 
@@ -60,7 +22,8 @@ PlotBand.propTypes = {
   id: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   from: PropTypes.any.isRequired,
   to: PropTypes.any.isRequired,
-  color: PropTypes.string
+  color: PropTypes.string,
+  children: PropTypes.node
 };
 
 PlotBand.displayName = 'PlotBand';

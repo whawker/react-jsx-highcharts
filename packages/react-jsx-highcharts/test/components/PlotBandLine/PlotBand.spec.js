@@ -20,25 +20,25 @@ describe('<PlotBand />', () => {
   });
 
   describe('when mounted', () => {
-    it('adds a title using the Axis addPlotBand method', () => {
+    it('adds a title using the Axis addPlotBandOrLine method', () => {
       mount(<PlotBand id="My PlotBand" from={1} to={2} />);
-      expect(testContext.axisStubs.addPlotBand).toHaveBeenCalledWith(expect.objectContaining(
+      expect(testContext.axisStubs.addPlotBandOrLine).toHaveBeenCalledWith(expect.objectContaining(
         { id: 'My PlotBand', from: 1, to: 2 }
-      ));
+      ), 'plotBands');
     });
 
-    it('should pass additional props through to Axis addPlotBand method', () => {
+    it('should pass additional props through to Axis addPlotBandOrLine method', () => {
       mount(<PlotBand borderColor="red" id="My Other PlotBand" from={8.8} to={24.2} />);
-      expect(testContext.axisStubs.addPlotBand).toHaveBeenCalledWith(expect.objectContaining(
+      expect(testContext.axisStubs.addPlotBandOrLine).toHaveBeenCalledWith(expect.objectContaining(
         { id: 'My Other PlotBand', borderColor: 'red', from: 8.8, to: 24.2 }
-      ));
+      ), 'plotBands');
     });
 
     it('uses the provided ID if id prop is a string', () => {
       mount(
         <PlotBand id="myPlotBandIdStr" from={1} to={2} />
       );
-      expect(testContext.axisStubs.addPlotBand.mock.calls[0][0].id).toBe('myPlotBandIdStr');
+      expect(testContext.axisStubs.addPlotBandOrLine.mock.calls[0][0].id).toBe('myPlotBandIdStr');
     });
 
     it('resolves the ID if id prop is a function', () => {
@@ -46,14 +46,14 @@ describe('<PlotBand />', () => {
       mount(
         <PlotBand id={idFunc} from={1} to={2} />
       );
-      expect(testContext.axisStubs.addPlotBand.mock.calls[0][0].id).toBe('myPlotBandIdFromFunc');
+      expect(testContext.axisStubs.addPlotBandOrLine.mock.calls[0][0].id).toBe('myPlotBandIdFromFunc');
     });
 
     it('uses a uuid as an ID if no id prop provided', () => {
       mount(
         <PlotBand from={1} to={2} />
       );
-      expect(testContext.axisStubs.addPlotBand.mock.calls[0][0].id).toMatch(uuidRegex);
+      expect(testContext.axisStubs.addPlotBandOrLine.mock.calls[0][0].id).toMatch(uuidRegex);
     });
   });
 
@@ -62,9 +62,9 @@ describe('<PlotBand />', () => {
       const wrapper = mount(
         <PlotBand id="My PlotBand" from={1} to={2} />
       );
-      testContext.axisStubs.removePlotBand.mockReset();
+      testContext.axisStubs.removePlotBandOrLine.mockClear();
       wrapper.unmount();
-      expect(testContext.axisStubs.removePlotBand).toHaveBeenCalledWith('My PlotBand');
+      expect(testContext.axisStubs.removePlotBandOrLine).toHaveBeenCalledWith('My PlotBand');
     });
   });
 });
