@@ -5,7 +5,6 @@ import { isEqual, attempt } from 'lodash-es'
 import { Provider } from '../ChartContext';
 import { validChartTypes } from '../../utils/propTypeValidators'
 import clean from '../../utils/removeProvidedProps';
-import useDelay from '../UseDelay';
 import usePrevious from '../UsePrevious';
 
 const BaseChart = ({ children = null, callback, className = '', ...restProps}) => {
