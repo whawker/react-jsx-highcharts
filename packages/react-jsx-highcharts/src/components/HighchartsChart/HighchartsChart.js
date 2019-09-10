@@ -8,7 +8,6 @@ const HighchartsChart = (props) => {
   return (
     <BaseChart
       {...props}
-      getHighcharts={getHighcharts}
       chartCreationFunc={getHighcharts().chart}
       chartType="chart" />
   )
