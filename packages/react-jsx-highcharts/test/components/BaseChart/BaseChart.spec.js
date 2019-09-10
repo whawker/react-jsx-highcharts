@@ -57,7 +57,7 @@ describe('<BaseChart />', () => {
       expect(testContext.chartCreationFunc).toHaveBeenCalledWith(wrapper.getDOMNode(), expect.anything());
     });
 
-    it('should create a chart context, with the chart and chart type', done => {
+    it('should create a chart context, with the chart and chart type', () => {
 
       const wrapper = mount(
         <BaseChart {...testContext} chartType='chart'>
@@ -69,18 +69,15 @@ describe('<BaseChart />', () => {
         </BaseChart>
       );
 
-      wrapper.setState({ rendered: true }, () => {
-        const child = wrapper.find(ChildComponent);
-        expect(child).toHaveProp('value',
-          { chart, chartType: 'chart', getChart: expect.any(Function),
-           needsRedraw: expect.any(Function)
-          }
-        );
-        done();
-      });
+      const child = wrapper.find(ChildComponent);
+      expect(child).toHaveProp('value',
+        { getChart: expect.any(Function),
+          needsRedraw: expect.any(Function)
+        }
+      );
     });
 
-    it('should create a chart context, with the chart and stockChart type', done => {
+    it('should create a chart context, with the chart and stockChart type', () => {
       const ChildComponent = ({ value }) => (
         <div>{ value.chartType }</div>
       )
@@ -94,35 +91,26 @@ describe('<BaseChart />', () => {
         </BaseChart>
       );
 
-      wrapper.setState({ rendered: true }, () => {
-        const child = wrapper.find(ChildComponent);
-        expect(child).toHaveProp('value',
-          { chart, chartType: 'stockChart', getChart: expect.any(Function),
-            needsRedraw: expect.any(Function)
-          }
-        );
-        done();
-      });
+      const child = wrapper.find(ChildComponent);
+      expect(child).toHaveProp('value',
+        { getChart: expect.any(Function),
+          needsRedraw: expect.any(Function)
+        }
+      );
     });
 
-    it('should create a angular chart when mounted with the gauge prop', done => {
+    it('should create a angular chart when mounted with the gauge prop', () => {
       expect(chart.angular).toBeFalsy();
 
       const wrapper = mount(<BaseChart gauge {...testContext} chartType='stockChart' />);
-      wrapper.setState({ rendered: true }, () => {
-        expect(chart.angular).toEqual(true);
-        done();
-      });
+      expect(chart.angular).toEqual(true);
     });
 
-    it('should create a polar chart when mounted with the polar prop', done => {
+    it('should create a polar chart when mounted with the polar prop', () => {
       expect(chart.polar).toBeFalsy();
 
       const wrapper = mount(<BaseChart polar {...testContext} chartType='stockChart' />);
-      wrapper.setState({ rendered: true }, () => {
-        expect(chart.polar).toBe(true);
-        done();
-      });
+      expect(chart.polar).toBe(true);
     });
 
     it('should create a chart with styledMode=false by default', () => {
@@ -135,7 +123,7 @@ describe('<BaseChart />', () => {
       expect(testContext.chartCreationFunc).toHaveBeenCalledWith(wrapper.getDOMNode(), expect.objectContaining({ chart: { styledMode: true } }));
     });
 
-    it('should provide chart functions when calling getChart', done => {
+    it('should provide chart functions when calling getChart', () => {
       const wrapper = mount(
         <BaseChart {...testContext} chartType='chart'>
           <Consumer>
@@ -146,24 +134,22 @@ describe('<BaseChart />', () => {
         </BaseChart>
       );
 
-      wrapper.setState({ rendered: true }, () => {
-        const chartProp = wrapper.find(ChildComponent).props().getChart();
-        expect(chartProp.type).toEqual('chart');
-        expect(chartProp.get).toEqual(expect.any(Function));
-        expect(chartProp.setSize).toEqual(expect.any(Function));
-        expect(chartProp.update).toEqual(expect.any(Function));
-        expect(chartProp.addAxis).toEqual(expect.any(Function));
-        expect(chartProp.addSeries).toEqual(expect.any(Function));
-        expect(chartProp.setTitle).toEqual(expect.any(Function));
-        expect(chartProp.setCaption).toEqual(expect.any(Function));
-        expect(chartProp.showLoading).toEqual(expect.any(Function));
-        expect(chartProp.hideLoading).toEqual(expect.any(Function));
-        expect(chartProp.addCredits).toEqual(expect.any(Function));
-        done();
-      });
+
+      const chartProp = wrapper.find(ChildComponent).props().getChart();
+      expect(chartProp.type).toEqual('chart');
+      expect(chartProp.get).toEqual(expect.any(Function));
+      expect(chartProp.setSize).toEqual(expect.any(Function));
+      expect(chartProp.update).toEqual(expect.any(Function));
+      expect(chartProp.addAxis).toEqual(expect.any(Function));
+      expect(chartProp.addSeries).toEqual(expect.any(Function));
+      expect(chartProp.setTitle).toEqual(expect.any(Function));
+      expect(chartProp.setCaption).toEqual(expect.any(Function));
+      expect(chartProp.showLoading).toEqual(expect.any(Function));
+      expect(chartProp.hideLoading).toEqual(expect.any(Function));
+      expect(chartProp.addCredits).toEqual(expect.any(Function));
     });
 
-    it('should provide expected chart functions when calling getChart', done => {
+    it('should provide expected chart functions when calling getChart', () => {
       chart.get.mockReturnValueOnce('get method mock');
       chart.setSize.mockReturnValueOnce('setSize method mock');
       chart.update.mockReturnValueOnce('update method mock');
@@ -185,24 +171,21 @@ describe('<BaseChart />', () => {
         </BaseChart>
       );
 
-      wrapper.setState({ rendered: true }, () => {
-        const chartProp = wrapper.find(ChildComponent).props().getChart();
-        expect(chartProp.type).toEqual('chart');
-        expect(chartProp.get({ prop: 'Test1234' })).toEqual('get method mock');
-        expect(chartProp.setSize({ prop: 'Test5678' })).toEqual('setSize method mock');
-        expect(chartProp.update({ prop: 'Test9876' })).toEqual('update method mock');
-        expect(chartProp.addAxis({ prop: 'Test4567' })).toEqual('addAxis method mock');
-        expect(chartProp.addSeries({ prop: 'Test7654' })).toEqual('addSeries method mock');
-        expect(chartProp.setTitle({ prop: 'Test8080' })).toEqual('setTitle method mock');
-        expect(chartProp.setCaption({ prop: 'Test8080' })).toEqual('setCaption method mock');
-        expect(chartProp.showLoading({ prop: 'Test1111' })).toEqual('showLoading method mock');
-        expect(chartProp.hideLoading({ prop: 'Test2222' })).toEqual('hideLoading method mock');
-        expect(chartProp.addCredits({ prop: 'Test3333' })).toEqual('addCredits method mock');
-        done();
-      });
+      const chartProp = wrapper.find(ChildComponent).props().getChart();
+      expect(chartProp.type).toEqual('chart');
+      expect(chartProp.get({ prop: 'Test1234' })).toEqual('get method mock');
+      expect(chartProp.setSize({ prop: 'Test5678' })).toEqual('setSize method mock');
+      expect(chartProp.update({ prop: 'Test9876' })).toEqual('update method mock');
+      expect(chartProp.addAxis({ prop: 'Test4567' })).toEqual('addAxis method mock');
+      expect(chartProp.addSeries({ prop: 'Test7654' })).toEqual('addSeries method mock');
+      expect(chartProp.setTitle({ prop: 'Test8080' })).toEqual('setTitle method mock');
+      expect(chartProp.setCaption({ prop: 'Test8080' })).toEqual('setCaption method mock');
+      expect(chartProp.showLoading({ prop: 'Test1111' })).toEqual('showLoading method mock');
+      expect(chartProp.hideLoading({ prop: 'Test2222' })).toEqual('hideLoading method mock');
+      expect(chartProp.addCredits({ prop: 'Test3333' })).toEqual('addCredits method mock');
     });
 
-    it('should provide chart functions bound to the chart when calling getChart', done => {
+    it('should provide chart functions bound to the chart when calling getChart', () => {
       chart.get.mockReturnThis();
       chart.setSize.mockReturnThis();
       chart.update.mockReturnThis();
@@ -224,24 +207,21 @@ describe('<BaseChart />', () => {
         </BaseChart>
       );
 
-      wrapper.setState({ rendered: true }, () => {
-        const chartProp = wrapper.find(ChildComponent).props().getChart();
-        expect(chartProp.type).toEqual('stockChart');
-        expect(chartProp.get({ prop: 'Test1234' })).toEqual(chart);
-        expect(chartProp.setSize({ prop: 'Test5678' })).toEqual(chart);
-        expect(chartProp.update({ prop: 'Test9876' })).toEqual(chart);
-        expect(chartProp.addAxis({ prop: 'Test4567' })).toEqual(chart);
-        expect(chartProp.addSeries({ prop: 'Test7654' })).toEqual(chart);
-        expect(chartProp.setTitle({ prop: 'Test8080' })).toEqual(chart);
-        expect(chartProp.setCaption({ prop: 'Test8080' })).toEqual(chart);
-        expect(chartProp.showLoading({ prop: 'Test1111' })).toEqual(chart);
-        expect(chartProp.hideLoading({ prop: 'Test2222' })).toEqual(chart);
-        expect(chartProp.addCredits({ prop: 'Test3333' })).toEqual(chart);
-        done();
-      });
+      const chartProp = wrapper.find(ChildComponent).props().getChart();
+      expect(chartProp.type).toEqual('stockChart');
+      expect(chartProp.get({ prop: 'Test1234' })).toEqual(chart);
+      expect(chartProp.setSize({ prop: 'Test5678' })).toEqual(chart);
+      expect(chartProp.update({ prop: 'Test9876' })).toEqual(chart);
+      expect(chartProp.addAxis({ prop: 'Test4567' })).toEqual(chart);
+      expect(chartProp.addSeries({ prop: 'Test7654' })).toEqual(chart);
+      expect(chartProp.setTitle({ prop: 'Test8080' })).toEqual(chart);
+      expect(chartProp.setCaption({ prop: 'Test8080' })).toEqual(chart);
+      expect(chartProp.showLoading({ prop: 'Test1111' })).toEqual(chart);
+      expect(chartProp.hideLoading({ prop: 'Test2222' })).toEqual(chart);
+      expect(chartProp.addCredits({ prop: 'Test3333' })).toEqual(chart);
     });
 
-    it('should provide chart functions which will be cleaned prior to being called', done => {
+    it('should provide chart functions which will be cleaned prior to being called', () => {
       const wrapper = mount(
         <BaseChart {...testContext} chartType='chart'>
           <Consumer>
@@ -252,12 +232,9 @@ describe('<BaseChart />', () => {
         </BaseChart>
       );
 
-      wrapper.setState({ rendered: true }, () => {
-        const child = wrapper.find(ChildComponent).props().getChart();
-        const cleanedFunctions = ['update', 'addAxis', 'addSeries', 'setTitle', 'addCredits', 'setCaption'];
-        expect(cleanSpy).toHaveBeenCalledTimes(cleanedFunctions.length);
-        done();
-      });
+      const child = wrapper.find(ChildComponent).props().getChart();
+      const cleanedFunctions = ['update', 'addAxis', 'addSeries', 'setTitle', 'addCredits', 'setCaption'];
+      expect(cleanSpy).toHaveBeenCalledTimes(cleanedFunctions.length);
     });
   });
 
