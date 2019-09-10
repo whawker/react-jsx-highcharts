@@ -9,8 +9,7 @@ import useModifiedProps from '../UseModifiedProps';
 import useChart from '../UseChart';
 
 
-const Axis = (props) => {
-  const { children = null, ...restProps } = props;
+const Axis = ({ children = null, dynamicAxis = true, ...restProps }) => {
 
   const { getChart, needsRedraw } = useChart();
 
@@ -18,7 +17,7 @@ const Axis = (props) => {
   const [hasAxis, setHasAxis] = useState(false);
 
   useEffect(() => {
-    axisRef.current = createAxis(restProps, getChart());
+    axisRef.current = createAxis(getChart(), restProps, dynamicAxis);
     setHasAxis(true);
     needsRedraw();
     return () => {
@@ -42,7 +41,7 @@ const Axis = (props) => {
       needsRedraw();
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props]);
+  });
 
   if (!hasAxis) return null;
 
@@ -68,8 +67,8 @@ const getAxisConfig = (props) => {
   }
 }
 
-const createAxis = (props, chart) => {
-  const { id = uuid, dynamicAxis, isX } = props;
+const createAxis = (chart, props, dynamicAxis) => {
+  const { id = uuid, isX } = props;
 
   // Create Highcharts Axis
   const opts = getAxisConfig(props);
@@ -89,11 +88,7 @@ Axis.propTypes = {
   type: validAxisTypes,
   id: PropTypes.oneOfType([ PropTypes.string, PropTypes.func ]),
   children: PropTypes.node,
-  dynamicAxis: PropTypes.bool.isRequired
-};
-
-Axis.defaultProps = {
-  dynamicAxis: true
+  dynamicAxis: PropTypes.bool
 };
 
 export default Axis;
