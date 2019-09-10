@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import uuid from 'uuid/v4';
 import { attempt } from 'lodash-es';
-import { Provider } from '../AxisContext';
+import AxisContext from '../AxisContext';
 import { getNonEventHandlerProps, getEventsConfig } from '../../utils/events';
 import { validAxisTypes } from '../../utils/propTypeValidators';
 import useModifiedProps from '../UseModifiedProps';
@@ -46,9 +46,9 @@ const Axis = ({ children = null, dynamicAxis = true, ...restProps }) => {
   if (!hasAxis) return null;
 
   return (
-    <Provider value={axisRef.current}>
+    <AxisContext.Provider value={axisRef.current}>
       {children}
-    </Provider>
+    </AxisContext.Provider>
   );
 }
 

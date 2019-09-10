@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import withHighcharts from '../../../src/components/WithHighcharts';
-import { Consumer } from '../../../src/components/HighchartsContext'
+import HighchartsContext from '../../../src/components/HighchartsContext'
 import { Highcharts } from '../../test-utils';
 
 const ChildComponent = ({ value }) => (
@@ -8,11 +8,11 @@ const ChildComponent = ({ value }) => (
 )
 
 const WrappedComponent = props => (
-  <Consumer>
+  <HighchartsContext.Consumer>
     { value => (
       <ChildComponent value={ value } />
     )}
-  </Consumer>
+  </HighchartsContext.Consumer>
 );
 
 describe('withHighcharts', () => {

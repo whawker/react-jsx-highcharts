@@ -2,7 +2,7 @@ import React from 'react';
 import { Highcharts, createMockChart } from '../../test-utils';
 import HighchartsChart from '../../../src/components/HighchartsChart/HighchartsChart';
 import BaseChart from '../../../src/components/BaseChart';
-import { Provider } from '../../../src/components/HighchartsContext';
+import HighchartsContext from '../../../src/components/HighchartsContext';
 
 describe('<HighchartsChart />', () => {
   let ProvidedHighchartsChart;
@@ -12,9 +12,9 @@ describe('<HighchartsChart />', () => {
     Highcharts.chart.mockReturnValue(chart);
     const getHighcharts = () => Highcharts;
     ProvidedHighchartsChart = props => (
-      <Provider value={getHighcharts}>
+      <HighchartsContext.Provider value={getHighcharts}>
         <HighchartsChart {...props}/>
-      </Provider>
+      </HighchartsContext.Provider>
     );
   });
 

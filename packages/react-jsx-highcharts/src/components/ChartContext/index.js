@@ -1,6 +1,6 @@
 import { createContext } from 'react';
 
 const ChartContext = createContext();
+ChartContext.displayName = 'ChartContext';
 
-export const { Consumer, Provider } = ChartContext;
 export default ChartContext;

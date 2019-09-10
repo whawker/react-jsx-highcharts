@@ -1,7 +1,7 @@
 import React from 'react';
 import XAxis from '../../../src/components/XAxis/XAxis';
 import Axis from '../../../src/components/Axis';
-import { Provider } from '../../../src/components/ChartContext';
+import ChartContext from '../../../src/components/ChartContext';
 import { createMockProvidedChart } from '../../test-utils'
 
 describe('<XAxis />', () => {
@@ -13,9 +13,9 @@ describe('<XAxis />', () => {
     testContext.chartStubs = chartStubs;
 
     ProvidedAxis = (props) => (
-      <Provider value={{ getChart, needsRedraw }}>
+      <ChartContext.Provider value={{ getChart, needsRedraw }}>
         <XAxis {...props}/>
-      </Provider>
+      </ChartContext.Provider>
     );
 
   });

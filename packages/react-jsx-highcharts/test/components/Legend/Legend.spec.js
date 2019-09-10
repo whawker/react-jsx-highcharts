@@ -1,7 +1,7 @@
 import React from 'react';
 import { createMockProvidedChart } from '../../test-utils'
 import Legend from '../../../src/components/Legend/Legend';
-import { Provider } from '../../../src/components/ChartContext';
+import ChartContext from '../../../src/components/ChartContext';
 
 
 
@@ -14,9 +14,9 @@ describe('<Legend />', () => {
     testContext = {};
     const { chartStubs, getChart, needsRedraw } = createMockProvidedChart();
     ProvidedLegend = props => (
-      <Provider value={{ getChart, needsRedraw }}>
+      <ChartContext.Provider value={{ getChart, needsRedraw }}>
         <Legend {...props}/>
-      </Provider>
+      </ChartContext.Provider>
     );
     testContext.chartStubs = chartStubs;
     testContext.needsRedraw = needsRedraw;

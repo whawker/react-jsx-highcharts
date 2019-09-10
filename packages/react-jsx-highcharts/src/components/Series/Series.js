@@ -3,10 +3,9 @@ import PropTypes from 'prop-types';
 import uuid from 'uuid/v4';
 import { isEqual } from 'lodash-es';
 import { attempt } from 'lodash-es';
-import { defaultTo } from 'lodash-es';
 import isImmutable from 'is-immutable';
 import immutableEqual from 'immutable-is';
-import { Provider } from '../SeriesContext';
+import SeriesContext from '../SeriesContext';
 import { getNonEventHandlerProps, getEventsConfig } from '../../utils/events';
 import getModifiedProps from '../../utils/getModifiedProps';
 import { logSeriesErrorMessage } from '../../utils/warnings';
@@ -108,7 +107,11 @@ const Series = memo(({
 
   if (!seriesRef.current) return null;
 
-  return <Provider value={providerValueRef.current}>{children}</Provider>;
+  return (
+    <SeriesContext.Provider value={providerValueRef.current}>
+      {children}
+    </SeriesContext.Provider>
+  );
 });
 
 Series.displayName = 'Series';

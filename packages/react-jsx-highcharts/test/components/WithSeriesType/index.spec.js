@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import withSeriesType from '../../../src/components/WithSeriesType';
 import Series from '../../../src/components/Series';

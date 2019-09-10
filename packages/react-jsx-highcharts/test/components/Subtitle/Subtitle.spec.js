@@ -1,7 +1,7 @@
 import React from 'react';
 import { createMockProvidedChart } from '../../test-utils'
 import Subtitle from '../../../src/components/Subtitle/Subtitle';
-import { Provider } from '../../../src/components/ChartContext';
+import ChartContext from '../../../src/components/ChartContext';
 
 describe('<Subtitle />', () => {
   let testContext;
@@ -13,9 +13,9 @@ describe('<Subtitle />', () => {
     testContext.chartStubs = chartStubs;
 
     ProvidedSubtitle = props => (
-      <Provider value={{ getChart, needsRedraw }}>
+      <ChartContext.Provider value={{ getChart, needsRedraw }}>
         <Subtitle {...props}/>
-      </Provider>
+      </ChartContext.Provider>
     );
   });
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { createMockProvidedChart, createMockAxis, uuidRegex } from '../../test-utils'
 import Axis from '../../../src/components/Axis/Axis';
-import { Provider } from '../../../src/components/ChartContext';
+import ChartContext from '../../../src/components/ChartContext';
 
 describe('<Axis />', () => {
   let testContext;
@@ -18,9 +18,9 @@ describe('<Axis />', () => {
     testContext.needsRedraw = needsRedraw;
 
     ProvidedAxis = (props) => (
-    <Provider value={{ getChart, needsRedraw }}>
+      <ChartContext.Provider value={{ getChart, needsRedraw }}>
         <Axis {...props} />
-      </Provider>
+      </ChartContext.Provider>
     );
   });
 

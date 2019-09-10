@@ -1,6 +1,6 @@
 import React, { Component, cloneElement } from 'react';
 import BaseChart from '../../../src/components/BaseChart';
-import { Consumer } from '../../../src/components/ChartContext';
+import ChartContext from '../../../src/components/ChartContext';
 import { createMockChart } from '../../test-utils';
 
 class Wrapper extends Component {
@@ -57,11 +57,11 @@ describe('<BaseChart />', () => {
 
       const wrapper = mount(
         <BaseChart {...testContext} chartType='chart'>
-          <Consumer>
+          <ChartContext.Consumer>
             { value => (
               <ChildComponent value={ value } />
             )}
-          </Consumer>
+          </ChartContext.Consumer>
         </BaseChart>
       );
 
@@ -79,11 +79,11 @@ describe('<BaseChart />', () => {
       )
       const wrapper = mount(
         <BaseChart {...testContext} chartType='stockChart'>
-          <Consumer>
+          <ChartContext.Consumer>
             { value => (
               <ChildComponent value={ value } />
             )}
-          </Consumer>
+          </ChartContext.Consumer>
         </BaseChart>
       );
 
@@ -122,11 +122,11 @@ describe('<BaseChart />', () => {
     it('should provide chart functions when calling getChart', () => {
       const wrapper = mount(
         <BaseChart {...testContext} chartType='chart'>
-          <Consumer>
+          <ChartContext.Consumer>
             { ({ getChart }) => (
               <ChildComponent getChart={ getChart } />
             )}
-          </Consumer>
+          </ChartContext.Consumer>
         </BaseChart>
       );
 
@@ -159,11 +159,11 @@ describe('<BaseChart />', () => {
 
       const wrapper = mount(
         <BaseChart {...testContext} chartType='chart'>
-          <Consumer>
+          <ChartContext.Consumer>
             { ({ getChart }) => (
               <ChildComponent getChart={ getChart } />
             )}
-          </Consumer>
+          </ChartContext.Consumer>
         </BaseChart>
       );
 
@@ -195,11 +195,11 @@ describe('<BaseChart />', () => {
 
       const wrapper = mount(
         <BaseChart {...testContext} chartType='stockChart'>
-          <Consumer>
+          <ChartContext.Consumer>
             { ({ getChart }) => (
               <ChildComponent getChart={ getChart } />
             )}
-          </Consumer>
+          </ChartContext.Consumer>
         </BaseChart>
       );
 

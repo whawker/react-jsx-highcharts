@@ -1,7 +1,7 @@
 import React from 'react';
 import LegendTitle from '../../../src/components/Legend/LegendTitle';
 import { createMockProvidedChart } from '../../test-utils'
-import { Provider } from '../../../src/components/ChartContext';
+import ChartContext from '../../../src/components/ChartContext';
 
 describe('<Legend.Title />', () => {
   let testContext;
@@ -13,9 +13,9 @@ describe('<Legend.Title />', () => {
     testContext.chartStubs = chartStubs;
 
     ProvidedLegendTitle = props => (
-      <Provider value={{ getChart, needsRedraw }}>
+      <ChartContext.Provider value={{ getChart, needsRedraw }}>
         <LegendTitle {...props}/>
-      </Provider>
+      </ChartContext.Provider>
     );
     testContext.chartStubs = chartStubs;
     testContext.needsRedraw = needsRedraw;

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, useLayoutEffect } from 'react';
 import PropTypes from 'prop-types';
 import debounce from '../../utils/debounce-raf';
 import { isEqual, attempt } from 'lodash-es'
-import { Provider } from '../ChartContext';
+import ChartContext from '../ChartContext';
 import { validChartTypes } from '../../utils/propTypeValidators'
 import usePrevious from '../UsePrevious';
 
@@ -73,9 +73,9 @@ const BaseChart = ({ children = null, callback, className = '', ...restProps}) =
       className={`chart ${className}`}
       ref={ domNodeRef }>
       {rendered && (
-        <Provider value={providerValueRef.current}>
+        <ChartContext.Provider value={providerValueRef.current}>
           {children}
-        </Provider>
+        </ChartContext.Provider>
       )}
     </div>
   );
