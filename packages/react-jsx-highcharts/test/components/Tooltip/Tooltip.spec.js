@@ -42,11 +42,9 @@ describe('<Tooltip />', () => {
     it('should use the update method when props change', () => {
       const wrapper = mount(<Tooltip selected={0} {...testContext.propsFromProviders} />);
       wrapper.setProps({ padding: 2 });
-      expect(testContext.chartStubs.update).toHaveBeenCalledWith(expect.objectContaining({
-        tooltip: {
-          padding: 2
-        }
-      }), false);
+      expect(testContext.chart.tooltip.update).toHaveBeenCalledWith({
+        padding: 2
+      });
     });
   });
 
@@ -54,11 +52,9 @@ describe('<Tooltip />', () => {
     it('should disable the Tooltip', () => {
       const wrapper = mount(<Tooltip {...testContext.propsFromProviders} />);
       wrapper.unmount();
-      expect(testContext.chartStubs.update).toHaveBeenCalledWith(expect.objectContaining({
-        tooltip: {
+      expect(testContext.chart.tooltip.update).toHaveBeenCalledWith({
           enabled: false
-        }
-      }), false)
+      })
     });
   });
 });

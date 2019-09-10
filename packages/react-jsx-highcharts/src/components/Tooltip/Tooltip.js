@@ -43,10 +43,8 @@ class Tooltip extends Component {
 
   updateTooltip = config => {
     const chart = this.props.getChart();
-    chart.update({
-      tooltip: config
-    }, false);
-    this.props.needsRedraw();
+    const tooltip = chart.object.tooltip;
+    tooltip.update(config);
   }
 
   render () {
