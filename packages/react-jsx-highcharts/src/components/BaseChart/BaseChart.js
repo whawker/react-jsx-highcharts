@@ -4,7 +4,6 @@ import debounce from '../../utils/debounce-raf';
 import { isEqual, attempt } from 'lodash-es'
 import { Provider } from '../ChartContext';
 import { validChartTypes } from '../../utils/propTypeValidators'
-import clean from '../../utils/removeProvidedProps';
 import usePrevious from '../UsePrevious';
 
 const BaseChart = ({ children = null, callback, className = '', ...restProps}) => {
@@ -28,15 +27,15 @@ const BaseChart = ({ children = null, callback, className = '', ...restProps}) =
       type: restProps.chartType,
       get: myChart.get.bind(myChart),
       setSize: myChart.setSize.bind(myChart),
-      update: clean(myChart.update.bind(myChart)),
-      addAxis: clean(myChart.addAxis.bind(myChart)),
-      addSeries: clean(myChart.addSeries.bind(myChart)),
-      setTitle: clean(myChart.setTitle.bind(myChart)),
-      setCaption: clean(myChart.setCaption.bind(myChart)),
+      update: myChart.update.bind(myChart),
+      addAxis: myChart.addAxis.bind(myChart),
+      addSeries: myChart.addSeries.bind(myChart),
+      setTitle: myChart.setTitle.bind(myChart),
+      setCaption: myChart.setCaption.bind(myChart),
       showLoading: myChart.showLoading.bind(myChart),
       hideLoading: myChart.hideLoading.bind(myChart),
-      addCredits: clean(myChart.addCredits.bind(myChart)),
-      addAnnotation: myChart.addAnnotation ? clean(myChart.addAnnotation.bind(myChart)) : null,
+      addCredits: myChart.addCredits.bind(myChart),
+      addAnnotation: myChart.addAnnotation ? myChart.addAnnotation.bind(myChart) : null,
       removeAnnotation: myChart.removeAnnotation ? myChart.removeAnnotation.bind(myChart) : null
     });
 

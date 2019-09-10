@@ -2,7 +2,6 @@ import React, { Component, cloneElement } from 'react';
 import BaseChart from '../../../src/components/BaseChart';
 import { Consumer } from '../../../src/components/ChartContext';
 import { createMockChart } from '../../test-utils';
-import * as clean from '../../../src/utils/removeProvidedProps';
 
 class Wrapper extends Component {
   getPlotOptions = enabled => {
@@ -24,7 +23,6 @@ const ChildComponent = ({ value }) => (
 describe('<BaseChart />', () => {
   let testContext;
   let chart;
-  let cleanSpy;
 
   beforeEach(() => {
     testContext = {};
@@ -32,14 +30,12 @@ describe('<BaseChart />', () => {
     chart = createMockChart();
     testContext.chartCreationFunc = jest.fn();
     testContext.chartCreationFunc.mockReturnValue(chart);
-    cleanSpy = jest.spyOn(clean, 'default');
 
     jest.spyOn(window, 'requestAnimationFrame').mockImplementation(cb => cb());
   });
 
   afterEach(() => {
     window.requestAnimationFrame.mockRestore();
-    cleanSpy.mockClear();
     chart.get.mockReset();
     chart.setSize.mockReset();
     chart.update.mockReset();
@@ -219,22 +215,6 @@ describe('<BaseChart />', () => {
       expect(chartProp.showLoading({ prop: 'Test1111' })).toEqual(chart);
       expect(chartProp.hideLoading({ prop: 'Test2222' })).toEqual(chart);
       expect(chartProp.addCredits({ prop: 'Test3333' })).toEqual(chart);
-    });
-
-    it('should provide chart functions which will be cleaned prior to being called', () => {
-      const wrapper = mount(
-        <BaseChart {...testContext} chartType='chart'>
-          <Consumer>
-            { ({ getChart }) => (
-              <ChildComponent getChart={ getChart } />
-            )}
-          </Consumer>
-        </BaseChart>
-      );
-
-      const child = wrapper.find(ChildComponent).props().getChart();
-      const cleanedFunctions = ['update', 'addAxis', 'addSeries', 'setTitle', 'addCredits', 'setCaption'];
-      expect(cleanSpy).toHaveBeenCalledTimes(cleanedFunctions.length);
     });
   });
 
