@@ -14,6 +14,7 @@ import usePrevious from '../UsePrevious';
 import useHighcharts from '../UseHighcharts';
 import useChart from '../UseChart';
 import useAxis from '../UseAxis';
+import createProvidedSeries from './createProvidedSeries';
 
 const Series = memo(({children = null, ...restProps}) => {
 
@@ -34,12 +35,15 @@ const Series = memo(({children = null, ...restProps}) => {
 
   const seriesRef = useRef(null);
   const [, setHasSeries] = useState(false);
+  const providerValueRef = useRef(null);
 
   const getAxis = useAxis(restProps.axisId);
 
   useEffect(() => {
     if(restProps.requiresAxis && !getAxis) return;
     seriesRef.current = createSeries(getChart(), restProps, getAxis);
+    providerValueRef.current = createProvidedSeries(seriesRef.current);
+
     setHasSeries(true);
     needsRedraw();
     return () => {
@@ -89,7 +93,7 @@ const Series = memo(({children = null, ...restProps}) => {
   if(!seriesRef.current) return null;
 
   return (
-    <Provider value={seriesRef.current}>
+    <Provider value={providerValueRef.current}>
       {children}
     </Provider>
   );
