@@ -2,16 +2,12 @@ import { useContext, useEffect, memo } from 'react';
 import { pickBy } from 'lodash-es';
 import { attempt } from 'lodash-es';
 import PlotLineContext from './PlotBandLineContext';
-import useModifiedProps from '../UseModifiedProps';
 
 const PlotBandLineLabel = memo(props => {
   const plotbandline = useContext(PlotLineContext);
 
-  const modifiedProps = useModifiedProps(props, true);
-
   useEffect(() => {
-    if (modifiedProps === false) return;
-    const { children: text, ...rest } = props;
+    const { children: text, id, ...rest } = props;
     updatePlotBandLineLabel(plotbandline, {
       text,
       ...rest
@@ -25,7 +21,7 @@ const PlotBandLineLabel = memo(props => {
       });
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [plotbandline]);
 
   return null;
 });
@@ -39,10 +35,11 @@ const updatePlotBandLineLabel = (plotbandline, config) => {
 
 const getLabelProps = props => {
   return pickBy(props, (value, propName) => {
-    return labelProps.indexOf(propName) > -1;
+    return labelProps.has(propName);
   });
 };
-const labelProps = [
+
+const labelProps = new Set([
   'text',
   'align',
   'rotation',
@@ -52,7 +49,7 @@ const labelProps = [
   'verticalAlign',
   'x',
   'y'
-];
+]);
 
 PlotBandLineLabel.displayName = 'PlotBandLineLabel';
 
