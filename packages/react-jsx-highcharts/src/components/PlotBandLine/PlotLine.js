@@ -4,16 +4,19 @@ import uuid from 'uuid/v4';
 import { attempt } from 'lodash-es';
 import PlotBandLineContext from './PlotBandLineContext';
 import useModifiedProps from '../UseModifiedProps';
+import useAxis from '../UseAxis';
 
 const PlotLine = memo(props => {
-  const { id = uuid, children, getAxis, ...rest } = props;
+  const { id = uuid, children, ...rest } = props;
 
+  const getAxis = useAxis();
   const idRef = useRef();
   const [plotline, setPlotline] = useState(null);
   const modifiedProps = useModifiedProps(rest);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
+    if (!getAxis) return;
     if (modifiedProps !== false && plotline) {
       const axis = getAxis();
       axis.removePlotLine(idRef.current);
@@ -27,6 +30,7 @@ const PlotLine = memo(props => {
 
   // create plotline
   useEffect(() => {
+    if (!getAxis) return;
     idRef.current = typeof id === 'function' ? id() : id;
     const myId = idRef.current;
     const opts = {
@@ -41,9 +45,9 @@ const PlotLine = memo(props => {
       attempt(axis.removePlotLine, idRef.current);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [ getAxis ]);
 
-  if (!children || !plotline) return null;
+  if (!children && !plotline) return null;
 
   return (
     <PlotBandLineContext.Provider value={plotline}>
@@ -56,8 +60,7 @@ PlotLine.propTypes = {
   id: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   value: PropTypes.any.isRequired,
   color: PropTypes.string,
-  children: PropTypes.node,
-  getAxis: PropTypes.func // Provided by AxisProvider
+  children: PropTypes.node
 };
 
 PlotLine.displayName = 'PlotLine';

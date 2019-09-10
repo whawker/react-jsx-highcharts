@@ -1,30 +1,34 @@
 import React from 'react';
 import { createMockProvidedAxis, uuidRegex } from '../../test-utils'
 import PlotBand from '../../../src/components/PlotBandLine/PlotBand';
+import * as useAxis from '../../../src/components/UseAxis';
 
 describe('<PlotBand />', () => {
   let testContext;
+  let useAxisSpy;
 
   beforeEach(() => {
     testContext = {};
     const { axisStubs, getAxis } = createMockProvidedAxis({ id: 'myAxis', type: 'yAxis' });
     testContext.axisStubs = axisStubs;
+    useAxisSpy = jest.spyOn(useAxis, 'default').mockImplementation(() => getAxis);
 
-    testContext.propsFromProviders = {
-      getAxis
-    };
+  });
+
+  afterEach(() => {
+    useAxisSpy.mockRestore();
   });
 
   describe('when mounted', () => {
     it('adds a title using the Axis addPlotBand method', () => {
-      mount(<PlotBand id="My PlotBand" from={1} to={2} {...testContext.propsFromProviders} />);
+      mount(<PlotBand id="My PlotBand" from={1} to={2} />);
       expect(testContext.axisStubs.addPlotBand).toHaveBeenCalledWith(expect.objectContaining(
         { id: 'My PlotBand', from: 1, to: 2 }
       ));
     });
 
     it('should pass additional props through to Axis addPlotBand method', () => {
-      mount(<PlotBand borderColor="red" id="My Other PlotBand" from={8.8} to={24.2} {...testContext.propsFromProviders} />);
+      mount(<PlotBand borderColor="red" id="My Other PlotBand" from={8.8} to={24.2} />);
       expect(testContext.axisStubs.addPlotBand).toHaveBeenCalledWith(expect.objectContaining(
         { id: 'My Other PlotBand', borderColor: 'red', from: 8.8, to: 24.2 }
       ));
@@ -32,7 +36,7 @@ describe('<PlotBand />', () => {
 
     it('uses the provided ID if id prop is a string', () => {
       mount(
-        <PlotBand id="myPlotBandIdStr" from={1} to={2} {...testContext.propsFromProviders} />
+        <PlotBand id="myPlotBandIdStr" from={1} to={2} />
       );
       expect(testContext.axisStubs.addPlotBand.mock.calls[0][0].id).toBe('myPlotBandIdStr');
     });
@@ -40,14 +44,14 @@ describe('<PlotBand />', () => {
     it('resolves the ID if id prop is a function', () => {
       const idFunc = () => 'myPlotBandIdFromFunc'
       mount(
-        <PlotBand id={idFunc} from={1} to={2} {...testContext.propsFromProviders} />
+        <PlotBand id={idFunc} from={1} to={2} />
       );
       expect(testContext.axisStubs.addPlotBand.mock.calls[0][0].id).toBe('myPlotBandIdFromFunc');
     });
 
     it('uses a uuid as an ID if no id prop provided', () => {
       mount(
-        <PlotBand from={1} to={2} {...testContext.propsFromProviders} />
+        <PlotBand from={1} to={2} />
       );
       expect(testContext.axisStubs.addPlotBand.mock.calls[0][0].id).toMatch(uuidRegex);
     });
@@ -56,7 +60,7 @@ describe('<PlotBand />', () => {
   describe('when unmounted', () => {
     it('removes the plot band by id (if the parent axis still exists)', () => {
       const wrapper = mount(
-        <PlotBand id="My PlotBand" from={1} to={2} {...testContext.propsFromProviders} />
+        <PlotBand id="My PlotBand" from={1} to={2} />
       );
       testContext.axisStubs.removePlotBand.mockReset();
       wrapper.unmount();

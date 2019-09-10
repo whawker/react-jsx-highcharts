@@ -1,11 +1,10 @@
 import PlotBand from './PlotBand';
 import PlotLine from './PlotLine';
 import PlotBandLineLabel from './PlotBandLineLabel';
-import provideAxis from '../AxisProvider';
 
-const ChartPlotBand = provideAxis(PlotBand);
+const ChartPlotBand = PlotBand;
 ChartPlotBand.Label = PlotBandLineLabel;
-const ChartPlotLine = provideAxis(PlotLine);
+const ChartPlotLine = PlotLine;
 ChartPlotLine.Label = PlotBandLineLabel;
 
 export {ChartPlotLine as PlotLine };
