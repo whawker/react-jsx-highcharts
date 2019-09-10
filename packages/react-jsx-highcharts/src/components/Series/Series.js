@@ -16,7 +16,21 @@ import useChart from '../UseChart';
 import useAxis from '../UseAxis';
 import createProvidedSeries from './createProvidedSeries';
 
-const Series = memo(({children = null, ...restProps}) => {
+
+const EMPTY_ARRAY = [];
+
+const Series = memo(({
+  id = uuid,
+  data = EMPTY_ARRAY,
+  type = 'line',
+  visible = true,
+  children = null,
+  axisId,
+  requiresAxis = true,
+  ...restProps
+}) => {
+
+  const seriesProps = { id, data, type, visible, requiresAxis, ...restProps };
 
   /*
   if (defaultTo(restProps.requiresAxis, true)) {
@@ -30,18 +44,20 @@ const Series = memo(({children = null, ...restProps}) => {
   if (process.env.NODE_ENV === 'development') {
     const { type } = restProps;
     const seriesTypes = Object.keys(getHighcharts().seriesTypes);
-    if (seriesTypes.indexOf(type) === -1) logSeriesErrorMessage(type)
+    if (seriesTypes.indexOf(type) === -1) logSeriesErrorMessage(type);
   }
 
   const seriesRef = useRef(null);
   const [, setHasSeries] = useState(false);
   const providerValueRef = useRef(null);
 
-  const getAxis = useAxis(restProps.axisId);
+  const getAxis = useAxis(axisId);
 
   useEffect(() => {
-    if(restProps.requiresAxis && !getAxis) return;
-    seriesRef.current = createSeries(getChart(), restProps, getAxis);
+    if (requiresAxis && !getAxis) return;
+    const opts = getSeriesConfig(seriesProps, getAxis(), requiresAxis);
+
+    seriesRef.current = getChart().addSeries(opts, false);
     providerValueRef.current = createProvidedSeries(seriesRef.current);
 
     setHasSeries(true);
@@ -54,16 +70,16 @@ const Series = memo(({children = null, ...restProps}) => {
         seriesRef.current = null;
         needsRedraw();
       }
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[getAxis]);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [getAxis]);
 
-  const prevProps = usePrevious(restProps);
+  const prevProps = usePrevious(seriesProps);
 
   useEffect(() => {
-    if(!prevProps || !seriesRef.current) return;
+    if (!prevProps || !seriesRef.current) return;
     const series = seriesRef.current;
-    const { visible, data, ...rest } = restProps;
+    const { visible, data, ...rest } = seriesProps;
 
     let doRedraw = false;
     // Using setData is more performant than update
@@ -87,40 +103,30 @@ const Series = memo(({children = null, ...restProps}) => {
     if (doRedraw) {
       needsRedraw();
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [restProps]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  });
 
-  if(!seriesRef.current) return null;
+  if (!seriesRef.current) return null;
 
-  return (
-    <Provider value={providerValueRef.current}>
-      {children}
-    </Provider>
-  );
-})
+  return <Provider value={providerValueRef.current}>{children}</Provider>;
+});
 
 Series.displayName = 'Series';
 
-// TODO remove defaultProps, it is deprecated on functional components
-Series.defaultProps = {
-  type: 'line',
-  id: uuid,
-  data: [],
-  requiresAxis: true,
-  visible: true
-}
 Series.propTypes = {
-  id: PropTypes.oneOfType([ PropTypes.string, PropTypes.func ]).isRequired,
-  type: PropTypes.string.isRequired,
+  id: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+  type: PropTypes.string,
   data: PropTypes.any,
   visible: PropTypes.bool,
-  getAxis: PropTypes.func // Provided by AxisProvider
-}
+  children: PropTypes.node,
+  axisId: PropTypes.string,
+  requiresAxis: PropTypes.bool
+};
 
-const getSeriesConfig = (props, getAxis) => {
-  const { id, requiresAxis, children, data, ...rest } = props;
+const getSeriesConfig = (props, axis, requiresAxis) => {
+  const { id, data, ...rest } = props;
 
-  const seriesId = typeof id === 'function' ? id() : id
+  const seriesId = typeof id === 'function' ? id() : id;
   const seriesData = isImmutable(data) ? data.toJS() : data;
   const nonEventProps = getNonEventHandlerProps(rest);
   const events = getEventsConfig(rest);
@@ -130,23 +136,13 @@ const getSeriesConfig = (props, getAxis) => {
     data: seriesData,
     events,
     ...nonEventProps
-  }
+  };
 
-  if (defaultTo(requiresAxis, true)) {
-    const axis = getAxis();
+  if (requiresAxis) {
     config[axis.type] = axis.id;
   }
 
   return config;
-}
-
-const createSeries = (chart, props, getAxis) => {
-
-  // Create Highcharts Series
-  const opts = getSeriesConfig(props, getAxis);
-
-  return chart.addSeries(opts, false);
-}
-
+};
 
 export default Series;
