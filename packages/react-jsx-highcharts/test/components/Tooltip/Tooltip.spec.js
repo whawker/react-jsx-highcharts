@@ -16,7 +16,7 @@ describe('<Tooltip />', () => {
     testContext.chart = {};
     testContext.chartStubs.object = testContext.chart;
     ProvidedTooltip = props => (
-      <HighchartsContext.Provider value={() => Highcharts}>
+      <HighchartsContext.Provider value={Highcharts}>
         <ChartContext.Provider value={ chartStubs }>
           <Tooltip {...props}/>
         </ChartContext.Provider>

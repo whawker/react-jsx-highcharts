@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import HighchartsContext from '../HighchartsContext';
 
 export default function useHighcharts() {
-  const getHighcharts = useContext(HighchartsContext);
+  const Highcharts = useContext(HighchartsContext);
 
-  return getHighcharts;
+  return Highcharts;
 }

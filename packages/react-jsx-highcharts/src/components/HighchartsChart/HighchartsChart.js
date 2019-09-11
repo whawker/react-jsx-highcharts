@@ -3,12 +3,12 @@ import BaseChart from '../BaseChart';
 import useHighcharts from '../UseHighcharts';
 
 const HighchartsChart = (props) => {
-  const getHighcharts = useHighcharts();
+  const Highcharts = useHighcharts();
 
   return (
     <BaseChart
       {...props}
-      chartCreationFunc={getHighcharts().chart}
+      chartCreationFunc={Highcharts.chart}
       chartType="chart" />
   )
 }

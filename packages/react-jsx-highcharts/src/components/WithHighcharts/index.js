@@ -5,13 +5,12 @@ import HighchartsContext from '../HighchartsContext';
 // It takes a component...
 export default function withHighcharts(Component, Highcharts) {
 
-  const getHighcharts = () => Highcharts;
   // ...and returns another component...
   return function HighchartsWrappedComponent(props) {
     // ... and renders the wrapped component with the context theme!
     // Notice that we pass through any additional props as well
     return (
-      <HighchartsContext.Provider value={getHighcharts}>
+      <HighchartsContext.Provider value={Highcharts}>
         <Component {...props} />
       </HighchartsContext.Provider>
     );

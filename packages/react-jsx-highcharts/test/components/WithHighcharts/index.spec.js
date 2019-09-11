@@ -22,7 +22,7 @@ describe('withHighcharts', () => {
     const wrapper = mount(<WithHighchartsComponent />);
     const child = wrapper.find(ChildComponent);
     const providedValue = child.prop('value');
-    expect(providedValue()).toEqual(Highcharts);
+    expect(providedValue).toEqual(Highcharts);
   });
 
   it('should create a Highcharts context with the provided object (2)', () => {
@@ -32,6 +32,6 @@ describe('withHighcharts', () => {
 
     const child = wrapper.find(ChildComponent);
     const providedValue = child.prop('value');
-    expect(providedValue()).toEqual(HighchartsWithExtraFunctionality);
+    expect(providedValue).toEqual(HighchartsWithExtraFunctionality);
   });
 });

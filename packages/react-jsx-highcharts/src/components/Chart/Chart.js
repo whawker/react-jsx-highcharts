@@ -7,7 +7,7 @@ import useHighcharts from '../UseHighcharts';
 
 const Chart = memo(({ type = 'line', ...restProps}) => {
   const chart = useChart();
-  const getHighcharts = useHighcharts();
+  const Highcharts = useHighcharts();
   const mounted = useRef(false);
 
   const modifiedProps = useModifiedProps(restProps);
@@ -32,7 +32,7 @@ const Chart = memo(({ type = 'line', ...restProps}) => {
 
     chart.setSize(width, height);
     updateChart(notEventProps, chart);
-    addEventHandlersManually(getHighcharts(), chart.object, rest);
+    addEventHandlersManually(Highcharts, chart.object, rest);
     mounted.current = true;
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[]);

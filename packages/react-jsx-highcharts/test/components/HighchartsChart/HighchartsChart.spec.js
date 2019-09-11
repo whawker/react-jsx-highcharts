@@ -10,9 +10,9 @@ describe('<HighchartsChart />', () => {
   beforeEach(() => {
     const chart = createMockChart();
     Highcharts.chart.mockReturnValue(chart);
-    const getHighcharts = () => Highcharts;
+
     ProvidedHighchartsChart = props => (
-      <HighchartsContext.Provider value={getHighcharts}>
+      <HighchartsContext.Provider value={Highcharts}>
         <HighchartsChart {...props}/>
       </HighchartsContext.Provider>
     );

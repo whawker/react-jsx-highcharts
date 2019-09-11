@@ -16,7 +16,7 @@ describe('<Chart />', () => {
     testContext.needsRedraw = needsRedraw;
 
     ProvidedChart = (props) => (
-      <HighchartsContext.Provider value={() => Highcharts}>
+      <HighchartsContext.Provider value={Highcharts}>
         <ChartContext.Provider value={ chartStubs }>
           <Chart {...props}/>
         </ChartContext.Provider>

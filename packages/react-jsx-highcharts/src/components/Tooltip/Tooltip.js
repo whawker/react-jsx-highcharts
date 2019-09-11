@@ -11,7 +11,7 @@ const Tooltip = memo((props) => {
   // eslint-disable-next-line no-unused-vars
   const { children = null, ...restProps } = props;
   const chart = useChart();
-  const getHighcharts = useHighcharts();
+  const Highcharts = useHighcharts();
   const modifiedProps = useModifiedProps(restProps);
 
   restProps.enabled = defaultTo(props.enabled, true);
@@ -24,7 +24,6 @@ const Tooltip = memo((props) => {
   };
 
   useEffect(() => {
-    const Highcharts = getHighcharts();
     const chartObj = chart.object;
 
     chartObj.tooltip = new Highcharts.Tooltip(chartObj, {

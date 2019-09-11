@@ -5,11 +5,11 @@ import useHighcharts from '../UseHighcharts';
 import useChart from '../UseChart';
 
 const Options3d = memo(props => {
-  const getHighcharts = useHighcharts();
+  const Highcharts = useHighcharts();
   const chart = useChart();
 
   if (process.env.NODE_ENV === 'development') {
-    if (!getHighcharts().ZAxis) log3DModuleErrorMessage();
+    if (!Highcharts.ZAxis) log3DModuleErrorMessage();
   }
 
   useEffect(() => {

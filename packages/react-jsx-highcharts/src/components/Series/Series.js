@@ -37,11 +37,11 @@ const Series = memo(({
     if(!axis) throw new Error(`Series type="${restProps.type}" should be wrapped inside Axis`);
   }
 */
-  const getHighcharts = useHighcharts();
+  const Highcharts = useHighcharts();
   const { addSeries, needsRedraw } = useChart();
 
   if (process.env.NODE_ENV === 'development') {
-    const seriesTypes = Object.keys(getHighcharts().seriesTypes);
+    const seriesTypes = Object.keys(Highcharts.seriesTypes);
     if (seriesTypes.indexOf(type) === -1) logSeriesErrorMessage(type);
   }
 
