@@ -1,3 +1,4 @@
+/* eslint-env node */
 const webpack = require('webpack');
 const path = require('path');
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');

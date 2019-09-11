@@ -1,3 +1,4 @@
+/* eslint-env node */
 const webpack = require('webpack');
 const path = require('path');
 const fs = require('fs');
