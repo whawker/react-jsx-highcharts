@@ -58,12 +58,11 @@ addWindBarbModule(Highcharts);
 addXRangeModule(Highcharts);
 
 const skippedSeries = ['BarSeries'];
-const noAxisSeries = ['PieSeries', 'VariablePieSeries','PyramidSeries', 'FunnelSeries', 'VennSeries'];
+const noAxisSeries = ['PieSeries', 'VariablePieSeries','PyramidSeries', 'FunnelSeries', 'VennSeries', 'PackedBubbleSeries'];
 const needParentSeries = ['BellCurveSeries','HistogramSeries', 'ParetoSeries'];
 
 Object.keys(all).filter(name => /^[A-Z].*Series$/.test(name)).forEach((seriesName) => {
   if (skippedSeries.includes(seriesName)) return;
-
   const seriesType = seriesName.substring(0, seriesName.indexOf('Series')).toLowerCase();
   const SeriesComponent = all[seriesName]; // eslint-disable-line import/namespace
 
@@ -88,6 +87,9 @@ Object.keys(all).filter(name => /^[A-Z].*Series$/.test(name)).forEach((seriesNam
         const afterAddSeries = (event) => {
           expect(event.target.series.length).toBe(1);
           expect(event.target.series[0].type).toBe(seriesType);
+          if (!noAxisSeries.includes(seriesName)) {
+            expect(event.target.series[0].yAxis.userOptions.id).toBe("myYAxis");
+          }
           done();
         }
         const Component = (props) => {
@@ -96,9 +98,9 @@ Object.keys(all).filter(name => /^[A-Z].*Series$/.test(name)).forEach((seriesNam
               <Chart zoomType="x" onAfterAddSeries={afterAddSeries}/>
               <XAxis>
               </XAxis>
-              <YAxis>
-                <SeriesComponent data={[1,2,3,4]}/>
+              <YAxis id="myYAxis">
               </YAxis>
+              <SeriesComponent axisId="myYAxis" data={[1,2,3,4]}/>
             </HighchartsChart>
           )
         };
