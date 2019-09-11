@@ -5,30 +5,30 @@ import useModifiedProps from '../UseModifiedProps';
 import useChart from '../UseChart';
 import useHighcharts from '../UseHighcharts';
 
-const Chart = memo((props) => {
+const Chart = memo(({ type = 'line', ...restProps}) => {
   const chart = useChart();
   const getHighcharts = useHighcharts();
   const mounted = useRef(false);
 
-  const modifiedProps = useModifiedProps(props);
+  const modifiedProps = useModifiedProps(restProps);
 
   useEffect(() => {
     if(modifiedProps !== false && mounted.current) {
       const { width, height, ...restModified } = modifiedProps;
       if(width || height) {
-        chart.setSize(props.width, props.height);
+        chart.setSize(restProps.width, restProps.height);
       }
       if(Object.getOwnPropertyNames(restModified).length > 0) {
         updateChart(restModified, chart, chart.needsRedraw);
       }
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[props]);
+  });
 
   useEffect(() => {
-    const { width, height, ...rest } = props;
+    const { width, height, ...rest } = restProps;
 
-    const notEventProps = getNonEventHandlerProps(rest);
+    const notEventProps = getNonEventHandlerProps({type, ...rest});
 
     chart.setSize(width, height);
     updateChart(notEventProps, chart);
@@ -48,7 +48,7 @@ const updateChart = (config, chart) => {
 }
 
 Chart.propTypes = {
-  type: PropTypes.string.isRequired,
+  type: PropTypes.string,
   width: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number
@@ -65,18 +65,6 @@ Chart.propTypes = {
   onRedraw: PropTypes.func,
   onRender: PropTypes.func,
   onSelection: PropTypes.func
-};
-
-Chart.defaultProps = {
-  type: 'line',
-  onAddSeries: () => {},
-  onAfterPrint: () => {},
-  onBeforePrint: () => {},
-  onClick: () => {},
-  onLoad: () => {},
-  onRedraw: () => {},
-  onRender: () => {},
-  onSelection: () => {}
 };
 
 Chart.displayName = 'Chart';
