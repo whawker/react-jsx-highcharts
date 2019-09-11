@@ -82,5 +82,8 @@
     "prop-types": "^15.0.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6"
-  }
+  },
+  "browserslist": [
+    "ie >= 11"
+  ]
 }

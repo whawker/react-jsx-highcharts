@@ -102,5 +102,8 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "prop-types": "^15.0.0"
-  }
+  },
+  "browserslist": [
+    "ie >= 11"
+  ]
 }

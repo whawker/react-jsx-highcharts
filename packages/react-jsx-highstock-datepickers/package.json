@@ -64,5 +64,8 @@
     "rimraf": "^3.0.0",
     "webpack": "^4.39.3",
     "webpack-cli": "^3.3.8"
-  }
+  },
+  "browserslist": [
+    "ie >= 11"
+  ]
 }
