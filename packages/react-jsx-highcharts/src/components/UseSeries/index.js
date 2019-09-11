@@ -7,13 +7,12 @@ import useDelay from '../UseDelay';
 export default function useSeries(seriesId) {
   const providedSeries = useContext(SeriesContext);
 
-  const { getChart } = useChart();
+  const chart = useChart();
 
   const createStateSeries = () => {
     if(providedSeries) return createProvidedSeries(providedSeries);
 
     if (seriesId) {
-      const chart = getChart();
       const mySeries = chart.get(seriesId);
       return createProvidedSeries(mySeries);
     }

@@ -11,13 +11,13 @@ describe('<Chart />', () => {
   beforeEach(() => {
     testContext = {};
 
-    const { chartStubs, getChart, needsRedraw } = createMockProvidedChart();
+    const { chartStubs, needsRedraw } = createMockProvidedChart();
     testContext.chartStubs = chartStubs;
     testContext.needsRedraw = needsRedraw;
 
     ProvidedChart = (props) => (
       <HighchartsContext.Provider value={() => Highcharts}>
-        <ChartContext.Provider value={{ getChart, needsRedraw }}>
+        <ChartContext.Provider value={ chartStubs }>
           <Chart {...props}/>
         </ChartContext.Provider>
       </HighchartsContext.Provider>

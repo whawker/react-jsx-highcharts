@@ -12,9 +12,10 @@ describe('<Legend />', () => {
 
   beforeEach(() => {
     testContext = {};
-    const { chartStubs, getChart, needsRedraw } = createMockProvidedChart();
+    const { chartStubs, needsRedraw } = createMockProvidedChart();
+
     ProvidedLegend = props => (
-      <ChartContext.Provider value={{ getChart, needsRedraw }}>
+      <ChartContext.Provider value={ chartStubs }>
         <Legend {...props}/>
       </ChartContext.Provider>
     );

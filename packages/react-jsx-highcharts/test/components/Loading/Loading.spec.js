@@ -8,10 +8,10 @@ describe('<Loading />', () => {
   let ProvidedLoading;
   beforeEach(() => {
     testContext = {};
-    const { chartStubs, getChart } = createMockProvidedChart();
+    const { chartStubs } = createMockProvidedChart();
     testContext.chartStubs = chartStubs;
     ProvidedLoading = (props) => (
-      <ChartContext.Provider value={{ getChart }}>
+      <ChartContext.Provider value={ chartStubs }>
         <Loading {...props} />
       </ChartContext.Provider>
     )

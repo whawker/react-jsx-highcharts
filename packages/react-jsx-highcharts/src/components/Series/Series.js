@@ -38,10 +38,9 @@ const Series = memo(({
   }
 */
   const getHighcharts = useHighcharts();
-  const { getChart, needsRedraw } = useChart();
+  const { addSeries, needsRedraw } = useChart();
 
   if (process.env.NODE_ENV === 'development') {
-    const { type } = restProps;
     const seriesTypes = Object.keys(getHighcharts().seriesTypes);
     if (seriesTypes.indexOf(type) === -1) logSeriesErrorMessage(type);
   }
@@ -56,7 +55,7 @@ const Series = memo(({
     if (requiresAxis && !getAxis) return;
     const opts = getSeriesConfig(seriesProps, getAxis(), requiresAxis);
 
-    seriesRef.current = getChart().addSeries(opts, false);
+    seriesRef.current = addSeries(opts, false);
     providerValueRef.current = createProvidedSeries(seriesRef.current);
 
     setHasSeries(true);

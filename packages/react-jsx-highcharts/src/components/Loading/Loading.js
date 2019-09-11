@@ -5,19 +5,18 @@ import useModifiedProps from '../UseModifiedProps';
 import useChart from '../UseChart';
 
 const Loading = memo(({ children, isLoading = true, ...restProps }) => {
-  const { getChart } = useChart();
+  const chart = useChart();
 
   const modifiedProps = useModifiedProps(restProps);
   useEffect(() => {
     if (modifiedProps !== false) {
-      updateLoading(modifiedProps, getChart());
+      updateLoading(modifiedProps, chart);
     }
-    const chart = getChart();
     if (isLoading) chart.showLoading(children);
     if (!isLoading) chart.hideLoading();
   })
   useEffect(()=> {
-    return () => attempt(getChart().hideLoading);
+    return () => attempt(chart.hideLoading);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[]);
 

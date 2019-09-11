@@ -4,10 +4,9 @@ import Hidden from '../Hidden';
 import useChart from '../UseChart';
 
 const Debug = ({ varName = 'chart' }) => {
-  const { getChart } = useChart();
+  const chart = useChart();
 
   useEffect(() => {
-    const chart = getChart()
     window[varName] =  chart.object;
     // eslint-disable-next-line no-console
     console.log(`Chart instance available as global variable as window.${varName}`);

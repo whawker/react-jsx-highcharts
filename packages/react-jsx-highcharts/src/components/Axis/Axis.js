@@ -11,21 +11,21 @@ import useChart from '../UseChart';
 
 const Axis = ({ children = null, dynamicAxis = true, ...restProps }) => {
 
-  const { getChart, needsRedraw } = useChart();
+  const chart = useChart();
 
   const axisRef = useRef(null);
   const [hasAxis, setHasAxis] = useState(false);
 
   useEffect(() => {
-    axisRef.current = createAxis(getChart(), restProps, dynamicAxis);
+    axisRef.current = createAxis(chart, restProps, dynamicAxis);
     setHasAxis(true);
-    needsRedraw();
+    chart.needsRedraw();
     return () => {
       const axis = axisRef.current;
       if (axis.remove) {
         // Axis may have already been removed, i.e. when Chart unmounted
         attempt(axis.remove.bind(axis), false);
-        needsRedraw();
+        chart.needsRedraw();
       }
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -38,7 +38,7 @@ const Axis = ({ children = null, dynamicAxis = true, ...restProps }) => {
     if (modifiedProps !== false) {
       const axis = axisRef.current;
       axis.update(modifiedProps, false);
-      needsRedraw();
+      chart.needsRedraw();
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   });

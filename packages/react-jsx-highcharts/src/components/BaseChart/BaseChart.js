@@ -22,7 +22,7 @@ const BaseChart = ({ children = null, callback, className = '', ...restProps}) =
         attempt(myChart.redraw.bind(myChart));
       }
     });
-    const getChart = () => ({
+    const providedChart = {
       object: myChart,
       type: restProps.chartType,
       get: myChart.get.bind(myChart),
@@ -36,10 +36,11 @@ const BaseChart = ({ children = null, callback, className = '', ...restProps}) =
       hideLoading: myChart.hideLoading.bind(myChart),
       addCredits: myChart.addCredits.bind(myChart),
       addAnnotation: myChart.addAnnotation ? myChart.addAnnotation.bind(myChart) : null,
-      removeAnnotation: myChart.removeAnnotation ? myChart.removeAnnotation.bind(myChart) : null
-    });
+      removeAnnotation: myChart.removeAnnotation ? myChart.removeAnnotation.bind(myChart) : null,
+      needsRedraw
+    };
 
-    providerValueRef.current = { getChart, needsRedraw };
+    providerValueRef.current = providedChart;
     if(callback) callback(myChart);
     setRendered(true);
   // eslint-disable-next-line react-hooks/exhaustive-deps

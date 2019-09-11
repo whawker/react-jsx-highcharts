@@ -6,14 +6,14 @@ import useChart from '../UseChart';
 
 const Options3d = memo(props => {
   const getHighcharts = useHighcharts();
-  const { getChart } = useChart();
+  const chart = useChart();
 
   if (process.env.NODE_ENV === 'development') {
     if (!getHighcharts().ZAxis) log3DModuleErrorMessage();
   }
 
   useEffect(() => {
-    update3dOptions(getChart(), props);
+    update3dOptions(chart, props);
   });
 
   return null;

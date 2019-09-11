@@ -7,21 +7,21 @@ import useModifiedProps from '../UseModifiedProps';
 const noop = c => c;
 
 const useChartUpdate = (props, updateFn = noop, destroyfn = noop, childrenIsText = true) => {
-  const { getChart, needsRedraw } = useChart();
+  const chart = useChart();
 
   const modifiedProps = useModifiedProps(props, childrenIsText);
 
   useEffect(()=> {
     if(modifiedProps !== false) {
-      updateFn(getChart(), modifiedProps)
-      needsRedraw();
+      updateFn(chart, modifiedProps)
+      chart.needsRedraw();
     }
   });
 
   useEffect(()=> {
     return () => {
-      attempt(destroyfn, getChart());
-      needsRedraw();
+      attempt(destroyfn, chart);
+      chart.needsRedraw();
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[]);

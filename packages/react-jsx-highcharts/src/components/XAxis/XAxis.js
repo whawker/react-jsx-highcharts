@@ -3,9 +3,8 @@ import Axis from '../Axis';
 import useChart from '../UseChart';
 
 const XAxis = ({id, ...rest}) => {
-  const { getChart } = useChart();
+  const chart = useChart();
 
-  const chart = getChart();
   const isStockChart = chart.type === 'stockChart';
   const type = isStockChart ? 'datetime' : 'linear';
   const axisId = isStockChart ? 'xAxis' : id;

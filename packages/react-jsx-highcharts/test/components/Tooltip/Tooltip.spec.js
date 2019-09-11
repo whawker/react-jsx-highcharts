@@ -10,24 +10,18 @@ describe('<Tooltip />', () => {
   beforeEach(() => {
     testContext = {};
 
-    const { chartStubs, getChart, needsRedraw } = createMockProvidedChart();
+    const { chartStubs, needsRedraw } = createMockProvidedChart();
 
     testContext.chartStubs = chartStubs;
     testContext.chart = {};
     testContext.chartStubs.object = testContext.chart;
     ProvidedTooltip = props => (
       <HighchartsContext.Provider value={() => Highcharts}>
-        <ChartContext.Provider value={{ getChart, needsRedraw }}>
+        <ChartContext.Provider value={ chartStubs }>
           <Tooltip {...props}/>
         </ChartContext.Provider>
       </HighchartsContext.Provider>
     );
-
-    testContext.propsFromProviders = {
-      getChart,
-      needsRedraw,
-
-    };
   });
 
 

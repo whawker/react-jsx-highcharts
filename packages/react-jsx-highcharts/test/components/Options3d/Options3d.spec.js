@@ -9,10 +9,10 @@ describe('<Options3d />', () => {
 
   beforeEach(() => {
     testContext = {};
-    const { chartStubs, getChart } = createMockProvidedChart();
+    const { chartStubs } = createMockProvidedChart();
     testContext.chartStubs = chartStubs;
     ProvidedOptions3d = props => (
-      <ChartContext.Provider value={{getChart}}>
+      <ChartContext.Provider value={ chartStubs }>
         <Options3d {...props} />
       </ChartContext.Provider>
     )

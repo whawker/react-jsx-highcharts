@@ -10,12 +10,12 @@ describe('<BarSeries />', () => {
   beforeEach(() => {
     testContext = {};
 
-    const { chartStubs, getChart } = createMockProvidedChart();
+    const { chartStubs } = createMockProvidedChart();
 
     testContext.chartStubs = chartStubs;
 
     ProvidedBarSeries = (props) => (
-      <ChartContext.Provider value={{ getChart }}>
+      <ChartContext.Provider value={ chartStubs }>
         <BarSeries {...props} />
       </ChartContext.Provider>
     )

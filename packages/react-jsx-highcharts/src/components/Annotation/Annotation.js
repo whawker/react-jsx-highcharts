@@ -9,10 +9,10 @@ import useChart from '../UseChart';
 const Annotation = memo((props) => {
   const { id = uuid, children, ...rest } = props;
 
-  const { getChart } = useChart();
+  const { addAnnotation, removeAnnotation } = useChart();
 
   if (process.env.NODE_ENV === 'development') {
-    if (getChart().addAnnotation === null) {
+    if (addAnnotation === null) {
       logModuleErrorMessage('<Annotation />', 'annotations');
     }
   }
@@ -25,16 +25,14 @@ const Annotation = memo((props) => {
   useEffect(() => {
     idRef.current = typeof id === 'function' ? id() : id;
     const myId = idRef.current;
-    const chart = getChart();
     const opts = {
       id: myId,
       ...rest
     }
-    chart.addAnnotation(opts);
+    addAnnotation(opts);
     if(!rendered) setRendered(true);
     return () => {
-      const chart = getChart();
-      attempt(chart.removeAnnotation, myId);
+      attempt(removeAnnotation, myId);
     }
   });
 

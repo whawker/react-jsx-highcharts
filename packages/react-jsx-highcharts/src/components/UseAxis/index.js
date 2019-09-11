@@ -6,14 +6,13 @@ import useDelay from '../UseDelay';
 
 export default function useAxis(axisId) {
 
-  const { getChart } = useChart();
+  const chart = useChart();
   const providedAxis = useContext(AxisContext);
 
   const createStateAxis = () => {
     if(providedAxis) return createGetAxis(providedAxis);
 
     if (axisId) {
-      const chart = getChart();
       const axis = chart.get(axisId);
       return createGetAxis(axis);
     }

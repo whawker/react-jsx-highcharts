@@ -10,23 +10,22 @@ import useModifiedProps from '../UseModifiedProps';
 const Tooltip = memo((props) => {
   // eslint-disable-next-line no-unused-vars
   const { children = null, ...restProps } = props;
-  const { getChart, needsRedraw } = useChart();
+  const chart = useChart();
   const getHighcharts = useHighcharts();
   const modifiedProps = useModifiedProps(restProps);
 
   restProps.enabled = defaultTo(props.enabled, true);
 
   const updateTooltip = config => {
-    const chart = getChart();
     chart.update({
       tooltip: config
     }, false);
-    needsRedraw();
+    chart.needsRedraw();
   };
 
   useEffect(() => {
     const Highcharts = getHighcharts();
-    const chartObj = getChart().object;
+    const chartObj = chart.object;
 
     chartObj.tooltip = new Highcharts.Tooltip(chartObj, {
       ...(Highcharts.defaultOptions && Highcharts.defaultOptions.tooltip),

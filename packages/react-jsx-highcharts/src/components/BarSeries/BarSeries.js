@@ -4,10 +4,9 @@ import Series from '../Series';
 import useChart from '../UseChart';
 
 const BarSeries = (props) => {
-  const { getChart } = useChart();
+  const chart = useChart();
 
   useEffect(() => {
-    const chart = getChart();
     chart.update({
       chart: {
         inverted: true

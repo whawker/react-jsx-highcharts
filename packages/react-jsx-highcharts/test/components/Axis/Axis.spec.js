@@ -10,7 +10,7 @@ describe('<Axis />', () => {
   beforeEach(() => {
     testContext = {};
 
-    const { chartStubs, getChart, needsRedraw } = createMockProvidedChart();
+    const { chartStubs, needsRedraw } = createMockProvidedChart();
 
     testContext.chartStubs = chartStubs;
     testContext.axisStubs = createMockAxis({});
@@ -18,7 +18,7 @@ describe('<Axis />', () => {
     testContext.needsRedraw = needsRedraw;
 
     ProvidedAxis = (props) => (
-      <ChartContext.Provider value={{ getChart, needsRedraw }}>
+      <ChartContext.Provider value={ chartStubs }>
         <Axis {...props} />
       </ChartContext.Provider>
     );

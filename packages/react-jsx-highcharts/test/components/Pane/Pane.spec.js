@@ -8,12 +8,12 @@ describe('<Pane />', () => {
   let ProvidedPane;
   beforeEach(() => {
     testContext = {};
-    const { chartStubs, getChart, needsRedraw } = createMockProvidedChart();
+    const { chartStubs, needsRedraw } = createMockProvidedChart();
     testContext.chartStubs = chartStubs;
     testContext.needsRedraw = needsRedraw;
 
     ProvidedPane = props => (
-      <ChartContext.Provider value={{ getChart, needsRedraw }}>
+      <ChartContext.Provider value={ chartStubs }>
         <Pane {...props}/>
       </ChartContext.Provider>
     );

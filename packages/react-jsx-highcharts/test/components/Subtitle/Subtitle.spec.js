@@ -9,11 +9,11 @@ describe('<Subtitle />', () => {
 
   beforeEach(() => {
     testContext = {};
-    const { chartStubs, getChart, needsRedraw } = createMockProvidedChart();
+    const { chartStubs, needsRedraw } = createMockProvidedChart();
     testContext.chartStubs = chartStubs;
 
     ProvidedSubtitle = props => (
-      <ChartContext.Provider value={{ getChart, needsRedraw }}>
+      <ChartContext.Provider value={ chartStubs }>
         <Subtitle {...props}/>
       </ChartContext.Provider>
     );

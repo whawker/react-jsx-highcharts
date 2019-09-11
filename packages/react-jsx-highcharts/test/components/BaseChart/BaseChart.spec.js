@@ -56,28 +56,6 @@ describe('<BaseChart />', () => {
     it('should create a chart context, with the chart and chart type', () => {
 
       const wrapper = mount(
-        <BaseChart {...testContext} chartType='chart'>
-          <ChartContext.Consumer>
-            { value => (
-              <ChildComponent value={ value } />
-            )}
-          </ChartContext.Consumer>
-        </BaseChart>
-      );
-
-      const child = wrapper.find(ChildComponent);
-      expect(child).toHaveProp('value',
-        { getChart: expect.any(Function),
-          needsRedraw: expect.any(Function)
-        }
-      );
-    });
-
-    it('should create a chart context, with the chart and stockChart type', () => {
-      const ChildComponent = ({ value }) => (
-        <div>{ value.chartType }</div>
-      )
-      const wrapper = mount(
         <BaseChart {...testContext} chartType='stockChart'>
           <ChartContext.Consumer>
             { value => (
@@ -88,11 +66,9 @@ describe('<BaseChart />', () => {
       );
 
       const child = wrapper.find(ChildComponent);
-      expect(child).toHaveProp('value',
-        { getChart: expect.any(Function),
-          needsRedraw: expect.any(Function)
-        }
-      );
+      expect(child).toHaveProp('value', expect.objectContaining(
+        { type: 'stockChart' }
+      ));
     });
 
     it('should create a angular chart when mounted with the gauge prop', () => {
@@ -119,19 +95,19 @@ describe('<BaseChart />', () => {
       expect(testContext.chartCreationFunc).toHaveBeenCalledWith(wrapper.getDOMNode(), expect.objectContaining({ chart: { styledMode: true } }));
     });
 
-    it('should provide chart functions when calling getChart', () => {
+    it('should provide chart functions', () => {
       const wrapper = mount(
         <BaseChart {...testContext} chartType='chart'>
           <ChartContext.Consumer>
-            { ({ getChart }) => (
-              <ChildComponent getChart={ getChart } />
+            { ( chart ) => (
+              <ChildComponent chart={ chart } />
             )}
           </ChartContext.Consumer>
         </BaseChart>
       );
 
 
-      const chartProp = wrapper.find(ChildComponent).props().getChart();
+      const chartProp = wrapper.find(ChildComponent).props().chart;
       expect(chartProp.type).toEqual('chart');
       expect(chartProp.get).toEqual(expect.any(Function));
       expect(chartProp.setSize).toEqual(expect.any(Function));
@@ -145,7 +121,7 @@ describe('<BaseChart />', () => {
       expect(chartProp.addCredits).toEqual(expect.any(Function));
     });
 
-    it('should provide expected chart functions when calling getChart', () => {
+    it('should provide expected chart functions', () => {
       chart.get.mockReturnValueOnce('get method mock');
       chart.setSize.mockReturnValueOnce('setSize method mock');
       chart.update.mockReturnValueOnce('update method mock');
@@ -160,14 +136,14 @@ describe('<BaseChart />', () => {
       const wrapper = mount(
         <BaseChart {...testContext} chartType='chart'>
           <ChartContext.Consumer>
-            { ({ getChart }) => (
-              <ChildComponent getChart={ getChart } />
+            { (chart) => (
+              <ChildComponent chart={ chart } />
             )}
           </ChartContext.Consumer>
         </BaseChart>
       );
 
-      const chartProp = wrapper.find(ChildComponent).props().getChart();
+      const chartProp = wrapper.find(ChildComponent).props().chart;
       expect(chartProp.type).toEqual('chart');
       expect(chartProp.get({ prop: 'Test1234' })).toEqual('get method mock');
       expect(chartProp.setSize({ prop: 'Test5678' })).toEqual('setSize method mock');
@@ -196,14 +172,14 @@ describe('<BaseChart />', () => {
       const wrapper = mount(
         <BaseChart {...testContext} chartType='stockChart'>
           <ChartContext.Consumer>
-            { ({ getChart }) => (
-              <ChildComponent getChart={ getChart } />
+            { ( chart ) => (
+              <ChildComponent chart={ chart } />
             )}
           </ChartContext.Consumer>
         </BaseChart>
       );
 
-      const chartProp = wrapper.find(ChildComponent).props().getChart();
+      const chartProp = wrapper.find(ChildComponent).props().chart;
       expect(chartProp.type).toEqual('stockChart');
       expect(chartProp.get({ prop: 'Test1234' })).toEqual(chart);
       expect(chartProp.setSize({ prop: 'Test5678' })).toEqual(chart);

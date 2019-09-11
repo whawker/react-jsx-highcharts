@@ -9,11 +9,11 @@ describe('<XAxis />', () => {
   let ProvidedAxis;
   beforeEach(() => {
     testContext = {};
-    const { chartStubs, getChart, needsRedraw } = createMockProvidedChart({ type: 'chart' });
+    const { chartStubs, needsRedraw } = createMockProvidedChart({ type: 'chart' });
     testContext.chartStubs = chartStubs;
 
     ProvidedAxis = (props) => (
-      <ChartContext.Provider value={{ getChart, needsRedraw }}>
+      <ChartContext.Provider value={ chartStubs }>
         <XAxis {...props}/>
       </ChartContext.Provider>
     );

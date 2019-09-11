@@ -14,7 +14,7 @@ describe('<Series />', () => {
   beforeEach(() => {
     testContext = {};
 
-    const { chartStubs, getChart, needsRedraw } = createMockProvidedChart();
+    const { chartStubs, needsRedraw } = createMockProvidedChart();
     const { axisStubs, getAxis } = createMockProvidedAxis({ id: 'myAxis', type: 'yAxis' });
     useAxisSpy = jest.spyOn(useAxis, 'default').mockImplementation(() => getAxis);
 
@@ -29,7 +29,7 @@ describe('<Series />', () => {
     };
     ProvidedSeries = props => (
       <HighchartsContext.Provider value = { () => Highcharts }>
-        <ChartContext.Provider value = {{ getChart, needsRedraw }}>
+        <ChartContext.Provider value = { chartStubs }>
           <Series {...props} />
         </ChartContext.Provider>
       </HighchartsContext.Provider>

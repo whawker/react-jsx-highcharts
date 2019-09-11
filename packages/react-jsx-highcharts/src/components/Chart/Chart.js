@@ -6,7 +6,7 @@ import useChart from '../UseChart';
 import useHighcharts from '../UseHighcharts';
 
 const Chart = memo((props) => {
-  const { getChart, needsRedraw } = useChart();
+  const chart = useChart();
   const getHighcharts = useHighcharts();
   const mounted = useRef(false);
 
@@ -16,10 +16,10 @@ const Chart = memo((props) => {
     if(modifiedProps !== false && mounted.current) {
       const { width, height, ...restModified } = modifiedProps;
       if(width || height) {
-        getChart().setSize(props.width, props.height);
+        chart.setSize(props.width, props.height);
       }
       if(Object.getOwnPropertyNames(restModified).length > 0) {
-        updateChart(restModified, getChart(), needsRedraw);
+        updateChart(restModified, chart, chart.needsRedraw);
       }
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -29,10 +29,9 @@ const Chart = memo((props) => {
     const { width, height, ...rest } = props;
 
     const notEventProps = getNonEventHandlerProps(rest);
-    const chart = getChart();
 
     chart.setSize(width, height);
-    updateChart(notEventProps, getChart(), needsRedraw);
+    updateChart(notEventProps, chart);
     addEventHandlersManually(getHighcharts(), chart.object, rest);
     mounted.current = true;
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -41,11 +40,11 @@ const Chart = memo((props) => {
   return null;
 })
 
-const updateChart = (config, chart, needsRedraw) => {
+const updateChart = (config, chart) => {
   chart.update({
     chart: config
   }, false);
-  needsRedraw();
+  chart.needsRedraw();
 }
 
 Chart.propTypes = {
