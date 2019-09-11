@@ -27,7 +27,6 @@
     "react/prop-types": "warn",
     "prefer-object-spread": "warn",
     "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "error",
   },
   "globals": {
     "process": false
