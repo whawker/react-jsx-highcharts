@@ -29,19 +29,31 @@ const defaultSparklinePlotOptions = {
 };
 
 const EMPTY_ARRAY = [];
+const EMPTY_OBJECT = {};
 const ZERO_ARRAY = [0];
 const LABELS_DISABLED = { enabled: false };
+const DEFAULT_MARGIN = [2, 0, 2, 0];
 
-const HighchartsSparkline = ({ height, width, margin, style, series, children, ...rest }) => {
-
-  const chartStyle = useMemo(() => ({ overflow: 'visible', ...style }), [ style ]);
+const HighchartsSparkline = ({
+  height = 20,
+  width = 120,
+  margin = DEFAULT_MARGIN,
+  style = EMPTY_OBJECT,
+  series,
+  children,
+  plotOptions = defaultSparklinePlotOptions,
+  ...rest
+}) => {
+  const chartStyle = useMemo(() => ({ overflow: 'visible', ...style }), [
+    style
+  ]);
 
   const hasSeriesProp = !!series;
   // If you want to use functionality like Tooltips, pass the data component on the `series` prop
   const Series = hasSeriesProp ? series : children;
 
   return (
-    <HighchartsChart {...rest}>
+    <HighchartsChart plotOptions={plotOptions} {...rest}>
       <Chart
         height={height}
         width={width}
@@ -50,38 +62,38 @@ const HighchartsSparkline = ({ height, width, margin, style, series, children, .
         borderWidth={0}
         margin={margin}
         style={chartStyle}
-        skipClone />
+        skipClone
+      />
 
-      <XAxis labels={LABELS_DISABLED} startOnTick={false} endOnTick={false} tickPositions={EMPTY_ARRAY} />
+      <XAxis
+        labels={LABELS_DISABLED}
+        startOnTick={false}
+        endOnTick={false}
+        tickPositions={EMPTY_ARRAY}
+      />
 
-      <YAxis id="sparkline" labels={LABELS_DISABLED} startOnTick={false} endOnTick={false} tickPositions={ZERO_ARRAY}>
+      <YAxis
+        id="sparkline"
+        labels={LABELS_DISABLED}
+        startOnTick={false}
+        endOnTick={false}
+        tickPositions={ZERO_ARRAY}>
         {Series}
       </YAxis>
 
-      {hasSeriesProp && (
-        <Hidden>
-          {children}
-        </Hidden>
-      )}
+      {hasSeriesProp && <Hidden>{children}</Hidden>}
     </HighchartsChart>
   );
-}
+};
 
 HighchartsSparkline.propTypes = {
-  height: PropTypes.number.isRequired,
-  width: PropTypes.number.isRequired,
-  margin: PropTypes.array.isRequired,
-  style: PropTypes.object.isRequired,
-  plotOptions: PropTypes.object.isRequired,
+  height: PropTypes.number,
+  width: PropTypes.number,
+  margin: PropTypes.array,
+  style: PropTypes.object,
+  plotOptions: PropTypes.object,
   series: PropTypes.node,
-  children: PropTypes.node.isRequired
+  children: PropTypes.node
 };
 
-HighchartsSparkline.defaultProps = {
-  height: 20,
-  width: 120,
-  margin: [2, 0, 2, 0],
-  style: {},
-  plotOptions: defaultSparklinePlotOptions
-};
 export default HighchartsSparkline;
