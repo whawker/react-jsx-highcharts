@@ -1,4 +1,4 @@
-const createGetAxis = axis => () => {
+const createProvidedAxis = axis => {
   if(!axis) return null;
 
   return {
@@ -15,4 +15,4 @@ const createGetAxis = axis => () => {
   }
 }
 
-export default createGetAxis;
+export default createProvidedAxis;

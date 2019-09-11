@@ -9,9 +9,9 @@ describe('<PlotLine />', () => {
 
   beforeEach(() => {
     testContext = {};
-    const { axisStubs, getAxis } = createMockProvidedAxis({ id: 'myAxis', type: 'yAxis' });
+    const { axisStubs, providedAxis } = createMockProvidedAxis({ id: 'myAxis', type: 'yAxis' });
     testContext.axisStubs = axisStubs;
-    useAxisSpy = jest.spyOn(useAxis, 'default').mockImplementation(() => getAxis);
+    useAxisSpy = jest.spyOn(useAxis, 'default').mockImplementation(() => providedAxis);
 
   });
 

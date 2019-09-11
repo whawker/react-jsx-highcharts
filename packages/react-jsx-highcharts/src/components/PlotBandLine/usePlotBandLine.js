@@ -7,16 +7,15 @@ import useAxis from '../UseAxis';
 export default function usePlotBandLine(props, plotType) {
   const { id = uuid, children, ...rest } = props;
 
-  const getAxis = useAxis();
+  const axis = useAxis();
   const idRef = useRef();
   const [plotbandline, setPlotbandline] = useState(null);
   const modifiedProps = useModifiedProps(rest);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
-    if (!getAxis) return;
+    if (!axis) return;
     if (modifiedProps !== false && plotbandline) {
-      const axis = getAxis();
       axis.removePlotLine(idRef.current);
       const opts = {
         id: idRef.current,
@@ -28,22 +27,20 @@ export default function usePlotBandLine(props, plotType) {
 
   // create plotline
   useEffect(() => {
-    if (!getAxis) return;
+    if (!axis) return;
     idRef.current = typeof id === 'function' ? id() : id;
     const myId = idRef.current;
     const opts = {
       id: myId,
       ...rest
     };
-    const axis = getAxis();
     setPlotbandline(axis.addPlotBandOrLine(opts, plotType));
 
     return () => {
-      const axis = getAxis();
       attempt(axis.removePlotBandOrLine, idRef.current);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [getAxis]);
+  }, [axis]);
 
   return plotbandline;
 }

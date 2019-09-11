@@ -10,8 +10,6 @@ describe('<PlotBandLineLabel.Label />', () => {
 
     testContext.plotLine      = { id: 'myPlotLine', options: { label: { text: null } }, render: jest.fn() };
 
-    testContext.getAxis = jest.fn();
-
     ProvidedPlotBandLineLabel = (props) => (
       <PlotLineContext.Provider value={testContext.plotLine}>
         <PlotBandLineLabel {...props} />

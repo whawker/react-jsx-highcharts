@@ -7,17 +7,19 @@ import { getNonEventHandlerProps, getEventsConfig } from '../../utils/events';
 import { validAxisTypes } from '../../utils/propTypeValidators';
 import useModifiedProps from '../UseModifiedProps';
 import useChart from '../UseChart';
-
+import createProvidedAxis from './createProvidedAxis';
 
 const Axis = ({ children = null, dynamicAxis = true, ...restProps }) => {
 
   const chart = useChart();
 
   const axisRef = useRef(null);
+  const providedAxisRef = useRef(null);
   const [hasAxis, setHasAxis] = useState(false);
 
   useEffect(() => {
     axisRef.current = createAxis(chart, restProps, dynamicAxis);
+    providedAxisRef.current = createProvidedAxis(axisRef.current)
     setHasAxis(true);
     chart.needsRedraw();
     return () => {
@@ -46,7 +48,7 @@ const Axis = ({ children = null, dynamicAxis = true, ...restProps }) => {
   if (!hasAxis) return null;
 
   return (
-    <AxisContext.Provider value={axisRef.current}>
+    <AxisContext.Provider value={providedAxisRef.current}>
       {children}
     </AxisContext.Provider>
   );

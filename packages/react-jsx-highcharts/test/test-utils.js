@@ -48,11 +48,11 @@ export const createMockProvidedAxis = ({ object, ...additional }) => {
 
   return {
     axisStubs,
-    getAxis: () => ({
+    providedAxis: {
       object,
       ...additional,
       ...axisStubs
-    })
+    }
   }
 };
 

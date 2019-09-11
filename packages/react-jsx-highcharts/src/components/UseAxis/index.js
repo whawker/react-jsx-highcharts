@@ -1,33 +1,33 @@
 import { useContext, useState } from 'react';
 import AxisContext from '../AxisContext';
 import useChart from '../UseChart';
-import createGetAxis from './createGetAxis';
+import createProvidedAxis from '../Axis/createProvidedAxis';
 import useDelay from '../UseDelay';
 
 export default function useAxis(axisId) {
 
   const chart = useChart();
-  const providedAxis = useContext(AxisContext);
+  const contextAxis = useContext(AxisContext);
 
   const createStateAxis = () => {
-    if(providedAxis) return createGetAxis(providedAxis);
+    if(contextAxis) return contextAxis;
 
     if (axisId) {
       const axis = chart.get(axisId);
-      return createGetAxis(axis);
+      return createProvidedAxis(axis);
     }
     return null;
   }
 
-  const [getAxis, setGetAxis] = useState(createStateAxis);
+  const [providedAxis, setprovidedAxis] = useState(createStateAxis);
 
   useDelay(()=> {
-    if(getAxis) return; // we already had axis
+    if(providedAxis) return; // we already had axis
     // axis should now be created
-    setGetAxis(createStateAxis());
+    setprovidedAxis(createStateAxis());
   })
 
-  return getAxis;
+  return providedAxis;
 }
 
 

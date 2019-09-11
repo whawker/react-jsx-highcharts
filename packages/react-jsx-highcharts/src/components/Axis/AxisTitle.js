@@ -3,20 +3,20 @@ import { attempt } from 'lodash-es';
 import useAxis from '../UseAxis';
 
 const AxisTitle = memo(({ children: text, axisId, ...restProps}) => {
-  const getAxis = useAxis(axisId);
+  const axis = useAxis(axisId);
 
   useEffect(() => {
-    if (getAxis) {
-      updateAxisTitle({ text, ...restProps}, getAxis());
+    if (axis) {
+      updateAxisTitle({ text, ...restProps}, axis);
     }
   });
 
   useEffect(() => {
     return () => {
-      if (getAxis) attempt(updateAxisTitle, { text: null }, getAxis());
+      if (axis) attempt(updateAxisTitle, { text: null }, axis);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [getAxis]);
+  }, [axis]);
 
   return null;
 });

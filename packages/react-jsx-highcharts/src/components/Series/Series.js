@@ -49,11 +49,11 @@ const Series = memo(({
   const [, setHasSeries] = useState(false);
   const providerValueRef = useRef(null);
 
-  const getAxis = useAxis(axisId);
+  const axis = useAxis(axisId);
 
   useEffect(() => {
-    if (requiresAxis && !getAxis) return;
-    const opts = getSeriesConfig(seriesProps, getAxis(), requiresAxis);
+    if (requiresAxis && !axis) return;
+    const opts = getSeriesConfig(seriesProps, axis, requiresAxis);
 
     seriesRef.current = addSeries(opts, false);
     providerValueRef.current = createProvidedSeries(seriesRef.current);
@@ -70,7 +70,7 @@ const Series = memo(({
       }
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [getAxis]);
+  }, [axis]);
 
   const prevProps = usePrevious(seriesProps);
 

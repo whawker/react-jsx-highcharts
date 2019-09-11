@@ -15,17 +15,17 @@ describe('<Series />', () => {
     testContext = {};
 
     const { chartStubs, needsRedraw } = createMockProvidedChart();
-    const { axisStubs, getAxis } = createMockProvidedAxis({ id: 'myAxis', type: 'yAxis' });
-    useAxisSpy = jest.spyOn(useAxis, 'default').mockImplementation(() => getAxis);
+    const { providedAxis } = createMockProvidedAxis({ id: 'myAxis', type: 'yAxis' });
+    useAxisSpy = jest.spyOn(useAxis, 'default').mockImplementation(() => providedAxis);
 
     testContext.chartStubs = chartStubs;
-    testContext.axisStubs = axisStubs;
+    testContext.providedAxis = providedAxis;
     testContext.seriesStubs = createMockSeries();
     testContext.chartStubs.addSeries.mockReturnValue(testContext.seriesStubs);
     testContext.needsRedraw = needsRedraw;
 
     testContext.propsFromProviders = {
-      getAxis,
+      axis: providedAxis,
     };
     ProvidedSeries = props => (
       <HighchartsContext.Provider value = { () => Highcharts }>
@@ -43,8 +43,8 @@ describe('<Series />', () => {
 
   describe('when mounted', () => {
     it('adds an X series using the addSeries method', () => {
-      testContext.axisStubs.id = 'myXAxisId';
-      testContext.axisStubs.type = 'xAxis';
+      testContext.providedAxis.id = 'myXAxisId';
+      testContext.providedAxis.type = 'xAxis';
 
       mount(
         <ProvidedSeries id="mySeries" />
@@ -57,8 +57,8 @@ describe('<Series />', () => {
     });
 
     it('adds a Y series using the addSeries method', () => {
-      testContext.axisStubs.id = 'myYAxisId';
-      testContext.axisStubs.type = 'yAxis';
+      testContext.providedAxis.id = 'myYAxisId';
+      testContext.providedAxis.type = 'yAxis';
 
       mount(
         <ProvidedSeries id="mySeries" {...testContext.propsFromProviders} />
@@ -130,7 +130,7 @@ describe('<Series />', () => {
     });
 
     it('throws Error when requiresAxis=true and mounted without axis', () => {
-      testContext.propsFromProviders.getAxis = () => null;
+      testContext.propsFromProviders.axis = null;
 
       expect(() => {
         shallow(
@@ -140,7 +140,7 @@ describe('<Series />', () => {
     });
 
     it('does not throw Error when requiresAxis=false and mounted without axis', () => {
-      testContext.propsFromProviders.getAxis = () => null;
+      testContext.propsFromProviders.axis =  null;
       expect(() => {
         mount(
           <ProvidedSeries id="mySeries" requiresAxis={false} />
