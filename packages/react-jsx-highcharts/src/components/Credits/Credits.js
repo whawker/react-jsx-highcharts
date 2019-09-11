@@ -2,8 +2,9 @@ import PropTypes from 'prop-types';
 
 import useChartUpdate from '../UseChartUpdate';
 
-const Credits = props => {
-  useChartUpdate(props, updateCredits, chart =>
+const Credits = ({ enabled = true, ...restProps}) => {
+
+  useChartUpdate({ enabled, ...restProps}, updateCredits, chart =>
     updateCredits(chart, { enabled: false })
   );
 
@@ -16,9 +17,6 @@ const updateCredits = (chart, config) => {
   chart.addCredits(config, true);
 };
 
-Credits.defaultProps = {
-  enabled: true
-};
 Credits.propTypes = {
   enabled: PropTypes.bool
 };
