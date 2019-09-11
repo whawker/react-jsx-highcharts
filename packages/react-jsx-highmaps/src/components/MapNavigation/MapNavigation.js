@@ -1,86 +1,76 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { attempt } from 'lodash-es';
-import { Hidden, getModifiedProps } from 'react-jsx-highcharts';
+import {
+  Hidden,
+  useModifiedProps,
+  useChart,
+  useHighcharts
+} from 'react-jsx-highcharts';
 
-class MapNavigation extends Component {
+const MapNavigation = props => {
+  const [rendered, setRendered] = useState(false);
+  const chart = useChart();
+  const Highcharts = useHighcharts();
 
-  static propTypes = {
-    getChart: PropTypes.func, // Provided by ChartProvider
-    getHighcharts: PropTypes.func.isRequired, // Provided by HighchartsProvider
-    enabled: PropTypes.bool.isRequired
-  };
-
-  static defaultProps = {
-    enabled: true
-  };
-
-  constructor (props) {
-    super(props);
-
-    this.state = {
-      rendered: false
-    };
-  }
-
-  componentDidMount () {
-    const { getHighcharts, getChart } = this.props;
-
+  useEffect(() => {
     // Workaround inferred from http://jsfiddle.net/x40me94t/2/
-    const Highcharts = getHighcharts();
-    const chartObj = getChart().object;
+    const chartObj = chart.object;
     chartObj.options.mapNavigation.enabled = true;
     Highcharts.fireEvent(chartObj, 'beforeRender'); // Highcharts 6.1+
 
-    const opts = this.getMapNavigationConfig();
-    this.updateMapNavigation(opts);
+    const opts = getMapNavigationConfig(props, Highcharts);
+    updateMapNavigation(opts, chart);
 
-    this.setState({
-      rendered: true
-    });
-  }
+    setRendered(true);
 
-  componentDidUpdate (prevProps) {
-    const modifiedProps = getModifiedProps(prevProps, this.props);
-    if (modifiedProps !== false) {
-      this.updateMapNavigation(modifiedProps);
-    }
-  }
-
-  componentWillUnmount () {
-    attempt(this.updateMapNavigation, { enabled: false });
-  }
-
-  getMapNavigationConfig = () => {
-    const { getHighcharts, children, ...rest } = this.props;
-    const Highcharts = getHighcharts();
-
-    return {
-      ...(Highcharts.defaultOptions && Highcharts.defaultOptions.mapNavigation),
-      ...rest,
-      enableButtons: false,
-      buttons: {
-        zoomIn: {},
-        zoomOut: {}
-      }
+    return () => {
+      attempt(updateMapNavigation, { enabled: false }, chart);
     };
-  }
+  }, []);
 
-  updateMapNavigation = config => {
-    const chart = this.props.getChart();
-    chart.update({
+  const modifiedProps = useModifiedProps(props);
+
+  useEffect(() => {
+    if (!rendered) return;
+    if (modifiedProps !== false) {
+      updateMapNavigation(modifiedProps, chart);
+    }
+  });
+
+  const { children } = this.props;
+  if (!children || !rendered) return null;
+
+  return <Hidden>{children}</Hidden>;
+};
+const getMapNavigationConfig = (props, Highcharts) => {
+  const { children, ...rest } = props;
+
+  return {
+    ...(Highcharts.defaultOptions && Highcharts.defaultOptions.mapNavigation),
+    ...rest,
+    enableButtons: false,
+    buttons: {
+      zoomIn: {},
+      zoomOut: {}
+    }
+  };
+};
+
+const updateMapNavigation = (config, chart) => {
+  chart.update(
+    {
       mapNavigation: config
-    }, true);
-  }
+    },
+    true
+  );
+};
 
-  render () {
-    const { children } = this.props;
-    if (!children || !this.state.rendered) return null;
+MapNavigation.propTypes = {
+  enabled: PropTypes.bool.isRequired
+};
 
-    return (
-      <Hidden>{children}</Hidden>
-    );
-  }
-}
-
+MapNavigation.defaultProps = {
+  enabled: true
+};
 export default MapNavigation;

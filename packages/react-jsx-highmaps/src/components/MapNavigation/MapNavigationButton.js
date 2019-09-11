@@ -1,57 +1,50 @@
-import { Component } from 'react';
+import { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { attempt } from 'lodash-es';
 import { isEmpty } from 'lodash-es';
-import { provideChart } from 'react-jsx-highcharts';
+import { useHighcharts, useChart } from 'react-jsx-highcharts';
 
-class MapNavigationButton extends Component {
+const MapNavigationButton = (props) => {
+  const Highcharts = useHighcharts();
+  const chart = useChart();
 
-  static propTypes = {
-    type: PropTypes.oneOf(['zoomIn', 'zoomOut']).isRequired,
-    getChart: PropTypes.func // Provided by ChartProvider
+  useEffect(() => {
+    const { type, ...rest } = props;
+    const opts = getMapNavigationButtonConfig(rest, Highcharts);
+    updateMapNavigationButton(type, opts, chart);
+
+    return () => {
+      // TODO removeButton was missing in original class?
+      //const { type } = props;
+      //attempt(this.removeButton, type, {});
+    }
+  }, [])
+
+  return null;
+}
+const getMapNavigationButtonConfig = (props, Highcharts) => {
+  const { children: text, onClick: onclick, ...rest } = props;
+
+  return {
+    ...(Highcharts.defaultOptions && Highcharts.defaultOptions.mapNavigation.buttonOptions),
+    onclick, // Weird Highcharts inconsistency, onclick instead of events: { click }
+    ...rest,
+    text
   };
-
-  componentDidMount () {
-    const { type, ...rest } = this.props;
-    const opts = this.getMapNavigationButtonConfig(rest);
-    this.updateMapNavigationButton(type, opts);
-  }
-
-  componentWillUnmount () {
-    const { type } = this.props;
-    attempt(this.removeButton, type, {});
-  }
-
-  getMapNavigationButtonConfig = props => {
-    const { getHighcharts, children: text, onClick: onclick, ...rest } = props;
-    const Highcharts = getHighcharts();
-
-    return {
-      ...(Highcharts.defaultOptions && Highcharts.defaultOptions.mapNavigation.buttonOptions),
-      onclick, // Weird Highcharts inconsistency, onclick instead of events: { click }
-      ...rest,
-      text
-    };
-  }
-
-  updateMapNavigationButton = (type, config) => {
-    const chart = this.props.getChart();
-    chart.update({
-      mapNavigation: {
-        enableButtons: !isEmpty(config),
-        buttons: {
-          [type]: config
-        }
-      }
-    })
-  }
-
-  render () {
-    return null;
-  }
 }
 
-export default provideChart(MapNavigationButton);
+const updateMapNavigationButton = (type, config, chart) => {
+  chart.update({
+    mapNavigation: {
+      enableButtons: !isEmpty(config),
+      buttons: {
+        [type]: config
+      }
+    }
+  })
+}
 
-// For testing purposes
-export const _MapNavigationButton = MapNavigationButton;
+MapNavigationButton.propTypes = {
+  type: PropTypes.oneOf(['zoomIn', 'zoomOut']).isRequired
+};
+
+export default MapNavigationButton;

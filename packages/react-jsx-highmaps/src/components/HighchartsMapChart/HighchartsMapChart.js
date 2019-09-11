@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { BaseChart } from 'react-jsx-highcharts';
+import { BaseChart, HighchartsContext } from 'react-jsx-highcharts';
 import memoizeOne from 'memoize-one';
 
 const XAXIS = { id: 'xAxis' };
@@ -8,17 +7,14 @@ const YAXIS = { id: 'yAxis' };
 const MAP_NAVIGATION = { enabled: false };
 
 class HighchartsMapChart extends Component {
-  static propTypes = {
-    getHighcharts: PropTypes.func.isRequired // Provided by HighchartsProvider
-  };
 
-  static defaultProps = {
-    callback: () => {}
-  };
+  static contextType = HighchartsContext;
 
   createGeoJSON = map => {
     if (!map) return;
-    this.geojson = (typeof map === 'string') ? this.props.getHighcharts().maps[map] : map;
+    const Highcharts = this.context;
+
+    this.geojson = (typeof map === 'string') ? Highcharts.maps[map] : map;
   }
 
   getChartConfig = memoizeOne((chart, map) => {
@@ -29,17 +25,19 @@ class HighchartsMapChart extends Component {
   callback = chart => {
     const geojson = this.geojson;
     if (geojson) {
-      const format = this.props.getHighcharts().format;
+      const Highcharts = this.context;
+      const format = Highcharts.format;
       const { mapText, mapTextFull } = chart.options.credits;
       chart.mapCredits = format(mapText, { geojson });
       chart.mapCreditsFull = format(mapTextFull, { geojson });
     }
-    this.props.callback(chart)
+    if(this.props.callback) this.props.callback(chart)
   }
 
   render () {
     const { map, chart, ...rest } = this.props;
     const chartConfig = this.getChartConfig(chart, map);
+    const Highcharts = this.context;
 
     return (
       <BaseChart
@@ -49,7 +47,7 @@ class HighchartsMapChart extends Component {
         yAxis={YAXIS}
         {...rest}
         callback={this.callback}
-        chartCreationFunc={this.props.getHighcharts().mapChart}
+        chartCreationFunc={Highcharts.mapChart}
         chartType="mapChart" />
     );
   }
