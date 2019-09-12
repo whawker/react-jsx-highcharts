@@ -1,7 +1,5 @@
 /* eslint-env node */
-const webpack = require('webpack');
 const path = require('path');
-const fs = require('fs');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 const isProd = (process.env.NODE_ENV === 'production');
