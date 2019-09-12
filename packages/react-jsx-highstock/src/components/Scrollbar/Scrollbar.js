@@ -1,52 +1,44 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { attempt } from 'lodash-es';
-import { Hidden, getModifiedProps, HighchartsChartContext } from 'react-jsx-highcharts';
+import { Hidden, useModifiedProps, useChart } from 'react-jsx-highcharts';
 
-class Scrollbar extends Component {
+const Scrollbar = ({ children, ...restProps}) => {
+  const chart = useChart();
 
-  static propTypes = {
-    getChart: PropTypes.func, // Provided by ChartProvider
-    enabled: PropTypes.bool.isRequired
-  };
-
-  static defaultProps = {
-    enabled: true
-  };
-
-  static contextType = HighchartsChartContext;
-
-  componentDidMount () {
-    const { children, ...rest } = this.props;
-    this.updateScrollbar(rest);
-  }
-
-  componentDidUpdate (prevProps) {
-    const modifiedProps = getModifiedProps(prevProps, this.props);
-    if (modifiedProps !== false) {
-      this.updateScrollbar(modifiedProps);
+  useEffect(() => {
+    return () => {
+      attempt(updateScrollbar, { enabled: false }, chart);
     }
-  }
+  }, []);
 
-  componentWillUnmount () {
-    attempt(this.updateScrollbar, { enabled: false });
-  }
+  const modifiedProps = useModifiedProps(restProps);
 
-  updateScrollbar = config => {
-    const chart = this.context;
-    chart.update({
-      scrollbar: config
-    }, true);
-  }
+  useEffect(() => {
+    if (modifiedProps !== false) {
+      updateScrollbar(modifiedProps, chart);
+    }
+  });
 
-  render () {
-    const { children } = this.props;
-    if (!children) return null;
+  if (!children) return null;
 
-    return (
-      <Hidden>{children}</Hidden>
-    );
-  }
+  return (
+    <Hidden>{children}</Hidden>
+  );
 }
+
+const updateScrollbar = (config, chart) => {
+  chart.update({
+    scrollbar: config
+  }, true);
+}
+
+Scrollbar.propTypes = {
+  enabled: PropTypes.bool.isRequired
+};
+
+Scrollbar.defaultProps = {
+  enabled: true
+};
 
 export default Scrollbar;
