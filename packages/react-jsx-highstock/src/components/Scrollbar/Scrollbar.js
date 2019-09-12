@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { attempt } from 'lodash-es';
-import { Hidden, getModifiedProps } from 'react-jsx-highcharts';
+import { Hidden, getModifiedProps, HighchartsChartContext } from 'react-jsx-highcharts';
 
 class Scrollbar extends Component {
 
@@ -13,6 +13,8 @@ class Scrollbar extends Component {
   static defaultProps = {
     enabled: true
   };
+
+  static contextType = HighchartsChartContext;
 
   componentDidMount () {
     const { children, ...rest } = this.props;
@@ -31,7 +33,7 @@ class Scrollbar extends Component {
   }
 
   updateScrollbar = config => {
-    const chart = this.props.getChart();
+    const chart = this.context;
     chart.update({
       scrollbar: config
     }, true);

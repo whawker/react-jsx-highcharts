@@ -1,23 +1,27 @@
 import React from 'react';
 import { createMockProvidedChart } from '../../test-utils';
 import Scrollbar from '../../../src/components/Scrollbar/Scrollbar';
+import { HighchartsChartContext } from 'react-jsx-highcharts';
 
 describe('<Scrollbar />', () => {
   let testContext;
+  let ProvidedScrollBar;
 
   beforeEach(() => {
     testContext = {};
-    const { chartStubs, getChart } = createMockProvidedChart({ object: testContext.object });
+    const { chartStubs } = createMockProvidedChart({ object: testContext.object });
     testContext.chartStubs = chartStubs;
 
-    testContext.propsFromProviders = {
-      getChart
-    };
+    ProvidedScrollBar = props => (
+      <HighchartsChartContext.Provider value={ chartStubs }>
+        <Scrollbar {...props} />
+      </HighchartsChartContext.Provider>
+    )
   });
 
   describe('when mounted', () => {
     it('add scrollbar using the Highcharts update method', () => {
-      mount(<Scrollbar {...testContext.propsFromProviders} />);
+      mount(<ProvidedScrollBar />);
       expect(testContext.chartStubs.update).toHaveBeenCalledWith({
         scrollbar: expect.objectContaining({
           enabled: true
@@ -27,7 +31,7 @@ describe('<Scrollbar />', () => {
 
     it('updates the scrollbar with the passed props', () => {
       mount(
-        <Scrollbar barBackgroundColor="red" height={20} {...testContext.propsFromProviders} />
+        <ProvidedScrollBar barBackgroundColor="red" height={20} />
       );
       expect(testContext.chartStubs.update).toHaveBeenCalledWith({
         scrollbar: expect.objectContaining({
@@ -42,7 +46,7 @@ describe('<Scrollbar />', () => {
   describe('update', () => {
     it('should use the update method when props change', () => {
       const wrapper = mount(
-        <Scrollbar {...testContext.propsFromProviders} />
+        <ProvidedScrollBar />
       );
       wrapper.setProps({ height: 12345 });
       expect(testContext.chartStubs.update).toHaveBeenCalledWith({
@@ -55,7 +59,7 @@ describe('<Scrollbar />', () => {
 
   describe('when unmounted', () => {
     it('should disable the Scrollbar', () => {
-      const wrapper = mount(<Scrollbar {...testContext.propsFromProviders} />);
+      const wrapper = mount(<ProvidedScrollBar />);
       wrapper.unmount();
       expect(testContext.chartStubs.update).toHaveBeenCalledWith({
         scrollbar: expect.objectContaining({
