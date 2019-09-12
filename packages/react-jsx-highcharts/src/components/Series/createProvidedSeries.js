@@ -1,4 +1,6 @@
 export default function createProvidedSeries(series) {
+  if(!series) return null;
+
   return {
     object: series,
     id: series.userOptions && series.userOptions.id,

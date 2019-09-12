@@ -6,7 +6,9 @@ const NavigatorAxis = props => {
   const axis = useAxis();
 
   useEffect(() => {
-    const { children, ...rest } = this.props;
+    if (!axis) return;
+
+    const { children, ...rest } = props;
     updateNavigatorAxis(getNonEventHandlerProps(rest), axis);
   }, [axis]);
 

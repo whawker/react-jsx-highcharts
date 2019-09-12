@@ -22,7 +22,7 @@ export default function useSeries(seriesId) {
   const [series, setSeries] = useState(createStateSeries);
 
   useDelay(()=> {
-    if(providedSeries) return; // we already had series
+    if(series) return; // we already had series
     // series should now be created
     setSeries(createStateSeries());
   });

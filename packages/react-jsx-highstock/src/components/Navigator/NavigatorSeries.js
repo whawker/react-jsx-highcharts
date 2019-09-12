@@ -9,7 +9,7 @@ const NavigatorSeries = props => {
   useEffect(() => {
     if (!series) return;
 
-    updateNavigatorSeries({ showInNavigator: true });
+    updateNavigatorSeries(series, { showInNavigator: true });
     return (() => {
       attempt(updateNavigatorSeries, series, { showInNavigator: false });
     })
