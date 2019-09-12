@@ -38,7 +38,7 @@ const MapNavigation = props => {
     }
   });
 
-  const { children } = this.props;
+  const { children } = props;
   if (!children || !rendered) return null;
 
   return <Hidden>{children}</Hidden>;
