@@ -1,6 +1,6 @@
 const noop = () => {};
 export const Highcharts = {
-  stockChart: noop,
+  stockChart: jest.fn(),
   addEvent: jest.fn(),
   removeEvent: noop,
   fireEvent: jest.fn()
@@ -16,7 +16,10 @@ export const createMockChart = ({ ...additional }) => ({
   setTitle: jest.fn(),
   destroy: jest.fn(),
   showLoading: jest.fn(),
-  hideLoading: jest.fn()
+  hideLoading: jest.fn(),
+  addCredits: jest.fn(),
+  redraw: jest.fn(),
+  setCaption: jest.fn(),
 })
 
 export const createMockProvidedChart = ({ object, ...additional }) => {
