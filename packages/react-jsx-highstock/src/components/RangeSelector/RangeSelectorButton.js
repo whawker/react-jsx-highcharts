@@ -1,32 +1,17 @@
-import { Component } from 'react';
+import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { attempt } from 'lodash-es';
 import { findIndex } from 'lodash-es';
-import { getEventsConfig, HighchartsChartContext } from 'react-jsx-highcharts';
+import { getEventsConfig, useChart } from 'react-jsx-highcharts';
 
-class RangeSelectorButton extends Component {
+const RangeSelectorButton = props => {
+  const chart = useChart();
 
-  static propTypes = {
-    count: PropTypes.number,
-    type: PropTypes.oneOf(['millisecond', 'second', 'minute', 'hour', 'day', 'week', 'month', 'ytd', 'all']),
-    offsetMin: PropTypes.number.isRequired,
-    offsetMax: PropTypes.number.isRequired,
-    dataGrouping: PropTypes.object
-  };
-
-  static defaultProps = {
-    count: 1,
-    offsetMin: 0,
-    offsetMax: 0
-  };
-
-  static contextType = HighchartsChartContext;
-
-  componentDidMount () {
-    const button = this.getButtonIndex();
+  useEffect(() => {
+    const button = getButtonIndex(props, chart);
     if (button > -1) return; // Button already present
 
-    const { count, type, offsetMin, offsetMax, dataGrouping, children: text, ...rest } = this.props;
+    const { count, type, offsetMin, offsetMax, dataGrouping, children: text, ...rest } = props;
     const opts = {
       count,
       type,
@@ -35,63 +20,74 @@ class RangeSelectorButton extends Component {
       dataGrouping,
       text,
       events: getEventsConfig(rest)
+    };
+
+    addButton(opts, chart);
+
+    return () => {
+      attempt(removeButton, props, chart);
     }
-    this.addButton(opts)
-  }
+  }, []);
 
-  componentWillUnmount () {
-    attempt(this.removeButton);
-  }
-
-  getButtons = () => {
-    const chart = this.context;
-    const chartObj = chart.object;
-    if (chartObj && chartObj.options) {
-      const { buttons = [] } = chartObj.options.rangeSelector;
-      return buttons;
-    }
-
-    return [];
-  }
-
-  getButtonIndex = () => {
-    const { count, type } = this.props;
-    return findIndex(this.getButtons(), b => {
-      return (b.count === count && b.type === type);
-    });
-  }
-
-  addButton = config => {
-    // Add button to array
-    const buttons = [
-      ...this.getButtons(),
-      config
-    ];
-    this.updateRangeSelectorButtons(buttons);
-  }
-
-  removeButton = () => {
-    const button = this.getButtonIndex();
-    if (button === -1) return;
-
-    // Remove button from array
-    const buttons = [...this.getButtons()];
-    buttons.splice(button, 1);
-    this.updateRangeSelectorButtons(buttons);
-  }
-
-  updateRangeSelectorButtons = config => {
-    const chart = this.context;
-    chart.update({
-      rangeSelector: {
-        buttons: config
-      }
-    });
-  }
-
-  render () {
-    return null;
-  }
+  return null;
 }
+
+const getButtons = (chart) => {
+  const chartObj = chart.object;
+  if (chartObj && chartObj.options) {
+    const { buttons = [] } = chartObj.options.rangeSelector;
+    return buttons;
+  }
+
+  return [];
+}
+
+const getButtonIndex = (props, chart) => {
+  const { count, type } = props;
+  return findIndex(getButtons(chart), b => {
+    return (b.count === count && b.type === type);
+  });
+}
+
+const addButton = (config, chart) => {
+  // Add button to array
+  const buttons = [
+    ...getButtons(),
+    config
+  ];
+  updateRangeSelectorButtons(buttons, chart);
+}
+
+const removeButton = (props, chart) => {
+  const button = getButtonIndex(props);
+  if (button === -1) return;
+
+  // Remove button from array
+  const buttons = [...getButtons()];
+  buttons.splice(button, 1);
+  updateRangeSelectorButtons(buttons, chart);
+}
+
+const updateRangeSelectorButtons = (config, chart) => {
+  chart.update({
+    rangeSelector: {
+      buttons: config
+    }
+  });
+}
+
+RangeSelectorButton.propTypes = {
+  count: PropTypes.number,
+  type: PropTypes.oneOf(['millisecond', 'second', 'minute', 'hour', 'day', 'week', 'month', 'ytd', 'all']),
+  offsetMin: PropTypes.number.isRequired,
+  offsetMax: PropTypes.number.isRequired,
+  dataGrouping: PropTypes.object
+};
+
+RangeSelectorButton.defaultProps = {
+  count: 1,
+  offsetMin: 0,
+  offsetMax: 0
+};
 
 export default RangeSelectorButton;
