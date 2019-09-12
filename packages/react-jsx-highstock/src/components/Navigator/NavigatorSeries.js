@@ -1,30 +1,28 @@
-import { Component } from 'react';
+import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { attempt } from 'lodash-es';
+import { useSeries } from 'react-jsx-highcharts';
 
-class NavigatorSeries extends Component {
+const NavigatorSeries = props => {
+  const series = useSeries(props.seriesId);
 
-  static propTypes = {
-    seriesId: PropTypes.string.isRequired,
-    getSeries: PropTypes.func // Provided by SeriesProvider
-  };
+  useEffect(() => {
+    if (!series) return;
 
-  componentDidMount () {
-    this.updateNavigatorSeries({ showInNavigator: true });
-  }
+    updateNavigatorSeries({ showInNavigator: true });
+    return (() => {
+      attempt(updateNavigatorSeries, series, { showInNavigator: false });
+    })
+  },[ series ])
 
-  componentWillUnmount () {
-    attempt(this.updateNavigatorSeries, { showInNavigator: false });
-  }
-
-  updateNavigatorSeries = config => {
-    const series = this.props.getSeries();
-    series.update(config);
-  }
-
-  render () {
-    return null;
-  }
+  return null;
 }
 
+const updateNavigatorSeries = (series, config) => {
+  series.update(config);
+};
+
+NavigatorSeries.propTypes = {
+  seriesId: PropTypes.string,
+};
 export default NavigatorSeries;
