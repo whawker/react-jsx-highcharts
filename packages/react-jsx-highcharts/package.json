@@ -94,7 +94,6 @@
     "immutable-is": "^3.7.6",
     "is-immutable": "^1.0.1",
     "lodash-es": "^4.17.13",
-    "memoize-one": "^5.1.1",
     "uuid": "^3.3.3"
   },
   "peerDependencies": {

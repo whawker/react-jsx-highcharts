@@ -44,7 +44,6 @@
   "dependencies": {
     "@babel/runtime": "^7.5.5",
     "lodash-es": "^4.17.13",
-    "memoize-one": "^5.1.1",
     "react-jsx-highcharts": "~3.6.0"
   },
   "devDependencies": {
