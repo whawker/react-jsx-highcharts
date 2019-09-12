@@ -1,47 +1,46 @@
-import React, { Component, Children, cloneElement, isValidElement } from 'react';
+import React, { useEffect, Children, cloneElement, isValidElement } from 'react';
 import PropTypes from 'prop-types';
-import { Hidden, provideAxis, getModifiedProps, getNonEventHandlerProps } from 'react-jsx-highcharts';
+import { Hidden, useAxis, useModifiedProps, getNonEventHandlerProps } from 'react-jsx-highcharts';
 
-class NavigatorAxis extends Component {
-  static propTypes = {
-    axisId: PropTypes.string.isRequired
-  };
+const NavigatorAxis = props => {
+  const axis = useAxis();
 
-  componentDidMount () {
+  useEffect(() => {
     const { children, ...rest } = this.props;
-    this.updateNavigatorAxis(getNonEventHandlerProps(rest));
-  }
+    updateNavigatorAxis(getNonEventHandlerProps(rest), axis);
+  }, [axis]);
 
-  componentDidUpdate (prevProps) {
-    const modifiedProps = getModifiedProps(prevProps, this.props);
+  const modifiedProps = useModifiedProps(props);
+
+  useEffect(() => {
+    if (!axis) return;
+
     if (modifiedProps !== false) {
-      this.updateNavigatorAxis(modifiedProps);
+      updateNavigatorAxis(modifiedProps, axis);
     }
-  }
+  })
 
-  updateNavigatorAxis = config => {
-    const axis = this.props.getAxis();
-    axis.update(config);
-  }
 
-  render () {
-    const { axisId, children } = this.props;
-    if (!children) return null;
+  const { axisId, children } = props;
+  if (!children) return null;
 
-    const axisChildren = Children.map(children, child => {
-      if (isValidElement(child) === false) return child;
-      return cloneElement(child, { axisId });
-    });
+  const axisChildren = Children.map(children, child => {
+    if (isValidElement(child) === false) return child;
+    return cloneElement(child, { axisId });
+  });
 
-    return (
-      <Hidden>
-        {axisChildren}
-      </Hidden>
-    );
-  }
+  return (
+    <Hidden>
+      {axisChildren}
+    </Hidden>
+  );
+}
+const updateNavigatorAxis = (config, axis) => {
+  axis.update(config);
 }
 
-export default provideAxis(NavigatorAxis);
+NavigatorAxis.propTypes = {
+  axisId: PropTypes.string.isRequired
+};
+export default NavigatorAxis;
 
-// For testing purposes
-export const _NavigatorAxis = NavigatorAxis;
