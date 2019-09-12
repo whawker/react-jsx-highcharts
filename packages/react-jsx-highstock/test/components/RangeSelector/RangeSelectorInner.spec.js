@@ -1,44 +1,50 @@
 import React from 'react';
 import { Highcharts, createMockProvidedChart, createMockProvidedAxis } from '../../test-utils';
-import { _RangeSelectorInner as RangeSelectorInner } from '../../../src/components/RangeSelector/RangeSelectorInner';
+import RangeSelectorInner from '../../../src/components/RangeSelector/RangeSelectorInner';
+import { HighchartsContext, HighchartsChartContext, HighchartsAxisContext} from 'react-jsx-highcharts';
 
 describe('<RangeSelectorInner />', () => {
   let testContext;
+  let ProvidedRangeSelectorInner;
 
   beforeEach(() => {
     testContext = {};
     testContext.object = {
       options: { rangeSelector: { enabled: false } }
     };
-    const { chartStubs, getChart } = createMockProvidedChart({ object: testContext.object });
+    const { chartStubs } = createMockProvidedChart({ object: testContext.object });
     testContext.chartStubs = chartStubs;
     testContext.chartStubs.update.mockReset();
     testContext.axisObject = {};
-    const { axisStubs, getAxis } = createMockProvidedAxis({ object: testContext.axisObject });
+    const { axisStubs } = createMockProvidedAxis({ object: testContext.axisObject });
     testContext.axisStubs = axisStubs;
 
-    testContext.propsFromProviders = {
-      getChart,
-      getAxis,
-      getHighcharts: () => Highcharts
-    };
+    ProvidedRangeSelectorInner = props => (
+      <HighchartsContext.Provider value={Highcharts}>
+        <HighchartsChartContext.Provider value={chartStubs}>
+          <HighchartsAxisContext.Provider value={axisStubs}>
+            <RangeSelectorInner {...props} />
+          </HighchartsAxisContext.Provider>
+        </HighchartsChartContext.Provider>
+      </HighchartsContext.Provider>
+    )
   });
 
   describe('when mounted', () => {
 
     it('enables the RangeSelector', () => {
-      mount(<RangeSelectorInner {...testContext.propsFromProviders} />);
+      mount(<ProvidedRangeSelectorInner />);
       expect(testContext.object.options.rangeSelector.enabled).toEqual(true);
     });
 
     it('fires the initialization event to so Highcharts creates a RangeSelector', () => {
-      mount(<RangeSelectorInner {...testContext.propsFromProviders} />);
+      mount(<ProvidedRangeSelectorInner />);
       expect(Highcharts.fireEvent).toHaveBeenCalledWith(testContext.object, 'init');
       expect(Highcharts.fireEvent).toHaveBeenCalledWith(testContext.object, 'afterGetContainer');
     });
 
     it('updates the chart with the passed props', () => {
-      mount(<RangeSelectorInner height={100} buttonSpacing={2} {...testContext.propsFromProviders} />);
+      mount(<ProvidedRangeSelectorInner height={100} buttonSpacing={2} />);
       expect(testContext.chartStubs.update).toHaveBeenCalledWith({
         rangeSelector: expect.objectContaining({
           enabled: true,
@@ -52,7 +58,7 @@ describe('<RangeSelectorInner />', () => {
 
   describe('update', () => {
     it('should use the update method when props change', () => {
-      const wrapper = mount(<RangeSelectorInner selected={0} {...testContext.propsFromProviders} />);
+      const wrapper = mount(<ProvidedRangeSelectorInner selected={0} />);
       wrapper.setProps({ selected: 2 });
       expect(testContext.chartStubs.update).toHaveBeenCalledWith({
         rangeSelector: {
@@ -64,7 +70,7 @@ describe('<RangeSelectorInner />', () => {
 
   describe('when unmounted', () => {
     it('should disable the RangeSelector', () => {
-      const wrapper = mount(<RangeSelectorInner {...testContext.propsFromProviders} />);
+      const wrapper = mount(<ProvidedRangeSelectorInner />);
       wrapper.unmount();
       expect(testContext.chartStubs.update).toHaveBeenCalledWith({
         rangeSelector: {
