@@ -87,6 +87,9 @@ export { default as useChart } from './components/UseChart';
 export { default as useAxis } from './components/UseAxis';
 export { default as useSeries } from './components/UseSeries';
 
+// utility hooks, not part of api
+export { default as useModifiedProps } from './components/UseModifiedProps';
+
 // Helpers
 export { default as withHighcharts }  from './components/WithHighcharts';
 export { default as Axis }  from './components/Axis';
