@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { attempt } from 'lodash-es';
 import { mapKeys } from 'lodash-es';
 import { upperFirst } from 'lodash-es';
-import { getModifiedProps } from 'react-jsx-highcharts';
+import { getModifiedProps, HighchartsChartContext } from 'react-jsx-highcharts';
 
 class RangeSelectorInput extends Component {
 
@@ -15,6 +15,8 @@ class RangeSelectorInput extends Component {
   static defaultProps = {
     enabled: true
   };
+
+  static contextType = HighchartsChartContext;
 
   componentDidMount () {
     const { children, ...rest } = this.props;
@@ -39,7 +41,7 @@ class RangeSelectorInput extends Component {
   }
 
   updateRangeSelectorInputs = config => {
-    const chart = this.props.getChart();
+    const chart = this.context;
     const inputProps = this.prefixPropsWithInput(config);
 
     chart.update({
