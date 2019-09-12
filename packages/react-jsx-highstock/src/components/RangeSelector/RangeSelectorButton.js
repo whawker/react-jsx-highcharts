@@ -2,7 +2,7 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { attempt } from 'lodash-es';
 import { findIndex } from 'lodash-es';
-import { getEventsConfig } from 'react-jsx-highcharts';
+import { getEventsConfig, HighchartsChartContext } from 'react-jsx-highcharts';
 
 class RangeSelectorButton extends Component {
 
@@ -11,8 +11,7 @@ class RangeSelectorButton extends Component {
     type: PropTypes.oneOf(['millisecond', 'second', 'minute', 'hour', 'day', 'week', 'month', 'ytd', 'all']),
     offsetMin: PropTypes.number.isRequired,
     offsetMax: PropTypes.number.isRequired,
-    dataGrouping: PropTypes.object,
-    getChart: PropTypes.func // Provided by ChartProvider
+    dataGrouping: PropTypes.object
   };
 
   static defaultProps = {
@@ -20,6 +19,8 @@ class RangeSelectorButton extends Component {
     offsetMin: 0,
     offsetMax: 0
   };
+
+  static contextType = HighchartsChartContext;
 
   componentDidMount () {
     const button = this.getButtonIndex();
@@ -43,7 +44,8 @@ class RangeSelectorButton extends Component {
   }
 
   getButtons = () => {
-    const chartObj = this.props.getChart().object;
+    const chart = this.context;
+    const chartObj = chart.object;
     if (chartObj && chartObj.options) {
       const { buttons = [] } = chartObj.options.rangeSelector;
       return buttons;
@@ -79,7 +81,7 @@ class RangeSelectorButton extends Component {
   }
 
   updateRangeSelectorButtons = config => {
-    const chart = this.props.getChart();
+    const chart = this.context;
     chart.update({
       rangeSelector: {
         buttons: config
