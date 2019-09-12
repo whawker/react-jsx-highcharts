@@ -1,56 +1,47 @@
-import React, { Component } from 'react';
-import { BaseChart, HighchartsContext } from 'react-jsx-highcharts';
-import memoizeOne from 'memoize-one';
+import React, { useMemo, useCallback } from 'react';
+import { BaseChart, useHighcharts } from 'react-jsx-highcharts';
 
 const XAXIS = { id: 'xAxis' };
 const YAXIS = { id: 'yAxis' };
 const MAP_NAVIGATION = { enabled: false };
 
-class HighchartsMapChart extends Component {
+const HighchartsMapChart = ({ map, chart, callback, ...restProps }) => {
+  const Highcharts = useHighcharts();
+  const geojson = useMemo(() => {
+    return createGeoJSON(map, Highcharts)
+  },[map]);
+  const chartConfig = useMemo(() => (
+      { ...chart, map: geojson }
+    )
+  , [geojson, chart])
 
-  static contextType = HighchartsContext;
-
-  createGeoJSON = map => {
-    if (!map) return;
-    const Highcharts = this.context;
-
-    this.geojson = (typeof map === 'string') ? Highcharts.maps[map] : map;
-  }
-
-  getChartConfig = memoizeOne((chart, map) => {
-    this.createGeoJSON(map);
-    return { ...chart, map: this.geojson };
-  })
-
-  callback = chart => {
-    const geojson = this.geojson;
+  const chartCallback = useCallback(cbchart => {
     if (geojson) {
-      const Highcharts = this.context;
       const format = Highcharts.format;
-      const { mapText, mapTextFull } = chart.options.credits;
-      chart.mapCredits = format(mapText, { geojson });
-      chart.mapCreditsFull = format(mapTextFull, { geojson });
+      const { mapText, mapTextFull } = cbchart.options.credits;
+      cbchart.mapCredits = format(mapText, { geojson });
+      cbchart.mapCreditsFull = format(mapTextFull, { geojson });
     }
-    if(this.props.callback) this.props.callback(chart)
-  }
 
-  render () {
-    const { map, chart, ...rest } = this.props;
-    const chartConfig = this.getChartConfig(chart, map);
-    const Highcharts = this.context;
+    if(callback) callback(chart)
+  }, [ callback ]);
 
-    return (
-      <BaseChart
-        chart={chartConfig}
-        mapNavigation={MAP_NAVIGATION}
-        xAxis={XAXIS}
-        yAxis={YAXIS}
-        {...rest}
-        callback={this.callback}
-        chartCreationFunc={Highcharts.mapChart}
-        chartType="mapChart" />
-    );
-  }
+  return (
+    <BaseChart
+      chart={chartConfig}
+      mapNavigation={MAP_NAVIGATION}
+      xAxis={XAXIS}
+      yAxis={YAXIS}
+      {...restProps}
+      callback={chartCallback}
+      chartCreationFunc={Highcharts.mapChart}
+      chartType="mapChart" />
+  );
 }
 
+const createGeoJSON = (map, Highcharts) => {
+  if (!map) return;
+
+  return (typeof map === 'string') ? Highcharts.maps[map] : map;
+}
 export default HighchartsMapChart;
