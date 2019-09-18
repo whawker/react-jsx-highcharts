@@ -4,7 +4,32 @@ import { log3DModuleErrorMessage } from '../../utils/warnings';
 import useHighcharts from '../UseHighcharts';
 import useChart from '../UseChart';
 
-const Options3d = memo(props => {
+
+
+const DEFAULT_FRAME= {
+  visible: 'default',
+  size: 1,
+  bottom: {},
+  top: {},
+  left: {},
+  right: {},
+  back: {},
+  front: {}
+};
+
+
+const Options3d = memo(({
+  enabled = false,
+  alpha = 0,
+  beta = 0,
+  depth = 100,
+  fitToPlot = true,
+  viewDistance = 25,
+  axisLabelPosition = 'default',
+  frame = DEFAULT_FRAME,
+  ...restProps
+}) => {
+  const props = { enabled, alpha, beta, depth, fitToPlot, viewDistance, axisLabelPosition, frame, ...restProps};
   const Highcharts = useHighcharts();
   const chart = useChart();
 
@@ -48,33 +73,13 @@ const update3dOptions = (chart, props) => {
 };
 
 Options3d.propTypes = {
-  alpha: PropTypes.number.isRequired,
+  alpha: PropTypes.number,
   axisLabelPosition: PropTypes.string,
-  beta: PropTypes.number.isRequired,
-  depth: PropTypes.number.isRequired,
-  fitToPlot: PropTypes.bool.isRequired,
+  beta: PropTypes.number,
+  depth: PropTypes.number,
+  fitToPlot: PropTypes.bool,
   frame: PropTypes.object,
-  viewDistance: PropTypes.number.isRequired
-};
-
-Options3d.defaultProps = {
-  enabled: false,
-  alpha: 0,
-  beta: 0,
-  depth: 100,
-  fitToPlot: true,
-  viewDistance: 25,
-  axisLabelPosition: 'default',
-  frame: {
-    visible: 'default',
-    size: 1,
-    bottom: {},
-    top: {},
-    left: {},
-    right: {},
-    back: {},
-    front: {}
-  }
+  viewDistance: PropTypes.number
 };
 
 Options3d.displayName = 'Options3d';

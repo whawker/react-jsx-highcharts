@@ -3,6 +3,27 @@ import { createMockProvidedChart } from '../../test-utils'
 import Options3d from '../../../src/components/Options3d/Options3d';
 import ChartContext from '../../../src/components/ChartContext';
 
+const defaultProps = {
+  enabled: false,
+  alpha: 0,
+  beta: 0,
+  depth: 100,
+  fitToPlot: true,
+  viewDistance: 25,
+  axisLabelPosition: 'default',
+  frame: {
+    visible: 'default',
+    size: 1,
+    bottom: {},
+    top: {},
+    left: {},
+    right: {},
+    back: {},
+    front: {}
+  }
+};
+
+
 describe('<Options3d />', () => {
   let testContext;
   let ProvidedOptions3d;
@@ -25,7 +46,7 @@ describe('<Options3d />', () => {
       expect(testContext.chartStubs.update).toHaveBeenCalledWith({
         chart: {
           options3d: {
-            ...Options3d.defaultProps,
+            ...defaultProps,
             enabled: true,
             alpha: 10,
             beta: 20
@@ -42,7 +63,7 @@ describe('<Options3d />', () => {
       expect(testContext.chartStubs.update).toHaveBeenCalledWith({
         chart: {
           options3d: {
-            ...Options3d.defaultProps,
+            ...defaultProps,
             enabled: true,
             alpha: 45
           }
