@@ -8,7 +8,7 @@ import {
   useHighcharts
 } from 'react-jsx-highcharts';
 
-const MapNavigation = props => {
+const MapNavigation = ({ children, enabled = true, ...restProps}) => {
   const [rendered, setRendered] = useState(false);
   const chart = useChart();
   const Highcharts = useHighcharts();
@@ -19,7 +19,7 @@ const MapNavigation = props => {
     chartObj.options.mapNavigation.enabled = true;
     Highcharts.fireEvent(chartObj, 'beforeRender'); // Highcharts 6.1+
 
-    const opts = getMapNavigationConfig(props, Highcharts);
+    const opts = getMapNavigationConfig({ enabled, ...restProps}, Highcharts);
     updateMapNavigation(opts, chart);
 
     setRendered(true);
@@ -29,7 +29,7 @@ const MapNavigation = props => {
     };
   }, []);
 
-  const modifiedProps = useModifiedProps(props);
+  const modifiedProps = useModifiedProps({ enabled, ...restProps});
 
   useEffect(() => {
     if (!rendered) return;
@@ -38,17 +38,14 @@ const MapNavigation = props => {
     }
   });
 
-  const { children } = props;
   if (!children || !rendered) return null;
 
   return <Hidden>{children}</Hidden>;
 };
 const getMapNavigationConfig = (props, Highcharts) => {
-  const { children, ...rest } = props;
-
   return {
     ...(Highcharts.defaultOptions && Highcharts.defaultOptions.mapNavigation),
-    ...rest,
+    ...props,
     enableButtons: false,
     buttons: {
       zoomIn: {},
@@ -67,10 +64,7 @@ const updateMapNavigation = (config, chart) => {
 };
 
 MapNavigation.propTypes = {
-  enabled: PropTypes.bool.isRequired
+  enabled: PropTypes.bool
 };
 
-MapNavigation.defaultProps = {
-  enabled: true
-};
 export default MapNavigation;

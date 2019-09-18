@@ -1,16 +1,19 @@
 import React from 'react';
 import MapNavigationButton from './MapNavigationButton';
 
-const MapNavigationZoomIn = props => (
-  <MapNavigationButton type='zoomIn' {...props} />
-);
-
-MapNavigationZoomIn.defaultProps = {
-  children: '+',
-  onClick: function () {
-    this.mapZoom(0.5);
-  },
-  y: 0
+const DEFAULT_ONCLICK = function() {
+  this.mapZoom(0.5);
 };
+
+const MapNavigationZoomIn = ({
+  children = '+',
+  onClick = DEFAULT_ONCLICK,
+  y = 0,
+  ...restProps
+}) => (
+  <MapNavigationButton type="zoomIn" onClick={onClick} y={y} {...restProps}>
+    {children}
+  </MapNavigationButton>
+);
 
 export default MapNavigationZoomIn;

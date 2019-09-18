@@ -1,16 +1,24 @@
 import React from 'react';
 import { XAxis } from 'react-jsx-highcharts';
 
-const MapXAxis = ({ ...props }) => (
-  <XAxis {...props} id="xAxis" dynamicAxis={false} />
+const MapXAxis = ({
+  endOnTick = false,
+  visible = false,
+  minPadding = 0,
+  maxPadding = 0,
+  startOnTick = false,
+  ...restProps
+}) => (
+  <XAxis
+    endOnTick={endOnTick}
+    visible={visible}
+    minPadding={minPadding}
+    maxPadding={maxPadding}
+    startOnTick={startOnTick}
+    {...restProps}
+    id="xAxis"
+    dynamicAxis={false}
+  />
 );
-
-MapXAxis.defaultProps = {
-  endOnTick: false,
-  visible: false,
-  minPadding: 0,
-  maxPadding: 0,
-  startOnTick: false
-};
 
 export default MapXAxis;
