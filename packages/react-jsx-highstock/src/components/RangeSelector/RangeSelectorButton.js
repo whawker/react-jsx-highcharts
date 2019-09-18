@@ -4,10 +4,18 @@ import { attempt } from 'lodash-es';
 import { findIndex } from 'lodash-es';
 import { getEventsConfig, useChart } from 'react-jsx-highcharts';
 
-const RangeSelectorButton = props => {
+const RangeSelectorButton = ({
+  count=1,
+  offsetMin=0,
+  offsetMax=0,
+  ...restProps
+}) => {
+  const props = { count, offsetMin, offsetMax, ...restProps};
+
   const chart = useChart();
 
   useEffect(() => {
+
     const button = getButtonIndex(props, chart);
     if (button > -1) return; // Button already present
 
@@ -82,12 +90,6 @@ RangeSelectorButton.propTypes = {
   offsetMin: PropTypes.number.isRequired,
   offsetMax: PropTypes.number.isRequired,
   dataGrouping: PropTypes.object
-};
-
-RangeSelectorButton.defaultProps = {
-  count: 1,
-  offsetMin: 0,
-  offsetMax: 0
 };
 
 export default RangeSelectorButton;

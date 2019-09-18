@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { attempt } from 'lodash-es';
 import { Hidden, useModifiedProps, useChart } from 'react-jsx-highcharts';
 
-const Scrollbar = ({ children, ...restProps}) => {
+const Scrollbar = ({ children, enabled = true, ...restProps }) => {
   const chart = useChart();
 
   useEffect(() => {
@@ -12,7 +12,7 @@ const Scrollbar = ({ children, ...restProps}) => {
     }
   }, []);
 
-  const modifiedProps = useModifiedProps(restProps);
+  const modifiedProps = useModifiedProps({ enabled, ...restProps });
 
   useEffect(() => {
     if (modifiedProps !== false) {
@@ -34,11 +34,7 @@ const updateScrollbar = (config, chart) => {
 }
 
 Scrollbar.propTypes = {
-  enabled: PropTypes.bool.isRequired
-};
-
-Scrollbar.defaultProps = {
-  enabled: true
+  enabled: PropTypes.bool
 };
 
 export default Scrollbar;

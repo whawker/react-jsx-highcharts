@@ -5,7 +5,7 @@ import { mapKeys } from 'lodash-es';
 import { upperFirst } from 'lodash-es';
 import { useModifiedProps, useChart } from 'react-jsx-highcharts';
 
-const RangeSelectorInput = props => {
+const RangeSelectorInput = ({ enabled = true, ...restProps}) => {
   const chart = useChart();
 
   useEffect(() => {
@@ -14,7 +14,7 @@ const RangeSelectorInput = props => {
     }
   }, [])
 
-  const modifiedProps = useModifiedProps(props);
+  const modifiedProps = useModifiedProps({ enabled, ...restProps});
 
   useEffect(() => {
     if (modifiedProps !== false) {
@@ -43,10 +43,6 @@ const updateRangeSelectorInputs = (config, chart) => {
 RangeSelectorInput.propTypes = {
   update: PropTypes.func, // Provided by ChartProvider
   enabled: PropTypes.bool.isRequired
-};
-
-RangeSelectorInput.defaultProps = {
-  enabled: true
 };
 
 export default RangeSelectorInput;

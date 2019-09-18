@@ -4,7 +4,8 @@ import { attempt } from 'lodash-es';
 import { useModifiedProps, useChart, useHighcharts } from 'react-jsx-highcharts';
 import NavigatorXAxis from './NavigatorXAxis';
 
-const Navigator = props => {
+const Navigator = ({ enabled = true, ...restProps }) => {
+  const props = { enabled, ...restProps };
   const [rendered, setRendered] = useState(false);
   const chart = useChart();
   const Highcharts = useHighcharts();
@@ -53,11 +54,7 @@ const updateNavigator = (config, chart) => {
 }
 
 Navigator.propTypes = {
-  enabled: PropTypes.bool.isRequired
-};
-
-Navigator.defaultProps = {
-  enabled: true
+  enabled: PropTypes.bool
 };
 
 export default Navigator;

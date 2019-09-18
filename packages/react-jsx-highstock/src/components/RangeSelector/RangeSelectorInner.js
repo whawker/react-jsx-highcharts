@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { attempt } from 'lodash-es';
 import { Hidden, useHighcharts, useAxis, useChart, useModifiedProps } from 'react-jsx-highcharts';
 
-const RangeSelectorInner = props => {
+const RangeSelectorInner = ({ enabled = true, ...restProps }) => {
+  const props = { enabled, ...restProps };
   const [rendered, setRendered] = useState(false);
   const Highcharts = useHighcharts();
   const chart = useChart();
@@ -81,11 +82,7 @@ const createRenderRangeSelector = (chart, axis) => {
 }
 
 RangeSelectorInner.propTypes = {
-  enabled: PropTypes.bool.isRequired
-};
-
-RangeSelectorInner.defaultProps = {
-  enabled: true
+  enabled: PropTypes.bool
 };
 
 export default RangeSelectorInner;
