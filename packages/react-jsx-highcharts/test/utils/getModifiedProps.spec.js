@@ -53,5 +53,28 @@ describe('utils/getModifiedProps', () => {
     expect(returnedProps).toEqual(currProps);
 
   });
+  it('should not return text when children is not defined', () => {
+    const prevProps = null;
+
+    const currProps = {
+      a: 1
+    };
+
+    const returnedProps = getModifiedProps(prevProps, currProps, true);
+    expect(returnedProps.text).not.toBeDefined();
+    expect(returnedProps.a).toBe(1);
+  });
+
+  it('should return text when children changes', () => {
+    const prevProps = {};
+
+    const currProps = {
+      children: "teststring"
+    };
+
+    const returnedProps = getModifiedProps(prevProps, currProps, true);
+    expect(returnedProps.text).toBe("teststring");
+  });
+
 });
 
