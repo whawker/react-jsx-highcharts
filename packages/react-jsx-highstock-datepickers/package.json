@@ -30,11 +30,11 @@
     "react-day-picker": "^6.2.0"
   },
   "peerDependencies": {
-    "highcharts": "^7.2.0",
+    "highcharts": "^5.0.0 || ^6.0.0",
     "moment": "^2.0.0",
     "prop-types": "^15.0.0",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
     "react-jsx-highstock": "^3.0.0"
   },
   "devDependencies": {
@@ -53,19 +53,15 @@
     "eslint": "^5.16.0",
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-react": "^7.13.0",
-    "eslint-plugin-react-hooks": "^2.0.1",
     "eslint-plugin-react-perf": "^3.2.0",
     "mini-css-extract-plugin": "^0.8.0",
     "moment": "^2.24.0",
     "null-loader": "^3.0.0",
     "prop-types": "^15.7.2",
-    "react": "^16.9.0",
+    "react": "^16.8.6",
     "react-jsx-highstock": "^3.5.0",
     "rimraf": "^3.0.0",
     "webpack": "^4.39.3",
     "webpack-cli": "^3.3.8"
-  },
-  "browserslist": [
-    "ie >= 11"
-  ]
+  }
 }
