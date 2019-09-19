@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import uuid from 'uuid/v4';
 import { isEqual } from 'lodash-es';
 import { attempt } from 'lodash-es';
-import isImmutable from 'is-immutable';
-import immutableEqual from 'immutable-is';
 import SeriesContext from '../SeriesContext';
 import { getNonEventHandlerProps, getEventsConfig } from '../../utils/events';
 import getModifiedProps from '../../utils/getModifiedProps';
@@ -80,10 +78,7 @@ const Series = memo(({
 
     let doRedraw = false;
     // Using setData is more performant than update
-    if (isImmutable(data) && immutableEqual(data, prevProps.data) === false) {
-      series.setData(data.toJS(), false);
-      doRedraw = true;
-    } else if (isEqual(data, prevProps.data) === false) {
+    if (isEqual(data, prevProps.data) === false) {
       series.setData(data, false);
       doRedraw = true;
     }
@@ -127,13 +122,12 @@ const getSeriesConfig = (props, axis, requiresAxis) => {
   const { id, data, ...rest } = props;
 
   const seriesId = typeof id === 'function' ? id() : id;
-  const seriesData = isImmutable(data) ? data.toJS() : data;
   const nonEventProps = getNonEventHandlerProps(rest);
   const events = getEventsConfig(rest);
 
   const config = {
     id: seriesId,
-    data: seriesData,
+    data,
     events,
     ...nonEventProps
   };

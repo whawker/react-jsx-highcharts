@@ -76,8 +76,6 @@
     "eslint-plugin-react-hooks": "^2.0.1",
     "eslint-plugin-react-perf": "^3.2.1",
     "highcharts": "^7.2.0",
-    "immutable": "^4.0.0-0",
-    "immutable3": "npm:immutable@^3.8.1",
     "jest": "^24.9.0",
     "jest-enzyme": "^7.1.1",
     "lodash-webpack-plugin": "^0.11.5",
@@ -91,8 +89,6 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.5.5",
-    "immutable-is": "^3.7.6",
-    "is-immutable": "^1.0.1",
     "lodash-es": "^4.17.13",
     "uuid": "^3.3.3"
   },
