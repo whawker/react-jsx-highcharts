@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useLayoutEffect } from 'react';
 import PropTypes from 'prop-types';
 import debounce from '../../utils/debounce-raf';
-import { isEqual, attempt } from 'lodash-es'
+import { attempt } from 'lodash-es'
 import ChartContext from '../ChartContext';
 import { validChartTypes } from '../../utils/propTypeValidators'
 import usePrevious from '../UsePrevious';
@@ -62,7 +62,7 @@ const BaseChart = ({ children = null, callback, className = '', ...restProps}) =
     const { plotOptions } = restProps;
     const myChart = chartRef.current;
     const needsRedraw = providerValueRef.current.needsRedraw;
-    if (isEqual(prevProps.plotOptions, plotOptions) === false && myChart) {
+    if (Object.is(prevProps.plotOptions, plotOptions) === false && myChart) {
       myChart.update({ plotOptions }, false);
       needsRedraw();
     }

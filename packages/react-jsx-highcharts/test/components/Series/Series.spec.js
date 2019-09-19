@@ -149,18 +149,34 @@ describe('<Series />', () => {
       expect(testContext.needsRedraw).toHaveBeenCalledTimes(1);
     });
 
-    it('should NOT use the setData method if the data hasn\'t changed', () => {
+    it('should NOT use the setData method if the data reference hasn\'t changed', () => {
+      const data = [1, 2, 3];
       const wrapper = mount(
         <ProvidedSeries
-          id="mySeries" data={[1, 2, 3]} />
+          id="mySeries" data={data} />
       );
-      testContext.seriesStubs.update.mockReset();
+      testContext.seriesStubs.update.mockClear();
       testContext.needsRedraw.mockClear();
-      wrapper.setProps({ data: [1, 2, 3] });
+      testContext.seriesStubs.setData.mockClear();
+      wrapper.setProps({ data });
       expect(testContext.seriesStubs.setData).not.toHaveBeenCalled();
       expect(testContext.seriesStubs.update).not.toHaveBeenCalled();
       expect(testContext.seriesStubs.setVisible).not.toHaveBeenCalled();
       expect(testContext.needsRedraw).not.toHaveBeenCalled();
+    });
+
+    it('should use the setData method if the data reference has changed', () => {
+      const wrapper = mount(
+        <ProvidedSeries
+          id="mySeries" data={[1, 2, 3]} />
+      );
+      testContext.seriesStubs.update.mockClear();
+      testContext.needsRedraw.mockClear();
+      wrapper.setProps({ data: [1, 2, 3] });
+      expect(testContext.seriesStubs.setData).toHaveBeenCalled();
+      expect(testContext.seriesStubs.update).not.toHaveBeenCalled();
+      expect(testContext.seriesStubs.setVisible).not.toHaveBeenCalled();
+      expect(testContext.needsRedraw).toHaveBeenCalled();
     });
 
     it('should use the setVisible method on the correct series when the visibility changes', () => {
