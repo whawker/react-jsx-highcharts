@@ -31,14 +31,12 @@ const Tooltip = memo((props) => {
       ...restProps
     });
     return () => attempt(updateTooltip, { enabled: false });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
     if (modifiedProps !== false) {
       updateTooltip(modifiedProps);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props]);
 
   return null;

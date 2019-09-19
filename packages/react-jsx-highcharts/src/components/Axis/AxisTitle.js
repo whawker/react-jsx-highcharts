@@ -15,7 +15,6 @@ const AxisTitle = memo(({ children: text, axisId, ...restProps}) => {
     return () => {
       if (axis) attempt(updateAxisTitle, { text: null }, axis);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [axis]);
 
   return null;

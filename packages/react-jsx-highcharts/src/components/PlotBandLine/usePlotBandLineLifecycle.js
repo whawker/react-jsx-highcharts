@@ -12,7 +12,6 @@ export default function usePlotBandLine(props, plotType) {
   const [plotbandline, setPlotbandline] = useState(null);
   const modifiedProps = useModifiedProps(rest);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (!axis) return;
     if (modifiedProps !== false && plotbandline) {
@@ -39,7 +38,6 @@ export default function usePlotBandLine(props, plotType) {
     return () => {
       attempt(axis.removePlotBandOrLine, idRef.current);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [axis]);
 
   return plotbandline;

@@ -30,7 +30,6 @@ const Axis = ({ children = null, dynamicAxis = true, ...restProps }) => {
         chart.needsRedraw();
       }
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   },[]);
 
   const modifiedProps = useModifiedProps(restProps);
@@ -42,7 +41,6 @@ const Axis = ({ children = null, dynamicAxis = true, ...restProps }) => {
       axis.update(modifiedProps, false);
       chart.needsRedraw();
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   });
 
   if (!hasAxis) return null;

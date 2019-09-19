@@ -18,6 +18,5 @@ export default function useDelay (callback) {
         window.cancelAnimationFrame(delayTimeout.current);
       }
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 }

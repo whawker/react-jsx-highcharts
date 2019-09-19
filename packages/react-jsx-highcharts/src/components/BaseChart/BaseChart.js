@@ -43,7 +43,6 @@ const BaseChart = ({ children = null, callback, className = '', ...restProps}) =
     providerValueRef.current = providedChart;
     if(callback) callback(myChart);
     setRendered(true);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   },[]);
 
   useEffect(() => {

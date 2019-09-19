@@ -22,7 +22,6 @@ const Chart = memo(({ type = 'line', ...restProps}) => {
         updateChart(restModified, chart, chart.needsRedraw);
       }
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   });
 
   useEffect(() => {
@@ -34,7 +33,6 @@ const Chart = memo(({ type = 'line', ...restProps}) => {
     updateChart(notEventProps, chart);
     addEventHandlersManually(Highcharts, chart.object, rest);
     mounted.current = true;
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   },[]);
 
   return null;

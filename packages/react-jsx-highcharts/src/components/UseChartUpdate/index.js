@@ -23,7 +23,6 @@ const useChartUpdate = (props, updateFn = noop, destroyfn = noop, childrenIsText
       attempt(destroyfn, chart);
       chart.needsRedraw();
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   },[]);
 }
 

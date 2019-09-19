@@ -20,7 +20,6 @@ const PlotBandLineLabel = memo(props => {
         text: null
       });
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [plotbandline]);
 
   return null;

@@ -12,7 +12,6 @@ const BarSeries = (props) => {
         inverted: true
       }
     });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   },[]);
 
   return (

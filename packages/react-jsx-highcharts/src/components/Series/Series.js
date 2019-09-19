@@ -69,7 +69,6 @@ const Series = memo(({
         needsRedraw();
       }
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [axis]);
 
   const prevProps = usePrevious(seriesProps);
@@ -101,7 +100,6 @@ const Series = memo(({
     if (doRedraw) {
       needsRedraw();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   });
 
   if (!seriesRef.current) return null;

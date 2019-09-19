@@ -21,7 +21,6 @@ const Annotation = memo((props) => {
 
   const [rendered, setRendered] = useState(false);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     idRef.current = typeof id === 'function' ? id() : id;
     const myId = idRef.current;

@@ -17,7 +17,6 @@ const Loading = memo(({ children, isLoading = true, ...restProps }) => {
   })
   useEffect(()=> {
     return () => attempt(chart.hideLoading);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   },[]);
 
   return null;

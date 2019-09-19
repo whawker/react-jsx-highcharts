@@ -11,7 +11,6 @@ const Debug = ({ varName = 'chart' }) => {
     // eslint-disable-next-line no-console
     console.log(`Chart instance available as global variable as window.${varName}`);
     return () => window[varName] = undefined;
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [varName]);
 
   return (
