@@ -28,6 +28,20 @@ describe('utils/getModifiedProps', () => {
     expect(returnedProps).toEqual(false);
   });
 
+  it('should return added props', () => {
+    const prevProps = {
+      firstProp: true,
+    };
+
+    const currProps = {
+      secondProp: false
+    };
+
+    const returnedProps = getModifiedProps(prevProps, currProps, false);
+    expect(returnedProps).toEqual({ secondProp: false });
+
+  });
+
   it('should return modified props for undefined prevProps', () => {
     const prevProps = undefined;
 
