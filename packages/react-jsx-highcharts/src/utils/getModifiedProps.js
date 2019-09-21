@@ -1,9 +1,9 @@
-import { pickBy } from 'lodash-es';
+import pickBy from './pickBy';
 
 export default function getModifiedProps (prevProps, currProps, childrenIsText = false) {
   let { children, ...rest } = currProps;
 
-  const modifiedProps = pickBy(rest, (value, propName) => {
+  const modifiedProps = pickBy(rest, (propName, value) => {
     if (!prevProps) return true;
 
     return Object.is(value, prevProps[propName]) === false;

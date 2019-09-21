@@ -1,5 +1,4 @@
 import { useContext, useEffect, memo } from 'react';
-import { pickBy } from 'lodash-es';
 import { attempt } from 'lodash-es';
 import PlotLineContext from './PlotBandLineContext';
 
@@ -33,22 +32,28 @@ const updatePlotBandLineLabel = (plotbandline, config) => {
 };
 
 const getLabelProps = props => {
-  return pickBy(props, (value, propName) => {
-    return labelProps.has(propName);
-  });
-};
+  const {
+  text,
+  align,
+  rotation,
+  style,
+  textAlign,
+  useHTML,
+  verticalAlign,
+  x,
+  y} = props;
 
-const labelProps = new Set([
-  'text',
-  'align',
-  'rotation',
-  'style',
-  'textAlign',
-  'useHTML',
-  'verticalAlign',
-  'x',
-  'y'
-]);
+  return {
+    text,
+    align,
+    rotation,
+    style,
+    textAlign,
+    useHTML,
+    verticalAlign,
+    x,
+    y }
+};
 
 PlotBandLineLabel.displayName = 'PlotBandLineLabel';
 
