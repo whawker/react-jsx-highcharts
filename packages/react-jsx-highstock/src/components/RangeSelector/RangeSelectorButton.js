@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { attempt } from 'lodash-es';
-import { findIndex } from 'lodash-es';
 import { getEventsConfig, useChart } from 'react-jsx-highcharts';
 
 const RangeSelectorButton = ({
@@ -52,7 +51,7 @@ const getButtons = (chart) => {
 
 const getButtonIndex = (props, chart) => {
   const { count, type } = props;
-  return findIndex(getButtons(chart), b => {
+  return getButtons(chart).findIndex(b => {
     return (b.count === count && b.type === type);
   });
 }
