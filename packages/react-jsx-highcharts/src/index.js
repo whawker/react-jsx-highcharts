@@ -99,7 +99,6 @@ export { default as Hidden }  from './components/Hidden';
 export { default as Series }  from './components/Series';
 
 // Utils
-export { default as getModifiedProps } from './utils/getModifiedProps';
 export { getNonEventHandlerProps } from './utils/events';
 export { getEventsConfig } from './utils/events';
 export { withSeriesType }
