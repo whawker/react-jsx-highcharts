@@ -80,6 +80,7 @@ Object.keys(all).filter(name => /^[A-Z].*Series$/.test(name)).forEach((seriesNam
     afterEach(() => {
       window.requestAnimationFrame.mockRestore();
       window.cancelAnimationFrame.mockRestore();
+      jest.clearAllTimers();
     });
 
     if(seriesType in Highcharts.seriesTypes) {
