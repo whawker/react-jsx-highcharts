@@ -2,7 +2,7 @@ import { useContext, useState } from 'react';
 import AxisContext from '../AxisContext';
 import useChart from '../UseChart';
 import createProvidedAxis from '../Axis/createProvidedAxis';
-import useDelay from '../UseDelay';
+import useDelayOnce from '../UseDelayOnce';
 
 export default function useAxis(axisId) {
 
@@ -21,7 +21,7 @@ export default function useAxis(axisId) {
 
   const [providedAxis, setprovidedAxis] = useState(createStateAxis);
 
-  useDelay(()=> {
+  useDelayOnce(()=> {
     if(providedAxis) return; // we already had axis
     // axis should now be created
     setprovidedAxis(createStateAxis());

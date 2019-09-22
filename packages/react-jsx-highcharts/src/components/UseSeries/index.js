@@ -2,7 +2,7 @@ import { useContext, useState } from 'react';
 import SeriesContext from '../SeriesContext';
 import createProvidedSeries from '../Series/createProvidedSeries';
 import useChart from '../UseChart';
-import useDelay from '../UseDelay';
+import useDelayOnce from '../UseDelayOnce';
 
 export default function useSeries(seriesId) {
   const providedSeries = useContext(SeriesContext);
@@ -21,7 +21,7 @@ export default function useSeries(seriesId) {
 
   const [series, setSeries] = useState(createStateSeries);
 
-  useDelay(()=> {
+  useDelayOnce(()=> {
     if(series) return; // we already had series
     // series should now be created
     setSeries(createStateSeries());
