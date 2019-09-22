@@ -20,7 +20,6 @@ const highchartsExamples = [
   { name: 'Sparkline', additional: ['fetch-polyfill'] },
   { name: 'Loading', additional: ['fetch-polyfill'] },
   { name: 'InvertedChart' },
-  { name: 'ImmutableJS', additional: ['immutable'] },
   { name: '3DChart', additional: ['highcharts-3d', 'highcharts-boost'] },
   { name: 'Reflow', additional: ['re-resizable'] },
   { name: 'ToggleAxis' },
@@ -84,7 +83,6 @@ const externals = {
   're-resizable':         'https://cdn.jsdelivr.net/npm/re-resizable@~4.3/lib/re-resizable.umd.js',
   'core-js-polyfill':     'https://cdn.jsdelivr.net/npm/core-js-bundle@3.2.1/index.min.js',
   'fetch-polyfill':       'https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.min.js',
-  'immutable':            'https://cdnjs.cloudflare.com/ajax/libs/immutable/3.8.1/immutable.min.js',
   'react-request':        'https://cdn.jsdelivr.net/npm/react-request@^3/dist/react-request.min.js',
   'proj4js':              'https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.5.0/proj4.js'
 };
@@ -109,7 +107,6 @@ module.exports = {
     'moment': 'moment',
     'react-day-picker': 'DayPicker',
     're-resizable': 'window[\'re-resizable\']',
-    'immutable': 'Immutable',
     'react-request': 'ReactRequest',
     'proj4js': 'proj4',
     'react-jsx-highcharts': 'ReactHighcharts',
