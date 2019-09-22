@@ -12,16 +12,8 @@ const Tooltip = memo((props) => {
   const { children = null, ...restProps } = props;
   const chart = useChart();
   const Highcharts = useHighcharts();
-  const modifiedProps = useModifiedProps(restProps);
 
   restProps.enabled = defaultTo(props.enabled, true);
-
-  const updateTooltip = config => {
-    chart.update({
-      tooltip: config
-    }, false);
-    chart.needsRedraw();
-  };
 
   useEffect(() => {
     const chartObj = chart.object;
@@ -30,17 +22,24 @@ const Tooltip = memo((props) => {
       ...(Highcharts.defaultOptions && Highcharts.defaultOptions.tooltip),
       ...restProps
     });
-    return () => attempt(updateTooltip, { enabled: false });
+    return () => attempt(updateTooltip, chart, { enabled: false });
   }, [])
+
+  const modifiedProps = useModifiedProps(restProps);
 
   useEffect(() => {
     if (modifiedProps !== false) {
-      updateTooltip(modifiedProps);
+      updateTooltip(chart, modifiedProps);
     }
-  }, [props]);
+  });
 
   return null;
 });
+
+const updateTooltip = (chart, config) => {
+  const tooltip = chart.object.tooltip;
+  tooltip.update(config);
+};
 
 Tooltip.displayName = 'Tooltip';
 
