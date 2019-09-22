@@ -1,6 +1,6 @@
 import React from 'react';
 import useHighcharts from '../../../src/components/UseHighcharts';
-import HighchartsContext from '../../../src/components/HighchartsContext'
+import HighchartsContext from '../../../src/components/HighchartsContext';
 import { Highcharts } from '../../test-utils';
 
 describe('useHighcharts', () => {
@@ -21,7 +21,7 @@ describe('useHighcharts', () => {
       </HighchartsContext.Provider>
     );
   });
-  it('should provide Highcharts from context', () => {
+  it('should return Highcharts from context', () => {
     const wrapper = mount(<ProvidedHighchartsComponent />);
 
     expect(wrapper.find('div')).toHaveProp('value', Highcharts);

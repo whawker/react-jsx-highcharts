@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 
 
-export default function useDelay (callback) {
+export default function useDelayOnce (callback) {
   const delayTimeout = useRef(null);
   const unmounted = useRef(false);
 

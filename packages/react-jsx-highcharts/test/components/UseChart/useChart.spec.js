@@ -1,6 +1,6 @@
 import React from 'react';
 import useChart from '../../../src/components/UseChart';
-import ChartContext from '../../../src/components/ChartContext'
+import ChartContext from '../../../src/components/ChartContext';
 
 describe('useChart', () => {
   let ProvidedChartComponent;
@@ -22,7 +22,7 @@ describe('useChart', () => {
       </ChartContext.Provider>
     );
   });
-  it('should provide Highcharts from context', () => {
+  it('should return chart from context', () => {
     const wrapper = mount(<ProvidedChartComponent />);
 
     expect(wrapper.find('div')).toHaveProp('value', testChart);

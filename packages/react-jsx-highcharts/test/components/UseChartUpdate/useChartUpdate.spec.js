@@ -1,9 +1,9 @@
 import React from 'react';
 import useChartUpdate from '../../../src/components/UseChartUpdate';
-import ChartContext from '../../../src/components/ChartContext'
-import { createMockProvidedChart } from '../../test-utils'
+import ChartContext from '../../../src/components/ChartContext';
+import { createMockProvidedChart } from '../../test-utils';
 
-describe('useChart', () => {
+describe('useChartUpdate', () => {
   let ProvidedChartComponent;
   let ChildComponent;
   let testChart;
