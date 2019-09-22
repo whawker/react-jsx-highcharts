@@ -1,0 +1,85 @@
+import React from 'react';
+import { act } from 'react-dom/test-utils'
+import useSeries from '../../../src/components/UseSeries';
+import SeriesContext from '../../../src/components/SeriesContext';
+import ChartContext from '../../../src/components/ChartContext';
+import { createMockSeries } from '../../test-utils';
+import * as createProvidedSeries from '../../../src/components/Series/createProvidedSeries';
+
+describe('useSeries', () => {
+  let ChildComponent;
+  let testSeries;
+  let testChart;
+  let seriesCallback;
+
+  beforeEach(() => {
+    jest.useFakeTimers();
+    jest.spyOn(window, 'requestAnimationFrame').mockImplementation(cb => window.setTimeout(cb, 0));
+    jest.spyOn(window, 'cancelAnimationFrame');
+
+    testSeries = createMockSeries();
+
+    testChart = {
+      get: jest.fn().mockImplementation(() => testSeries)
+    }
+    seriesCallback = jest.fn();
+
+    jest.spyOn(createProvidedSeries, 'default').mockImplementation(c => c);
+
+    ChildComponent = props => {
+      const axis = useSeries(props.seriesId);
+      seriesCallback(axis);
+      return null;
+    }
+  });
+
+  afterEach(() => {
+    window.requestAnimationFrame.mockRestore();
+    window.cancelAnimationFrame.mockRestore();
+    jest.clearAllTimers();
+  });
+
+  it('should return series from context', () => {
+    const wrapper = mount(
+      <SeriesContext.Provider value={testSeries}>
+        <ChildComponent />
+      </SeriesContext.Provider>
+    );
+
+    expect(seriesCallback).toHaveBeenCalledWith(testSeries);
+  });
+
+  it('should return series outside the context', () => {
+    const wrapper = mount(
+      <ChartContext.Provider value={testChart}>
+        <ChildComponent seriesId="mySeriesId"/>
+      </ChartContext.Provider>
+    );
+
+    expect(testChart.get).toHaveBeenCalledWith("mySeriesId");
+    expect(seriesCallback).toHaveBeenCalledWith(testSeries);
+  });
+
+  it('should return series not yet created after a delay', () => {
+    testChart.get = jest.fn().mockImplementation(() => null);
+
+    const wrapper = mount(
+      <ChartContext.Provider value={testChart}>
+        <ChildComponent seriesId="mySeriesId"/>
+      </ChartContext.Provider>
+    );
+
+    expect(testChart.get).toHaveBeenCalledTimes(1);
+    expect(seriesCallback).toHaveBeenCalledWith(null);
+
+    testChart.get.mockImplementation(() => testSeries);
+
+    act(()=> {
+      jest.runAllTimers();
+    });
+
+    expect(testChart.get).toHaveBeenCalledTimes(2)
+    expect(seriesCallback).toHaveBeenCalledWith(testSeries);
+  });
+
+});
