@@ -1,0 +1,85 @@
+import React from 'react';
+import { act } from 'react-dom/test-utils'
+import useAxis from '../../../src/components/UseAxis';
+import AxisContext from '../../../src/components/AxisContext';
+import ChartContext from '../../../src/components/ChartContext';
+import { createMockAxis } from '../../test-utils';
+import * as createProvidedAxis from '../../../src/components/Axis/createProvidedAxis';
+
+describe('useAxis', () => {
+  let ChildComponent;
+  let testAxis;
+  let testChart;
+  let axisCallback;
+  beforeEach(() => {
+    jest.useFakeTimers();
+    jest.spyOn(window, 'requestAnimationFrame').mockImplementation(cb => window.setTimeout(cb, 0));
+    jest.spyOn(window, 'cancelAnimationFrame');
+
+    testAxis = createMockAxis();
+
+    testChart = {
+      get: jest.fn().mockImplementation(() => testAxis)
+    }
+    axisCallback = jest.fn();
+
+    jest.spyOn(createProvidedAxis, 'default').mockImplementation(c => c);
+
+    ChildComponent = props => {
+      const axis = useAxis(props.axisId);
+      axisCallback(axis);
+      return null;
+    }
+  });
+
+  afterEach(() => {
+    window.requestAnimationFrame.mockRestore();
+    window.cancelAnimationFrame.mockRestore();
+    jest.clearAllTimers();
+  });
+
+  it('should return axis from context', () => {
+    const wrapper = mount(
+      <AxisContext.Provider value={testAxis}>
+        <ChildComponent />
+      </AxisContext.Provider>
+    );
+
+    expect(axisCallback).toHaveBeenCalledWith(testAxis);
+  });
+
+  it('should return axis outside the context', () => {
+    const wrapper = mount(
+      <ChartContext.Provider value={testChart}>
+        <ChildComponent axisId="myAxisId"/>
+      </ChartContext.Provider>
+    );
+
+    expect(testChart.get).toHaveBeenCalledWith("myAxisId");
+    expect(axisCallback).toHaveBeenCalledWith(testAxis);
+  });
+
+  it('should return axis not yet created after a delay', () => {
+    testChart.get = jest.fn().mockImplementation(() => null);
+
+
+    const wrapper = mount(
+      <ChartContext.Provider value={testChart}>
+        <ChildComponent axisId="myAxisId"/>
+      </ChartContext.Provider>
+    );
+
+    expect(testChart.get).toHaveBeenCalledTimes(1);
+    expect(axisCallback).toHaveBeenCalledWith(null);
+
+    testChart.get.mockImplementation(() => testAxis);
+
+    act(()=> {
+      jest.runAllTimers();
+    });
+
+    expect(testChart.get).toHaveBeenCalledTimes(2)
+    expect(axisCallback).toHaveBeenCalledWith(testAxis);
+  });
+
+});
