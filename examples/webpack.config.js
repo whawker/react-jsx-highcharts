@@ -12,13 +12,13 @@ const highchartsExamples = [
   { name: 'UpdateWithEvents' },
   { name: 'Funnel', additional: ['highcharts-funnel'] },
   { name: 'Treemap', additional: ['highcharts-heatmap', 'highcharts-treemap' ] },
-  { name: 'TreemapDrilldown', additional: ['promise-polyfill', 'fetch-polyfill', 'highcharts-heatmap', 'highcharts-treemap' ] },
+  { name: 'TreemapDrilldown', additional: ['fetch-polyfill', 'highcharts-heatmap', 'highcharts-treemap' ] },
   { name: 'LiveUpdate' },
   { name: 'SimpleLine' },
   { name: 'SplineWithPlotBands' },
-  { name: 'SynchronisedCharts', additional: ['promise-polyfill', 'fetch-polyfill'] },
-  { name: 'Sparkline', additional: ['promise-polyfill', 'fetch-polyfill'] },
-  { name: 'Loading', additional: ['promise-polyfill', 'fetch-polyfill'] },
+  { name: 'SynchronisedCharts', additional: ['fetch-polyfill'] },
+  { name: 'Sparkline', additional: ['fetch-polyfill'] },
+  { name: 'Loading', additional: ['fetch-polyfill'] },
   { name: 'InvertedChart' },
   { name: 'ImmutableJS', additional: ['immutable'] },
   { name: '3DChart', additional: ['highcharts-3d', 'highcharts-boost'] },
@@ -41,8 +41,8 @@ const highstockExamples = [
 ];
 
 const highmapsExamples = [
-  { name: 'Map', additional: ['promise-polyfill', 'fetch-polyfill', 'react-request'] },
-  { name: 'MapBubble', additional: ['promise-polyfill', 'fetch-polyfill', 'react-request', 'proj4js'] }
+  { name: 'Map', additional: ['fetch-polyfill', 'react-request'] },
+  { name: 'MapBubble', additional: ['fetch-polyfill', 'react-request', 'proj4js'] }
 ];
 
 const examples = [].concat(
@@ -82,8 +82,7 @@ const externals = {
   'moment':               'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js',
   'react-day-picker':     'https://cdn.jsdelivr.net/npm/react-day-picker@6.0.5/lib/daypicker.js',
   're-resizable':         'https://cdn.jsdelivr.net/npm/re-resizable@~4.3/lib/re-resizable.umd.js',
-  'assign-polyfill':      'https://cdn.jsdelivr.net/npm/es6-object-assign@^1/dist/object-assign-auto.min.js',
-  'promise-polyfill':     'https://www.promisejs.org/polyfills/promise-6.1.0.js',
+  'core-js-polyfill':     'https://cdn.jsdelivr.net/npm/core-js-bundle@3.2.1/index.min.js',
   'fetch-polyfill':       'https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.min.js',
   'immutable':            'https://cdnjs.cloudflare.com/ajax/libs/immutable/3.8.1/immutable.min.js',
   'react-request':        'https://cdn.jsdelivr.net/npm/react-request@^3/dist/react-request.min.js',
@@ -178,7 +177,7 @@ module.exports = {
     // Default dependencies
     new HtmlTagsPlugin({
       files: '**/index.html',
-      scripts: ['assign-polyfill', 'react', 'react-dom'].map(d => ({
+      scripts: ['core-js-polyfill', 'react', 'react-dom'].map(d => ({
         path: externals[d],
         attributes: { crossorigin: 'true' }
       })),
