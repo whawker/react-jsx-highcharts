@@ -55,6 +55,17 @@ describe('<PlotLine />', () => {
       );
       expect(testContext.axisStubs.addPlotBandOrLine.mock.calls[0][0].id).toMatch(uuidRegex);
     });
+
+    it('removes and adds plotline when props change', () => {
+      const wrapper = mount(
+        <PlotLine id="myplotline" value={3} />
+      );
+      testContext.axisStubs.addPlotBandOrLine.mockClear();
+
+      wrapper.setProps({ value: 4});
+      expect(testContext.axisStubs.addPlotBandOrLine).toHaveBeenCalledTimes(1);
+      expect(testContext.axisStubs.removePlotBandOrLine).toHaveBeenCalledWith('myplotline');
+    });
   });
 
   describe('when unmounted', () => {

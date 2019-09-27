@@ -13,9 +13,9 @@ export default function usePlotBandLine(props, plotType) {
   const modifiedProps = useModifiedProps(rest);
 
   useEffect(() => {
-    if (!axis) return;
-    if (modifiedProps !== false && plotbandline) {
-      axis.removePlotLine(idRef.current);
+    if (!axis || !plotbandline) return;
+    if (modifiedProps !== false) {
+      axis.removePlotBandOrLine(idRef.current);
       const opts = {
         id: idRef.current,
         ...modifiedProps
