@@ -91,18 +91,4 @@ describe('<Annotation />', () => {
       }));
     });
   });
-
-  describe('children', () => {
-    it('should pass the ID of the plot band to the children', () => {
-      const ChildComponent = props => (<div />);
-
-      const wrapper = mount(
-        <ProvidedAnnotation id="myId">
-          <ChildComponent />
-        </ProvidedAnnotation>
-      ).children();
-      expect(wrapper.find(ChildComponent)).toHaveProp('id', 'myId');
-    });
-
-  });
 });
