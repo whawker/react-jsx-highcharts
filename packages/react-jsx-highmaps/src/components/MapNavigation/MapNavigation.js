@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { attempt } from 'lodash-es';
 import {
-  Hidden,
   useModifiedProps,
   useChart,
   useHighcharts
@@ -40,7 +39,7 @@ const MapNavigation = ({ children, enabled = true, ...restProps}) => {
 
   if (!children || !rendered) return null;
 
-  return <Hidden>{children}</Hidden>;
+  return <>{children}</>;
 };
 const getMapNavigationConfig = (props, Highcharts) => {
   return {

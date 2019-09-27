@@ -95,7 +95,6 @@ export { default as withHighcharts }  from './components/WithHighcharts';
 export { default as Axis }  from './components/Axis';
 export { default as BaseChart }  from './components/BaseChart';
 export { default as Debug }  from './components/Debug';
-export { default as Hidden }  from './components/Hidden';
 export { default as Series }  from './components/Series';
 
 // Utils

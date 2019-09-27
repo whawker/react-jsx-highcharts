@@ -4,7 +4,6 @@ import HighchartsChart from '../HighchartsChart';
 import Chart from '../Chart';
 import XAxis from '../XAxis';
 import YAxis from '../YAxis';
-import Hidden from '../Hidden';
 
 const defaultSparklinePlotOptions = {
   series: {
@@ -81,7 +80,7 @@ const HighchartsSparkline = ({
         {Series}
       </YAxis>
 
-      {hasSeriesProp && <Hidden>{children}</Hidden>}
+      {hasSeriesProp && <>{children}</>}
     </HighchartsChart>
   );
 };

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { attempt } from 'lodash-es';
-import { Hidden, useHighcharts, useAxis, useChart, useModifiedProps } from 'react-jsx-highcharts';
+import { useHighcharts, useAxis, useChart, useModifiedProps } from 'react-jsx-highcharts';
 
 const RangeSelectorInner = ({ enabled = true, ...restProps }) => {
   const props = { enabled, ...restProps };
@@ -51,7 +51,7 @@ const RangeSelectorInner = ({ enabled = true, ...restProps }) => {
   if (!children || !rendered) return null;
 
   return (
-    <Hidden>{children}</Hidden>
+    <>{children}</>
   );
 }
 

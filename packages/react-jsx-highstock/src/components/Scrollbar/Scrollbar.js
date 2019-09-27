@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { attempt } from 'lodash-es';
-import { Hidden, useModifiedProps, useChart } from 'react-jsx-highcharts';
+import { useModifiedProps, useChart } from 'react-jsx-highcharts';
 
 const Scrollbar = ({ children, enabled = true, ...restProps }) => {
   const chart = useChart();
@@ -23,7 +23,7 @@ const Scrollbar = ({ children, enabled = true, ...restProps }) => {
   if (!children) return null;
 
   return (
-    <Hidden>{children}</Hidden>
+    <>{children}</>
   );
 }
 

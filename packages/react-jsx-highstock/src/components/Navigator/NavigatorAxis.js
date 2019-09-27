@@ -1,6 +1,6 @@
 import React, { useEffect, Children, cloneElement, isValidElement } from 'react';
 import PropTypes from 'prop-types';
-import { Hidden, useAxis, useModifiedProps, getNonEventHandlerProps } from 'react-jsx-highcharts';
+import { useAxis, useModifiedProps, getNonEventHandlerProps } from 'react-jsx-highcharts';
 
 const NavigatorAxis = props => {
   const axis = useAxis();
@@ -32,9 +32,9 @@ const NavigatorAxis = props => {
   });
 
   return (
-    <Hidden>
+    <>
       {axisChildren}
-    </Hidden>
+    </>
   );
 }
 const updateNavigatorAxis = (config, axis) => {

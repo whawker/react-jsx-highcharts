@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import Hidden from '../Hidden';
 import useChart from '../UseChart';
 
 const Debug = ({ varName = 'chart' }) => {
@@ -13,9 +12,7 @@ const Debug = ({ varName = 'chart' }) => {
     return () => window[varName] = undefined;
   }, [varName]);
 
-  return (
-    <Hidden />
-  );
+  return null;
 }
 
 Debug.propTypes = {
