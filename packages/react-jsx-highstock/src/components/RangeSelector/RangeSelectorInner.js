@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import { attempt } from 'lodash-es';
 import { useHighcharts, useAxis, useChart, useModifiedProps } from 'react-jsx-highcharts';
 
-const RangeSelectorInner = ({ enabled = true, ...restProps }) => {
+const RangeSelectorInner = ({ enabled = true, axisId, ...restProps }) => {
   const props = { enabled, ...restProps };
   const [rendered, setRendered] = useState(false);
   const Highcharts = useHighcharts();
   const chart = useChart();
-  const axis = useAxis();
+  const axis = useAxis(axisId);
 
 
   useEffect(() => {
