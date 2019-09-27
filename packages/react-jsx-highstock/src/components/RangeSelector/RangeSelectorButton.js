@@ -59,7 +59,7 @@ const getButtonIndex = (props, chart) => {
 const addButton = (config, chart) => {
   // Add button to array
   const buttons = [
-    ...getButtons(),
+    ...getButtons(chart),
     config
   ];
   updateRangeSelectorButtons(buttons, chart);

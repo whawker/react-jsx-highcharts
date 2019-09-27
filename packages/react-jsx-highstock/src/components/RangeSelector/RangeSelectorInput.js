@@ -18,7 +18,7 @@ const RangeSelectorInput = ({ enabled = true, ...restProps}) => {
 
   useEffect(() => {
     if (modifiedProps !== false) {
-      updateRangeSelectorInputs(modifiedProps);
+      updateRangeSelectorInputs(modifiedProps, chart);
     }
   });
 
