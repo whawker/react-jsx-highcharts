@@ -54,6 +54,11 @@ describe('<RangeSelector />', () => {
         })
       }, expect.any(Boolean));
     });
+
+    it('updates the chart once', () => {
+      mount(<ProvidedRangeSelector />);
+      expect(testContext.chartStubs.update).toHaveBeenCalledTimes(1);
+    });
   });
 
   describe('update', () => {

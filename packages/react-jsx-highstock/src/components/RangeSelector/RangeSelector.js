@@ -40,7 +40,7 @@ const RangeSelectorInner = ({ enabled = true, children, ...restProps }) => {
   const modifiedProps = useModifiedProps(props);
 
   useEffect(() => {
-    if(!axis) return;
+    if(!axis || !rendered) return;
 
     if (modifiedProps !== false) {
       updateRangeSelector(modifiedProps, chart);
