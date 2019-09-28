@@ -2,17 +2,16 @@ import React, { useEffect, Children, cloneElement, isValidElement } from 'react'
 import PropTypes from 'prop-types';
 import { useAxis, useModifiedProps, getNonEventHandlerProps } from 'react-jsx-highcharts';
 
-const NavigatorAxis = props => {
-  const axis = useAxis(props.axisId);
+const NavigatorAxis = ({ children, axisId, ...restProps }) => {
+  const axis = useAxis(axisId);
 
   useEffect(() => {
     if (!axis) return;
 
-    const { children, ...rest } = props;
-    updateNavigatorAxis(getNonEventHandlerProps(rest), axis);
+    updateNavigatorAxis(getNonEventHandlerProps(restProps), axis);
   }, [axis]);
 
-  const modifiedProps = useModifiedProps(props);
+  const modifiedProps = useModifiedProps(restProps);
 
   useEffect(() => {
     if (!axis) return;
@@ -20,10 +19,8 @@ const NavigatorAxis = props => {
     if (modifiedProps !== false) {
       updateNavigatorAxis(modifiedProps, axis);
     }
-  })
+  });
 
-
-  const { axisId, children } = props;
   if (!children) return null;
 
   const axisChildren = Children.map(children, child => {
