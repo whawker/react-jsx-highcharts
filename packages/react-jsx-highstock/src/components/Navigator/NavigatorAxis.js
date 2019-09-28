@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useAxis, useModifiedProps, getNonEventHandlerProps } from 'react-jsx-highcharts';
 
 const NavigatorAxis = props => {
-  const axis = useAxis();
+  const axis = useAxis(props.axisId);
 
   useEffect(() => {
     if (!axis) return;
