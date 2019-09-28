@@ -41,13 +41,13 @@ describe('<Navigator />', () => {
 
     it('updates the chart with the passed props', () => {
       mount(<ProvidedNavigator height={100} maskFill="rgba(1,2,3,0.45)" {...testContext.propsFromProviders} />);
-      expect(testContext.chartStubs.update).toHaveBeenCalledWith(expect.objectContaining({
+      expect(testContext.chartStubs.update).toHaveBeenCalledWith({
         navigator: {
           enabled: true,
           height: 100,
           maskFill: 'rgba(1,2,3,0.45)'
         }
-      }), expect.any(Boolean));
+      }, true);
     });
   });
 

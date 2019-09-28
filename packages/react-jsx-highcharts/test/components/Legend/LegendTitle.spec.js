@@ -26,9 +26,9 @@ describe('<Legend.Title />', () => {
       mount(<ProvidedLegendTitle>My Legend Title</ProvidedLegendTitle>);
       expect(testContext.chartStubs.update).toHaveBeenCalledWith({
         legend: {
-          title: expect.objectContaining({
+          title: {
             text: 'My Legend Title'
-          })
+          }
         }
       }, false);
     });
@@ -39,10 +39,10 @@ describe('<Legend.Title />', () => {
       );
       expect(testContext.chartStubs.update).toHaveBeenCalledWith({
         legend: {
-          title: expect.objectContaining({
+          title: {
             text: 'My Legend Title',
             style: { color: 'red' }
-          })
+          }
         }
       }, false);
     });
@@ -54,13 +54,13 @@ describe('<Legend.Title />', () => {
         <ProvidedLegendTitle>My Legend Title</ProvidedLegendTitle>
       );
       wrapper.setProps({ children: 'My New Legend Title' });
-      expect(testContext.chartStubs.update).toHaveBeenCalledWith(expect.objectContaining({
+      expect(testContext.chartStubs.update).toHaveBeenCalledWith({
         legend: {
           title: {
             text: 'My New Legend Title'
           }
         }
-      }), false);
+      }, false);
     });
   });
 
@@ -68,13 +68,13 @@ describe('<Legend.Title />', () => {
     it('should disable the LegendTitle', () => {
       const wrapper = mount(<ProvidedLegendTitle>My Legend Title</ProvidedLegendTitle>);
       wrapper.unmount();
-      expect(testContext.chartStubs.update).toHaveBeenCalledWith(expect.objectContaining({
+      expect(testContext.chartStubs.update).toHaveBeenCalledWith({
         legend: {
           title: {
             text: null
           }
         }
-      }), false)
+      }, false)
     });
   });
 });

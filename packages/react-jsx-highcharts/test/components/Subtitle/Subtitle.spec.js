@@ -24,14 +24,14 @@ describe('<Subtitle />', () => {
       mount(<ProvidedSubtitle>My Subtitle</ProvidedSubtitle>);
       expect(testContext.chartStubs.setTitle).toHaveBeenCalledTimes(1);
       expect(testContext.chartStubs.setTitle).toHaveBeenCalledWith(
-        undefined, expect.objectContaining({ text: 'My Subtitle' }), false
+        undefined, { text: 'My Subtitle' }, false
       );
     });
 
     it('should pass additional props through to Highcharts setTitle method', () => {
       mount(<ProvidedSubtitle align="right">My Other Subtitle</ProvidedSubtitle>);
       expect(testContext.chartStubs.setTitle).toHaveBeenCalledWith(
-        undefined, expect.objectContaining({ text: 'My Other Subtitle', align: 'right' }), false
+        undefined, { text: 'My Other Subtitle', align: 'right' }, false
       );
     });
   });

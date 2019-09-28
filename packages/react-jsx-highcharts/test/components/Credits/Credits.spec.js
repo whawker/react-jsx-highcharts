@@ -23,21 +23,22 @@ describe('<Credits />', () => {
   describe('when mounted', () => {
     it('add credits using the Highcharts addCredits method', () => {
       mount(<ProvidedCredits>github.com</ProvidedCredits>);
-      expect(testContext.chartStubs.addCredits).toHaveBeenCalledWith(expect.objectContaining({
+      expect(testContext.chartStubs.addCredits).toHaveBeenCalledWith({
         enabled: true,
         text: 'github.com'
-      }), true);
+      }, true);
+      expect(testContext.chartStubs.addCredits).toHaveBeenCalledTimes(1);
     });
 
     it('addCreditss the credits with the passed props', () => {
       mount(
         <ProvidedCredits href="https://www.github.com">github.com</ProvidedCredits>
       );
-      expect(testContext.chartStubs.addCredits).toHaveBeenCalledWith(expect.objectContaining({
+      expect(testContext.chartStubs.addCredits).toHaveBeenCalledWith({
         enabled: true,
         href: 'https://www.github.com',
         text: 'github.com'
-      }), true);
+      }, true);
     });
   });
 
@@ -47,9 +48,9 @@ describe('<Credits />', () => {
         <ProvidedCredits href="https://www.github.com">github.com</ProvidedCredits>
       );
       wrapper.setProps({ href: 'https://www.github.com/whawker' });
-      expect(testContext.chartStubs.addCredits).toHaveBeenCalledWith(expect.objectContaining({
+      expect(testContext.chartStubs.addCredits).toHaveBeenCalledWith({
         href: 'https://www.github.com/whawker'
-      }), true);
+      }, true);
     });
   });
 
@@ -57,9 +58,9 @@ describe('<Credits />', () => {
     it('should disable the Credits', () => {
       const wrapper = mount(<ProvidedCredits>github.com</ProvidedCredits>);
       wrapper.unmount();
-      expect(testContext.chartStubs.addCredits).toHaveBeenCalledWith(expect.objectContaining({
+      expect(testContext.chartStubs.addCredits).toHaveBeenCalledWith({
         enabled: false
-      }), true);
+      }, true);
     });
   });
 });

@@ -27,10 +27,11 @@ describe('<Legend />', () => {
     it('add legend using the Highcharts update method', () => {
       mount(<ProvidedLegend />);
       expect(testContext.chartStubs.update).toHaveBeenCalledWith({
-        legend: expect.objectContaining({
+        legend: {
           enabled: true
-        })
+        }
       }, false);
+      expect(testContext.chartStubs.update).toHaveBeenCalledTimes(1);
       expect(testContext.needsRedraw).toHaveBeenCalledTimes(1);
     });
 
@@ -39,11 +40,11 @@ describe('<Legend />', () => {
         <ProvidedLegend align="left" y={20} />
       );
       expect(testContext.chartStubs.update).toHaveBeenCalledWith({
-        legend: expect.objectContaining({
+        legend: {
           enabled: true,
           align: 'left',
           y: 20
-        })
+        }
       }, false);
       expect(testContext.needsRedraw).toHaveBeenCalledTimes(1);
     });
@@ -55,11 +56,11 @@ describe('<Legend />', () => {
         <ProvidedLegend />
       );
       wrapper.setProps({ backgroundColor: 'red' });
-      expect(testContext.chartStubs.update).toHaveBeenCalledWith(expect.objectContaining({
+      expect(testContext.chartStubs.update).toHaveBeenCalledWith({
         legend: {
           backgroundColor: 'red'
         }
-      }), false);
+      }, false);
       expect(testContext.needsRedraw).toHaveBeenCalledTimes(2);
     });
   });
@@ -68,11 +69,11 @@ describe('<Legend />', () => {
     it('should disable the Legend', () => {
       const wrapper = mount(<ProvidedLegend />);
       wrapper.unmount();
-      expect(testContext.chartStubs.update).toHaveBeenCalledWith(expect.objectContaining({
+      expect(testContext.chartStubs.update).toHaveBeenCalledWith({
         legend: {
           enabled: false
         }
-      }), false);
+      }, false);
       expect(testContext.needsRedraw).toHaveBeenCalledTimes(2);
     });
   });

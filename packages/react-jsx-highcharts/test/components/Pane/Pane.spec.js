@@ -25,10 +25,10 @@ describe('<Pane />', () => {
         <ProvidedPane center={['50%', '85%']} size='100%' />
       );
       expect(testContext.chartStubs.update).toHaveBeenCalledWith({
-        pane: expect.objectContaining({
+        pane: {
           center: ['50%', '85%'],
           size: '100%'
-        })
+        }
       }, false);
       expect(testContext.needsRedraw).toHaveBeenCalledTimes(1);
     });
@@ -48,11 +48,11 @@ describe('<Pane />', () => {
         <ProvidedPane />
       );
       wrapper.setProps({ size: '50%' });
-      expect(testContext.chartStubs.update).toHaveBeenCalledWith(expect.objectContaining({
+      expect(testContext.chartStubs.update).toHaveBeenCalledWith({
         pane: {
           size: '50%'
         }
-      }), false);
+      }, false);
       expect(testContext.needsRedraw).toHaveBeenCalledTimes(1);
     });
   });
@@ -63,9 +63,9 @@ describe('<Pane />', () => {
       expect(testContext.needsRedraw).toHaveBeenCalledTimes(1);
       testContext.needsRedraw.mockClear();
       wrapper.unmount();
-      expect(testContext.chartStubs.update).toHaveBeenCalledWith(expect.objectContaining({
+      expect(testContext.chartStubs.update).toHaveBeenCalledWith({
         pane: {}
-      }), false);
+      }, false);
       expect(testContext.needsRedraw).toHaveBeenCalledTimes(1);
     });
   });

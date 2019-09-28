@@ -24,17 +24,16 @@ describe('<Title />', () => {
   describe('when mounted', () => {
     it('adds a title using the Highcharts setTitle method', () => {
       mount(<ProvidedTitle>My Title</ProvidedTitle>);
-      expect(testContext.chartStubs.setTitle).toHaveBeenCalledWith(expect.objectContaining(
-        { text: 'My Title' }), null, false
-      );
+      expect(testContext.chartStubs.setTitle).toHaveBeenCalledWith(
+        { text: 'My Title' }, null, false);
+      expect(testContext.chartStubs.setTitle).toHaveBeenCalledTimes(1);
       expect(testContext.needsRedraw).toHaveBeenCalledTimes(1);
     });
 
     it('should pass additional props through to Highcharts setTitle method', () => {
       mount(<ProvidedTitle align="right">My Other Title</ProvidedTitle>);
-      expect(testContext.chartStubs.setTitle).toHaveBeenCalledWith(expect.objectContaining(
-        { text: 'My Other Title', align: 'right' }), null, false
-      );
+      expect(testContext.chartStubs.setTitle).toHaveBeenCalledWith(
+        { text: 'My Other Title', align: 'right' }, null, false);
     });
   });
 

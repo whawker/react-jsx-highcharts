@@ -23,10 +23,10 @@ describe('<Scrollbar />', () => {
     it('add scrollbar using the Highcharts update method', () => {
       mount(<ProvidedScrollBar />);
       expect(testContext.chartStubs.update).toHaveBeenCalledWith({
-        scrollbar: expect.objectContaining({
+        scrollbar: {
           enabled: true
-        })
-      }, expect.any(Boolean));
+        }
+      }, true);
     });
 
     it('updates the scrollbar with the passed props', () => {
@@ -34,12 +34,12 @@ describe('<Scrollbar />', () => {
         <ProvidedScrollBar barBackgroundColor="red" height={20} />
       );
       expect(testContext.chartStubs.update).toHaveBeenCalledWith({
-        scrollbar: expect.objectContaining({
+        scrollbar: {
           enabled: true,
           barBackgroundColor: 'red',
           height: 20
-        })
-      }, expect.any(Boolean));
+        }
+      }, true);
     });
   });
 
@@ -50,10 +50,10 @@ describe('<Scrollbar />', () => {
       );
       wrapper.setProps({ height: 12345 });
       expect(testContext.chartStubs.update).toHaveBeenCalledWith({
-        scrollbar: expect.objectContaining({
+        scrollbar: {
           height: 12345
-        })
-      }, expect.any(Boolean));
+        }
+      }, true);
     });
   });
 
@@ -62,10 +62,10 @@ describe('<Scrollbar />', () => {
       const wrapper = mount(<ProvidedScrollBar />);
       wrapper.unmount();
       expect(testContext.chartStubs.update).toHaveBeenCalledWith({
-        scrollbar: expect.objectContaining({
+        scrollbar: {
           enabled: false
-        })
-      }, expect.any(Boolean))
+        }
+      }, true)
     });
   });
 });

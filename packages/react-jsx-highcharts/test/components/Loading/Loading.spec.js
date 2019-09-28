@@ -38,11 +38,11 @@ describe('<Loading />', () => {
       mount(
         <ProvidedLoading hideDuration={2500}>Slow hiding loading</ProvidedLoading>
       );
-      expect(testContext.chartStubs.update).toHaveBeenCalledWith(expect.objectContaining({
+      expect(testContext.chartStubs.update).toHaveBeenCalledWith({
         loading: {
           hideDuration: 2500
         }
-      }), true);
+      }, true);
     });
   });
 
@@ -68,11 +68,11 @@ describe('<Loading />', () => {
         <ProvidedLoading>Updates style</ProvidedLoading>
       );
       wrapper.setProps({ style: { color: 'red' } });
-      expect(testContext.chartStubs.update).toHaveBeenCalledWith(expect.objectContaining({
+      expect(testContext.chartStubs.update).toHaveBeenCalledWith({
         loading: {
           style: { color: 'red' }
         }
-      }), true);
+      }, true);
     });
   });
 

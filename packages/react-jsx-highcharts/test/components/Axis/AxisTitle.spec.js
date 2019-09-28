@@ -22,26 +22,28 @@ describe('<Axis.Title />', () => {
   describe('when mounted', () => {
     it('sets the correct axis title', () => {
       mount(<AxisTitle>My Axis Title</AxisTitle>);
-      expect(testContext.axisStubs.setTitle).toHaveBeenCalledWith(expect.objectContaining({
+      expect(testContext.axisStubs.setTitle).toHaveBeenCalledWith({
          text: 'My Axis Title'
-      }), expect.any(Boolean));
+      }, expect.any(Boolean));
     });
 
     it('should pass additional props too', () => {
       mount(<AxisTitle align="high">My Axis Title</AxisTitle>);
-      expect(testContext.axisStubs.setTitle).toHaveBeenCalledWith(expect.objectContaining({
+      expect(testContext.axisStubs.setTitle).toHaveBeenCalledWith({
          text: 'My Axis Title', align: 'high'
-      }), expect.any(Boolean));
+      }, expect.any(Boolean));
     });
   });
 
   describe('update', () => {
     it('should setTitle the correct axis title if the component props change', () => {
       const wrapper = mount(<AxisTitle>My Axis Title</AxisTitle>);
+      testContext.axisStubs.setTitle.mockClear();
       wrapper.setProps({ axisId: 'myAxis', dimension: 'x', children: 'New Title' });
-      expect(testContext.axisStubs.setTitle).toHaveBeenCalledWith(expect.objectContaining({
-         text: 'New Title'
-      }), expect.any(Boolean));
+      expect(testContext.axisStubs.setTitle).toHaveBeenCalledWith({
+         text: 'New Title',
+         dimension: 'x'
+      }, expect.any(Boolean));
     });
   });
 
@@ -49,9 +51,9 @@ describe('<Axis.Title />', () => {
     it('removes the correct axis title (if the axis still exists)', () => {
       const wrapper = mount(<AxisTitle>My Axis Title</AxisTitle>);
       wrapper.unmount();
-      expect(testContext.axisStubs.setTitle).toHaveBeenCalledWith(expect.objectContaining({
+      expect(testContext.axisStubs.setTitle).toHaveBeenCalledWith({
          text: null
-      }), expect.any(Boolean));
+      }, expect.any(Boolean));
     });
   });
 });

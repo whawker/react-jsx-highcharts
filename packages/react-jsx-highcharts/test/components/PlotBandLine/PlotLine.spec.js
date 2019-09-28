@@ -22,16 +22,16 @@ describe('<PlotLine />', () => {
   describe('when mounted', () => {
     it('adds a title using the Axis addPlotBandOrLine method', () => {
       mount(<PlotLine id="My PlotLine" value={2} />);
-      expect(testContext.axisStubs.addPlotBandOrLine).toHaveBeenCalledWith(expect.objectContaining(
+      expect(testContext.axisStubs.addPlotBandOrLine).toHaveBeenCalledWith(
         { id: 'My PlotLine', value: 2 }
-      ), 'plotLines');
+      , 'plotLines');
     });
 
     it('should pass additional props through to Axis addPlotBandOrLine method', () => {
       mount(<PlotLine borderColor="red" id="My Other PlotLine" value={24.2} />);
-      expect(testContext.axisStubs.addPlotBandOrLine).toHaveBeenCalledWith(expect.objectContaining(
+      expect(testContext.axisStubs.addPlotBandOrLine).toHaveBeenCalledWith(
         { id: 'My Other PlotLine', borderColor: 'red', value: 24.2 }
-      ), 'plotLines');
+      , 'plotLines');
     });
 
     it('uses the provided ID if id prop is a string', () => {

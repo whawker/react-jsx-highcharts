@@ -46,12 +46,13 @@ describe('<RangeSelector />', () => {
     it('updates the chart with the passed props', () => {
       mount(<ProvidedRangeSelector height={100} buttonSpacing={2} />);
       expect(testContext.chartStubs.update).toHaveBeenCalledWith({
-        rangeSelector: expect.objectContaining({
+        rangeSelector: {
           enabled: true,
           inputEnabled: false,
           height: 100,
-          buttonSpacing: 2
-        })
+          buttonSpacing: 2,
+          buttons: []
+        }
       }, expect.any(Boolean));
     });
 

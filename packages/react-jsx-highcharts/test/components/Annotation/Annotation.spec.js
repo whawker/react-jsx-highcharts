@@ -24,9 +24,9 @@ describe('<Annotation />', () => {
   describe('when mounted', () => {
     it('adds an annotation using the chart addAnnotation method', () => {
       mount(<ProvidedAnnotation id="My Annotation" />);
-      expect(testContext.chartStubs.addAnnotation).toHaveBeenCalledWith(expect.objectContaining(
+      expect(testContext.chartStubs.addAnnotation).toHaveBeenCalledWith(
         { id: 'My Annotation' }
-      ));
+      );
     });
 
     it('should pass additional props through to chart addAnnotation method', () => {
@@ -35,11 +35,11 @@ describe('<Annotation />', () => {
         labels={ [{ text: "label", point: { x: 200, y: 200} }] }
         labelOptions={ { borderColor: 'red' }}
         />);
-      expect(testContext.chartStubs.addAnnotation).toHaveBeenCalledWith(expect.objectContaining({
+      expect(testContext.chartStubs.addAnnotation).toHaveBeenCalledWith({
         id: 'My Other Annotation',
         labelOptions: { borderColor: 'red' },
         labels: [{ text: "label", point: { x: 200, y: 200} }]
-      }));
+      });
     });
 
     it('uses the provided ID if id prop is a string', () => {
@@ -85,10 +85,10 @@ describe('<Annotation />', () => {
       wrapper.setProps({ labels: [{ text: "label", point: { x: 100, y: 100} }]});
       expect(testContext.chartStubs.removeAnnotation).toHaveBeenCalledWith('My Annotation');
 
-      expect(testContext.chartStubs.addAnnotation).toHaveBeenCalledWith(expect.objectContaining({
+      expect(testContext.chartStubs.addAnnotation).toHaveBeenCalledWith({
         id: 'My Annotation',
         labels: [{ text: "label", point: { x: 100, y: 100} }]
-      }));
+      });
     });
   });
 });

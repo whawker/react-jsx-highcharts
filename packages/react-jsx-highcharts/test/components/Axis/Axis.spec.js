@@ -30,7 +30,7 @@ describe('<Axis />', () => {
       mount(<ProvidedAxis id="myAxis" isX />);
       expect(testContext.chartStubs.addAxis).toHaveBeenCalledTimes(1);
       expect(testContext.chartStubs.addAxis).toHaveBeenCalledWith(
-        expect.objectContaining({ id: 'myAxis', title: { text: null } }), true, false
+        { id: 'myAxis', title: { text: null }, isX: true, events: {}}, true, false
       );
       expect(testContext.axisStubs.remove).not.toHaveBeenCalled();
       expect(testContext.axisStubs.update).not.toHaveBeenCalled();
@@ -40,7 +40,7 @@ describe('<Axis />', () => {
     it('adds a Y axis using the addAxis method', () => {
       mount(<ProvidedAxis id="myAxis" isX={false} />);
       expect(testContext.chartStubs.addAxis).toHaveBeenCalledWith(
-        expect.objectContaining({ id: 'myAxis', title: { text: null } }), false, false
+        { id: 'myAxis', title: { text: null }, isX: false, events: {} }, false, false
       );
       expect(testContext.needsRedraw).toHaveBeenCalledTimes(1);
     });
@@ -70,7 +70,7 @@ describe('<Axis />', () => {
     it('should pass additional props through to Highcharts addAxis method', () => {
       mount(<ProvidedAxis id="myAxis" isX min={10} max={100} reversed />);
       expect(testContext.chartStubs.addAxis).toHaveBeenCalledWith(
-        expect.objectContaining({ id: 'myAxis', title: { text: null }, min: 10, max: 100, reversed: true }), true, false
+        { id: 'myAxis', title: { text: null }, min: 10, max: 100, reversed: true, isX: true, events: {}}, true, false
       );
     });
 
@@ -83,10 +83,10 @@ describe('<Axis />', () => {
           />
       );
       expect(testContext.chartStubs.addAxis).toHaveBeenCalledWith(expect.objectContaining({
-        events: expect.objectContaining({
+        events: {
           setExtremes: handleSetExtremes,
           afterSetExtremes: handleAfterSetExtremes
-        })
+        }
       }), true, false);
       expect(testContext.needsRedraw).toHaveBeenCalledTimes(1);
     });
@@ -105,15 +105,17 @@ describe('<Axis />', () => {
     it('updates a non dynamic axis using the update method', () => {
       mount(<ProvidedAxis id="myAxis" isX={false} dynamicAxis={false} />);
       expect(testContext.axisStubs.update).toHaveBeenCalledWith(expect.objectContaining(
-        { id: 'myAxis', title: { text: null } }, true
+        { id: 'myAxis', title: { text: null }, isX: false, events: {} }, true
       ), false);
     });
 
     it('should pass additional props through to Highcharts update method', () => {
       mount(<ProvidedAxis id="myAxis" isX={false} dynamicAxis={false} min={10} max={100} reversed />);
-      expect(testContext.axisStubs.update).toHaveBeenCalledWith(expect.objectContaining(
-        { id: 'myAxis', title: { text: null }, min: 10, max: 100, reversed: true }, true
-      ), false);
+      expect(testContext.axisStubs.update).toHaveBeenCalledWith(
+        { id: 'myAxis', title: { text: null },
+         min: 10, max: 100, reversed: true,
+         isX: false, events: {} }
+      , false);
     });
 
     it('subscribes to Highcharts events for props that look like event handlers', () => {
@@ -125,10 +127,10 @@ describe('<Axis />', () => {
           />
       );
       expect(testContext.axisStubs.update).toHaveBeenCalledWith(expect.objectContaining({
-        events: expect.objectContaining({
+        events: {
           setExtremes: handleSetExtremes,
           afterSetExtremes: handleAfterSetExtremes
-        })
+        }
       }), false);
     });
   });
