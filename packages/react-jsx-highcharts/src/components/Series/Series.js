@@ -26,7 +26,7 @@ const Series = memo(({
   ...restProps
 }) => {
 
-  const seriesProps = { id, data, type, visible, requiresAxis, ...restProps };
+  const seriesProps = { id, data, type, visible, ...restProps };
 
   /*
   if (defaultTo(restProps.requiresAxis, true)) {

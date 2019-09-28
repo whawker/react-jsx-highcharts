@@ -47,11 +47,11 @@ describe('<Series />', () => {
       mount(
         <ProvidedSeries id="mySeries" />
       );
-      expect(testContext.chartStubs.addSeries).toHaveBeenCalledWith(expect.objectContaining(
-        { id: 'mySeries', xAxis: 'myXAxisId', type: 'line', data: [], visible: true }, true
-      ), false);
+      expect(testContext.chartStubs.addSeries).toHaveBeenCalledWith(
+        { id: 'mySeries',xAxis: 'myXAxisId', type: 'line', data: [], visible: true, events: {} }, false);
       expect(testContext.chartStubs.addSeries).toHaveBeenCalledTimes(1);
       expect(testContext.needsRedraw).toHaveBeenCalledTimes(1);
+      expect(testContext.seriesStubs.update).not.toHaveBeenCalled();
     });
 
     it('adds a Y series using the addSeries method', () => {
@@ -62,7 +62,7 @@ describe('<Series />', () => {
         <ProvidedSeries id="mySeries" {...testContext.propsFromProviders} />
       );
       expect(testContext.chartStubs.addSeries).toHaveBeenCalledWith(expect.objectContaining(
-        { id: 'mySeries', yAxis: 'myYAxisId', type: 'line', data: [], visible: true }, true
+        { id: 'mySeries', yAxis: 'myYAxisId', type: 'line', data: [], visible: true }
       ), false);
     });
 
