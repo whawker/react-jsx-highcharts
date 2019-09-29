@@ -13,32 +13,23 @@ export default function usePlotBandLine(props, plotType) {
   const modifiedProps = useModifiedProps(rest);
 
   useEffect(() => {
-    if (!axis || !plotbandline) return;
-    if (modifiedProps !== false) {
-      axis.removePlotBandOrLine(idRef.current);
+    if (!axis) return;
+    if(!plotbandline || modifiedProps !== false) {
+      if(!plotbandline) {
+        idRef.current = typeof id === 'function' ? id() : id;
+      }
+      const myId = idRef.current;
       const opts = {
-        id: idRef.current,
-        ...modifiedProps
+        id: myId,
+        ...rest
       };
       setPlotbandline(axis.addPlotBandOrLine(opts, plotType));
     }
-  });
-
-  // create plotline
-  useEffect(() => {
-    if (!axis) return;
-    idRef.current = typeof id === 'function' ? id() : id;
-    const myId = idRef.current;
-    const opts = {
-      id: myId,
-      ...rest
-    };
-    setPlotbandline(axis.addPlotBandOrLine(opts, plotType));
 
     return () => {
       attempt(axis.removePlotBandOrLine, idRef.current);
     };
-  }, [axis]);
+  });
 
   return plotbandline;
 }

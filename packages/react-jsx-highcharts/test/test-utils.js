@@ -35,7 +35,11 @@ export const createMockProvidedChart = () => {
 export const createMockAxis = ({ ...additional }) => ({
   ...additional,
   remove: jest.fn(),
-  addPlotBandOrLine: jest.fn().mockImplementation(() => ({})),
+  addPlotBandOrLine: jest.fn().mockImplementation(() => (
+    { options: {},
+      render: jest.fn()
+    })
+  ),
   removePlotBandOrLine: jest.fn(),
   getExtremes: jest.fn(),
   setExtremes: jest.fn(),
