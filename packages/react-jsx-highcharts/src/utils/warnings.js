@@ -1,12 +1,12 @@
 /* eslint-disable no-console */
-const titleCSS = 'color:red; font-size:20px; font-weight: bold;';
-const descCSS = color => `font-size: 16px; color:${color};`;
-const descDefaultCSS = descCSS('#000');
-const descDefaultItalicCSS = descCSS('#000') + 'font-style:italic;';
-const descKeywordCSS = descCSS('#008') + 'font-weight:600;';
-const descStringCSS = descCSS('#080');
-const descCommentCSS = descCSS('#808080') + 'font-style:italic;';
-const descNewLine = 'font-size: 1px; margin-right: 100%;';
+const titleCSS = 'color:red; font-size:20px; font-weight: bold;'
+const descCSS = color => `font-size: 16px; color:${color};`
+const descDefaultCSS = descCSS('#000')
+const descDefaultItalicCSS = descCSS('#000') + 'font-style:italic;'
+const descKeywordCSS = descCSS('#008') + 'font-weight:600;'
+const descStringCSS = descCSS('#080')
+const descCommentCSS = descCSS('#808080') + 'font-style:italic;'
+const descNewLine = 'font-size: 1px; margin-right: 100%;'
 
 const moduleToImportPath = {
   annotations: 'modules/annotations',
@@ -36,7 +36,7 @@ const moduleToImportPath = {
   venn: 'modules/venn',
   windbarb: 'modules/windbarb',
   xrange: 'modules/xrange'
-};
+}
 
 const moduleToVarName = {
   annotations: 'addAnnotations',
@@ -66,7 +66,7 @@ const moduleToVarName = {
   venn: 'addVennModule',
   windbarb: 'addWindBarbModule',
   xrange: 'addXRangeModule'
-};
+}
 
 const moduleToFeatureMap = {
   annotations: ['annotations'],
@@ -99,43 +99,43 @@ const moduleToFeatureMap = {
   cylinder: ['cylinder', 'funnel3d', 'pyramid3d'],
   funnel3d: ['funnel3d', 'pyramid3d'],
   organization: ['organization'],
-  pyramid3d: ['pyramid3d'],
-};
+  pyramid3d: ['pyramid3d']
+}
 
 const findModules = feature => {
   const modules = Object.keys(moduleToFeatureMap).filter(key => {
     return moduleToFeatureMap[key].indexOf(feature) > -1
-  });
+  })
 
-  if (modules.length === 0) return undefined;
+  if (modules.length === 0) return undefined
 
-  return modules;
+  return modules
 }
 
 const generateLines = modules => {
   const importLines = modules.map(module => (
     `%c %cimport %c${moduleToVarName[module]} %cfrom %c'highcharts/${moduleToImportPath[module]}'%c;`
-  ));
+  ))
   const applyLines = modules.map(module => (
     `%c %c${moduleToVarName[module]}%c(Highcharts);`
-  ));
+  ))
   const importStyling = modules.map(() => (
     [descNewLine, descKeywordCSS, descDefaultCSS, descKeywordCSS, descStringCSS, descDefaultCSS]
-  ));
+  ))
   const applyStyling = modules.map(() => (
     [descNewLine, descDefaultItalicCSS, descDefaultCSS]
-  ));
+  ))
 
   return { importLines, applyLines, importStyling, applyStyling }
 }
 
 const logDetailedErrorMessage = (warning, modules) => {
-  const { importLines, applyLines, importStyling, applyStyling } = generateLines(modules);
+  const { importLines, applyLines, importStyling, applyStyling } = generateLines(modules)
   const isMultiModule = modules.length > 1
 
-  console.group("React JSX Highcharts error");
-  console.log(`%c${warning}`, titleCSS);
-  console.log('More information: https://github.com/whawker/react-jsx-highcharts/wiki/Highcharts-error-%2317');
+  console.group('React JSX Highcharts error')
+  console.log(`%c${warning}`, titleCSS)
+  console.log('More information: https://github.com/whawker/react-jsx-highcharts/wiki/Highcharts-error-%2317')
   console.log.apply(console, [].concat(
     `You likely need to import the additional module${isMultiModule ? 's' : ''}, try adding
     %c
@@ -150,40 +150,40 @@ const logDetailedErrorMessage = (warning, modules) => {
     descNewLine,
     descNewLine, descCommentCSS,
     ...applyStyling
-  ));
-  console.groupEnd();
+  ))
+  console.groupEnd()
 }
 
 export const logSeriesErrorMessage = seriesType => {
   if (process.env.NODE_ENV === 'development') {
-    const warning = `This series type "${seriesType}" requires an additional Highcharts module`;
-    const modules = findModules(seriesType);
+    const warning = `This series type "${seriesType}" requires an additional Highcharts module`
+    const modules = findModules(seriesType)
 
     if (!modules) {
-      console.warn(`${warning}, or is invalid.`);
+      console.warn(`${warning}, or is invalid.`)
       return
     }
 
-    logDetailedErrorMessage(warning, modules);
+    logDetailedErrorMessage(warning, modules)
   }
 }
 
 export const logModuleErrorMessage = (componentName, moduleName) => {
   if (process.env.NODE_ENV === 'development') {
-    const warning = `This component "${componentName}" requires an additional Highcharts module`;
-    const modules = findModules(moduleName);
+    const warning = `This component "${componentName}" requires an additional Highcharts module`
+    const modules = findModules(moduleName)
 
     if (!modules) {
-      console.warn(`${warning}, or is invalid.`);
+      console.warn(`${warning}, or is invalid.`)
       return
     }
 
-    logDetailedErrorMessage(warning, modules);
+    logDetailedErrorMessage(warning, modules)
   }
 }
 
 export const log3DModuleErrorMessage = () => {
   if (process.env.NODE_ENV === 'development') {
-    logDetailedErrorMessage('3D features such as "ZAxis" require an additional Highcharts module', ['threeD']);
+    logDetailedErrorMessage('3D features such as "ZAxis" require an additional Highcharts module', ['threeD'])
   }
 }

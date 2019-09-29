@@ -1,14 +1,14 @@
-import { useRef, useEffect, useDebugValue } from 'react';
-import getModifiedProps from '../../utils/getModifiedProps';
+import { useRef, useEffect, useDebugValue } from 'react'
+import getModifiedProps from '../../utils/getModifiedProps'
 
-export default function useModifiedProps(props, childrenIsText = false) {
-  const ref = useRef();
+export default function useModifiedProps (props, childrenIsText = false) {
+  const ref = useRef()
   useEffect(() => {
-    ref.current = props;
-  });
-  const modifiedProps = getModifiedProps(ref.current, props, childrenIsText);
+    ref.current = props
+  })
+  const modifiedProps = getModifiedProps(ref.current, props, childrenIsText)
 
-  useDebugValue(modifiedProps ? 'Modified' : 'Not modified');
+  useDebugValue(modifiedProps ? 'Modified' : 'Not modified')
 
-  return modifiedProps;
+  return modifiedProps
 }

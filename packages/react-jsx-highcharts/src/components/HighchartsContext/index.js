@@ -1,5 +1,5 @@
-import { createContext } from 'react';
+import { createContext } from 'react'
 
-const HighchartsContext = createContext();
-HighchartsContext.displayName = 'HighchartsContext';
-export default HighchartsContext;
+const HighchartsContext = createContext()
+HighchartsContext.displayName = 'HighchartsContext'
+export default HighchartsContext

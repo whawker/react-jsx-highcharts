@@ -1,2 +1,2 @@
-import ZAxis from './ZAxis';
-export default ZAxis;
+import ZAxis from './ZAxis'
+export default ZAxis

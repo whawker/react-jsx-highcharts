@@ -1,28 +1,28 @@
-import { useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { attempt } from 'lodash-es';
-import { useSeries } from 'react-jsx-highcharts';
+import { useEffect } from 'react'
+import PropTypes from 'prop-types'
+import { attempt } from 'lodash-es'
+import { useSeries } from 'react-jsx-highcharts'
 
 const NavigatorSeries = props => {
-  const series = useSeries(props.seriesId);
+  const series = useSeries(props.seriesId)
 
   useEffect(() => {
-    if (!series) return;
+    if (!series) return
 
-    updateNavigatorSeries(series, { showInNavigator: true });
-    return (() => {
-      attempt(updateNavigatorSeries, series, { showInNavigator: false });
-    })
-  },[ series ])
+    updateNavigatorSeries(series, { showInNavigator: true })
+    return () => {
+      attempt(updateNavigatorSeries, series, { showInNavigator: false })
+    }
+  }, [series])
 
-  return null;
+  return null
 }
 
 const updateNavigatorSeries = (series, config) => {
-  series.update(config);
-};
+  series.update(config)
+}
 
 NavigatorSeries.propTypes = {
-  seriesId: PropTypes.string,
-};
-export default NavigatorSeries;
+  seriesId: PropTypes.string
+}
+export default NavigatorSeries

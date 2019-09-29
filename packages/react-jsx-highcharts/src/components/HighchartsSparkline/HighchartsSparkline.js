@@ -1,9 +1,9 @@
-import React, { useMemo } from 'react';
-import PropTypes from 'prop-types';
-import HighchartsChart from '../HighchartsChart';
-import Chart from '../Chart';
-import XAxis from '../XAxis';
-import YAxis from '../YAxis';
+import React, { useMemo } from 'react'
+import PropTypes from 'prop-types'
+import HighchartsChart from '../HighchartsChart'
+import Chart from '../Chart'
+import XAxis from '../XAxis'
+import YAxis from '../YAxis'
 
 const defaultSparklinePlotOptions = {
   series: {
@@ -25,13 +25,13 @@ const defaultSparklinePlotOptions = {
     },
     fillOpacity: 0.25
   }
-};
+}
 
-const EMPTY_ARRAY = [];
-const EMPTY_OBJECT = {};
-const ZERO_ARRAY = [0];
-const LABELS_DISABLED = { enabled: false };
-const DEFAULT_MARGIN = [2, 0, 2, 0];
+const EMPTY_ARRAY = []
+const EMPTY_OBJECT = {}
+const ZERO_ARRAY = [0]
+const LABELS_DISABLED = { enabled: false }
+const DEFAULT_MARGIN = [2, 0, 2, 0]
 
 const HighchartsSparkline = ({
   height = 20,
@@ -45,11 +45,11 @@ const HighchartsSparkline = ({
 }) => {
   const chartStyle = useMemo(() => ({ overflow: 'visible', ...style }), [
     style
-  ]);
+  ])
 
-  const hasSeriesProp = !!series;
+  const hasSeriesProp = !!series
   // If you want to use functionality like Tooltips, pass the data component on the `series` prop
-  const Series = hasSeriesProp ? series : children;
+  const Series = hasSeriesProp ? series : children
 
   return (
     <HighchartsChart plotOptions={plotOptions} {...rest}>
@@ -72,18 +72,19 @@ const HighchartsSparkline = ({
       />
 
       <YAxis
-        id="sparkline"
+        id='sparkline'
         labels={LABELS_DISABLED}
         startOnTick={false}
         endOnTick={false}
-        tickPositions={ZERO_ARRAY}>
+        tickPositions={ZERO_ARRAY}
+      >
         {Series}
       </YAxis>
 
       {hasSeriesProp && <>{children}</>}
     </HighchartsChart>
-  );
-};
+  )
+}
 
 HighchartsSparkline.propTypes = {
   height: PropTypes.number,
@@ -93,6 +94,6 @@ HighchartsSparkline.propTypes = {
   plotOptions: PropTypes.object,
   series: PropTypes.node,
   children: PropTypes.node
-};
+}
 
-export default HighchartsSparkline;
+export default HighchartsSparkline

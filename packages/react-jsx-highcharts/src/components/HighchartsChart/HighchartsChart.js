@@ -1,16 +1,17 @@
-import React from 'react';
-import BaseChart from '../BaseChart';
-import useHighcharts from '../UseHighcharts';
+import React from 'react'
+import BaseChart from '../BaseChart'
+import useHighcharts from '../UseHighcharts'
 
 const HighchartsChart = (props) => {
-  const Highcharts = useHighcharts();
+  const Highcharts = useHighcharts()
 
   return (
     <BaseChart
       {...props}
       chartCreationFunc={Highcharts.chart}
-      chartType="chart" />
+      chartType='chart'
+    />
   )
 }
 
-export default HighchartsChart;
+export default HighchartsChart

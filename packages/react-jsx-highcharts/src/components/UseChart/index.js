@@ -1,8 +1,8 @@
-import { useContext } from 'react';
-import ChartContext from '../ChartContext';
+import { useContext } from 'react'
+import ChartContext from '../ChartContext'
 
-export default function useChart() {
-  const ctxValue = useContext(ChartContext);
+export default function useChart () {
+  const ctxValue = useContext(ChartContext)
 
-  return ctxValue;
+  return ctxValue
 }

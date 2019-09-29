@@ -1,8 +1,8 @@
-import { useContext } from 'react';
-import HighchartsContext from '../HighchartsContext';
+import { useContext } from 'react'
+import HighchartsContext from '../HighchartsContext'
 
-export default function useHighcharts() {
-  const Highcharts = useContext(HighchartsContext);
+export default function useHighcharts () {
+  const Highcharts = useContext(HighchartsContext)
 
-  return Highcharts;
+  return Highcharts
 }

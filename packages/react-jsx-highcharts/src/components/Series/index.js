@@ -1,2 +1,2 @@
-import Series from './Series';
-export default Series;
+import Series from './Series'
+export default Series

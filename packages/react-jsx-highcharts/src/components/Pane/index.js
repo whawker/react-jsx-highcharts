@@ -1,2 +1,2 @@
-import Pane from './Pane';
-export default Pane;
+import Pane from './Pane'
+export default Pane

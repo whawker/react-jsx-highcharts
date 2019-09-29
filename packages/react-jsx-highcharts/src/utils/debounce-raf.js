@@ -17,10 +17,10 @@ const cancelAnimationFrame = window.cancelAnimationFrame
 const requestAnimationFrame = window.requestAnimationFrame
 
 export default function (fn) {
-  var queued;
+  var queued
   return function (...args) {
-    if (queued) cancelAnimationFrame(queued);
+    if (queued) cancelAnimationFrame(queued)
 
-    queued = requestAnimationFrame(fn.bind(fn, ...args));
+    queued = requestAnimationFrame(fn.bind(fn, ...args))
   }
 }

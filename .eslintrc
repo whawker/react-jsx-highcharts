@@ -14,7 +14,8 @@
     "es6": true
   },
   "extends": [
-    "eslint:recommended",
+    "standard",
+    "standard-react",
     "plugin:react/recommended",
     "plugin:import/errors",
     "plugin:react-perf/recommended"
@@ -25,8 +26,9 @@
       { "varsIgnorePattern": "^React$", "ignoreRestSiblings": true }
     ],
     "react/prop-types": "warn",
+    "react/no-unused-prop-types": "warn",
     "prefer-object-spread": "warn",
-    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/rules-of-hooks": "error"
   },
   "globals": {
     "process": false

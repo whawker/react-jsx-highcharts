@@ -1,35 +1,35 @@
-import { useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { isEmpty } from 'lodash-es';
-import { useHighcharts, useChart } from 'react-jsx-highcharts';
+import { useEffect } from 'react'
+import PropTypes from 'prop-types'
+import { isEmpty } from 'lodash-es'
+import { useHighcharts, useChart } from 'react-jsx-highcharts'
 
 const MapNavigationButton = (props) => {
-  const Highcharts = useHighcharts();
-  const chart = useChart();
+  const Highcharts = useHighcharts()
+  const chart = useChart()
 
   useEffect(() => {
-    const { type, ...rest } = props;
-    const opts = getMapNavigationButtonConfig(rest, Highcharts);
-    updateMapNavigationButton(type, opts, chart);
+    const { type, ...rest } = props
+    const opts = getMapNavigationButtonConfig(rest, Highcharts)
+    updateMapNavigationButton(type, opts, chart)
 
     return () => {
       // TODO removeButton was missing in original class?
-      //const { type } = props;
-      //attempt(this.removeButton, type, {});
+      // const { type } = props;
+      // attempt(this.removeButton, type, {});
     }
   }, [])
 
-  return null;
+  return null
 }
 const getMapNavigationButtonConfig = (props, Highcharts) => {
-  const { children: text, onClick: onclick, ...rest } = props;
+  const { children: text, onClick: onclick, ...rest } = props
 
   return {
     ...(Highcharts.defaultOptions && Highcharts.defaultOptions.mapNavigation.buttonOptions),
     onclick, // Weird Highcharts inconsistency, onclick instead of events: { click }
     ...rest,
     text
-  };
+  }
 }
 
 const updateMapNavigationButton = (type, config, chart) => {
@@ -45,6 +45,6 @@ const updateMapNavigationButton = (type, config, chart) => {
 
 MapNavigationButton.propTypes = {
   type: PropTypes.oneOf(['zoomIn', 'zoomOut']).isRequired
-};
+}
 
-export default MapNavigationButton;
+export default MapNavigationButton

@@ -1,57 +1,56 @@
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { attempt } from 'lodash-es';
-import { useHighcharts, useAxis, useChart, useModifiedProps } from 'react-jsx-highcharts';
+import React, { useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
+import { attempt } from 'lodash-es'
+import { useHighcharts, useAxis, useChart, useModifiedProps } from 'react-jsx-highcharts'
 
 const RangeSelectorInner = ({ enabled = true, children, ...restProps }) => {
-  const props = { enabled, ...restProps };
-  const [rendered, setRendered] = useState(false);
-  const Highcharts = useHighcharts();
-  const chart = useChart();
-  const axis = useAxis('xAxis');
-
+  const props = { enabled, ...restProps }
+  const [rendered, setRendered] = useState(false)
+  const Highcharts = useHighcharts()
+  const chart = useChart()
+  const axis = useAxis('xAxis')
 
   useEffect(() => {
-    if (!axis) return;
+    if (!axis) return
 
     // Workaround inferred from http://jsfiddle.net/x40me94t/2/
-    const chartObj = chart.object;
-    chartObj.options.rangeSelector.enabled = true;
+    const chartObj = chart.object
+    chartObj.options.rangeSelector.enabled = true
     // Initialise RangeSelector (see https://github.com/highcharts/highcharts/blob/dd730ab/js/parts/RangeSelector.js#L1464-L1468)
-    Highcharts.fireEvent(chartObj, 'afterGetContainer');
+    Highcharts.fireEvent(chartObj, 'afterGetContainer')
 
-    const opts = getRangeSelectorConfig(props, Highcharts);
-    updateRangeSelector(opts, chart);
+    const opts = getRangeSelectorConfig(props, Highcharts)
+    updateRangeSelector(opts, chart)
 
-    const renderRangeSelector = createRenderRangeSelector(chart, axis);
-    const axisObj = axis.object;
-    Highcharts.addEvent(axisObj, 'afterSetExtremes', renderRangeSelector);
+    const renderRangeSelector = createRenderRangeSelector(chart, axis)
+    const axisObj = axis.object
+    Highcharts.addEvent(axisObj, 'afterSetExtremes', renderRangeSelector)
 
-    setRendered(true);
+    setRendered(true)
 
-    return (() => {
-      const axisObj = axis.object;
-      Highcharts.removeEvent(axisObj, 'afterSetExtremes', renderRangeSelector);
+    return () => {
+      const axisObj = axis.object
+      Highcharts.removeEvent(axisObj, 'afterSetExtremes', renderRangeSelector)
 
-      attempt(updateRangeSelector, { enabled: false }, chart);
-    })
-  },[axis])
+      attempt(updateRangeSelector, { enabled: false }, chart)
+    }
+  }, [axis])
 
-  const modifiedProps = useModifiedProps(props);
+  const modifiedProps = useModifiedProps(props)
 
   useEffect(() => {
-    if(!axis || !rendered) return;
+    if (!axis || !rendered) return
 
     if (modifiedProps !== false) {
-      updateRangeSelector(modifiedProps, chart);
+      updateRangeSelector(modifiedProps, chart)
     }
   })
 
-  if (!children || !rendered) return null;
+  if (!children || !rendered) return null
 
   return (
     <>{children}</>
-  );
+  )
 }
 
 const getRangeSelectorConfig = (props, Highcharts) => {
@@ -60,26 +59,26 @@ const getRangeSelectorConfig = (props, Highcharts) => {
     ...props,
     inputEnabled: false,
     buttons: []
-  };
+  }
 }
 
 const updateRangeSelector = (config, chart) => {
   chart.update({
     rangeSelector: config
-  }, true);
+  }, true)
 }
 
 const createRenderRangeSelector = (chart, axis) => {
   return () => {
-    const chartObj = chart.object;
-    const extremes = axis.getExtremes();
+    const chartObj = chart.object
+    const extremes = axis.getExtremes()
     // Fixes #40
-    chartObj.rangeSelector.render.call(chartObj.rangeSelector, extremes.min, extremes.max);
+    chartObj.rangeSelector.render.call(chartObj.rangeSelector, extremes.min, extremes.max) // eslint-disable-line no-useless-call
   }
 }
 
 RangeSelectorInner.propTypes = {
   enabled: PropTypes.bool
-};
+}
 
-export default RangeSelectorInner;
+export default RangeSelectorInner

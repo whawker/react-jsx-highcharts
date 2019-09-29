@@ -1,2 +1,2 @@
-import HighchartsMapChart from './HighchartsMapChart';
-export default HighchartsMapChart;
+import HighchartsMapChart from './HighchartsMapChart'
+export default HighchartsMapChart

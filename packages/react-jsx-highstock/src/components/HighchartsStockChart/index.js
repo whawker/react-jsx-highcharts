@@ -1,2 +1,2 @@
-import HighchartsStockChart from './HighchartsStockChart';
-export default HighchartsStockChart;
+import HighchartsStockChart from './HighchartsStockChart'
+export default HighchartsStockChart

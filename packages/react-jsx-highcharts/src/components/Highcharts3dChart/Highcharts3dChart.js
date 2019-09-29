@@ -1,13 +1,13 @@
-import React from 'react';
-import HighchartsChart from '../HighchartsChart';
-import Options3d from '../Options3d';
+import React from 'react'
+import HighchartsChart from '../HighchartsChart'
+import Options3d from '../Options3d'
 
 const CHART = {
   options3d: { enabled: true }
-};
+}
 const ZAXIS = {
   id: 'zAxis'
-};
+}
 
 const Highcharts3dChart = ({
   children,
@@ -32,7 +32,7 @@ const Highcharts3dChart = ({
     />
     {children}
   </HighchartsChart>
-);
-Highcharts3dChart.propTypes = Options3d.propTypes;
+)
+Highcharts3dChart.propTypes = Options3d.propTypes
 
-export default Highcharts3dChart;
+export default Highcharts3dChart

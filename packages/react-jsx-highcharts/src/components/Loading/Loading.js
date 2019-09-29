@@ -1,31 +1,31 @@
-import { useEffect, memo } from 'react';
-import PropTypes from 'prop-types';
-import { attempt } from 'lodash-es';
-import useModifiedProps from '../UseModifiedProps';
-import useChart from '../UseChart';
+import { useEffect, memo } from 'react'
+import PropTypes from 'prop-types'
+import { attempt } from 'lodash-es'
+import useModifiedProps from '../UseModifiedProps'
+import useChart from '../UseChart'
 
 const Loading = memo(({ children, isLoading = true, ...restProps }) => {
-  const chart = useChart();
+  const chart = useChart()
 
-  const modifiedProps = useModifiedProps(restProps);
+  const modifiedProps = useModifiedProps(restProps)
   useEffect(() => {
     if (modifiedProps !== false) {
-      updateLoading(modifiedProps, chart);
+      updateLoading(modifiedProps, chart)
     }
-    if (isLoading) chart.showLoading(children);
-    if (!isLoading) chart.hideLoading();
+    if (isLoading) chart.showLoading(children)
+    if (!isLoading) chart.hideLoading()
   })
-  useEffect(()=> {
-    return () => attempt(chart.hideLoading);
-  },[]);
+  useEffect(() => {
+    return () => attempt(chart.hideLoading)
+  }, [])
 
-  return null;
+  return null
 })
 
 const updateLoading = (config, chart) => {
   chart.update({
     loading: config
-  }, true);
+  }, true)
 }
 
 Loading.propTypes = {
@@ -33,8 +33,8 @@ Loading.propTypes = {
   hideDuration: PropTypes.number,
   labelStyle: PropTypes.object,
   showDuration: PropTypes.number,
-  style: PropTypes.object,
-};
+  style: PropTypes.object
+}
 
-Loading.displayName = 'Loading';
-export default Loading;
+Loading.displayName = 'Loading'
+export default Loading

@@ -1,2 +1,2 @@
-import XAxis from './XAxis';
-export default XAxis;
+import XAxis from './XAxis'
+export default XAxis

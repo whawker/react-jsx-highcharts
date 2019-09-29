@@ -1,9 +1,9 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect } from 'react'
 
-export default function usePrevious(value) {
-  const ref = useRef();
+export default function usePrevious (value) {
+  const ref = useRef()
   useEffect(() => {
-    ref.current = value;
-  });
-  return ref.current;
+    ref.current = value
+  })
+  return ref.current
 }

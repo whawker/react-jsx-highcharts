@@ -1,12 +1,10 @@
-import React, { useEffect, memo } from 'react';
-import PropTypes from 'prop-types';
-import { log3DModuleErrorMessage } from '../../utils/warnings';
-import useHighcharts from '../UseHighcharts';
-import useChart from '../UseChart';
+import React, { useEffect, memo } from 'react'
+import PropTypes from 'prop-types'
+import { log3DModuleErrorMessage } from '../../utils/warnings'
+import useHighcharts from '../UseHighcharts'
+import useChart from '../UseChart'
 
-
-
-const DEFAULT_FRAME= {
+const DEFAULT_FRAME = {
   visible: 'default',
   size: 1,
   bottom: {},
@@ -15,8 +13,7 @@ const DEFAULT_FRAME= {
   right: {},
   back: {},
   front: {}
-};
-
+}
 
 const Options3d = memo(({
   enabled = false,
@@ -29,20 +26,20 @@ const Options3d = memo(({
   frame = DEFAULT_FRAME,
   ...restProps
 }) => {
-  const props = { enabled, alpha, beta, depth, fitToPlot, viewDistance, axisLabelPosition, frame, ...restProps};
-  const Highcharts = useHighcharts();
-  const chart = useChart();
+  const props = { enabled, alpha, beta, depth, fitToPlot, viewDistance, axisLabelPosition, frame, ...restProps }
+  const Highcharts = useHighcharts()
+  const chart = useChart()
 
   if (process.env.NODE_ENV === 'development') {
-    if (!Highcharts.ZAxis) log3DModuleErrorMessage();
+    if (!Highcharts.ZAxis) log3DModuleErrorMessage()
   }
 
   useEffect(() => {
-    update3dOptions(chart, props);
-  });
+    update3dOptions(chart, props)
+  })
 
-  return null;
-});
+  return null
+})
 
 const update3dOptions = (chart, props) => {
   const {
@@ -53,7 +50,7 @@ const update3dOptions = (chart, props) => {
     fitToPlot,
     frame,
     viewDistance
-  } = props;
+  } = props
 
   const opts = {
     chart: {
@@ -68,9 +65,9 @@ const update3dOptions = (chart, props) => {
         viewDistance
       }
     }
-  };
-  chart.update(opts, true);
-};
+  }
+  chart.update(opts, true)
+}
 
 Options3d.propTypes = {
   alpha: PropTypes.number,
@@ -80,8 +77,8 @@ Options3d.propTypes = {
   fitToPlot: PropTypes.bool,
   frame: PropTypes.object,
   viewDistance: PropTypes.number
-};
+}
 
-Options3d.displayName = 'Options3d';
+Options3d.displayName = 'Options3d'
 
-export default Options3d;
+export default Options3d

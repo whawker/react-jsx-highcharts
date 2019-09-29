@@ -1,6 +1,6 @@
-import { memo } from 'react';
-import PropTypes from 'prop-types';
-import useChartUpdate from '../UseChartUpdate';
+import { memo } from 'react'
+import PropTypes from 'prop-types'
+import useChartUpdate from '../UseChartUpdate'
 
 const Legend = memo(({ children = null, enabled = true, ...restProps }) => {
   useChartUpdate(
@@ -11,22 +11,22 @@ const Legend = memo(({ children = null, enabled = true, ...restProps }) => {
         enabled: false
       }),
     false
-  );
+  )
 
-  return children;
-});
+  return children
+})
 const updateLegend = (chart, config) => {
   chart.update(
     {
       legend: config
     },
     false
-  );
-};
+  )
+}
 
 Legend.propTypes = {
   enabled: PropTypes.bool
-};
-Legend.displayName = 'Legend';
+}
+Legend.displayName = 'Legend'
 
-export default Legend;
+export default Legend

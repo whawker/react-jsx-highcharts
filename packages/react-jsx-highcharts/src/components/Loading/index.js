@@ -1,2 +1,2 @@
-import Loading from './Loading';
-export default Loading;
+import Loading from './Loading'
+export default Loading

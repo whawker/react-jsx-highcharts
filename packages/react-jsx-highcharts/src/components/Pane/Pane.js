@@ -1,11 +1,11 @@
-import { memo } from 'react';
-import useChartUpdate from '../UseChartUpdate';
+import { memo } from 'react'
+import useChartUpdate from '../UseChartUpdate'
 
-const Pane = memo(({ children, ...restProps}) => {
-  useChartUpdate(restProps, updatePane, chart => updatePane(chart, {}), false);
+const Pane = memo(({ children, ...restProps }) => {
+  useChartUpdate(restProps, updatePane, chart => updatePane(chart, {}), false)
 
-  return null;
-});
+  return null
+})
 
 const updatePane = (chart, config) => {
   chart.update(
@@ -13,8 +13,8 @@ const updatePane = (chart, config) => {
       pane: config
     },
     false
-  );
-};
-Pane.displayName = 'Pane';
+  )
+}
+Pane.displayName = 'Pane'
 
-export default Pane;
+export default Pane

@@ -1,13 +1,13 @@
-import { memo } from 'react';
-import useChartUpdate from '../UseChartUpdate';
+import { memo } from 'react'
+import useChartUpdate from '../UseChartUpdate'
 
 const LegendTitle = memo(props => {
   useChartUpdate(props, updateLegendTitle, chart =>
     updateLegendTitle(chart, { text: null })
-  );
+  )
 
-  return null;
-});
+  return null
+})
 
 const updateLegendTitle = (chart, config) => {
   chart.update(
@@ -17,9 +17,9 @@ const updateLegendTitle = (chart, config) => {
       }
     },
     false
-  );
-};
+  )
+}
 
-LegendTitle.displayName = 'LegendTitle';
+LegendTitle.displayName = 'LegendTitle'
 
-export default LegendTitle;
+export default LegendTitle

@@ -1,61 +1,61 @@
-import React, { useState, useEffect, Children, cloneElement, isValidElement } from 'react';
-import PropTypes from 'prop-types';
-import { attempt } from 'lodash-es';
-import { useModifiedProps, useChart, useHighcharts } from 'react-jsx-highcharts';
-import NavigatorXAxis from './NavigatorXAxis';
+import React, { useState, useEffect, Children, cloneElement, isValidElement } from 'react'
+import PropTypes from 'prop-types'
+import { attempt } from 'lodash-es'
+import { useModifiedProps, useChart, useHighcharts } from 'react-jsx-highcharts'
+import NavigatorXAxis from './NavigatorXAxis'
 
 const Navigator = ({ enabled = true, ...restProps }) => {
-  const props = { enabled, ...restProps };
-  const [rendered, setRendered] = useState(false);
-  const chart = useChart();
-  const Highcharts = useHighcharts();
+  const props = { enabled, ...restProps }
+  const [rendered, setRendered] = useState(false)
+  const chart = useChart()
+  const Highcharts = useHighcharts()
 
   useEffect(() => {
-    const { children, ...rest } = props;
+    const { children, ...rest } = props
     // Workaround from http://jsfiddle.net/x40me94t/2/
-    const chartObj = chart.object;
-    chartObj.options.navigator.enabled = true;
+    const chartObj = chart.object
+    chartObj.options.navigator.enabled = true
     // Initialise Navigator https://github.com/highcharts/highcharts/blob/dd730ab/js/parts/Navigator.js#L1837-L1844
-    Highcharts.fireEvent(chartObj, 'beforeRender');
+    Highcharts.fireEvent(chartObj, 'beforeRender')
 
-    updateNavigator(rest, chart);
+    updateNavigator(rest, chart)
 
-    setRendered(true);
+    setRendered(true)
 
     return () => {
-      attempt(updateNavigator, { enabled: false }, chart);
+      attempt(updateNavigator, { enabled: false }, chart)
     }
-  }, []);
+  }, [])
 
-  const modifiedProps = useModifiedProps(props);
+  const modifiedProps = useModifiedProps(props)
 
   useEffect(() => {
     if (modifiedProps !== false) {
-      updateNavigator(modifiedProps, chart);
+      updateNavigator(modifiedProps, chart)
     }
-  });
+  })
 
-  const { children } = props;
-  if (!children || !rendered) return null;
+  const { children } = props
+  if (!children || !rendered) return null
 
   const navChildren = Children.map(children, child => {
-    if (isValidElement(child) === false) return child;
-    return cloneElement(child, { rendered });
-  });
+    if (isValidElement(child) === false) return child
+    return cloneElement(child, { rendered })
+  })
 
   return (
     <NavigatorXAxis>{navChildren}</NavigatorXAxis>
-  );
+  )
 }
 
 const updateNavigator = (config, chart) => {
   chart.update({
     navigator: config
-  }, true);
+  }, true)
 }
 
 Navigator.propTypes = {
   enabled: PropTypes.bool
-};
+}
 
-export default Navigator;
+export default Navigator

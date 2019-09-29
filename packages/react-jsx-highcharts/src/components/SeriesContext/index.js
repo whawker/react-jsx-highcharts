@@ -1,6 +1,6 @@
-import { createContext } from 'react';
+import { createContext } from 'react'
 
-const SeriesContext = createContext();
-SeriesContext.displayName = 'SeriesContext';
+const SeriesContext = createContext()
+SeriesContext.displayName = 'SeriesContext'
 
-export default SeriesContext;
+export default SeriesContext

@@ -1,38 +1,38 @@
-import pickBy from './pickBy';
+import pickBy from './pickBy'
 
-export const getEventHandlerProps  = props => {
-  return pickBy(props, _isEventKey);
-};
+export const getEventHandlerProps = props => {
+  return pickBy(props, _isEventKey)
+}
 
 export const getNonEventHandlerProps = props => {
-  return pickBy(props, (key, value) => !_isEventKey(key, value));
-};
+  return pickBy(props, (key, value) => !_isEventKey(key, value))
+}
 
 export const getEventsConfig = props => {
-  const eventProps = getEventHandlerProps(props);
-  const eventsConfig = {};
+  const eventProps = getEventHandlerProps(props)
+  const eventsConfig = {}
 
   Object.entries(eventProps).forEach(([eventName, value]) => {
-    const configName = eventName.slice(2)[0].toLowerCase()+eventName.slice(3);
-    eventsConfig[configName] = value;
-  });
+    const configName = eventName.slice(2)[0].toLowerCase() + eventName.slice(3)
+    eventsConfig[configName] = value
+  })
 
-  return eventsConfig;
+  return eventsConfig
 }
 
 export const addEventHandlersManually = (Highcharts, context, props) => {
-  const eventProps = getEventsConfig(props);
+  const eventProps = getEventsConfig(props)
 
   Object.keys(eventProps).forEach((eventName) => {
-    Highcharts.addEvent(context, eventName, eventProps[eventName]);
-  });
-};
+    Highcharts.addEvent(context, eventName, eventProps[eventName])
+  })
+}
 
 export const addEventHandlers = (updateFn, props, redraw = true) => {
-  const events = getEventsConfig(props);
-  updateFn({ events }, redraw);
-};
+  const events = getEventsConfig(props)
+  updateFn({ events }, redraw)
+}
 
-const _isEventKey = (key, value) => (key.indexOf('on') === 0) && key.length > 2 && typeof value === 'function';
+const _isEventKey = (key, value) => (key.indexOf('on') === 0) && key.length > 2 && typeof value === 'function'
 
-export default addEventHandlers;
+export default addEventHandlers

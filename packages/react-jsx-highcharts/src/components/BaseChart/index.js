@@ -1,2 +1,2 @@
-import BaseChart from './BaseChart';
-export default BaseChart;
+import BaseChart from './BaseChart'
+export default BaseChart

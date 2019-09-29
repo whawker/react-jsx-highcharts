@@ -1,22 +1,21 @@
-import React, { memo } from 'react';
-import PropTypes from 'prop-types';
-import PlotBandLineContext from './PlotBandLineContext';
-import usePlotBandLineLifecycle from './usePlotBandLineLifecycle';
-
+import React, { memo } from 'react'
+import PropTypes from 'prop-types'
+import PlotBandLineContext from './PlotBandLineContext'
+import usePlotBandLineLifecycle from './usePlotBandLineLifecycle'
 
 const PlotBand = memo(props => {
-  const plotband = usePlotBandLineLifecycle(props, 'plotBands');
+  const plotband = usePlotBandLineLifecycle(props, 'plotBands')
 
-  const { children } = props;
+  const { children } = props
 
-  if (!children && !plotband) return null;
+  if (!children && !plotband) return null
 
   return (
     <PlotBandLineContext.Provider value={plotband}>
       {children}
     </PlotBandLineContext.Provider>
-  );
-});
+  )
+})
 
 PlotBand.propTypes = {
   id: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
@@ -24,7 +23,7 @@ PlotBand.propTypes = {
   to: PropTypes.any.isRequired,
   color: PropTypes.string,
   children: PropTypes.node
-};
+}
 
-PlotBand.displayName = 'PlotBand';
-export default PlotBand;
+PlotBand.displayName = 'PlotBand'
+export default PlotBand

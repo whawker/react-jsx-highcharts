@@ -1,7 +1,7 @@
-import { createContext } from 'react';
+import { createContext } from 'react'
 
-const PlotBandLineContext = createContext();
+const PlotBandLineContext = createContext()
 
-PlotBandLineContext.displayName = 'PlotBandLineContext';
+PlotBandLineContext.displayName = 'PlotBandLineContext'
 
-export default PlotBandLineContext;
+export default PlotBandLineContext

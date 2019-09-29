@@ -1,24 +1,23 @@
-import { useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { attempt } from 'lodash-es';
-import { getEventsConfig, useChart } from 'react-jsx-highcharts';
+import { useEffect } from 'react'
+import PropTypes from 'prop-types'
+import { attempt } from 'lodash-es'
+import { getEventsConfig, useChart } from 'react-jsx-highcharts'
 
 const RangeSelectorButton = ({
-  count=1,
-  offsetMin=0,
-  offsetMax=0,
+  count = 1,
+  offsetMin = 0,
+  offsetMax = 0,
   ...restProps
 }) => {
-  const props = { count, offsetMin, offsetMax, ...restProps};
+  const props = { count, offsetMin, offsetMax, ...restProps }
 
-  const chart = useChart();
+  const chart = useChart()
 
   useEffect(() => {
+    const button = getButtonIndex(props, chart)
+    if (button > -1) return // Button already present
 
-    const button = getButtonIndex(props, chart);
-    if (button > -1) return; // Button already present
-
-    const { count, type, offsetMin, offsetMax, dataGrouping, children: text, ...rest } = props;
+    const { count, type, offsetMin, offsetMax, dataGrouping, children: text, ...rest } = props
     const opts = {
       count,
       type,
@@ -27,33 +26,33 @@ const RangeSelectorButton = ({
       dataGrouping,
       text,
       events: getEventsConfig(rest)
-    };
+    }
 
-    addButton(opts, chart);
+    addButton(opts, chart)
 
     return () => {
-      attempt(removeButton, props, chart);
+      attempt(removeButton, props, chart)
     }
-  }, []);
+  }, [])
 
-  return null;
+  return null
 }
 
 const getButtons = (chart) => {
-  const chartObj = chart.object;
+  const chartObj = chart.object
   if (chartObj && chartObj.options) {
-    const { buttons = [] } = chartObj.options.rangeSelector;
-    return buttons;
+    const { buttons = [] } = chartObj.options.rangeSelector
+    return buttons
   }
 
-  return [];
+  return []
 }
 
 const getButtonIndex = (props, chart) => {
-  const { count, type } = props;
+  const { count, type } = props
   return getButtons(chart).findIndex(b => {
-    return (b.count === count && b.type === type);
-  });
+    return (b.count === count && b.type === type)
+  })
 }
 
 const addButton = (config, chart) => {
@@ -61,18 +60,18 @@ const addButton = (config, chart) => {
   const buttons = [
     ...getButtons(chart),
     config
-  ];
-  updateRangeSelectorButtons(buttons, chart);
+  ]
+  updateRangeSelectorButtons(buttons, chart)
 }
 
 const removeButton = (props, chart) => {
-  const button = getButtonIndex(props);
-  if (button === -1) return;
+  const button = getButtonIndex(props)
+  if (button === -1) return
 
   // Remove button from array
-  const buttons = [...getButtons()];
-  buttons.splice(button, 1);
-  updateRangeSelectorButtons(buttons, chart);
+  const buttons = [...getButtons()]
+  buttons.splice(button, 1)
+  updateRangeSelectorButtons(buttons, chart)
 }
 
 const updateRangeSelectorButtons = (config, chart) => {
@@ -80,7 +79,7 @@ const updateRangeSelectorButtons = (config, chart) => {
     rangeSelector: {
       buttons: config
     }
-  });
+  })
 }
 
 RangeSelectorButton.propTypes = {
@@ -89,6 +88,6 @@ RangeSelectorButton.propTypes = {
   offsetMin: PropTypes.number.isRequired,
   offsetMax: PropTypes.number.isRequired,
   dataGrouping: PropTypes.object
-};
+}
 
-export default RangeSelectorButton;
+export default RangeSelectorButton

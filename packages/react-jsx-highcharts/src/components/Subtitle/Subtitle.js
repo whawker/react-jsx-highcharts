@@ -1,18 +1,18 @@
-import { memo } from 'react';
-import useChartUpdate from '../UseChartUpdate';
+import { memo } from 'react'
+import useChartUpdate from '../UseChartUpdate'
 
 const Subtitle = memo(props => {
   useChartUpdate(props, updateSubtitle, chart =>
     updateSubtitle(chart, { text: null })
-  );
+  )
 
-  return null;
-});
+  return null
+})
 
 const updateSubtitle = (chart, config) => {
-  chart.setTitle(undefined, config, false);
-};
+  chart.setTitle(undefined, config, false)
+}
 
-Subtitle.displayName = 'Subtitle';
+Subtitle.displayName = 'Subtitle'
 
-export default Subtitle;
+export default Subtitle

@@ -1,5 +1,5 @@
 const createProvidedAxis = axis => {
-  if(!axis) return null;
+  if (!axis) return null
 
   return {
     object: axis,
@@ -15,4 +15,4 @@ const createProvidedAxis = axis => {
   }
 }
 
-export default createProvidedAxis;
+export default createProvidedAxis

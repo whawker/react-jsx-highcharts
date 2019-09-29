@@ -1,5 +1,5 @@
-import React from 'react';
-import { XAxis } from 'react-jsx-highcharts';
+import React from 'react'
+import { XAxis } from 'react-jsx-highcharts'
 
 const MapXAxis = ({
   endOnTick = false,
@@ -16,9 +16,9 @@ const MapXAxis = ({
     maxPadding={maxPadding}
     startOnTick={startOnTick}
     {...restProps}
-    id="xAxis"
+    id='xAxis'
     dynamicAxis={false}
   />
-);
+)
 
-export default MapXAxis;
+export default MapXAxis

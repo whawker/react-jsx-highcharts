@@ -1,47 +1,48 @@
-import { useContext, useEffect, memo } from 'react';
-import { attempt } from 'lodash-es';
-import PlotLineContext from './PlotBandLineContext';
+import { useContext, useEffect, memo } from 'react'
+import { attempt } from 'lodash-es'
+import PlotLineContext from './PlotBandLineContext'
 
 const PlotBandLineLabel = memo(props => {
-  const plotbandline = useContext(PlotLineContext);
+  const plotbandline = useContext(PlotLineContext)
 
   useEffect(() => {
-    const { children: text, id, ...rest } = props;
+    const { children: text, id, ...rest } = props
     updatePlotBandLineLabel(plotbandline, {
       text,
       ...rest
-    });
-  });
+    })
+  })
 
   useEffect(() => {
     return () => {
       attempt(updatePlotBandLineLabel, plotbandline, {
         text: null
-      });
-    };
-  }, [plotbandline]);
+      })
+    }
+  }, [plotbandline])
 
-  return null;
-});
+  return null
+})
 
 const updatePlotBandLineLabel = (plotbandline, config) => {
   if (plotbandline) {
-    plotbandline.options.label = getLabelProps(config);
-    plotbandline.render();
+    plotbandline.options.label = getLabelProps(config)
+    plotbandline.render()
   }
-};
+}
 
 const getLabelProps = props => {
   const {
-  text,
-  align,
-  rotation,
-  style,
-  textAlign,
-  useHTML,
-  verticalAlign,
-  x,
-  y} = props;
+    text,
+    align,
+    rotation,
+    style,
+    textAlign,
+    useHTML,
+    verticalAlign,
+    x,
+    y
+  } = props
 
   return {
     text,
@@ -52,9 +53,10 @@ const getLabelProps = props => {
     useHTML,
     verticalAlign,
     x,
-    y }
-};
+    y
+  }
+}
 
-PlotBandLineLabel.displayName = 'PlotBandLineLabel';
+PlotBandLineLabel.displayName = 'PlotBandLineLabel'
 
-export default PlotBandLineLabel;
+export default PlotBandLineLabel

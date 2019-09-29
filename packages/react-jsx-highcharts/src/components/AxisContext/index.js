@@ -1,7 +1,7 @@
-import { createContext } from 'react';
+import { createContext } from 'react'
 
-const AxisContext = createContext();
+const AxisContext = createContext()
 
-AxisContext.displayName = 'AxisContext';
+AxisContext.displayName = 'AxisContext'
 
-export default AxisContext;
+export default AxisContext

@@ -1,19 +1,18 @@
-import React, { memo, useRef, useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import uuid from 'uuid/v4';
-import { attempt } from 'lodash-es';
-import SeriesContext from '../SeriesContext';
-import { getNonEventHandlerProps, getEventsConfig } from '../../utils/events';
-import getModifiedProps from '../../utils/getModifiedProps';
-import { logSeriesErrorMessage } from '../../utils/warnings';
-import usePrevious from '../UsePrevious';
-import useHighcharts from '../UseHighcharts';
-import useChart from '../UseChart';
-import useAxis from '../UseAxis';
-import createProvidedSeries from './createProvidedSeries';
+import React, { memo, useRef, useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
+import uuid from 'uuid/v4'
+import { attempt } from 'lodash-es'
+import SeriesContext from '../SeriesContext'
+import { getNonEventHandlerProps, getEventsConfig } from '../../utils/events'
+import getModifiedProps from '../../utils/getModifiedProps'
+import { logSeriesErrorMessage } from '../../utils/warnings'
+import usePrevious from '../UsePrevious'
+import useHighcharts from '../UseHighcharts'
+import useChart from '../UseChart'
+import useAxis from '../UseAxis'
+import createProvidedSeries from './createProvidedSeries'
 
-
-const EMPTY_ARRAY = [];
+const EMPTY_ARRAY = []
 
 const Series = memo(({
   id = uuid,
@@ -25,8 +24,7 @@ const Series = memo(({
   requiresAxis = true,
   ...restProps
 }) => {
-
-  const seriesProps = { id, data, type, visible, ...restProps };
+  const seriesProps = { id, data, type, visible, ...restProps }
 
   /*
   if (defaultTo(restProps.requiresAxis, true)) {
@@ -34,78 +32,78 @@ const Series = memo(({
     if(!axis) throw new Error(`Series type="${restProps.type}" should be wrapped inside Axis`);
   }
 */
-  const Highcharts = useHighcharts();
-  const { addSeries, needsRedraw } = useChart();
+  const Highcharts = useHighcharts()
+  const { addSeries, needsRedraw } = useChart()
 
   if (process.env.NODE_ENV === 'development') {
-    const seriesTypes = Object.keys(Highcharts.seriesTypes);
-    if (seriesTypes.indexOf(type) === -1) logSeriesErrorMessage(type);
+    const seriesTypes = Object.keys(Highcharts.seriesTypes)
+    if (seriesTypes.indexOf(type) === -1) logSeriesErrorMessage(type)
   }
 
-  const seriesRef = useRef(null);
-  const [, setHasSeries] = useState(false);
-  const providerValueRef = useRef(null);
+  const seriesRef = useRef(null)
+  const [, setHasSeries] = useState(false)
+  const providerValueRef = useRef(null)
 
-  const axis = useAxis(axisId);
+  const axis = useAxis(axisId)
 
   useEffect(() => {
-    if (requiresAxis && !axis) return;
-    const opts = getSeriesConfig(seriesProps, axis, requiresAxis);
+    if (requiresAxis && !axis) return
+    const opts = getSeriesConfig(seriesProps, axis, requiresAxis)
 
-    seriesRef.current = addSeries(opts, false);
-    providerValueRef.current = createProvidedSeries(seriesRef.current);
+    seriesRef.current = addSeries(opts, false)
+    providerValueRef.current = createProvidedSeries(seriesRef.current)
 
-    setHasSeries(true);
-    needsRedraw();
+    setHasSeries(true)
+    needsRedraw()
     return () => {
-      const series = seriesRef.current;
+      const series = seriesRef.current
       if (series && series.remove) {
         // Series may have already been removed, i.e. when Axis unmounted
-        attempt(series.remove.bind(series), false);
-        seriesRef.current = null;
-        needsRedraw();
+        attempt(series.remove.bind(series), false)
+        seriesRef.current = null
+        needsRedraw()
       }
-    };
-  }, [axis]);
+    }
+  }, [axis])
 
-  const prevProps = usePrevious(seriesProps);
+  const prevProps = usePrevious(seriesProps)
 
   useEffect(() => {
-    if (!prevProps || !seriesRef.current) return;
-    const series = seriesRef.current;
-    const { visible, data, ...rest } = seriesProps;
+    if (!prevProps || !seriesRef.current) return
+    const series = seriesRef.current
+    const { visible, data, ...rest } = seriesProps
 
-    let doRedraw = false;
+    let doRedraw = false
     // Using setData is more performant than update
     if (Object.is(data, prevProps.data) === false) {
-      series.setData(data, false);
-      doRedraw = true;
+      series.setData(data, false)
+      doRedraw = true
     }
     if (visible !== prevProps.visible) {
-      series.setVisible(visible, false);
-      doRedraw = true;
+      series.setVisible(visible, false)
+      doRedraw = true
     }
 
-    const modifiedProps = getModifiedProps(prevProps, rest);
+    const modifiedProps = getModifiedProps(prevProps, rest)
     if (modifiedProps !== false) {
-      series.update(modifiedProps, false);
-      doRedraw = true;
+      series.update(modifiedProps, false)
+      doRedraw = true
     }
     if (doRedraw) {
-      needsRedraw();
+      needsRedraw()
     }
-  });
+  })
 
-  if (!seriesRef.current) return null;
+  if (!seriesRef.current) return null
 
   return (
     <SeriesContext.Provider value={providerValueRef.current}>
       {children}
     </SeriesContext.Provider>
-  );
-});
+  )
+})
 
-Series.displayName = 'Series';
+Series.displayName = 'Series'
 
 Series.propTypes = {
   id: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
@@ -115,27 +113,27 @@ Series.propTypes = {
   children: PropTypes.node,
   axisId: PropTypes.string,
   requiresAxis: PropTypes.bool
-};
+}
 
 const getSeriesConfig = (props, axis, requiresAxis) => {
-  const { id, data, ...rest } = props;
+  const { id, data, ...rest } = props
 
-  const seriesId = typeof id === 'function' ? id() : id;
-  const nonEventProps = getNonEventHandlerProps(rest);
-  const events = getEventsConfig(rest);
+  const seriesId = typeof id === 'function' ? id() : id
+  const nonEventProps = getNonEventHandlerProps(rest)
+  const events = getEventsConfig(rest)
 
   const config = {
     id: seriesId,
     data,
     events,
     ...nonEventProps
-  };
-
-  if (requiresAxis) {
-    config[axis.type] = axis.id;
   }
 
-  return config;
-};
+  if (requiresAxis) {
+    config[axis.type] = axis.id
+  }
 
-export default Series;
+  return config
+}
+
+export default Series

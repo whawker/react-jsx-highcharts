@@ -1,5 +1,5 @@
-import React from 'react';
-import { YAxis } from 'react-jsx-highcharts';
+import React from 'react'
+import { YAxis } from 'react-jsx-highcharts'
 
 const MapYAxis = ({
   endOnTick = false,
@@ -18,9 +18,9 @@ const MapYAxis = ({
     startOnTick={startOnTick}
     reversed={reversed}
     {...restProps}
-    id="yAxis"
+    id='yAxis'
     dynamicAxis={false}
   />
-);
+)
 
-export default MapYAxis;
+export default MapYAxis

@@ -1,5 +1,5 @@
-export default function createProvidedSeries(series) {
-  if(!series) return null;
+export default function createProvidedSeries (series) {
+  if (!series) return null
 
   return {
     object: series,
@@ -9,5 +9,5 @@ export default function createProvidedSeries(series) {
     remove: series.remove.bind(series),
     setData: series.setData.bind(series),
     setVisible: series.setVisible.bind(series)
-  };
+  }
 }

@@ -1,2 +1,2 @@
-import HighchartsSparkline from './HighchartsSparkline';
-export default HighchartsSparkline;
+import HighchartsSparkline from './HighchartsSparkline'
+export default HighchartsSparkline

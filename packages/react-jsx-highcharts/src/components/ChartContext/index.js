@@ -1,6 +1,6 @@
-import { createContext } from 'react';
+import { createContext } from 'react'
 
-const ChartContext = createContext();
-ChartContext.displayName = 'ChartContext';
+const ChartContext = createContext()
+ChartContext.displayName = 'ChartContext'
 
-export default ChartContext;
+export default ChartContext
