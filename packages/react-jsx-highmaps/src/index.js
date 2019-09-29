@@ -3,6 +3,7 @@ export {
   Chart,
   Credits,
   Debug,
+  HighchartsProvider as HighmapsProvider,
   Loading,
   Legend,
   Series,
