@@ -16,7 +16,8 @@ const MapNavigation = ({ children, enabled = true, ...restProps}) => {
     // Workaround inferred from http://jsfiddle.net/x40me94t/2/
     const chartObj = chart.object;
     chartObj.options.mapNavigation.enabled = true;
-    Highcharts.fireEvent(chartObj, 'beforeRender'); // Highcharts 6.1+
+    // Initialise MapNavigation https://github.com/highcharts/highcharts/blob/dd730ab/js/parts-map/MapNavigation.js#L288-L294
+    Highcharts.fireEvent(chartObj, 'beforeRender');
 
     const opts = getMapNavigationConfig({ enabled, ...restProps}, Highcharts);
     updateMapNavigation(opts, chart);

@@ -15,6 +15,7 @@ const Navigator = ({ enabled = true, ...restProps }) => {
     // Workaround from http://jsfiddle.net/x40me94t/2/
     const chartObj = chart.object;
     chartObj.options.navigator.enabled = true;
+    // Initialise Navigator https://github.com/highcharts/highcharts/blob/dd730ab/js/parts/Navigator.js#L1837-L1844
     Highcharts.fireEvent(chartObj, 'beforeRender');
 
     updateNavigator(rest, chart);

@@ -17,8 +17,8 @@ const RangeSelectorInner = ({ enabled = true, children, ...restProps }) => {
     // Workaround inferred from http://jsfiddle.net/x40me94t/2/
     const chartObj = chart.object;
     chartObj.options.rangeSelector.enabled = true;
-    Highcharts.fireEvent(chartObj, 'init'); // Pre Highcharts 6.1
-    Highcharts.fireEvent(chartObj, 'afterGetContainer'); // Highcharts 6.1+
+    // Initialise RangeSelector (see https://github.com/highcharts/highcharts/blob/dd730ab/js/parts/RangeSelector.js#L1464-L1468)
+    Highcharts.fireEvent(chartObj, 'afterGetContainer');
 
     const opts = getRangeSelectorConfig(props, Highcharts);
     updateRangeSelector(opts, chart);
