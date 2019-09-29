@@ -1,6 +1,6 @@
 {
   "name": "react-jsx-highmaps",
-  "version": "1.3.1",
+  "version": "2.0.0-alpha.4",
   "description": "Highmaps built using React components",
   "main": "dist/react-jsx-highmaps.min.js",
   "module": "dist/es/index.js",
@@ -44,7 +44,7 @@
   "dependencies": {
     "@babel/runtime": "^7.6.2",
     "lodash-es": "^4.17.13",
-    "react-jsx-highcharts": "~3.6.0"
+    "react-jsx-highcharts": "^4.0.0-alpha.4"
   },
   "devDependencies": {
     "@babel/cli": "^7.6.2",
