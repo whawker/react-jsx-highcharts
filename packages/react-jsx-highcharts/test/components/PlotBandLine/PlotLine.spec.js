@@ -73,6 +73,16 @@ describe('<PlotLine />', () => {
         width:10
       }, 'plotLines');
     });
+    it('does not remove plotline when only children change', () => {
+      const wrapper = mount(
+        <PlotLine id="myplotline" value={3} width={10} />
+      );
+      testContext.axisStubs.addPlotBandOrLine.mockClear();
+      testContext.axisStubs.removePlotBandOrLine.mockClear();
+      wrapper.setProps({ children: <div/> });
+      expect(testContext.axisStubs.addPlotBandOrLine).not.toHaveBeenCalled();
+      expect(testContext.axisStubs.removePlotBandOrLine).not.toHaveBeenCalled();
+    });
   })
 
   describe('when unmounted', () => {
