@@ -1,61 +1,40 @@
-import { Component } from 'react';
+import { useEffect, memo } from 'react';
 import PropTypes from 'prop-types';
 import { attempt } from 'lodash-es';
-import getModifiedProps from '../../utils/getModifiedProps';
+import useModifiedProps from '../UseModifiedProps';
+import useChart from '../UseChart';
 
-class Loading extends Component {
+const Loading = memo(({ children, isLoading = true, ...restProps }) => {
+  const chart = useChart();
 
-  static propTypes = {
-    isLoading: PropTypes.bool.isRequired,
-    hideDuration: PropTypes.number,
-    labelStyle: PropTypes.object,
-    showDuration: PropTypes.number,
-    style: PropTypes.object,
-    getChart: PropTypes.func // Provided by ChartProvider
-  };
-
-  static defaultProps = {
-    isLoading: true
-  };
-
-  componentDidMount () {
-    const { children, isLoading, getChart, ...rest } = this.props;
-    this.updateLoading(rest);
-    if (isLoading) {
-      const chart = getChart();
-      chart.showLoading(children);
-    }
-  }
-
-  componentDidUpdate (prevProps) {
-    const { children, isLoading, getChart, ...rest } = this.props;
-    const modifiedProps = getModifiedProps(prevProps, rest);
-
+  const modifiedProps = useModifiedProps(restProps);
+  useEffect(() => {
     if (modifiedProps !== false) {
-      this.updateLoading(modifiedProps);
+      updateLoading(modifiedProps, chart);
     }
-    if (isLoading !== prevProps.isLoading) {
-      const chart = getChart();
-      if (isLoading) chart.showLoading(children);
-      if (!isLoading) chart.hideLoading();
-    }
-  }
+    if (isLoading) chart.showLoading(children);
+    if (!isLoading) chart.hideLoading();
+  })
+  useEffect(()=> {
+    return () => attempt(chart.hideLoading);
+  },[]);
 
-  componentWillUnmount () {
-    const chart = this.props.getChart();
-    attempt(chart.hideLoading);
-  }
+  return null;
+})
 
-  updateLoading = config => {
-    const chart = this.props.getChart();
-    chart.update({
-      loading: config
-    }, true);
-  }
-
-  render () {
-    return null
-  }
+const updateLoading = (config, chart) => {
+  chart.update({
+    loading: config
+  }, true);
 }
 
+Loading.propTypes = {
+  isLoading: PropTypes.bool,
+  hideDuration: PropTypes.number,
+  labelStyle: PropTypes.object,
+  showDuration: PropTypes.number,
+  style: PropTypes.object,
+};
+
+Loading.displayName = 'Loading';
 export default Loading;

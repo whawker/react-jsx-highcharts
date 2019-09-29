@@ -13,10 +13,6 @@ export {
   HighchartsChartContext,
   HighchartsAxisContext,
   HighchartsSeriesContext,
-  provideHighcharts,
-  provideChart,
-  provideAxis,
-  provideSeries,
   withHighcharts as withHighmaps,
   withSeriesType
 } from 'react-jsx-highcharts';

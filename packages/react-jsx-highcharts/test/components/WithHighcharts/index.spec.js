@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import withHighcharts from '../../../src/components/WithHighcharts';
-import { Consumer } from '../../../src/components/HighchartsContext'
+import HighchartsContext from '../../../src/components/HighchartsContext'
 import { Highcharts } from '../../test-utils';
 
 const ChildComponent = ({ value }) => (
@@ -8,11 +8,11 @@ const ChildComponent = ({ value }) => (
 )
 
 const WrappedComponent = props => (
-  <Consumer>
+  <HighchartsContext.Consumer>
     { value => (
       <ChildComponent value={ value } />
     )}
-  </Consumer>
+  </HighchartsContext.Consumer>
 );
 
 describe('withHighcharts', () => {
@@ -21,8 +21,8 @@ describe('withHighcharts', () => {
 
     const wrapper = mount(<WithHighchartsComponent />);
     const child = wrapper.find(ChildComponent);
-
-    expect(child).toHaveProp('value', Highcharts);
+    const providedValue = child.prop('value');
+    expect(providedValue).toEqual(Highcharts);
   });
 
   it('should create a Highcharts context with the provided object (2)', () => {
@@ -31,6 +31,7 @@ describe('withHighcharts', () => {
     const wrapper = mount(<WithHighchartsComponent />);
 
     const child = wrapper.find(ChildComponent);
-    expect(child).toHaveProp('value', HighchartsWithExtraFunctionality);
+    const providedValue = child.prop('value');
+    expect(providedValue).toEqual(HighchartsWithExtraFunctionality);
   });
 });

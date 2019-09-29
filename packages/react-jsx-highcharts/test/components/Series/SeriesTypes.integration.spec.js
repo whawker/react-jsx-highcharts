@@ -28,11 +28,9 @@ import {
   Chart,
   YAxis,
   XAxis,
-  Navigator,
-  withHighcharts,
-  Title
+  withHighcharts
 } from '../../../src';
-import { renderIntoDocument } from 'react-dom/test-utils'
+import { act, renderIntoDocument } from 'react-dom/test-utils'
 
 import * as all from '../../../src';
 import Series from '../../../src/components/Series';
@@ -60,22 +58,39 @@ addWindBarbModule(Highcharts);
 addXRangeModule(Highcharts);
 
 const skippedSeries = ['BarSeries'];
-const noAxisSeries = ['PieSeries', 'VariablePieSeries','PyramidSeries', 'FunnelSeries', 'VennSeries'];
+const noAxisSeries = ['PieSeries', 'VariablePieSeries','PyramidSeries', 'FunnelSeries', 'VennSeries', 'PackedBubbleSeries'];
 const needParentSeries = ['BellCurveSeries','HistogramSeries', 'ParetoSeries'];
 
 Object.keys(all).filter(name => /^[A-Z].*Series$/.test(name)).forEach((seriesName) => {
   if (skippedSeries.includes(seriesName)) return;
-
   const seriesType = seriesName.substring(0, seriesName.indexOf('Series')).toLowerCase();
   const SeriesComponent = all[seriesName]; // eslint-disable-line import/namespace
 
   describe(`<${seriesName} /> integration`, () => {
+
+    beforeAll(function () {
+      jest.useFakeTimers();
+    });
+
+    beforeEach(() => {
+      jest.spyOn(window, 'requestAnimationFrame').mockImplementation(cb => window.setTimeout(cb, 0));
+      jest.spyOn(window, 'cancelAnimationFrame');
+    });
+
+    afterEach(() => {
+      window.requestAnimationFrame.mockRestore();
+      window.cancelAnimationFrame.mockRestore();
+      jest.clearAllTimers();
+    });
 
     if(seriesType in Highcharts.seriesTypes) {
       it('renders with real highcharts', (done) => {
         const afterAddSeries = (event) => {
           expect(event.target.series.length).toBe(1);
           expect(event.target.series[0].type).toBe(seriesType);
+          if (!noAxisSeries.includes(seriesName)) {
+            expect(event.target.series[0].yAxis.userOptions.id).toBe("myYAxis");
+          }
           done();
         }
         const Component = (props) => {
@@ -84,14 +99,17 @@ Object.keys(all).filter(name => /^[A-Z].*Series$/.test(name)).forEach((seriesNam
               <Chart zoomType="x" onAfterAddSeries={afterAddSeries}/>
               <XAxis>
               </XAxis>
-              <YAxis>
-                <SeriesComponent data={[1,2,3,4]}/>
+              <YAxis id="myYAxis">
               </YAxis>
+              <SeriesComponent axisId="myYAxis" data={[1,2,3,4]}/>
             </HighchartsChart>
           )
         };
         const WithComponent = withHighcharts(Component, Highcharts);
         const renderedChart = renderIntoDocument(<WithComponent />);
+        act(() => {
+          jest.runAllTimers();
+        });
       });
       it('binds hide event correctly', (done) => {
         const afterAddSeries = (event) => {
@@ -116,7 +134,9 @@ Object.keys(all).filter(name => /^[A-Z].*Series$/.test(name)).forEach((seriesNam
         };
         const WithComponent = withHighcharts(Component, Highcharts);
         const renderedChart = renderIntoDocument(<WithComponent />);
-
+        act(() => {
+          jest.runAllTimers();
+        });
       });
     }
   });

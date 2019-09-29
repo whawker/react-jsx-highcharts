@@ -1,3 +1,4 @@
+/* eslint-env node */
 let ENV = process.env.BABEL_ENV || process.env.NODE_ENV || 'development';
 let config = {
   "plugins": [

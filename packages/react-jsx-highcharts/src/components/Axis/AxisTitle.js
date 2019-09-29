@@ -1,41 +1,29 @@
-import { Component } from 'react';
-import PropTypes from 'prop-types';
+import { useEffect, memo } from 'react';
 import { attempt } from 'lodash-es';
-import getModifiedProps from '../../utils/getModifiedProps';
+import useAxis from '../UseAxis';
 
-class AxisTitle extends Component {
+const AxisTitle = memo(({ children: text, axisId, ...restProps}) => {
+  const axis = useAxis(axisId);
 
-  static propTypes = {
-    getAxis: PropTypes.func // Provided by AxisProvider
-  };
-
-  componentDidMount () {
-    const { children: text, ...rest } = this.props; // eslint-disable-line no-unused-vars
-    this.updateAxisTitle({
-      ...rest,
-      text
-    });
-  }
-
-  componentDidUpdate (prevProps) {
-    const modifiedProps = getModifiedProps(prevProps, this.props, true);
-    if (modifiedProps !== false) {
-      this.updateAxisTitle(modifiedProps);
+  useEffect(() => {
+    if (axis) {
+      updateAxisTitle({ text, ...restProps}, axis);
     }
-  }
+  });
 
-  componentWillUnmount () {
-    attempt(this.updateAxisTitle, { text: null });
-  }
+  useEffect(() => {
+    return () => {
+      if (axis) attempt(updateAxisTitle, { text: null }, axis);
+    };
+  }, [axis]);
 
-  updateAxisTitle = config => {
-    const axis = this.props.getAxis();
-    axis.setTitle(config, true);
-  }
+  return null;
+});
 
-  render () {
-    return null;
-  }
-}
+const updateAxisTitle = (config, axis) => {
+  axis.setTitle(config, true);
+};
+
+AxisTitle.displayName = 'AxisTitle';
 
 export default AxisTitle;

@@ -1,11 +1,9 @@
-import React, { Component } from 'react';
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
-import memoizeOne from 'memoize-one';
 import HighchartsChart from '../HighchartsChart';
 import Chart from '../Chart';
 import XAxis from '../XAxis';
 import YAxis from '../YAxis';
-import Hidden from '../Hidden';
 
 const defaultSparklinePlotOptions = {
   series: {
@@ -30,67 +28,71 @@ const defaultSparklinePlotOptions = {
 };
 
 const EMPTY_ARRAY = [];
+const EMPTY_OBJECT = {};
 const ZERO_ARRAY = [0];
 const LABELS_DISABLED = { enabled: false };
+const DEFAULT_MARGIN = [2, 0, 2, 0];
 
-class HighchartsSparkline extends Component {
+const HighchartsSparkline = ({
+  height = 20,
+  width = 120,
+  margin = DEFAULT_MARGIN,
+  style = EMPTY_OBJECT,
+  series,
+  children,
+  plotOptions = defaultSparklinePlotOptions,
+  ...rest
+}) => {
+  const chartStyle = useMemo(() => ({ overflow: 'visible', ...style }), [
+    style
+  ]);
 
-  static propTypes = {
-    height: PropTypes.number.isRequired,
-    width: PropTypes.number.isRequired,
-    margin: PropTypes.array.isRequired,
-    style: PropTypes.object.isRequired,
-    plotOptions: PropTypes.object.isRequired,
-    series: PropTypes.node,
-    children: PropTypes.node.isRequired
-  };
+  const hasSeriesProp = !!series;
+  // If you want to use functionality like Tooltips, pass the data component on the `series` prop
+  const Series = hasSeriesProp ? series : children;
 
-  static defaultProps = {
-    height: 20,
-    width: 120,
-    margin: [2, 0, 2, 0],
-    style: {},
-    plotOptions: defaultSparklinePlotOptions
-  };
+  return (
+    <HighchartsChart plotOptions={plotOptions} {...rest}>
+      <Chart
+        height={height}
+        width={width}
+        animation={false}
+        backgroundColor={null}
+        borderWidth={0}
+        margin={margin}
+        style={chartStyle}
+        skipClone
+      />
 
-  getChartStyle = memoizeOne((style) => {
-    return { overflow: 'visible', ...style };
-  })
+      <XAxis
+        labels={LABELS_DISABLED}
+        startOnTick={false}
+        endOnTick={false}
+        tickPositions={EMPTY_ARRAY}
+      />
 
-  render () {
-    const { height, width, margin, style, series, children, ...rest } = this.props;
-    const hasSeriesProp = !!series;
-    const chartStyle = this.getChartStyle(style);
-    // If you want to use functionality like Tooltips, pass the data component on the `series` prop
-    const Series = hasSeriesProp ? series : children;
+      <YAxis
+        id="sparkline"
+        labels={LABELS_DISABLED}
+        startOnTick={false}
+        endOnTick={false}
+        tickPositions={ZERO_ARRAY}>
+        {Series}
+      </YAxis>
 
+      {hasSeriesProp && <>{children}</>}
+    </HighchartsChart>
+  );
+};
 
-    return (
-      <HighchartsChart {...rest}>
-        <Chart
-          height={height}
-          width={width}
-          animation={false}
-          backgroundColor={null}
-          borderWidth={0}
-          margin={margin}
-          style={chartStyle}
-          skipClone />
-
-        <XAxis labels={LABELS_DISABLED} startOnTick={false} endOnTick={false} tickPositions={EMPTY_ARRAY} />
-
-        <YAxis id="sparkline" labels={LABELS_DISABLED} startOnTick={false} endOnTick={false} tickPositions={ZERO_ARRAY}>
-          {Series}
-        </YAxis>
-
-        {hasSeriesProp && (
-          <Hidden>
-            {children}
-          </Hidden>
-        )}
-      </HighchartsChart>
-    );
-  }
-}
+HighchartsSparkline.propTypes = {
+  height: PropTypes.number,
+  width: PropTypes.number,
+  margin: PropTypes.array,
+  style: PropTypes.object,
+  plotOptions: PropTypes.object,
+  series: PropTypes.node,
+  children: PropTypes.node
+};
 
 export default HighchartsSparkline;

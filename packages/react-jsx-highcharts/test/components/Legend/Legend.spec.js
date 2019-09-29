@@ -1,72 +1,80 @@
 import React from 'react';
 import { createMockProvidedChart } from '../../test-utils'
 import Legend from '../../../src/components/Legend/Legend';
+import ChartContext from '../../../src/components/ChartContext';
+
+
 
 describe('<Legend />', () => {
   let testContext;
 
+  let ProvidedLegend;
+
   beforeEach(() => {
     testContext = {};
-    const { chartStubs, getChart, needsRedraw } = createMockProvidedChart();
-    testContext.chartStubs = chartStubs;
+    const { chartStubs, needsRedraw } = createMockProvidedChart();
 
-    testContext.propsFromProviders = {
-      getChart,
-      needsRedraw
-    };
+    ProvidedLegend = props => (
+      <ChartContext.Provider value={ chartStubs }>
+        <Legend {...props}/>
+      </ChartContext.Provider>
+    );
+    testContext.chartStubs = chartStubs;
+    testContext.needsRedraw = needsRedraw;
   });
 
   describe('when mounted', () => {
     it('add legend using the Highcharts update method', () => {
-      mount(<Legend {...testContext.propsFromProviders} />);
+      mount(<ProvidedLegend />);
       expect(testContext.chartStubs.update).toHaveBeenCalledWith({
-        legend: expect.objectContaining({
+        legend: {
           enabled: true
-        })
+        }
       }, false);
-      expect(testContext.propsFromProviders.needsRedraw).toHaveBeenCalledTimes(1);
+      expect(testContext.chartStubs.update).toHaveBeenCalledTimes(1);
+      expect(testContext.needsRedraw).toHaveBeenCalledTimes(1);
     });
 
     it('updates the legend with the passed props', () => {
       mount(
-        <Legend align="left" y={20} {...testContext.propsFromProviders} />
+        <ProvidedLegend align="left" y={20} />
       );
       expect(testContext.chartStubs.update).toHaveBeenCalledWith({
-        legend: expect.objectContaining({
+        legend: {
           enabled: true,
           align: 'left',
           y: 20
-        })
+        }
       }, false);
-      expect(testContext.propsFromProviders.needsRedraw).toHaveBeenCalledTimes(1);
+      expect(testContext.needsRedraw).toHaveBeenCalledTimes(1);
     });
   });
 
   describe('update', () => {
     it('should use the update method when props change', () => {
       const wrapper = mount(
-        <Legend {...testContext.propsFromProviders} />
+        <ProvidedLegend />
       );
       wrapper.setProps({ backgroundColor: 'red' });
-      expect(testContext.chartStubs.update).toHaveBeenCalledWith(expect.objectContaining({
+      expect(testContext.chartStubs.update).toHaveBeenCalledWith({
         legend: {
           backgroundColor: 'red'
         }
-      }), false);
-      expect(testContext.propsFromProviders.needsRedraw).toHaveBeenCalledTimes(2);
+      }, false);
+      expect(testContext.needsRedraw).toHaveBeenCalledTimes(2);
     });
   });
 
   describe('when unmounted', () => {
     it('should disable the Legend', () => {
-      const wrapper = mount(<Legend {...testContext.propsFromProviders} />);
+      const wrapper = mount(<ProvidedLegend />);
       wrapper.unmount();
-      expect(testContext.chartStubs.update).toHaveBeenCalledWith(expect.objectContaining({
+      expect(testContext.chartStubs.update).toHaveBeenCalledWith({
         legend: {
           enabled: false
         }
-      }), false);
-      expect(testContext.propsFromProviders.needsRedraw).toHaveBeenCalledTimes(2);
+      }, false);
+      expect(testContext.needsRedraw).toHaveBeenCalledTimes(2);
     });
   });
 });

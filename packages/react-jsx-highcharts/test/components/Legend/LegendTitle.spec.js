@@ -1,43 +1,48 @@
 import React from 'react';
 import LegendTitle from '../../../src/components/Legend/LegendTitle';
 import { createMockProvidedChart } from '../../test-utils'
+import ChartContext from '../../../src/components/ChartContext';
 
 describe('<Legend.Title />', () => {
   let testContext;
+  let ProvidedLegendTitle;
 
   beforeEach(() => {
     testContext = {};
-    const { chartStubs, getChart, needsRedraw } = createMockProvidedChart();
+    const { chartStubs, needsRedraw } = createMockProvidedChart();
     testContext.chartStubs = chartStubs;
 
-    testContext.propsFromProviders = {
-      getChart,
-      needsRedraw
-    };
+    ProvidedLegendTitle = props => (
+      <ChartContext.Provider value={ chartStubs }>
+        <LegendTitle {...props}/>
+      </ChartContext.Provider>
+    );
+    testContext.chartStubs = chartStubs;
+    testContext.needsRedraw = needsRedraw;
   });
 
   describe('when mounted', () => {
     it('add legend using the Highcharts update method', () => {
-      mount(<LegendTitle {...testContext.propsFromProviders}>My Legend Title</LegendTitle>);
+      mount(<ProvidedLegendTitle>My Legend Title</ProvidedLegendTitle>);
       expect(testContext.chartStubs.update).toHaveBeenCalledWith({
         legend: {
-          title: expect.objectContaining({
+          title: {
             text: 'My Legend Title'
-          })
+          }
         }
       }, false);
     });
 
     it('updates the legend with the passed props', () => {
       mount(
-        <LegendTitle style={{ color: 'red' }} {...testContext.propsFromProviders}>My Legend Title</LegendTitle>
+        <ProvidedLegendTitle style={{ color: 'red' }}>My Legend Title</ProvidedLegendTitle>
       );
       expect(testContext.chartStubs.update).toHaveBeenCalledWith({
         legend: {
-          title: expect.objectContaining({
+          title: {
             text: 'My Legend Title',
             style: { color: 'red' }
-          })
+          }
         }
       }, false);
     });
@@ -46,30 +51,30 @@ describe('<Legend.Title />', () => {
   describe('update', () => {
     it('should use the update method when props change', () => {
       const wrapper = mount(
-        <LegendTitle {...testContext.propsFromProviders}>My Legend Title</LegendTitle>
+        <ProvidedLegendTitle>My Legend Title</ProvidedLegendTitle>
       );
       wrapper.setProps({ children: 'My New Legend Title' });
-      expect(testContext.chartStubs.update).toHaveBeenCalledWith(expect.objectContaining({
+      expect(testContext.chartStubs.update).toHaveBeenCalledWith({
         legend: {
           title: {
             text: 'My New Legend Title'
           }
         }
-      }), false);
+      }, false);
     });
   });
 
   describe('when unmounted', () => {
     it('should disable the LegendTitle', () => {
-      const wrapper = mount(<LegendTitle {...testContext.propsFromProviders}>My Legend Title</LegendTitle>);
+      const wrapper = mount(<ProvidedLegendTitle>My Legend Title</ProvidedLegendTitle>);
       wrapper.unmount();
-      expect(testContext.chartStubs.update).toHaveBeenCalledWith(expect.objectContaining({
+      expect(testContext.chartStubs.update).toHaveBeenCalledWith({
         legend: {
           title: {
             text: null
           }
         }
-      }), false)
+      }, false)
     });
   });
 });

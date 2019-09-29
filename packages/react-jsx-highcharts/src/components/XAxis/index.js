@@ -1,6 +1,5 @@
 import XAxis from './XAxis';
-import provideChart from '../ChartProvider';
 import Axis from '../Axis';
-const ChartXAxis = provideChart(XAxis);
+const ChartXAxis = XAxis;
 ChartXAxis.Title = Axis.Title;
 export default ChartXAxis;

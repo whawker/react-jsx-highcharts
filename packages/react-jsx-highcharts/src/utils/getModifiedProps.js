@@ -1,17 +1,15 @@
-import { isEqual } from 'lodash-es';
-import { pickBy } from 'lodash-es';
-import { PROVIDED_PROPS } from './removeProvidedProps';
+import pickBy from './pickBy';
 
 export default function getModifiedProps (prevProps, currProps, childrenIsText = false) {
   let { children, ...rest } = currProps;
 
-  const modifiedProps = pickBy(rest, (value, propName) => {
-    if (PROVIDED_PROPS.indexOf(propName) > -1) return false;
+  const modifiedProps = pickBy(rest, (propName, value) => {
+    if (!prevProps) return true;
 
-    return isEqual(value, prevProps[propName]) === false;
+    return Object.is(value, prevProps[propName]) === false;
   });
 
-  if (childrenIsText && isEqual(prevProps.children, children) === false) {
+  if (childrenIsText && (!prevProps || Object.is(prevProps.children, children) === false)) {
     modifiedProps.text = children;
   }
 

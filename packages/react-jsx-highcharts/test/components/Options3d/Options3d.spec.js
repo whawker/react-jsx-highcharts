@@ -1,27 +1,52 @@
 import React from 'react';
 import { createMockProvidedChart } from '../../test-utils'
 import Options3d from '../../../src/components/Options3d/Options3d';
+import ChartContext from '../../../src/components/ChartContext';
+
+const defaultProps = {
+  enabled: false,
+  alpha: 0,
+  beta: 0,
+  depth: 100,
+  fitToPlot: true,
+  viewDistance: 25,
+  axisLabelPosition: 'default',
+  frame: {
+    visible: 'default',
+    size: 1,
+    bottom: {},
+    top: {},
+    left: {},
+    right: {},
+    back: {},
+    front: {}
+  }
+};
+
 
 describe('<Options3d />', () => {
   let testContext;
+  let ProvidedOptions3d;
 
   beforeEach(() => {
     testContext = {};
-    const { chartStubs, getChart } = createMockProvidedChart();
+    const { chartStubs } = createMockProvidedChart();
     testContext.chartStubs = chartStubs;
+    ProvidedOptions3d = props => (
+      <ChartContext.Provider value={ chartStubs }>
+        <Options3d {...props} />
+      </ChartContext.Provider>
+    )
 
-    testContext.propsFromProviders = {
-      getChart
-    };
   });
 
   describe('when mounted', () => {
     it('updates the chart with the passed props', () => {
-      mount(<Options3d alpha={10} beta={20} {...testContext.propsFromProviders} />);
+      mount(<ProvidedOptions3d alpha={10} beta={20} />);
       expect(testContext.chartStubs.update).toHaveBeenCalledWith({
         chart: {
           options3d: {
-            ...Options3d.defaultProps,
+            ...defaultProps,
             enabled: true,
             alpha: 10,
             beta: 20
@@ -33,12 +58,12 @@ describe('<Options3d />', () => {
 
   describe('update', () => {
     it('should use the update method when props change', () => {
-      const wrapper = mount(<Options3d alpha={0} {...testContext.propsFromProviders} />);
+      const wrapper = mount(<ProvidedOptions3d alpha={0} />);
       wrapper.setProps({ alpha: 45 });
       expect(testContext.chartStubs.update).toHaveBeenCalledWith({
         chart: {
           options3d: {
-            ...Options3d.defaultProps,
+            ...defaultProps,
             enabled: true,
             alpha: 45
           }

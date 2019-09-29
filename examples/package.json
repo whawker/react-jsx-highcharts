@@ -35,5 +35,8 @@
   },
   "dependencies": {
     "react-responsive": "^4.1.0"
-  }
+  },
+  "browserslist": [
+    "ie >= 11"
+  ]
 }

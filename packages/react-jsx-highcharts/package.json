@@ -1,6 +1,6 @@
 {
   "name": "react-jsx-highcharts",
-  "version": "3.6.1",
+  "version": "4.0.0-alpha.4",
   "description": "Highcharts charts built using React components",
   "main": "dist/react-jsx-highcharts.min.js",
   "module": "dist/es/index.js",
@@ -73,16 +73,15 @@
     "eslint": "^5.16.0",
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-react": "^7.14.3",
+    "eslint-plugin-react-hooks": "^2.0.1",
     "eslint-plugin-react-perf": "^3.2.1",
     "highcharts": "^7.2.0",
-    "immutable": "^4.0.0-0",
-    "immutable3": "npm:immutable@^3.8.1",
     "jest": "^24.9.0",
     "jest-enzyme": "^7.1.1",
     "lodash-webpack-plugin": "^0.11.5",
     "prop-types": "^15.7.2",
-    "react": "~16.2.0",
-    "react-dom": "~16.2.0",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
     "react-test-renderer": "^16.9.0",
     "rimraf": "^3.0.0",
     "webpack": "^4.41.0",
@@ -90,17 +89,16 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.6.2",
-    "immutable-is": "^3.7.6",
-    "is-immutable": "^1.0.1",
     "lodash-es": "^4.17.13",
-    "memoize-one": "^5.1.1",
-    "mini-create-react-context": "^0.3.2",
     "uuid": "^3.3.3"
   },
   "peerDependencies": {
-    "highcharts": "^5.0.0 || ^6.0.0 || ^7.0.0",
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0",
+    "highcharts": "^7.2.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
     "prop-types": "^15.0.0"
-  }
+  },
+  "browserslist": [
+    "ie >= 11"
+  ]
 }

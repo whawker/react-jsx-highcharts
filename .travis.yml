@@ -5,12 +5,10 @@ cache:
   directories:
     - "packages/react-jsx-highcharts/node_modules"
     - "packages/react-jsx-highstock/node_modules"
-    - "packages/react-jsx-highstock-datepickers/node_modules"
     - "packages/react-jsx-highmaps/node_modules"
 env:
   - PKG_DIR=packages/react-jsx-highcharts
   - PKG_DIR=packages/react-jsx-highstock
-  - PKG_DIR=packages/react-jsx-highstock-datepickers
   - PKG_DIR=packages/react-jsx-highmaps
 before_install:
   - cd $PKG_DIR

@@ -1,57 +1,48 @@
-import { Component } from 'react';
+import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { attempt } from 'lodash-es';
 import { mapKeys } from 'lodash-es';
 import { upperFirst } from 'lodash-es';
-import { getModifiedProps } from 'react-jsx-highcharts';
+import { useModifiedProps, useChart } from 'react-jsx-highcharts';
 
-class RangeSelectorInput extends Component {
+const RangeSelectorInput = ({ enabled = true, ...restProps}) => {
+  const chart = useChart();
 
-  static propTypes = {
-    update: PropTypes.func, // Provided by ChartProvider
-    enabled: PropTypes.bool.isRequired
-  };
-
-  static defaultProps = {
-    enabled: true
-  };
-
-  componentDidMount () {
-    const { children, ...rest } = this.props;
-    this.updateRangeSelectorInputs(rest);
-  }
-
-  componentDidUpdate (prevProps) {
-    const modifiedProps = getModifiedProps(prevProps, this.props);
-    if (modifiedProps !== false) {
-      this.updateRangeSelectorInputs(modifiedProps);
+  useEffect(() => {
+    return () => {
+      attempt(updateRangeSelectorInputs, { enabled: false }, chart);
     }
-  }
+  }, [])
 
-  componentWillUnmount () {
-    attempt(this.updateRangeSelectorInputs, { enabled: false });
-  }
+  const modifiedProps = useModifiedProps({ enabled, ...restProps});
 
-  prefixPropsWithInput = config => {
-    return mapKeys(config, (value, key) => {
-      return key.indexOf('input') === 0 ? key : `input${upperFirst(key)}`;
-    });
-  }
+  useEffect(() => {
+    if (modifiedProps !== false) {
+      updateRangeSelectorInputs(modifiedProps, chart);
+    }
+  });
 
-  updateRangeSelectorInputs = config => {
-    const chart = this.props.getChart();
-    const inputProps = this.prefixPropsWithInput(config);
-
-    chart.update({
-      rangeSelector: {
-        ...inputProps
-      }
-    });
-  }
-
-  render () {
-    return null;
-  }
+  return null;
 }
+
+const prefixPropsWithInput = config => {
+  return mapKeys(config, (value, key) => {
+    return key.indexOf('input') === 0 ? key : `input${upperFirst(key)}`;
+  });
+}
+const updateRangeSelectorInputs = (config, chart) => {
+  const inputProps = prefixPropsWithInput(config);
+
+  chart.update({
+    rangeSelector: {
+      ...inputProps
+    }
+  });
+}
+
+RangeSelectorInput.propTypes = {
+  update: PropTypes.func, // Provided by ChartProvider
+  enabled: PropTypes.bool.isRequired
+};
 
 export default RangeSelectorInput;

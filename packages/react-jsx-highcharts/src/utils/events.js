@@ -1,22 +1,23 @@
-import { lowerFirst } from 'lodash-es';
-import { pickBy } from 'lodash-es';
-import { omitBy } from 'lodash-es';
-import { mapKeys } from 'lodash-es';
+import pickBy from './pickBy';
 
 export const getEventHandlerProps  = props => {
   return pickBy(props, _isEventKey);
 };
 
 export const getNonEventHandlerProps = props => {
-  return omitBy(props, _isEventKey);
+  return pickBy(props, (key, value) => !_isEventKey(key, value));
 };
 
 export const getEventsConfig = props => {
   const eventProps = getEventHandlerProps(props);
+  const eventsConfig = {};
 
-  return mapKeys(eventProps, (handler, eventName) => {
-    return lowerFirst(eventName.replace(/^on/, ''));
+  Object.entries(eventProps).forEach(([eventName, value]) => {
+    const configName = eventName.slice(2)[0].toLowerCase()+eventName.slice(3);
+    eventsConfig[configName] = value;
   });
+
+  return eventsConfig;
 }
 
 export const addEventHandlersManually = (Highcharts, context, props) => {
@@ -32,6 +33,6 @@ export const addEventHandlers = (updateFn, props, redraw = true) => {
   updateFn({ events }, redraw);
 };
 
-const _isEventKey = (value, key) => (key.indexOf('on') === 0) && typeof value === 'function';
+const _isEventKey = (key, value) => (key.indexOf('on') === 0) && key.length > 2 && typeof value === 'function';
 
 export default addEventHandlers;

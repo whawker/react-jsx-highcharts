@@ -1,35 +1,22 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import Hidden from '../Hidden';
+import useChart from '../UseChart';
 
-class Debug extends Component {
+const Debug = ({ varName = 'chart' }) => {
+  const chart = useChart();
 
-  static propTypes = {
-    varName: PropTypes.string.isRequired,
-    getChart: PropTypes.func // Provided by ChartProvider
-  };
-
-  static defaultProps = {
-    varName: 'chart'
-  };
-
-  componentDidMount () {
-    const { varName, getChart } = this.props;
-    const chart = getChart()
+  useEffect(() => {
     window[varName] =  chart.object;
     // eslint-disable-next-line no-console
     console.log(`Chart instance available as global variable as window.${varName}`);
-  }
+    return () => window[varName] = undefined;
+  }, [varName]);
 
-  componentWillUnmount () {
-    window[this.props.varName] = undefined;
-  }
-
-  render () {
-    return (
-      <Hidden />
-    );
-  }
+  return null;
 }
+
+Debug.propTypes = {
+  varName: PropTypes.string
+};
 
 export default Debug;

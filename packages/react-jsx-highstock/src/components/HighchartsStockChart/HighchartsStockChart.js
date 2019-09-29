@@ -1,20 +1,15 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { BaseChart } from 'react-jsx-highcharts';
+import React from 'react';
+import { BaseChart, useHighcharts } from 'react-jsx-highcharts';
 
-class HighchartsStockChart extends Component {
-  static propTypes = {
-    getHighcharts: PropTypes.func.isRequired // Provided by HighchartsProvider
-  };
+const HighchartsStockChart = props => {
+  const Highcharts = useHighcharts();
 
-  render () {
-    return (
-      <BaseChart
-        {...this.props}
-        chartCreationFunc={this.props.getHighcharts().stockChart}
-        chartType="stockChart" />
-    );
-  }
+  return (
+    <BaseChart
+      {...props}
+      chartCreationFunc={Highcharts.stockChart}
+      chartType="stockChart" />
+  );
 }
 
 export default HighchartsStockChart;

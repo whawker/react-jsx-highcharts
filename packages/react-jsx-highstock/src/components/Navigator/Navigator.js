@@ -1,76 +1,61 @@
-import React, { Component, Children, cloneElement, isValidElement } from 'react';
+import React, { useState, useEffect, Children, cloneElement, isValidElement } from 'react';
 import PropTypes from 'prop-types';
 import { attempt } from 'lodash-es';
-import { getModifiedProps } from 'react-jsx-highcharts';
+import { useModifiedProps, useChart, useHighcharts } from 'react-jsx-highcharts';
 import NavigatorXAxis from './NavigatorXAxis';
 
-class Navigator extends Component {
+const Navigator = ({ enabled = true, ...restProps }) => {
+  const props = { enabled, ...restProps };
+  const [rendered, setRendered] = useState(false);
+  const chart = useChart();
+  const Highcharts = useHighcharts();
 
-  static propTypes = {
-    getChart: PropTypes.func, // Provided by ChartProvider
-    getHighcharts: PropTypes.func.isRequired, // Provided by HighchartsProvider
-    enabled: PropTypes.bool.isRequired
-  };
-
-  static defaultProps = {
-    enabled: true
-  };
-
-  constructor (props) {
-    super(props);
-
-    this.state = {
-      rendered: false
-    };
-  }
-
-  componentDidMount () {
-    const { children, getHighcharts, getChart, ...rest } = this.props;
-
+  useEffect(() => {
+    const { children, ...rest } = props;
     // Workaround from http://jsfiddle.net/x40me94t/2/
-    const Highcharts = getHighcharts();
-    const chartObj = getChart().object;
+    const chartObj = chart.object;
     chartObj.options.navigator.enabled = true;
+    // Initialise Navigator https://github.com/highcharts/highcharts/blob/dd730ab/js/parts/Navigator.js#L1837-L1844
     Highcharts.fireEvent(chartObj, 'beforeRender');
 
-    this.updateNavigator(rest);
+    updateNavigator(rest, chart);
 
-    this.setState({
-      rendered: true
-    });
-  }
+    setRendered(true);
 
-  componentDidUpdate (prevProps) {
-    const modifiedProps = getModifiedProps(prevProps, this.props);
-    if (modifiedProps !== false) {
-      this.updateNavigator(modifiedProps);
+    return () => {
+      attempt(updateNavigator, { enabled: false }, chart);
     }
-  }
+  }, []);
 
-  componentWillUnmount () {
-    attempt(this.updateNavigator, { enabled: false });
-  }
+  const modifiedProps = useModifiedProps(props);
 
-  updateNavigator = config => {
-    const chart = this.props.getChart();
-    chart.update({
-      navigator: config
-    }, true);
-  }
+  useEffect(() => {
+    if (modifiedProps !== false) {
+      updateNavigator(modifiedProps, chart);
+    }
+  });
 
-  render () {
-    const { children } = this.props;
-    if (!children || !this.state.rendered) return null;
+  const { children } = props;
+  if (!children || !rendered) return null;
 
-    const navChildren = Children.map(children, child => {
-      if (isValidElement(child) === false) return child;
-      return cloneElement(child, this.state);
-    });
+  const navChildren = Children.map(children, child => {
+    if (isValidElement(child) === false) return child;
+    return cloneElement(child, { rendered });
+  });
 
-    return (
-      <NavigatorXAxis>{navChildren}</NavigatorXAxis>
-    );
-  }
+  return (
+    <NavigatorXAxis>{navChildren}</NavigatorXAxis>
+  );
 }
+
+const updateNavigator = (config, chart) => {
+  chart.update({
+    navigator: config
+  }, true);
+}
+
+Navigator.propTypes = {
+  enabled: PropTypes.bool
+};
 
 export default Navigator;

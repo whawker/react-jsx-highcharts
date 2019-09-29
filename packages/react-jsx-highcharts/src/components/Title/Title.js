@@ -1,43 +1,18 @@
-import { Component } from 'react';
-import PropTypes from 'prop-types';
-import { attempt } from 'lodash-es';
-import getModifiedProps from '../../utils/getModifiedProps';
+import { memo } from 'react';
+import useChartUpdate from '../UseChartUpdate';
 
-class Title extends Component {
+const Title = memo(props => {
+  useChartUpdate(props, updateTitle, chart =>
+    updateTitle(chart, { text: null })
+  );
 
-  static propTypes = {
-    getChart: PropTypes.func, // Provided by ChartProvider
-    needsRedraw: PropTypes.func // Provided by ChartProvider
-  };
+  return null;
+});
 
-  componentDidMount () {
-    const { children: text, ...rest } = this.props;
-    this.updateTitle({
-      ...rest,
-      text
-    });
-  }
+const updateTitle = (chart, config) => {
+  chart.setTitle(config, null, false);
+};
 
-  componentDidUpdate (prevProps) {
-    const modifiedProps = getModifiedProps(prevProps, this.props, true);
-    if (modifiedProps !== false) {
-      this.updateTitle(modifiedProps);
-    }
-  }
-
-  componentWillUnmount () {
-    attempt(this.updateTitle, { text: null });
-  }
-
-  updateTitle = config => {
-    const chart = this.props.getChart();
-    chart.setTitle(config, null, false);
-    this.props.needsRedraw();
-  }
-
-  render () {
-    return null
-  }
-}
+Title.displayName = 'Title';
 
 export default Title;

@@ -1,26 +1,17 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 import Axis from '../Axis';
+import useChart from '../UseChart';
 
-class XAxis extends Component {
+const XAxis = ({id, ...rest}) => {
+  const chart = useChart();
 
-  static propTypes = {
-    type: PropTypes.string,
-    getChart: PropTypes.func.isRequired // Provided by ChartProvider
-  };
+  const isStockChart = chart.type === 'stockChart';
+  const type = isStockChart ? 'datetime' : 'linear';
+  const axisId = isStockChart ? 'xAxis' : id;
 
-
-  render () {
-    let { getChart, id, ...rest } = this.props;
-    const chart = getChart();
-    const isStockChart = chart.type === 'stockChart';
-    const type = isStockChart ? 'datetime' : 'linear';
-    const axisId = isStockChart ? 'xAxis' : id;
-
-    return (
-      <Axis type={type} {...rest} id={axisId} isX />
-    );
-  }
+  return (
+    <Axis type={type} {...rest} id={axisId} isX />
+  );
 }
 
 export default XAxis;

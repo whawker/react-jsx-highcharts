@@ -1,7 +1,7 @@
 {
   "root": true,
   "parser": "babel-eslint",
-  "plugins": ["react", "import", "react-perf"],
+  "plugins": ["react", "import", "react-hooks", "react-perf"],
   "parserOptions": {
     "ecmaVersion": 2018,
     "sourceType": "module",
@@ -25,7 +25,8 @@
       { "varsIgnorePattern": "^React$", "ignoreRestSiblings": true }
     ],
     "react/prop-types": "warn",
-    "prefer-object-spread": "warn"
+    "prefer-object-spread": "warn",
+    "react-hooks/rules-of-hooks": "error",
   },
   "globals": {
     "process": false

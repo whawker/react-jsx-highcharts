@@ -1,48 +1,23 @@
-import { Component } from 'react';
 import PropTypes from 'prop-types';
-import { attempt } from 'lodash-es';
-import getModifiedProps from '../../utils/getModifiedProps';
 
-class Credits extends Component {
+import useChartUpdate from '../UseChartUpdate';
 
-  static propTypes = {
-    getChart: PropTypes.func.isRequired, // Provided by ChartProvider
-    enabled: PropTypes.bool.isRequired
-  };
+const Credits = ({ enabled = true, ...restProps}) => {
 
-  static defaultProps = {
-    enabled: true
-  };
+  useChartUpdate({ enabled, ...restProps}, updateCredits, chart =>
+    updateCredits(chart, { enabled: false })
+  );
 
-  componentDidMount () {
-    const { children: text, ...rest } = this.props;
-    this.updateCredits({
-      ...rest,
-      text
-    });
-  }
+  return null;
+};
 
-  componentDidUpdate (prevProps) {
-    const modifiedProps = getModifiedProps(prevProps, this.props, true);
-    if (modifiedProps !== false) {
-      this.updateCredits(modifiedProps);
-    }
-  }
+const updateCredits = (chart, config) => {
+  // Use default Highcharts value if text is not explicitly set
+  if ('text' in config && !config.text) delete config.text;
+  chart.addCredits(config, true);
+};
 
-  componentWillUnmount () {
-    attempt(this.updateCredits, { enabled: false });
-  }
-
-  updateCredits = config => {
-    const chart = this.props.getChart();
-    // Use default Highcharts value if text is not explicitly set
-    if ('text' in config && !config.text) delete config.text
-    chart.addCredits(config, true);
-  }
-
-  render () {
-    return null
-  }
-}
-
+Credits.propTypes = {
+  enabled: PropTypes.bool
+};
 export default Credits;

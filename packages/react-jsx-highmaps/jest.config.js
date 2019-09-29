@@ -1,3 +1,4 @@
+/* eslint-env node */
 // For a detailed explanation regarding each configuration property, visit:
 // https://jestjs.io/docs/en/configuration.html
 
@@ -168,7 +169,7 @@ module.exports = {
   // ],
   "transformIgnorePatterns": [
     "node_modules/(?!(lodash-es)/)"
-  ]
+  ],
   // An array of regexp pattern strings that are matched against all modules before the module loader will automatically return a mock for them
   // unmockedModulePathPatterns: undefined,
 

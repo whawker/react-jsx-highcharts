@@ -1,6 +1,6 @@
-import createContext from 'mini-create-react-context';
+import { createContext } from 'react';
 
 const SeriesContext = createContext();
+SeriesContext.displayName = 'SeriesContext';
 
-export const { Consumer, Provider } = SeriesContext;
 export default SeriesContext;

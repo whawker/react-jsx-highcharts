@@ -12,15 +12,14 @@ const highchartsExamples = [
   { name: 'UpdateWithEvents' },
   { name: 'Funnel', additional: ['highcharts-funnel'] },
   { name: 'Treemap', additional: ['highcharts-heatmap', 'highcharts-treemap' ] },
-  { name: 'TreemapDrilldown', additional: ['promise-polyfill', 'fetch-polyfill', 'highcharts-heatmap', 'highcharts-treemap' ] },
+  { name: 'TreemapDrilldown', additional: ['fetch-polyfill', 'highcharts-heatmap', 'highcharts-treemap' ] },
   { name: 'LiveUpdate' },
   { name: 'SimpleLine' },
   { name: 'SplineWithPlotBands' },
-  { name: 'SynchronisedCharts', additional: ['promise-polyfill', 'fetch-polyfill'] },
-  { name: 'Sparkline', additional: ['promise-polyfill', 'fetch-polyfill'] },
-  { name: 'Loading', additional: ['promise-polyfill', 'fetch-polyfill'] },
+  { name: 'SynchronisedCharts', additional: ['fetch-polyfill'] },
+  { name: 'Sparkline', additional: ['fetch-polyfill'] },
+  { name: 'Loading', additional: ['fetch-polyfill'] },
   { name: 'InvertedChart' },
-  { name: 'ImmutableJS', additional: ['immutable'] },
   { name: '3DChart', additional: ['highcharts-3d', 'highcharts-boost'] },
   { name: 'Reflow', additional: ['re-resizable'] },
   { name: 'ToggleAxis' },
@@ -41,8 +40,8 @@ const highstockExamples = [
 ];
 
 const highmapsExamples = [
-  { name: 'Map', additional: ['promise-polyfill', 'fetch-polyfill', 'react-request'] },
-  { name: 'MapBubble', additional: ['promise-polyfill', 'fetch-polyfill', 'react-request', 'proj4js'] }
+  { name: 'Map', additional: ['fetch-polyfill', 'react-request'] },
+  { name: 'MapBubble', additional: ['fetch-polyfill', 'react-request', 'proj4js'] }
 ];
 
 const examples = [].concat(
@@ -62,30 +61,28 @@ const externals = {
   'react-jsx-highmaps':   'https://cdn.jsdelivr.net/npm/react-jsx-highmaps@^1/dist/react-jsx-highmaps.min.js',
   'react':                'https://cdn.jsdelivr.net/npm/react@^16/umd/react.production.min.js',
   'react-dom':            'https://cdn.jsdelivr.net/npm/react-dom@^16/umd/react-dom.production.min.js',
-  'highcharts':           'https://code.highcharts.com/7.1.2/highcharts.js',
-  'highcharts/highstock': 'https://code.highcharts.com/stock/7.1.2/highstock.js',
-  'highcharts/highmaps':  'https://code.highcharts.com/maps/7.1.2/highmaps.js',
-  'highcharts-more':      'https://code.highcharts.com/7.1.2/highcharts-more.js',
-  'highcharts-funnel':    'https://code.highcharts.com/7.1.2/modules/funnel.js',
-  'highcharts-treemap':   'https://code.highcharts.com/7.1.2/modules/treemap.js',
-  'highcharts-heatmap':   'https://code.highcharts.com/7.1.2/modules/heatmap.js',
-  'highcharts-3d':        'https://code.highcharts.com/7.1.2/highcharts-3d.js',
-  'highcharts-annotations':  'https://code.highcharts.com/7.1.2/modules/annotations.js',
-  'highcharts-boost':     'https://code.highcharts.com/7.1.2/modules/boost.js',
-  'highcharts-sankey':    'https://code.highcharts.com/7.1.2/modules/sankey.js',
-  'highcharts-dependency-wheel': 'https://code.highcharts.com/7.1.2/modules/dependency-wheel.js',
-  'highcharts-streamgraph': 'https://code.highcharts.com/7.1.2/modules/streamgraph.js',
-  'highcharts-series-label': 'https://code.highcharts.com/7.1.2/modules/series-label.js',
-  'highcharts-solid-gauge': 'https://code.highcharts.com/7.1.2/modules/solid-gauge.js',
+  'highcharts':           'https://code.highcharts.com/7.2.0/highcharts.js',
+  'highcharts/highstock': 'https://code.highcharts.com/stock/7.2.0/highstock.js',
+  'highcharts/highmaps':  'https://code.highcharts.com/maps/7.2.0/highmaps.js',
+  'highcharts-more':      'https://code.highcharts.com/7.2.0/highcharts-more.js',
+  'highcharts-funnel':    'https://code.highcharts.com/7.2.0/modules/funnel.js',
+  'highcharts-treemap':   'https://code.highcharts.com/7.2.0/modules/treemap.js',
+  'highcharts-heatmap':   'https://code.highcharts.com/7.2.0/modules/heatmap.js',
+  'highcharts-3d':        'https://code.highcharts.com/7.2.0/highcharts-3d.js',
+  'highcharts-annotations':  'https://code.highcharts.com/7.2.0/modules/annotations.js',
+  'highcharts-boost':     'https://code.highcharts.com/7.2.0/modules/boost.js',
+  'highcharts-sankey':    'https://code.highcharts.com/7.2.0/modules/sankey.js',
+  'highcharts-dependency-wheel': 'https://code.highcharts.com/7.2.0/modules/dependency-wheel.js',
+  'highcharts-streamgraph': 'https://code.highcharts.com/7.2.0/modules/streamgraph.js',
+  'highcharts-series-label': 'https://code.highcharts.com/7.2.0/modules/series-label.js',
+  'highcharts-solid-gauge': 'https://code.highcharts.com/7.2.0/modules/solid-gauge.js',
   'prism':                'https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/prism.min.js',
   'prism-jsx':            'https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/components/prism-jsx.min.js',
   'moment':               'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js',
   'react-day-picker':     'https://cdn.jsdelivr.net/npm/react-day-picker@6.0.5/lib/daypicker.js',
   're-resizable':         'https://cdn.jsdelivr.net/npm/re-resizable@~4.3/lib/re-resizable.umd.js',
-  'assign-polyfill':      'https://cdn.jsdelivr.net/npm/es6-object-assign@^1/dist/object-assign-auto.min.js',
-  'promise-polyfill':     'https://www.promisejs.org/polyfills/promise-6.1.0.js',
+  'core-js-polyfill':     'https://cdn.jsdelivr.net/npm/core-js-bundle@3.2.1/index.min.js',
   'fetch-polyfill':       'https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.min.js',
-  'immutable':            'https://cdnjs.cloudflare.com/ajax/libs/immutable/3.8.1/immutable.min.js',
   'react-request':        'https://cdn.jsdelivr.net/npm/react-request@^3/dist/react-request.min.js',
   'proj4js':              'https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.5.0/proj4.js'
 };
@@ -110,7 +107,6 @@ module.exports = {
     'moment': 'moment',
     'react-day-picker': 'DayPicker',
     're-resizable': 'window[\'re-resizable\']',
-    'immutable': 'Immutable',
     'react-request': 'ReactRequest',
     'proj4js': 'proj4',
     'react-jsx-highcharts': 'ReactHighcharts',
@@ -178,7 +174,7 @@ module.exports = {
     // Default dependencies
     new HtmlTagsPlugin({
       files: '**/index.html',
-      scripts: ['assign-polyfill', 'react', 'react-dom'].map(d => ({
+      scripts: ['core-js-polyfill', 'react', 'react-dom'].map(d => ({
         path: externals[d],
         attributes: { crossorigin: 'true' }
       })),

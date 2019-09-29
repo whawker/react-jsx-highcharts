@@ -1,47 +1,52 @@
-import React, { Component, Children, cloneElement, isValidElement } from 'react';
+import React, { useRef, useEffect, Children, cloneElement, isValidElement } from 'react';
 import PropTypes from 'prop-types';
-import { Hidden, provideAxis, getModifiedProps, getNonEventHandlerProps } from 'react-jsx-highcharts';
+import { useAxis, useModifiedProps, getNonEventHandlerProps } from 'react-jsx-highcharts';
 
-class NavigatorAxis extends Component {
-  static propTypes = {
-    axisId: PropTypes.string.isRequired
-  };
+const NavigatorAxis = ({ children, axisId, ...restProps }) => {
+  const axis = useAxis(axisId);
+  const renderedRef = useRef(false);
 
-  componentDidMount () {
-    const { children, ...rest } = this.props;
-    this.updateNavigatorAxis(getNonEventHandlerProps(rest));
-  }
+  useEffect(() => {
+    if (!axis) return;
 
-  componentDidUpdate (prevProps) {
-    const modifiedProps = getModifiedProps(prevProps, this.props);
-    if (modifiedProps !== false) {
-      this.updateNavigatorAxis(modifiedProps);
+    updateNavigatorAxis(getNonEventHandlerProps(restProps), axis);
+  }, [axis]);
+
+  const modifiedProps = useModifiedProps(restProps);
+
+  useEffect(() => {
+    if(!renderedRef.current) {
+      // don't update on first render
+      renderedRef.current = true;
+      return;
     }
-  }
 
-  updateNavigatorAxis = config => {
-    const axis = this.props.getAxis();
-    axis.update(config);
-  }
+    if (!axis) return;
 
-  render () {
-    const { axisId, children } = this.props;
-    if (!children) return null;
+    if (modifiedProps !== false) {
+      updateNavigatorAxis(modifiedProps, axis);
+    }
+  });
 
-    const axisChildren = Children.map(children, child => {
-      if (isValidElement(child) === false) return child;
-      return cloneElement(child, { axisId });
-    });
+  if (!children) return null;
 
-    return (
-      <Hidden>
-        {axisChildren}
-      </Hidden>
-    );
-  }
+  const axisChildren = Children.map(children, child => {
+    if (isValidElement(child) === false) return child;
+    return cloneElement(child, { axisId });
+  });
+
+  return (
+    <>
+      {axisChildren}
+    </>
+  );
+}
+const updateNavigatorAxis = (config, axis) => {
+  axis.update(config);
 }
 
-export default provideAxis(NavigatorAxis);
+NavigatorAxis.propTypes = {
+  axisId: PropTypes.string.isRequired
+};
+export default NavigatorAxis;
 
-// For testing purposes
-export const _NavigatorAxis = NavigatorAxis;

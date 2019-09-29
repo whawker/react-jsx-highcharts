@@ -1,43 +1,18 @@
-import { Component } from 'react';
-import PropTypes from 'prop-types';
-import { attempt } from 'lodash-es';
-import getModifiedProps from '../../utils/getModifiedProps';
+import { memo } from 'react';
+import useChartUpdate from '../UseChartUpdate';
 
-class Subtitle extends Component {
+const Subtitle = memo(props => {
+  useChartUpdate(props, updateSubtitle, chart =>
+    updateSubtitle(chart, { text: null })
+  );
 
-  static propTypes = {
-    getChart: PropTypes.func, // Provided by ChartProvider
-    needsRedraw: PropTypes.func // Provided by ChartProvider
-  };
+  return null;
+});
 
-  componentDidMount () {
-    const { children: text, ...rest } = this.props;
-    this.updateSubtitle({
-      ...rest,
-      text
-    });
-  }
+const updateSubtitle = (chart, config) => {
+  chart.setTitle(undefined, config, false);
+};
 
-  componentDidUpdate (prevProps) {
-    const modifiedProps = getModifiedProps(prevProps, this.props, true);
-    if (modifiedProps !== false) {
-      this.updateSubtitle(modifiedProps);
-    }
-  }
-
-  componentWillUnmount () {
-    attempt(this.updateSubtitle, { text: null });
-  }
-
-  updateSubtitle = config => {
-    const chart = this.props.getChart();
-    chart.setTitle(undefined, config, false);
-    this.props.needsRedraw();
-  }
-
-  render () {
-    return null
-  }
-}
+Subtitle.displayName = 'Subtitle';
 
 export default Subtitle;

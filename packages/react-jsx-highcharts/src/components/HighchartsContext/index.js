@@ -1,6 +1,5 @@
-import createContext from 'mini-create-react-context';
+import { createContext } from 'react';
 
 const HighchartsContext = createContext();
-
-export const { Consumer, Provider } = HighchartsContext;
+HighchartsContext.displayName = 'HighchartsContext';
 export default HighchartsContext;

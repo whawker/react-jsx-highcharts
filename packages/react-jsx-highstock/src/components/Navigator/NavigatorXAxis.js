@@ -1,12 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import NavigatorAxis from './NavigatorAxis';
 
-class NavigatorXAxis extends Component {
-  render () {
-    return (
-      <NavigatorAxis {...this.props} axisId="navigator-x-axis" />
-    );
-  }
-}
+const NavigatorXAxis = props => (
+  <NavigatorAxis {...props} axisId="navigator-x-axis" />
+);
 
 export default NavigatorXAxis;

@@ -1,6 +1,7 @@
-import createContext from 'mini-create-react-context';
+import { createContext } from 'react';
 
 const AxisContext = createContext();
 
-export const { Consumer, Provider } = AxisContext;
+AxisContext.displayName = 'AxisContext';
+
 export default AxisContext;

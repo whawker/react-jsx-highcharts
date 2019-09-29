@@ -2,10 +2,10 @@ export const uuidRegex = /^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3
 
 const noop = () => {};
 export const Highcharts = {
-  chart: noop,
+  chart: jest.fn(),
   addEvent: jest.fn(),
   removeEvent: noop,
-  Tooltip: jest.fn()
+  Tooltip: jest.fn().mockImplementation(() => ({ update: jest.fn() }))
 };
 
 export const createMockChart = () => ({
@@ -20,25 +20,27 @@ export const createMockChart = () => ({
   hideLoading: jest.fn(),
   addCredits: jest.fn(),
   redraw: jest.fn(),
+  setCaption: jest.fn(),
 })
 
 export const createMockProvidedChart = () => {
   const chartStubs = createMockChart();
-
+  chartStubs.needsRedraw = jest.fn();
   return {
     chartStubs,
-    getChart: () => chartStubs,
-    needsRedraw: jest.fn()
+    needsRedraw: chartStubs.needsRedraw
   }
 };
 
 export const createMockAxis = ({ ...additional }) => ({
   ...additional,
   remove: jest.fn(),
-  addPlotBand: jest.fn(),
-  removePlotBand: jest.fn(),
-  addPlotLine: jest.fn(),
-  removePlotLine: jest.fn(),
+  addPlotBandOrLine: jest.fn().mockImplementation(() => (
+    { options: {},
+      render: jest.fn()
+    })
+  ),
+  removePlotBandOrLine: jest.fn(),
   getExtremes: jest.fn(),
   setExtremes: jest.fn(),
   update: jest.fn(),
@@ -50,11 +52,11 @@ export const createMockProvidedAxis = ({ object, ...additional }) => {
 
   return {
     axisStubs,
-    getAxis: () => ({
+    providedAxis: {
       object,
       ...additional,
       ...axisStubs
-    })
+    }
   }
 };
 
