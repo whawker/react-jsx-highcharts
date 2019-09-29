@@ -86,6 +86,7 @@ export { default as useHighcharts } from './components/UseHighcharts';
 export { default as useChart } from './components/UseChart';
 export { default as useAxis } from './components/UseAxis';
 export { default as useSeries } from './components/UseSeries';
+export { usePlotBandLine } from './components/PlotBandLine';
 
 // utility hooks, not part of api
 export { default as useModifiedProps } from './components/UseModifiedProps';
