@@ -39,7 +39,6 @@ describe('<RangeSelector />', () => {
 
     it('fires the initialization event to so Highcharts creates a RangeSelector', () => {
       mount(<ProvidedRangeSelector />);
-      expect(Highcharts.fireEvent).toHaveBeenCalledWith(testContext.object, 'init');
       expect(Highcharts.fireEvent).toHaveBeenCalledWith(testContext.object, 'afterGetContainer');
     });
 
