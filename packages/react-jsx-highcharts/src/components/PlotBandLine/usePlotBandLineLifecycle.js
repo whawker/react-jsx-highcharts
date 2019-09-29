@@ -23,17 +23,13 @@ export default function usePlotBandLine(props, plotType) {
         id: myId,
         ...rest
       };
-
-      if(plotbandline) axis.removePlotBandOrLine(idRef.current);
       setPlotbandline(axis.addPlotBandOrLine(opts, plotType));
     }
-  });
 
-  useEffect(() => {
     return () => {
       attempt(axis.removePlotBandOrLine, idRef.current);
     };
-  }, []);
+  });
 
   return plotbandline;
 }
