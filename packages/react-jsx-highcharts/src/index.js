@@ -75,12 +75,6 @@ export const WaterfallSeries = withSeriesType('Waterfall');
 export const WindBarbSeries = withSeriesType('WindBarb');
 export const XRangeSeries = withSeriesType('XRange');
 
-// Contexts
-export { default as HighchartsContext } from './components/HighchartsContext';
-export { default as HighchartsChartContext } from './components/ChartContext';
-export { default as HighchartsAxisContext } from './components/AxisContext';
-export { default as HighchartsSeriesContext } from './components/SeriesContext';
-
 // Hooks
 export { default as useHighcharts } from './components/UseHighcharts';
 export { default as useChart } from './components/UseChart';
