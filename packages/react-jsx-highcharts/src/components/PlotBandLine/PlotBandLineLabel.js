@@ -1,6 +1,6 @@
 import { useEffect, memo } from 'react';
 import { attempt } from 'lodash-es';
-import usePlotBandLine from './usePlotBandLine';
+import usePlotBandLine from './UsePlotBandLine';
 
 const PlotBandLineLabel = memo(props => {
   const { object: plotbandline } = usePlotBandLine();

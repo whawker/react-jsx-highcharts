@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import PlotBandLineContext from './PlotBandLineContext';
-import usePlotBandLineLifecycle from './usePlotBandLineLifecycle';
+import usePlotBandLineLifecycle from './UsePlotBandLineLifecycle';
 
 const PlotLine = memo(props => {
   const plotline = usePlotBandLineLifecycle(props, 'plotLines');

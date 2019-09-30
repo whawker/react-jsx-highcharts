@@ -1,7 +1,7 @@
 import PlotBand from './PlotBand';
 import PlotLine from './PlotLine';
 import PlotBandLineLabel from './PlotBandLineLabel';
-import usePlotBandLine from './usePlotBandLine';
+import usePlotBandLine from './UsePlotBandLine';
 
 const ChartPlotBand = PlotBand;
 ChartPlotBand.Label = PlotBandLineLabel;
