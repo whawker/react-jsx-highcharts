@@ -10,19 +10,19 @@ const NavigatorSeries = props => {
     if (!series) return;
 
     updateNavigatorSeries(series, { showInNavigator: true });
-    return (() => {
+    return () => {
       attempt(updateNavigatorSeries, series, { showInNavigator: false });
-    })
-  },[ series ])
+    };
+  }, [series]);
 
   return null;
-}
+};
 
 const updateNavigatorSeries = (series, config) => {
   series.update(config);
 };
 
 NavigatorSeries.propTypes = {
-  seriesId: PropTypes.string,
+  seriesId: PropTypes.string
 };
 export default NavigatorSeries;

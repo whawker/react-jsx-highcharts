@@ -76,7 +76,8 @@ const HighchartsSparkline = ({
         labels={LABELS_DISABLED}
         startOnTick={false}
         endOnTick={false}
-        tickPositions={ZERO_ARRAY}>
+        tickPositions={ZERO_ARRAY}
+      >
         {Series}
       </YAxis>
 

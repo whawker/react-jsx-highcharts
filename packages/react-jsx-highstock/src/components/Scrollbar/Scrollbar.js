@@ -9,7 +9,7 @@ const Scrollbar = ({ children, enabled = true, ...restProps }) => {
   useEffect(() => {
     return () => {
       attempt(updateScrollbar, { enabled: false }, chart);
-    }
+    };
   }, []);
 
   const modifiedProps = useModifiedProps({ enabled, ...restProps });
@@ -22,16 +22,17 @@ const Scrollbar = ({ children, enabled = true, ...restProps }) => {
 
   if (!children) return null;
 
-  return (
-    <>{children}</>
-  );
-}
+  return <>{children}</>;
+};
 
 const updateScrollbar = (config, chart) => {
-  chart.update({
-    scrollbar: config
-  }, true);
-}
+  chart.update(
+    {
+      scrollbar: config
+    },
+    true
+  );
+};
 
 Scrollbar.propTypes = {
   enabled: PropTypes.bool

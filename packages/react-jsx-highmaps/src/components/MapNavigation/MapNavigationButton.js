@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash-es';
 import { useHighcharts, useChart } from 'react-jsx-highcharts';
 
-const MapNavigationButton = (props) => {
+const MapNavigationButton = props => {
   const Highcharts = useHighcharts();
   const chart = useChart();
 
@@ -16,21 +16,22 @@ const MapNavigationButton = (props) => {
       // TODO removeButton was missing in original class?
       //const { type } = props;
       //attempt(this.removeButton, type, {});
-    }
-  }, [])
+    };
+  }, []);
 
   return null;
-}
+};
 const getMapNavigationButtonConfig = (props, Highcharts) => {
   const { children: text, onClick: onclick, ...rest } = props;
 
   return {
-    ...(Highcharts.defaultOptions && Highcharts.defaultOptions.mapNavigation.buttonOptions),
+    ...(Highcharts.defaultOptions &&
+      Highcharts.defaultOptions.mapNavigation.buttonOptions),
     onclick, // Weird Highcharts inconsistency, onclick instead of events: { click }
     ...rest,
     text
   };
-}
+};
 
 const updateMapNavigationButton = (type, config, chart) => {
   chart.update({
@@ -40,8 +41,8 @@ const updateMapNavigationButton = (type, config, chart) => {
         [type]: config
       }
     }
-  })
-}
+  });
+};
 
 MapNavigationButton.propTypes = {
   type: PropTypes.oneOf(['zoomIn', 'zoomOut']).isRequired

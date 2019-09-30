@@ -10,7 +10,6 @@ import useChart from '../UseChart';
 import createProvidedAxis from './createProvidedAxis';
 
 const Axis = ({ children = null, dynamicAxis = true, ...restProps }) => {
-
   const chart = useChart();
 
   const axisRef = useRef(null);
@@ -19,7 +18,7 @@ const Axis = ({ children = null, dynamicAxis = true, ...restProps }) => {
 
   useEffect(() => {
     axisRef.current = createAxis(chart, restProps, dynamicAxis);
-    providedAxisRef.current = createProvidedAxis(axisRef.current)
+    providedAxisRef.current = createProvidedAxis(axisRef.current);
     setHasAxis(true);
     chart.needsRedraw();
     return () => {
@@ -29,8 +28,8 @@ const Axis = ({ children = null, dynamicAxis = true, ...restProps }) => {
         attempt(axis.remove.bind(axis), false);
         chart.needsRedraw();
       }
-    }
-  },[]);
+    };
+  }, []);
 
   const modifiedProps = useModifiedProps(restProps);
 
@@ -50,12 +49,12 @@ const Axis = ({ children = null, dynamicAxis = true, ...restProps }) => {
       {children}
     </AxisContext.Provider>
   );
-}
+};
 
-const getAxisConfig = (props) => {
+const getAxisConfig = props => {
   const { id = uuid, ...rest } = props;
 
-  const axisId = typeof id === 'function' ? id() : id
+  const axisId = typeof id === 'function' ? id() : id;
   const nonEventProps = getNonEventHandlerProps(rest);
   const events = getEventsConfig(rest);
 
@@ -64,8 +63,8 @@ const getAxisConfig = (props) => {
     title: { text: null },
     events,
     ...nonEventProps
-  }
-}
+  };
+};
 
 const createAxis = (chart, props, dynamicAxis) => {
   const { id = uuid, isX } = props;
@@ -77,16 +76,16 @@ const createAxis = (chart, props, dynamicAxis) => {
     axis = chart.addAxis(opts, isX, false);
   } else {
     // ZAxis cannot be added dynamically, Maps only have a single axes - update instead
-    const axisId = typeof id === 'function' ? id() : id
+    const axisId = typeof id === 'function' ? id() : id;
     axis = chart.get(axisId);
     axis.update.call(axis, opts, false);
   }
   return axis;
-}
+};
 
 Axis.propTypes = {
   type: validAxisTypes,
-  id: PropTypes.oneOfType([ PropTypes.string, PropTypes.func ]),
+  id: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   children: PropTypes.node,
   dynamicAxis: PropTypes.bool
 };

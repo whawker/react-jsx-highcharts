@@ -14,8 +14,8 @@ export default function usePlotBandLine(props, plotType) {
 
   useEffect(() => {
     if (!axis) return;
-    if(!plotbandline || modifiedProps !== false) {
-      if(!plotbandline) {
+    if (!plotbandline || modifiedProps !== false) {
+      if (!plotbandline) {
         idRef.current = typeof id === 'function' ? id() : id;
       }
       const myId = idRef.current;
@@ -24,7 +24,7 @@ export default function usePlotBandLine(props, plotType) {
         ...rest
       };
 
-      if(plotbandline) axis.removePlotBandOrLine(idRef.current);
+      if (plotbandline) axis.removePlotBandOrLine(idRef.current);
       setPlotbandline({
         object: axis.addPlotBandOrLine(opts, plotType)
       });

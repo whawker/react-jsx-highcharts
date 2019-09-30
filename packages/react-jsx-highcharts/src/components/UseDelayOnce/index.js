@@ -1,7 +1,6 @@
 import { useEffect, useRef } from 'react';
 
-
-export default function useDelayOnce (callback) {
+export default function useDelayOnce(callback) {
   const delayTimeout = useRef(null);
   const unmounted = useRef(false);
 
@@ -14,9 +13,9 @@ export default function useDelayOnce (callback) {
     });
     return () => {
       unmounted.current = true;
-      if(delayTimeout.current !== null) {
+      if (delayTimeout.current !== null) {
         window.cancelAnimationFrame(delayTimeout.current);
       }
-    }
+    };
   }, []);
 }

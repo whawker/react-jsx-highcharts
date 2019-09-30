@@ -7,7 +7,7 @@ import {
   useHighcharts
 } from 'react-jsx-highcharts';
 
-const MapNavigation = ({ children, enabled = true, ...restProps}) => {
+const MapNavigation = ({ children, enabled = true, ...restProps }) => {
   const [rendered, setRendered] = useState(false);
   const chart = useChart();
   const Highcharts = useHighcharts();
@@ -19,7 +19,7 @@ const MapNavigation = ({ children, enabled = true, ...restProps}) => {
     // Initialise MapNavigation https://github.com/highcharts/highcharts/blob/dd730ab/js/parts-map/MapNavigation.js#L288-L294
     Highcharts.fireEvent(chartObj, 'beforeRender');
 
-    const opts = getMapNavigationConfig({ enabled, ...restProps}, Highcharts);
+    const opts = getMapNavigationConfig({ enabled, ...restProps }, Highcharts);
     updateMapNavigation(opts, chart);
 
     setRendered(true);
@@ -29,7 +29,7 @@ const MapNavigation = ({ children, enabled = true, ...restProps}) => {
     };
   }, []);
 
-  const modifiedProps = useModifiedProps({ enabled, ...restProps});
+  const modifiedProps = useModifiedProps({ enabled, ...restProps });
 
   useEffect(() => {
     if (!rendered) return;

@@ -1,6 +1,10 @@
 import pickBy from './pickBy';
 
-export default function getModifiedProps (prevProps, currProps, childrenIsText = false) {
+export default function getModifiedProps(
+  prevProps,
+  currProps,
+  childrenIsText = false
+) {
   let { children, ...rest } = currProps;
 
   const modifiedProps = pickBy(rest, (propName, value) => {
@@ -9,7 +13,10 @@ export default function getModifiedProps (prevProps, currProps, childrenIsText =
     return Object.is(value, prevProps[propName]) === false;
   });
 
-  if (childrenIsText && (!prevProps || Object.is(prevProps.children, children) === false)) {
+  if (
+    childrenIsText &&
+    (!prevProps || Object.is(prevProps.children, children) === false)
+  ) {
     modifiedProps.text = children;
   }
 

@@ -10,19 +10,19 @@ export default function useSeries(seriesId) {
   const chart = useChart();
 
   const createStateSeries = () => {
-    if(providedSeries) return createProvidedSeries(providedSeries);
+    if (providedSeries) return createProvidedSeries(providedSeries);
 
     if (seriesId) {
       const mySeries = chart.get(seriesId);
       return createProvidedSeries(mySeries);
     }
     return null;
-  }
+  };
 
   const [series, setSeries] = useState(createStateSeries);
 
-  useDelayOnce(()=> {
-    if(series) return; // we already had series
+  useDelayOnce(() => {
+    if (series) return; // we already had series
     // series should now be created
     setSeries(createStateSeries());
   });

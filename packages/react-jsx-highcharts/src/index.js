@@ -1,27 +1,29 @@
 import PropTypes from 'prop-types';
-import withSeriesType from './components/WithSeriesType'
+import withSeriesType from './components/WithSeriesType';
 
 // Graphs
-export { default as HighchartsChart }  from './components/HighchartsChart';
-export { default as HighchartsSparkline }  from './components/HighchartsSparkline';
-export { default as Highcharts3dChart }  from './components/Highcharts3dChart';
+export { default as HighchartsChart } from './components/HighchartsChart';
+export {
+  default as HighchartsSparkline
+} from './components/HighchartsSparkline';
+export { default as Highcharts3dChart } from './components/Highcharts3dChart';
 
 // Graph parts
-export { default as Annotation }  from './components/Annotation';
-export { default as Caption }  from './components/Caption';
-export { default as Chart }  from './components/Chart';
-export { default as Credits }  from './components/Credits';
-export { default as Loading }  from './components/Loading';
-export { default as Legend }  from './components/Legend';
-export { default as Pane }  from './components/Pane';
-export { PlotBand }  from './components/PlotBandLine';
-export { PlotLine }  from './components/PlotBandLine';
-export { default as Subtitle }  from './components/Subtitle';
-export { default as Title }  from './components/Title';
-export { default as Tooltip }  from './components/Tooltip';
-export { default as XAxis }  from './components/XAxis';
-export { default as YAxis }  from './components/YAxis';
-export { default as ZAxis }  from './components/ZAxis';
+export { default as Annotation } from './components/Annotation';
+export { default as Caption } from './components/Caption';
+export { default as Chart } from './components/Chart';
+export { default as Credits } from './components/Credits';
+export { default as Loading } from './components/Loading';
+export { default as Legend } from './components/Legend';
+export { default as Pane } from './components/Pane';
+export { PlotBand } from './components/PlotBandLine';
+export { PlotLine } from './components/PlotBandLine';
+export { default as Subtitle } from './components/Subtitle';
+export { default as Title } from './components/Title';
+export { default as Tooltip } from './components/Tooltip';
+export { default as XAxis } from './components/XAxis';
+export { default as YAxis } from './components/YAxis';
+export { default as ZAxis } from './components/ZAxis';
 
 const axisNotRequired = { requiresAxis: false };
 const hasParentSeries = { baseSeries: PropTypes.string.isRequired };
@@ -31,7 +33,7 @@ export const AreaRangeSeries = withSeriesType('AreaRange');
 export const AreaSeries = withSeriesType('Area');
 export const AreaSplineRangeSeries = withSeriesType('AreaSplineRange');
 export const AreaSplineSeries = withSeriesType('AreaSpline');
-export { default as BarSeries }  from './components/BarSeries';
+export { default as BarSeries } from './components/BarSeries';
 export const BellCurveSeries = withSeriesType('BellCurve', {}, hasParentSeries);
 export const BoxPlotSeries = withSeriesType('BoxPlot');
 export const BubbleSeries = withSeriesType('Bubble');
@@ -50,7 +52,10 @@ export const HistogramSeries = withSeriesType('Histogram', {}, hasParentSeries);
 export const ItemSeries = withSeriesType('Item');
 export const LineSeries = withSeriesType('Line');
 export const NetworkGraphSeries = withSeriesType('NetworkGraph');
-export const PackedBubbleSeries = withSeriesType('PackedBubble', axisNotRequired);
+export const PackedBubbleSeries = withSeriesType(
+  'PackedBubble',
+  axisNotRequired
+);
 export const ParetoSeries = withSeriesType('Pareto', {}, hasParentSeries);
 export const PieSeries = withSeriesType('Pie', axisNotRequired);
 export const PolygonSeries = withSeriesType('Polygon');
@@ -86,13 +91,13 @@ export { usePlotBandLine } from './components/PlotBandLine';
 export { default as useModifiedProps } from './components/UseModifiedProps';
 
 // Helpers
-export { default as withHighcharts }  from './components/WithHighcharts';
-export { default as Axis }  from './components/Axis';
-export { default as BaseChart }  from './components/BaseChart';
-export { default as Debug }  from './components/Debug';
-export { default as Series }  from './components/Series';
+export { default as withHighcharts } from './components/WithHighcharts';
+export { default as Axis } from './components/Axis';
+export { default as BaseChart } from './components/BaseChart';
+export { default as Debug } from './components/Debug';
+export { default as Series } from './components/Series';
 
 // Utils
 export { getNonEventHandlerProps } from './utils/events';
 export { getEventsConfig } from './utils/events';
-export { withSeriesType }
+export { withSeriesType };

@@ -1,5 +1,5 @@
 const createProvidedAxis = axis => {
-  if(!axis) return null;
+  if (!axis) return null;
 
   return {
     object: axis,
@@ -12,7 +12,7 @@ const createProvidedAxis = axis => {
     getExtremes: axis.getExtremes.bind(axis),
     setExtremes: axis.setExtremes.bind(axis),
     setTitle: axis.setTitle.bind(axis)
-  }
-}
+  };
+};
 
 export default createProvidedAxis;

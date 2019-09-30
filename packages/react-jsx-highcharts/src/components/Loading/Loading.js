@@ -14,26 +14,29 @@ const Loading = memo(({ children, isLoading = true, ...restProps }) => {
     }
     if (isLoading) chart.showLoading(children);
     if (!isLoading) chart.hideLoading();
-  })
-  useEffect(()=> {
+  });
+  useEffect(() => {
     return () => attempt(chart.hideLoading);
-  },[]);
+  }, []);
 
   return null;
-})
+});
 
 const updateLoading = (config, chart) => {
-  chart.update({
-    loading: config
-  }, true);
-}
+  chart.update(
+    {
+      loading: config
+    },
+    true
+  );
+};
 
 Loading.propTypes = {
   isLoading: PropTypes.bool,
   hideDuration: PropTypes.number,
   labelStyle: PropTypes.object,
   showDuration: PropTypes.number,
-  style: PropTypes.object,
+  style: PropTypes.object
 };
 
 Loading.displayName = 'Loading';
