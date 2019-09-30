@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { attempt } from 'lodash-es';
-import { useHighcharts, useAxis, useChart, useModifiedProps } from 'react-jsx-highcharts';
+import {
+  useHighcharts,
+  useAxis,
+  useChart,
+  useModifiedProps
+} from 'react-jsx-highcharts';
 
 const RangeSelectorInner = ({ enabled = true, children, ...restProps }) => {
   const props = { enabled, ...restProps };
@@ -9,7 +14,6 @@ const RangeSelectorInner = ({ enabled = true, children, ...restProps }) => {
   const Highcharts = useHighcharts();
   const chart = useChart();
   const axis = useAxis('xAxis');
-
 
   useEffect(() => {
     if (!axis) return;
@@ -29,30 +33,28 @@ const RangeSelectorInner = ({ enabled = true, children, ...restProps }) => {
 
     setRendered(true);
 
-    return (() => {
+    return () => {
       const axisObj = axis.object;
       Highcharts.removeEvent(axisObj, 'afterSetExtremes', renderRangeSelector);
 
       attempt(updateRangeSelector, { enabled: false }, chart);
-    })
-  },[axis])
+    };
+  }, [axis]);
 
   const modifiedProps = useModifiedProps(props);
 
   useEffect(() => {
-    if(!axis || !rendered) return;
+    if (!axis || !rendered) return;
 
     if (modifiedProps !== false) {
       updateRangeSelector(modifiedProps, chart);
     }
-  })
+  });
 
   if (!children || !rendered) return null;
 
-  return (
-    <>{children}</>
-  );
-}
+  return <>{children}</>;
+};
 
 const getRangeSelectorConfig = (props, Highcharts) => {
   return {
@@ -61,22 +63,29 @@ const getRangeSelectorConfig = (props, Highcharts) => {
     inputEnabled: false,
     buttons: []
   };
-}
+};
 
 const updateRangeSelector = (config, chart) => {
-  chart.update({
-    rangeSelector: config
-  }, true);
-}
+  chart.update(
+    {
+      rangeSelector: config
+    },
+    true
+  );
+};
 
 const createRenderRangeSelector = (chart, axis) => {
   return () => {
     const chartObj = chart.object;
     const extremes = axis.getExtremes();
     // Fixes #40
-    chartObj.rangeSelector.render.call(chartObj.rangeSelector, extremes.min, extremes.max);
-  }
-}
+    chartObj.rangeSelector.render.call(
+      chartObj.rangeSelector,
+      extremes.min,
+      extremes.max
+    );
+  };
+};
 
 RangeSelectorInner.propTypes = {
   enabled: PropTypes.bool

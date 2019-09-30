@@ -1,5 +1,5 @@
 export default function createProvidedSeries(series) {
-  if(!series) return null;
+  if (!series) return null;
 
   return {
     object: series,

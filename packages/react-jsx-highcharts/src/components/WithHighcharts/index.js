@@ -4,7 +4,6 @@ import HighchartsContext from '../HighchartsContext';
 // This is a HOC function.
 // It takes a component...
 export default function withHighcharts(Component, Highcharts) {
-
   // ...and returns another component...
   return function HighchartsWrappedComponent(props) {
     // ... and renders the wrapped component with the context theme!
@@ -14,5 +13,5 @@ export default function withHighcharts(Component, Highcharts) {
         <Component {...props} />
       </HighchartsContext.Provider>
     );
-  }
+  };
 }

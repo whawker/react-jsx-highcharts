@@ -27,10 +27,13 @@ In the vast majority of cases, the name of the configuration option, and the nam
 #### Example
 
 `<Tooltip />` component
+
 ```jsx
 <Tooltip padding={10} hideDelay={250} shape="square" split />
 ```
+
 This corresponds to the Highcharts' [`tooltip`](http://api.highcharts.com/highcharts/tooltip) configuration of
+
 ```js
 tooltip: {
   enabled: true, // This is assumed when component is mounted
@@ -40,6 +43,7 @@ tooltip: {
   split: true
 }
 ```
+
 We aim to pass all configuration options using the same name, so we use [Highcharts' documentation](http://api.highcharts.com/highcharts) to figure out how to achieve the same with React JSX Highcharts.
 
 ### Note:
@@ -48,21 +52,30 @@ There are **two** exceptions to the above;
 
 #### Exception 1
 
-Where Highcharts **events** are concerned - instead of passing `events` as an object, we use the React convention *onEventName*.
+Where Highcharts **events** are concerned - instead of passing `events` as an object, we use the React convention _onEventName_.
 
 #### Example
-```jsx
 
-<MapBubbleSeries id="my-series" data={myData} onHide={this.handleHide} onShow={this.handleShow} />
+```jsx
+<MapBubbleSeries
+  id="my-series"
+  data={myData}
+  onHide={this.handleHide}
+  onShow={this.handleShow}
+/>
 ```
+
 This would correspond to the Highcharts configuration
+
 ```js
-series: [{
-  type: 'mapbubble',
-  id: 'my-series',
-  data: myData,
-  events: { hide: this.handleHide, show: this.handleShow }
-}]
+series: [
+  {
+    type: 'mapbubble',
+    id: 'my-series',
+    data: myData,
+    events: { hide: this.handleHide, show: this.handleShow }
+  }
+];
 ```
 
 #### Exception 2
@@ -76,9 +89,10 @@ series: [{
 ```
 
 This would correspond to the Highcharts configuration
+
 ```js
 title: {
-  text: 'Some Text Here'
+  text: 'Some Text Here';
 }
 ```
 

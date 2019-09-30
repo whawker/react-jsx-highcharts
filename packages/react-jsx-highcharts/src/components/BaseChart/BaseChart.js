@@ -1,13 +1,17 @@
 import React, { useState, useEffect, useRef, useLayoutEffect } from 'react';
 import PropTypes from 'prop-types';
 import debounce from '../../utils/debounce-raf';
-import { attempt } from 'lodash-es'
+import { attempt } from 'lodash-es';
 import ChartContext from '../ChartContext';
-import { validChartTypes } from '../../utils/propTypeValidators'
+import { validChartTypes } from '../../utils/propTypeValidators';
 import usePrevious from '../UsePrevious';
 
-const BaseChart = ({ children = null, callback, className = '', ...restProps}) => {
-
+const BaseChart = ({
+  children = null,
+  callback,
+  className = '',
+  ...restProps
+}) => {
   const [rendered, setRendered] = useState(false);
   const domNodeRef = useRef(null);
   const chartRef = useRef(null);
@@ -18,7 +22,7 @@ const BaseChart = ({ children = null, callback, className = '', ...restProps}) =
     chartRef.current = myChart;
 
     const needsRedraw = debounce(() => {
-      if(!myChart.__destroyed) {
+      if (!myChart.__destroyed) {
         attempt(myChart.redraw.bind(myChart));
       }
     });
@@ -35,30 +39,35 @@ const BaseChart = ({ children = null, callback, className = '', ...restProps}) =
       showLoading: myChart.showLoading.bind(myChart),
       hideLoading: myChart.hideLoading.bind(myChart),
       addCredits: myChart.addCredits.bind(myChart),
-      addAnnotation: myChart.addAnnotation ? myChart.addAnnotation.bind(myChart) : null,
-      removeAnnotation: myChart.removeAnnotation ? myChart.removeAnnotation.bind(myChart) : null,
+      addAnnotation: myChart.addAnnotation
+        ? myChart.addAnnotation.bind(myChart)
+        : null,
+      removeAnnotation: myChart.removeAnnotation
+        ? myChart.removeAnnotation.bind(myChart)
+        : null,
       needsRedraw
     };
 
     providerValueRef.current = providedChart;
-    if(callback) callback(myChart);
+    if (callback) callback(myChart);
     setRendered(true);
-  },[]);
+  }, []);
 
   useEffect(() => {
     return () => {
       const myChart = chartRef.current;
-      if (myChart) { // Fixes #14
+      if (myChart) {
+        // Fixes #14
         window.requestAnimationFrame(myChart.destroy.bind(myChart));
         myChart.__destroyed = true;
       }
-    }
-  },[]);
+    };
+  }, []);
 
   const prevProps = usePrevious(restProps);
 
   useEffect(() => {
-    if(!rendered) return;
+    if (!rendered) return;
     const { plotOptions } = restProps;
     const myChart = chartRef.current;
     const needsRedraw = providerValueRef.current.needsRedraw;
@@ -69,9 +78,7 @@ const BaseChart = ({ children = null, callback, className = '', ...restProps}) =
   });
 
   return (
-    <div
-      className={`chart ${className}`}
-      ref={ domNodeRef }>
+    <div className={`chart ${className}`} ref={domNodeRef}>
       {rendered && (
         <ChartContext.Provider value={providerValueRef.current}>
           {children}
@@ -79,20 +86,28 @@ const BaseChart = ({ children = null, callback, className = '', ...restProps}) =
       )}
     </div>
   );
-
-}
+};
 
 const initHighcharts = (props, domNode) => {
   if (!domNode) {
     return;
   }
 
-  const { chartCreationFunc, callback, chart, polar, gauge, styledMode = false, children, ...rest } = props;
+  const {
+    chartCreationFunc,
+    callback,
+    chart,
+    polar,
+    gauge,
+    styledMode = false,
+    children,
+    ...rest
+  } = props;
 
   const opts = {
     chart: {
       styledMode,
-      ...chart,
+      ...chart
     },
     title: {
       text: null
@@ -129,12 +144,11 @@ const initHighcharts = (props, domNode) => {
   myChart.angular = gauge;
 
   return myChart;
-}
-
+};
 
 BaseChart.propTypes = {
   chartCreationFunc: PropTypes.func.isRequired,
-  chartType: validChartTypes.isRequired,
+  chartType: validChartTypes.isRequired
 };
 
 export default BaseChart;

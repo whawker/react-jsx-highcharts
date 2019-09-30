@@ -71,8 +71,17 @@ const moduleToVarName = {
 const moduleToFeatureMap = {
   annotations: ['annotations'],
   more: [
-    'arearange', 'areasplinerange', 'boxplot', 'bubble', 'columnrange', 'columnpyramid',
-    'errorbar', 'gauge', 'packedbubble', 'polygon', 'waterfall'
+    'arearange',
+    'areasplinerange',
+    'boxplot',
+    'bubble',
+    'columnrange',
+    'columnpyramid',
+    'errorbar',
+    'gauge',
+    'packedbubble',
+    'polygon',
+    'waterfall'
   ],
   threeD: ['scatter3d', 'cylinder', 'funnel3d', 'pyramid3d'],
   bullet: ['bullet'],
@@ -99,60 +108,88 @@ const moduleToFeatureMap = {
   cylinder: ['cylinder', 'funnel3d', 'pyramid3d'],
   funnel3d: ['funnel3d', 'pyramid3d'],
   organization: ['organization'],
-  pyramid3d: ['pyramid3d'],
+  pyramid3d: ['pyramid3d']
 };
 
 const findModules = feature => {
   const modules = Object.keys(moduleToFeatureMap).filter(key => {
-    return moduleToFeatureMap[key].indexOf(feature) > -1
+    return moduleToFeatureMap[key].indexOf(feature) > -1;
   });
 
   if (modules.length === 0) return undefined;
 
   return modules;
-}
+};
 
 const generateLines = modules => {
-  const importLines = modules.map(module => (
-    `%c %cimport %c${moduleToVarName[module]} %cfrom %c'highcharts/${moduleToImportPath[module]}'%c;`
-  ));
-  const applyLines = modules.map(module => (
-    `%c %c${moduleToVarName[module]}%c(Highcharts);`
-  ));
-  const importStyling = modules.map(() => (
-    [descNewLine, descKeywordCSS, descDefaultCSS, descKeywordCSS, descStringCSS, descDefaultCSS]
-  ));
-  const applyStyling = modules.map(() => (
-    [descNewLine, descDefaultItalicCSS, descDefaultCSS]
-  ));
+  const importLines = modules.map(
+    module =>
+      `%c %cimport %c${moduleToVarName[module]} %cfrom %c'highcharts/${moduleToImportPath[module]}'%c;`
+  );
+  const applyLines = modules.map(
+    module => `%c %c${moduleToVarName[module]}%c(Highcharts);`
+  );
+  const importStyling = modules.map(() => [
+    descNewLine,
+    descKeywordCSS,
+    descDefaultCSS,
+    descKeywordCSS,
+    descStringCSS,
+    descDefaultCSS
+  ]);
+  const applyStyling = modules.map(() => [
+    descNewLine,
+    descDefaultItalicCSS,
+    descDefaultCSS
+  ]);
 
-  return { importLines, applyLines, importStyling, applyStyling }
-}
+  return { importLines, applyLines, importStyling, applyStyling };
+};
 
 const logDetailedErrorMessage = (warning, modules) => {
-  const { importLines, applyLines, importStyling, applyStyling } = generateLines(modules);
-  const isMultiModule = modules.length > 1
+  const {
+    importLines,
+    applyLines,
+    importStyling,
+    applyStyling
+  } = generateLines(modules);
+  const isMultiModule = modules.length > 1;
 
-  console.group("React JSX Highcharts error");
+  console.group('React JSX Highcharts error');
   console.log(`%c${warning}`, titleCSS);
-  console.log('More information: https://github.com/whawker/react-jsx-highcharts/wiki/Highcharts-error-%2317');
-  console.log.apply(console, [].concat(
-    `You likely need to import the additional module${isMultiModule ? 's' : ''}, try adding
+  console.log(
+    'More information: https://github.com/whawker/react-jsx-highcharts/wiki/Highcharts-error-%2317'
+  );
+  console.log.apply(
+    console,
+    [].concat(
+      `You likely need to import the additional module${
+        isMultiModule ? 's' : ''
+      }, try adding
     %c
     %c %cimport %cHighcharts %cfrom %c'highcharts'%c;
     ${importLines.join('\n')}
     %c
-    %c %c// After imports, but before component - apply additional functionality from module${isMultiModule ? 's' : ''} to Highcharts
+    %c %c// After imports, but before component - apply additional functionality from module${
+      isMultiModule ? 's' : ''
+    } to Highcharts
     ${applyLines.join('\n')}`.replace(/^ +/gm, ''),
-    descNewLine,
-    descNewLine, descKeywordCSS, descDefaultCSS, descKeywordCSS, descStringCSS, descDefaultCSS,
-    ...importStyling,
-    descNewLine,
-    descNewLine, descCommentCSS,
-    ...applyStyling
-  ));
+      descNewLine,
+      descNewLine,
+      descKeywordCSS,
+      descDefaultCSS,
+      descKeywordCSS,
+      descStringCSS,
+      descDefaultCSS,
+      ...importStyling,
+      descNewLine,
+      descNewLine,
+      descCommentCSS,
+      ...applyStyling
+    )
+  );
   console.groupEnd();
-}
+};
 
 export const logSeriesErrorMessage = seriesType => {
   if (process.env.NODE_ENV === 'development') {
@@ -161,12 +198,12 @@ export const logSeriesErrorMessage = seriesType => {
 
     if (!modules) {
       console.warn(`${warning}, or is invalid.`);
-      return
+      return;
     }
 
     logDetailedErrorMessage(warning, modules);
   }
-}
+};
 
 export const logModuleErrorMessage = (componentName, moduleName) => {
   if (process.env.NODE_ENV === 'development') {
@@ -175,15 +212,18 @@ export const logModuleErrorMessage = (componentName, moduleName) => {
 
     if (!modules) {
       console.warn(`${warning}, or is invalid.`);
-      return
+      return;
     }
 
     logDetailedErrorMessage(warning, modules);
   }
-}
+};
 
 export const log3DModuleErrorMessage = () => {
   if (process.env.NODE_ENV === 'development') {
-    logDetailedErrorMessage('3D features such as "ZAxis" require an additional Highcharts module', ['threeD']);
+    logDetailedErrorMessage(
+      '3D features such as "ZAxis" require an additional Highcharts module',
+      ['threeD']
+    );
   }
-}
+};

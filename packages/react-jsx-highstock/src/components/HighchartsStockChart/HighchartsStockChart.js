@@ -8,8 +8,9 @@ const HighchartsStockChart = props => {
     <BaseChart
       {...props}
       chartCreationFunc={Highcharts.stockChart}
-      chartType="stockChart" />
+      chartType="stockChart"
+    />
   );
-}
+};
 
 export default HighchartsStockChart;

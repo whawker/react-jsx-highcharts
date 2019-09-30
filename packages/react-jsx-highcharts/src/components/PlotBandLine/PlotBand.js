@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import PlotBandLineContext from './PlotBandLineContext';
 import usePlotBandLineLifecycle from './UsePlotBandLineLifecycle';
 
-
 const PlotBand = memo(props => {
   const plotband = usePlotBandLineLifecycle(props, 'plotBands');
 

@@ -9,4 +9,3 @@ PlotLine.Label = PlotBandLineLabel;
 export { PlotLine };
 export { PlotBand };
 export { usePlotBandLine };
-

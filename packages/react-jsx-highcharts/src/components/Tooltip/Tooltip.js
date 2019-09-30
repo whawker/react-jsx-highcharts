@@ -7,7 +7,7 @@ import useHighcharts from '../UseHighcharts';
 
 import useModifiedProps from '../UseModifiedProps';
 
-const Tooltip = memo((props) => {
+const Tooltip = memo(props => {
   // eslint-disable-next-line no-unused-vars
   const { children = null, ...restProps } = props;
   const chart = useChart();
@@ -23,7 +23,7 @@ const Tooltip = memo((props) => {
       ...restProps
     });
     return () => attempt(updateTooltip, chart, { enabled: false });
-  }, [])
+  }, []);
 
   const modifiedProps = useModifiedProps(restProps);
 
@@ -46,6 +46,5 @@ Tooltip.displayName = 'Tooltip';
 Tooltip.propTypes = {
   enabled: PropTypes.bool
 };
-
 
 export default Tooltip;

@@ -5,7 +5,7 @@ import { attempt } from 'lodash-es';
 import { logModuleErrorMessage } from '../../utils/warnings';
 import useChart from '../UseChart';
 
-const Annotation = memo((props) => {
+const Annotation = memo(props => {
   const { id = uuid, children, ...rest } = props;
 
   const { addAnnotation, removeAnnotation } = useChart();
@@ -24,19 +24,19 @@ const Annotation = memo((props) => {
     const opts = {
       id: myId,
       ...rest
-    }
+    };
     addAnnotation(opts);
 
     return () => {
       attempt(removeAnnotation, myId);
-    }
+    };
   });
 
   return null;
-})
+});
 
 Annotation.propTypes = {
-  id: PropTypes.oneOfType([ PropTypes.string, PropTypes.func ])
+  id: PropTypes.oneOfType([PropTypes.string, PropTypes.func])
 };
 
 Annotation.displayName = 'Annotation';

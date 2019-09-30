@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import useChartUpdate from '../UseChartUpdate';
 
-const Pane = memo(({ children, ...restProps}) => {
+const Pane = memo(({ children, ...restProps }) => {
   useChartUpdate(restProps, updatePane, chart => updatePane(chart, {}), false);
 
   return null;

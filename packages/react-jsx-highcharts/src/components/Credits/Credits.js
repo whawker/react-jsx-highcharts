@@ -2,9 +2,8 @@ import PropTypes from 'prop-types';
 
 import useChartUpdate from '../UseChartUpdate';
 
-const Credits = ({ enabled = true, ...restProps}) => {
-
-  useChartUpdate({ enabled, ...restProps}, updateCredits, chart =>
+const Credits = ({ enabled = true, ...restProps }) => {
+  useChartUpdate({ enabled, ...restProps }, updateCredits, chart =>
     updateCredits(chart, { enabled: false })
   );
 

@@ -1,8 +1,10 @@
-import { withSeriesType } from 'react-jsx-highcharts'
+import { withSeriesType } from 'react-jsx-highcharts';
 export * from 'react-jsx-highcharts';
 
 // Charts
-export { default as HighchartsStockChart } from './components/HighchartsStockChart';
+export {
+  default as HighchartsStockChart
+} from './components/HighchartsStockChart';
 
 // Graph parts
 export { default as Navigator } from './components/Navigator';

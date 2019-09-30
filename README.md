@@ -7,18 +7,20 @@
 React JSX Highcharts offers separate packages for each Highcharts product.
 
 ##### [Highcharts](/packages/react-jsx-highcharts)
+
 ##### [Highstock](/packages/react-jsx-highstock)
+
 ##### [Highmaps](/packages/react-jsx-highmaps)
 
 ## Why React JSX Highcharts?
 
-Unlike other React Highcharts wrapper libraries, **React JSX Highcharts** is designed to be dynamic - it is optimised for *interactive* charts that need to adapt to business logic in your React application.
+Unlike other React Highcharts wrapper libraries, **React JSX Highcharts** is designed to be dynamic - it is optimised for _interactive_ charts that need to adapt to business logic in your React application.
 
-Other Highcharts wrappers completely destroy and recreate the chart when the configuration options change, which is *very* wasteful and inefficient.
+Other Highcharts wrappers completely destroy and recreate the chart when the configuration options change, which is _very_ wasteful and inefficient.
 
 React JSX Highcharts uses a different approach. By providing React components for each Highcharts component, we can observe exactly which prop has changed and call the optimal Highcharts method behind the scenes. For example, if the `data` prop were to change on a `<Series />` component, React JSX Highcharts can follow Highcharts best practices and use the `setData` method rather than the more expensive `update`.
 
-React JSX Highcharts also enables you to write your *own* Highcharts components, via its powerful higher order components.
+React JSX Highcharts also enables you to write your _own_ Highcharts components, via its powerful higher order components.
 
 ## Installation
 
@@ -49,10 +51,13 @@ In the vast majority of cases, the name of the configuration option, and the nam
 #### Example
 
 `<Tooltip />` component
+
 ```jsx
 <Tooltip padding={10} hideDelay={250} shape="square" split />
 ```
+
 This corresponds to the Highcharts' [`tooltip`](http://api.highcharts.com/highcharts/tooltip) configuration of
+
 ```js
 tooltip: {
   enabled: true, // This is assumed when component is mounted
@@ -62,6 +67,7 @@ tooltip: {
   split: true
 }
 ```
+
 We aim to pass all configuration options using the same name, so we use [Highcharts' documentation](http://api.highcharts.com/highcharts) to figure out how to achieve the same with React JSX Highcharts.
 
 ### Note:
@@ -70,21 +76,30 @@ There are **two** exceptions to the above;
 
 #### Exception 1
 
-Where Highcharts **events** are concerned - instead of passing `events` as an object, we use the React convention *onEventName*.
+Where Highcharts **events** are concerned - instead of passing `events` as an object, we use the React convention _onEventName_.
 
 #### Example
-```jsx
 
-<SplineSeries id="my-series" data={myData} onHide={this.handleHide} onShow={this.handleShow} />
+```jsx
+<SplineSeries
+  id="my-series"
+  data={myData}
+  onHide={this.handleHide}
+  onShow={this.handleShow}
+/>
 ```
+
 This would correspond to the Highcharts configuration
+
 ```js
-series: [{
-  type: 'spline',
-  id: 'my-series',
-  data: myData,
-  events: { hide: this.handleHide, show: this.handleShow }
-}]
+series: [
+  {
+    type: 'spline',
+    id: 'my-series',
+    data: myData,
+    events: { hide: this.handleHide, show: this.handleShow }
+  }
+];
 ```
 
 #### Exception 2
@@ -98,9 +113,10 @@ series: [{
 ```
 
 This would correspond to the Highcharts configuration
+
 ```js
 title: {
-  text: 'Some Text Here'
+  text: 'Some Text Here';
 }
 ```
 
