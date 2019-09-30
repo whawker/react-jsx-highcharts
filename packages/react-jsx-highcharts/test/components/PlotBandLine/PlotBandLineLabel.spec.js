@@ -9,9 +9,11 @@ describe('<PlotBandLineLabel.Label />', () => {
     testContext = {};
 
     testContext.plotLine      = { id: 'myPlotLine', options: { label: { text: null } }, render: jest.fn() };
-
+    testContext.providedPlotline = {
+      object: testContext.plotLine
+    }
     ProvidedPlotBandLineLabel = (props) => (
-      <PlotLineContext.Provider value={testContext.plotLine}>
+      <PlotLineContext.Provider value={testContext.providedPlotline}>
         <PlotBandLineLabel {...props} />
       </PlotLineContext.Provider>
     )

@@ -3,7 +3,7 @@ import { attempt } from 'lodash-es';
 import usePlotBandLine from './usePlotBandLine';
 
 const PlotBandLineLabel = memo(props => {
-  const plotbandline = usePlotBandLine();
+  const { object: plotbandline } = usePlotBandLine();
 
   useEffect(() => {
     const { children: text, id, ...rest } = props;

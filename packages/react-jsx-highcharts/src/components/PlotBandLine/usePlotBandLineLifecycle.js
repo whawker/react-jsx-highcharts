@@ -25,7 +25,9 @@ export default function usePlotBandLine(props, plotType) {
       };
 
       if(plotbandline) axis.removePlotBandOrLine(idRef.current);
-      setPlotbandline(axis.addPlotBandOrLine(opts, plotType));
+      setPlotbandline({
+        object: axis.addPlotBandOrLine(opts, plotType)
+      });
     }
   });
 
