@@ -3,11 +3,12 @@ import { attempt } from 'lodash-es';
 import usePlotBandLine from './UsePlotBandLine';
 
 const PlotBandLineLabel = memo(props => {
-  const { object: plotbandline } = usePlotBandLine();
+  const providedPlotbandline = usePlotBandLine();
 
   useEffect(() => {
+    if (!providedPlotbandline) return;
     const { children: text, id, ...rest } = props;
-    updatePlotBandLineLabel(plotbandline, {
+    updatePlotBandLineLabel(providedPlotbandline.object, {
       text,
       ...rest
     });
@@ -15,11 +16,12 @@ const PlotBandLineLabel = memo(props => {
 
   useEffect(() => {
     return () => {
-      attempt(updatePlotBandLineLabel, plotbandline, {
+      if (!providedPlotbandline) return;
+      attempt(updatePlotBandLineLabel, providedPlotbandline.object, {
         text: null
       });
     };
-  }, [plotbandline]);
+  }, [providedPlotbandline]);
 
   return null;
 });

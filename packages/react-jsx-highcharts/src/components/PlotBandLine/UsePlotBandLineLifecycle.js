@@ -4,10 +4,10 @@ import { attempt } from 'lodash-es';
 import useModifiedProps from '../UseModifiedProps';
 import useAxis from '../UseAxis';
 
-export default function usePlotBandLine(props, plotType) {
-  const { id = uuid, children, ...rest } = props;
+export default function usePlotBandLineLifecycle(props, plotType) {
+  const { id = uuid, axisId, children, ...rest } = props;
 
-  const axis = useAxis();
+  const axis = useAxis(axisId);
   const idRef = useRef();
   const [plotbandline, setPlotbandline] = useState(null);
   const modifiedProps = useModifiedProps(rest);
