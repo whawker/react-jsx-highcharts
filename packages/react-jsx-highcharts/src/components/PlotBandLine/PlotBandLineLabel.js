@@ -1,9 +1,9 @@
-import { useContext, useEffect, memo } from 'react';
+import { useEffect, memo } from 'react';
 import { attempt } from 'lodash-es';
-import PlotLineContext from './PlotBandLineContext';
+import usePlotBandLine from './UsePlotBandLine';
 
 const PlotBandLineLabel = memo(props => {
-  const plotbandline = useContext(PlotLineContext);
+  const { object: plotbandline } = usePlotBandLine();
 
   useEffect(() => {
     const { children: text, id, ...rest } = props;
