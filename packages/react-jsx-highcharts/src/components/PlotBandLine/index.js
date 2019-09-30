@@ -3,9 +3,12 @@ import PlotLine from './PlotLine';
 import PlotBandLineLabel from './PlotBandLineLabel';
 import usePlotBandLine from './UsePlotBandLine';
 
-PlotBand.Label = PlotBandLineLabel;
-PlotLine.Label = PlotBandLineLabel;
+const ChartPlotBand = PlotBand;
+ChartPlotBand.Label = PlotBandLineLabel;
+const ChartPlotLine = PlotLine;
+ChartPlotLine.Label = PlotBandLineLabel;
 
-export { PlotLine };
-export { PlotBand };
+export { ChartPlotLine as PlotLine };
+export { ChartPlotBand as PlotBand };
+
 export { usePlotBandLine };
