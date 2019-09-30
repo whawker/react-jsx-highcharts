@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useState, useDebugValue } from 'react';
 import AxisContext from '../AxisContext';
 import useChart from '../UseChart';
 import createProvidedAxis from '../Axis/createProvidedAxis';
@@ -26,6 +26,7 @@ export default function useAxis(axisId) {
     // axis should now be created
     setprovidedAxis(createStateAxis());
   })
+  useDebugValue(providedAxis ? providedAxis.id : null);
 
   return providedAxis;
 }

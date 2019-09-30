@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useState, useDebugValue } from 'react';
 import SeriesContext from '../SeriesContext';
 import createProvidedSeries from '../Series/createProvidedSeries';
 import useChart from '../UseChart';
@@ -26,6 +26,8 @@ export default function useSeries(seriesId) {
     // series should now be created
     setSeries(createStateSeries());
   });
+
+  useDebugValue(series ? series.id : null);
 
   return series;
 }
