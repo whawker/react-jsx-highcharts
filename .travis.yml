@@ -20,7 +20,7 @@ before_install:
 jobs:
   include:
     - stage: before_script
-      name: "Build base package"
+      name: prebuild
       script: cd ../react-jsx-highcharts && npm run build:prod && cd -
 script:
   - npm run lint
