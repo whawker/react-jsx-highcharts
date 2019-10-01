@@ -4,6 +4,7 @@ node_js:
 cache:
   directories:
     - "packages/react-jsx-highcharts/node_modules"
+    - "packages/react-jsx-highcharts/dist"
     - "packages/react-jsx-highstock/node_modules"
     - "packages/react-jsx-highmaps/node_modules"
 stages:
