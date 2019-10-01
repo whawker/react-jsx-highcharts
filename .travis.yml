@@ -6,28 +6,15 @@ cache:
     - "packages/react-jsx-highcharts/node_modules"
     - "packages/react-jsx-highstock/node_modules"
     - "packages/react-jsx-highmaps/node_modules"
-stages:
-  - Lint
-  - name: TestPackage
-    if: branch = master
-  - name: TestLocal
-    if: branch != master
-  - Build
 env:
   - PKG_DIR=packages/react-jsx-highcharts
   - PKG_DIR=packages/react-jsx-highstock
   - PKG_DIR=packages/react-jsx-highmaps
 before_install:
   - cd $PKG_DIR
-jobs:
-  include:
-    - stage: Lint
-      script: npm run lint
-    - stage: TestPackage
-      script: npm run test:package
-    - stage: TestLocal
-      script: npm run test:local
-    - stage: Build
-      script: npm run build:prod
+script:
+  - npm run lint
+  - npm run test:${TEST_SUITE}
+  - npm run build:prod
 after_success:
   - bash <(curl -s https://codecov.io/bash) || echo "Codecov did not collect coverage reports"
