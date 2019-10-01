@@ -9,10 +9,11 @@ export {
   Subtitle,
   Title,
   Tooltip,
-  HighchartsContext,
-  HighchartsChartContext,
-  HighchartsAxisContext,
-  HighchartsSeriesContext,
+  useHighcharts,
+  useChart,
+  useAxis,
+  useSeries,
+  useModifiedProps,
   withHighcharts as withHighmaps,
   withSeriesType
 } from 'react-jsx-highcharts';
