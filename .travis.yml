@@ -22,13 +22,13 @@ script:
 jobs:
   include:
     - stage: Base Package
-      script: cd PKG_DIR && npm run test:package && npm build:prod
+      script: npm run test:package && npm build:prod
       env: PKG_DIR=packages/react-jsx-highcharts
     - stage: Addon Packages
-      script: cd PKG_DIR && npm run test:${TEST_SUITE} && npm build:prod
+      script: npm run test:${TEST_SUITE} && npm build:prod
       env: PKG_DIR=packages/react-jsx-highstock
     - stage: Addon Packages
-      script: cd PKG_DIR && npm run test:${TEST_SUITE} && npm build:prod
+      script: npm run test:${TEST_SUITE} && npm build:prod
       env: PKG_DIR=packages/react-jsx-highmaps
 after_success:
   - bash <(curl -s https://codecov.io/bash) || echo "Codecov did not collect coverage reports"
