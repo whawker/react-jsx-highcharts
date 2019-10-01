@@ -18,8 +18,7 @@
     "format": "prettier --write \"src/**/*.js\" README.md \"../../README.md\"",
     "lint": "eslint src",
     "test": "jest",
-    "test:package": "jest --coverage",
-    "test:local": "jest --coverage"
+    "test:package": "jest --coverage"
   },
   "author": "Will Hawker",
   "contributors": [
