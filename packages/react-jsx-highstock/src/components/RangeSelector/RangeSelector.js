@@ -8,7 +8,7 @@ import {
   useModifiedProps
 } from 'react-jsx-highcharts';
 
-const RangeSelectorInner = ({ enabled = true, children, ...restProps }) => {
+const RangeSelector = ({ enabled = true, children, ...restProps }) => {
   const props = { enabled, ...restProps };
   const [rendered, setRendered] = useState(false);
   const Highcharts = useHighcharts();
@@ -87,8 +87,8 @@ const createRenderRangeSelector = (chart, axis) => {
   };
 };
 
-RangeSelectorInner.propTypes = {
+RangeSelector.propTypes = {
   enabled: PropTypes.bool
 };
 
-export default RangeSelectorInner;
+export default RangeSelector;
