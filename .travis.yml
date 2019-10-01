@@ -15,16 +15,20 @@ env:
   - PKG_DIR=packages/react-jsx-highmaps
 before_install:
   - cd $PKG_DIR
-script:
+before_script:
   - npm run lint
+script:
+  - 'true'
 jobs:
   include:
-    - stage: Install
     - stage: Base Package
-      script: cd packages/react-jsx-highcharts && npm run test:package && npm build:prod
+      script: cd PKG_DIR && npm run test:package && npm build:prod
+      env: PKG_DIR=packages/react-jsx-highcharts
     - stage: Addon Packages
-      script: cd packages/react-jsx-highstock && npm run test:${TEST_SUITE} && npm build:prod
+      script: cd PKG_DIR && npm run test:${TEST_SUITE} && npm build:prod
+      env: PKG_DIR=packages/react-jsx-highstock
     - stage: Addon Packages
-      script: cd packages/react-jsx-highmaps && npm run test:${TEST_SUITE} && npm build:prod
+      script: cd PKG_DIR && npm run test:${TEST_SUITE} && npm build:prod
+      env: PKG_DIR=packages/react-jsx-highmaps
 after_success:
   - bash <(curl -s https://codecov.io/bash) || echo "Codecov did not collect coverage reports"
