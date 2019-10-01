@@ -7,8 +7,10 @@ cache:
     - "packages/react-jsx-highstock/node_modules"
     - "packages/react-jsx-highmaps/node_modules"
 stages:
+  - install
   - name: prebuild
     if: branch != master
+  - test
 env:
   - PKG_DIR=packages/react-jsx-highcharts
   - PKG_DIR=packages/react-jsx-highstock
