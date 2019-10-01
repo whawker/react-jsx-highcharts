@@ -6,12 +6,20 @@ cache:
     - "packages/react-jsx-highcharts/node_modules"
     - "packages/react-jsx-highstock/node_modules"
     - "packages/react-jsx-highmaps/node_modules"
+stages:
+  - name: prebuild
+    if: branch != master
 env:
   - PKG_DIR=packages/react-jsx-highcharts
   - PKG_DIR=packages/react-jsx-highstock
   - PKG_DIR=packages/react-jsx-highmaps
 before_install:
   - cd $PKG_DIR
+jobs:
+  include:
+    - stage: before_script
+      name: "Build base package"
+      script: cd ../react-jsx-highcharts && npm run build:prod && cd -
 script:
   - npm run lint
   - npm run test:${TEST_SUITE}
