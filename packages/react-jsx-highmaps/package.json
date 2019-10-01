@@ -18,7 +18,8 @@
     "format": "prettier --write \"src/**/*.js\" README.md",
     "lint": "eslint src",
     "test": "jest",
-    "test:coverage": "jest --coverage"
+    "test:package": "jest --coverage",
+    "test:local": "npm install ../react-jsx-highcharts && jest --coverage"
   },
   "author": "Will Hawker",
   "contributors": [],
