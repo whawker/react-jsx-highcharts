@@ -1,6 +1,6 @@
 import React from 'react';
 import PlotBandLineLabel from '../../../src/components/PlotBandLine/PlotBandLineLabel';
-import PlotLineContext from '../../../src/components/PlotBandLine/PlotBandLineContext';
+import PlotLineContext from '../../../src/components/PlotBandLineContext';
 
 describe('<PlotBandLineLabel.Label />', () => {
   let testContext;
@@ -8,7 +8,7 @@ describe('<PlotBandLineLabel.Label />', () => {
   beforeEach(() => {
     testContext = {};
 
-    testContext.plotLine      = { id: 'myPlotLine', options: { label: { text: null } }, render: jest.fn() };
+    testContext.plotLine = { id: 'myPlotLine', options: { label: { text: null } }, render: jest.fn() };
     testContext.providedPlotline = {
       object: testContext.plotLine
     }

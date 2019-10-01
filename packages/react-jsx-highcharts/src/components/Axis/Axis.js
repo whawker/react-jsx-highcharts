@@ -11,7 +11,6 @@ import createProvidedAxis from './createProvidedAxis';
 
 const Axis = ({ children = null, dynamicAxis = true, ...restProps }) => {
   const chart = useChart();
-
   const axisRef = useRef(null);
   const providedAxisRef = useRef(null);
   const [hasAxis, setHasAxis] = useState(false);
@@ -21,6 +20,7 @@ const Axis = ({ children = null, dynamicAxis = true, ...restProps }) => {
     providedAxisRef.current = createProvidedAxis(axisRef.current);
     setHasAxis(true);
     chart.needsRedraw();
+
     return () => {
       const axis = axisRef.current;
       if (axis.remove) {
@@ -32,7 +32,6 @@ const Axis = ({ children = null, dynamicAxis = true, ...restProps }) => {
   }, []);
 
   const modifiedProps = useModifiedProps(restProps);
-
   useEffect(() => {
     if (!hasAxis) return;
     if (modifiedProps !== false) {

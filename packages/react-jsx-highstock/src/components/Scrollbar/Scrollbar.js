@@ -26,12 +26,7 @@ const Scrollbar = ({ children, enabled = true, ...restProps }) => {
 };
 
 const updateScrollbar = (config, chart) => {
-  chart.update(
-    {
-      scrollbar: config
-    },
-    true
-  );
+  chart.update({ scrollbar: config }, true);
 };
 
 Scrollbar.propTypes = {

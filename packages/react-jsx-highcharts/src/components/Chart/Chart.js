@@ -42,12 +42,7 @@ const Chart = memo(({ type = 'line', ...restProps }) => {
 });
 
 const updateChart = (config, chart) => {
-  chart.update(
-    {
-      chart: config
-    },
-    false
-  );
+  chart.update({ chart: config }, false);
   chart.needsRedraw();
 };
 

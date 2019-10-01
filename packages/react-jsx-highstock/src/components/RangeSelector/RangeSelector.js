@@ -66,12 +66,7 @@ const getRangeSelectorConfig = (props, Highcharts) => {
 };
 
 const updateRangeSelector = (config, chart) => {
-  chart.update(
-    {
-      rangeSelector: config
-    },
-    true
-  );
+  chart.update({ rangeSelector: config }, true);
 };
 
 const createRenderRangeSelector = (chart, axis) => {

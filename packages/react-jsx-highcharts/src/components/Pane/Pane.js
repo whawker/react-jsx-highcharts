@@ -8,12 +8,7 @@ const Pane = memo(({ children, ...restProps }) => {
 });
 
 const updatePane = (chart, config) => {
-  chart.update(
-    {
-      pane: config
-    },
-    false
-  );
+  chart.update({ pane: config }, false);
 };
 Pane.displayName = 'Pane';
 

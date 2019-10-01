@@ -16,12 +16,12 @@ const HighchartsMapChart = ({ map, chart, callback, ...restProps }) => {
   ]);
 
   const chartCallback = useCallback(
-    cbchart => {
+    cbChart => {
       if (geojson) {
         const format = Highcharts.format;
-        const { mapText, mapTextFull } = cbchart.options.credits;
-        cbchart.mapCredits = format(mapText, { geojson });
-        cbchart.mapCreditsFull = format(mapTextFull, { geojson });
+        const { mapText, mapTextFull } = cbChart.options.credits;
+        cbChart.mapCredits = format(mapText, { geojson });
+        cbChart.mapCreditsFull = format(mapTextFull, { geojson });
       }
 
       if (callback) callback(chart);

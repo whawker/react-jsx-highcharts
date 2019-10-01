@@ -28,11 +28,11 @@ const Series = memo(
     const seriesProps = { id, data, type, visible, ...restProps };
 
     /*
-  if (defaultTo(restProps.requiresAxis, true)) {
-    const axis = getAxis();
-    if(!axis) throw new Error(`Series type="${restProps.type}" should be wrapped inside Axis`);
-  }
-*/
+      if (defaultTo(restProps.requiresAxis, true)) {
+        const axis = getAxis();
+        if(!axis) throw new Error(`Series type="${restProps.type}" should be wrapped inside Axis`);
+      }
+    */
     const Highcharts = useHighcharts();
     const { addSeries, needsRedraw } = useChart();
 

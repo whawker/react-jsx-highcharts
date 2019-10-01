@@ -11,6 +11,7 @@ const Debug = ({ varName = 'chart' }) => {
     console.log(
       `Chart instance available as global variable as window.${varName}`
     );
+
     return () => {
       window[varName] = undefined;
     };
