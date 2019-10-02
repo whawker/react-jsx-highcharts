@@ -12,13 +12,11 @@ describe('useChart', () => {
 
     ChildComponent = props => {
       const chart = useChart();
-      return (
-        <div value={chart} />
-      )
-    }
+      return <div value={chart} />;
+    };
     ProvidedChartComponent = props => (
       <ChartContext.Provider value={testChart}>
-        <ChildComponent {...props}/>
+        <ChildComponent {...props} />
       </ChartContext.Provider>
     );
   });

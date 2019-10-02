@@ -1,5 +1,5 @@
 import React from 'react';
-import { act } from 'react-dom/test-utils'
+import { act } from 'react-dom/test-utils';
 import useDelayOnce from '../../../src/components/UseDelayOnce';
 
 describe('useDelayOnce', () => {
@@ -9,7 +9,9 @@ describe('useDelayOnce', () => {
 
   beforeEach(() => {
     jest.useFakeTimers();
-    jest.spyOn(window, 'requestAnimationFrame').mockImplementation(cb => window.setTimeout(cb, 0));
+    jest
+      .spyOn(window, 'requestAnimationFrame')
+      .mockImplementation(cb => window.setTimeout(cb, 0));
     jest.spyOn(window, 'cancelAnimationFrame');
 
     delayCallback = jest.fn();
@@ -19,7 +21,7 @@ describe('useDelayOnce', () => {
       const axis = useDelayOnce(delayCallback);
       renderCallback();
       return null;
-    }
+    };
   });
 
   afterEach(() => {
@@ -41,7 +43,7 @@ describe('useDelayOnce', () => {
     expect(renderCallback).toHaveBeenCalledTimes(1);
     expect(delayCallback).not.toHaveBeenCalled();
 
-    act(()=> {
+    act(() => {
       jest.runAllTimers();
     });
 
@@ -56,7 +58,7 @@ describe('useDelayOnce', () => {
     expect(delayCallback).not.toHaveBeenCalled();
     wrapper.unmount();
 
-    act(()=> {
+    act(() => {
       jest.runAllTimers();
     });
 

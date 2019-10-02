@@ -1,55 +1,32 @@
 import React, { useState, useEffect, useRef, useLayoutEffect } from 'react';
 import PropTypes from 'prop-types';
-import debounce from '../../utils/debounce-raf';
-import { attempt } from 'lodash-es';
 import ChartContext from '../ChartContext';
-import { validChartTypes } from '../../utils/propTypeValidators';
 import usePrevious from '../UsePrevious';
+import { validChartTypes } from '../../utils/propTypeValidators';
+import createProvidedChart from './createProvidedChart';
+
+const noop = c => c;
 
 const BaseChart = ({
   children = null,
-  callback,
+  callback = noop,
   className = '',
   ...restProps
 }) => {
   const [rendered, setRendered] = useState(false);
   const domNodeRef = useRef(null);
   const chartRef = useRef(null);
-  const providerValueRef = useRef(null);
+  const providedChartRef = useRef(null);
 
   useLayoutEffect(() => {
     const myChart = initHighcharts(restProps, domNodeRef.current);
     chartRef.current = myChart;
+    providedChartRef.current = createProvidedChart(
+      myChart,
+      restProps.chartType
+    );
 
-    const needsRedraw = debounce(() => {
-      if (!myChart.__destroyed) {
-        attempt(myChart.redraw.bind(myChart));
-      }
-    });
-    const providedChart = {
-      object: myChart,
-      type: restProps.chartType,
-      get: myChart.get.bind(myChart),
-      setSize: myChart.setSize.bind(myChart),
-      update: myChart.update.bind(myChart),
-      addAxis: myChart.addAxis.bind(myChart),
-      addSeries: myChart.addSeries.bind(myChart),
-      setTitle: myChart.setTitle.bind(myChart),
-      setCaption: myChart.setCaption.bind(myChart),
-      showLoading: myChart.showLoading.bind(myChart),
-      hideLoading: myChart.hideLoading.bind(myChart),
-      addCredits: myChart.addCredits.bind(myChart),
-      addAnnotation: myChart.addAnnotation
-        ? myChart.addAnnotation.bind(myChart)
-        : null,
-      removeAnnotation: myChart.removeAnnotation
-        ? myChart.removeAnnotation.bind(myChart)
-        : null,
-      needsRedraw
-    };
-
-    providerValueRef.current = providedChart;
-    if (callback) callback(myChart);
+    callback(myChart);
     setRendered(true);
   }, []);
 
@@ -65,22 +42,21 @@ const BaseChart = ({
   }, []);
 
   const prevProps = usePrevious(restProps);
-
   useEffect(() => {
     if (!rendered) return;
     const { plotOptions } = restProps;
     const myChart = chartRef.current;
-    const needsRedraw = providerValueRef.current.needsRedraw;
+
     if (Object.is(prevProps.plotOptions, plotOptions) === false && myChart) {
       myChart.update({ plotOptions }, false);
-      needsRedraw();
+      providedChartRef.current.needsRedraw();
     }
   });
 
   return (
     <div className={`chart ${className}`} ref={domNodeRef}>
       {rendered && (
-        <ChartContext.Provider value={providerValueRef.current}>
+        <ChartContext.Provider value={providedChartRef.current}>
           {children}
         </ChartContext.Provider>
       )}

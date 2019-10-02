@@ -1,5 +1,5 @@
 import React from 'react';
-import { act } from 'react-dom/test-utils'
+import { act } from 'react-dom/test-utils';
 import useSeries from '../../../src/components/UseSeries';
 import SeriesContext from '../../../src/components/SeriesContext';
 import ChartContext from '../../../src/components/ChartContext';
@@ -14,14 +14,16 @@ describe('useSeries', () => {
 
   beforeEach(() => {
     jest.useFakeTimers();
-    jest.spyOn(window, 'requestAnimationFrame').mockImplementation(cb => window.setTimeout(cb, 0));
+    jest
+      .spyOn(window, 'requestAnimationFrame')
+      .mockImplementation(cb => window.setTimeout(cb, 0));
     jest.spyOn(window, 'cancelAnimationFrame');
 
     testSeries = createMockSeries();
 
     testChart = {
       get: jest.fn().mockImplementation(() => testSeries)
-    }
+    };
     seriesCallback = jest.fn();
 
     jest.spyOn(createProvidedSeries, 'default').mockImplementation(c => c);
@@ -30,7 +32,7 @@ describe('useSeries', () => {
       const axis = useSeries(props.seriesId);
       seriesCallback(axis);
       return null;
-    }
+    };
   });
 
   afterEach(() => {
@@ -52,11 +54,11 @@ describe('useSeries', () => {
   it('should return series outside the context', () => {
     const wrapper = mount(
       <ChartContext.Provider value={testChart}>
-        <ChildComponent seriesId="mySeriesId"/>
+        <ChildComponent seriesId="mySeriesId" />
       </ChartContext.Provider>
     );
 
-    expect(testChart.get).toHaveBeenCalledWith("mySeriesId");
+    expect(testChart.get).toHaveBeenCalledWith('mySeriesId');
     expect(seriesCallback).toHaveBeenCalledWith(testSeries);
   });
 
@@ -65,7 +67,7 @@ describe('useSeries', () => {
 
     const wrapper = mount(
       <ChartContext.Provider value={testChart}>
-        <ChildComponent seriesId="mySeriesId"/>
+        <ChildComponent seriesId="mySeriesId" />
       </ChartContext.Provider>
     );
 
@@ -74,12 +76,11 @@ describe('useSeries', () => {
 
     testChart.get.mockImplementation(() => testSeries);
 
-    act(()=> {
+    act(() => {
       jest.runAllTimers();
     });
 
-    expect(testChart.get).toHaveBeenCalledTimes(2)
+    expect(testChart.get).toHaveBeenCalledTimes(2);
     expect(seriesCallback).toHaveBeenCalledWith(testSeries);
   });
-
 });

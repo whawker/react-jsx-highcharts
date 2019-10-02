@@ -15,6 +15,6 @@ describe('<YAxis />', () => {
 
   it('passes other props through to <Axis />', () => {
     const wrapper = shallow(<YAxis id="myOtherAxis" tickLength={1337} />);
-    expect(wrapper).toHaveProp('tickLength',1337);
+    expect(wrapper).toHaveProp('tickLength', 1337);
   });
 });

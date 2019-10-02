@@ -13,13 +13,13 @@ describe('withSeriesType', () => {
   it(`should set type attribute <Series type="line" />`, () => {
     const SeriesComponent = withSeriesType('line');
     const wrapper = shallow(<SeriesComponent />);
-    expect(wrapper).toHaveProp('type','line');
+    expect(wrapper).toHaveProp('type', 'line');
   });
 
   it(`the created component should pass additional props through to Series`, () => {
     const SeriesComponent = withSeriesType('line');
     const wrapper = shallow(<SeriesComponent data={[1, 2, 3, 4]} />);
-    expect(wrapper).toHaveProp('data',[1, 2, 3, 4]);
+    expect(wrapper).toHaveProp('data', [1, 2, 3, 4]);
   });
 
   it(`should set id propType`, () => {
@@ -28,7 +28,11 @@ describe('withSeriesType', () => {
   });
 
   it(`should add additionalPropTypes`, () => {
-    const SeriesComponent = withSeriesType('line', {}, { baseSeries: PropTypes.string.isRequired });
+    const SeriesComponent = withSeriesType(
+      'line',
+      {},
+      { baseSeries: PropTypes.string.isRequired }
+    );
     expect(SeriesComponent.propTypes).toHaveProperty('baseSeries');
   });
 

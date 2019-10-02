@@ -55,12 +55,7 @@ const getMapNavigationConfig = (props, Highcharts) => {
 };
 
 const updateMapNavigation = (config, chart) => {
-  chart.update(
-    {
-      mapNavigation: config
-    },
-    true
-  );
+  chart.update({ mapNavigation: config }, true);
 };
 
 MapNavigation.propTypes = {

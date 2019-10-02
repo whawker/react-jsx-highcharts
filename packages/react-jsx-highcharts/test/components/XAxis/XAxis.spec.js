@@ -2,22 +2,23 @@ import React from 'react';
 import XAxis from '../../../src/components/XAxis/XAxis';
 import Axis from '../../../src/components/Axis';
 import ChartContext from '../../../src/components/ChartContext';
-import { createMockProvidedChart } from '../../test-utils'
+import { createMockProvidedChart } from '../../test-utils';
 
 describe('<XAxis />', () => {
   let testContext;
   let ProvidedAxis;
   beforeEach(() => {
     testContext = {};
-    const { chartStubs, needsRedraw } = createMockProvidedChart({ type: 'chart' });
+    const { chartStubs, needsRedraw } = createMockProvidedChart({
+      type: 'chart'
+    });
     testContext.chartStubs = chartStubs;
 
-    ProvidedAxis = (props) => (
-      <ChartContext.Provider value={ chartStubs }>
-        <XAxis {...props}/>
+    ProvidedAxis = props => (
+      <ChartContext.Provider value={chartStubs}>
+        <XAxis {...props} />
       </ChartContext.Provider>
     );
-
   });
 
   it('renders an <Axis />', () => {
@@ -44,19 +45,21 @@ describe('<XAxis />', () => {
     });
 
     it('renders the <Axis /> type if provided', () => {
-      const wrapper = mount(<ProvidedAxis  type="logarithmic"/>);
+      const wrapper = mount(<ProvidedAxis type="logarithmic" />);
       const axis = wrapper.find(Axis);
-      expect(axis).toHaveProp('type','logarithmic');
+      expect(axis).toHaveProp('type', 'logarithmic');
     });
 
     it('renders the an <Axis type="linear" /> if no type specified', () => {
-      const wrapper = mount(<ProvidedAxis {...testContext.propsFromProviders} />);
+      const wrapper = mount(
+        <ProvidedAxis {...testContext.propsFromProviders} />
+      );
       const axis = wrapper.find(Axis);
-      expect(axis).toHaveProp('type','linear');
+      expect(axis).toHaveProp('type', 'linear');
     });
 
     it('uses the id prop if provided', () => {
-      const wrapper = mount(<ProvidedAxis id='myXAxisId' />);
+      const wrapper = mount(<ProvidedAxis id="myXAxisId" />);
       const axis = wrapper.find(Axis);
       expect(axis).toHaveProp('id', 'myXAxisId');
     });
@@ -74,19 +77,19 @@ describe('<XAxis />', () => {
     });
 
     it('renders the <Axis /> type if provided', () => {
-      const wrapper = mount(<ProvidedAxis  type="logarithmic"/>);
+      const wrapper = mount(<ProvidedAxis type="logarithmic" />);
       const axis = wrapper.find(Axis);
-      expect(axis).toHaveProp('type','logarithmic');
+      expect(axis).toHaveProp('type', 'logarithmic');
     });
 
     it('renders the an <Axis type="datetime" /> if no type specified', () => {
       const wrapper = mount(<ProvidedAxis />);
       const axis = wrapper.find(Axis);
-      expect(axis).toHaveProp('type','datetime');
+      expect(axis).toHaveProp('type', 'datetime');
     });
 
     it('uses the id `xAxis` even if an id prop is provided', () => {
-      const wrapper = mount(<ProvidedAxis id='myXAxisId' />);
+      const wrapper = mount(<ProvidedAxis id="myXAxisId" />);
       const axis = wrapper.find(Axis);
       expect(axis).toHaveProp('id', 'xAxis');
     });
@@ -96,5 +99,5 @@ describe('<XAxis />', () => {
       const axis = wrapper.find(Axis);
       expect(axis).toHaveProp('id', 'xAxis');
     });
-  })
+  });
 });

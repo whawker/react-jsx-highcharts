@@ -8,16 +8,13 @@ describe('useHighcharts', () => {
   let ChildComponent;
 
   beforeEach(() => {
-
     ChildComponent = props => {
       const Highcharts = useHighcharts();
-      return (
-        <div value={Highcharts} />
-      )
-    }
+      return <div value={Highcharts} />;
+    };
     ProvidedHighchartsComponent = props => (
       <HighchartsContext.Provider value={Highcharts}>
-        <ChildComponent {...props}/>
+        <ChildComponent {...props} />
       </HighchartsContext.Provider>
     );
   });

@@ -16,8 +16,7 @@ export { default as Credits } from './components/Credits';
 export { default as Loading } from './components/Loading';
 export { default as Legend } from './components/Legend';
 export { default as Pane } from './components/Pane';
-export { PlotBand } from './components/PlotBandLine';
-export { PlotLine } from './components/PlotBandLine';
+export { PlotBand, PlotLine } from './components/PlotBandLine';
 export { default as Subtitle } from './components/Subtitle';
 export { default as Title } from './components/Title';
 export { default as Tooltip } from './components/Tooltip';
@@ -85,7 +84,7 @@ export { default as useHighcharts } from './components/UseHighcharts';
 export { default as useChart } from './components/UseChart';
 export { default as useAxis } from './components/UseAxis';
 export { default as useSeries } from './components/UseSeries';
-export { usePlotBandLine } from './components/PlotBandLine';
+export { default as usePlotBandLine } from './components/UsePlotBandLine';
 
 // utility hooks, not part of api
 export { default as useModifiedProps } from './components/UseModifiedProps';

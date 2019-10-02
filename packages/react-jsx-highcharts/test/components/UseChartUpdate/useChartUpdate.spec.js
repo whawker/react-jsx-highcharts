@@ -19,7 +19,7 @@ describe('useChartUpdate', () => {
     ChildComponent = props => {
       useChartUpdate(props, updateFn, destroyFn, false);
       return null;
-    }
+    };
 
     ProvidedChartComponent = props => (
       <ChartContext.Provider value={testChart}>
@@ -29,9 +29,9 @@ describe('useChartUpdate', () => {
   });
 
   it('should call update function on mount', () => {
-    const wrapper = mount(<ProvidedChartComponent firstProp="first"/>);
+    const wrapper = mount(<ProvidedChartComponent firstProp="first" />);
 
-    expect(updateFn).toHaveBeenCalledWith(testChart, { firstProp: "first" });
+    expect(updateFn).toHaveBeenCalledWith(testChart, { firstProp: 'first' });
     expect(destroyFn).not.toHaveBeenCalled();
   });
 
@@ -39,12 +39,15 @@ describe('useChartUpdate', () => {
     const wrapper = mount(<ProvidedChartComponent firstProp="first" />);
 
     updateFn.mockClear();
-    wrapper.setProps({ firstProp: "first2", secondProp: "second" } );
-    expect(updateFn).toHaveBeenCalledWith(testChart, { firstProp: "first2", secondProp: "second" });
+    wrapper.setProps({ firstProp: 'first2', secondProp: 'second' });
+    expect(updateFn).toHaveBeenCalledWith(testChart, {
+      firstProp: 'first2',
+      secondProp: 'second'
+    });
     expect(destroyFn).not.toHaveBeenCalled();
   });
 
-  it('should not call update function when props don\'t change', () => {
+  it("should not call update function when props don't change", () => {
     const wrapper = mount(<ProvidedChartComponent firstProp="first" />);
 
     updateFn.mockClear();

@@ -1,4 +1,4 @@
-import 'jest-enzyme'
+import 'jest-enzyme';
 
 function copyProps(src, target) {
   const props = Object.getOwnPropertyNames(src)

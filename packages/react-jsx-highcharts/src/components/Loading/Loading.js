@@ -6,29 +6,26 @@ import useChart from '../UseChart';
 
 const Loading = memo(({ children, isLoading = true, ...restProps }) => {
   const chart = useChart();
-
   const modifiedProps = useModifiedProps(restProps);
+
   useEffect(() => {
     if (modifiedProps !== false) {
       updateLoading(modifiedProps, chart);
     }
-    if (isLoading) chart.showLoading(children);
-    if (!isLoading) chart.hideLoading();
+    isLoading ? chart.showLoading(children) : chart.hideLoading();
   });
+
   useEffect(() => {
-    return () => attempt(chart.hideLoading);
+    return () => {
+      attempt(chart.hideLoading);
+    };
   }, []);
 
   return null;
 });
 
 const updateLoading = (config, chart) => {
-  chart.update(
-    {
-      loading: config
-    },
-    true
-  );
+  chart.update({ loading: config }, true);
 };
 
 Loading.propTypes = {

@@ -8,11 +8,10 @@ const noop = c => c;
 const useChartUpdate = (
   props,
   updateFn = noop,
-  destroyfn = noop,
+  destroyFn = noop,
   childrenIsText = true
 ) => {
   const chart = useChart();
-
   const modifiedProps = useModifiedProps(props, childrenIsText);
 
   useEffect(() => {
@@ -24,7 +23,7 @@ const useChartUpdate = (
 
   useEffect(() => {
     return () => {
-      attempt(destroyfn, chart);
+      attempt(destroyFn, chart);
       chart.needsRedraw();
     };
   }, []);

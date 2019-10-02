@@ -18,12 +18,11 @@ export default function useAxis(axisId) {
     return null;
   };
 
-  const [providedAxis, setprovidedAxis] = useState(createStateAxis);
-
+  const [providedAxis, setProvidedAxis] = useState(createStateAxis);
   useDelayOnce(() => {
     if (providedAxis) return; // we already had axis
     // axis should now be created
-    setprovidedAxis(createStateAxis());
+    setProvidedAxis(createStateAxis());
   });
   useDebugValue(providedAxis ? providedAxis.id : null);
 

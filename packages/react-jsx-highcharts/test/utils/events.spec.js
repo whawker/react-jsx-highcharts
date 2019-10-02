@@ -2,7 +2,6 @@ import * as events from '../../src/utils/events';
 import { Highcharts } from '../test-utils';
 
 describe('utils/events', () => {
-
   beforeEach(() => {
     Highcharts.addEvent.mockClear();
   });
@@ -21,7 +20,7 @@ describe('utils/events', () => {
         onNotAFunction: 'trip',
         something: 'stringy',
         count: 14
-      }
+      };
 
       expect(getEventHandlerProps(config)).toEqual({
         onEventHandler,
@@ -33,7 +32,7 @@ describe('utils/events', () => {
   describe('getNonEventHandlerProps', () => {
     const { getNonEventHandlerProps } = events;
 
-    it('should return all props that don\'t look like an event handler', () => {
+    it("should return all props that don't look like an event handler", () => {
       const config = {
         enabled: true,
         onEventHandler: jest.fn(),
@@ -41,7 +40,7 @@ describe('utils/events', () => {
         onNotAFunction: 'trip',
         something: 'stringy',
         count: 14
-      }
+      };
 
       expect(getNonEventHandlerProps(config)).toEqual({
         enabled: true,
@@ -66,7 +65,7 @@ describe('utils/events', () => {
         onNotAFunction: 'trip',
         something: 'stringy',
         count: 14
-      }
+      };
 
       expect(getEventsConfig(config)).toEqual({
         eventHandler: onEventHandler,
@@ -90,15 +89,18 @@ describe('utils/events', () => {
         onNotAFunction: 'trip',
         something: 'stringy',
         count: 14
-      }
-      addEventHandlers(spy, config)
+      };
+      addEventHandlers(spy, config);
 
-      expect(spy).toHaveBeenCalledWith({
-        events: {
-          eventHandler: onEventHandler,
-          otherEventHandler: onOtherEventHandler
-        }
-      }, true);
+      expect(spy).toHaveBeenCalledWith(
+        {
+          events: {
+            eventHandler: onEventHandler,
+            otherEventHandler: onOtherEventHandler
+          }
+        },
+        true
+      );
     });
   });
 
@@ -116,19 +118,25 @@ describe('utils/events', () => {
         onNotAFunction: 'trip',
         something: 'stringy',
         count: 14
-      }
+      };
       const context = {};
 
-      addEventHandlersManually(Highcharts, context, config)
+      addEventHandlersManually(Highcharts, context, config);
 
       expect(Highcharts.addEvent).toHaveBeenCalledWith(
-        context, 'eventHandler', onEventHandler
+        context,
+        'eventHandler',
+        onEventHandler
       );
       expect(Highcharts.addEvent).toHaveBeenCalledWith(
-        context, 'otherEventHandler', onOtherEventHandler
+        context,
+        'otherEventHandler',
+        onOtherEventHandler
       );
       expect(Highcharts.addEvent).not.toHaveBeenCalledWith(
-        context, 'onNotAFunction', 'trip'
+        context,
+        'onNotAFunction',
+        'trip'
       );
     });
 
@@ -138,7 +146,7 @@ describe('utils/events', () => {
 
       const context = {};
 
-      addEventHandlersManually(Highcharts, context, undefined)
+      addEventHandlersManually(Highcharts, context, undefined);
 
       expect(Highcharts.addEvent).not.toHaveBeenCalled();
     });
@@ -149,7 +157,7 @@ describe('utils/events', () => {
 
       const context = {};
 
-      addEventHandlersManually(Highcharts, context, null)
+      addEventHandlersManually(Highcharts, context, null);
 
       expect(Highcharts.addEvent).not.toHaveBeenCalled();
     });

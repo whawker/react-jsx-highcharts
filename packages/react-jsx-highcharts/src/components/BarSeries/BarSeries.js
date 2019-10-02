@@ -7,11 +7,7 @@ const BarSeries = props => {
   const chart = useChart();
 
   useEffect(() => {
-    chart.update({
-      chart: {
-        inverted: true
-      }
-    });
+    chart.update({ chart: { inverted: true } });
   }, []);
 
   return <Series {...props} type="bar" />;

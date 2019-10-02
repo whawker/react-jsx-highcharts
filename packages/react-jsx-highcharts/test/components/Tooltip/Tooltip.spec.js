@@ -1,5 +1,5 @@
 import React from 'react';
-import { Highcharts, createMockProvidedChart } from '../../test-utils'
+import { Highcharts, createMockProvidedChart } from '../../test-utils';
 import Tooltip from '../../../src/components/Tooltip/Tooltip';
 import HighchartsContext from '../../../src/components/HighchartsContext';
 import ChartContext from '../../../src/components/ChartContext';
@@ -17,13 +17,12 @@ describe('<Tooltip />', () => {
     testContext.chartStubs.object = testContext.chart;
     ProvidedTooltip = props => (
       <HighchartsContext.Provider value={Highcharts}>
-        <ChartContext.Provider value={ chartStubs }>
-          <Tooltip {...props}/>
+        <ChartContext.Provider value={chartStubs}>
+          <Tooltip {...props} />
         </ChartContext.Provider>
       </HighchartsContext.Provider>
     );
   });
-
 
   describe('when mounted', () => {
     it('creates a new Highcharts Tooltip instance', () => {
@@ -56,8 +55,8 @@ describe('<Tooltip />', () => {
       const wrapper = mount(<ProvidedTooltip />);
       wrapper.unmount();
       expect(testContext.chart.tooltip.update).toHaveBeenCalledWith({
-          enabled: false
-      })
+        enabled: false
+      });
     });
   });
 });

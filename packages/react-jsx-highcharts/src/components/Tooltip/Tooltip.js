@@ -1,10 +1,8 @@
 import React, { useEffect, memo } from 'react';
 import PropTypes from 'prop-types';
-import { attempt } from 'lodash-es';
-import { defaultTo } from 'lodash-es';
+import { attempt, defaultTo } from 'lodash-es';
 import useChart from '../UseChart';
 import useHighcharts from '../UseHighcharts';
-
 import useModifiedProps from '../UseModifiedProps';
 
 const Tooltip = memo(props => {
@@ -17,16 +15,17 @@ const Tooltip = memo(props => {
 
   useEffect(() => {
     const chartObj = chart.object;
-
     chartObj.tooltip = new Highcharts.Tooltip(chartObj, {
       ...(Highcharts.defaultOptions && Highcharts.defaultOptions.tooltip),
       ...restProps
     });
-    return () => attempt(updateTooltip, chart, { enabled: false });
+
+    return () => {
+      attempt(updateTooltip, chart, { enabled: false });
+    };
   }, []);
 
   const modifiedProps = useModifiedProps(restProps);
-
   useEffect(() => {
     if (modifiedProps !== false) {
       updateTooltip(chart, modifiedProps);

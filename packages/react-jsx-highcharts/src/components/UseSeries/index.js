@@ -1,16 +1,15 @@
 import { useContext, useState, useDebugValue } from 'react';
 import SeriesContext from '../SeriesContext';
-import createProvidedSeries from '../Series/createProvidedSeries';
 import useChart from '../UseChart';
+import createProvidedSeries from '../Series/createProvidedSeries';
 import useDelayOnce from '../UseDelayOnce';
 
 export default function useSeries(seriesId) {
-  const providedSeries = useContext(SeriesContext);
-
+  const contextSeries = useContext(SeriesContext);
   const chart = useChart();
 
   const createStateSeries = () => {
-    if (providedSeries) return createProvidedSeries(providedSeries);
+    if (contextSeries) return contextSeries;
 
     if (seriesId) {
       const mySeries = chart.get(seriesId);
@@ -19,15 +18,13 @@ export default function useSeries(seriesId) {
     return null;
   };
 
-  const [series, setSeries] = useState(createStateSeries);
-
+  const [providedSeries, setProvidedSeries] = useState(createStateSeries);
   useDelayOnce(() => {
-    if (series) return; // we already had series
+    if (providedSeries) return; // we already had series
     // series should now be created
-    setSeries(createStateSeries());
+    setProvidedSeries(createStateSeries());
   });
+  useDebugValue(providedSeries ? providedSeries.id : null);
 
-  useDebugValue(series ? series.id : null);
-
-  return series;
+  return providedSeries;
 }

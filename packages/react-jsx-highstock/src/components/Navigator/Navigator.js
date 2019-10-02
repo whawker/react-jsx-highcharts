@@ -57,12 +57,7 @@ const Navigator = ({ enabled = true, ...restProps }) => {
 };
 
 const updateNavigator = (config, chart) => {
-  chart.update(
-    {
-      navigator: config
-    },
-    true
-  );
+  chart.update({ navigator: config }, true);
 };
 
 Navigator.propTypes = {
