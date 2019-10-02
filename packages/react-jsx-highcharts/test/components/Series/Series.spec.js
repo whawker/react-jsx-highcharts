@@ -59,11 +59,11 @@ describe('<Series />', () => {
       testContext.providedAxis.type = 'yAxis';
 
       mount(
-        <ProvidedSeries id="mySeries" {...testContext.propsFromProviders} />
+        <ProvidedSeries id="mySeries" />
       );
-      expect(testContext.chartStubs.addSeries).toHaveBeenCalledWith(expect.objectContaining(
-        { id: 'mySeries', yAxis: 'myYAxisId', type: 'line', data: [], visible: true }
-      ), false);
+      expect(testContext.chartStubs.addSeries).toHaveBeenCalledWith(
+        { id: 'mySeries', yAxis: 'myYAxisId', type: 'line', data: [], visible: true, events: {} }
+      , false);
     });
 
     it('uses the provided ID if id prop is a string', () => {
@@ -92,9 +92,9 @@ describe('<Series />', () => {
       mount(
         <ProvidedSeries id="mySeries" data={[5]} step />
       );
-      expect(testContext.chartStubs.addSeries).toHaveBeenCalledWith(expect.objectContaining({
-        id: 'mySeries', yAxis: 'myAxis', type: 'line', data: [5], visible: true, step: true
-      }), false);
+      expect(testContext.chartStubs.addSeries).toHaveBeenCalledWith({
+        id: 'mySeries', yAxis: 'myAxis', type: 'line', data: [5], visible: true, step: true, events: {}
+      }, false);
     });
 
     it('subscribes to Highcharts events for props that look like event handlers', () => {
