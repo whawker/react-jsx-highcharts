@@ -11,11 +11,11 @@ describe('useChartUpdate', () => {
       const modifiedProps = useModifiedProps(props);
       callback(modifiedProps);
       return null;
-    }
+    };
   });
 
   it('should return all props on initial mount', () => {
-    const wrapper = mount(<Component someProp={true}/>);
+    const wrapper = mount(<Component someProp={true} />);
     expect(callback).toHaveBeenCalledWith({ someProp: true });
   });
 

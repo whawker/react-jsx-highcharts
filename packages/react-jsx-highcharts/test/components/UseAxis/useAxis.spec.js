@@ -1,5 +1,5 @@
 import React from 'react';
-import { act } from 'react-dom/test-utils'
+import { act } from 'react-dom/test-utils';
 import useAxis from '../../../src/components/UseAxis';
 import AxisContext from '../../../src/components/AxisContext';
 import ChartContext from '../../../src/components/ChartContext';
@@ -13,14 +13,16 @@ describe('useAxis', () => {
   let axisCallback;
   beforeEach(() => {
     jest.useFakeTimers();
-    jest.spyOn(window, 'requestAnimationFrame').mockImplementation(cb => window.setTimeout(cb, 0));
+    jest
+      .spyOn(window, 'requestAnimationFrame')
+      .mockImplementation(cb => window.setTimeout(cb, 0));
     jest.spyOn(window, 'cancelAnimationFrame');
 
     testAxis = createMockAxis();
 
     testChart = {
       get: jest.fn().mockImplementation(() => testAxis)
-    }
+    };
     axisCallback = jest.fn();
 
     jest.spyOn(createProvidedAxis, 'default').mockImplementation(c => c);
@@ -29,7 +31,7 @@ describe('useAxis', () => {
       const axis = useAxis(props.axisId);
       axisCallback(axis);
       return null;
-    }
+    };
   });
 
   afterEach(() => {
@@ -51,21 +53,20 @@ describe('useAxis', () => {
   it('should return axis outside the context', () => {
     const wrapper = mount(
       <ChartContext.Provider value={testChart}>
-        <ChildComponent axisId="myAxisId"/>
+        <ChildComponent axisId="myAxisId" />
       </ChartContext.Provider>
     );
 
-    expect(testChart.get).toHaveBeenCalledWith("myAxisId");
+    expect(testChart.get).toHaveBeenCalledWith('myAxisId');
     expect(axisCallback).toHaveBeenCalledWith(testAxis);
   });
 
   it('should return axis not yet created after a delay', () => {
     testChart.get = jest.fn().mockImplementation(() => null);
 
-
     const wrapper = mount(
       <ChartContext.Provider value={testChart}>
-        <ChildComponent axisId="myAxisId"/>
+        <ChildComponent axisId="myAxisId" />
       </ChartContext.Provider>
     );
 
@@ -74,12 +75,11 @@ describe('useAxis', () => {
 
     testChart.get.mockImplementation(() => testAxis);
 
-    act(()=> {
+    act(() => {
       jest.runAllTimers();
     });
 
-    expect(testChart.get).toHaveBeenCalledTimes(2)
+    expect(testChart.get).toHaveBeenCalledTimes(2);
     expect(axisCallback).toHaveBeenCalledWith(testAxis);
   });
-
 });

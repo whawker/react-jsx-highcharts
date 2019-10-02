@@ -13,13 +13,13 @@ describe('<HighchartsChart />', () => {
 
     ProvidedHighchartsChart = props => (
       <HighchartsContext.Provider value={Highcharts}>
-        <HighchartsChart {...props}/>
+        <HighchartsChart {...props} />
       </HighchartsContext.Provider>
     );
   });
 
   afterEach(() => {
-    Highcharts.chart.mockRestore()
+    Highcharts.chart.mockRestore();
   });
 
   it('renders a <BaseChart />', () => {

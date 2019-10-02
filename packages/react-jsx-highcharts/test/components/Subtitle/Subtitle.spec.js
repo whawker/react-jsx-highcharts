@@ -1,5 +1,5 @@
 import React from 'react';
-import { createMockProvidedChart } from '../../test-utils'
+import { createMockProvidedChart } from '../../test-utils';
 import Subtitle from '../../../src/components/Subtitle/Subtitle';
 import ChartContext from '../../../src/components/ChartContext';
 
@@ -13,8 +13,8 @@ describe('<Subtitle />', () => {
     testContext.chartStubs = chartStubs;
 
     ProvidedSubtitle = props => (
-      <ChartContext.Provider value={ chartStubs }>
-        <Subtitle {...props}/>
+      <ChartContext.Provider value={chartStubs}>
+        <Subtitle {...props} />
       </ChartContext.Provider>
     );
   });
@@ -24,27 +24,35 @@ describe('<Subtitle />', () => {
       mount(<ProvidedSubtitle>My Subtitle</ProvidedSubtitle>);
       expect(testContext.chartStubs.setTitle).toHaveBeenCalledTimes(1);
       expect(testContext.chartStubs.setTitle).toHaveBeenCalledWith(
-        undefined, { text: 'My Subtitle' }, false
+        undefined,
+        { text: 'My Subtitle' },
+        false
       );
     });
 
     it('should pass additional props through to Highcharts setTitle method', () => {
-      mount(<ProvidedSubtitle align="right">My Other Subtitle</ProvidedSubtitle>);
+      mount(
+        <ProvidedSubtitle align="right">My Other Subtitle</ProvidedSubtitle>
+      );
       expect(testContext.chartStubs.setTitle).toHaveBeenCalledWith(
-        undefined, { text: 'My Other Subtitle', align: 'right' }, false
+        undefined,
+        { text: 'My Other Subtitle', align: 'right' },
+        false
       );
     });
   });
 
   describe('update', () => {
     it('should use the setTitle method when the data changes', () => {
-      const wrapper = mount(
-        <ProvidedSubtitle>My Subtitle</ProvidedSubtitle>
-      );
+      const wrapper = mount(<ProvidedSubtitle>My Subtitle</ProvidedSubtitle>);
       testContext.chartStubs.setTitle.mockClear();
       wrapper.setProps({ x: 10, y: 20, children: 'My New Subtitle' });
       expect(testContext.chartStubs.setTitle).toHaveBeenCalledTimes(1);
-      expect(testContext.chartStubs.setTitle).toHaveBeenCalledWith(undefined, { x: 10, y: 20, text: 'My New Subtitle' }, false);
+      expect(testContext.chartStubs.setTitle).toHaveBeenCalledWith(
+        undefined,
+        { x: 10, y: 20, text: 'My New Subtitle' },
+        false
+      );
     });
   });
 
@@ -54,7 +62,11 @@ describe('<Subtitle />', () => {
       testContext.chartStubs.setTitle.mockClear();
       wrapper.unmount();
       expect(testContext.chartStubs.setTitle).toHaveBeenCalledTimes(1);
-      expect(testContext.chartStubs.setTitle).toHaveBeenCalledWith(undefined, { text: null }, false);
+      expect(testContext.chartStubs.setTitle).toHaveBeenCalledWith(
+        undefined,
+        { text: null },
+        false
+      );
     });
   });
 });

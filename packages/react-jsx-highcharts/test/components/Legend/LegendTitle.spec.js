@@ -1,6 +1,6 @@
 import React from 'react';
 import LegendTitle from '../../../src/components/Legend/LegendTitle';
-import { createMockProvidedChart } from '../../test-utils'
+import { createMockProvidedChart } from '../../test-utils';
 import ChartContext from '../../../src/components/ChartContext';
 
 describe('<Legend.Title />', () => {
@@ -13,8 +13,8 @@ describe('<Legend.Title />', () => {
     testContext.chartStubs = chartStubs;
 
     ProvidedLegendTitle = props => (
-      <ChartContext.Provider value={ chartStubs }>
-        <LegendTitle {...props}/>
+      <ChartContext.Provider value={chartStubs}>
+        <LegendTitle {...props} />
       </ChartContext.Provider>
     );
     testContext.chartStubs = chartStubs;
@@ -24,27 +24,35 @@ describe('<Legend.Title />', () => {
   describe('when mounted', () => {
     it('add legend using the Highcharts update method', () => {
       mount(<ProvidedLegendTitle>My Legend Title</ProvidedLegendTitle>);
-      expect(testContext.chartStubs.update).toHaveBeenCalledWith({
-        legend: {
-          title: {
-            text: 'My Legend Title'
+      expect(testContext.chartStubs.update).toHaveBeenCalledWith(
+        {
+          legend: {
+            title: {
+              text: 'My Legend Title'
+            }
           }
-        }
-      }, false);
+        },
+        false
+      );
     });
 
     it('updates the legend with the passed props', () => {
       mount(
-        <ProvidedLegendTitle style={{ color: 'red' }}>My Legend Title</ProvidedLegendTitle>
+        <ProvidedLegendTitle style={{ color: 'red' }}>
+          My Legend Title
+        </ProvidedLegendTitle>
       );
-      expect(testContext.chartStubs.update).toHaveBeenCalledWith({
-        legend: {
-          title: {
-            text: 'My Legend Title',
-            style: { color: 'red' }
+      expect(testContext.chartStubs.update).toHaveBeenCalledWith(
+        {
+          legend: {
+            title: {
+              text: 'My Legend Title',
+              style: { color: 'red' }
+            }
           }
-        }
-      }, false);
+        },
+        false
+      );
     });
   });
 
@@ -54,27 +62,35 @@ describe('<Legend.Title />', () => {
         <ProvidedLegendTitle>My Legend Title</ProvidedLegendTitle>
       );
       wrapper.setProps({ children: 'My New Legend Title' });
-      expect(testContext.chartStubs.update).toHaveBeenCalledWith({
-        legend: {
-          title: {
-            text: 'My New Legend Title'
+      expect(testContext.chartStubs.update).toHaveBeenCalledWith(
+        {
+          legend: {
+            title: {
+              text: 'My New Legend Title'
+            }
           }
-        }
-      }, false);
+        },
+        false
+      );
     });
   });
 
   describe('when unmounted', () => {
     it('should disable the LegendTitle', () => {
-      const wrapper = mount(<ProvidedLegendTitle>My Legend Title</ProvidedLegendTitle>);
+      const wrapper = mount(
+        <ProvidedLegendTitle>My Legend Title</ProvidedLegendTitle>
+      );
       wrapper.unmount();
-      expect(testContext.chartStubs.update).toHaveBeenCalledWith({
-        legend: {
-          title: {
-            text: null
+      expect(testContext.chartStubs.update).toHaveBeenCalledWith(
+        {
+          legend: {
+            title: {
+              text: null
+            }
           }
-        }
-      }, false)
+        },
+        false
+      );
     });
   });
 });

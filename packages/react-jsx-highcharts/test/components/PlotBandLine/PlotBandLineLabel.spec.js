@@ -8,16 +8,19 @@ describe('<PlotBandLineLabel.Label />', () => {
   beforeEach(() => {
     testContext = {};
 
-    testContext.plotLine = { id: 'myPlotLine', options: { label: { text: null } }, render: jest.fn() };
+    testContext.plotLine = {
+      id: 'myPlotLine',
+      options: { label: { text: null } },
+      render: jest.fn()
+    };
     testContext.providedPlotline = {
       object: testContext.plotLine
-    }
-    ProvidedPlotBandLineLabel = (props) => (
+    };
+    ProvidedPlotBandLineLabel = props => (
       <PlotLineContext.Provider value={testContext.providedPlotline}>
         <PlotBandLineLabel {...props} />
       </PlotLineContext.Provider>
-    )
-
+    );
 
     jest.spyOn(window, 'requestAnimationFrame').mockImplementation(cb => cb());
   });
@@ -29,9 +32,7 @@ describe('<PlotBandLineLabel.Label />', () => {
   describe('when mounted', () => {
     it('sets the correct plot line label', () => {
       mount(
-        <ProvidedPlotBandLineLabel>
-          My PlotLine Label
-        </ProvidedPlotBandLineLabel>
+        <ProvidedPlotBandLineLabel>My PlotLine Label</ProvidedPlotBandLineLabel>
       );
       expect(testContext.plotLine.options.label).toEqual({
         text: 'My PlotLine Label'

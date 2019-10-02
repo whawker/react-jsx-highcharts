@@ -1,5 +1,5 @@
 import React from 'react';
-import Highcharts from 'highcharts'
+import Highcharts from 'highcharts';
 
 import addHighchartsMore from 'highcharts/highcharts-more';
 //import addHighcharts3DModule from 'highcharts/highcharts-3d';
@@ -30,12 +30,12 @@ import {
   XAxis,
   withHighcharts
 } from '../../../src';
-import { act, renderIntoDocument } from 'react-dom/test-utils'
+import { act, renderIntoDocument } from 'react-dom/test-utils';
 
 import * as all from '../../../src';
 import Series from '../../../src/components/Series';
 
-addHighchartsMore(Highcharts)
+addHighchartsMore(Highcharts);
 //addHighcharts3DModule(Highcharts);
 addBulletModule(Highcharts);
 //addCylinderModule(Highcharts);
@@ -58,86 +58,97 @@ addWindBarbModule(Highcharts);
 addXRangeModule(Highcharts);
 
 const skippedSeries = ['BarSeries'];
-const noAxisSeries = ['PieSeries', 'VariablePieSeries','PyramidSeries', 'FunnelSeries', 'VennSeries', 'PackedBubbleSeries'];
-const needParentSeries = ['BellCurveSeries','HistogramSeries', 'ParetoSeries'];
+const noAxisSeries = [
+  'PieSeries',
+  'VariablePieSeries',
+  'PyramidSeries',
+  'FunnelSeries',
+  'VennSeries',
+  'PackedBubbleSeries'
+];
+const needParentSeries = ['BellCurveSeries', 'HistogramSeries', 'ParetoSeries'];
 
-Object.keys(all).filter(name => /^[A-Z].*Series$/.test(name)).forEach((seriesName) => {
-  if (skippedSeries.includes(seriesName)) return;
-  const seriesType = seriesName.substring(0, seriesName.indexOf('Series')).toLowerCase();
-  const SeriesComponent = all[seriesName]; // eslint-disable-line import/namespace
+Object.keys(all)
+  .filter(name => /^[A-Z].*Series$/.test(name))
+  .forEach(seriesName => {
+    if (skippedSeries.includes(seriesName)) return;
+    const seriesType = seriesName
+      .substring(0, seriesName.indexOf('Series'))
+      .toLowerCase();
+    const SeriesComponent = all[seriesName]; // eslint-disable-line import/namespace
 
-  describe(`<${seriesName} /> integration`, () => {
-
-    beforeAll(function () {
-      jest.useFakeTimers();
-    });
-
-    beforeEach(() => {
-      jest.spyOn(window, 'requestAnimationFrame').mockImplementation(cb => window.setTimeout(cb, 0));
-      jest.spyOn(window, 'cancelAnimationFrame');
-    });
-
-    afterEach(() => {
-      window.requestAnimationFrame.mockRestore();
-      window.cancelAnimationFrame.mockRestore();
-      jest.clearAllTimers();
-    });
-
-    if(seriesType in Highcharts.seriesTypes) {
-      it('renders with real highcharts', (done) => {
-        const afterAddSeries = (event) => {
-          expect(event.target.series.length).toBe(1);
-          expect(event.target.series[0].type).toBe(seriesType);
-          if (!noAxisSeries.includes(seriesName)) {
-            expect(event.target.series[0].yAxis.userOptions.id).toBe("myYAxis");
-          }
-          done();
-        }
-        const Component = (props) => {
-          return (
-            <HighchartsChart>
-              <Chart zoomType="x" onAfterAddSeries={afterAddSeries}/>
-              <XAxis>
-              </XAxis>
-              <YAxis id="myYAxis">
-              </YAxis>
-              <SeriesComponent axisId="myYAxis" data={[1,2,3,4]}/>
-            </HighchartsChart>
-          )
-        };
-        const WithComponent = withHighcharts(Component, Highcharts);
-        const renderedChart = renderIntoDocument(<WithComponent />);
-        act(() => {
-          jest.runAllTimers();
-        });
+    describe(`<${seriesName} /> integration`, () => {
+      beforeAll(function() {
+        jest.useFakeTimers();
       });
-      it('binds hide event correctly', (done) => {
-        const afterAddSeries = (event) => {
-          expect(event.target.series[0].visible).toBe(true);
-          event.target.series[0].hide();
-        }
-        const onHide = (event) => {
-          expect(event.target.visible).toBe(false);
-          done();
-        }
-        const Component = (props) => {
-          return (
-            <HighchartsChart>
-              <Chart zoomType="x" onAfterAddSeries={afterAddSeries}/>
-              <XAxis>
-              </XAxis>
-              <YAxis>
-                <SeriesComponent data={[1,2,3,4]} onHide={ onHide }/>
-              </YAxis>
-            </HighchartsChart>
-          )
-        };
-        const WithComponent = withHighcharts(Component, Highcharts);
-        const renderedChart = renderIntoDocument(<WithComponent />);
-        act(() => {
-          jest.runAllTimers();
-        });
+
+      beforeEach(() => {
+        jest
+          .spyOn(window, 'requestAnimationFrame')
+          .mockImplementation(cb => window.setTimeout(cb, 0));
+        jest.spyOn(window, 'cancelAnimationFrame');
       });
-    }
+
+      afterEach(() => {
+        window.requestAnimationFrame.mockRestore();
+        window.cancelAnimationFrame.mockRestore();
+        jest.clearAllTimers();
+      });
+
+      if (seriesType in Highcharts.seriesTypes) {
+        it('renders with real highcharts', done => {
+          const afterAddSeries = event => {
+            expect(event.target.series.length).toBe(1);
+            expect(event.target.series[0].type).toBe(seriesType);
+            if (!noAxisSeries.includes(seriesName)) {
+              expect(event.target.series[0].yAxis.userOptions.id).toBe(
+                'myYAxis'
+              );
+            }
+            done();
+          };
+          const Component = props => {
+            return (
+              <HighchartsChart>
+                <Chart zoomType="x" onAfterAddSeries={afterAddSeries} />
+                <XAxis></XAxis>
+                <YAxis id="myYAxis"></YAxis>
+                <SeriesComponent axisId="myYAxis" data={[1, 2, 3, 4]} />
+              </HighchartsChart>
+            );
+          };
+          const WithComponent = withHighcharts(Component, Highcharts);
+          const renderedChart = renderIntoDocument(<WithComponent />);
+          act(() => {
+            jest.runAllTimers();
+          });
+        });
+        it('binds hide event correctly', done => {
+          const afterAddSeries = event => {
+            expect(event.target.series[0].visible).toBe(true);
+            event.target.series[0].hide();
+          };
+          const onHide = event => {
+            expect(event.target.visible).toBe(false);
+            done();
+          };
+          const Component = props => {
+            return (
+              <HighchartsChart>
+                <Chart zoomType="x" onAfterAddSeries={afterAddSeries} />
+                <XAxis></XAxis>
+                <YAxis>
+                  <SeriesComponent data={[1, 2, 3, 4]} onHide={onHide} />
+                </YAxis>
+              </HighchartsChart>
+            );
+          };
+          const WithComponent = withHighcharts(Component, Highcharts);
+          const renderedChart = renderIntoDocument(<WithComponent />);
+          act(() => {
+            jest.runAllTimers();
+          });
+        });
+      }
+    });
   });
-});

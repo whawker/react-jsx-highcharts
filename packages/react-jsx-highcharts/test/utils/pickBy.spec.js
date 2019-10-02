@@ -1,13 +1,12 @@
 import pickBy from '../../src/utils/pickBy';
 
 describe('utils/pickBy', () => {
-
   it('should return object which satisfies filter function', () => {
     const onInit = jest.fn();
     const props = {
       onInit,
       noPassed: false
-    }
+    };
     const pickedProps = pickBy(props, (key, value) => {
       return key === 'onInit';
     });
@@ -20,6 +19,6 @@ describe('utils/pickBy', () => {
       return key === 'onInit';
     });
 
-    expect(pickedProps).toEqual({ });
+    expect(pickedProps).toEqual({});
   });
 });

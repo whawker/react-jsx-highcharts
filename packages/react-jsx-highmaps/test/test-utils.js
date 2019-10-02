@@ -1,4 +1,4 @@
-export const uuidRegex = /^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i
+export const uuidRegex = /^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i;
 
 const noop = () => {};
 export const Highcharts = {
@@ -25,7 +25,7 @@ export const createMockChart = () => ({
   redraw: jest.fn(),
   setCaption: jest.fn(),
   options: { credits: {} }
-})
+});
 
 export const createMockProvidedChart = () => {
   const chartStubs = createMockChart();
@@ -33,7 +33,7 @@ export const createMockProvidedChart = () => {
   return {
     chartStubs,
     getChart: () => chartStubs
-  }
+  };
 };
 
 export const createMockAxis = ({ ...additional }) => ({
@@ -59,7 +59,7 @@ export const createMockProvidedAxis = ({ object, ...additional }) => {
       ...additional,
       ...axisStubs
     })
-  }
+  };
 };
 
 export const createMockSeries = ({ ...additional }) => ({
@@ -80,5 +80,5 @@ export const createMockProvidedSeries = ({ object, ...additional }) => {
       ...additional,
       ...seriesStubs
     })
-  }
+  };
 };

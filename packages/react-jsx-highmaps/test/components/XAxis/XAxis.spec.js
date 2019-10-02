@@ -10,16 +10,16 @@ describe('<XAxis />', () => {
 
   it('should always have the id `xAxis`', () => {
     const wrapper = shallow(<MapXAxis id="customId" />);
-    expect(wrapper).toHaveProp('id','xAxis');
+    expect(wrapper).toHaveProp('id', 'xAxis');
   });
 
   it('should NOT be a dynamic axis', () => {
     const wrapper = shallow(<MapXAxis />);
-    expect(wrapper).toHaveProp('dynamicAxis',false);
+    expect(wrapper).toHaveProp('dynamicAxis', false);
   });
 
   it('passes other props through to <XAxis />', () => {
     const wrapper = shallow(<MapXAxis tickLength={1337} />);
-    expect(wrapper).toHaveProp('tickLength',1337);
+    expect(wrapper).toHaveProp('tickLength', 1337);
   });
 });

@@ -19,15 +19,15 @@ export const createMockChart = ({ ...additional }) => ({
   hideLoading: jest.fn(),
   addCredits: jest.fn(),
   redraw: jest.fn(),
-  setCaption: jest.fn(),
-})
+  setCaption: jest.fn()
+});
 
 export const createMockProvidedChart = ({ object, ...additional }) => {
   const chartStubs = createMockChart(additional);
 
   return {
-    chartStubs: { ...chartStubs, object },
-  }
+    chartStubs: { ...chartStubs, object }
+  };
 };
 
 export const createMockAxis = ({ ...additional }) => ({
@@ -53,7 +53,7 @@ export const createMockProvidedAxis = ({ object, ...additional }) => {
       ...additional,
       ...axisStubs
     })
-  }
+  };
 };
 
 export const createMockSeries = ({ ...additional }) => ({
@@ -74,5 +74,5 @@ export const createMockProvidedSeries = ({ object, ...additional }) => {
       ...additional,
       ...seriesStubs
     })
-  }
+  };
 };

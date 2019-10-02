@@ -1,7 +1,6 @@
 import getModifiedProps from '../../src/utils/getModifiedProps';
 
 describe('utils/getModifiedProps', () => {
-
   it('should return only modified props', () => {
     const prevProps = {
       firstProp: true,
@@ -15,7 +14,6 @@ describe('utils/getModifiedProps', () => {
 
     const returnedProps = getModifiedProps(prevProps, currProps, false);
     expect(returnedProps).toEqual({ secondProp: false });
-
   });
 
   it('should return false for non modified props', () => {
@@ -30,7 +28,7 @@ describe('utils/getModifiedProps', () => {
 
   it('should return added props', () => {
     const prevProps = {
-      firstProp: true,
+      firstProp: true
     };
 
     const currProps = {
@@ -39,7 +37,6 @@ describe('utils/getModifiedProps', () => {
 
     const returnedProps = getModifiedProps(prevProps, currProps, false);
     expect(returnedProps).toEqual({ secondProp: false });
-
   });
 
   it('should return modified props for undefined prevProps', () => {
@@ -52,7 +49,6 @@ describe('utils/getModifiedProps', () => {
 
     const returnedProps = getModifiedProps(prevProps, currProps, false);
     expect(returnedProps).toEqual(currProps);
-
   });
 
   it('should return modified props for null prevProps', () => {
@@ -65,7 +61,6 @@ describe('utils/getModifiedProps', () => {
 
     const returnedProps = getModifiedProps(prevProps, currProps, false);
     expect(returnedProps).toEqual(currProps);
-
   });
   it('should not return text when children is not defined', () => {
     const prevProps = null;
@@ -83,12 +78,10 @@ describe('utils/getModifiedProps', () => {
     const prevProps = {};
 
     const currProps = {
-      children: "teststring"
+      children: 'teststring'
     };
 
     const returnedProps = getModifiedProps(prevProps, currProps, true);
-    expect(returnedProps.text).toBe("teststring");
+    expect(returnedProps.text).toBe('teststring');
   });
-
 });
-
