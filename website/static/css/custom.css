@@ -1,0 +1,82 @@
+/* your custom css */
+
+.homeWrapper .inner { margin-right: 10rem; }
+
+.projectTitle span { font-family: Menlo, Verdana, monospace; }
+.projectTitle .jsx { color: #6699A1; }
+
+.container {
+  padding-top: 1px;
+  padding-bottom: 1px;
+}
+
+.imageAlignTop .blockImage { max-width: unset; }
+.imageAlignSide .blockImage { align-self: center; }
+.product:nth-child(4) { opacity: 0.33; }
+
+.gridBlock .threeByGridBlock img,
+.gridBlock .fourByGridBlock img {
+  max-height: 160px;
+  max-width: unset;
+}
+
+.column {
+  display: block;
+  flex-basis: 0;
+  flex-grow: 1;
+  flex-shrink: 1;
+}
+
+.column.text {
+  flex: none;
+  padding: .75rem 0;
+  width: 25%;
+}
+
+.showcase {
+  align-items: center;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  margin-bottom: 20px
+}
+
+.showcase .link {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 180px;
+  margin: 5px;
+  padding: 5px
+}
+
+.showcase .link:hover {
+  text-decoration: underline
+}
+
+.showcase .link .caption {
+  line-height: 20px;
+  height: 20px
+}
+
+.showcase .link img {
+  max-height: 110px;
+  padding: 20px;
+  width: 110px;
+  align-self: center
+}
+
+@media only screen and (min-device-width: 360px) and (max-device-width: 736px) {
+}
+
+@media only screen and (min-width: 1024px) {
+}
+
+@media only screen and (max-width: 1023px) {
+}
+
+@media only screen and (min-width: 1400px) {
+}
+
+@media only screen and (min-width: 1500px) {
+}
