@@ -12,6 +12,7 @@ export { default as Highcharts3dChart } from './components/Highcharts3dChart';
 export { default as Annotation } from './components/Annotation';
 export { default as Caption } from './components/Caption';
 export { default as Chart } from './components/Chart';
+export { default as ColorAxis } from './components/ColorAxis';
 export { default as Credits } from './components/Credits';
 export { default as Loading } from './components/Loading';
 export { default as Legend } from './components/Legend';

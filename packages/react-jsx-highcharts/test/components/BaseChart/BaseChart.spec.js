@@ -38,6 +38,7 @@ describe('<BaseChart />', () => {
     chart.setSize.mockReset();
     chart.update.mockReset();
     chart.addAxis.mockReset();
+    chart.addColorAxis.mockReset();
     chart.addSeries.mockReset();
     chart.setTitle.mockReset();
     chart.showLoading.mockReset();
