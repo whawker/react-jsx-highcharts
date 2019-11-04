@@ -23,6 +23,7 @@ const Chart = memo(({ type = 'line', ...restProps }) => {
       }
       if (Object.getOwnPropertyNames(restModified).length > 0) {
         updateChart(restModified, chart, chart.needsRedraw);
+        addEventHandlersManually(Highcharts, chart.object, restModified);
       }
     }
   });

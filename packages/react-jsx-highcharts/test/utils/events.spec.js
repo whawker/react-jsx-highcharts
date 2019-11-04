@@ -4,6 +4,7 @@ import { Highcharts } from '../test-utils';
 describe('utils/events', () => {
   beforeEach(() => {
     Highcharts.addEvent.mockClear();
+    Highcharts.removeEvent.mockClear();
   });
 
   describe('getEventHandlerProps', () => {
@@ -122,16 +123,27 @@ describe('utils/events', () => {
       const context = {};
 
       addEventHandlersManually(Highcharts, context, config);
-
+      expect(Highcharts.removeEvent).toHaveBeenCalledWith(
+        context,
+        'eventHandler'
+      );
       expect(Highcharts.addEvent).toHaveBeenCalledWith(
         context,
         'eventHandler',
         onEventHandler
       );
+      expect(Highcharts.removeEvent).toHaveBeenCalledWith(
+        context,
+        'otherEventHandler'
+      );
       expect(Highcharts.addEvent).toHaveBeenCalledWith(
         context,
         'otherEventHandler',
         onOtherEventHandler
+      );
+      expect(Highcharts.removeEvent).not.toHaveBeenCalledWith(
+        context,
+        'onNotAFunction'
       );
       expect(Highcharts.addEvent).not.toHaveBeenCalledWith(
         context,

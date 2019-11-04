@@ -112,6 +112,32 @@ describe('<Chart />', () => {
       expect(testContext.needsRedraw).toHaveBeenCalledTimes(2);
     });
 
+    it('should update changed eventhandlers', () => {
+      testContext.chartStubs.object = {};
+      const onSelection = jest.fn();
+      const wrapper = mount(
+        <ProvidedChart onSelection={onSelection} onRedraw={jest.fn()} />
+      );
+      Highcharts.addEvent.mockClear();
+      Highcharts.removeEvent.mockClear();
+      const onRedraw = jest.fn();
+      wrapper.setProps({ onRedraw });
+      expect(Highcharts.removeEvent).toHaveBeenCalledWith(
+        testContext.chartStubs.object,
+        'redraw'
+      );
+      expect(Highcharts.addEvent).toHaveBeenCalledWith(
+        testContext.chartStubs.object,
+        'redraw',
+        onRedraw
+      );
+      expect(Highcharts.addEvent).not.toHaveBeenCalledWith(
+        testContext.chartStubs.object,
+        'selection',
+        onSelection
+      );
+    });
+
     it('updates the size of the chart if the width or height change', () => {
       const wrapper = mount(<ProvidedChart width={400} height="75%" />);
 
