@@ -1,27 +1,14 @@
-import React, {
-  useState,
-  useEffect,
-  Children,
-  cloneElement,
-  isValidElement
-} from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { attempt } from 'lodash-es';
 import { useModifiedProps, useChart } from 'react-jsx-highcharts';
 import NavigatorXAxis from './NavigatorXAxis';
 
-const Navigator = ({ enabled = true, ...restProps }) => {
+const Navigator = ({ children = null, enabled = true, ...restProps }) => {
   const props = { enabled, ...restProps };
-  const [rendered, setRendered] = useState(false);
   const chart = useChart();
 
   useEffect(() => {
-    const { children, ...rest } = props;
-
-    updateNavigator(rest, chart);
-
-    setRendered(true);
-
     return () => {
       attempt(updateNavigator, { enabled: false }, chart);
     };
@@ -29,21 +16,13 @@ const Navigator = ({ enabled = true, ...restProps }) => {
 
   const modifiedProps = useModifiedProps(props);
 
-  useEffect(() => {
-    if (modifiedProps !== false) {
-      updateNavigator(modifiedProps, chart);
-    }
-  });
+  if (modifiedProps !== false) {
+    updateNavigator(modifiedProps, chart);
+  }
 
-  const { children } = props;
-  if (!children || !rendered) return null;
+  if (!children || !enabled) return null;
 
-  const navChildren = Children.map(children, child => {
-    if (isValidElement(child) === false) return child;
-    return cloneElement(child, { rendered });
-  });
-
-  return <NavigatorXAxis>{navChildren}</NavigatorXAxis>;
+  return <NavigatorXAxis>{children}</NavigatorXAxis>;
 };
 
 const updateNavigator = (config, chart) => {
@@ -51,7 +30,8 @@ const updateNavigator = (config, chart) => {
 };
 
 Navigator.propTypes = {
-  enabled: PropTypes.bool
+  enabled: PropTypes.bool,
+  children: PropTypes.node
 };
 
 export default Navigator;
