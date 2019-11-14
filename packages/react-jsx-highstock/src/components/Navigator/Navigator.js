@@ -1,10 +1,4 @@
-import React, {
-  useState,
-  useEffect,
-  Children,
-  cloneElement,
-  isValidElement
-} from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { attempt } from 'lodash-es';
 import {
@@ -48,12 +42,7 @@ const Navigator = ({ enabled = true, ...restProps }) => {
   const { children } = props;
   if (!children || !rendered) return null;
 
-  const navChildren = Children.map(children, child => {
-    if (isValidElement(child) === false) return child;
-    return cloneElement(child, { rendered });
-  });
-
-  return <NavigatorXAxis>{navChildren}</NavigatorXAxis>;
+  return <NavigatorXAxis>{children}</NavigatorXAxis>;
 };
 
 const updateNavigator = (config, chart) => {
