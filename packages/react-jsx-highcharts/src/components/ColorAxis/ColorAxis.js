@@ -26,12 +26,10 @@ const ColorAxis = ({ children = null, ...restProps }) => {
   const modifiedProps = useModifiedProps(restProps);
 
   useEffect(() => {
-    if (colorAxisRef.current !== null) {
-      if (modifiedProps !== false) {
-        const colorAxis = colorAxisRef.current;
-        colorAxis.update(modifiedProps, false);
-        chart.needsRedraw();
-      }
+    if (colorAxisRef.current !== null && modifiedProps !== false) {
+      const colorAxis = colorAxisRef.current;
+      colorAxis.update(modifiedProps, false);
+      chart.needsRedraw();
     }
   });
 
@@ -66,9 +64,7 @@ const getColorAxisConfig = props => {
 
 const createColorAxis = (chart, props) => {
   const opts = getColorAxisConfig(props);
-  let colorAxis;
-  colorAxis = chart.addColorAxis(opts, false);
-  return colorAxis;
+  return chart.addColorAxis(opts, false);
 };
 
 export default ColorAxis;
