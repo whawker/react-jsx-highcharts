@@ -2,10 +2,11 @@ import React from 'react';
 
 jest.mock('react-jsx-highcharts', () => ({
   ...jest.requireActual('react-jsx-highcharts'),
-  useChart: jest.fn()
+  useChart: jest.fn(),
+  useHighcharts: jest.fn()
 }));
 
-import { useChart } from 'react-jsx-highcharts';
+import { useChart, useHighcharts } from 'react-jsx-highcharts';
 import Navigator from '../../../src/components/Navigator/Navigator';
 import { Highcharts, createMockProvidedChart } from '../../test-utils';
 
@@ -23,6 +24,7 @@ describe('<Navigator />', () => {
     testContext.chartStubs = chartStubs;
 
     useChart.mockImplementation(() => chartStubs);
+    useHighcharts.mockImplementation(() => Highcharts);
   });
 
   afterEach(() => {
@@ -32,12 +34,14 @@ describe('<Navigator />', () => {
   describe('when mounted', () => {
     it('enables the Navigator', () => {
       mount(<Navigator />);
+      expect(testContext.object.options.navigator.enabled).toEqual(true);
+    });
 
-      expect(testContext.chartStubs.update).toHaveBeenCalledWith(
-        {
-          navigator: { enabled: true }
-        },
-        true
+    it('fires the `beforeRender` event to so Highcharts creates a Navigator', () => {
+      mount(<Navigator />);
+      expect(Highcharts.fireEvent).toHaveBeenCalledWith(
+        testContext.object,
+        'beforeRender'
       );
     });
 
