@@ -7,6 +7,7 @@ import ColorAxis from '../../../src/components/ColorAxis';
 import Series from '../../../src/components/Series';
 import YAxis from '../../../src/components/YAxis';
 import XAxis from '../../../src/components/XAxis';
+import Debug from '../../../src/components/Debug';
 import { render } from 'react-dom';
 
 addColorAxis(Highcharts);
@@ -25,11 +26,12 @@ describe('<ColorAxis /> integration', () => {
   });
 
   describe('when mounted', () => {
-    it('renders series with coloraxis', done => {
+    it('renders series with correct coloraxis', done => {
       const onAfterAddSeries = event => {
-        const colorAxis = event.target.colorAxis[0];
-
-        expect(colorAxis.options.id).toEqual('testcoloraxis');
+        const colorAxis = event.target.colorAxis.find(
+          c => c.options.id === 'testcoloraxis'
+        );
+        expect(colorAxis).toBeDefined();
         expect(colorAxis.options.min).toEqual(0);
         expect(colorAxis.options.max).toEqual(10);
 
@@ -43,11 +45,13 @@ describe('<ColorAxis /> integration', () => {
           <HighchartsChart>
             <Chart onAfterAddSeries={onAfterAddSeries} />
             <XAxis />
+            <ColorAxis min={10} max={100} />
             <ColorAxis id="testcoloraxis" min={0} max={10}>
               <YAxis>
                 <Series colorKey="colorValue" type="column" data={data} />
               </YAxis>
             </ColorAxis>
+            <ColorAxis min={5} max={50} />
           </HighchartsChart>
         );
       };
