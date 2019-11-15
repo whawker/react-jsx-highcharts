@@ -23,7 +23,7 @@ const Axis = ({ children = null, dynamicAxis = true, ...restProps }) => {
 
     return () => {
       const axis = axisRef.current;
-      if (axis.remove) {
+      if (axis.remove && dynamicAxis) {
         // Axis may have already been removed, i.e. when Chart unmounted
         attempt(axis.remove.bind(axis), false);
         chart.needsRedraw();
