@@ -30,10 +30,8 @@ import {
   XAxis,
   withHighcharts
 } from '../../../src';
-import { act, renderIntoDocument } from 'react-dom/test-utils';
 
 import * as all from '../../../src';
-import Series from '../../../src/components/Series';
 
 addHighchartsMore(Highcharts);
 //addHighcharts3DModule(Highcharts);
@@ -78,23 +76,6 @@ Object.keys(all)
     const SeriesComponent = all[seriesName]; // eslint-disable-line import/namespace
 
     describe(`<${seriesName} /> integration`, () => {
-      beforeAll(function() {
-        jest.useFakeTimers();
-      });
-
-      beforeEach(() => {
-        jest
-          .spyOn(window, 'requestAnimationFrame')
-          .mockImplementation(cb => window.setTimeout(cb, 0));
-        jest.spyOn(window, 'cancelAnimationFrame');
-      });
-
-      afterEach(() => {
-        window.requestAnimationFrame.mockRestore();
-        window.cancelAnimationFrame.mockRestore();
-        jest.clearAllTimers();
-      });
-
       if (seriesType in Highcharts.seriesTypes) {
         it('renders with real highcharts', done => {
           const afterAddSeries = event => {
@@ -118,10 +99,7 @@ Object.keys(all)
             );
           };
           const WithComponent = withHighcharts(Component, Highcharts);
-          const renderedChart = renderIntoDocument(<WithComponent />);
-          act(() => {
-            jest.runAllTimers();
-          });
+          mount(<WithComponent />);
         });
         it('binds hide event correctly', done => {
           const afterAddSeries = event => {
@@ -144,10 +122,7 @@ Object.keys(all)
             );
           };
           const WithComponent = withHighcharts(Component, Highcharts);
-          const renderedChart = renderIntoDocument(<WithComponent />);
-          act(() => {
-            jest.runAllTimers();
-          });
+          mount(<WithComponent />);
         });
       }
     });
