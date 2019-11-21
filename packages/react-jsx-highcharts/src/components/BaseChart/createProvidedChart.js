@@ -8,6 +8,7 @@ const createProvidedChart = (chart, type) => ({
   setSize: chart.setSize.bind(chart),
   update: chart.update.bind(chart),
   addAxis: chart.addAxis.bind(chart),
+  addColorAxis: chart.addColorAxis.bind(chart),
   addSeries: chart.addSeries.bind(chart),
   setTitle: chart.setTitle.bind(chart),
   setCaption: chart.setCaption.bind(chart),

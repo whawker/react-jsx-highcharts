@@ -10,6 +10,7 @@ import usePrevious from '../UsePrevious';
 import useHighcharts from '../UseHighcharts';
 import useChart from '../UseChart';
 import useAxis from '../UseAxis';
+import useColorAxis from '../UseColorAxis';
 import createProvidedSeries from './createProvidedSeries';
 
 const EMPTY_ARRAY = [];
@@ -22,6 +23,7 @@ const Series = memo(
     visible = true,
     children = null,
     axisId,
+    colorAxisId,
     requiresAxis = true,
     ...restProps
   }) => {
@@ -46,10 +48,11 @@ const Series = memo(
     const providerValueRef = useRef(null);
 
     const axis = useAxis(axisId);
+    const colorAxis = useColorAxis(colorAxisId);
 
     useEffect(() => {
       if (requiresAxis && !axis) return;
-      const opts = getSeriesConfig(seriesProps, axis, requiresAxis);
+      const opts = getSeriesConfig(seriesProps, axis, colorAxis, requiresAxis);
 
       seriesRef.current = addSeries(opts, false);
       providerValueRef.current = createProvidedSeries(seriesRef.current);
@@ -117,7 +120,7 @@ Series.propTypes = {
   requiresAxis: PropTypes.bool
 };
 
-const getSeriesConfig = (props, axis, requiresAxis) => {
+const getSeriesConfig = (props, axis, colorAxis, requiresAxis) => {
   const { id, data, ...rest } = props;
 
   const seriesId = typeof id === 'function' ? id() : id;
@@ -131,6 +134,9 @@ const getSeriesConfig = (props, axis, requiresAxis) => {
     ...nonEventProps
   };
 
+  if (colorAxis) {
+    config.colorAxis = colorAxis.id;
+  }
   if (requiresAxis) {
     config[axis.type] = axis.id;
   }

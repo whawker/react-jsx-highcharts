@@ -1,6 +1,7 @@
 import { withSeriesType } from 'react-jsx-highcharts';
 export {
   Chart,
+  ColorAxis,
   Credits,
   Debug,
   Loading,

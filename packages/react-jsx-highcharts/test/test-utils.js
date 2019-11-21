@@ -10,6 +10,7 @@ export const Highcharts = {
 
 export const createMockChart = () => ({
   addAxis: jest.fn(),
+  addColorAxis: jest.fn(),
   addSeries: jest.fn(),
   get: jest.fn(),
   setSize: jest.fn(),
