@@ -14,15 +14,17 @@ const useManualEventHandlers = function(props, target) {
   );
 
   if (modifiedEvenHandlers !== false) {
-    Object.entries(modifiedEvenHandlers).forEach(([eventName, newHandler]) => {
+    Object.keys(modifiedEvenHandlers).forEach(eventName => {
       if (previousEventHandlers) {
         const oldHandler = previousEventHandlers[eventName];
         if (oldHandler) {
           Highcharts.removeEvent(target, eventName, oldHandler);
         }
       }
-
-      Highcharts.addEvent(target, eventName, newHandler);
+      const newHandler = modifiedEvenHandlers[eventName];
+      if (newHandler) {
+        Highcharts.addEvent(target, eventName, newHandler);
+      }
     });
   }
 };
