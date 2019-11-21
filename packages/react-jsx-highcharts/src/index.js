@@ -3,9 +3,7 @@ import withSeriesType from './components/WithSeriesType';
 
 // Graphs
 export { default as HighchartsChart } from './components/HighchartsChart';
-export {
-  default as HighchartsSparkline
-} from './components/HighchartsSparkline';
+export { default as HighchartsSparkline } from './components/HighchartsSparkline';
 export { default as Highcharts3dChart } from './components/Highcharts3dChart';
 
 // Graph parts
