@@ -115,21 +115,23 @@ describe('<Chart />', () => {
     it('should update changed eventhandlers', () => {
       testContext.chartStubs.object = {};
       const onSelection = jest.fn();
+      const onRedraw = jest.fn();
       const wrapper = mount(
-        <ProvidedChart onSelection={onSelection} onRedraw={jest.fn()} />
+        <ProvidedChart onSelection={onSelection} onRedraw={onRedraw} />
       );
       Highcharts.addEvent.mockClear();
       Highcharts.removeEvent.mockClear();
-      const onRedraw = jest.fn();
-      wrapper.setProps({ onRedraw });
+      const newOnRedraw = jest.fn();
+      wrapper.setProps({ onRedraw: newOnRedraw });
       expect(Highcharts.removeEvent).toHaveBeenCalledWith(
         testContext.chartStubs.object,
-        'redraw'
+        'redraw',
+        onRedraw
       );
       expect(Highcharts.addEvent).toHaveBeenCalledWith(
         testContext.chartStubs.object,
         'redraw',
-        onRedraw
+        newOnRedraw
       );
       expect(Highcharts.addEvent).not.toHaveBeenCalledWith(
         testContext.chartStubs.object,
