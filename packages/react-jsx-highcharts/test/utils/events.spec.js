@@ -75,36 +75,6 @@ describe('utils/events', () => {
     });
   });
 
-  describe('addEventHandlers', () => {
-    const { addEventHandlers } = events;
-
-    it('should call the provided function with an events property with things that look like event handlers', () => {
-      const spy = jest.fn();
-      const onEventHandler = jest.fn();
-      const onOtherEventHandler = jest.fn();
-
-      const config = {
-        enabled: true,
-        onEventHandler,
-        onOtherEventHandler,
-        onNotAFunction: 'trip',
-        something: 'stringy',
-        count: 14
-      };
-      addEventHandlers(spy, config);
-
-      expect(spy).toHaveBeenCalledWith(
-        {
-          events: {
-            eventHandler: onEventHandler,
-            otherEventHandler: onOtherEventHandler
-          }
-        },
-        true
-      );
-    });
-  });
-
   describe('addEventHandlersManually', () => {
     const { addEventHandlersManually } = events;
 
