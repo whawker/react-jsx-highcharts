@@ -1,4 +1,4 @@
-import { useContext, useState, useDebugValue } from 'react';
+import { useContext, useState, useRef, useDebugValue } from 'react';
 import AxisContext from '../AxisContext';
 import useChart from '../UseChart';
 import createProvidedAxis from '../Axis/createProvidedAxis';
@@ -7,24 +7,37 @@ import useDelayOnce from '../UseDelayOnce';
 export default function useAxis(axisId) {
   const chart = useChart();
   const contextAxis = useContext(AxisContext);
+  const [, setDelayPassed] = useState(false);
 
-  const createStateAxis = () => {
+  const createOrUpdateAxis = prevAxis => {
     if (contextAxis) return contextAxis;
 
     if (axisId) {
       const axis = chart.get(axisId);
-      return createProvidedAxis(axis);
+      // navigator axis gets new instance when updated
+      if (prevAxis) {
+        if (axis !== prevAxis.object) {
+          return createProvidedAxis(axis);
+        }
+        return prevAxis;
+      } else {
+        return createProvidedAxis(axis);
+      }
     }
     return null;
   };
 
-  const [providedAxis, setProvidedAxis] = useState(createStateAxis);
-  useDelayOnce(() => {
-    if (providedAxis) return; // we already had axis
-    // axis should now be created
-    setProvidedAxis(createStateAxis());
-  });
-  useDebugValue(providedAxis ? providedAxis.id : null);
+  const providedAxisRef = useRef(null);
 
-  return providedAxis;
+  providedAxisRef.current = createOrUpdateAxis(providedAxisRef.current);
+
+  useDelayOnce(() => {
+    if (providedAxisRef.current) return; // we already had axis
+    // set state to try again
+    setDelayPassed(true);
+  });
+
+  useDebugValue(providedAxisRef.current ? providedAxisRef.current.id : null);
+
+  return providedAxisRef.current;
 }
