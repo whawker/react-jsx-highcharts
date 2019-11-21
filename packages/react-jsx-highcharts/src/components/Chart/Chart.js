@@ -1,16 +1,12 @@
 import { useEffect, useRef, memo } from 'react';
 import PropTypes from 'prop-types';
-import {
-  addEventHandlersManually,
-  getNonEventHandlerProps
-} from '../../utils/events';
+import { getNonEventHandlerProps } from '../../utils/events';
 import useModifiedProps from '../UseModifiedProps';
 import useChart from '../UseChart';
-import useHighcharts from '../UseHighcharts';
+import useManualEventHandlers from '../UseManualEventHandlers';
 
 const Chart = memo(({ type = 'line', ...restProps }) => {
   const chart = useChart();
-  const Highcharts = useHighcharts();
   const mounted = useRef(false);
 
   const modifiedProps = useModifiedProps(restProps);
@@ -21,7 +17,8 @@ const Chart = memo(({ type = 'line', ...restProps }) => {
       if (width || height) {
         chart.setSize(restProps.width, restProps.height);
       }
-      if (Object.getOwnPropertyNames(restModified).length > 0) {
+      const notEventProps = getNonEventHandlerProps(restModified);
+      if (Object.getOwnPropertyNames(notEventProps).length > 0) {
         updateChart(restModified, chart, chart.needsRedraw);
       }
     }
@@ -34,9 +31,10 @@ const Chart = memo(({ type = 'line', ...restProps }) => {
 
     chart.setSize(width, height);
     updateChart(notEventProps, chart);
-    addEventHandlersManually(Highcharts, chart.object, rest);
     mounted.current = true;
   }, []);
+
+  useManualEventHandlers(restProps, chart.object);
 
   return null;
 });

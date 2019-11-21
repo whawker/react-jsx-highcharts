@@ -4,7 +4,7 @@ const noop = () => {};
 export const Highcharts = {
   chart: jest.fn(),
   addEvent: jest.fn(),
-  removeEvent: noop,
+  removeEvent: jest.fn(),
   Tooltip: jest.fn().mockImplementation(() => ({ update: jest.fn() }))
 };
 
