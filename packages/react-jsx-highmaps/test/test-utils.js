@@ -1,10 +1,9 @@
 export const uuidRegex = /^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i;
 
-const noop = () => {};
 export const Highcharts = {
   mapChart: jest.fn(),
-  addEvent: noop,
-  removeEvent: noop,
+  addEvent: jest.fn(),
+  removeEvent: jest.fn(),
   maps: {
     'mock/map': { some: 'data' }
   },
@@ -13,6 +12,7 @@ export const Highcharts = {
 
 export const createMockChart = () => ({
   addAxis: jest.fn(),
+  addColorAxis: jest.fn(),
   addSeries: jest.fn(),
   get: jest.fn(),
   setSize: jest.fn(),
