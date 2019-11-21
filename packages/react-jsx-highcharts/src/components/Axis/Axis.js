@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import uuid from 'uuid/v4';
 import { attempt } from 'lodash-es';
@@ -13,14 +13,25 @@ const Axis = ({ children = null, dynamicAxis = true, ...restProps }) => {
   const chart = useChart();
   const axisRef = useRef(null);
   const providedAxisRef = useRef(null);
-  const [hasAxis, setHasAxis] = useState(false);
 
-  useEffect(() => {
+  const modifiedProps = useModifiedProps(restProps);
+
+  if (!axisRef.current) {
+    // create axis
     axisRef.current = createAxis(chart, restProps, dynamicAxis);
     providedAxisRef.current = createProvidedAxis(axisRef.current);
-    setHasAxis(true);
     chart.needsRedraw();
+  } else {
+    // update axis
+    if (modifiedProps !== false) {
+      const axis = axisRef.current;
+      axis.update(modifiedProps, false);
+      chart.needsRedraw();
+    }
+  }
 
+  useEffect(() => {
+    // cleanup on unmount
     return () => {
       const axis = axisRef.current;
       if (axis.remove && dynamicAxis) {
@@ -30,18 +41,6 @@ const Axis = ({ children = null, dynamicAxis = true, ...restProps }) => {
       }
     };
   }, []);
-
-  const modifiedProps = useModifiedProps(restProps);
-  useEffect(() => {
-    if (!hasAxis) return;
-    if (modifiedProps !== false) {
-      const axis = axisRef.current;
-      axis.update(modifiedProps, false);
-      chart.needsRedraw();
-    }
-  });
-
-  if (!hasAxis) return null;
 
   return (
     <AxisContext.Provider value={providedAxisRef.current}>
