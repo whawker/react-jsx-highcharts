@@ -63,6 +63,7 @@ describe('<Navigator />', () => {
   describe('update', () => {
     it('should use the update method when props change', () => {
       const wrapper = mount(<Navigator />);
+      testContext.chartStubs.update.mockClear();
       wrapper.setProps({ maskInside: false });
       expect(testContext.chartStubs.update).toHaveBeenCalledWith(
         {

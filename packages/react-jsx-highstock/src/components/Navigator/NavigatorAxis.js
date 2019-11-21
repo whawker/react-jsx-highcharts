@@ -1,57 +1,38 @@
-import React, {
-  useRef,
-  useEffect,
-  Children,
-  cloneElement,
-  isValidElement
-} from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
-import {
-  useAxis,
-  useModifiedProps,
-  getNonEventHandlerProps
-} from 'react-jsx-highcharts';
+import { useChart, useModifiedProps } from 'react-jsx-highcharts';
+import AxisContext from 'react-jsx-highcharts/dist/es/components/AxisContext';
+import createProvidedAxis from 'react-jsx-highcharts/dist/es/components/Axis/createProvidedAxis';
 
-const NavigatorAxis = ({ children, axisId, ...restProps }) => {
-  const axis = useAxis(axisId);
-  const renderedRef = useRef(false);
-
-  useEffect(() => {
-    if (!axis) return;
-
-    updateNavigatorAxis(getNonEventHandlerProps(restProps), axis);
-  }, [axis]);
-
+const NavigatorAxis = ({ children, axisType, axisId, ...restProps }) => {
+  const chart = useChart();
   const modifiedProps = useModifiedProps(restProps);
+  const providedAxisRef = useRef(null);
 
-  useEffect(() => {
-    if (!renderedRef.current) {
-      // don't update on first render
-      renderedRef.current = true;
-      return;
-    }
-
-    if (!axis) return;
-
-    if (modifiedProps !== false) {
-      updateNavigatorAxis(modifiedProps, axis);
-    }
-  });
+  if (modifiedProps !== false) {
+    const config = {
+      navigator: {}
+    };
+    config.navigator[axisType] = modifiedProps;
+    chart.update(config);
+  }
 
   if (!children) return null;
 
-  const axisChildren = Children.map(children, child => {
-    if (isValidElement(child) === false) return child;
-    return cloneElement(child, { axisId });
-  });
+  const axis = chart.get(axisId);
+  if (!providedAxisRef.current || axis !== providedAxisRef.current.object) {
+    providedAxisRef.current = createProvidedAxis(axis);
+  }
 
-  return <>{axisChildren}</>;
-};
-const updateNavigatorAxis = (config, axis) => {
-  axis.update(config);
+  return (
+    <AxisContext.Provider value={providedAxisRef.current}>
+      {children}
+    </AxisContext.Provider>
+  );
 };
 
 NavigatorAxis.propTypes = {
-  axisId: PropTypes.string.isRequired
+  axisId: PropTypes.string.isRequired,
+  axisType: PropTypes.string.isRequired
 };
 export default NavigatorAxis;

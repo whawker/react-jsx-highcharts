@@ -168,7 +168,7 @@ module.exports = {
   //   "/node_modules/"
   // ],
   "transformIgnorePatterns": [
-    "node_modules/(?!(lodash-es)/)"
+    "node_modules/(?!(lodash-es|react-jsx-highcharts)/)"
   ]
   // An array of regexp pattern strings that are matched against all modules before the module loader will automatically return a mock for them
   // unmockedModulePathPatterns: undefined,
