@@ -20,14 +20,5 @@ export const getEventsConfig = props => {
   return eventsConfig;
 };
 
-export const addEventHandlersManually = (Highcharts, context, props) => {
-  const eventProps = getEventsConfig(props);
-
-  Object.keys(eventProps).forEach(eventName => {
-    Highcharts.removeEvent(context, eventName);
-    Highcharts.addEvent(context, eventName, eventProps[eventName]);
-  });
-};
-
 const _isEventKey = (key, value) =>
   key.indexOf('on') === 0 && key.length > 2 && typeof value === 'function';
