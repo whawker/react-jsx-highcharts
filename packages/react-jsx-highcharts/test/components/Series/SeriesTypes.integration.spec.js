@@ -1,4 +1,5 @@
 import React from 'react';
+import { act } from 'react-dom/test-utils';
 import Highcharts from 'highcharts';
 
 import addHighchartsMore from 'highcharts/highcharts-more';
@@ -76,6 +77,22 @@ Object.keys(all)
     const SeriesComponent = all[seriesName]; // eslint-disable-line import/namespace
 
     describe(`<${seriesName} /> integration`, () => {
+      beforeEach(() => {
+        jest.spyOn(window, 'requestAnimationFrame').mockImplementation(cb =>
+          window.setTimeout(
+            () =>
+              act(() => {
+                cb();
+              }),
+            0
+          )
+        );
+      });
+
+      afterEach(() => {
+        window.requestAnimationFrame.mockRestore();
+      });
+
       if (seriesType in Highcharts.seriesTypes) {
         it('renders with real highcharts', done => {
           const afterAddSeries = event => {
