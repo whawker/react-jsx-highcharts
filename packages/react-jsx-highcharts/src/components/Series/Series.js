@@ -19,6 +19,7 @@ const Series = memo(
   ({
     id = uuid,
     data = EMPTY_ARRAY,
+    isDataEqual = Object.is,
     type = 'line',
     visible = true,
     children = null,
@@ -79,7 +80,7 @@ const Series = memo(
 
       let doRedraw = false;
       // Using setData is more performant than update
-      if (Object.is(data, prevProps.data) === false) {
+      if (isDataEqual(data, prevProps.data) === false) {
         series.setData(data, false);
         doRedraw = true;
       }
@@ -114,6 +115,7 @@ Series.propTypes = {
   id: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   type: PropTypes.string,
   data: PropTypes.any,
+  isDataEqual: PropTypes.func,
   visible: PropTypes.bool,
   children: PropTypes.node,
   axisId: PropTypes.string,

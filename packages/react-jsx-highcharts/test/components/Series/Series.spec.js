@@ -205,6 +205,29 @@ describe('<Series />', () => {
       expect(testContext.needsRedraw).toHaveBeenCalled();
     });
 
+    it('should use the isDataEqual prop to compare data', () => {
+      const isDataEqual = jest.fn(() => false);
+      const wrapper = mount(<ProvidedSeries id="mySeries" data={[1, 2, 3]} isDataEqual={isDataEqual} />);
+      wrapper.setProps({ data: [4, 5, 6] });
+      expect(isDataEqual).toHaveBeenCalledWith([4, 5, 6], [1, 2, 3]);
+    });
+
+    it('should NOT setData if isDataEqual returns true', () => {
+      const isDataEqual = jest.fn(() => true);
+      const wrapper = mount(<ProvidedSeries id="mySeries" data={[1, 2, 3]} isDataEqual={isDataEqual} />);
+      testContext.seriesStubs.setData.mockClear();
+      wrapper.setProps({ data: [4, 5, 6] });
+      expect(testContext.seriesStubs.setData).not.toHaveBeenCalled();
+    });
+
+    it('should setData if isDataEqual returns false', () => {
+      const isDataEqual = jest.fn(() => false);
+      const wrapper = mount(<ProvidedSeries id="mySeries" data={[1, 2, 3]} isDataEqual={isDataEqual} />);
+      testContext.seriesStubs.setData.mockClear();
+      wrapper.setProps({ data: [4, 5, 6] });
+      expect(testContext.seriesStubs.setData).toHaveBeenCalled();
+    });
+
     it('should use the setVisible method on the correct series when the visibility changes', () => {
       const wrapper = mount(<ProvidedSeries id="mySeries" visible />);
       testContext.seriesStubs.update.mockReset();
