@@ -1,6 +1,9 @@
 import PropTypes from 'prop-types';
 import withSeriesType from './components/WithSeriesType';
 
+// Main provider
+export { HighchartsProvider } from './components/WithHighcharts';
+
 // Graphs
 export { default as HighchartsChart } from './components/HighchartsChart';
 export { default as HighchartsSparkline } from './components/HighchartsSparkline';

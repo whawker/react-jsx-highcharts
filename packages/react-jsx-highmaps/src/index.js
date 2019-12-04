@@ -4,6 +4,7 @@ export {
   ColorAxis,
   Credits,
   Debug,
+  HighchartsProvider as HighmapsProvider,
   Loading,
   Legend,
   Series,

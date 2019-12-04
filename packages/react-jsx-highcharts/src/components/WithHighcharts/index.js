@@ -9,9 +9,15 @@ export default function withHighcharts(Component, Highcharts) {
     // ... and renders the wrapped component with the context theme!
     // Notice that we pass through any additional props as well
     return (
-      <HighchartsContext.Provider value={Highcharts}>
+      <HighchartsProvider Highcharts={Highcharts}>
         <Component {...props} />
-      </HighchartsContext.Provider>
+      </HighchartsProvider>
     );
   };
 }
+
+export const HighchartsProvider = ({ Highcharts, children }) => (
+  <HighchartsContext.Provider value={Highcharts}>
+    {children}
+  </HighchartsContext.Provider>
+);
