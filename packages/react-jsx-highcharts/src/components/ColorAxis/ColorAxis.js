@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import uuid from 'uuid/v4';
 import { attempt } from 'lodash-es';
 import { getNonEventHandlerProps, getEventsConfig } from '../../utils/events';
@@ -11,8 +11,16 @@ const ColorAxis = ({ children = null, ...restProps }) => {
   const chart = useChart();
   const colorAxisRef = useRef(null);
   const providedColorAxisRef = useRef(null);
+  const [hasColorAxis, setHasColorAxis] = useState(false);
 
   useEffect(() => {
+    colorAxisRef.current = createColorAxis(chart, restProps);
+    providedColorAxisRef.current = createProvidedColorAxis(
+      colorAxisRef.current
+    );
+    setHasColorAxis(true);
+    chart.needsRedraw();
+
     return () => {
       const colorAxis = colorAxisRef.current;
       if (colorAxis && colorAxis.remove) {
@@ -33,13 +41,7 @@ const ColorAxis = ({ children = null, ...restProps }) => {
     }
   });
 
-  if (colorAxisRef.current === null) {
-    colorAxisRef.current = createColorAxis(chart, restProps);
-    providedColorAxisRef.current = createProvidedColorAxis(
-      colorAxisRef.current
-    );
-    chart.needsRedraw();
-  }
+  if (!hasColorAxis) return null;
 
   return (
     <ColorAxisContext.Provider value={providedColorAxisRef.current}>
