@@ -166,10 +166,16 @@ describe('<Series />', () => {
   });
 
   describe('update', () => {
+    const resetMocks = () => {
+      testContext.seriesStubs.update.mockReset();
+      testContext.seriesStubs.setData.mockReset();
+      testContext.seriesStubs.setVisible.mockReset();
+      testContext.needsRedraw.mockReset();
+    };
+
     it('should use the setData method on the correct series when the data changes', () => {
       const wrapper = mount(<ProvidedSeries id="mySeries" data={[]} />);
-      testContext.seriesStubs.update.mockReset();
-      testContext.needsRedraw.mockClear();
+      resetMocks();
       wrapper.setProps({ data: [1, 2, 3] });
       expect(testContext.seriesStubs.setData).toHaveBeenCalledWith(
         [1, 2, 3],
@@ -184,9 +190,7 @@ describe('<Series />', () => {
     it("should NOT use the setData method if the data reference hasn't changed", () => {
       const data = [1, 2, 3];
       const wrapper = mount(<ProvidedSeries id="mySeries" data={data} />);
-      testContext.seriesStubs.update.mockClear();
-      testContext.needsRedraw.mockClear();
-      testContext.seriesStubs.setData.mockClear();
+      resetMocks();
       wrapper.setProps({ data });
       expect(testContext.seriesStubs.setData).not.toHaveBeenCalled();
       expect(testContext.seriesStubs.update).not.toHaveBeenCalled();
@@ -196,8 +200,7 @@ describe('<Series />', () => {
 
     it('should use the setData method if the data reference has changed', () => {
       const wrapper = mount(<ProvidedSeries id="mySeries" data={[1, 2, 3]} />);
-      testContext.seriesStubs.update.mockClear();
-      testContext.needsRedraw.mockClear();
+      resetMocks();
       wrapper.setProps({ data: [1, 2, 3] });
       expect(testContext.seriesStubs.setData).toHaveBeenCalled();
       expect(testContext.seriesStubs.update).not.toHaveBeenCalled();
@@ -215,7 +218,7 @@ describe('<Series />', () => {
     it('should NOT setData if isDataEqual returns true', () => {
       const isDataEqual = jest.fn(() => true);
       const wrapper = mount(<ProvidedSeries id="mySeries" data={[1, 2, 3]} isDataEqual={isDataEqual} />);
-      testContext.seriesStubs.setData.mockClear();
+      resetMocks();
       wrapper.setProps({ data: [4, 5, 6] });
       expect(testContext.seriesStubs.setData).not.toHaveBeenCalled();
     });
@@ -223,15 +226,14 @@ describe('<Series />', () => {
     it('should setData if isDataEqual returns false', () => {
       const isDataEqual = jest.fn(() => false);
       const wrapper = mount(<ProvidedSeries id="mySeries" data={[1, 2, 3]} isDataEqual={isDataEqual} />);
-      testContext.seriesStubs.setData.mockClear();
+      resetMocks();
       wrapper.setProps({ data: [4, 5, 6] });
       expect(testContext.seriesStubs.setData).toHaveBeenCalled();
     });
 
     it('should use the setVisible method on the correct series when the visibility changes', () => {
       const wrapper = mount(<ProvidedSeries id="mySeries" visible />);
-      testContext.seriesStubs.update.mockReset();
-      testContext.needsRedraw.mockClear();
+      resetMocks();
       wrapper.setProps({ visible: false });
       expect(testContext.seriesStubs.setVisible).toHaveBeenCalledWith(
         false,
@@ -244,7 +246,7 @@ describe('<Series />', () => {
 
     it('should use the update method on correct series if arbritary props change', () => {
       const wrapper = mount(<ProvidedSeries id="mySeries" visible />);
-      testContext.needsRedraw.mockClear();
+      resetMocks();
       wrapper.setProps({ newPropName: 'newPropValue' });
       expect(testContext.seriesStubs.update).toHaveBeenCalledWith(
         {
@@ -261,7 +263,7 @@ describe('<Series />', () => {
       const wrapper = mount(
         <ProvidedSeries id="mySeries" data={[]} visible={false} />
       );
-      testContext.needsRedraw.mockClear();
+      resetMocks();
       wrapper.setProps({ opposite: true, data: [4, 5, 6], visible: true });
       expect(testContext.seriesStubs.setData).toHaveBeenCalledWith(
         [4, 5, 6],
