@@ -1,4 +1,4 @@
-import { useContext, useRef, useDebugValue } from 'react';
+import { useContext, useState, useEffect, useDebugValue } from 'react';
 import ColorAxisContext from '../ColorAxisContext';
 import useChart from '../UseChart';
 import createProvidedColorAxis from '../ColorAxis/createProvidedColorAxis';
@@ -17,11 +17,17 @@ export default function useColorAxis(colorAxisId) {
     return null;
   };
 
-  const providedColorAxisRef = useRef(createStateColorAxis());
-
-  useDebugValue(
-    providedColorAxisRef.current ? providedColorAxisRef.current.id : null
+  const [providedColorAxis, setProvidedColorAxis] = useState(
+    createStateColorAxis
   );
 
-  return providedColorAxisRef.current;
+  useEffect(() => {
+    if (providedColorAxis) return; // we already had axis
+    // axis should now be created
+    setProvidedColorAxis(createStateColorAxis());
+  }, []);
+
+  useDebugValue(providedColorAxis ? providedColorAxis.id : null);
+
+  return providedColorAxis;
 }
