@@ -12,9 +12,9 @@ export const getEventsConfig = props => {
   const eventProps = getEventHandlerProps(props);
   const eventsConfig = {};
 
-  Object.entries(eventProps).forEach(([eventName, value]) => {
+  Object.keys(eventProps).forEach(eventName => {
     const configName = eventName.slice(2)[0].toLowerCase() + eventName.slice(3);
-    eventsConfig[configName] = value;
+    eventsConfig[configName] = eventProps[eventName];
   });
 
   return eventsConfig;
