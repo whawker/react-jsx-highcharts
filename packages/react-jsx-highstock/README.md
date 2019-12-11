@@ -28,7 +28,7 @@ React JSX Highcharts also enables you to write your _own_ Highcharts components,
 
 You'll need the peer dependencies too
 
-`npm install --save react react-dom prop-types highcharts@^7.0.0`
+`npm install --save react react-dom prop-types highcharts@^8.0.0`
 
 ## Licensing
 

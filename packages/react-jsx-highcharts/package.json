@@ -78,7 +78,7 @@
     "eslint-plugin-react": "^7.17.0",
     "eslint-plugin-react-hooks": "^2.3.0",
     "eslint-plugin-react-perf": "^3.2.3",
-    "highcharts": "^7.2.1",
+    "highcharts": "^8.0.0",
     "jest": "^24.9.0",
     "jest-enzyme": "^7.1.2",
     "lodash-webpack-plugin": "^0.11.5",
@@ -97,7 +97,7 @@
     "uuid": "^3.3.3"
   },
   "peerDependencies": {
-    "highcharts": "^7.2.0",
+    "highcharts": "^7.2.0 || ^8.0.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "prop-types": "^15.0.0"
