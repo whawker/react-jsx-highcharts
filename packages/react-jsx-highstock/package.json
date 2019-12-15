@@ -97,7 +97,7 @@
     "webpack-cli": "^3.3.10"
   },
   "peerDependencies": {
-    "highcharts": "^7.2.0 || ^8.0.0",
+    "highcharts": "^8.0.0",
     "prop-types": "^15.0.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6"
