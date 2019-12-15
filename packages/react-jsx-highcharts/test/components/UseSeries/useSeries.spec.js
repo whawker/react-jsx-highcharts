@@ -61,26 +61,4 @@ describe('useSeries', () => {
     expect(testChart.get).toHaveBeenCalledWith('mySeriesId');
     expect(seriesCallback).toHaveBeenCalledWith(testSeries);
   });
-
-  it('should return series not yet created after a delay', () => {
-    testChart.get = jest.fn().mockImplementation(() => null);
-
-    const wrapper = mount(
-      <ChartContext.Provider value={testChart}>
-        <ChildComponent seriesId="mySeriesId" />
-      </ChartContext.Provider>
-    );
-
-    expect(testChart.get).toHaveBeenCalledTimes(1);
-    expect(seriesCallback).toHaveBeenCalledWith(null);
-
-    testChart.get.mockImplementation(() => testSeries);
-
-    act(() => {
-      jest.runAllTimers();
-    });
-
-    expect(testChart.get).toHaveBeenCalledTimes(2);
-    expect(seriesCallback).toHaveBeenCalledWith(testSeries);
-  });
 });

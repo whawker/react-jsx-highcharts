@@ -1,5 +1,4 @@
 import React from 'react';
-import { act } from 'react-dom/test-utils';
 import Highcharts from 'highcharts';
 
 import addHighchartsMore from 'highcharts/highcharts-more';
@@ -29,7 +28,7 @@ import {
   Chart,
   YAxis,
   XAxis,
-  withHighcharts
+  HighchartsProvider
 } from '../../../src';
 
 import * as all from '../../../src';
@@ -77,51 +76,37 @@ Object.keys(all)
     const SeriesComponent = all[seriesName]; // eslint-disable-line import/namespace
 
     describe(`<${seriesName} /> integration`, () => {
-      beforeEach(() => {
-        jest.spyOn(window, 'requestAnimationFrame').mockImplementation(cb =>
-          window.setTimeout(
-            () =>
-              act(() => {
-                cb();
-              }),
-            0
-          )
-        );
-      });
-
-      afterEach(() => {
-        window.requestAnimationFrame.mockRestore();
-      });
-
       if (seriesType in Highcharts.seriesTypes) {
         it('renders with real highcharts', done => {
           const afterAddSeries = event => {
             expect(event.target.series.length).toBe(1);
-            expect(event.target.series[0].type).toBe(seriesType);
+            const series = event.target.series[0];
+
+            expect(series.type).toBe(seriesType);
             if (!noAxisSeries.includes(seriesName)) {
-              expect(event.target.series[0].yAxis.userOptions.id).toBe(
-                'myYAxis'
-              );
+              expect(series.yAxis.userOptions.id).toBe('myYAxis');
             }
             done();
           };
           const Component = props => {
             return (
-              <HighchartsChart>
-                <Chart zoomType="x" onAfterAddSeries={afterAddSeries} />
-                <XAxis></XAxis>
-                <YAxis id="myYAxis"></YAxis>
-                <SeriesComponent axisId="myYAxis" data={[1, 2, 3, 4]} />
-              </HighchartsChart>
+              <HighchartsProvider Highcharts={Highcharts}>
+                <HighchartsChart>
+                  <Chart zoomType="x" onAfterAddSeries={afterAddSeries} />
+                  <XAxis></XAxis>
+                  <YAxis id="myYAxis"></YAxis>
+                  <SeriesComponent axisId="myYAxis" data={[1, 2, 3, 4]} />
+                </HighchartsChart>
+              </HighchartsProvider>
             );
           };
-          const WithComponent = withHighcharts(Component, Highcharts);
-          mount(<WithComponent />);
+          mount(<Component />);
         });
         it('binds hide event correctly', done => {
           const afterAddSeries = event => {
-            expect(event.target.series[0].visible).toBe(true);
-            event.target.series[0].hide();
+            const series = event.target.series[0];
+            expect(series.visible).toBe(true);
+            series.hide();
           };
           const onHide = event => {
             expect(event.target.visible).toBe(false);
@@ -129,17 +114,18 @@ Object.keys(all)
           };
           const Component = props => {
             return (
-              <HighchartsChart>
-                <Chart zoomType="x" onAfterAddSeries={afterAddSeries} />
-                <XAxis></XAxis>
-                <YAxis>
-                  <SeriesComponent data={[1, 2, 3, 4]} onHide={onHide} />
-                </YAxis>
-              </HighchartsChart>
+              <HighchartsProvider Highcharts={Highcharts}>
+                <HighchartsChart>
+                  <Chart zoomType="x" onAfterAddSeries={afterAddSeries} />
+                  <XAxis></XAxis>
+                  <YAxis>
+                    <SeriesComponent data={[1, 2, 3, 4]} onHide={onHide} />
+                  </YAxis>
+                </HighchartsChart>
+              </HighchartsProvider>
             );
           };
-          const WithComponent = withHighcharts(Component, Highcharts);
-          mount(<WithComponent />);
+          mount(<Component />);
         });
       }
     });

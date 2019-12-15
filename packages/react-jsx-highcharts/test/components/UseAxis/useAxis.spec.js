@@ -60,26 +60,4 @@ describe('useAxis', () => {
     expect(testChart.get).toHaveBeenCalledWith('myAxisId');
     expect(axisCallback).toHaveBeenCalledWith(testAxis);
   });
-
-  it('should return axis not yet created after a delay', () => {
-    testChart.get = jest.fn().mockImplementation(() => null);
-
-    const wrapper = mount(
-      <ChartContext.Provider value={testChart}>
-        <ChildComponent axisId="myAxisId" />
-      </ChartContext.Provider>
-    );
-
-    expect(testChart.get).toHaveBeenCalledTimes(1);
-    expect(axisCallback).toHaveBeenCalledWith(null);
-
-    testChart.get.mockImplementation(() => testAxis);
-
-    act(() => {
-      jest.runAllTimers();
-    });
-
-    expect(testChart.get).toHaveBeenCalledTimes(2);
-    expect(axisCallback).toHaveBeenCalledWith(testAxis);
-  });
 });
