@@ -14,7 +14,10 @@ addColorAxis(Highcharts);
 describe('<ColorAxis /> integration', () => {
   describe('when mounted', () => {
     it('renders series with correct coloraxis', () => {
-      const data = [{ y: 1, colorValue: 0 }, { y: 10, colorValue: 10 }];
+      const data = [
+        { y: 1, colorValue: 0 },
+        { y: 10, colorValue: 10 }
+      ];
       const Component = props => {
         return (
           <HighchartsChart>
@@ -44,11 +47,53 @@ describe('<ColorAxis /> integration', () => {
       const series = chart.series[0];
       expect(series.colorAxis.options.id).toEqual('testcoloraxis');
     });
+
+    it('renders series with correct coloraxis outside context', () => {
+      const data = [
+        { y: 1, colorValue: 0 },
+        { y: 10, colorValue: 10 }
+      ];
+      const Component = props => {
+        return (
+          <HighchartsChart>
+            <Debug />
+            <Chart />
+            <XAxis />
+            <ColorAxis min={10} max={100} />
+            <ColorAxis id="testcoloraxis" min={0} max={10} />
+            <YAxis>
+              <Series
+                colorAxis="testcoloraxis"
+                colorKey="colorValue"
+                type="column"
+                data={data}
+              />
+            </YAxis>
+            <ColorAxis min={5} max={50} />
+          </HighchartsChart>
+        );
+      };
+      const WithComponent = withHighcharts(Component, Highcharts);
+      mount(<WithComponent />);
+      const chart = window.chart;
+      const colorAxis = chart.colorAxis.find(
+        c => c.options.id === 'testcoloraxis'
+      );
+      expect(colorAxis).toBeDefined();
+      expect(colorAxis.options.min).toEqual(0);
+      expect(colorAxis.options.max).toEqual(10);
+
+      const series = chart.series[0];
+      expect(series.colorAxis.options.id).toEqual('testcoloraxis');
+    });
   });
 
   describe('when updated', () => {
     it('updates colorAxis options', () => {
-      const data = [{ y: 1, colorValue: 0 }, { y: 10, colorValue: 10 }];
+      const data = [
+        { y: 1, colorValue: 0 },
+        { y: 10, colorValue: 10 }
+      ];
       const Component = ({ min, max }) => {
         return (
           <HighchartsChart>
@@ -76,7 +121,10 @@ describe('<ColorAxis /> integration', () => {
 
   describe('when unmounted', () => {
     it('removes colorAxis from chart', () => {
-      const data = [{ y: 1, colorValue: 0 }, { y: 10, colorValue: 10 }];
+      const data = [
+        { y: 1, colorValue: 0 },
+        { y: 10, colorValue: 10 }
+      ];
       const Component = ({ mountColorAxis = true }) => {
         return (
           <HighchartsChart>

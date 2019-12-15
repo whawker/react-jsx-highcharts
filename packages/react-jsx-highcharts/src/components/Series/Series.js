@@ -24,7 +24,6 @@ const Series = memo(
     visible = true,
     children = null,
     axisId,
-    colorAxisId,
     requiresAxis = true,
     ...restProps
   }) => {
@@ -49,7 +48,7 @@ const Series = memo(
     const providerValueRef = useRef(null);
 
     const axis = useAxis(axisId);
-    const colorAxis = useColorAxis(colorAxisId);
+    const colorAxis = useColorAxis();
 
     useEffect(() => {
       if (requiresAxis && !axis) return;
