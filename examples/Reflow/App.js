@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Resizable from 're-resizable';
+import { Resizable } from 're-resizable';
 import Highcharts from 'highcharts';
 import {
   HighchartsChart, Chart, withHighcharts, XAxis, YAxis, Title, Subtitle, SplineSeries

@@ -28,6 +28,7 @@
     "html-webpack-tags-plugin": "^2.0.17",
     "lodash": "^4.17.5",
     "prop-types": "^15.0.0",
+    "re-resizable": "^6.1.1",
     "react-prism": "^4.1.0",
     "style-loader": "^1.0.1",
     "webpack": "^4.41.2",
