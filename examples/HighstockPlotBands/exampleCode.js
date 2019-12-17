@@ -33,7 +33,7 @@ render () {
         <YAxis>
           <YAxis.Title>Cars sold per day</YAxis.Title>
           <AreaSplineSeries id="unitSales" name="Unit Sales" data={unitSales} />
-          <FlagSeries id="events" onSeries="unitSales" data={notableEvents} />
+          <FlagsSeries id="events" onSeries="unitSales" data={notableEvents} />
         </YAxis>
 
         <Navigator>

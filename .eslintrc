@@ -1,7 +1,12 @@
 {
   "root": true,
   "parser": "babel-eslint",
-  "plugins": ["react", "import"],
+  "plugins": ["react", "import", "react-hooks", "react-perf"],
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
   "parserOptions": {
     "ecmaVersion": 2018,
     "sourceType": "module",
@@ -16,7 +21,9 @@
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended",
-    "plugin:import/errors"
+    "plugin:import/errors",
+    "plugin:react-perf/recommended",
+    "plugin:prettier/recommended"
   ],
   "rules": {
     "no-unused-vars": [
@@ -24,7 +31,8 @@
       { "varsIgnorePattern": "^React$", "ignoreRestSiblings": true }
     ],
     "react/prop-types": "warn",
-    "prefer-object-spread": "warn"
+    "prefer-object-spread": "warn",
+    "react-hooks/rules-of-hooks": "error"
   },
   "globals": {
     "process": false

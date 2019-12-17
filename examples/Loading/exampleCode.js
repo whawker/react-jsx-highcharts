@@ -59,7 +59,7 @@ class App extends Component {
             <XAxis.Title>Date</XAxis.Title>
           </XAxis>
 
-          <YAxis min={0} max={500000}>
+          <YAxis min={0} max={1.5e6}>
             <YAxis.Title>Number of downloads</YAxis.Title>
             {npmPackages.map(this.renderSeries)}
           </YAxis>
