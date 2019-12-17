@@ -45,19 +45,12 @@ class App extends Component {
             <AreaSplineSeries id="profit" name="Profit" data={data1} />
           </YAxis>
 
-          <DateRangePickers axisId="xAxis" />
+          <DateRangePickers />
 
           <Navigator>
             <Navigator.Series seriesId="profit" />
           </Navigator>
         </HighchartsStockChart>
-
-        <div className="alert alert-info" role="alert">
-          <p>
-            This custom component is now available as an add-on NPM package:
-            <a href="https://npmjs.com/package/react-jsx-highstock-datepickers" target="_blank"><code>react-jsx-highstock-datepickers</code></a>
-          </p>
-        </div>
 
         <ExampleCode name="CustomComponent">{code}</ExampleCode>
       </div>

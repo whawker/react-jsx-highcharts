@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "description": "Highcharts charts built using React components - examples",
   "scripts": {
-    "build:examples": "./node_modules/.bin/webpack --config webpack.config.js"
+    "build:examples": "rm -rf ./*/bundle.js && ./node_modules/.bin/webpack --config webpack.config.js"
   },
   "author": "Will Hawker",
   "license": "MIT",

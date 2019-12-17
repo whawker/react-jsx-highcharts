@@ -34,7 +34,7 @@ const highchartsExamples = [
 ];
 
 const highstockExamples = [
-  { name: 'CustomComponent', additional: ['moment', 'react-day-picker'] },
+  { name: 'CustomComponent', additional: ['date-fns', 'react-day-picker'] },
   { name: 'Highstocks' },
   { name: 'HighstockPlotBands' }
 ];
@@ -78,8 +78,8 @@ const externals = {
   'highcharts-solid-gauge': 'https://code.highcharts.com/8.0.0/modules/solid-gauge.js',
   'prism':                'https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/prism.min.js',
   'prism-jsx':            'https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/components/prism-jsx.min.js',
-  'moment':               'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js',
-  'react-day-picker':     'https://cdn.jsdelivr.net/npm/react-day-picker@6.0.5/lib/daypicker.js',
+  'date-fns':             'https://cdnjs.cloudflare.com/ajax/libs/date-fns/1.30.1/date_fns.min.js',
+  'react-day-picker':     'https://cdn.jsdelivr.net/npm/react-day-picker@7.1.1/lib/daypicker.min.js',
   're-resizable':         'https://cdn.jsdelivr.net/npm/re-resizable@~4.3/lib/re-resizable.umd.js',
   'core-js-polyfill':     'https://cdn.jsdelivr.net/npm/core-js-bundle@3.5.0/index.min.js',
   'fetch-polyfill':       'https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.min.js',
@@ -104,7 +104,7 @@ module.exports = {
     'highcharts/js/highcharts': 'Highcharts',
     'highcharts/highstock': 'Highcharts',
     'highcharts/highmaps': 'Highcharts',
-    'moment': 'moment',
+    'date-fns': 'dateFns',
     'react-day-picker': 'DayPicker',
     're-resizable': 'window[\'re-resizable\']',
     'react-request': 'ReactRequest',
