@@ -35,7 +35,7 @@
     "webpack-cli": "^3.3.10"
   },
   "dependencies": {
-    "react-responsive": "^4.1.0"
+    "react-responsive": "^8.0.1"
   },
   "browserslist": [
     "ie >= 11"
