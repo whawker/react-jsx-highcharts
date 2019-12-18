@@ -45,8 +45,12 @@ describe('<PlotBandLineLabel /> integration', () => {
   describe('when mounted', () => {
     it('adds a plotband to the Axis', () => {
       mount(<Component id="My PlotBand" from={1} to={2} />);
-      let yaxis = axisRef.current && axisRef.current.object;
-      expect(yaxis.plotLinesAndBands[0].options).toEqual({
+      let axis = axisRef.current && axisRef.current.object;
+      const addPlotBandOrLineSpy = axisRef.addPlotBandOrLineSpy;
+      const removePlotBandOrLineSpy = axisRef.removePlotBandOrLineSpy;
+      expect(addPlotBandOrLineSpy).toHaveBeenCalledTimes(1);
+      expect(removePlotBandOrLineSpy).toHaveBeenCalledTimes(0);
+      expect(axis.plotLinesAndBands[0].options).toEqual({
         id: 'My PlotBand',
         from: 1,
         to: 2
@@ -94,8 +98,30 @@ describe('<PlotBandLineLabel /> integration', () => {
     it('uses a uuid as an ID if no id prop provided', () => {
       mount(<Component from={1} to={2} />);
       const addPlotBandOrLineSpy = axisRef.addPlotBandOrLineSpy;
-
       expect(addPlotBandOrLineSpy.mock.calls[0][0].id).toMatch(uuidRegex);
+    });
+  });
+
+  describe('when updated', () => {
+    it('removes and adds plotband to axis', () => {
+      const wrapper = mount(<Component id="My PlotBand" from={1} to={2} />);
+      let axis = axisRef.current && axisRef.current.object;
+      const addPlotBandOrLineSpy = axisRef.addPlotBandOrLineSpy;
+      const removePlotBandOrLineSpy = axisRef.removePlotBandOrLineSpy;
+      addPlotBandOrLineSpy.mockClear();
+      wrapper.setProps({ to: 5 });
+      expect(removePlotBandOrLineSpy).toHaveBeenCalledWith('My PlotBand');
+      expect(removePlotBandOrLineSpy).toHaveBeenCalledTimes(1);
+      expect(addPlotBandOrLineSpy).toHaveBeenCalledTimes(1);
+      expect(addPlotBandOrLineSpy).toHaveBeenCalledWith(
+        { id: 'My PlotBand', from: 1, to: 5 },
+        'plotBands'
+      );
+      expect(axis.plotLinesAndBands[0].options).toEqual({
+        id: 'My PlotBand',
+        from: 1,
+        to: 5
+      });
     });
   });
 
