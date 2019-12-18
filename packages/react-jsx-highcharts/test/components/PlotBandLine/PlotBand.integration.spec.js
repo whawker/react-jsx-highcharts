@@ -9,7 +9,7 @@ import {
 } from '../../../src';
 import { uuidRegex } from '../../test-utils';
 
-describe('<PlotBandLineLabel /> integration', () => {
+describe('<PlotBand /> integration', () => {
   const AxisSpy = ({ axisId, axisRef }) => {
     const axis = useAxis(axisId);
     const addPlotBandOrLineSpy = jest.spyOn(axis, 'addPlotBandOrLine');
@@ -22,12 +22,19 @@ describe('<PlotBandLineLabel /> integration', () => {
   };
 
   let axisRef;
-
-  const Component = ({ id, from, to, borderColor, mountPlotBand = true }) => {
+  const DEFAULT_AXIS_LABELS = {};
+  const Component = ({
+    id,
+    from,
+    to,
+    borderColor,
+    mountPlotBand = true,
+    axisLabels = DEFAULT_AXIS_LABELS
+  }) => {
     return (
       <HighchartsProvider Highcharts={Highcharts}>
         <HighchartsChart>
-          <YAxis id="testyaxis">
+          <YAxis labels={axisLabels}>
             <AxisSpy axisRef={axisRef} />
             {mountPlotBand ? (
               <PlotBand borderColor={borderColor} id={id} from={from} to={to} />
@@ -121,6 +128,26 @@ describe('<PlotBandLineLabel /> integration', () => {
         id: 'My PlotBand',
         from: 1,
         to: 5
+      });
+    });
+  });
+
+  describe('when parent axis updated', () => {
+    it('keeps the plotband on axis', () => {
+      const wrapper = mount(<Component id="My PlotBand" from={1} to={2} />);
+      let axis = axisRef.current && axisRef.current.object;
+
+      expect(axis.plotLinesAndBands[0].options).toEqual({
+        id: 'My PlotBand',
+        from: 1,
+        to: 2
+      });
+      wrapper.setProps({ axisLabels: {} });
+
+      expect(axis.plotLinesAndBands[0].options).toEqual({
+        id: 'My PlotBand',
+        from: 1,
+        to: 2
       });
     });
   });
