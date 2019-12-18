@@ -29,10 +29,12 @@ export default function usePlotBandLineLifecycle(props, plotType) {
       setPlotbandline({
         id: myId,
         getPlotBandLine: () => {
-          const plotbandlineObject = axis.object.plotLinesAndBands.find(
-            plb => plb.id === myId
-          );
-          return plotbandlineObject;
+          if (axis && axis.object && axis.object.plotLinesAndBands) {
+            const plotbandlineObject = axis.object.plotLinesAndBands.find(
+              plb => plb.id === myId
+            );
+            return plotbandlineObject;
+          }
         }
       });
     }
