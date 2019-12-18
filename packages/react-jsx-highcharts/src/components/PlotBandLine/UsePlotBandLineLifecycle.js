@@ -28,13 +28,14 @@ export default function usePlotBandLineLifecycle(props, plotType) {
       axis.addPlotBandOrLine(opts, plotType);
       setPlotbandline({
         id: myId,
-        getPlotBandLine: () => {
+        get object() {
           if (axis && axis.object && axis.object.plotLinesAndBands) {
             const plotbandlineObject = axis.object.plotLinesAndBands.find(
               plb => plb.id === myId
             );
             return plotbandlineObject;
           }
+          return null;
         }
       });
     }
