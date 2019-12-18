@@ -8,7 +8,8 @@ const PlotBandLineLabel = memo(props => {
   useEffect(() => {
     if (!providedPlotbandline) return;
     const { children: text, id, ...rest } = props;
-    updatePlotBandLineLabel(providedPlotbandline.object, {
+    const PlotBandLine = providedPlotbandline.getPlotBandLine();
+    updatePlotBandLineLabel(PlotBandLine, {
       text,
       ...rest
     });
@@ -17,7 +18,8 @@ const PlotBandLineLabel = memo(props => {
   useEffect(() => {
     return () => {
       if (!providedPlotbandline) return;
-      attempt(updatePlotBandLineLabel, providedPlotbandline.object, {
+      const PlotBandLine = providedPlotbandline.getPlotBandLine();
+      attempt(PlotBandLine, providedPlotbandline.object, {
         text: null
       });
     };

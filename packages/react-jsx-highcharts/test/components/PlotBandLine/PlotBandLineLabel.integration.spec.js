@@ -2,11 +2,12 @@ import React from 'react';
 import Highcharts from 'highcharts';
 import {
   HighchartsChart,
-  Debug,
   HighchartsProvider,
   PlotBand,
   YAxis,
-  useAxis
+  XAxis,
+  useAxis,
+  LineSeries
 } from '../../../src';
 
 describe('<PlotBandLineLabel /> integration', () => {
@@ -16,41 +17,63 @@ describe('<PlotBandLineLabel /> integration', () => {
     return null;
   };
 
+  let axisRef;
+  const DEFAULT_SERIES_DATA = [1, 2, 3, 4, 5];
+  const Component = ({
+    id,
+    from,
+    to,
+    labelStyle,
+    yaxisLabels,
+    seriesData = DEFAULT_SERIES_DATA
+  }) => {
+    return (
+      <HighchartsProvider Highcharts={Highcharts}>
+        <HighchartsChart>
+          <YAxis></YAxis>
+          <XAxis id="testyaxis" labels={yaxisLabels}>
+            <AxisSpy axisRef={axisRef} />
+            <LineSeries data={seriesData} />
+            <PlotBand id={id} from={from} to={to}>
+              <PlotBand.Label style={labelStyle} />
+            </PlotBand>
+          </XAxis>
+        </HighchartsChart>
+      </HighchartsProvider>
+    );
+  };
+
+  beforeEach(() => {
+    axisRef = { current: null };
+  });
+
   describe('when parent axis is updated', () => {
     it('updates plotband style', () => {
-      const axisRef = { current: null };
-      const Component = ({ labelStyle, yaxisLabels }) => {
-        return (
-          <HighchartsProvider Highcharts={Highcharts}>
-            <HighchartsChart>
-              <YAxis id="testyaxis" labels={yaxisLabels}>
-                <AxisSpy axisRef={axisRef} />
-                <PlotBand from={1} to={2}>
-                  <PlotBand.Label style={labelStyle} />
-                </PlotBand>
-              </YAxis>
-            </HighchartsChart>
-          </HighchartsProvider>
-        );
-      };
-
       const wrapper = mount(
-        <Component labelStyle={{ color: '#aaa' }} yaxisLabels={{}} />
+        <Component
+          labelStyle={{ color: '#aaa' }}
+          yaxisLabels={{}}
+          from={1}
+          to={2}
+        />
       );
 
-      let yaxis = axisRef.current && axisRef.current.object;
-
+      let axis = axisRef.current && axisRef.current.object;
       wrapper.setProps({
         labelStyle: { color: '#bbb' },
         yaxisLabels: {}
       });
-      expect(yaxis.options.plotBands[0].label.style).toEqual({ color: '#bbb' });
+      expect(axis.plotLinesAndBands[0].options.label.style).toEqual({
+        color: '#bbb'
+      });
 
       wrapper.setProps({
         labelStyle: { color: '#ccc' },
         yaxisLabels: {}
       });
-      expect(yaxis.options.plotBands[0].label.style).toEqual({ color: '#ccc' });
+      expect(axis.plotLinesAndBands[0].options.label.style).toEqual({
+        color: '#ccc'
+      });
     });
   });
 });

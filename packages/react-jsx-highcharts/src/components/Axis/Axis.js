@@ -36,8 +36,14 @@ const Axis = ({ children = null, dynamicAxis = true, ...restProps }) => {
     if (!hasAxis) return;
     if (modifiedProps !== false) {
       const axis = axisRef.current;
-      axis.update(modifiedProps, false);
-      chart.needsRedraw();
+      // if there are plotlines or bands, the chart needs to be redrawn before
+      // they can be accessed
+      if (axis.plotLinesAndBands && axis.plotLinesAndBands.length > 0) {
+        axis.update(modifiedProps, true);
+      } else {
+        axis.update(modifiedProps, false);
+        chart.needsRedraw();
+      }
     }
   });
 

@@ -25,8 +25,15 @@ export default function usePlotBandLineLifecycle(props, plotType) {
       };
 
       if (plotbandline) axis.removePlotBandOrLine(idRef.current);
+      axis.addPlotBandOrLine(opts, plotType);
       setPlotbandline({
-        object: axis.addPlotBandOrLine(opts, plotType)
+        id: myId,
+        getPlotBandLine: () => {
+          const plotbandlineObject = axis.object.plotLinesAndBands.find(
+            plb => plb.id === myId
+          );
+          return plotbandlineObject;
+        }
       });
     }
   });

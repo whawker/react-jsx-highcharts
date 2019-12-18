@@ -43,7 +43,8 @@ export const createMockAxis = ({ ...additional }) => ({
   getExtremes: jest.fn(),
   setExtremes: jest.fn(),
   update: jest.fn(),
-  setTitle: jest.fn()
+  setTitle: jest.fn(),
+  plotLinesAndBands: []
 });
 
 export const createMockProvidedAxis = ({ object, ...additional }) => {
