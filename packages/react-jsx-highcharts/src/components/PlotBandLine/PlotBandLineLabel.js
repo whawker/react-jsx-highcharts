@@ -19,11 +19,11 @@ const PlotBandLineLabel = memo(props => {
     return () => {
       if (!providedPlotbandline) return;
       const PlotBandLine = providedPlotbandline.getPlotBandLine();
-      attempt(PlotBandLine, providedPlotbandline.object, {
+      attempt(updatePlotBandLineLabel, PlotBandLine, {
         text: null
       });
     };
-  }, [providedPlotbandline]);
+  }, []);
 
   return null;
 });

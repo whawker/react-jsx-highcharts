@@ -14,19 +14,13 @@ describe('<PlotBandLineLabel.Label />', () => {
       render: jest.fn()
     };
     testContext.providedPlotline = {
-      object: testContext.plotLine
+      getPlotBandLine: () => testContext.plotLine
     };
     ProvidedPlotBandLineLabel = props => (
       <PlotLineContext.Provider value={testContext.providedPlotline}>
         <PlotBandLineLabel {...props} />
       </PlotLineContext.Provider>
     );
-
-    jest.spyOn(window, 'requestAnimationFrame').mockImplementation(cb => cb());
-  });
-
-  afterEach(() => {
-    window.requestAnimationFrame.mockRestore();
   });
 
   describe('when mounted', () => {
@@ -72,7 +66,7 @@ describe('<PlotBandLineLabel.Label />', () => {
   });
 
   describe('when unmounted', () => {
-    it('removes the correct plot line label', () => {
+    it('sets the correct plot line label text to null', () => {
       const wrapper = mount(
         <ProvidedPlotBandLineLabel id="myPlotLine">
           My PlotLine Label
