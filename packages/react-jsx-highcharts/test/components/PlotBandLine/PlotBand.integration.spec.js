@@ -5,7 +5,9 @@ import {
   HighchartsProvider,
   PlotBand,
   YAxis,
-  useAxis
+  XAxis,
+  useAxis,
+  LineSeries
 } from '../../../src';
 import { uuidRegex } from '../../test-utils';
 
@@ -23,23 +25,28 @@ describe('<PlotBand /> integration', () => {
 
   let axisRef;
   const DEFAULT_AXIS_LABELS = {};
+  const DEFAULT_SERIES_DATA = [1, 2, 3, 4, 5];
   const Component = ({
     id,
     from,
     to,
     borderColor,
     mountPlotBand = true,
-    axisLabels = DEFAULT_AXIS_LABELS
+    axisLabels = DEFAULT_AXIS_LABELS,
+    seriesData = DEFAULT_SERIES_DATA
   }) => {
     return (
       <HighchartsProvider Highcharts={Highcharts}>
         <HighchartsChart>
-          <YAxis labels={axisLabels}>
+          <YAxis></YAxis>
+          <XAxis labels={axisLabels}>
             <AxisSpy axisRef={axisRef} />
+            <LineSeries data={seriesData} />
+
             {mountPlotBand ? (
               <PlotBand borderColor={borderColor} id={id} from={from} to={to} />
             ) : null}
-          </YAxis>
+          </XAxis>
         </HighchartsChart>
       </HighchartsProvider>
     );
@@ -136,14 +143,14 @@ describe('<PlotBand /> integration', () => {
     it('keeps the plotband on axis', () => {
       const wrapper = mount(<Component id="My PlotBand" from={1} to={2} />);
       let axis = axisRef.current && axisRef.current.object;
-
+      const removePlotBandOrLineSpy = axisRef.removePlotBandOrLineSpy;
       expect(axis.plotLinesAndBands[0].options).toEqual({
         id: 'My PlotBand',
         from: 1,
         to: 2
       });
       wrapper.setProps({ axisLabels: {} });
-
+      expect(removePlotBandOrLineSpy).not.toHaveBeenCalled();
       expect(axis.plotLinesAndBands[0].options).toEqual({
         id: 'My PlotBand',
         from: 1,
