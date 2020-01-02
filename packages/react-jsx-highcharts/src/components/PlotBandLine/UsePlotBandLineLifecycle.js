@@ -33,10 +33,7 @@ export default function usePlotBandLineLifecycle(props, plotType) {
              therefore the object can't be cached here
           */
           if (axis && axis.object && axis.object.plotLinesAndBands) {
-            const plotbandlineObject = axis.object.plotLinesAndBands.find(
-              plb => plb.id === myId
-            );
-            return plotbandlineObject;
+            return axis.object.plotLinesAndBands.find(plb => plb.id === myId);
           }
           return null;
         }
