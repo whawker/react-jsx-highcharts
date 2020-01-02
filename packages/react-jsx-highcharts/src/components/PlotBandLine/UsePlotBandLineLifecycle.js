@@ -29,6 +29,9 @@ export default function usePlotBandLineLifecycle(props, plotType) {
       setPlotbandline({
         id: myId,
         get object() {
+          /* when parent axis is updated, the plotlines and plotbands are recreated
+             therefore the object can't be cached here
+          */
           if (axis && axis.object && axis.object.plotLinesAndBands) {
             const plotbandlineObject = axis.object.plotLinesAndBands.find(
               plb => plb.id === myId
