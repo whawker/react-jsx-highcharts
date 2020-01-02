@@ -6,22 +6,13 @@ import {
   PlotBand,
   YAxis,
   XAxis,
-  useAxis,
   LineSeries
 } from '../../../src';
 import { uuidRegex } from '../../test-utils';
+import AxisSpy from '../../AxisSpy';
 
 describe('<PlotBand /> integration', () => {
-  const AxisSpy = ({ axisId, axisRef }) => {
-    const axis = useAxis(axisId);
-    const addPlotBandOrLineSpy = jest.spyOn(axis, 'addPlotBandOrLine');
-    const removePlotBandOrLineSpy = jest.spyOn(axis, 'removePlotBandOrLine');
 
-    axisRef.current = axis;
-    axisRef.addPlotBandOrLineSpy = addPlotBandOrLineSpy;
-    axisRef.removePlotBandOrLineSpy = removePlotBandOrLineSpy;
-    return null;
-  };
 
   let axisRef;
   const DEFAULT_AXIS_LABELS = {};
