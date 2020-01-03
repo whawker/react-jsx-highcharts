@@ -9,11 +9,9 @@ import {
   LineSeries
 } from '../../../src';
 import { uuidRegex } from '../../test-utils';
-import AxisSpy from '../../AxisSpy';
+import ContextSpy from '../../ContextSpy';
 
 describe('<PlotBand /> integration', () => {
-
-
   let axisRef;
   const DEFAULT_AXIS_LABELS = {};
   const DEFAULT_SERIES_DATA = [1, 2, 3, 4, 5];
@@ -31,7 +29,7 @@ describe('<PlotBand /> integration', () => {
         <HighchartsChart>
           <YAxis></YAxis>
           <XAxis labels={axisLabels}>
-            <AxisSpy axisRef={axisRef} />
+            <ContextSpy axisRef={axisRef} />
             <LineSeries data={seriesData} />
 
             {mountPlotBand ? (

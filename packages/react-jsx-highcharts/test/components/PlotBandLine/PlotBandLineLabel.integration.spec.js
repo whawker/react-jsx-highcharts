@@ -6,17 +6,11 @@ import {
   PlotBand,
   YAxis,
   XAxis,
-  useAxis,
   LineSeries
 } from '../../../src';
+import ContextSpy from '../../ContextSpy';
 
 describe('<PlotBandLineLabel /> integration', () => {
-  const AxisSpy = ({ axisId, axisRef }) => {
-    const axis = useAxis(axisId);
-    axisRef.current = axis;
-    return null;
-  };
-
   let axisRef;
   const DEFAULT_SERIES_DATA = [1, 2, 3, 4, 5];
   const Component = ({
@@ -32,7 +26,7 @@ describe('<PlotBandLineLabel /> integration', () => {
         <HighchartsChart>
           <YAxis></YAxis>
           <XAxis id="testyaxis" labels={yaxisLabels}>
-            <AxisSpy axisRef={axisRef} />
+            <ContextSpy axisRef={axisRef} />
             <LineSeries data={seriesData} />
             <PlotBand id={id} from={from} to={to}>
               <PlotBand.Label style={labelStyle} />
