@@ -7,11 +7,17 @@ import ColorAxis from '../../../src/components/ColorAxis';
 import Series from '../../../src/components/Series';
 import YAxis from '../../../src/components/YAxis';
 import XAxis from '../../../src/components/XAxis';
-import Debug from '../../../src/components/Debug';
+import ContextSpy from '../../ContextSpy';
 
 addColorAxis(Highcharts);
 
 describe('<ColorAxis /> integration', () => {
+  let chartRef;
+
+  beforeEach(() => {
+    chartRef = {};
+  });
+
   describe('when mounted', () => {
     it('renders series with correct coloraxis', () => {
       const data = [
@@ -21,7 +27,7 @@ describe('<ColorAxis /> integration', () => {
       const Component = props => {
         return (
           <HighchartsChart>
-            <Debug />
+            <ContextSpy chartRef={chartRef} />
             <Chart />
             <XAxis />
             <ColorAxis min={10} max={100} />
@@ -36,7 +42,7 @@ describe('<ColorAxis /> integration', () => {
       };
       const WithComponent = withHighcharts(Component, Highcharts);
       mount(<WithComponent />);
-      const chart = window.chart;
+      const chart = chartRef.current.object;
       const colorAxis = chart.colorAxis.find(
         c => c.options.id === 'testcoloraxis'
       );
@@ -56,7 +62,7 @@ describe('<ColorAxis /> integration', () => {
       const Component = props => {
         return (
           <HighchartsChart>
-            <Debug />
+            <ContextSpy chartRef={chartRef} />
             <Chart />
             <XAxis />
             <ColorAxis min={10} max={100} />
@@ -75,7 +81,7 @@ describe('<ColorAxis /> integration', () => {
       };
       const WithComponent = withHighcharts(Component, Highcharts);
       mount(<WithComponent />);
-      const chart = window.chart;
+      const chart = chartRef.current.object;
       const colorAxis = chart.colorAxis.find(
         c => c.options.id === 'testcoloraxis'
       );
@@ -97,7 +103,7 @@ describe('<ColorAxis /> integration', () => {
       const Component = ({ min, max }) => {
         return (
           <HighchartsChart>
-            <Debug />
+            <ContextSpy chartRef={chartRef} />
             <Chart />
             <XAxis />
             <ColorAxis id="testcoloraxis" min={min} max={max}>
@@ -111,7 +117,7 @@ describe('<ColorAxis /> integration', () => {
       const WithComponent = withHighcharts(Component, Highcharts);
       const wrapper = mount(<WithComponent min={0} max={10} />);
       wrapper.setProps({ min: 1 });
-      const chart = window.chart;
+      const chart = chartRef.current.object;
       const colorAxis = chart.colorAxis.find(
         c => c.options.id === 'testcoloraxis'
       );
@@ -128,7 +134,7 @@ describe('<ColorAxis /> integration', () => {
       const Component = ({ mountColorAxis = true }) => {
         return (
           <HighchartsChart>
-            <Debug />
+            <ContextSpy chartRef={chartRef} />
             <Chart />
             <XAxis />
             {mountColorAxis ? (
@@ -148,7 +154,7 @@ describe('<ColorAxis /> integration', () => {
       const WithComponent = withHighcharts(Component, Highcharts);
       const wrapper = mount(<WithComponent min={0} max={10} />);
       wrapper.setProps({ mountColorAxis: false });
-      const chart = window.chart;
+      const chart = chartRef.current.object;
       const colorAxis = chart.colorAxis.find(
         c => c.options.id === 'testcoloraxis'
       );

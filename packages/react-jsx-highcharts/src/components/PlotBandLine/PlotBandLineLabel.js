@@ -21,7 +21,7 @@ const PlotBandLineLabel = memo(props => {
         text: null
       });
     };
-  }, [providedPlotbandline]);
+  }, []);
 
   return null;
 });
