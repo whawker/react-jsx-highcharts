@@ -9,7 +9,7 @@ const Chart = memo(({ type = 'line', ...restProps }) => {
   const chart = useChart();
   const mounted = useRef(false);
 
-  const modifiedProps = useModifiedProps(restProps);
+  const modifiedProps = useModifiedProps({ type, ...restProps });
 
   useEffect(() => {
     if (modifiedProps !== false && mounted.current) {

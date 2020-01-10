@@ -99,12 +99,13 @@ describe('<Chart />', () => {
 
   describe('update', () => {
     it('should use the update method when props change', () => {
-      const wrapper = mount(<ProvidedChart />);
-      wrapper.setProps({ backgroundColor: 'red' });
+      const wrapper = mount(<ProvidedChart type="column" />);
+      wrapper.setProps({ backgroundColor: 'red', type: 'bar' });
       expect(testContext.chartStubs.update).toHaveBeenCalledWith(
         {
           chart: {
-            backgroundColor: 'red'
+            backgroundColor: 'red',
+            type: 'bar'
           }
         },
         false
