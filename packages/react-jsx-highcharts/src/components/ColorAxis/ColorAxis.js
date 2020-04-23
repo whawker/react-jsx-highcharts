@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import uuid from 'uuid/v4';
+import { v4 as uuid } from 'uuid';
 import { attempt } from 'lodash-es';
 import { getNonEventHandlerProps, getEventsConfig } from '../../utils/events';
 import ColorAxisContext from '../ColorAxisContext';

@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
-import uuid from 'uuid/v4';
+import { v4 as uuid } from 'uuid';
 import { attempt } from 'lodash-es';
 import useModifiedProps from '../UseModifiedProps';
 import useAxis from '../UseAxis';

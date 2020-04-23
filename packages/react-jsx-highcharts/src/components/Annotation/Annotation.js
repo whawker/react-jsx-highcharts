@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, memo } from 'react';
 import PropTypes from 'prop-types';
-import uuid from 'uuid/v4';
+import { v4 as uuid } from 'uuid';
 import { attempt } from 'lodash-es';
 import { logModuleErrorMessage } from '../../utils/warnings';
 import useChart from '../UseChart';

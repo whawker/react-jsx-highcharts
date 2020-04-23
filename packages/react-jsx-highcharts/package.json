@@ -94,7 +94,7 @@
   "dependencies": {
     "@babel/runtime": "^7.9.2",
     "lodash-es": "^4.17.13",
-    "uuid": "^3.4.0"
+    "uuid": "^7.0.3"
   },
   "peerDependencies": {
     "highcharts": "^8.0.0",
