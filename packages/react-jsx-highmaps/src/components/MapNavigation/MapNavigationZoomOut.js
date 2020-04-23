@@ -1,7 +1,7 @@
 import React from 'react';
 import MapNavigationButton from './MapNavigationButton';
 
-const DEFAULT_ONCLICK = function() {
+const DEFAULT_ONCLICK = function () {
   this.mapZoom(2);
 };
 

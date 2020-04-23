@@ -1,4 +1,4 @@
-export default function(obj, filterFn) {
+export default function (obj, filterFn) {
   let retProps = {};
   if (obj) {
     Object.keys(obj)
