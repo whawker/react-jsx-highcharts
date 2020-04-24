@@ -210,14 +210,26 @@ describe('<Series />', () => {
 
     it('should use the isDataEqual prop to compare data', () => {
       const isDataEqual = jest.fn(() => false);
-      const wrapper = mount(<ProvidedSeries id="mySeries" data={[1, 2, 3]} isDataEqual={isDataEqual} />);
+      const wrapper = mount(
+        <ProvidedSeries
+          id="mySeries"
+          data={[1, 2, 3]}
+          isDataEqual={isDataEqual}
+        />
+      );
       wrapper.setProps({ data: [4, 5, 6] });
       expect(isDataEqual).toHaveBeenCalledWith([4, 5, 6], [1, 2, 3]);
     });
 
     it('should NOT setData if isDataEqual returns true', () => {
       const isDataEqual = jest.fn(() => true);
-      const wrapper = mount(<ProvidedSeries id="mySeries" data={[1, 2, 3]} isDataEqual={isDataEqual} />);
+      const wrapper = mount(
+        <ProvidedSeries
+          id="mySeries"
+          data={[1, 2, 3]}
+          isDataEqual={isDataEqual}
+        />
+      );
       resetMocks();
       wrapper.setProps({ data: [4, 5, 6] });
       expect(testContext.seriesStubs.setData).not.toHaveBeenCalled();
@@ -225,7 +237,13 @@ describe('<Series />', () => {
 
     it('should setData if isDataEqual returns false', () => {
       const isDataEqual = jest.fn(() => false);
-      const wrapper = mount(<ProvidedSeries id="mySeries" data={[1, 2, 3]} isDataEqual={isDataEqual} />);
+      const wrapper = mount(
+        <ProvidedSeries
+          id="mySeries"
+          data={[1, 2, 3]}
+          isDataEqual={isDataEqual}
+        />
+      );
       resetMocks();
       wrapper.setProps({ data: [4, 5, 6] });
       expect(testContext.seriesStubs.setData).toHaveBeenCalled();
