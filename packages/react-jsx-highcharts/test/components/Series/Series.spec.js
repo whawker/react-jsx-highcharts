@@ -179,7 +179,9 @@ describe('<Series />', () => {
       wrapper.setProps({ data: [1, 2, 3] });
       expect(testContext.seriesStubs.setData).toHaveBeenCalledWith(
         [1, 2, 3],
-        false
+        false,
+        undefined,
+        undefined
       );
       expect(testContext.seriesStubs.update).not.toHaveBeenCalled();
       expect(testContext.seriesStubs.setVisible).not.toHaveBeenCalled();
@@ -285,7 +287,9 @@ describe('<Series />', () => {
       wrapper.setProps({ opposite: true, data: [4, 5, 6], visible: true });
       expect(testContext.seriesStubs.setData).toHaveBeenCalledWith(
         [4, 5, 6],
-        false
+        false,
+        undefined,
+        undefined
       );
       expect(testContext.seriesStubs.setVisible).toHaveBeenCalledWith(
         true,
@@ -298,6 +302,20 @@ describe('<Series />', () => {
         false
       );
       expect(testContext.needsRedraw).toHaveBeenCalledTimes(1);
+    });
+
+    it('should propagate updatePoints when calling setData', () => {
+      const wrapper = mount(
+        <ProvidedSeries id="mySeries" data={[]} updatePoints={false} />
+      );
+      resetMocks();
+      wrapper.setProps({ data: [1, 2, 3] });
+      expect(testContext.seriesStubs.setData).toHaveBeenCalledWith(
+        [1, 2, 3],
+        false,
+        undefined,
+        false
+      );
     });
   });
 
