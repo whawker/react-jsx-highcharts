@@ -25,7 +25,7 @@ const Series = memo(
     children = null,
     axisId,
     requiresAxis = true,
-    updatePoints = true,
+    updatePoints,
     ...restProps
   }) => {
     const seriesProps = { id, data, type, visible, ...restProps };
