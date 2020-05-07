@@ -11,6 +11,7 @@ const BaseChart = ({
   children = null,
   callback = noop,
   className = '',
+  containerProps = null,
   ...restProps
 }) => {
   const [rendered, setRendered] = useState(false);
@@ -54,7 +55,7 @@ const BaseChart = ({
   });
 
   return (
-    <div className={`chart ${className}`} ref={domNodeRef}>
+    <div {...containerProps} className={`chart ${className}`} ref={domNodeRef}>
       {rendered && (
         <ChartContext.Provider value={providedChartRef.current}>
           {children}
