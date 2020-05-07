@@ -306,7 +306,7 @@ describe('<Series />', () => {
 
     it('should propagate updatePoints when calling setData', () => {
       const wrapper = mount(
-        <ProvidedSeries id="mySeries" data={[]} updatePoints={false} />
+        <ProvidedSeries id="mySeries" data={[]} jsxOptions={{ updatePoints: false }} />
       );
       resetMocks();
       wrapper.setProps({ data: [1, 2, 3] });
@@ -315,6 +315,20 @@ describe('<Series />', () => {
         false,
         undefined,
         false
+      );
+    });
+
+    it('should propagate animation when calling setData', () => {
+      const wrapper = mount(
+        <ProvidedSeries id="mySeries" data={[]} jsxOptions={{ animation: false }} />
+      );
+      resetMocks();
+      wrapper.setProps({ data: [1, 2, 3] });
+      expect(testContext.seriesStubs.setData).toHaveBeenCalledWith(
+        [1, 2, 3],
+        false,
+        false,
+        undefined
       );
     });
   });

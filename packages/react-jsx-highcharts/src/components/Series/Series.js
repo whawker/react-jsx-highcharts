@@ -25,7 +25,7 @@ const Series = memo(
     children = null,
     axisId,
     requiresAxis = true,
-    updatePoints,
+    jsxOptions,
     ...restProps
   }) => {
     const seriesProps = { id, data, type, visible, ...restProps };
@@ -81,7 +81,9 @@ const Series = memo(
       let doRedraw = false;
       // Using setData is more performant than update
       if (isDataEqual(data, prevProps.data) === false) {
-        series.setData(data, false, undefined, updatePoints);
+        const animation = jsxOptions && jsxOptions.animation;
+        const updatePoints = jsxOptions && jsxOptions.updatePoints;
+        series.setData(data, false, animation, updatePoints);
         doRedraw = true;
       }
       if (visible !== prevProps.visible) {
@@ -120,7 +122,10 @@ Series.propTypes = {
   children: PropTypes.node,
   axisId: PropTypes.string,
   requiresAxis: PropTypes.bool,
-  updatePoints: PropTypes.bool
+  jsxOptions: PropTypes.shape({
+    animation: PropTypes.bool,
+    updatePoints: PropTypes.bool
+  })
 };
 
 const getSeriesConfig = (props, axis, colorAxis, requiresAxis) => {
