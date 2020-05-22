@@ -1,6 +1,6 @@
 import React, { useEffect, memo } from 'react';
 import PropTypes from 'prop-types';
-import { attempt, defaultTo } from 'lodash-es';
+import { attempt } from 'lodash-es';
 import useChart from '../UseChart';
 import useHighcharts from '../UseHighcharts';
 import useModifiedProps from '../UseModifiedProps';
@@ -11,11 +11,10 @@ const Tooltip = memo(props => {
   const chart = useChart();
   const Highcharts = useHighcharts();
 
-  restProps.enabled = defaultTo(props.enabled, true);
+  restProps.enabled = props.enabled ?? true;
 
   useEffect(() => {
-    const chartObj = chart.object;
-    chartObj.tooltip = new Highcharts.Tooltip(chartObj, {
+    updateTooltip(chart, {
       ...(Highcharts.defaultOptions && Highcharts.defaultOptions.tooltip),
       ...restProps
     });
@@ -36,8 +35,9 @@ const Tooltip = memo(props => {
 });
 
 const updateTooltip = (chart, config) => {
-  const tooltip = chart.object.tooltip;
-  tooltip.update(config);
+  chart.update({
+    tooltip: config
+  });
 };
 
 Tooltip.displayName = 'Tooltip';
