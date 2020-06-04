@@ -28,7 +28,7 @@
   "rules": {
     "no-unused-vars": [
       "error",
-      { "varsIgnorePattern": "^React$", "ignoreRestSiblings": true }
+      { "ignoreRestSiblings": true }
     ],
     "react/prop-types": "warn",
     "prefer-object-spread": "warn",

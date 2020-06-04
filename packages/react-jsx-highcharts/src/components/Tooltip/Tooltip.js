@@ -1,4 +1,4 @@
-import React, { useEffect, memo } from 'react';
+import { useEffect, memo } from 'react';
 import PropTypes from 'prop-types';
 import { attempt, defaultTo } from 'lodash-es';
 import useChart from '../UseChart';
