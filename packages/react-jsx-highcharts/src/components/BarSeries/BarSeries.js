@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+import * as React from 'react';
+import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Series from '../Series';
 import useChart from '../UseChart';

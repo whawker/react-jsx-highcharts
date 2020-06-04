@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import * as React from 'react';
+import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { attempt } from 'lodash-es';
 import {

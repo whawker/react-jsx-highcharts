@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { createMockProvidedChart } from '../../test-utils';
 import Title from '../../../src/components/Title/Title';
 import ChartContext from '../../../src/components/ChartContext';

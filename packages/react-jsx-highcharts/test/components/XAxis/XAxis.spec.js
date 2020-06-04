@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import XAxis from '../../../src/components/XAxis/XAxis';
 import Axis from '../../../src/components/Axis';
 import ChartContext from '../../../src/components/ChartContext';

@@ -1,4 +1,5 @@
-import React, {Component} from 'react';
+import * as React from 'react';
+import {Component} from 'react';
 import highcharts from 'highcharts';
 import { HighchartsChart, Chart, XAxis, YAxis, LineSeries, withHighcharts } from 'react-jsx-highcharts';
 

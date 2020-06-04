@@ -1,5 +1,6 @@
 export default `
-import React, { useState, useEffect } from 'react';
+import * as React from 'react';
+import { useState, useEffect } from 'react';
 import { useHighcharts, useAxis } from 'react-jsx-highcharts';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import dateParse from 'date-fns/parse';

@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { BaseChart, useHighcharts } from 'react-jsx-highcharts';
 
 const HighchartsStockChart = props => {

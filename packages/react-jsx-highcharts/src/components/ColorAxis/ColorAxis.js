@@ -1,4 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
+import * as React from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { v4 as uuid } from 'uuid';
 import { attempt } from 'lodash-es';
 import { getNonEventHandlerProps, getEventsConfig } from '../../utils/events';

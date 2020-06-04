@@ -1,4 +1,5 @@
-import React, { Component, cloneElement } from 'react';
+import * as React from 'react';
+import { Component, cloneElement } from 'react';
 import BaseChart from '../../../src/components/BaseChart';
 import ChartContext from '../../../src/components/ChartContext';
 import { createMockChart } from '../../test-utils';

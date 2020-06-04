@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import * as React from 'react';
+import { Component } from 'react';
 import MyChart from './MyChart';
 
 const data1 = [1, 2, 3, 4, 5];

@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import usePlotBandLine from '../../../src/components/UsePlotBandLine';
 import PlotBandLineContext from '../../../src/components/PlotBandLineContext';
 

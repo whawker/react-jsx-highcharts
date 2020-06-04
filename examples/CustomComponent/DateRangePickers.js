@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import * as React from 'react';
+import { useState, useEffect } from 'react';
 import { useHighcharts, useAxis } from 'react-jsx-highcharts';
 import DayPicker from 'react-day-picker';
 import { parse as dateParse, format as dateFormat, startOfDay } from 'date-fns'

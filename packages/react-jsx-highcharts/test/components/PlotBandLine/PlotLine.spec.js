@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { createMockProvidedAxis, uuidRegex } from '../../test-utils';
 import PlotLine from '../../../src/components/PlotBandLine/PlotLine';
 import * as useAxis from '../../../src/components/UseAxis';
