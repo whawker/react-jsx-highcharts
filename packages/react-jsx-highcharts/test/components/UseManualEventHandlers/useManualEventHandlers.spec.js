@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import useManualEventHandlers from '../../../src/components/UseManualEventHandlers';
 
 import { Highcharts } from '../../test-utils';

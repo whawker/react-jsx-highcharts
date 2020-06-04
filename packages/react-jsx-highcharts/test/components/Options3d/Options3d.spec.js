@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { createMockProvidedChart } from '../../test-utils';
 import Options3d from '../../../src/components/Options3d/Options3d';
 import ChartContext from '../../../src/components/ChartContext';

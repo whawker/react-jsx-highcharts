@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import BaseChart from '../BaseChart';
 import useHighcharts from '../UseHighcharts';
 

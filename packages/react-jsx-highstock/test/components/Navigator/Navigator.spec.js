@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 jest.mock('react-jsx-highcharts', () => ({
   ...jest.requireActual('react-jsx-highcharts'),

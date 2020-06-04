@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import Highcharts from 'highcharts';
 import addColorAxis from 'highcharts/modules/coloraxis';
 import { HighchartsChart, withHighcharts } from '../../../src';

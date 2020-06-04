@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { v4 as uuid } from 'uuid';
 import { attempt } from 'lodash-es';
 import useModifiedProps from '../UseModifiedProps';

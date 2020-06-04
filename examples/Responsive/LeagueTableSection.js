@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { PlotBand } from 'react-jsx-highcharts';
 
 const LABEL_STYLE = {color: "#aaa"};

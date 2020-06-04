@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { Highcharts, createMockProvidedChart } from '../../test-utils';
 import Tooltip from '../../../src/components/Tooltip/Tooltip';
 import HighchartsContext from '../../../src/components/HighchartsContext';

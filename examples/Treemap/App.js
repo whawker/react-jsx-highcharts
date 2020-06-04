@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import * as React from 'react';
+import { Component } from 'react';
 import Highcharts from 'highcharts';
 import {
   HighchartsChart, withHighcharts, Title, XAxis, YAxis, TreemapSeries, Legend

@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import useChart from '../../../src/components/UseChart';
 import ChartContext from '../../../src/components/ChartContext';
 

@@ -1,4 +1,5 @@
-import React, { useMemo, useCallback } from 'react';
+import * as React from 'react';
+import { useMemo, useCallback } from 'react';
 import { BaseChart, useHighcharts } from 'react-jsx-highcharts';
 
 const XAXIS = { id: 'xAxis' };

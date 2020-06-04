@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import useHighcharts from '../../../src/components/UseHighcharts';
 import HighchartsContext from '../../../src/components/HighchartsContext';
 import { Highcharts } from '../../test-utils';

@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import Axis from '../Axis';
 import useChart from '../UseChart';
 

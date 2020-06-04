@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef, useLayoutEffect } from 'react';
+import * as React from 'react';
+import { useState, useEffect, useRef, useLayoutEffect } from 'react';
 import PropTypes from 'prop-types';
 import ChartContext from '../ChartContext';
 import usePrevious from '../UsePrevious';

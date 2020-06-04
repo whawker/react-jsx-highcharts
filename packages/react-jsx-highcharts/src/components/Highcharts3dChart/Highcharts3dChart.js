@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import HighchartsChart from '../HighchartsChart';
 import Options3d from '../Options3d';
 

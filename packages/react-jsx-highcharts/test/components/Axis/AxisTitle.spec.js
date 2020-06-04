@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { createMockProvidedAxis } from '../../test-utils';
 import AxisTitle from '../../../src/components/Axis/AxisTitle';
 import * as useAxis from '../../../src/components/UseAxis';

@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import Highcharts from 'highcharts';
 import {
   HighchartsChart, withHighcharts, Chart, XAxis, YAxis, Title, Subtitle, StreamGraphSeries, Tooltip

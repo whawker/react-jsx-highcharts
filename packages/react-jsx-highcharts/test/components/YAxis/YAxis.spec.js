@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import YAxis from '../../../src/components/YAxis/YAxis';
 import Axis from '../../../src/components/Axis';
 

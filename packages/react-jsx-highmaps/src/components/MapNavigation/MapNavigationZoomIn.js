@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import MapNavigationButton from './MapNavigationButton';
 
 const DEFAULT_ONCLICK = function () {

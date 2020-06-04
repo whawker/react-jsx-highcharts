@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { createMockProvidedChart, uuidRegex } from '../../test-utils';
 import Annotation from '../../../src/components/Annotation/Annotation';
 import ChartContext from '../../../src/components/ChartContext';
