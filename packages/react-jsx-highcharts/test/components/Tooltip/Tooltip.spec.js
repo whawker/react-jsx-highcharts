@@ -25,17 +25,17 @@ describe('<Tooltip />', () => {
   });
 
   describe('when mounted', () => {
-    it('creates a new Highcharts Tooltip instance', () => {
+    it('enables the tooltip', () => {
       mount(<ProvidedTooltip />);
-      expect(Highcharts.Tooltip).toHaveBeenCalled(); // calledWithNew
+      expect(testContext.chartStubs.update).toHaveBeenCalledWith({
+        tooltip: { enabled: true }
+      });
     });
 
     it('updates the chart with the passed props', () => {
       mount(<ProvidedTooltip backgroundColor="red" shadow={false} />);
-      expect(Highcharts.Tooltip).toHaveBeenCalledWith(testContext.chart, {
-        backgroundColor: 'red',
-        enabled: true,
-        shadow: false
+      expect(testContext.chartStubs.update).toHaveBeenCalledWith({
+        tooltip: { backgroundColor: 'red', enabled: true, shadow: false }
       });
     });
   });
@@ -44,8 +44,8 @@ describe('<Tooltip />', () => {
     it('should use the update method when props change', () => {
       const wrapper = mount(<ProvidedTooltip selected={0} />);
       wrapper.setProps({ padding: 2 });
-      expect(testContext.chart.tooltip.update).toHaveBeenCalledWith({
-        padding: 2
+      expect(testContext.chartStubs.update).toHaveBeenCalledWith({
+        tooltip: { padding: 2 }
       });
     });
   });
@@ -53,9 +53,11 @@ describe('<Tooltip />', () => {
   describe('when unmounted', () => {
     it('should disable the Tooltip', () => {
       const wrapper = mount(<ProvidedTooltip />);
+      testContext.chartStubs.update.mockClear();
       wrapper.unmount();
-      expect(testContext.chart.tooltip.update).toHaveBeenCalledWith({
-        enabled: false
+      expect(testContext.chartStubs.update).toHaveBeenCalledTimes(1);
+      expect(testContext.chartStubs.update).toHaveBeenCalledWith({
+        tooltip: { enabled: false }
       });
     });
   });
