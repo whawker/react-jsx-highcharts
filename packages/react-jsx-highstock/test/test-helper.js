@@ -11,6 +11,13 @@ function copyProps(src, target) {
 //const { window } = jsdom;
 window.Date = global.Date;
 
+const nodeCrypto = require('crypto');
+window.crypto = {
+  getRandomValues: function (buffer) {
+    return nodeCrypto.randomFillSync(buffer);
+  }
+};
+
 global.window = window;
 global.document = window.document;
 global.navigator = {
