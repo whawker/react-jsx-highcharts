@@ -14,7 +14,7 @@ Other Highcharts wrappers completely destroy and recreate the chart when the con
 
 React JSX Highcharts uses a different approach. By providing React components for each Highcharts component, we can observe exactly which prop has changed and call the optimal Highcharts method behind the scenes. For example, if the `data` prop were to change on a `<Series />` component, React JSX Highcharts can follow Highcharts best practices and use the `setData` method rather than the more expensive `update`.
 
-React JSX Highcharts also enables you to write your _own_ Highcharts components, via its powerful higher order components.
+React JSX Highcharts also enables you to write your _own_ Highcharts components, via its exposed hooks.
 
 ## Installation
 
@@ -148,37 +148,17 @@ export default withHighcharts(MyComponent, Highcharts);
 
 In progress... [see here](https://github.com/whawker/react-jsx-highcharts/wiki).
 
-## Upgrading from 2.x to 3.x
+## Upgrading from 3.x to 4.x
 
-For the vast majority of cases, **if your chart works in v2 of React JSX Highcharts it should work in v3 without any required changes**.
+For the vast majority of cases, **if your chart works in v3 of React JSX Highcharts it should work in v4 without any required changes** (assuming the React version you're using supports Hooks).
 
-Ok, so what about the minority of cases?
-
-### Dropped React 15 support
-
-v3 is built on top of the new Context API added in [React 16.3](https://reactjs.org/blog/2018/03/29/react-v-16-3.html#official-context-api), using the fantastic [mini-create-react-context](https://www.npmjs.com/package/mini-create-react-context) polyfill for previous React 16 versions.
-
-While polyfills for React 15 exist, I want to minimise the amount of use cases supported, going forward.
-
-### Updates to the Higher Order components (Providers)
-
-This is an advanced feature, but if this impacts you, [see the guide here](https://github.com/whawker/react-jsx-highcharts/wiki/Upgrading-from-2.x-to-3.x#updates-to-the-higher-order-components-providers)
-
-## Upgrading from 1.x to 2.x
-
-See the guide [here](https://github.com/whawker/react-jsx-highcharts/wiki/Upgrading-from-1.x-to-2.x)
+Ok, so what about the minority of cases? Check out the list of [breaking changes](https://github.com/whawker/react-jsx-highcharts/releases/tag/v4.0.0).
 
 ## Changelog
 
-As of 3.x you are no longer required to use IDs for Axis, Series and PlotLines/Bands
+As of [4.x](https://github.com/whawker/react-jsx-highcharts/releases/tag/v4.0.0) the library has been completely rewritten to use React Hooks (with [very few changes](https://github.com/whawker/react-jsx-highcharts/releases/tag/v4.0.0) to the public API)
 
-As of 2.1.0 Highcharts 6 is supported
-
-As of 2.x you are required to use the `withHighcharts` HOC to inject the Highcharts object (see below)
-
-As of 1.3.0 React JSX Highcharts supports [3D charts](https://whawker.github.io/react-jsx-highcharts/examples/3DChart/index.html).
-
-As of 1.2.0 React JSX Highcharts supports using [Immutable.js](https://facebook.github.io/immutable-js/) data structures as Series data.
+As of [3.x](https://github.com/whawker/react-jsx-highcharts/releases/tag/v3.0.0) you are no longer required to use IDs for Axis, Series and PlotLines/Bands
 
 ## Goals
 
@@ -190,11 +170,16 @@ Additionally we avoid passing large JSON configuration objects as props, as this
 
 ## Technical approach
 
-Rather than passing around a chart object between all the components, we utilise [React's context](https://facebook.github.io/react/docs/context.html) to share the chart object around, then using [Higher Order Components](https://medium.com/@mweststrate/how-to-safely-use-react-context-b7e343eff076) (HOCs), we inject the Highcharts functions we need to the wrapped component.
+Rather than passing around a chart object between all the components, we utilise [React's context](https://facebook.github.io/react/docs/context.html) to share the chart object around, then using [Hooks](https://reactjs.org/docs/hooks-intro.html) call the appropriate Highcharts functions as component props are updated.
 
-There are 3 HOCs in this project, [provideChart](https://github.com/whawker/react-jsx-highcharts/blob/master/packages/react-jsx-highcharts/src/components/ChartProvider/index.js), [provideAxis](https://github.com/whawker/react-jsx-highcharts/blob/master/packages/react-jsx-highcharts/src/components/AxisProvider/index.js) and [provideSeries](https://github.com/whawker/react-jsx-highcharts/blob/master/packages/react-jsx-highcharts/src/components/SeriesProvider/index.js).
+There are 5 exposed custom hooks in this project
+* [useHighcharts](https://github.com/whawker/react-jsx-highcharts/blob/master/packages/react-jsx-highcharts/src/components/UseHighcharts/index.js)
+* [useChart](https://github.com/whawker/react-jsx-highcharts/blob/master/packages/react-jsx-highcharts/src/components/UseChart/index.js)
+* [useAxis](https://github.com/whawker/react-jsx-highcharts/blob/master/packages/react-jsx-highcharts/src/components/UseAxis/index.js)
+* [useSeries](https://github.com/whawker/react-jsx-highcharts/blob/master/packages/react-jsx-highcharts/src/components/UseSeries/index.js)
+* [usePlotBandLine](https://github.com/whawker/react-jsx-highcharts/blob/master/packages/react-jsx-highcharts/src/components/UsePlotBandLine/index.js)
 
-In the vast majority of cases, there is no need to use these HOCs directly - but they have been exposed anyway - they are useful if you want to create your own components with this library.
+In the vast majority of cases, there is no need to use these Hooks directly - but they have been exposed anyway - they are useful if you want to create your own components with this library ([example](https://github.com/whawker/react-jsx-highcharts-examples/blob/master/src/CustomComponent/DateRangePickers.js#L16-L17)).
 
 ## Common issues
 

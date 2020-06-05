@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.com/whawker/react-jsx-highcharts.svg?branch=master)](https://travis-ci.com/whawker/react-jsx-highcharts) ![npm version](https://img.shields.io/npm/v/react-jsx-highstock.svg) [![dependencies Status](https://david-dm.org/whawker/react-jsx-highcharts/status.svg?path=packages/react-jsx-highstock)](https://david-dm.org/whawker/react-jsx-highcharts?path=packages/react-jsx-highstock)
 
-This package exposes everything from `react-jsx-highcharts`, but additionally provides components for building **Highstock** charts.
+This package exposes everything from `react-jsx-highcharts`, but additionally provides components for building **Highstock** charts. It is encouraged to familiarize yourself with both READMEs.
 
 N.B. You can build _both_ Highcharts **and** Highstock charts from this package.
 
@@ -20,7 +20,7 @@ React JSX Highcharts uses a different approach, by providing React components fo
 
 For example, if the `data` prop were to change on a `<Series />` component, React JSX Highcharts can follow Highcharts best practices and use the `setData` method rather than the more expensive `update`.
 
-React JSX Highcharts also enables you to write your _own_ Highcharts components, via it's powerful higher order components.
+React JSX Highcharts also enables you to write your _own_ Highcharts components, via its exposed hooks.
 
 ## Installation
 
@@ -172,35 +172,17 @@ export default withHighcharts(MyComponent, Highcharts);
 
 In progress... [see here](https://github.com/whawker/react-jsx-highcharts/wiki).
 
-## Upgrading from 2.x to 3.x
+## Upgrading from 3.x to 4.x
 
-For the vast majority of cases, **if your chart works in v2 of React JSX Highstock it should work in v3 without any required changes**.
+For the vast majority of cases, **if your chart works in v3 of React JSX Highstock it should work in v4 without any required changes** (assuming the React version you're using supports Hooks).
 
-Ok, so what about the minority of cases?
-
-### Dropped React 15 support
-
-v3 is built on top of the new Context API added in [React 16.3](https://reactjs.org/blog/2018/03/29/react-v-16-3.html#official-context-api), using the fantastic [mini-create-react-context](https://www.npmjs.com/package/mini-create-react-context) polyfill for previous React 16 versions.
-
-While polyfills for React 15 exist, I want to minimise the amount of use cases supported, going forward.
-
-### Updates to the Higher Order components (Providers)
-
-This is an advanced feature, but if this impacts you, [see the guide here](https://github.com/whawker/react-jsx-highcharts/wiki/Upgrading-from-2.x-to-3.x#updates-to-the-higher-order-components-providers)
-
-## Upgrading from 1.x to 2.x
-
-See the guide [here](https://github.com/whawker/react-jsx-highcharts/wiki/Upgrading-from-1.x-to-2.x)
+Ok, so what about the minority of cases? Check out the list of [breaking changes](https://github.com/whawker/react-jsx-highcharts/releases/tag/v4.0.0).
 
 ## Changelog
 
-As of 3.x you are no longer required to use IDs for Axis, Series and PlotLines/Bands
+As of [4.x](https://github.com/whawker/react-jsx-highcharts/releases/tag/v4.0.0) the library has been completely rewritten to use React Hooks (with [very few changes](https://github.com/whawker/react-jsx-highcharts/releases/tag/v4.0.0) to the public API)
 
-As of 2.1.0 Highcharts 6 is supported
-
-As of 2.x you are required to use the `withHighcharts` HOC to inject the Highcharts object (see below)
-
-As of 1.2.0 React JSX Highstock supports using [Immutable.js](https://facebook.github.io/immutable-js/) data structures as Series data.
+As of [3.x](https://github.com/whawker/react-jsx-highcharts/releases/tag/v3.0.0) you are no longer required to use IDs for Axis, Series and PlotLines/Bands
 
 ## Common issues
 

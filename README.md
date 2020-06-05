@@ -20,7 +20,7 @@ Other Highcharts wrappers completely destroy and recreate the chart when the con
 
 React JSX Highcharts uses a different approach. By providing React components for each Highcharts component, we can observe exactly which prop has changed and call the optimal Highcharts method behind the scenes. For example, if the `data` prop were to change on a `<Series />` component, React JSX Highcharts can follow Highcharts best practices and use the `setData` method rather than the more expensive `update`.
 
-React JSX Highcharts also enables you to write your _own_ Highcharts components, via its powerful higher order components.
+React JSX Highcharts also enables you to write your _own_ Highcharts components, via its exposed hooks.
 
 ## Installation
 
