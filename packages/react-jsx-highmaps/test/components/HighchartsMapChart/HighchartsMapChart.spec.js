@@ -59,4 +59,11 @@ describe('<HighchartsMapChart />', () => {
     const wrapper = mount(<HighchartsMapChart plotOptions={{ c: 'd' }} />);
     expect(wrapper.find(BaseChart)).toHaveProp('plotOptions', { c: 'd' });
   });
+
+  it('return a chart instance to the callback prop', () => {
+    let chart;
+    const chartCallback = (returnedChart) => chart = returnedChart;
+    mount(<HighchartsMapChart callback={chartCallback} />);
+    expect(chart).toBeDefined();
+  })
 });
