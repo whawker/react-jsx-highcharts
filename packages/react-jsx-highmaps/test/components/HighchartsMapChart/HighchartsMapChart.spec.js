@@ -62,8 +62,10 @@ describe('<HighchartsMapChart />', () => {
 
   it('return a chart instance to the callback prop', () => {
     let chart;
-    const chartCallback = (returnedChart) => chart = returnedChart;
+    const chartCallback = returnedChart => {
+      chart = returnedChart;
+    };
     mount(<HighchartsMapChart callback={chartCallback} />);
     expect(chart).toBeDefined();
-  })
+  });
 });
