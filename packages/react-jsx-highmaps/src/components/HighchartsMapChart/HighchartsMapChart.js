@@ -25,7 +25,7 @@ const HighchartsMapChart = ({ map, chart, callback, ...restProps }) => {
         cbChart.mapCreditsFull = format(mapTextFull, { geojson });
       }
 
-      if (callback) callback(chart);
+      if (callback) callback(cbChart);
     },
     [callback]
   );
