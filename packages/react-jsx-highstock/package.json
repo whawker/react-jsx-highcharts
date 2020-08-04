@@ -1,6 +1,6 @@
 {
   "name": "react-jsx-highstock",
-  "version": "4.1.1",
+  "version": "4.1.2",
   "description": "Highcharts (including Highstock) charts built using React components",
   "main": "dist/react-jsx-highstock.min.js",
   "module": "dist/es/index.js",
