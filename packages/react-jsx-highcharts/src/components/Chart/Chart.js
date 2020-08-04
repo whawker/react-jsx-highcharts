@@ -12,7 +12,7 @@ const Chart = memo(({ type = 'line', width, height, ...restProps }) => {
   const modifiedProps = useModifiedProps({ type, ...restProps });
 
   useEffect(() => {
-    if (!(typeof width === 'undefined' && typeof height === 'undefined')) {
+    if (!(width === undefined && height === undefined)) {
       chart.setSize(width, height);
     }
   }, [width, height]);
