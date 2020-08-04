@@ -153,5 +153,11 @@ describe('<Chart />', () => {
       wrapper.setProps({ width: 600, height: 400 });
       expect(testContext.chartStubs.setSize).toHaveBeenCalledWith(600, 400);
     });
+
+    it('does not update size if both width and height are undefined', () => {
+      const wrapper = mount(<ProvidedChart />);
+
+      expect(testContext.chartStubs.setSize).not.toHaveBeenCalled();
+    });
   });
 });
