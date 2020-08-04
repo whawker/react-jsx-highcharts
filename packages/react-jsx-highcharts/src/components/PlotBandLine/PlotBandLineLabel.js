@@ -36,6 +36,7 @@ const updatePlotBandLineLabel = (plotbandline, config) => {
 const getLabelProps = props => {
   const {
     text,
+    formatter,
     align,
     rotation,
     style,
@@ -48,6 +49,7 @@ const getLabelProps = props => {
 
   return {
     text,
+    formatter,
     align,
     rotation,
     style,
