@@ -59,16 +59,16 @@
     "data"
   ],
   "dependencies": {
-    "@babel/runtime": "^7.10.5",
+    "@babel/runtime": "^7.11.0",
     "lodash-es": "^4.17.13",
     "react-jsx-highcharts": "4.1.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.10.5",
-    "@babel/core": "^7.10.5",
+    "@babel/core": "^7.11.0",
     "@babel/plugin-proposal-class-properties": "^7.10.4",
-    "@babel/plugin-transform-runtime": "^7.10.5",
-    "@babel/preset-env": "^7.10.4",
+    "@babel/plugin-transform-runtime": "^7.11.0",
+    "@babel/preset-env": "^7.11.0",
     "@babel/preset-react": "^7.10.4",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.1.0",
@@ -80,11 +80,11 @@
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-prettier": "^3.1.4",
-    "eslint-plugin-react": "^7.20.3",
+    "eslint-plugin-react": "^7.20.5",
     "eslint-plugin-react-hooks": "^4.0.8",
-    "eslint-plugin-react-perf": "^3.2.3",
+    "eslint-plugin-react-perf": "^3.2.4",
     "highcharts": "^8.1.2",
-    "jest": "^26.1.0",
+    "jest": "^26.2.2",
     "jest-enzyme": "^7.1.2",
     "lodash-webpack-plugin": "^0.11.5",
     "prettier": "^2.0.5",
@@ -93,7 +93,7 @@
     "react-dom": "^16.13.1",
     "react-test-renderer": "^16.13.1",
     "rimraf": "^3.0.2",
-    "webpack": "^4.43.0",
+    "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12"
   },
   "peerDependencies": {
