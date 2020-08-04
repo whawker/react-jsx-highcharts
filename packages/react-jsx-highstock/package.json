@@ -1,6 +1,6 @@
 {
   "name": "react-jsx-highstock",
-  "version": "4.1.0",
+  "version": "4.1.1",
   "description": "Highcharts (including Highstock) charts built using React components",
   "main": "dist/react-jsx-highstock.min.js",
   "module": "dist/es/index.js",
@@ -61,7 +61,7 @@
   "dependencies": {
     "@babel/runtime": "^7.11.0",
     "lodash-es": "^4.17.13",
-    "react-jsx-highcharts": "4.1.0"
+    "react-jsx-highcharts": "4.1.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.10.5",
