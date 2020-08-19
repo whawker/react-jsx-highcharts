@@ -282,11 +282,64 @@ export function XRangeSeries(
 ): ReactElement;
 
 // Hooks
-export function useHighcharts();
-export function useChart();
-export function useAxis(id?: string);
-export function useSeries(id?: string);
-export function usePlotBandLine(id?: string);
+export function useHighcharts(): any;
+
+type ChartContextValue = {
+  object: Highcharts.Chart;
+  type: string;
+  get: Highcharts.Chart['get'];
+  setSize: Highcharts.Chart['setSize'];
+  update: Highcharts.Chart['update'];
+  addAxis: Highcharts.Chart['addAxis'];
+  addColorAxis: Highcharts.Chart['addColorAxis'];
+  addSeries: Highcharts.Chart['addSeries'];
+  setTitle: Highcharts.Chart['setTitle'];
+  setCaption: Highcharts.Chart['setCaption'];
+  showLoading: Highcharts.Chart['showLoading'];
+  hideLoading: Highcharts.Chart['hideLoading'];
+  addCredits: Highcharts.Chart['addCredits'];
+  addAnnotation?: any; // missing type in highcharts
+  removeAnnotation?: any; // missing type in highcharts
+  /**
+   * Debounced chart redraw
+   */
+  needsRedraw: () => void;
+};
+
+export function useChart(): ChartContextValue | null;
+
+type AxisContextValue = {
+  object: Highcharts.Axis;
+  type: string;
+  id: string;
+  update: Highcharts.Axis['update'];
+  remove: Highcharts.Axis['remove'];
+  addPlotBandOrLine: any; // missing type in highcharts
+  removePlotBandOrLine: any; // missing type in highcharts
+  getExtremes: Highcharts.Axis['getExtremes'];
+  setExtremes: Highcharts.Axis['setExtremes'];
+  setTitle: Highcharts.Axis['setTitle'];
+};
+
+export function useAxis(id?: string): AxisContextValue | null;
+
+type SeriesContextValue = {
+  object: Highcharts.Series;
+  type: string;
+  id: string;
+  update: Highcharts.Series['update'];
+  remove: Highcharts.Series['remove'];
+  setData: Highcharts.Series['setData'];
+  setVisible: Highcharts.Series['setVisible'];
+};
+
+export function useSeries(id?: string): SeriesContextValue | null;
+
+type PlotBandLineContextValue = {
+  object: Highcharts.PlotLineOrBand;
+  id: string;
+};
+export function usePlotBandLine(id?: string): PlotBandLineContextValue | null;
 
 // utility hooks, not part of api
 //export function useModifiedProps UseModifiedProps';
@@ -294,7 +347,7 @@ export function usePlotBandLine(id?: string);
 // Helpers
 /**
  * Provides HighchartsContext to component.
- * @deprecated use <HighchartsProvider> instead
+ * @deprecated use &lt;HighchartsProvider&gt; instead
  * @see {@link HighchartsProvider}
  */
 export function withHighcharts<P>(
@@ -307,36 +360,36 @@ export function withHighcharts<P>(
  *
  * @private
  */
-export function Axis(props: any);
+export function Axis(props: any): ReactElement;
 /**
  *
  * @private
  */
-export function BaseChart(props: any);
+export function BaseChart(props: any): ReactElement;
 /**
  *
  * @private
  */
-export function Debug(props: any);
+export function Debug(props: any): ReactElement;
 /**
  *
  * @private
  */
-export function Series(props: any);
+export function Series(props: any): ReactElement;
 
 // Utils
 /**
  *
  * @private
  */
-export function getNonEventHandlerProps(...any);
+export function getNonEventHandlerProps(...any): any;
 /**
  *
  * @private
  */
-export function getEventsConfig(...any);
+export function getEventsConfig(...any): any;
 /**
  *
  * @private
  */
-export function withSeriesType(...any);
+export function withSeriesType(...any): any;
