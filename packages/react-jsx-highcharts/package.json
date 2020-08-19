@@ -4,10 +4,12 @@
   "description": "Highcharts charts built using React components",
   "main": "dist/react-jsx-highcharts.min.js",
   "module": "dist/es/index.js",
+  "types": "types/index.d.ts",
   "sideEffects": false,
   "files": [
     "dist",
-    "src"
+    "src",
+    "types"
   ],
   "scripts": {
     "build": "cross-env NODE_ENV=development ./node_modules/.bin/webpack",

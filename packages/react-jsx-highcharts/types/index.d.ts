@@ -1,0 +1,342 @@
+import type * as Highcharts from 'highcharts';
+import type { ReactElement, ReactNode } from 'react';
+
+interface HighchartsProviderProps {
+  Highcharts: any;
+  children?: ReactNode;
+}
+/**
+ * Provides HighchartsContext to children.
+ *
+ */
+export function HighchartsProvider(
+  props: HighchartsProviderProps
+): ReactElement;
+
+type HighchartsChartProps = {
+  callback?: (chart: Highcharts.Chart) => void;
+  className?: string;
+  containerProps?: Record<string, unknown>;
+  children?: ReactNode;
+  [x: string]: any; // TODO: this is here to allow eventhandlers like onLegendItemClick
+} & Partial<Highcharts.Options>;
+
+export function HighchartsChart(props: HighchartsChartProps): ReactElement;
+
+export function HighchartsSparkline(props: any): ReactElement;
+export function Highcharts3dChart(props: any): ReactElement;
+
+export function Annotation(props: any): ReactElement;
+
+type CaptionProps = {
+  children?: ReactNode;
+} & Partial<Highcharts.CaptionOptions>;
+
+export function Caption(props: CaptionProps): ReactElement;
+
+type ChartProps = {
+  [x: string]: any; // TODO: this is here to allow eventhandlers like onLegendItemClick
+} & Partial<Highcharts.Options>;
+export function Chart(props: ChartProps): ReactElement;
+
+export function ColorAxis(props: any): ReactElement;
+export function Credits(props: any): ReactElement;
+export function Loading(props: any): ReactElement;
+
+type LegendProps = {
+  children?: ReactNode;
+} & Partial<Highcharts.LegendOptions>;
+
+export function Legend(props: LegendProps): ReactElement;
+
+export namespace Legend {
+  type LegendTitleProps = {
+    children?: ReactNode;
+  } & Partial<Highcharts.LegendTitleOptions>;
+  export function Label(props: LegendTitleProps): JSX.Element;
+}
+
+export function Pane(props: any): ReactElement;
+
+type PlotBandProps = {
+  children?: ReactNode;
+} & Partial<Highcharts.AxisPlotBandsOptions>;
+
+export function PlotBand(props: PlotBandProps): ReactElement;
+export namespace PlotBand {
+  type PlotBandLabelProps = {
+    children?: ReactNode;
+  } & Partial<Highcharts.AxisPlotBandsLabelOptions>;
+  export function Label(props: PlotBandLabelProps): JSX.Element;
+}
+
+type PlotLineProps = {
+  children?: ReactNode;
+} & Partial<Highcharts.AxisPlotLinesOptions>;
+
+export function PlotLine(props: PlotLineProps): ReactElement;
+export namespace PlotLine {
+  type PlotLineLabelProps = {
+    children?: ReactNode;
+  } & Partial<Highcharts.AxisPlotLinesLabelOptions>;
+  export function Label(props: PlotLineLabelProps): JSX.Element;
+}
+/**
+ *
+ * @private
+ */
+export function PlotBandLine(props: any): ReactElement;
+
+type SubtitleProps = {
+  children?: ReactNode;
+} & Partial<Highcharts.SubtitleOptions>;
+
+export function Subtitle(props: SubtitleProps): ReactElement;
+
+type TitleProps = {
+  children?: ReactNode;
+} & Partial<Highcharts.TitleOptions>;
+
+export function Title(props: TitleProps): ReactElement;
+
+type TooltipProps = Partial<Highcharts.TooltipOptions>;
+
+export function Tooltip(props: TooltipProps): ReactElement;
+
+type AxisProps<TAxisOptions> = {
+  children?: ReactNode;
+  [x: string]: any; // TODO: this is here to allow eventhandlers like onLegendItemClick
+} & Partial<TAxisOptions>;
+
+export function XAxis(props: AxisProps<Highcharts.XAxisOptions>): ReactElement;
+
+type AxisTitleProps = {
+  children?: ReactNode;
+} & Partial<Highcharts.AxisTitleOptions>;
+
+export namespace XAxis {
+  export function Title(props: AxisTitleProps): JSX.Element;
+}
+export function YAxis(props: AxisProps<Highcharts.YAxisOptions>): ReactElement;
+
+export namespace YAxis {
+  export function Title(props: AxisTitleProps): JSX.Element;
+}
+export function ZAxis(props: AxisProps<Highcharts.ZAxisOptions>): ReactElement;
+
+export namespace ZAxis {
+  export function Title(props: AxisTitleProps): JSX.Element;
+}
+
+// Series
+type SeriesProps<TSeriesOptions = Partial<Highcharts.SeriesOptions>> = {
+  children?: ReactNode;
+  jsxOptions?: {
+    updatePoints?: boolean;
+  };
+  [x: string]: any; // TODO: this is here to allow eventhandlers like onLegendItemClick
+} & Partial<Omit<TSeriesOptions, 'type'>>;
+
+export function AreaRangeSeries(
+  props: SeriesProps<Highcharts.SeriesArearangeOptions>
+): ReactElement;
+export function AreaSeries(
+  props: SeriesProps<Highcharts.SeriesAreaOptions>
+): ReactElement;
+export function AreaSplineRangeSeries(
+  props: SeriesProps<Highcharts.SeriesAreasplinerangeOptions>
+): ReactElement;
+export function AreaSplineSeries(
+  props: SeriesProps<Highcharts.SeriesAreasplineOptions>
+): ReactElement;
+export function BarSeries(
+  props: SeriesProps<Highcharts.SeriesBarOptions>
+): ReactElement;
+export function BellCurveSeries(
+  props: SeriesProps<Highcharts.SeriesBellcurveOptions>
+): ReactElement;
+export function BoxPlotSeries(
+  props: SeriesProps<Highcharts.SeriesBoxplotOptions>
+): ReactElement;
+export function BubbleSeries(
+  props: SeriesProps<Highcharts.SeriesBubbleOptions>
+): ReactElement;
+export function BulletSeries(
+  props: SeriesProps<Highcharts.SeriesBulletOptions>
+): ReactElement;
+export function ColumnPyramidSeries(
+  props: SeriesProps<Highcharts.SeriesColumnpyramidOptions>
+): ReactElement;
+export function ColumnRangeSeries(
+  props: SeriesProps<Highcharts.SeriesColumnrangeOptions>
+): ReactElement;
+
+export function ColumnSeries(
+  props: SeriesProps<Highcharts.SeriesColumnOptions>
+): ReactElement;
+
+export function CylinderSeries(
+  props: SeriesProps<Highcharts.SeriesCylinderOptions>
+): ReactElement;
+export function DependencyWheelSeries(
+  props: SeriesProps<Highcharts.SeriesDependencywheelOptions>
+): ReactElement;
+export function ErrorBarSeries(
+  props: SeriesProps<Highcharts.SeriesErrorbarOptions>
+): ReactElement;
+export function FunnelSeries(
+  props: SeriesProps<Highcharts.SeriesFunnelOptions>
+): ReactElement;
+export function Funnel3dSeries(
+  props: SeriesProps<Highcharts.SeriesFunnel3dOptions>
+): ReactElement;
+export function GaugeSeries(
+  props: SeriesProps<Highcharts.SeriesGaugeOptions>
+): ReactElement;
+export function HeatmapSeries(
+  props: SeriesProps<Highcharts.SeriesHeatmapOptions>
+): ReactElement;
+export function HistogramSeries(
+  props: SeriesProps<Highcharts.SeriesHistogramOptions>
+): ReactElement;
+export function ItemSeries(
+  props: SeriesProps<Highcharts.SeriesItemOptions>
+): ReactElement;
+export function LineSeries(
+  props: SeriesProps<Highcharts.SeriesLineOptions>
+): ReactElement;
+export function NetworkGraphSeries(
+  props: SeriesProps<Highcharts.SeriesNetworkgraphOptions>
+): ReactElement;
+export function PackedBubbleSeries(
+  props: SeriesProps<Highcharts.SeriesPackedbubbleOptions>
+): ReactElement;
+export function ParetoSeries(
+  props: SeriesProps<Highcharts.SeriesParetoOptions>
+): ReactElement;
+export function PieSeries(
+  props: SeriesProps<Highcharts.SeriesPieOptions>
+): ReactElement;
+export function PolygonSeries(
+  props: SeriesProps<Highcharts.SeriesPolygonOptions>
+): ReactElement;
+export function PyramidSeries(
+  props: SeriesProps<Highcharts.SeriesPyramidOptions>
+): ReactElement;
+export function Pyramid3dSeries(
+  props: SeriesProps<Highcharts.SeriesPyramid3dOptions>
+): ReactElement;
+export function SankeySeries(
+  props: SeriesProps<Highcharts.SeriesSankeyOptions>
+): ReactElement;
+export function OrganizationSeries(
+  props: SeriesProps<Highcharts.SeriesOrganizationOptions>
+): ReactElement;
+export function ScatterSeries(
+  props: SeriesProps<Highcharts.SeriesScatterOptions>
+): ReactElement;
+export function Scatter3dSeries(
+  props: SeriesProps<Highcharts.SeriesScatter3dOptions>
+): ReactElement;
+export function SolidGaugeSeries(
+  props: SeriesProps<Highcharts.SeriesSolidgaugeOptions>
+): ReactElement;
+export function SplineSeries(
+  props: SeriesProps<Highcharts.SeriesSplineOptions>
+): ReactElement;
+export function StreamGraphSeries(
+  props: SeriesProps<Highcharts.SeriesStreamgraphOptions>
+): ReactElement;
+export function SunburstSeries(
+  props: SeriesProps<Highcharts.SeriesSunburstOptions>
+): ReactElement;
+export function TilemapSeries(
+  props: SeriesProps<Highcharts.SeriesTilemapOptions>
+): ReactElement;
+export function TimelineSeries(
+  props: SeriesProps<Highcharts.SeriesTimelineOptions>
+): ReactElement;
+export function TreemapSeries(
+  props: SeriesProps<Highcharts.SeriesTreemapOptions>
+): ReactElement;
+export function VariablePieSeries(
+  props: SeriesProps<Highcharts.SeriesVariablepieOptions>
+): ReactElement;
+export function VariwideSeries(
+  props: SeriesProps<Highcharts.SeriesVariwideOptions>
+): ReactElement;
+export function VennSeries(
+  props: SeriesProps<Highcharts.SeriesVennOptions>
+): ReactElement;
+export function VectorSeries(
+  props: SeriesProps<Highcharts.SeriesVectorOptions>
+): ReactElement;
+export function WaterfallSeries(
+  props: SeriesProps<Highcharts.SeriesWaterfallOptions>
+): ReactElement;
+export function WindBarbSeries(
+  props: SeriesProps<Highcharts.SeriesWindbarbOptions>
+): ReactElement;
+export function XRangeSeries(
+  props: SeriesProps<Highcharts.SeriesXrangeOptions>
+): ReactElement;
+
+// Hooks
+export function useHighcharts();
+export function useChart();
+export function useAxis(id?: string);
+export function useSeries(id?: string);
+export function usePlotBandLine(id?: string);
+
+// utility hooks, not part of api
+//export function useModifiedProps UseModifiedProps';
+
+// Helpers
+/**
+ * Provides HighchartsContext to component.
+ * @deprecated use <HighchartsProvider> instead
+ * @see {@link HighchartsProvider}
+ */
+export function withHighcharts<P>(
+  Component: React.ComponentType<P>,
+  Highcharts: any
+): React.ComponentType<P>;
+
+// helpers
+/**
+ *
+ * @private
+ */
+export function Axis(props: any);
+/**
+ *
+ * @private
+ */
+export function BaseChart(props: any);
+/**
+ *
+ * @private
+ */
+export function Debug(props: any);
+/**
+ *
+ * @private
+ */
+export function Series(props: any);
+
+// Utils
+/**
+ *
+ * @private
+ */
+export function getNonEventHandlerProps(...any);
+/**
+ *
+ * @private
+ */
+export function getEventsConfig(...any);
+/**
+ *
+ * @private
+ */
+export function withSeriesType(...any);
