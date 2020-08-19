@@ -53,7 +53,7 @@ export namespace Legend {
   type LegendTitleProps = {
     children?: ReactNode;
   } & Partial<Highcharts.LegendTitleOptions>;
-  export function Label(props: LegendTitleProps): JSX.Element;
+  export function Label(props: LegendTitleProps): ReactElement;
 }
 
 export function Pane(props: any): ReactElement;
@@ -67,7 +67,7 @@ export namespace PlotBand {
   type PlotBandLabelProps = {
     children?: ReactNode;
   } & Partial<Highcharts.AxisPlotBandsLabelOptions>;
-  export function Label(props: PlotBandLabelProps): JSX.Element;
+  export function Label(props: PlotBandLabelProps): ReactElement;
 }
 
 type PlotLineProps = {
@@ -79,7 +79,7 @@ export namespace PlotLine {
   type PlotLineLabelProps = {
     children?: ReactNode;
   } & Partial<Highcharts.AxisPlotLinesLabelOptions>;
-  export function Label(props: PlotLineLabelProps): JSX.Element;
+  export function Label(props: PlotLineLabelProps): ReactElement;
 }
 /**
  *
@@ -115,17 +115,17 @@ type AxisTitleProps = {
 } & Partial<Highcharts.AxisTitleOptions>;
 
 export namespace XAxis {
-  export function Title(props: AxisTitleProps): JSX.Element;
+  export function Title(props: AxisTitleProps): ReactElement;
 }
 export function YAxis(props: AxisProps<Highcharts.YAxisOptions>): ReactElement;
 
 export namespace YAxis {
-  export function Title(props: AxisTitleProps): JSX.Element;
+  export function Title(props: AxisTitleProps): ReactElement;
 }
 export function ZAxis(props: AxisProps<Highcharts.ZAxisOptions>): ReactElement;
 
 export namespace ZAxis {
-  export function Title(props: AxisTitleProps): JSX.Element;
+  export function Title(props: AxisTitleProps): ReactElement;
 }
 
 // Series
