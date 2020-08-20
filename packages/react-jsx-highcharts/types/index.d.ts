@@ -22,11 +22,12 @@ type HighchartsChartProps = {
 } & Partial<Highcharts.Options>;
 
 export function HighchartsChart(props: HighchartsChartProps): ReactElement;
-
 export function HighchartsSparkline(props: any): ReactElement;
 export function Highcharts3dChart(props: any): ReactElement;
 
-export function Annotation(props: any): ReactElement;
+type AnnotationProps = Partial<Highcharts.AnnotationsOptions>;
+
+export function Annotation(props: AnnotationProps): ReactElement;
 
 type CaptionProps = {
   children?: ReactNode;
@@ -37,16 +38,26 @@ export function Caption(props: CaptionProps): ReactElement;
 type ChartProps = {
   [x: string]: any; // TODO: this is here to allow eventhandlers like onLegendItemClick
 } & Partial<Highcharts.Options>;
+
 export function Chart(props: ChartProps): ReactElement;
 
-export function ColorAxis(props: any): ReactElement;
+type ColorAxisProps = {
+  children?: ReactNode;
+  [x: string]: any; // TODO: this is here to allow eventhandlers like onLegendItemClick
+} & Partial<Highcharts.ColorAxisOptions>;
+
+export function ColorAxis(props: ColorAxisProps): ReactElement;
 
 type CreditProps = {
   children?: ReactNode;
 } & Partial<Omit<Highcharts.CreditsOptions, 'text'>>;
 
 export function Credits(props: CreditProps): ReactElement;
-export function Loading(props: any): ReactElement;
+
+type LoadingProps = {
+  children?: ReactNode;
+} & Partial<Omit<Highcharts.LoadingOptions, 'text'>>;
+export function Loading(props: LoadingProps): ReactElement;
 
 type LegendProps = {
   children?: ReactNode;
@@ -61,7 +72,9 @@ export namespace Legend {
   export function Label(props: LegendTitleProps): ReactElement;
 }
 
-export function Pane(props: any): ReactElement;
+type PaneProps = Partial<Highcharts.PaneOptions>;
+
+export function Pane(props: PaneProps): ReactElement;
 
 type PlotBandProps = {
   children?: ReactNode;
