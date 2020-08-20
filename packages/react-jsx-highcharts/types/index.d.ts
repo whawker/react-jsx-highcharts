@@ -30,7 +30,7 @@ export function Annotation(props: any): ReactElement;
 
 type CaptionProps = {
   children?: ReactNode;
-} & Partial<Highcharts.CaptionOptions>;
+} & Partial<Omit<Highcharts.CaptionOptions, 'text'>>;
 
 export function Caption(props: CaptionProps): ReactElement;
 
@@ -40,7 +40,12 @@ type ChartProps = {
 export function Chart(props: ChartProps): ReactElement;
 
 export function ColorAxis(props: any): ReactElement;
-export function Credits(props: any): ReactElement;
+
+type CreditProps = {
+  children?: ReactNode;
+} & Partial<Omit<Highcharts.CreditsOptions, 'text'>>;
+
+export function Credits(props: CreditProps): ReactElement;
 export function Loading(props: any): ReactElement;
 
 type LegendProps = {
@@ -52,7 +57,7 @@ export function Legend(props: LegendProps): ReactElement;
 export namespace Legend {
   type LegendTitleProps = {
     children?: ReactNode;
-  } & Partial<Highcharts.LegendTitleOptions>;
+  } & Partial<Omit<Highcharts.LegendTitleOptions, 'text'>>;
   export function Label(props: LegendTitleProps): ReactElement;
 }
 
@@ -66,7 +71,7 @@ export function PlotBand(props: PlotBandProps): ReactElement;
 export namespace PlotBand {
   type PlotBandLabelProps = {
     children?: ReactNode;
-  } & Partial<Highcharts.AxisPlotBandsLabelOptions>;
+  } & Partial<Omit<Highcharts.AxisPlotBandsLabelOptions, 'text'>>;
   export function Label(props: PlotBandLabelProps): ReactElement;
 }
 
@@ -75,12 +80,14 @@ type PlotLineProps = {
 } & Partial<Highcharts.AxisPlotLinesOptions>;
 
 export function PlotLine(props: PlotLineProps): ReactElement;
+
 export namespace PlotLine {
   type PlotLineLabelProps = {
     children?: ReactNode;
-  } & Partial<Highcharts.AxisPlotLinesLabelOptions>;
+  } & Partial<Omit<Highcharts.AxisPlotLinesLabelOptions, 'text'>>;
   export function Label(props: PlotLineLabelProps): ReactElement;
 }
+
 /**
  *
  * @private
@@ -89,13 +96,13 @@ export function PlotBandLine(props: any): ReactElement;
 
 type SubtitleProps = {
   children?: ReactNode;
-} & Partial<Highcharts.SubtitleOptions>;
+} & Partial<Omit<Highcharts.SubtitleOptions, 'text'>>;
 
 export function Subtitle(props: SubtitleProps): ReactElement;
 
 type TitleProps = {
   children?: ReactNode;
-} & Partial<Highcharts.TitleOptions>;
+} & Partial<Omit<Highcharts.TitleOptions, 'text'>>;
 
 export function Title(props: TitleProps): ReactElement;
 
@@ -112,7 +119,7 @@ export function XAxis(props: AxisProps<Highcharts.XAxisOptions>): ReactElement;
 
 type AxisTitleProps = {
   children?: ReactNode;
-} & Partial<Highcharts.AxisTitleOptions>;
+} & Partial<Omit<Highcharts.AxisTitleOptions, 'text'>>;
 
 export namespace XAxis {
   export function Title(props: AxisTitleProps): ReactElement;
