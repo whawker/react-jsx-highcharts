@@ -36,8 +36,20 @@ type CaptionProps = {
 export function Caption(props: CaptionProps): ReactElement;
 
 type ChartProps = {
-  [x: string]: any; // TODO: this is here to allow eventhandlers like onLegendItemClick
-} & Partial<Highcharts.Options>;
+  onAddSeries?: Highcharts.ChartAddSeriesCallbackFunction;
+  onAfterPrint?: Highcharts.ExportingAfterPrintCallbackFunction;
+  onBeforePrint?: Highcharts.ExportingBeforePrintCallbackFunction;
+  onClick?: Highcharts.ChartClickCallbackFunction;
+  onDrilldown?: Highcharts.DrilldownCallbackFunction;
+  onDrillup?: Highcharts.DrillupCallbackFunction;
+  onDrillupall?: Highcharts.DrillupAllCallbackFunction;
+  onExportData?: Highcharts.ExportDataCallbackFunction;
+  onLoad?: Highcharts.ChartLoadCallbackFunction;
+  onRedraw?: Highcharts.ChartRedrawCallbackFunction;
+  onRender?: Highcharts.ChartRenderCallbackFunction;
+  onSelection?: Highcharts.ChartSelectionCallbackFunction;
+  [x: string]: any; // TODO: this is here to allow eventhandlers like onAfterAddSeries
+} & Partial<Highcharts.ChartOptions>;
 
 export function Chart(props: ChartProps): ReactElement;
 
