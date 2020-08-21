@@ -55,7 +55,10 @@ export function Chart(props: ChartProps): ReactElement;
 
 type ColorAxisProps = {
   children?: ReactNode;
-  [x: string]: any; // TODO: this is here to allow eventhandlers like onLegendItemClick
+  onAfterSetExtremes?: Highcharts.AxisSetExtremesEventCallbackFunction;
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  onLegendItemClick?: Function; // TODO type missing in Highcharts 8.1.0
+  onSetExtremes?: Highcharts.AxisSetExtremesEventCallbackFunction;
 } & Partial<Highcharts.ColorAxisOptions>;
 
 export function ColorAxis(props: ColorAxisProps): ReactElement;
@@ -137,7 +140,11 @@ export function Tooltip(props: TooltipProps): ReactElement;
 
 type AxisProps<TAxisOptions> = {
   children?: ReactNode;
-  [x: string]: any; // TODO: this is here to allow eventhandlers like onLegendItemClick
+  onAfterBreaks?: Highcharts.AxisEventCallbackFunction;
+  onAfterSetExtremes?: Highcharts.AxisSetExtremesEventCallbackFunction;
+  onPointBreak?: Highcharts.AxisPointBreakEventCallbackFunction;
+  onPointInBreak?: Highcharts.AxisPointBreakEventCallbackFunction;
+  onSetExtremes?: Highcharts.AxisSetExtremesEventCallbackFunction;
 } & Partial<TAxisOptions>;
 
 export function XAxis(props: AxisProps<Highcharts.XAxisOptions>): ReactElement;
@@ -166,7 +173,19 @@ type SeriesProps<TSeriesOptions = Partial<Highcharts.SeriesOptions>> = {
   jsxOptions?: {
     updatePoints?: boolean;
   };
-  [x: string]: any; // TODO: this is here to allow eventhandlers like onLegendItemClick
+  onAfterAnimate?: Highcharts.SeriesAfterAnimateCallbackFunction;
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  onCheckboxClick?: Function | Highcharts.SeriesCheckboxClickCallbackFunction;
+  onClick?: Highcharts.SeriesClickCallbackFunction;
+  onHide?: Highcharts.SeriesHideCallbackFunction;
+  onLegendItemClick?: Highcharts.SeriesLegendItemClickCallbackFunction;
+
+  onMouseOut?: Highcharts.SeriesMouseOutCallbackFunction;
+  onMouseOver?: Highcharts.SeriesMouseOverCallbackFunction;
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  onSetRootNode?: Function; // TODO missing type in Highcharts 8.1.0
+  onShow?: Highcharts.SeriesShowCallbackFunction;
+  [x: string]: any; // TODO: this is here to allow unknown eventhandlers
 } & Partial<Omit<TSeriesOptions, 'type'>>;
 
 export function AreaRangeSeries(
