@@ -1,4 +1,5 @@
 # react-jsx-highstock-datepickers
+*DEPRECATED*
 
 [React Day Pickers](http://react-day-picker.js.org/) for [React JSX Highstock](https://github.com/whawker/react-jsx-highcharts/tree/master/packages/react-jsx-highstock#readme) as a drop in replacement for the default Highstock `rangeSelector.input` field.
 
