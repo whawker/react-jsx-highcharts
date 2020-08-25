@@ -82,7 +82,7 @@
     "jest": "^26.4.0",
     "jest-enzyme": "^7.1.2",
     "lodash-webpack-plugin": "^0.11.5",
-    "prettier": "^2.0.5",
+    "prettier": "^2.1.0",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",

@@ -50,15 +50,13 @@ describe('<PlotBandLineLabel.Label />', () => {
     });
 
     it('should pass formatter prop', () => {
-      const formatter = () => "My PlotLine Label"
-      mount(
-        <ProvidedPlotBandLineLabel formatter={formatter} />
-      );
+      const formatter = () => 'My PlotLine Label';
+      mount(<ProvidedPlotBandLineLabel formatter={formatter} />);
       expect(testContext.plotLine.options.label).toEqual({
-        formatter,
+        formatter
       });
       expect(testContext.plotLine.render).toHaveBeenCalledTimes(1);
-    })
+    });
   });
 
   describe('update', () => {
