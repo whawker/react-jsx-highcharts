@@ -109,8 +109,8 @@ title: {
 ## Example
 
 ```jsx
-render () {
-  return (
+const MyChart = (props) => (
+  <HighchartsProvider Highcharts={Highcharts}>
     <HighchartsChart>
       <Chart />
 
@@ -133,11 +133,8 @@ render () {
         <LineSeries name="Other" data={[12908, 5948, 8105, 11248, 8989, 11816, 18274, 18111]} />
       </YAxis>
     </HighchartsChart>
-  );
-}
-
-// Provide Highcharts object for library to interact with
-export default withHighcharts(MyComponent, Highcharts);
+  </HighchartsProvider>
+)
 ```
 
 ## Demos
@@ -185,7 +182,7 @@ In the vast majority of cases, there is no need to use these Hooks directly - bu
 
 **Uncaught TypeError: Cannot read property 'chart' of undefined**
 
-You need to use the `withHighcharts` higher order component to inject the Highcharts object. [See here](https://github.com/whawker/react-jsx-highcharts/wiki/Higher-Order-Components#withhighcharts-version-200)
+You need to provide Highcharts for the components with ```<HighchartsProvider Highcharts={Highcharts}>```.
 
 **Uncaught TypeError: Cannot read property 'stockChart' of undefined**
 

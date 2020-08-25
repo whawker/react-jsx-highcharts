@@ -117,8 +117,8 @@ title: {
 ```jsx
 // import Highcharts from 'highcharts/highstock' - Import Highstock from Highcharts
 
-render () {
-  return (
+const MyChart = (props) => (
+  <HighchartsProvider Highcharts={Highcharts}>
     <HighchartsStockChart>
       <Chart onClick={this.handleClick} zoomType="x" />
 
@@ -157,11 +157,8 @@ render () {
         <Navigator.Series seriesId="twitter" />
       </Navigator>
     </HighchartsStockChart>
-  );
-}
-
-// Provide Highcharts (Highstock) object for library to interact with
-export default withHighcharts(MyComponent, Highcharts);
+  </HighchartsProvider>
+);
 ```
 
 ## Demos

@@ -102,8 +102,8 @@ title: {
 // import Highmaps from 'highcharts/highmaps' - Import Highmaps from Highcharts
 // import { Fetch } from 'react-request'
 
-render () {
-  return (
+const MyMapChart = (props) => (
+  <HighmapsProvider Highcharts={Highmaps}>
     <Fetch url="https://code.highcharts.com/mapdata/custom/europe.geo.json">
       {({ fetching, failed, data }) => {
         if (fetching) return <div>Loading…</div>
@@ -144,11 +144,8 @@ render () {
         return null
       }}
     </Fetch>
-  );
-}
-
-// Provide Highmaps object for library to interact with
-export default withHighmaps(MyComponent, Highmaps);
+  </HighmapsProvider>
+);
 ```
 
 ## More info
