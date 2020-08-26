@@ -433,14 +433,14 @@ export function Series(props: any): ReactElement;
  *
  * @private
  */
-export function getNonEventHandlerProps(...any): any;
+export function getNonEventHandlerProps(...any: any[]): any;
 /**
  *
  * @private
  */
-export function getEventsConfig(...any): any;
+export function getEventsConfig(...any: any[]): any;
 /**
  *
  * @private
  */
-export function withSeriesType(...any): any;
+export function withSeriesType(...any: any[]): any;

@@ -20,7 +20,8 @@
     "format": "prettier --write \"src/**/*.js\" \"test/**/*.js\" README.md \"../../README.md\"",
     "lint": "eslint src",
     "test": "jest",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "test:types": "tsc --noEmit"
   },
   "author": "Will Hawker",
   "contributors": [
@@ -67,6 +68,7 @@
     "@babel/plugin-transform-runtime": "^7.11.0",
     "@babel/preset-env": "^7.11.0",
     "@babel/preset-react": "^7.10.4",
+    "@types/react": "^16.9.47",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.1.0",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
@@ -90,6 +92,7 @@
     "react-dom": "^16.13.1",
     "react-test-renderer": "^16.13.1",
     "rimraf": "^3.0.2",
+    "typescript": "^4.0.2",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12"
   },
