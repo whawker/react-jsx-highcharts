@@ -15,7 +15,8 @@ const ColorAxis = ({ children = null, ...restProps }) => {
   const [hasColorAxis, setHasColorAxis] = useState(false);
 
   useEffect(() => {
-    colorAxisRef.current = createColorAxis(chart, restProps);
+    const colorAxis = createColorAxis(chart, restProps);
+    colorAxisRef.current = colorAxis;
     providedColorAxisRef.current = createProvidedColorAxis(
       colorAxisRef.current
     );
@@ -23,7 +24,6 @@ const ColorAxis = ({ children = null, ...restProps }) => {
     chart.needsRedraw();
 
     return () => {
-      const colorAxis = colorAxisRef.current;
       if (colorAxis && colorAxis.remove) {
         // Axis may have already been removed, i.e. when Chart unmounted
         attempt(colorAxis.remove.bind(colorAxis), false);
