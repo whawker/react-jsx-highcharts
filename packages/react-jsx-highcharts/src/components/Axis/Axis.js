@@ -17,13 +17,13 @@ const Axis = ({ children = null, dynamicAxis = true, ...restProps }) => {
   const [hasAxis, setHasAxis] = useState(false);
 
   useEffect(() => {
-    axisRef.current = createAxis(chart, restProps, dynamicAxis);
+    const axis = createAxis(chart, restProps, dynamicAxis);
+    axisRef.current = axis;
     providedAxisRef.current = createProvidedAxis(axisRef.current);
     setHasAxis(true);
     chart.needsRedraw();
 
     return () => {
-      const axis = axisRef.current;
       if (axis.remove && dynamicAxis) {
         // Axis may have already been removed, i.e. when Chart unmounted
         attempt(axis.remove.bind(axis), false);

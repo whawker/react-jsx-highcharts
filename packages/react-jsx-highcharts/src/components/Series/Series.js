@@ -55,14 +55,13 @@ const Series = memo(
     useEffect(() => {
       if (requiresAxis && !axis) return;
       const opts = getSeriesConfig(seriesProps, axis, colorAxis, requiresAxis);
-
-      seriesRef.current = addSeries(opts, false);
+      const series = addSeries(opts, false);
+      seriesRef.current = series;
       providerValueRef.current = createProvidedSeries(seriesRef.current);
 
       setHasSeries(true);
       needsRedraw();
       return () => {
-        const series = seriesRef.current;
         if (series && series.remove) {
           // Series may have already been removed, i.e. when Axis unmounted
           attempt(series.remove.bind(series), false);
