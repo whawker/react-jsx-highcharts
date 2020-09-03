@@ -33,8 +33,8 @@ const BaseChart = ({
   }, []);
 
   useEffect(() => {
+    const myChart = chartRef.current;
     return () => {
-      const myChart = chartRef.current;
       if (myChart) {
         // Fixes #14
         window.requestAnimationFrame(myChart.destroy.bind(myChart));
