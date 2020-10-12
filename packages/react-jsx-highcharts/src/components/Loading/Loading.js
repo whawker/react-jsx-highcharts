@@ -1,6 +1,5 @@
 import { useEffect, memo } from 'react';
 import PropTypes from 'prop-types';
-import { attempt } from 'lodash-es';
 import useModifiedProps from '../UseModifiedProps';
 import useChart from '../UseChart';
 
@@ -17,7 +16,11 @@ const Loading = memo(({ children, isLoading = true, ...restProps }) => {
 
   useEffect(() => {
     return () => {
-      attempt(chart.hideLoading);
+      try {
+        chart.hideLoading();
+      } catch {
+        // ignore as chart might have been unmounted
+      }
     };
   }, []);
 

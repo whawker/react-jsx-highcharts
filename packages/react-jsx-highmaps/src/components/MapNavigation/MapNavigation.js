@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { attempt } from 'lodash-es';
 import {
   useModifiedProps,
   useChart,
@@ -26,7 +25,11 @@ const MapNavigation = ({ children, enabled = true, ...restProps }) => {
     setRendered(true);
 
     return () => {
-      attempt(updateMapNavigation, { enabled: false }, chart);
+      try {
+        updateMapNavigation({ enabled: false }, chart);
+      } catch {
+        // ignore as chart might have already been unmounted
+      }
     };
   }, []);
 

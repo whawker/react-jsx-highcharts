@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import { attempt } from 'lodash-es';
 import useChart from '../UseChart';
 import useModifiedProps from '../UseModifiedProps';
 
@@ -23,7 +22,11 @@ const useChartUpdate = (
 
   useEffect(() => {
     return () => {
-      attempt(destroyFn, chart);
+      try {
+        destroyFn(chart);
+      } catch {
+        // ignore as chart might have been already unmounted
+      }
       chart.needsRedraw();
     };
   }, []);

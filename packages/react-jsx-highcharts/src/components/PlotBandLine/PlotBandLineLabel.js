@@ -1,5 +1,4 @@
 import { useEffect, memo } from 'react';
-import { attempt } from 'lodash-es';
 import usePlotBandLine from '../UsePlotBandLine';
 
 const PlotBandLineLabel = memo(props => {
@@ -17,9 +16,13 @@ const PlotBandLineLabel = memo(props => {
   useEffect(() => {
     return () => {
       if (!providedPlotbandline) return;
-      attempt(updatePlotBandLineLabel, providedPlotbandline.object, {
-        text: null
-      });
+      try {
+        updatePlotBandLineLabel(providedPlotbandline.object, {
+          text: null
+        });
+      } catch {
+        // ignore as axis might have been unmounted
+      }
     };
   }, []);
 

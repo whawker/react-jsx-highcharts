@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { attempt } from 'lodash-es';
 import {
   useHighcharts,
   useAxis,
@@ -37,8 +36,11 @@ const RangeSelector = ({ enabled = true, children, ...restProps }) => {
     return () => {
       const axisObj = axis.object;
       Highcharts.removeEvent(axisObj, 'afterSetExtremes', renderRangeSelector);
-
-      attempt(updateRangeSelector, { enabled: false }, chart);
+      try {
+        updateRangeSelector({ enabled: false }, chart);
+      } catch {
+        // ignore as chart might have been already unmounted
+      }
     };
   }, [axis]);
 

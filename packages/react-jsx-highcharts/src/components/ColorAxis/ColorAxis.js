@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { useEffect, useRef, useState } from 'react';
 import { v4 as uuid } from 'uuid';
-import { attempt } from 'lodash-es';
 import { getNonEventHandlerProps, getEventsConfig } from '../../utils/events';
 import ColorAxisContext from '../ColorAxisContext';
 import useModifiedProps from '../UseModifiedProps';
@@ -25,8 +24,11 @@ const ColorAxis = ({ children = null, ...restProps }) => {
 
     return () => {
       if (colorAxis && colorAxis.remove) {
-        // Axis may have already been removed, i.e. when Chart unmounted
-        attempt(colorAxis.remove.bind(colorAxis), false);
+        try {
+          colorAxis.remove.bind(colorAxis)(false);
+        } catch {
+          // Axis may have already been removed, i.e. when Chart unmounted
+        }
         chart.needsRedraw();
       }
     };

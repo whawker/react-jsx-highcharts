@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { attempt } from 'lodash-es';
 import {
   useModifiedProps,
   useChart,
@@ -28,7 +27,11 @@ const Navigator = ({ enabled = true, ...restProps }) => {
     setRendered(true);
 
     return () => {
-      attempt(updateNavigator, { enabled: false }, chart);
+      try {
+        updateNavigator({ enabled: false }, chart);
+      } catch {
+        // ignore as chart might have been already unmounted
+      }
     };
   }, []);
 

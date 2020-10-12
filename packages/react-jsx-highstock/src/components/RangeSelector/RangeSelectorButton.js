@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { attempt } from 'lodash-es';
 import { getEventsConfig, useChart } from 'react-jsx-highcharts';
 
 const RangeSelectorButton = ({
@@ -39,7 +38,11 @@ const RangeSelectorButton = ({
     addButton(opts, chart);
 
     return () => {
-      attempt(removeButton, props, chart);
+      try {
+        removeButton(props, chart);
+      } catch {
+        // ignore as chart might have been already unmounted
+      }
     };
   }, []);
 
