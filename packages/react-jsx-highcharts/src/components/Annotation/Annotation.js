@@ -1,7 +1,6 @@
 import { useRef, useEffect, memo } from 'react';
 import PropTypes from 'prop-types';
 import { v4 as uuid } from 'uuid';
-import { attempt } from 'lodash-es';
 import { logModuleErrorMessage } from '../../utils/warnings';
 import useChart from '../UseChart';
 
@@ -28,7 +27,11 @@ const Annotation = memo(props => {
     addAnnotation(opts);
 
     return () => {
-      attempt(removeAnnotation, myId);
+      try {
+        removeAnnotation(myId);
+      } catch {
+        // ignoring as parent chart might be unmounted
+      }
     };
   });
 

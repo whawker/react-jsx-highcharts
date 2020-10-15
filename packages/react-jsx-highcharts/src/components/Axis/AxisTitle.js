@@ -1,5 +1,4 @@
 import { useEffect, memo } from 'react';
-import { attempt } from 'lodash-es';
 import useAxis from '../UseAxis';
 
 const AxisTitle = memo(({ children: text, axisId, ...restProps }) => {
@@ -13,7 +12,13 @@ const AxisTitle = memo(({ children: text, axisId, ...restProps }) => {
 
   useEffect(() => {
     return () => {
-      if (axis) attempt(updateAxisTitle, { text: null }, axis);
+      if (axis) {
+        try {
+          updateAxisTitle({ text: null }, axis);
+        } catch {
+          // ignore as axis might have been already unmounted
+        }
+      }
     };
   }, [axis]);
 

@@ -1,6 +1,5 @@
 import { useRef, useEffect, useState } from 'react';
 import { v4 as uuid } from 'uuid';
-import { attempt } from 'lodash-es';
 import useModifiedProps from '../UseModifiedProps';
 import useAxis from '../UseAxis';
 
@@ -43,7 +42,11 @@ export default function usePlotBandLineLifecycle(props, plotType) {
 
   useEffect(() => {
     return () => {
-      attempt(axis.removePlotBandOrLine, idRef.current);
+      try {
+        axis.removePlotBandOrLine(idRef.current);
+      } catch {
+        // ignore as axis might have been already unmounted
+      }
     };
   }, []);
 

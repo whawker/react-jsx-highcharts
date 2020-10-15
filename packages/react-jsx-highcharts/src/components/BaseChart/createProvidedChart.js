@@ -1,4 +1,3 @@
-import { attempt } from 'lodash-es';
 import debounce from '../../utils/debounce-raf';
 
 const createProvidedChart = (chart, type) => ({
@@ -21,7 +20,11 @@ const createProvidedChart = (chart, type) => ({
     : null,
   needsRedraw: debounce(() => {
     if (!chart.__destroyed) {
-      attempt(chart.redraw.bind(chart));
+      try {
+        chart.redraw.bind(chart)();
+      } catch {
+        // ignore
+      }
     }
   })
 });

@@ -2,7 +2,6 @@ import * as React from 'react';
 import { useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { v4 as uuid } from 'uuid';
-import { attempt } from 'lodash-es';
 import AxisContext from '../AxisContext';
 import { getNonEventHandlerProps, getEventsConfig } from '../../utils/events';
 import { validAxisTypes } from '../../utils/propTypeValidators';
@@ -25,8 +24,11 @@ const Axis = ({ children = null, dynamicAxis = true, ...restProps }) => {
 
     return () => {
       if (axis.remove && dynamicAxis) {
-        // Axis may have already been removed, i.e. when Chart unmounted
-        attempt(axis.remove.bind(axis), false);
+        try {
+          axis.remove.bind(axis)(false);
+        } catch {
+          // Axis may have already been removed, i.e. when Chart unmounted
+        }
         chart.needsRedraw();
       }
     };

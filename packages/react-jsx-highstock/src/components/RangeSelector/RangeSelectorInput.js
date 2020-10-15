@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { attempt, mapKeys, upperFirst } from 'lodash-es';
+import { mapKeys, upperFirst } from 'lodash-es';
 import { useModifiedProps, useChart } from 'react-jsx-highcharts';
 
 const RangeSelectorInput = ({ enabled = true, ...restProps }) => {
@@ -8,7 +8,11 @@ const RangeSelectorInput = ({ enabled = true, ...restProps }) => {
 
   useEffect(() => {
     return () => {
-      attempt(updateRangeSelectorInputs, { enabled: false }, chart);
+      try {
+        updateRangeSelectorInputs({ enabled: false }, chart);
+      } catch {
+        // ignore as chart might have been already unmounted
+      }
     };
   }, []);
 

@@ -2,7 +2,6 @@ import * as React from 'react';
 import { memo, useRef, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { v4 as uuid } from 'uuid';
-import { attempt } from 'lodash-es';
 import SeriesContext from '../SeriesContext';
 import { getNonEventHandlerProps, getEventsConfig } from '../../utils/events';
 import getModifiedProps from '../../utils/getModifiedProps';
@@ -63,9 +62,12 @@ const Series = memo(
       needsRedraw();
       return () => {
         if (series && series.remove) {
-          // Series may have already been removed, i.e. when Axis unmounted
-          attempt(series.remove.bind(series), false);
-          seriesRef.current = null;
+          try {
+            series.remove.bind(series)(false);
+            seriesRef.current = null;
+          } catch {
+            // Series may have already been removed, i.e. when Axis unmounted
+          }
           needsRedraw();
         }
       };

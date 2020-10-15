@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { attempt } from 'lodash-es';
 import { useSeries } from 'react-jsx-highcharts';
 
 const NavigatorSeries = props => {
@@ -11,7 +10,11 @@ const NavigatorSeries = props => {
 
     updateNavigatorSeries(series, { showInNavigator: true });
     return () => {
-      attempt(updateNavigatorSeries, series, { showInNavigator: false });
+      try {
+        updateNavigatorSeries(series, { showInNavigator: false });
+      } catch {
+        // ignore as series might have been already unmounted
+      }
     };
   }, [series]);
 

@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { attempt } from 'lodash-es';
 import { useModifiedProps, useChart } from 'react-jsx-highcharts';
 
 const Scrollbar = ({ children, enabled = true, ...restProps }) => {
@@ -9,7 +8,11 @@ const Scrollbar = ({ children, enabled = true, ...restProps }) => {
 
   useEffect(() => {
     return () => {
-      attempt(updateScrollbar, { enabled: false }, chart);
+      try {
+        updateScrollbar({ enabled: false }, chart);
+      } catch {
+        // ignore as chart might have been already unmounted
+      }
     };
   }, []);
 
