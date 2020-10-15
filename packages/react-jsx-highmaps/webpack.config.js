@@ -2,7 +2,7 @@
 const path = require('path');
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 
-const isProd = (process.env.NODE_ENV === 'production');
+const isProd = process.env.NODE_ENV === 'production';
 
 const webpackConfig = {
   mode: 'development',
@@ -20,7 +20,7 @@ const webpackConfig = {
   },
 
   externals: {
-    'react': {
+    react: {
       commonjs: 'react',
       commonjs2: 'react',
       amd: 'react',
@@ -32,7 +32,7 @@ const webpackConfig = {
       amd: 'react-dom',
       root: 'ReactDOM'
     },
-    'highcharts': {
+    highcharts: {
       commonjs: 'highcharts',
       commonjs2: 'highcharts',
       amd: 'highcharts',

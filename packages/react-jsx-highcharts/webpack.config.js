@@ -1,7 +1,7 @@
 /* eslint-env node */
 const path = require('path');
 
-const isProd = (process.env.NODE_ENV === 'production');
+const isProd = process.env.NODE_ENV === 'production';
 
 const webpackConfig = {
   mode: 'development',
@@ -9,7 +9,9 @@ const webpackConfig = {
   entry: path.resolve(__dirname, 'src'),
 
   output: {
-    filename: isProd ? 'react-jsx-highcharts.min.js' : 'react-jsx-highcharts.js',
+    filename: isProd
+      ? 'react-jsx-highcharts.min.js'
+      : 'react-jsx-highcharts.js',
     path: path.resolve(__dirname, 'dist'),
     library: 'ReactHighcharts',
     libraryTarget: 'umd',
@@ -19,7 +21,7 @@ const webpackConfig = {
   },
 
   externals: {
-    'react': {
+    react: {
       commonjs: 'react',
       commonjs2: 'react',
       amd: 'react',
@@ -31,7 +33,7 @@ const webpackConfig = {
       amd: 'react-dom',
       root: 'ReactDOM'
     },
-    'highcharts': {
+    highcharts: {
       commonjs: 'highcharts',
       commonjs2: 'highcharts',
       amd: 'highcharts',
