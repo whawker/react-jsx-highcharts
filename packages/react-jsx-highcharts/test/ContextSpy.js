@@ -1,10 +1,17 @@
 import { useEffect } from 'react';
-import { useAxis, useChart, useHighcharts } from '../src';
+import { useAxis, useChart, useHighcharts, useSeries } from '../src';
 
-const ContextSpy = ({ axisId, axisRef, chartRef, highchartsRef }) => {
+const ContextSpy = ({
+  axisId,
+  axisRef,
+  chartRef,
+  highchartsRef,
+  seriesRef
+}) => {
   const axis = useAxis(axisId);
   const chart = useChart();
   const Highcharts = useHighcharts();
+  const series = useSeries();
 
   useEffect(() => {
     if (highchartsRef) {
@@ -48,6 +55,18 @@ const ContextSpy = ({ axisId, axisRef, chartRef, highchartsRef }) => {
       }
     };
   }, [axis]);
+
+  useEffect(() => {
+    if (seriesRef) {
+      seriesRef.current = series;
+    }
+
+    return () => {
+      if (seriesRef) {
+        seriesRef.current = null;
+      }
+    };
+  }, [series]);
 
   return null;
 };
