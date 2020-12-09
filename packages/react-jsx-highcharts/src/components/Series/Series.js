@@ -76,7 +76,9 @@ const Series = memo(
     const prevProps = usePrevious(seriesProps);
 
     useEffect(() => {
-      if (!prevProps || !seriesRef.current) return;
+      if (!prevProps) return;
+      if (!seriesRef.current) return;
+
       const series = seriesRef.current;
       const { visible, data, ...rest } = seriesProps;
 
@@ -95,7 +97,23 @@ const Series = memo(
 
       const modifiedProps = getModifiedProps(prevProps, rest);
       if (modifiedProps !== false) {
-        series.update(modifiedProps, false);
+        const nonEventProps = getNonEventHandlerProps(modifiedProps);
+        series.update(nonEventProps, false);
+
+        // update changed eventhandlers
+        const modifiedEvents = getEventsConfig(modifiedProps);
+        const prevEvents = getEventsConfig(prevProps);
+        Object.keys(modifiedEvents).forEach(eventName => {
+          const oldHandler = prevEvents[eventName];
+          if (oldHandler) {
+            Highcharts.removeEvent(series, eventName, oldHandler);
+          }
+          const newHandler = modifiedEvents[eventName];
+          if (newHandler) {
+            Highcharts.addEvent(series, eventName, newHandler);
+          }
+        });
+
         doRedraw = true;
       }
       if (doRedraw) {
