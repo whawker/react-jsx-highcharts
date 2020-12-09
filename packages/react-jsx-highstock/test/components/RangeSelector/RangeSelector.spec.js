@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { render } from '@testing-library/react';
+
 import {
   Highcharts,
   createMockProvidedChart,
@@ -44,12 +46,14 @@ describe('<RangeSelector />', () => {
 
   describe('when mounted', () => {
     it('enables the RangeSelector', () => {
-      mount(<RangeSelector />);
+      render(<RangeSelector />);
+
       expect(testContext.object.options.rangeSelector.enabled).toEqual(true);
     });
 
     it('fires the initialization event to so Highcharts creates a RangeSelector', () => {
-      mount(<RangeSelector />);
+      render(<RangeSelector />);
+
       expect(Highcharts.fireEvent).toHaveBeenCalledWith(
         testContext.object,
         'afterGetContainer'
@@ -57,7 +61,8 @@ describe('<RangeSelector />', () => {
     });
 
     it('updates the chart with the passed props', () => {
-      mount(<RangeSelector height={100} buttonSpacing={2} />);
+      render(<RangeSelector height={100} buttonSpacing={2} />);
+
       expect(testContext.chartStubs.update).toHaveBeenCalledWith(
         {
           rangeSelector: {
@@ -73,16 +78,18 @@ describe('<RangeSelector />', () => {
     });
 
     it('updates the chart once', () => {
-      mount(<RangeSelector />);
+      render(<RangeSelector />);
+
       expect(testContext.chartStubs.update).toHaveBeenCalledTimes(1);
     });
   });
 
   describe('update', () => {
     it('should use the update method when props change', () => {
-      const wrapper = mount(<RangeSelector selected={0} />);
+      const wrapper = render(<RangeSelector selected={0} />);
       testContext.chartStubs.update.mockClear();
-      wrapper.setProps({ selected: 2 });
+      wrapper.rerender(<RangeSelector selected={2} />);
+
       expect(testContext.chartStubs.update).toHaveBeenCalledWith(
         {
           rangeSelector: {
@@ -96,7 +103,7 @@ describe('<RangeSelector />', () => {
 
   describe('when unmounted', () => {
     it('should disable the RangeSelector', () => {
-      const wrapper = mount(<RangeSelector />);
+      const wrapper = render(<RangeSelector />);
       testContext.chartStubs.update.mockClear();
       wrapper.unmount();
       expect(testContext.chartStubs.update).toHaveBeenCalledWith(

@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { render } from '@testing-library/react';
+
 import Highstock from 'highcharts/highstock';
 import {
   Chart,
@@ -6,7 +8,7 @@ import {
   XAxis,
   YAxis,
   LineSeries,
-  withHighcharts
+  HighchartsProvider
 } from 'react-jsx-highcharts';
 import { HighchartsStockChart, Navigator } from '../../../src';
 
@@ -17,23 +19,25 @@ describe('<NavigatorXAxis /> integration', () => {
       const labels = { x: 0, y: 12 };
       const Component = props => {
         return (
-          <HighchartsStockChart>
-            <Debug />
-            <Chart />
-            <XAxis />
-            <YAxis>
-              <LineSeries data={data} />
-            </YAxis>
-            <Navigator>
-              <Navigator.XAxis labels={labels} />
-            </Navigator>
-          </HighchartsStockChart>
+          <HighchartsProvider Highcharts={Highstock}>
+            <HighchartsStockChart>
+              <Debug />
+              <Chart />
+              <XAxis />
+              <YAxis>
+                <LineSeries data={data} />
+              </YAxis>
+              <Navigator>
+                <Navigator.XAxis labels={labels} />
+              </Navigator>
+            </HighchartsStockChart>
+          </HighchartsProvider>
         );
       };
-      const WithComponent = withHighcharts(Component, Highstock);
-      mount(<WithComponent />);
+      render(<Component />);
       const chart = window.chart;
       const navigatorxaxis = chart.get('navigator-x-axis');
+
       expect(navigatorxaxis.options.labels).toEqual(
         expect.objectContaining(labels)
       );
@@ -46,25 +50,27 @@ describe('<NavigatorXAxis /> integration', () => {
       const labels = { x: 0, y: 12 };
       const Component = props => {
         return (
-          <HighchartsStockChart>
-            <Debug />
-            <Chart />
-            <XAxis />
-            <YAxis>
-              <LineSeries data={data} />
-            </YAxis>
-            <Navigator>
-              <Navigator.XAxis {...props} />
-            </Navigator>
-          </HighchartsStockChart>
+          <HighchartsProvider Highcharts={Highstock}>
+            <HighchartsStockChart>
+              <Debug />
+              <Chart />
+              <XAxis />
+              <YAxis>
+                <LineSeries data={data} />
+              </YAxis>
+              <Navigator>
+                <Navigator.XAxis {...props} />
+              </Navigator>
+            </HighchartsStockChart>
+          </HighchartsProvider>
         );
       };
 
-      const WithComponent = withHighcharts(Component, Highstock);
-      const wrapper = mount(<WithComponent />);
-      wrapper.setProps({ labels });
+      const wrapper = render(<Component />);
+      wrapper.rerender(<Component labels={labels} />);
       const chart = window.chart;
       const navigatorxaxis = chart.get('navigator-x-axis');
+
       expect(navigatorxaxis.options.labels).toEqual(
         expect.objectContaining(labels)
       );
