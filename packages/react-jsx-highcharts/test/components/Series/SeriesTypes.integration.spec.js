@@ -23,6 +23,8 @@ import addVennModule from 'highcharts/modules/venn';
 import addWindBarbModule from 'highcharts/modules/windbarb';
 import addXRangeModule from 'highcharts/modules/xrange';
 
+import { render } from '@testing-library/react';
+
 import {
   HighchartsChart,
   Chart,
@@ -88,7 +90,7 @@ Object.keys(all)
             }
             done();
           };
-          const Component = props => {
+          const Component = () => {
             return (
               <HighchartsProvider Highcharts={Highcharts}>
                 <HighchartsChart>
@@ -100,7 +102,7 @@ Object.keys(all)
               </HighchartsProvider>
             );
           };
-          mount(<Component />);
+          render(<Component />);
         });
         it('binds hide event correctly', done => {
           const afterAddSeries = event => {
@@ -112,7 +114,7 @@ Object.keys(all)
             expect(event.target.visible).toBe(false);
             done();
           };
-          const Component = props => {
+          const Component = () => {
             return (
               <HighchartsProvider Highcharts={Highcharts}>
                 <HighchartsChart>
@@ -125,7 +127,7 @@ Object.keys(all)
               </HighchartsProvider>
             );
           };
-          mount(<Component />);
+          render(<Component />);
         });
       }
     });

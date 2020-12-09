@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { render } from '@testing-library/react';
+
 import {
   Highcharts,
   createMockProvidedChart,
@@ -54,7 +56,7 @@ describe('<Series />', () => {
       testContext.providedAxis.id = 'myXAxisId';
       testContext.providedAxis.type = 'xAxis';
 
-      mount(<ProvidedSeries id="mySeries" />);
+      render(<ProvidedSeries id="mySeries" />);
       expect(testContext.chartStubs.addSeries).toHaveBeenCalledWith(
         {
           id: 'mySeries',
@@ -75,7 +77,7 @@ describe('<Series />', () => {
       testContext.providedAxis.id = 'myYAxisId';
       testContext.providedAxis.type = 'yAxis';
 
-      mount(<ProvidedSeries id="mySeries" />);
+      render(<ProvidedSeries id="mySeries" />);
       expect(testContext.chartStubs.addSeries).toHaveBeenCalledWith(
         {
           id: 'mySeries',
@@ -90,7 +92,7 @@ describe('<Series />', () => {
     });
 
     it('uses the provided ID if id prop is a string', () => {
-      mount(<ProvidedSeries id="mySeriesIdStr" />);
+      render(<ProvidedSeries id="mySeriesIdStr" />);
       expect(testContext.chartStubs.addSeries.mock.calls[0][0].id).toEqual(
         'mySeriesIdStr'
       );
@@ -98,21 +100,21 @@ describe('<Series />', () => {
 
     it('resolves the ID if id prop is a function', () => {
       const idFunc = () => 'mySeriesIdFromFunc';
-      mount(<ProvidedSeries id={idFunc} />);
+      render(<ProvidedSeries id={idFunc} />);
       expect(testContext.chartStubs.addSeries.mock.calls[0][0].id).toEqual(
         'mySeriesIdFromFunc'
       );
     });
 
     it('uses a uuid as an ID if no id prop provided', () => {
-      mount(<ProvidedSeries />);
+      render(<ProvidedSeries />);
       expect(testContext.chartStubs.addSeries.mock.calls[0][0].id).toMatch(
         uuidRegex
       );
     });
 
     it('should pass additional props through to Highcharts addSeries method', () => {
-      mount(<ProvidedSeries id="mySeries" data={[5]} step />);
+      render(<ProvidedSeries id="mySeries" data={[5]} step />);
       expect(testContext.chartStubs.addSeries).toHaveBeenCalledWith(
         {
           id: 'mySeries',
@@ -131,7 +133,7 @@ describe('<Series />', () => {
       const handleClick = jest.fn();
       const handleShow = jest.fn();
 
-      mount(
+      render(
         <ProvidedSeries
           id="mySeries"
           onClick={handleClick}
@@ -160,7 +162,7 @@ describe('<Series />', () => {
     it('does not throw Error when requiresAxis=false and mounted without axis', () => {
       testContext.propsFromProviders.axis = null;
       expect(() => {
-        mount(<ProvidedSeries id="mySeries" requiresAxis={false} />);
+        render(<ProvidedSeries id="mySeries" requiresAxis={false} />);
       }).not.toThrow();
     });
   });
@@ -174,9 +176,10 @@ describe('<Series />', () => {
     };
 
     it('should use the setData method on the correct series when the data changes', () => {
-      const wrapper = mount(<ProvidedSeries id="mySeries" data={[]} />);
+      const wrapper = render(<ProvidedSeries id="mySeries" data={[]} />);
       resetMocks();
-      wrapper.setProps({ data: [1, 2, 3] });
+      wrapper.rerender(<ProvidedSeries id="mySeries" data={[1, 2, 3]} />);
+
       expect(testContext.seriesStubs.setData).toHaveBeenCalledWith(
         [1, 2, 3],
         false,
@@ -191,9 +194,10 @@ describe('<Series />', () => {
 
     it("should NOT use the setData method if the data reference hasn't changed", () => {
       const data = [1, 2, 3];
-      const wrapper = mount(<ProvidedSeries id="mySeries" data={data} />);
+      const wrapper = render(<ProvidedSeries id="mySeries" data={data} />);
       resetMocks();
-      wrapper.setProps({ data });
+      wrapper.rerender(<ProvidedSeries id="mySeries" data={data} />);
+
       expect(testContext.seriesStubs.setData).not.toHaveBeenCalled();
       expect(testContext.seriesStubs.update).not.toHaveBeenCalled();
       expect(testContext.seriesStubs.setVisible).not.toHaveBeenCalled();
@@ -201,9 +205,10 @@ describe('<Series />', () => {
     });
 
     it('should use the setData method if the data reference has changed', () => {
-      const wrapper = mount(<ProvidedSeries id="mySeries" data={[1, 2, 3]} />);
+      const wrapper = render(<ProvidedSeries id="mySeries" data={[1, 2, 3]} />);
       resetMocks();
-      wrapper.setProps({ data: [1, 2, 3] });
+      wrapper.rerender(<ProvidedSeries id="mySeries" data={[1, 2, 3]} />);
+
       expect(testContext.seriesStubs.setData).toHaveBeenCalled();
       expect(testContext.seriesStubs.update).not.toHaveBeenCalled();
       expect(testContext.seriesStubs.setVisible).not.toHaveBeenCalled();
@@ -212,20 +217,28 @@ describe('<Series />', () => {
 
     it('should use the isDataEqual prop to compare data', () => {
       const isDataEqual = jest.fn(() => false);
-      const wrapper = mount(
+      const wrapper = render(
         <ProvidedSeries
           id="mySeries"
           data={[1, 2, 3]}
           isDataEqual={isDataEqual}
         />
       );
-      wrapper.setProps({ data: [4, 5, 6] });
+
+      wrapper.rerender(
+        <ProvidedSeries
+          id="mySeries"
+          data={[4, 5, 6]}
+          isDataEqual={isDataEqual}
+        />
+      );
+
       expect(isDataEqual).toHaveBeenCalledWith([4, 5, 6], [1, 2, 3]);
     });
 
     it('should NOT setData if isDataEqual returns true', () => {
       const isDataEqual = jest.fn(() => true);
-      const wrapper = mount(
+      const wrapper = render(
         <ProvidedSeries
           id="mySeries"
           data={[1, 2, 3]}
@@ -233,13 +246,20 @@ describe('<Series />', () => {
         />
       );
       resetMocks();
-      wrapper.setProps({ data: [4, 5, 6] });
+      wrapper.rerender(
+        <ProvidedSeries
+          id="mySeries"
+          data={[4, 5, 6]}
+          isDataEqual={isDataEqual}
+        />
+      );
+
       expect(testContext.seriesStubs.setData).not.toHaveBeenCalled();
     });
 
     it('should setData if isDataEqual returns false', () => {
       const isDataEqual = jest.fn(() => false);
-      const wrapper = mount(
+      const wrapper = render(
         <ProvidedSeries
           id="mySeries"
           data={[1, 2, 3]}
@@ -247,14 +267,22 @@ describe('<Series />', () => {
         />
       );
       resetMocks();
-      wrapper.setProps({ data: [4, 5, 6] });
+      wrapper.rerender(
+        <ProvidedSeries
+          id="mySeries"
+          data={[4, 5, 6]}
+          isDataEqual={isDataEqual}
+        />
+      );
+
       expect(testContext.seriesStubs.setData).toHaveBeenCalled();
     });
 
     it('should use the setVisible method on the correct series when the visibility changes', () => {
-      const wrapper = mount(<ProvidedSeries id="mySeries" visible />);
+      const wrapper = render(<ProvidedSeries id="mySeries" visible />);
       resetMocks();
-      wrapper.setProps({ visible: false });
+      wrapper.rerender(<ProvidedSeries id="mySeries" visible={false} />);
+
       expect(testContext.seriesStubs.setVisible).toHaveBeenCalledWith(
         false,
         false
@@ -265,9 +293,12 @@ describe('<Series />', () => {
     });
 
     it('should use the update method on correct series if arbritary props change', () => {
-      const wrapper = mount(<ProvidedSeries id="mySeries" visible />);
+      const wrapper = render(<ProvidedSeries id="mySeries" visible />);
       resetMocks();
-      wrapper.setProps({ newPropName: 'newPropValue' });
+      wrapper.rerender(
+        <ProvidedSeries id="mySeries" visible newPropName={'newPropValue'} />
+      );
+
       expect(testContext.seriesStubs.update).toHaveBeenCalledWith(
         {
           newPropName: 'newPropValue'
@@ -280,11 +311,19 @@ describe('<Series />', () => {
     });
 
     it('should use the most performant method available even when multiple props change', () => {
-      const wrapper = mount(
+      const wrapper = render(
         <ProvidedSeries id="mySeries" data={[]} visible={false} />
       );
       resetMocks();
-      wrapper.setProps({ opposite: true, data: [4, 5, 6], visible: true });
+      wrapper.rerender(
+        <ProvidedSeries
+          id="mySeries"
+          data={[4, 5, 6]}
+          visible={true}
+          opposite={true}
+        />
+      );
+
       expect(testContext.seriesStubs.setData).toHaveBeenCalledWith(
         [4, 5, 6],
         false,
@@ -305,7 +344,7 @@ describe('<Series />', () => {
     });
 
     it('should propagate updatePoints when calling setData', () => {
-      const wrapper = mount(
+      const wrapper = render(
         <ProvidedSeries
           id="mySeries"
           data={[]}
@@ -313,7 +352,14 @@ describe('<Series />', () => {
         />
       );
       resetMocks();
-      wrapper.setProps({ data: [1, 2, 3] });
+      wrapper.rerender(
+        <ProvidedSeries
+          id="mySeries"
+          data={[1, 2, 3]}
+          jsxOptions={{ updatePoints: false }}
+        />
+      );
+
       expect(testContext.seriesStubs.setData).toHaveBeenCalledWith(
         [1, 2, 3],
         false,
@@ -323,7 +369,7 @@ describe('<Series />', () => {
     });
 
     it('should propagate animation when calling setData', () => {
-      const wrapper = mount(
+      const wrapper = render(
         <ProvidedSeries
           id="mySeries"
           data={[]}
@@ -331,7 +377,14 @@ describe('<Series />', () => {
         />
       );
       resetMocks();
-      wrapper.setProps({ data: [1, 2, 3] });
+      wrapper.rerender(
+        <ProvidedSeries
+          id="mySeries"
+          data={[1, 2, 3]}
+          jsxOptions={{ animation: false }}
+        />
+      );
+
       expect(testContext.seriesStubs.setData).toHaveBeenCalledWith(
         [1, 2, 3],
         false,
@@ -343,7 +396,7 @@ describe('<Series />', () => {
 
   describe('when unmounted', () => {
     it('removes the correct series (if the series still exists)', () => {
-      const wrapper = mount(<ProvidedSeries id="mySeries" />);
+      const wrapper = render(<ProvidedSeries id="mySeries" />);
       testContext.needsRedraw.mockClear();
       wrapper.unmount();
       expect(testContext.seriesStubs.remove).toHaveBeenCalledTimes(1);

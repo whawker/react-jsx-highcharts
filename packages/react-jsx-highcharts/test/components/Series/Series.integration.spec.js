@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Highcharts from 'highcharts';
-import { render, waitFor } from '@testing-library/react';
+import { render } from '@testing-library/react';
 
 import {
   HighchartsChart,
