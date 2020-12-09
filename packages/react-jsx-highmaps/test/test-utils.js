@@ -27,12 +27,11 @@ export const createMockChart = () => ({
   options: { credits: {} }
 });
 
-export const createMockProvidedChart = () => {
-  const chartStubs = createMockChart();
+export const createMockProvidedChart = ({ object, ...additional }) => {
+  const chartStubs = createMockChart(additional);
 
   return {
-    chartStubs,
-    getChart: () => chartStubs
+    chartStubs: { ...chartStubs, object }
   };
 };
 
