@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { render } from '@testing-library/react';
+
 import {
   createMockProvidedChart,
   createMockAxis,
@@ -30,7 +32,7 @@ describe('<Axis />', () => {
 
   describe('when mounted (dynamic)', () => {
     it('adds an X axis using the addAxis method', () => {
-      mount(<ProvidedAxis id="myAxis" isX />);
+      render(<ProvidedAxis id="myAxis" isX />);
       expect(testContext.chartStubs.addAxis).toHaveBeenCalledTimes(1);
       expect(testContext.chartStubs.addAxis).toHaveBeenCalledWith(
         { id: 'myAxis', title: { text: null }, isX: true, events: {} },
@@ -43,7 +45,7 @@ describe('<Axis />', () => {
     });
 
     it('adds a Y axis using the addAxis method', () => {
-      mount(<ProvidedAxis id="myAxis" isX={false} />);
+      render(<ProvidedAxis id="myAxis" isX={false} />);
       expect(testContext.chartStubs.addAxis).toHaveBeenCalledWith(
         { id: 'myAxis', title: { text: null }, isX: false, events: {} },
         false,
@@ -53,7 +55,7 @@ describe('<Axis />', () => {
     });
 
     it('uses the provided ID if id prop is a string', () => {
-      mount(<ProvidedAxis id="myAxisIdStr" />);
+      render(<ProvidedAxis id="myAxisIdStr" />);
       expect(testContext.chartStubs.addAxis.mock.calls[0][0].id).toEqual(
         'myAxisIdStr'
       );
@@ -61,21 +63,21 @@ describe('<Axis />', () => {
 
     it('resolves the ID if id prop is a function', () => {
       const idFunc = () => 'myAxisIdFromFunc';
-      mount(<ProvidedAxis id={idFunc} />);
+      render(<ProvidedAxis id={idFunc} />);
       expect(testContext.chartStubs.addAxis.mock.calls[0][0].id).toEqual(
         'myAxisIdFromFunc'
       );
     });
 
     it('uses a uuid as an ID if no id prop provided', () => {
-      mount(<ProvidedAxis />);
+      render(<ProvidedAxis />);
       expect(testContext.chartStubs.addAxis.mock.calls[0][0].id).toMatch(
         uuidRegex
       );
     });
 
     it('should pass additional props through to Highcharts addAxis method', () => {
-      mount(<ProvidedAxis id="myAxis" isX min={10} max={100} reversed />);
+      render(<ProvidedAxis id="myAxis" isX min={10} max={100} reversed />);
       expect(testContext.chartStubs.addAxis).toHaveBeenCalledWith(
         {
           id: 'myAxis',
@@ -95,7 +97,7 @@ describe('<Axis />', () => {
       const handleSetExtremes = jest.fn();
       const handleAfterSetExtremes = jest.fn();
 
-      mount(
+      render(
         <ProvidedAxis
           id="myAxis"
           isX
@@ -123,12 +125,12 @@ describe('<Axis />', () => {
     });
 
     it('retrieve the axis by id', () => {
-      mount(<ProvidedAxis id="myAxis" isX={false} dynamicAxis={false} />);
+      render(<ProvidedAxis id="myAxis" isX={false} dynamicAxis={false} />);
       expect(testContext.chartStubs.get).toHaveBeenCalledWith('myAxis');
     });
 
     it('updates a non dynamic axis using the update method', () => {
-      mount(<ProvidedAxis id="myAxis" isX={false} dynamicAxis={false} />);
+      render(<ProvidedAxis id="myAxis" isX={false} dynamicAxis={false} />);
       expect(testContext.axisStubs.update).toHaveBeenCalledWith(
         expect.objectContaining(
           { id: 'myAxis', title: { text: null }, isX: false, events: {} },
@@ -139,7 +141,7 @@ describe('<Axis />', () => {
     });
 
     it('should pass additional props through to Highcharts update method', () => {
-      mount(
+      render(
         <ProvidedAxis
           id="myAxis"
           isX={false}
@@ -167,7 +169,7 @@ describe('<Axis />', () => {
       const handleSetExtremes = jest.fn();
       const handleAfterSetExtremes = jest.fn();
 
-      mount(
+      render(
         <ProvidedAxis
           id="myAxis"
           isX={false}
@@ -190,22 +192,11 @@ describe('<Axis />', () => {
 
   describe('update', () => {
     it('should update the axis if the component props change', () => {
-      const wrapper = mount(<ProvidedAxis id="myAxis" isX />);
-      wrapper.setProps({ newPropName: 'newPropValue' });
-      expect(testContext.axisStubs.update).toHaveBeenCalledWith(
-        {
-          newPropName: 'newPropValue'
-        },
-        false
+      const wrapper = render(<ProvidedAxis id="myAxis" isX />);
+      wrapper.rerender(
+        <ProvidedAxis id="myAxis" isX newPropName="newPropValue" />
       );
-      expect(testContext.needsRedraw).toHaveBeenCalledTimes(2);
-    });
-  });
 
-  describe('update', () => {
-    it('should update the axis if the component props change', () => {
-      const wrapper = mount(<ProvidedAxis id="myAxis" isX />);
-      wrapper.setProps({ newPropName: 'newPropValue' });
       expect(testContext.axisStubs.update).toHaveBeenCalledWith(
         {
           newPropName: 'newPropValue'

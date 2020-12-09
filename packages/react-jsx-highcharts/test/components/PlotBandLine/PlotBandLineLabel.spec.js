@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { render } from '@testing-library/react';
+
 import PlotBandLineLabel from '../../../src/components/PlotBandLine/PlotBandLineLabel';
 import PlotLineContext from '../../../src/components/PlotBandLineContext';
 
@@ -27,9 +29,10 @@ describe('<PlotBandLineLabel.Label />', () => {
 
   describe('when mounted', () => {
     it('sets the correct plot line label', () => {
-      mount(
+      render(
         <ProvidedPlotBandLineLabel>My PlotLine Label</ProvidedPlotBandLineLabel>
       );
+
       expect(testContext.plotLine.options.label).toEqual({
         text: 'My PlotLine Label'
       });
@@ -37,11 +40,12 @@ describe('<PlotBandLineLabel.Label />', () => {
     });
 
     it('should pass additional props too', () => {
-      mount(
+      render(
         <ProvidedPlotBandLineLabel align="left" color="red">
           My PlotLine Label
         </ProvidedPlotBandLineLabel>
       );
+
       expect(testContext.plotLine.options.label).toEqual({
         text: 'My PlotLine Label',
         align: 'left'
@@ -51,7 +55,8 @@ describe('<PlotBandLineLabel.Label />', () => {
 
     it('should pass formatter prop', () => {
       const formatter = () => 'My PlotLine Label';
-      mount(<ProvidedPlotBandLineLabel formatter={formatter} />);
+      render(<ProvidedPlotBandLineLabel formatter={formatter} />);
+
       expect(testContext.plotLine.options.label).toEqual({
         formatter
       });
@@ -61,13 +66,17 @@ describe('<PlotBandLineLabel.Label />', () => {
 
   describe('update', () => {
     it('should update the correct plot line if the component props change', () => {
-      const wrapper = mount(
+      const wrapper = render(
         <ProvidedPlotBandLineLabel id="myPlotLine">
           My PlotLine Label
         </ProvidedPlotBandLineLabel>
       );
       testContext.plotLine.render.mockClear();
-      wrapper.setProps({ children: 'My New Label' });
+      wrapper.rerender(
+        <ProvidedPlotBandLineLabel id="myPlotLine">
+          My New Label
+        </ProvidedPlotBandLineLabel>
+      );
 
       expect(testContext.plotLine.options.label).toEqual({
         text: 'My New Label'
@@ -78,7 +87,7 @@ describe('<PlotBandLineLabel.Label />', () => {
 
   describe('when unmounted', () => {
     it('sets the correct plot line label text to null', () => {
-      const wrapper = mount(
+      const wrapper = render(
         <ProvidedPlotBandLineLabel id="myPlotLine">
           My PlotLine Label
         </ProvidedPlotBandLineLabel>

@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { render } from '@testing-library/react';
+
 import { createMockProvidedChart } from '../../test-utils';
 import Subtitle from '../../../src/components/Subtitle/Subtitle';
 import ChartContext from '../../../src/components/ChartContext';
@@ -21,7 +23,7 @@ describe('<Subtitle />', () => {
 
   describe('when mounted', () => {
     it('adds a subtitle using the Highcharts setTitle method', () => {
-      mount(<ProvidedSubtitle>My Subtitle</ProvidedSubtitle>);
+      render(<ProvidedSubtitle>My Subtitle</ProvidedSubtitle>);
       expect(testContext.chartStubs.setTitle).toHaveBeenCalledTimes(1);
       expect(testContext.chartStubs.setTitle).toHaveBeenCalledWith(
         undefined,
@@ -31,7 +33,7 @@ describe('<Subtitle />', () => {
     });
 
     it('should pass additional props through to Highcharts setTitle method', () => {
-      mount(
+      render(
         <ProvidedSubtitle align="right">My Other Subtitle</ProvidedSubtitle>
       );
       expect(testContext.chartStubs.setTitle).toHaveBeenCalledWith(
@@ -44,9 +46,14 @@ describe('<Subtitle />', () => {
 
   describe('update', () => {
     it('should use the setTitle method when the data changes', () => {
-      const wrapper = mount(<ProvidedSubtitle>My Subtitle</ProvidedSubtitle>);
+      const wrapper = render(<ProvidedSubtitle>My Subtitle</ProvidedSubtitle>);
       testContext.chartStubs.setTitle.mockClear();
-      wrapper.setProps({ x: 10, y: 20, children: 'My New Subtitle' });
+      wrapper.rerender(
+        <ProvidedSubtitle x={10} y={20}>
+          My New Subtitle
+        </ProvidedSubtitle>
+      );
+
       expect(testContext.chartStubs.setTitle).toHaveBeenCalledTimes(1);
       expect(testContext.chartStubs.setTitle).toHaveBeenCalledWith(
         undefined,
@@ -58,9 +65,10 @@ describe('<Subtitle />', () => {
 
   describe('when unmounted', () => {
     it('removes the subtitle by setting the subtitle to text', () => {
-      const wrapper = mount(<ProvidedSubtitle>My Subtitle</ProvidedSubtitle>);
+      const wrapper = render(<ProvidedSubtitle>My Subtitle</ProvidedSubtitle>);
       testContext.chartStubs.setTitle.mockClear();
       wrapper.unmount();
+
       expect(testContext.chartStubs.setTitle).toHaveBeenCalledTimes(1);
       expect(testContext.chartStubs.setTitle).toHaveBeenCalledWith(
         undefined,

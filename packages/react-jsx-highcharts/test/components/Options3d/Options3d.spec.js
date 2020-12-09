@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { render } from '@testing-library/react';
+
 import { createMockProvidedChart } from '../../test-utils';
 import Options3d from '../../../src/components/Options3d/Options3d';
 import ChartContext from '../../../src/components/ChartContext';
@@ -40,7 +42,7 @@ describe('<Options3d />', () => {
 
   describe('when mounted', () => {
     it('updates the chart with the passed props', () => {
-      mount(<ProvidedOptions3d alpha={10} beta={20} />);
+      render(<ProvidedOptions3d alpha={10} beta={20} />);
       expect(testContext.chartStubs.update).toHaveBeenCalledWith(
         {
           chart: {
@@ -59,8 +61,9 @@ describe('<Options3d />', () => {
 
   describe('update', () => {
     it('should use the update method when props change', () => {
-      const wrapper = mount(<ProvidedOptions3d alpha={0} />);
-      wrapper.setProps({ alpha: 45 });
+      const wrapper = render(<ProvidedOptions3d alpha={0} />);
+      wrapper.rerender(<ProvidedOptions3d alpha={45} />);
+
       expect(testContext.chartStubs.update).toHaveBeenCalledWith(
         {
           chart: {

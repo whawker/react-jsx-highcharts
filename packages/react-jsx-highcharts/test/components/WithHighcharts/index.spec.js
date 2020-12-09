@@ -1,27 +1,29 @@
 import * as React from 'react';
+import { render } from '@testing-library/react';
+
 import withHighcharts from '../../../src/components/WithHighcharts';
 import HighchartsContext from '../../../src/components/HighchartsContext';
 import { Highcharts } from '../../test-utils';
-
-const ChildComponent = ({ value }) => <div />;
-
-const WrappedComponent = props => (
-  <HighchartsContext.Consumer>
-    {value => <ChildComponent value={value} />}
-  </HighchartsContext.Consumer>
-);
+import ContextSpy from '../../ContextSpy';
 
 describe('withHighcharts', () => {
+  let highchartsRef;
+  let WrappedComponent;
+
+  beforeEach(() => {
+    highchartsRef = {};
+
+    WrappedComponent = () => <ContextSpy highchartsRef={highchartsRef} />;
+  });
+
   it('should create Highcharts context with the provided object', () => {
     const WithHighchartsComponent = withHighcharts(
       WrappedComponent,
       Highcharts
     );
+    render(<WithHighchartsComponent />);
 
-    const wrapper = mount(<WithHighchartsComponent />);
-    const child = wrapper.find(ChildComponent);
-    const providedValue = child.prop('value');
-    expect(providedValue).toEqual(Highcharts);
+    expect(highchartsRef.current).toEqual(Highcharts);
   });
 
   it('should create a Highcharts context with the provided object (2)', () => {
@@ -33,10 +35,8 @@ describe('withHighcharts', () => {
       WrappedComponent,
       HighchartsWithExtraFunctionality
     );
-    const wrapper = mount(<WithHighchartsComponent />);
+    render(<WithHighchartsComponent />);
 
-    const child = wrapper.find(ChildComponent);
-    const providedValue = child.prop('value');
-    expect(providedValue).toEqual(HighchartsWithExtraFunctionality);
+    expect(highchartsRef.current).toEqual(HighchartsWithExtraFunctionality);
   });
 });

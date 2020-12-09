@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Highcharts from 'highcharts';
+import ShallowRenderer from 'react-test-renderer/shallow';
 
 import * as all from '../../../src';
 import Series from '../../../src/components/Series';
@@ -31,33 +31,49 @@ Object.keys(all)
     }
 
     describe(`<${seriesName} />`, () => {
+      let renderer;
+      beforeEach(() => {
+        renderer = new ShallowRenderer();
+      });
+
       it('renders a <Series />', () => {
-        const wrapper = shallow(<SeriesComponent id="mySeries" {...props} />);
-        expect(wrapper.type()).toBe(Series);
+        renderer.render(<SeriesComponent id="mySeries" {...props} />);
+        const result = renderer.getRenderOutput();
+
+        expect(result.type).toBe(Series);
       });
+
       it(`renders a <Series type="${seriesType}" />`, () => {
-        const wrapper = shallow(<SeriesComponent id="mySeries" {...props} />);
-        expect(wrapper).toHaveProp('type', seriesType);
+        renderer.render(<SeriesComponent id="mySeries" {...props} />);
+        const result = renderer.getRenderOutput();
+
+        expect(result.props).toHaveProperty('type', seriesType);
       });
+
       it('passes Data props through to <Series />', () => {
-        const wrapper = shallow(
+        renderer.render(
           <SeriesComponent id="myOtherSeries" data={[1, 2, 3, 4]} {...props} />
         );
-        expect(wrapper).toHaveProp('data', [1, 2, 3, 4]);
+        const result = renderer.getRenderOutput();
+
+        expect(result.props).toHaveProperty('data', [1, 2, 3, 4]);
       });
+
       it('passes other props through to <Series />', () => {
-        const wrapper = shallow(
+        renderer.render(
           <SeriesComponent id="myThirdSeries" zIndex={-1} {...props} />
         );
-        expect(wrapper).toHaveProp('zIndex', -1);
+        const result = renderer.getRenderOutput();
+
+        expect(result.props).toHaveProperty('zIndex', -1);
       });
 
       if (noAxisSeries.includes(seriesName)) {
         it('does not require an axis', () => {
-          const wrapper = shallow(
-            <SeriesComponent id="myFourthSeries" {...props} />
-          );
-          expect(wrapper).toHaveProp('requiresAxis', false);
+          renderer.render(<SeriesComponent id="myFourthSeries" {...props} />);
+          const result = renderer.getRenderOutput();
+
+          expect(result.props).toHaveProperty('requiresAxis', false);
         });
       }
     });

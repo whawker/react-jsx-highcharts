@@ -1,14 +1,16 @@
 import * as React from 'react';
+import { render } from '@testing-library/react';
+
 import { Highcharts, createMockChart } from '../../test-utils';
 import HighchartsChart from '../../../src/components/HighchartsChart/HighchartsChart';
-import BaseChart from '../../../src/components/BaseChart';
 import HighchartsContext from '../../../src/components/HighchartsContext';
 
 describe('<HighchartsChart />', () => {
   let ProvidedHighchartsChart;
+  let chart;
 
   beforeEach(() => {
-    const chart = createMockChart();
+    chart = createMockChart();
     Highcharts.chart.mockReturnValue(chart);
 
     ProvidedHighchartsChart = props => (
@@ -22,26 +24,31 @@ describe('<HighchartsChart />', () => {
     Highcharts.chart.mockRestore();
   });
 
-  it('renders a <BaseChart />', () => {
-    const wrapper = mount(<ProvidedHighchartsChart />);
-    expect(wrapper.find(BaseChart)).toExist();
+  it('creates a chart', () => {
+    render(<ProvidedHighchartsChart />);
+
+    expect(Highcharts.chart).toHaveBeenCalled();
   });
 
-  it('renders a <BaseChart /> with the correct creation function', () => {
-    const wrapper = mount(<ProvidedHighchartsChart />);
-    const basechart = wrapper.find(BaseChart);
-    expect(basechart).toHaveProp('chartCreationFunc', Highcharts.chart);
+  it('creates chart with the correct chart type', () => {
+    render(<ProvidedHighchartsChart />);
+
+    expect(Highcharts.chart).toHaveBeenCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        chartType: 'chart'
+      })
+    );
   });
 
-  it('renders a <BaseChart /> with the correct chart type', () => {
-    const wrapper = mount(<ProvidedHighchartsChart />);
-    const basechart = wrapper.find(BaseChart);
-    expect(basechart).toHaveProp('chartType', 'chart');
-  });
+  it('passes other props through to chart', () => {
+    render(<ProvidedHighchartsChart plotOptions={{ a: 'b' }} />);
 
-  it('passes other props through to <BaseChart />', () => {
-    const wrapper = mount(<ProvidedHighchartsChart plotOptions={{ a: 'b' }} />);
-    const basechart = wrapper.find(BaseChart);
-    expect(basechart).toHaveProp('plotOptions', { a: 'b' });
+    expect(Highcharts.chart).toHaveBeenCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        plotOptions: { a: 'b' }
+      })
+    );
   });
 });

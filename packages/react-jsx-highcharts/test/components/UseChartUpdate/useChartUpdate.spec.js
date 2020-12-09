@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { render } from '@testing-library/react';
+
 import useChartUpdate from '../../../src/components/UseChartUpdate';
 import ChartContext from '../../../src/components/ChartContext';
 import { createMockProvidedChart } from '../../test-utils';
@@ -29,17 +31,19 @@ describe('useChartUpdate', () => {
   });
 
   it('should call update function on mount', () => {
-    const wrapper = mount(<ProvidedChartComponent firstProp="first" />);
+    const wrapper = render(<ProvidedChartComponent firstProp="first" />);
 
     expect(updateFn).toHaveBeenCalledWith(testChart, { firstProp: 'first' });
     expect(destroyFn).not.toHaveBeenCalled();
   });
 
   it('should call update function with modifiedProps', () => {
-    const wrapper = mount(<ProvidedChartComponent firstProp="first" />);
-
+    const wrapper = render(<ProvidedChartComponent firstProp="first" />);
     updateFn.mockClear();
-    wrapper.setProps({ firstProp: 'first2', secondProp: 'second' });
+    wrapper.rerender(
+      <ProvidedChartComponent firstProp="first2" secondProp="second" />
+    );
+
     expect(updateFn).toHaveBeenCalledWith(testChart, {
       firstProp: 'first2',
       secondProp: 'second'
@@ -48,15 +52,16 @@ describe('useChartUpdate', () => {
   });
 
   it("should not call update function when props don't change", () => {
-    const wrapper = mount(<ProvidedChartComponent firstProp="first" />);
+    const wrapper = render(<ProvidedChartComponent firstProp="first" />);
 
     updateFn.mockClear();
-    wrapper.setProps({});
+    wrapper.rerender(<ProvidedChartComponent firstProp="first" />);
+
     expect(updateFn).not.toHaveBeenCalled();
   });
 
   it('should call destroy function on unmount', () => {
-    const wrapper = mount(<ProvidedChartComponent firstProp="first" />);
+    const wrapper = render(<ProvidedChartComponent firstProp="first" />);
 
     updateFn.mockClear();
     wrapper.unmount();

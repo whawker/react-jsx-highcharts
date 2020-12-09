@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { render } from '@testing-library/react';
+
 import { createMockProvidedChart } from '../../test-utils';
 import Caption from '../../../src/components/Caption/Caption';
 import ChartContext from '../../../src/components/ChartContext';
@@ -22,7 +24,7 @@ describe('<Caption />', () => {
 
   describe('when mounted', () => {
     it('adds a caption using the Highcharts setCaption method', () => {
-      mount(<ProvidedCaption>My Caption</ProvidedCaption>);
+      render(<ProvidedCaption>My Caption</ProvidedCaption>);
       expect(testContext.chartStubs.setCaption).toHaveBeenCalledWith({
         text: 'My Caption'
       });
@@ -30,7 +32,7 @@ describe('<Caption />', () => {
     });
 
     it('should pass additional props through to Highcharts setTitle method', () => {
-      mount(<ProvidedCaption align="right">My Other Caption</ProvidedCaption>);
+      render(<ProvidedCaption align="right">My Other Caption</ProvidedCaption>);
       expect(testContext.chartStubs.setCaption).toHaveBeenCalledWith({
         text: 'My Other Caption',
         align: 'right'
@@ -40,8 +42,13 @@ describe('<Caption />', () => {
 
   describe('update', () => {
     it('should use the setCaption method when the data changes', () => {
-      const wrapper = mount(<ProvidedCaption>My Caption</ProvidedCaption>);
-      wrapper.setProps({ x: 10, y: 20, children: 'My New Caption' });
+      const wrapper = render(<ProvidedCaption>My Caption</ProvidedCaption>);
+      wrapper.rerender(
+        <ProvidedCaption x={10} y={20}>
+          My New Caption
+        </ProvidedCaption>
+      );
+
       expect(testContext.chartStubs.setCaption).toHaveBeenCalledWith({
         x: 10,
         y: 20,
@@ -53,7 +60,7 @@ describe('<Caption />', () => {
 
   describe('when unmounted', () => {
     it('removes the caption by setting the text to null', () => {
-      const wrapper = mount(<ProvidedCaption>My Caption</ProvidedCaption>);
+      const wrapper = render(<ProvidedCaption>My Caption</ProvidedCaption>);
       wrapper.unmount();
       expect(testContext.chartStubs.setCaption).toHaveBeenCalledWith({
         text: null

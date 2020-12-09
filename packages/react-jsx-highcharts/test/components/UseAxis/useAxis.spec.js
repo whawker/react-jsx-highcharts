@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { act } from 'react-dom/test-utils';
+import { render } from '@testing-library/react';
+
 import useAxis from '../../../src/components/UseAxis';
 import AxisContext from '../../../src/components/AxisContext';
 import ChartContext from '../../../src/components/ChartContext';
@@ -41,7 +42,7 @@ describe('useAxis', () => {
   });
 
   it('should return axis from context', () => {
-    const wrapper = mount(
+    const wrapper = render(
       <AxisContext.Provider value={testAxis}>
         <ChildComponent />
       </AxisContext.Provider>
@@ -51,7 +52,7 @@ describe('useAxis', () => {
   });
 
   it('should return axis outside the context', () => {
-    const wrapper = mount(
+    const wrapper = render(
       <ChartContext.Provider value={testChart}>
         <ChildComponent axisId="myAxisId" />
       </ChartContext.Provider>

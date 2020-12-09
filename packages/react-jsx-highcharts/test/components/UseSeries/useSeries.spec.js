@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { act } from 'react-dom/test-utils';
+import { render } from '@testing-library/react';
+
 import useSeries from '../../../src/components/UseSeries';
 import SeriesContext from '../../../src/components/SeriesContext';
 import ChartContext from '../../../src/components/ChartContext';
@@ -42,7 +43,7 @@ describe('useSeries', () => {
   });
 
   it('should return series from context', () => {
-    const wrapper = mount(
+    const wrapper = render(
       <SeriesContext.Provider value={testSeries}>
         <ChildComponent />
       </SeriesContext.Provider>
@@ -52,7 +53,7 @@ describe('useSeries', () => {
   });
 
   it('should return series outside the context', () => {
-    const wrapper = mount(
+    const wrapper = render(
       <ChartContext.Provider value={testChart}>
         <ChildComponent seriesId="mySeriesId" />
       </ChartContext.Provider>

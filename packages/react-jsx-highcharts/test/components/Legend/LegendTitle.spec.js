@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { render } from '@testing-library/react';
+
 import LegendTitle from '../../../src/components/Legend/LegendTitle';
 import { createMockProvidedChart } from '../../test-utils';
 import ChartContext from '../../../src/components/ChartContext';
@@ -23,7 +25,7 @@ describe('<Legend.Title />', () => {
 
   describe('when mounted', () => {
     it('add legend using the Highcharts update method', () => {
-      mount(<ProvidedLegendTitle>My Legend Title</ProvidedLegendTitle>);
+      render(<ProvidedLegendTitle>My Legend Title</ProvidedLegendTitle>);
       expect(testContext.chartStubs.update).toHaveBeenCalledWith(
         {
           legend: {
@@ -37,7 +39,7 @@ describe('<Legend.Title />', () => {
     });
 
     it('updates the legend with the passed props', () => {
-      mount(
+      render(
         <ProvidedLegendTitle style={{ color: 'red' }}>
           My Legend Title
         </ProvidedLegendTitle>
@@ -58,10 +60,13 @@ describe('<Legend.Title />', () => {
 
   describe('update', () => {
     it('should use the update method when props change', () => {
-      const wrapper = mount(
+      const wrapper = render(
         <ProvidedLegendTitle>My Legend Title</ProvidedLegendTitle>
       );
-      wrapper.setProps({ children: 'My New Legend Title' });
+      wrapper.rerender(
+        <ProvidedLegendTitle>My New Legend Title</ProvidedLegendTitle>
+      );
+
       expect(testContext.chartStubs.update).toHaveBeenCalledWith(
         {
           legend: {
@@ -77,7 +82,7 @@ describe('<Legend.Title />', () => {
 
   describe('when unmounted', () => {
     it('should disable the LegendTitle', () => {
-      const wrapper = mount(
+      const wrapper = render(
         <ProvidedLegendTitle>My Legend Title</ProvidedLegendTitle>
       );
       wrapper.unmount();

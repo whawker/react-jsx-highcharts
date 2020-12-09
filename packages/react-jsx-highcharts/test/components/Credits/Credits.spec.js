@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { render } from '@testing-library/react';
+
 import { createMockProvidedChart, Highcharts } from '../../test-utils';
 import Credits from '../../../src/components/Credits/Credits';
 import ChartContext from '../../../src/components/ChartContext';
@@ -21,7 +23,7 @@ describe('<Credits />', () => {
 
   describe('when mounted', () => {
     it('add credits using the Highcharts addCredits method', () => {
-      mount(<ProvidedCredits>github.com</ProvidedCredits>);
+      render(<ProvidedCredits>github.com</ProvidedCredits>);
       expect(testContext.chartStubs.addCredits).toHaveBeenCalledWith(
         {
           enabled: true,
@@ -33,7 +35,7 @@ describe('<Credits />', () => {
     });
 
     it('addCreditss the credits with the passed props', () => {
-      mount(
+      render(
         <ProvidedCredits href="https://www.github.com">
           github.com
         </ProvidedCredits>
@@ -51,12 +53,18 @@ describe('<Credits />', () => {
 
   describe('addCredits', () => {
     it('should use the addCredits method when props change', () => {
-      const wrapper = mount(
+      const wrapper = render(
         <ProvidedCredits href="https://www.github.com">
           github.com
         </ProvidedCredits>
       );
-      wrapper.setProps({ href: 'https://www.github.com/whawker' });
+
+      wrapper.rerender(
+        <ProvidedCredits href="https://www.github.com/whawker">
+          github.com
+        </ProvidedCredits>
+      );
+
       expect(testContext.chartStubs.addCredits).toHaveBeenCalledWith(
         {
           href: 'https://www.github.com/whawker'
@@ -68,7 +76,7 @@ describe('<Credits />', () => {
 
   describe('when unmounted', () => {
     it('should disable the Credits', () => {
-      const wrapper = mount(<ProvidedCredits>github.com</ProvidedCredits>);
+      const wrapper = render(<ProvidedCredits>github.com</ProvidedCredits>);
       wrapper.unmount();
       expect(testContext.chartStubs.addCredits).toHaveBeenCalledWith(
         {

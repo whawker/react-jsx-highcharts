@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { render } from '@testing-library/react';
+
 import { createMockProvidedAxis, uuidRegex } from '../../test-utils';
 import PlotLine from '../../../src/components/PlotBandLine/PlotLine';
 import * as useAxis from '../../../src/components/UseAxis';
@@ -25,7 +27,7 @@ describe('<PlotLine />', () => {
 
   describe('when mounted', () => {
     it('adds a title using the Axis addPlotBandOrLine method', () => {
-      mount(<PlotLine id="My PlotLine" value={2} />);
+      render(<PlotLine id="My PlotLine" value={2} />);
       expect(testContext.axisStubs.addPlotBandOrLine).toHaveBeenCalledWith(
         { id: 'My PlotLine', value: 2 },
         'plotLines'
@@ -33,7 +35,9 @@ describe('<PlotLine />', () => {
     });
 
     it('should pass additional props through to Axis addPlotBandOrLine method', () => {
-      mount(<PlotLine borderColor="red" id="My Other PlotLine" value={24.2} />);
+      render(
+        <PlotLine borderColor="red" id="My Other PlotLine" value={24.2} />
+      );
       expect(testContext.axisStubs.addPlotBandOrLine).toHaveBeenCalledWith(
         { id: 'My Other PlotLine', borderColor: 'red', value: 24.2 },
         'plotLines'
@@ -41,7 +45,7 @@ describe('<PlotLine />', () => {
     });
 
     it('uses the provided ID if id prop is a string', () => {
-      mount(<PlotLine id="myPlotLineIdStr" value={2} />);
+      render(<PlotLine id="myPlotLineIdStr" value={2} />);
       expect(testContext.axisStubs.addPlotBandOrLine.mock.calls[0][0].id).toBe(
         'myPlotLineIdStr'
       );
@@ -49,14 +53,14 @@ describe('<PlotLine />', () => {
 
     it('resolves the ID if id prop is a function', () => {
       const idFunc = () => 'myPlotLineIdFromFunc';
-      mount(<PlotLine id={idFunc} value={2} />);
+      render(<PlotLine id={idFunc} value={2} />);
       expect(testContext.axisStubs.addPlotBandOrLine.mock.calls[0][0].id).toBe(
         'myPlotLineIdFromFunc'
       );
     });
 
     it('uses a uuid as an ID if no id prop provided', () => {
-      mount(<PlotLine value={2} />);
+      render(<PlotLine value={2} />);
       expect(
         testContext.axisStubs.addPlotBandOrLine.mock.calls[0][0].id
       ).toMatch(uuidRegex);
@@ -65,10 +69,10 @@ describe('<PlotLine />', () => {
 
   describe('when updated', () => {
     it('removes and adds plotline when props change', () => {
-      const wrapper = mount(<PlotLine id="myplotline" value={3} width={10} />);
+      const wrapper = render(<PlotLine id="myplotline" value={3} width={10} />);
       testContext.axisStubs.addPlotBandOrLine.mockClear();
+      wrapper.rerender(<PlotLine id="myplotline" value={4} width={10} />);
 
-      wrapper.setProps({ value: 4 });
       expect(testContext.axisStubs.removePlotBandOrLine).toHaveBeenCalledWith(
         'myplotline'
       );
@@ -83,10 +87,15 @@ describe('<PlotLine />', () => {
       );
     });
     it('does not remove plotline when only children change', () => {
-      const wrapper = mount(<PlotLine id="myplotline" value={3} width={10} />);
+      const wrapper = render(<PlotLine id="myplotline" value={3} width={10} />);
       testContext.axisStubs.addPlotBandOrLine.mockClear();
       testContext.axisStubs.removePlotBandOrLine.mockClear();
-      wrapper.setProps({ children: <div /> });
+      wrapper.rerender(
+        <PlotLine id="myplotline" value={3} width={10}>
+          <div />
+        </PlotLine>
+      );
+
       expect(testContext.axisStubs.addPlotBandOrLine).not.toHaveBeenCalled();
       expect(testContext.axisStubs.removePlotBandOrLine).not.toHaveBeenCalled();
     });
@@ -94,9 +103,10 @@ describe('<PlotLine />', () => {
 
   describe('when unmounted', () => {
     it('removes the plot line by id (if the parent axis still exists)', () => {
-      const wrapper = mount(<PlotLine id="My PlotLine" value={2} />);
+      const wrapper = render(<PlotLine id="My PlotLine" value={2} />);
       testContext.axisStubs.removePlotBandOrLine.mockClear();
       wrapper.unmount();
+
       expect(testContext.axisStubs.removePlotBandOrLine).toHaveBeenCalledWith(
         'My PlotLine'
       );
