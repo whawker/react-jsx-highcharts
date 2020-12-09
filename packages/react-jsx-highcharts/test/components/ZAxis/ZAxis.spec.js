@@ -1,30 +1,48 @@
 import * as React from 'react';
+import ShallowRenderer from 'react-test-renderer/shallow';
+
 import ZAxis from '../../../src/components/ZAxis/ZAxis';
 import Axis from '../../../src/components/Axis';
 
 describe('<ZAxis />', () => {
+  let renderer;
+
+  beforeEach(() => {
+    renderer = new ShallowRenderer();
+  });
+
   it('renders an <Axis />', () => {
-    const wrapper = shallow(<ZAxis />);
-    expect(wrapper.type()).toEqual(Axis);
+    renderer.render(<ZAxis />);
+    const result = renderer.getRenderOutput();
+
+    expect(result.type).toEqual(Axis);
   });
 
   it('should always have the id `zAxis`', () => {
-    const wrapper = shallow(<ZAxis id="customId" />);
-    expect(wrapper).toHaveProp('id', 'zAxis');
+    renderer.render(<ZAxis id="customId" />);
+    const result = renderer.getRenderOutput();
+
+    expect(result.props).toHaveProperty('id', 'zAxis');
   });
 
   it('should NOT be a dynamic axis', () => {
-    const wrapper = shallow(<ZAxis />);
-    expect(wrapper).toHaveProp('dynamicAxis', false);
+    renderer.render(<ZAxis />);
+    const result = renderer.getRenderOutput();
+
+    expect(result.props).toHaveProperty('dynamicAxis', false);
   });
 
   it('renders an <Axis isX={false} />', () => {
-    const wrapper = shallow(<ZAxis id="ZAxis" />);
-    expect(wrapper).toHaveProp('isX', false);
+    renderer.render(<ZAxis id="ZAxis" />);
+    const result = renderer.getRenderOutput();
+
+    expect(result.props).toHaveProperty('isX', false);
   });
 
   it('passes other props through to <Axis />', () => {
-    const wrapper = shallow(<ZAxis tickLength={1337} />);
-    expect(wrapper).toHaveProp('tickLength', 1337);
+    renderer.render(<ZAxis tickLength={1337} />);
+    const result = renderer.getRenderOutput();
+
+    expect(result.props).toHaveProperty('tickLength', 1337);
   });
 });

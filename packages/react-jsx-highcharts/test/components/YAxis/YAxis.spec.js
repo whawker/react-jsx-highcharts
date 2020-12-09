@@ -1,20 +1,34 @@
 import * as React from 'react';
+import ShallowRenderer from 'react-test-renderer/shallow';
+
 import YAxis from '../../../src/components/YAxis/YAxis';
 import Axis from '../../../src/components/Axis';
 
 describe('<YAxis />', () => {
+  let renderer;
+
+  beforeEach(() => {
+    renderer = new ShallowRenderer();
+  });
+
   it('renders an <Axis />', () => {
-    const wrapper = shallow(<YAxis id="y" />);
-    expect(wrapper.type()).toEqual(Axis);
+    renderer.render(<YAxis id="y" />);
+    const result = renderer.getRenderOutput();
+
+    expect(result.type).toEqual(Axis);
   });
 
   it('renders an <Axis isX={false} />', () => {
-    const wrapper = shallow(<YAxis id="yAxis" />);
-    expect(wrapper).toHaveProp('isX', false);
+    renderer.render(<YAxis id="yAxis" />);
+    const result = renderer.getRenderOutput();
+
+    expect(result.props).toHaveProperty('isX', false);
   });
 
   it('passes other props through to <Axis />', () => {
-    const wrapper = shallow(<YAxis id="myOtherAxis" tickLength={1337} />);
-    expect(wrapper).toHaveProp('tickLength', 1337);
+    renderer.render(<YAxis id="myOtherAxis" tickLength={1337} />);
+    const result = renderer.getRenderOutput();
+
+    expect(result.props).toHaveProperty('tickLength', 1337);
   });
 });
