@@ -1,20 +1,20 @@
 import * as React from 'react';
+import { render } from '@testing-library/react';
 
 jest.mock('react-jsx-highcharts', () => ({
   ...jest.requireActual('react-jsx-highcharts'),
   useHighcharts: jest.fn()
 }));
 
-import { useHighcharts, BaseChart } from 'react-jsx-highcharts';
+import { useHighcharts } from 'react-jsx-highcharts';
 import { Highcharts, createMockChart } from '../../test-utils';
 import HighchartsMapChart from '../../../src/components/HighchartsMapChart/HighchartsMapChart';
 
 describe('<HighchartsMapChart />', () => {
-  let testContext;
+  let chart;
 
   beforeEach(() => {
-    testContext = {};
-    const chart = createMockChart();
+    chart = createMockChart();
     Highcharts.mapChart.mockReturnValue(chart);
     useHighcharts.mockImplementation(() => Highcharts);
   });
@@ -23,49 +23,60 @@ describe('<HighchartsMapChart />', () => {
     Highcharts.mapChart.mockRestore();
   });
 
-  it('renders a <BaseChart />', () => {
-    const wrapper = mount(<HighchartsMapChart />);
-    expect(wrapper.find(BaseChart)).toExist();
+  it('creates a chart', () => {
+    render(<HighchartsMapChart />);
+
+    expect(Highcharts.mapChart).toHaveBeenCalled();
   });
 
-  it('renders a <BaseChart /> with the correct creation function', () => {
-    const wrapper = mount(<HighchartsMapChart />);
-    expect(wrapper.find(BaseChart)).toHaveProp(
-      'chartCreationFunc',
-      Highcharts.mapChart
+  it('creates a chart with the correct chart type', () => {
+    render(<HighchartsMapChart />);
+
+    expect(Highcharts.mapChart).toHaveBeenCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        chartType: 'mapChart'
+      })
     );
   });
 
-  it('renders a <BaseChart /> with the correct chart type', () => {
-    const wrapper = mount(<HighchartsMapChart />);
-    expect(wrapper.find(BaseChart)).toHaveProp('chartType', 'mapChart');
+  it('creates a chart with GeoJSON from a string', () => {
+    render(<HighchartsMapChart map="mock/map" />);
+
+    expect(Highcharts.mapChart).toHaveBeenCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        chart: expect.objectContaining({ map: { some: 'data' } })
+      })
+    );
   });
 
-  it('renders a <BaseChart /> with GeoJSON from a string', () => {
-    const wrapper = mount(<HighchartsMapChart map="mock/map" />);
-    expect(wrapper.find(BaseChart)).toHaveProp('chart', {
-      map: { some: 'data' }
-    });
+  it('creates a chart with direct GeoJSON', () => {
+    render(<HighchartsMapChart map={{ direct: 'input' }} />);
+
+    expect(Highcharts.mapChart).toHaveBeenCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        chart: expect.objectContaining({ map: { direct: 'input' } })
+      })
+    );
   });
 
-  it('renders a <BaseChart /> with direct GeoJSON', () => {
-    const wrapper = mount(<HighchartsMapChart map={{ direct: 'input' }} />);
-    expect(wrapper.find(BaseChart)).toHaveProp('chart', {
-      map: { direct: 'input' }
-    });
-  });
+  it('passes other props through to chart', () => {
+    render(<HighchartsMapChart plotOptions={{ c: 'd' }} />);
 
-  it('passes other props through to <BaseChart />', () => {
-    const wrapper = mount(<HighchartsMapChart plotOptions={{ c: 'd' }} />);
-    expect(wrapper.find(BaseChart)).toHaveProp('plotOptions', { c: 'd' });
+    expect(Highcharts.mapChart).toHaveBeenCalledWith(
+      expect.anything(),
+      expect.objectContaining({ plotOptions: { c: 'd' } })
+    );
   });
 
   it('return a chart instance to the callback prop', () => {
-    let chart;
+    let cbChart;
     const chartCallback = returnedChart => {
-      chart = returnedChart;
+      cbChart = returnedChart;
     };
-    mount(<HighchartsMapChart callback={chartCallback} />);
-    expect(chart).toBeDefined();
+    render(<HighchartsMapChart callback={chartCallback} />);
+    expect(cbChart).toBeDefined();
   });
 });

@@ -1,25 +1,41 @@
 import * as React from 'react';
+import ShallowRenderer from 'react-test-renderer/shallow';
+
 import { XAxis } from 'react-jsx-highcharts';
 import MapXAxis from '../../../src/components/XAxis';
 
 describe('<XAxis />', () => {
+  let renderer;
+
+  beforeEach(() => {
+    renderer = new ShallowRenderer();
+  });
+
   it('renders an <XAxis />', () => {
-    const wrapper = shallow(<MapXAxis />);
-    expect(wrapper.type()).toEqual(XAxis);
+    renderer.render(<MapXAxis />);
+    const result = renderer.getRenderOutput();
+
+    expect(result.type).toEqual(XAxis);
   });
 
   it('should always have the id `xAxis`', () => {
-    const wrapper = shallow(<MapXAxis id="customId" />);
-    expect(wrapper).toHaveProp('id', 'xAxis');
+    renderer.render(<MapXAxis id="customId" />);
+    const result = renderer.getRenderOutput();
+
+    expect(result.props).toHaveProperty('id', 'xAxis');
   });
 
   it('should NOT be a dynamic axis', () => {
-    const wrapper = shallow(<MapXAxis />);
-    expect(wrapper).toHaveProp('dynamicAxis', false);
+    renderer.render(<MapXAxis />);
+    const result = renderer.getRenderOutput();
+
+    expect(result.props).toHaveProperty('dynamicAxis', false);
   });
 
   it('passes other props through to <XAxis />', () => {
-    const wrapper = shallow(<MapXAxis tickLength={1337} />);
-    expect(wrapper).toHaveProp('tickLength', 1337);
+    renderer.render(<MapXAxis tickLength={1337} />);
+    const result = renderer.getRenderOutput();
+
+    expect(result.props).toHaveProperty('tickLength', 1337);
   });
 });
