@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { render } from '@testing-library/react';
+
 import Highstock from 'highcharts/highstock';
 import {
   Chart,
@@ -6,7 +8,7 @@ import {
   XAxis,
   YAxis,
   LineSeries,
-  withHighcharts
+  HighchartsProvider
 } from 'react-jsx-highcharts';
 import { HighchartsStockChart, Navigator } from '../../../src';
 
@@ -16,19 +18,20 @@ describe('<Navigator /> integration', () => {
       const data = [1, 2, 3, 4, 5];
       const Component = props => {
         return (
-          <HighchartsStockChart>
-            <Debug />
-            <Chart />
-            <XAxis />
-            <YAxis>
-              <LineSeries data={data} />
-            </YAxis>
-            <Navigator />
-          </HighchartsStockChart>
+          <HighchartsProvider Highcharts={Highstock}>
+            <HighchartsStockChart>
+              <Debug />
+              <Chart />
+              <XAxis />
+              <YAxis>
+                <LineSeries data={data} />
+              </YAxis>
+              <Navigator />
+            </HighchartsStockChart>
+          </HighchartsProvider>
         );
       };
-      const WithComponent = withHighcharts(Component, Highstock);
-      mount(<WithComponent />);
+      render(<Component />);
       const chart = window.chart;
 
       expect(chart.options.navigator.enabled).toEqual(true);
@@ -38,19 +41,20 @@ describe('<Navigator /> integration', () => {
       const data = [1, 2, 3, 4, 5];
       const Component = props => {
         return (
-          <HighchartsStockChart>
-            <Debug />
-            <Chart />
-            <XAxis />
-            <YAxis>
-              <LineSeries data={data} />
-            </YAxis>
-            <Navigator height={100} />
-          </HighchartsStockChart>
+          <HighchartsProvider Highcharts={Highstock}>
+            <HighchartsStockChart>
+              <Debug />
+              <Chart />
+              <XAxis />
+              <YAxis>
+                <LineSeries data={data} />
+              </YAxis>
+              <Navigator height={100} />
+            </HighchartsStockChart>
+          </HighchartsProvider>
         );
       };
-      const WithComponent = withHighcharts(Component, Highstock);
-      mount(<WithComponent />);
+      render(<Component />);
       const chart = window.chart;
 
       expect(chart.options.navigator.height).toEqual(100);
@@ -62,22 +66,24 @@ describe('<Navigator /> integration', () => {
       const data = [1, 2, 3, 4, 5];
       const Component = props => {
         return (
-          <HighchartsStockChart>
-            <Debug />
-            <Chart />
-            <XAxis />
-            <YAxis>
-              <LineSeries data={data} />
-            </YAxis>
-            <Navigator {...props} />
-          </HighchartsStockChart>
+          <HighchartsProvider Highcharts={Highstock}>
+            <HighchartsStockChart>
+              <Debug />
+              <Chart />
+              <XAxis />
+              <YAxis>
+                <LineSeries data={data} />
+              </YAxis>
+              <Navigator {...props} />
+            </HighchartsStockChart>
+          </HighchartsProvider>
         );
       };
 
-      const WithComponent = withHighcharts(Component, Highstock);
-      const wrapper = mount(<WithComponent />);
-      wrapper.setProps({ height: 110 });
+      const wrapper = render(<Component />);
+      wrapper.rerender(<Component height={110} />);
       const chart = window.chart;
+
       expect(chart.options.navigator.height).toEqual(110);
     });
   });

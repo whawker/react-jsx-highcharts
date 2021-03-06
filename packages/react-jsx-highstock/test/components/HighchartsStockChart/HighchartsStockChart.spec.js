@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { render } from '@testing-library/react';
 
 jest.mock('react-jsx-highcharts', () => ({
   ...jest.requireActual('react-jsx-highcharts'),
@@ -17,26 +18,29 @@ describe('<HighchartsStockChart />', () => {
     useHighcharts.mockImplementation(() => Highcharts);
   });
 
-  it('renders a <BaseChart />', () => {
-    const wrapper = mount(<HighchartsStockChart />);
-    expect(wrapper.find(BaseChart)).toExist();
+  it('creates a chart', () => {
+    render(<HighchartsStockChart />);
+
+    expect(Highcharts.stockChart).toHaveBeenCalled();
   });
 
-  it('renders a <BaseChart /> with the correct creation function', () => {
-    const wrapper = mount(<HighchartsStockChart />);
-    expect(wrapper.find(BaseChart)).toHaveProp(
-      'chartCreationFunc',
-      Highcharts.stockChart
+  it('creates a chart with the correct chart type', () => {
+    render(<HighchartsStockChart />);
+
+    expect(Highcharts.stockChart).toHaveBeenCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        chartType: 'stockChart'
+      })
     );
   });
 
-  it('renders a <BaseChart /> with the correct chart type', () => {
-    const wrapper = mount(<HighchartsStockChart />);
-    expect(wrapper.find(BaseChart)).toHaveProp('chartType', 'stockChart');
-  });
+  it('passes other props through to the chart', () => {
+    render(<HighchartsStockChart plotOptions={{ c: 'd' }} />);
 
-  it('passes other props through to <BaseChart />', () => {
-    const wrapper = mount(<HighchartsStockChart plotOptions={{ c: 'd' }} />);
-    expect(wrapper.find(BaseChart)).toHaveProp('plotOptions', { c: 'd' });
+    expect(Highcharts.stockChart).toHaveBeenCalledWith(
+      expect.anything(),
+      expect.objectContaining({ plotOptions: { c: 'd' } })
+    );
   });
 });

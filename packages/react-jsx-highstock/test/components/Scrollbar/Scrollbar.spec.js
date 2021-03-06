@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { render } from '@testing-library/react';
+
 import { createMockProvidedChart } from '../../test-utils';
 
 jest.mock('react-jsx-highcharts', () => ({
@@ -24,7 +26,8 @@ describe('<Scrollbar />', () => {
 
   describe('when mounted', () => {
     it('add scrollbar using the Highcharts update method', () => {
-      mount(<Scrollbar />);
+      render(<Scrollbar />);
+
       expect(testContext.chartStubs.update).toHaveBeenCalledWith(
         {
           scrollbar: {
@@ -36,7 +39,8 @@ describe('<Scrollbar />', () => {
     });
 
     it('updates the scrollbar with the passed props', () => {
-      mount(<Scrollbar barBackgroundColor="red" height={20} />);
+      render(<Scrollbar barBackgroundColor="red" height={20} />);
+
       expect(testContext.chartStubs.update).toHaveBeenCalledWith(
         {
           scrollbar: {
@@ -52,9 +56,10 @@ describe('<Scrollbar />', () => {
 
   describe('update', () => {
     it('should use the update method when props change', () => {
-      const wrapper = mount(<Scrollbar />);
+      const wrapper = render(<Scrollbar />);
       testContext.chartStubs.update.mockClear();
-      wrapper.setProps({ height: 12345 });
+      wrapper.rerender(<Scrollbar height={12345} />);
+
       expect(testContext.chartStubs.update).toHaveBeenCalledWith(
         {
           scrollbar: {
@@ -68,7 +73,7 @@ describe('<Scrollbar />', () => {
 
   describe('when unmounted', () => {
     it('should disable the Scrollbar', () => {
-      const wrapper = mount(<Scrollbar />);
+      const wrapper = render(<Scrollbar />);
       testContext.chartStubs.update.mockClear();
       wrapper.unmount();
       expect(testContext.chartStubs.update).toHaveBeenCalledWith(

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { render } from '@testing-library/react';
 
 jest.mock('react-jsx-highcharts', () => ({
   ...jest.requireActual('react-jsx-highcharts'),
@@ -33,12 +34,12 @@ describe('<Navigator />', () => {
 
   describe('when mounted', () => {
     it('enables the Navigator', () => {
-      mount(<Navigator />);
+      render(<Navigator />);
       expect(testContext.object.options.navigator.enabled).toEqual(true);
     });
 
     it('fires the `beforeRender` event to so Highcharts creates a Navigator', () => {
-      mount(<Navigator />);
+      render(<Navigator />);
       expect(Highcharts.fireEvent).toHaveBeenCalledWith(
         testContext.object,
         'beforeRender'
@@ -46,7 +47,7 @@ describe('<Navigator />', () => {
     });
 
     it('updates the chart with the passed props', () => {
-      mount(<Navigator height={100} maskFill="rgba(1,2,3,0.45)" />);
+      render(<Navigator height={100} maskFill="rgba(1,2,3,0.45)" />);
       expect(testContext.chartStubs.update).toHaveBeenCalledWith(
         {
           navigator: {
@@ -62,8 +63,9 @@ describe('<Navigator />', () => {
 
   describe('update', () => {
     it('should use the update method when props change', () => {
-      const wrapper = mount(<Navigator />);
-      wrapper.setProps({ maskInside: false });
+      const wrapper = render(<Navigator />);
+      wrapper.rerender(<Navigator maskInside={false} />);
+
       expect(testContext.chartStubs.update).toHaveBeenCalledWith(
         {
           navigator: {
@@ -77,7 +79,7 @@ describe('<Navigator />', () => {
 
   describe('when unmounted', () => {
     it('should disable the Navigator', () => {
-      const wrapper = mount(<Navigator />);
+      const wrapper = render(<Navigator />);
       wrapper.unmount();
       expect(testContext.chartStubs.update).toHaveBeenCalledWith(
         {
