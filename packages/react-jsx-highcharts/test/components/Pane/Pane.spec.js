@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { render } from '@testing-library/react';
+
 import { createMockProvidedChart } from '../../test-utils';
 import Pane from '../../../src/components/Pane/Pane';
 import ChartContext from '../../../src/components/ChartContext';
@@ -21,7 +23,7 @@ describe('<Pane />', () => {
 
   describe('when mounted', () => {
     it('set Pane options using the Highcharts update method', () => {
-      mount(<ProvidedPane center={['50%', '85%']} size="100%" />);
+      render(<ProvidedPane center={['50%', '85%']} size="100%" />);
       expect(testContext.chartStubs.update).toHaveBeenCalledWith(
         {
           pane: {
@@ -35,7 +37,7 @@ describe('<Pane />', () => {
     });
 
     it('does not add pane with empty props', () => {
-      mount(<ProvidedPane />);
+      render(<ProvidedPane />);
       expect(testContext.chartStubs.update).not.toHaveBeenCalled();
       expect(testContext.needsRedraw).not.toHaveBeenCalled();
     });
@@ -43,8 +45,9 @@ describe('<Pane />', () => {
 
   describe('update', () => {
     it('should use the update method when props change', () => {
-      const wrapper = mount(<ProvidedPane />);
-      wrapper.setProps({ size: '50%' });
+      const wrapper = render(<ProvidedPane />);
+      wrapper.rerender(<ProvidedPane size="50%" />);
+
       expect(testContext.chartStubs.update).toHaveBeenCalledWith(
         {
           pane: {
@@ -59,7 +62,7 @@ describe('<Pane />', () => {
 
   describe('when unmounted', () => {
     it('should disable the Pane', () => {
-      const wrapper = mount(<ProvidedPane size="100%" />);
+      const wrapper = render(<ProvidedPane size="100%" />);
       expect(testContext.needsRedraw).toHaveBeenCalledTimes(1);
       testContext.needsRedraw.mockClear();
       wrapper.unmount();

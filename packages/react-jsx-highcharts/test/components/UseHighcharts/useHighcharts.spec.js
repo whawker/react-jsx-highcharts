@@ -1,26 +1,28 @@
 import * as React from 'react';
+import { render } from '@testing-library/react';
+
 import useHighcharts from '../../../src/components/UseHighcharts';
 import HighchartsContext from '../../../src/components/HighchartsContext';
 import { Highcharts } from '../../test-utils';
 
+import ContextSpy from '../../ContextSpy';
+
 describe('useHighcharts', () => {
   let ProvidedHighchartsComponent;
-  let ChildComponent;
+  let highchartsRef;
 
   beforeEach(() => {
-    ChildComponent = props => {
-      const Highcharts = useHighcharts();
-      return <div value={Highcharts} />;
-    };
-    ProvidedHighchartsComponent = props => (
+    highchartsRef = {};
+
+    ProvidedHighchartsComponent = () => (
       <HighchartsContext.Provider value={Highcharts}>
-        <ChildComponent {...props} />
+        <ContextSpy highchartsRef={highchartsRef} />
       </HighchartsContext.Provider>
     );
   });
   it('should return Highcharts from context', () => {
-    const wrapper = mount(<ProvidedHighchartsComponent />);
+    render(<ProvidedHighchartsComponent />);
 
-    expect(wrapper.find('div')).toHaveProp('value', Highcharts);
+    expect(highchartsRef.current).toEqual(Highcharts);
   });
 });

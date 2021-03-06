@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { render } from '@testing-library/react';
+
 import { createMockProvidedChart, Highcharts } from '../../test-utils';
 import Chart from '../../../src/components/Chart/Chart';
 import ChartContext from '../../../src/components/ChartContext';
@@ -26,7 +28,7 @@ describe('<Chart />', () => {
 
   describe('when mounted', () => {
     it('updates the chart config with the provided props', () => {
-      mount(<ProvidedChart type="bubble" />);
+      render(<ProvidedChart type="bubble" />);
       expect(testContext.chartStubs.update).toHaveBeenCalledWith(
         {
           chart: {
@@ -39,7 +41,7 @@ describe('<Chart />', () => {
     });
 
     it("updates the chart with all props that don't look like event handlers", () => {
-      mount(
+      render(
         <ProvidedChart
           type="spline"
           propFoo="bar"
@@ -61,7 +63,7 @@ describe('<Chart />', () => {
     });
 
     it('sets the size of the chart using the width and height props', () => {
-      mount(<ProvidedChart type="line" width={400} height="75%" />);
+      render(<ProvidedChart type="line" width={400} height="75%" />);
       expect(testContext.chartStubs.setSize).toHaveBeenCalledWith(400, '75%');
     });
 
@@ -71,7 +73,7 @@ describe('<Chart />', () => {
       const handleRender = jest.fn();
       const handleBeforePrint = jest.fn();
 
-      mount(
+      render(
         <ProvidedChart
           type="area"
           onClick={handleClick}
@@ -99,8 +101,9 @@ describe('<Chart />', () => {
 
   describe('update', () => {
     it('should use the update method when props change', () => {
-      const wrapper = mount(<ProvidedChart type="column" />);
-      wrapper.setProps({ backgroundColor: 'red', type: 'bar' });
+      const wrapper = render(<ProvidedChart type="column" />);
+      wrapper.rerender(<ProvidedChart type="bar" backgroundColor="red" />);
+
       expect(testContext.chartStubs.update).toHaveBeenCalledWith(
         {
           chart: {
@@ -117,13 +120,16 @@ describe('<Chart />', () => {
       testContext.chartStubs.object = {};
       const onSelection = jest.fn();
       const onRedraw = jest.fn();
-      const wrapper = mount(
+      const wrapper = render(
         <ProvidedChart onSelection={onSelection} onRedraw={onRedraw} />
       );
       Highcharts.addEvent.mockClear();
       Highcharts.removeEvent.mockClear();
       const newOnRedraw = jest.fn();
-      wrapper.setProps({ onRedraw: newOnRedraw });
+      wrapper.rerender(
+        <ProvidedChart onSelection={onSelection} onRedraw={newOnRedraw} />
+      );
+
       expect(Highcharts.removeEvent).toHaveBeenCalledWith(
         testContext.chartStubs.object,
         'redraw',
@@ -142,20 +148,20 @@ describe('<Chart />', () => {
     });
 
     it('updates the size of the chart if the width or height change', () => {
-      const wrapper = mount(<ProvidedChart width={400} height="75%" />);
+      const wrapper = render(<ProvidedChart width={400} height="75%" />);
 
-      wrapper.setProps({ height: '65%' });
+      wrapper.rerender(<ProvidedChart width={400} height="65%" />);
       expect(testContext.chartStubs.setSize).toHaveBeenCalledWith(400, '65%');
 
-      wrapper.setProps({ width: 550 });
+      wrapper.rerender(<ProvidedChart width={550} height="65%" />);
       expect(testContext.chartStubs.setSize).toHaveBeenCalledWith(550, '65%');
 
-      wrapper.setProps({ width: 600, height: 400 });
+      wrapper.rerender(<ProvidedChart width={600} height={400} />);
       expect(testContext.chartStubs.setSize).toHaveBeenCalledWith(600, 400);
     });
 
     it('does not update size if both width and height are undefined', () => {
-      const wrapper = mount(<ProvidedChart />);
+      const wrapper = render(<ProvidedChart />);
 
       expect(testContext.chartStubs.setSize).not.toHaveBeenCalled();
     });

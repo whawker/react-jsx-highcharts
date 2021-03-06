@@ -1,28 +1,28 @@
 import * as React from 'react';
-import usePlotBandLine from '../../../src/components/UsePlotBandLine';
+import { render } from '@testing-library/react';
+
 import PlotBandLineContext from '../../../src/components/PlotBandLineContext';
+
+import ContextSpy from '../../ContextSpy';
 
 describe('usePlotBandLine', () => {
   let ProvidedPlotBandLineComponent;
-  let ChildComponent;
   let testPlotBandLine;
+  let plotBandLineRef;
 
   beforeEach(() => {
     testPlotBandLine = {};
+    plotBandLineRef = {};
 
-    ChildComponent = props => {
-      const PlotBandLine = usePlotBandLine();
-      return <div value={PlotBandLine} />;
-    };
-    ProvidedPlotBandLineComponent = props => (
+    ProvidedPlotBandLineComponent = () => (
       <PlotBandLineContext.Provider value={testPlotBandLine}>
-        <ChildComponent {...props} />
+        <ContextSpy plotBandLineRef={plotBandLineRef} />
       </PlotBandLineContext.Provider>
     );
   });
   it('should return PlotBandLine from context', () => {
-    const wrapper = mount(<ProvidedPlotBandLineComponent />);
+    render(<ProvidedPlotBandLineComponent />);
 
-    expect(wrapper.find('div')).toHaveProp('value', testPlotBandLine);
+    expect(plotBandLineRef.current).toEqual(testPlotBandLine);
   });
 });

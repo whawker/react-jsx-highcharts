@@ -1,24 +1,28 @@
 import * as React from 'react';
 import Highcharts from 'highcharts';
-import { HighchartsChart, withHighcharts } from '../../../src';
+import { render } from '@testing-library/react';
+
+import { HighchartsChart, HighchartsProvider } from '../../../src';
 import Axis from '../../../src/components/Axis';
 
 describe('<Axis /> integration', () => {
   describe('when rendered to document', () => {
     it('fires afterInit event', done => {
-      const onAfterInit = event => {
+      const onAfterInit = () => {
         expect(true).toBe(true);
         done();
       };
-      const Component = props => {
+      const Component = () => {
         return (
-          <HighchartsChart>
-            <Axis onAfterInit={onAfterInit} />
-          </HighchartsChart>
+          <HighchartsProvider Highcharts={Highcharts}>
+            <HighchartsChart>
+              <Axis onAfterInit={onAfterInit} />
+            </HighchartsChart>
+          </HighchartsProvider>
         );
       };
-      const WithComponent = withHighcharts(Component, Highcharts);
-      mount(<WithComponent />);
+
+      render(<Component />);
     });
   });
 });

@@ -1,8 +1,11 @@
 import * as React from 'react';
-import { Component, cloneElement } from 'react';
+import { Component } from 'react';
+import { render } from '@testing-library/react';
+
 import BaseChart from '../../../src/components/BaseChart';
-import ChartContext from '../../../src/components/ChartContext';
 import { createMockChart } from '../../test-utils';
+
+import ContextSpy from '../../ContextSpy';
 
 class Wrapper extends Component {
   getPlotOptions = enabled => {
@@ -16,8 +19,6 @@ class Wrapper extends Component {
     );
   }
 }
-
-const ChildComponent = ({ value }) => <div />;
 
 describe('<BaseChart />', () => {
   let testContext;
@@ -49,25 +50,23 @@ describe('<BaseChart />', () => {
 
   describe('when mounted', () => {
     it('should create a Highcharts chart', () => {
-      const wrapper = mount(<BaseChart {...testContext} chartType="chart" />);
+      const wrapper = render(<BaseChart {...testContext} chartType="chart" />);
+
       expect(testContext.chartCreationFunc).toHaveBeenCalledWith(
-        wrapper.getDOMNode(),
+        wrapper.container.firstChild,
         expect.anything()
       );
     });
 
     it('should create a chart context, with the chart and chart type', () => {
-      const wrapper = mount(
+      const chartRef = {};
+      render(
         <BaseChart {...testContext} chartType="stockChart">
-          <ChartContext.Consumer>
-            {value => <ChildComponent value={value} />}
-          </ChartContext.Consumer>
+          <ContextSpy chartRef={chartRef} />
         </BaseChart>
       );
 
-      const child = wrapper.find(ChildComponent);
-      expect(child).toHaveProp(
-        'value',
+      expect(chartRef.current).toEqual(
         expect.objectContaining({ type: 'stockChart' })
       );
     });
@@ -75,7 +74,7 @@ describe('<BaseChart />', () => {
     it('should create a angular chart when mounted with the gauge prop', () => {
       expect(chart.angular).toBeFalsy();
 
-      const wrapper = mount(
+      const wrapper = render(
         <BaseChart gauge {...testContext} chartType="stockChart" />
       );
       expect(chart.angular).toEqual(true);
@@ -84,40 +83,39 @@ describe('<BaseChart />', () => {
     it('should create a polar chart when mounted with the polar prop', () => {
       expect(chart.polar).toBeFalsy();
 
-      const wrapper = mount(
+      const wrapper = render(
         <BaseChart polar {...testContext} chartType="stockChart" />
       );
       expect(chart.polar).toBe(true);
     });
 
     it('should create a chart with styledMode=false by default', () => {
-      const wrapper = mount(<BaseChart {...testContext} chartType="chart" />);
+      const wrapper = render(<BaseChart {...testContext} chartType="chart" />);
       expect(testContext.chartCreationFunc).toHaveBeenCalledWith(
-        wrapper.getDOMNode(),
+        wrapper.container.firstChild,
         expect.objectContaining({ chart: { styledMode: false } })
       );
     });
 
     it('should create a chart with styledMode=true if the styledMode prop is passed', () => {
-      const wrapper = mount(
+      const wrapper = render(
         <BaseChart {...testContext} styledMode chartType="chart" />
       );
       expect(testContext.chartCreationFunc).toHaveBeenCalledWith(
-        wrapper.getDOMNode(),
+        wrapper.container.firstChild,
         expect.objectContaining({ chart: { styledMode: true } })
       );
     });
 
     it('should provide chart functions', () => {
-      const wrapper = mount(
+      const chartRef = {};
+      render(
         <BaseChart {...testContext} chartType="chart">
-          <ChartContext.Consumer>
-            {chart => <ChildComponent chart={chart} />}
-          </ChartContext.Consumer>
+          <ContextSpy chartRef={chartRef} />
         </BaseChart>
       );
 
-      const chartProp = wrapper.find(ChildComponent).props().chart;
+      const chartProp = chartRef.current;
       expect(chartProp.type).toEqual('chart');
       expect(chartProp.get).toEqual(expect.any(Function));
       expect(chartProp.setSize).toEqual(expect.any(Function));
@@ -143,15 +141,14 @@ describe('<BaseChart />', () => {
       chart.hideLoading.mockReturnValueOnce('hideLoading method mock');
       chart.addCredits.mockReturnValueOnce('addCredits method mock');
 
-      const wrapper = mount(
+      const chartRef = {};
+      render(
         <BaseChart {...testContext} chartType="chart">
-          <ChartContext.Consumer>
-            {chart => <ChildComponent chart={chart} />}
-          </ChartContext.Consumer>
+          <ContextSpy chartRef={chartRef} />
         </BaseChart>
       );
 
-      const chartProp = wrapper.find(ChildComponent).props().chart;
+      const chartProp = chartRef.current;
       expect(chartProp.type).toEqual('chart');
       expect(chartProp.get({ prop: 'Test1234' })).toEqual('get method mock');
       expect(chartProp.setSize({ prop: 'Test5678' })).toEqual(
@@ -195,15 +192,14 @@ describe('<BaseChart />', () => {
       chart.hideLoading.mockReturnThis();
       chart.addCredits.mockReturnThis();
 
-      const wrapper = mount(
+      const chartRef = {};
+      render(
         <BaseChart {...testContext} chartType="stockChart">
-          <ChartContext.Consumer>
-            {chart => <ChildComponent chart={chart} />}
-          </ChartContext.Consumer>
+          <ContextSpy chartRef={chartRef} />
         </BaseChart>
       );
 
-      const chartProp = wrapper.find(ChildComponent).props().chart;
+      const chartProp = chartRef.current;
       expect(chartProp.type).toEqual('stockChart');
       expect(chartProp.get({ prop: 'Test1234' })).toEqual(chart);
       expect(chartProp.setSize({ prop: 'Test5678' })).toEqual(chart);
@@ -220,10 +216,12 @@ describe('<BaseChart />', () => {
 
   describe('update', () => {
     it('should update the chart when the plotOptions change', () => {
-      const wrapper = mount(
+      const wrapper = render(
         <Wrapper {...testContext} chartType="chart" markersEnabled />
       );
-      wrapper.setProps({ markersEnabled: false });
+      wrapper.rerender(
+        <Wrapper {...testContext} chartType="chart" markersEnabled={false} />
+      );
 
       expect(chart.update).toHaveBeenCalledWith(
         { plotOptions: { series: { marker: { enabled: false } } } },
@@ -234,7 +232,7 @@ describe('<BaseChart />', () => {
 
   describe('when unmounted', () => {
     it('destroys the chart instance', () => {
-      const wrapper = mount(<BaseChart {...testContext} chartType="chart" />);
+      const wrapper = render(<BaseChart {...testContext} chartType="chart" />);
       expect(chart.destroy).not.toHaveBeenCalled();
 
       wrapper.unmount();

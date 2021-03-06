@@ -1,5 +1,8 @@
 import * as React from 'react';
 import Highcharts from 'highcharts';
+
+import { render } from '@testing-library/react';
+
 import {
   HighchartsChart,
   HighchartsProvider,
@@ -47,7 +50,7 @@ describe('<PlotBand /> integration', () => {
 
   describe('when mounted', () => {
     it('adds a plotband to the Axis', () => {
-      mount(<Component id="My PlotBand" from={1} to={2} />);
+      render(<Component id="My PlotBand" from={1} to={2} />);
       let axis = axisRef.current && axisRef.current.object;
       const addPlotBandOrLineSpy = axisRef.addPlotBandOrLineSpy;
       const removePlotBandOrLineSpy = axisRef.removePlotBandOrLineSpy;
@@ -61,7 +64,7 @@ describe('<PlotBand /> integration', () => {
     });
 
     it('should pass additional props through', () => {
-      mount(
+      render(
         <Component
           borderColor="red"
           id="My Other PlotBand"
@@ -84,14 +87,14 @@ describe('<PlotBand /> integration', () => {
     });
 
     it('uses the provided ID if id prop is a string', () => {
-      mount(<Component id="myPlotBandIdStr" from={1} to={2} />);
+      render(<Component id="myPlotBandIdStr" from={1} to={2} />);
       const addPlotBandOrLineSpy = axisRef.addPlotBandOrLineSpy;
       expect(addPlotBandOrLineSpy.mock.calls[0][0].id).toBe('myPlotBandIdStr');
     });
 
     it('resolves the ID if id prop is a function', () => {
       const idFunc = () => 'myPlotBandIdFromFunc';
-      mount(<Component id={idFunc} from={1} to={2} />);
+      render(<Component id={idFunc} from={1} to={2} />);
       const addPlotBandOrLineSpy = axisRef.addPlotBandOrLineSpy;
       expect(addPlotBandOrLineSpy.mock.calls[0][0].id).toBe(
         'myPlotBandIdFromFunc'
@@ -99,7 +102,7 @@ describe('<PlotBand /> integration', () => {
     });
 
     it('uses a uuid as an ID if no id prop provided', () => {
-      mount(<Component from={1} to={2} />);
+      render(<Component from={1} to={2} />);
       const addPlotBandOrLineSpy = axisRef.addPlotBandOrLineSpy;
       expect(addPlotBandOrLineSpy.mock.calls[0][0].id).toMatch(uuidRegex);
     });
@@ -107,12 +110,14 @@ describe('<PlotBand /> integration', () => {
 
   describe('when updated', () => {
     it('removes and adds plotband to axis', () => {
-      const wrapper = mount(<Component id="My PlotBand" from={1} to={2} />);
+      const wrapper = render(<Component id="My PlotBand" from={1} to={2} />);
       let axis = axisRef.current && axisRef.current.object;
       const addPlotBandOrLineSpy = axisRef.addPlotBandOrLineSpy;
       const removePlotBandOrLineSpy = axisRef.removePlotBandOrLineSpy;
       addPlotBandOrLineSpy.mockClear();
-      wrapper.setProps({ to: 5 });
+
+      wrapper.rerender(<Component id="My PlotBand" from={1} to={5} />);
+
       expect(removePlotBandOrLineSpy).toHaveBeenCalledWith('My PlotBand');
       expect(removePlotBandOrLineSpy).toHaveBeenCalledTimes(1);
       expect(addPlotBandOrLineSpy).toHaveBeenCalledTimes(1);
@@ -130,7 +135,7 @@ describe('<PlotBand /> integration', () => {
 
   describe('when parent axis updated', () => {
     it('keeps the plotband on axis', () => {
-      const wrapper = mount(<Component id="My PlotBand" from={1} to={2} />);
+      const wrapper = render(<Component id="My PlotBand" from={1} to={2} />);
       let axis = axisRef.current && axisRef.current.object;
       const removePlotBandOrLineSpy = axisRef.removePlotBandOrLineSpy;
       expect(axis.plotLinesAndBands[0].options).toEqual({
@@ -138,7 +143,11 @@ describe('<PlotBand /> integration', () => {
         from: 1,
         to: 2
       });
-      wrapper.setProps({ axisLabels: {} });
+
+      wrapper.rerender(
+        <Component id="My PlotBand" from={1} to={2} axisLabels={{}} />
+      );
+
       expect(removePlotBandOrLineSpy).not.toHaveBeenCalled();
       expect(axis.plotLinesAndBands[0].options).toEqual({
         id: 'My PlotBand',
@@ -150,11 +159,15 @@ describe('<PlotBand /> integration', () => {
 
   describe('when unmounted', () => {
     it('removes the plot band by id (if the parent axis still exists)', () => {
-      const wrapper = mount(<Component id="My PlotBand" from={1} to={2} />);
+      const wrapper = render(<Component id="My PlotBand" from={1} to={2} />);
       let axis = axisRef.current && axisRef.current.object;
       const removePlotBandOrLineSpy = axisRef.removePlotBandOrLineSpy;
       removePlotBandOrLineSpy.mockClear();
-      wrapper.setProps({ mountPlotBand: false });
+
+      wrapper.rerender(
+        <Component id="My PlotBand" from={1} to={2} mountPlotBand={false} />
+      );
+
       expect(removePlotBandOrLineSpy).toHaveBeenCalledWith('My PlotBand');
       expect(removePlotBandOrLineSpy).toHaveBeenCalledTimes(1);
       expect(axis.plotLinesAndBands.length).toEqual(0);

@@ -153,10 +153,16 @@ describe('<Series />', () => {
 
     it('throws Error when requiresAxis=true and mounted without axis', () => {
       testContext.propsFromProviders.axis = null;
+      //disable console to prevent stacktrace print
+      const consoleSpy = jest
+        .spyOn(console, 'error')
+        .mockImplementation(c => c);
 
       expect(() => {
-        shallow(<Series id="mySeries" requiresAxis={true} />);
+        render(<Series id="mySeries" requiresAxis={true} />);
       }).toThrow();
+
+      consoleSpy.mockRestore();
     });
 
     it('does not throw Error when requiresAxis=false and mounted without axis', () => {

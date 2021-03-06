@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { render } from '@testing-library/react';
+
 import useModifiedProps from '../../../src/components/UseModifiedProps';
 
 describe('useChartUpdate', () => {
@@ -15,26 +17,29 @@ describe('useChartUpdate', () => {
   });
 
   it('should return all props on initial mount', () => {
-    const wrapper = mount(<Component someProp={true} />);
+    const wrapper = render(<Component someProp={true} />);
     expect(callback).toHaveBeenCalledWith({ someProp: true });
   });
 
   it('should return changed props', () => {
-    const wrapper = mount(<Component someProp={false} otherProp={false} />);
+    const wrapper = render(<Component someProp={false} otherProp={false} />);
     callback.mockClear();
-    wrapper.setProps({ someProp: true });
+    wrapper.rerender(<Component someProp={true} otherProp={false} />);
+
     expect(callback).toHaveBeenCalledWith({ someProp: true });
   });
 
   it('should return false for not changed props', () => {
-    const wrapper = mount(<Component someProp={true} />);
+    const wrapper = render(<Component someProp={true} />);
     callback.mockClear();
-    wrapper.setProps({});
+    wrapper.rerender(<Component someProp={true} />);
+
     expect(callback).toHaveBeenCalledWith(false);
   });
 
   it('should return false for empty props', () => {
-    const wrapper = mount(<Component />);
+    const wrapper = render(<Component />);
+
     expect(callback).toHaveBeenCalledWith(false);
   });
 });

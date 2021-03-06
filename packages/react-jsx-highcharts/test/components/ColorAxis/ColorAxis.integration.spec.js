@@ -1,7 +1,10 @@
 import * as React from 'react';
 import Highcharts from 'highcharts';
 import addColorAxis from 'highcharts/modules/coloraxis';
-import { HighchartsChart, withHighcharts } from '../../../src';
+
+import { render } from '@testing-library/react';
+
+import { HighchartsChart, HighchartsProvider } from '../../../src';
 import Chart from '../../../src/components/Chart';
 import ColorAxis from '../../../src/components/ColorAxis';
 import Series from '../../../src/components/Series';
@@ -24,24 +27,25 @@ describe('<ColorAxis /> integration', () => {
         { y: 1, colorValue: 0 },
         { y: 10, colorValue: 10 }
       ];
-      const Component = props => {
+      const Component = () => {
         return (
-          <HighchartsChart>
-            <ContextSpy chartRef={chartRef} />
-            <Chart />
-            <XAxis />
-            <ColorAxis min={10} max={100} />
-            <ColorAxis id="testcoloraxis" min={0} max={10}>
-              <YAxis>
-                <Series colorKey="colorValue" type="column" data={data} />
-              </YAxis>
-            </ColorAxis>
-            <ColorAxis min={5} max={50} />
-          </HighchartsChart>
+          <HighchartsProvider Highcharts={Highcharts}>
+            <HighchartsChart>
+              <ContextSpy chartRef={chartRef} />
+              <Chart />
+              <XAxis />
+              <ColorAxis min={10} max={100} />
+              <ColorAxis id="testcoloraxis" min={0} max={10}>
+                <YAxis>
+                  <Series colorKey="colorValue" type="column" data={data} />
+                </YAxis>
+              </ColorAxis>
+              <ColorAxis min={5} max={50} />
+            </HighchartsChart>
+          </HighchartsProvider>
         );
       };
-      const WithComponent = withHighcharts(Component, Highcharts);
-      mount(<WithComponent />);
+      render(<Component />);
       const chart = chartRef.current.object;
       const colorAxis = chart.colorAxis.find(
         c => c.options.id === 'testcoloraxis'
@@ -59,28 +63,29 @@ describe('<ColorAxis /> integration', () => {
         { y: 1, colorValue: 0 },
         { y: 10, colorValue: 10 }
       ];
-      const Component = props => {
+      const Component = () => {
         return (
-          <HighchartsChart>
-            <ContextSpy chartRef={chartRef} />
-            <Chart />
-            <XAxis />
-            <ColorAxis min={10} max={100} />
-            <ColorAxis id="testcoloraxis" min={0} max={10} />
-            <YAxis>
-              <Series
-                colorAxis="testcoloraxis"
-                colorKey="colorValue"
-                type="column"
-                data={data}
-              />
-            </YAxis>
-            <ColorAxis min={5} max={50} />
-          </HighchartsChart>
+          <HighchartsProvider Highcharts={Highcharts}>
+            <HighchartsChart>
+              <ContextSpy chartRef={chartRef} />
+              <Chart />
+              <XAxis />
+              <ColorAxis min={10} max={100} />
+              <ColorAxis id="testcoloraxis" min={0} max={10} />
+              <YAxis>
+                <Series
+                  colorAxis="testcoloraxis"
+                  colorKey="colorValue"
+                  type="column"
+                  data={data}
+                />
+              </YAxis>
+              <ColorAxis min={5} max={50} />
+            </HighchartsChart>
+          </HighchartsProvider>
         );
       };
-      const WithComponent = withHighcharts(Component, Highcharts);
-      mount(<WithComponent />);
+      render(<Component />);
       const chart = chartRef.current.object;
       const colorAxis = chart.colorAxis.find(
         c => c.options.id === 'testcoloraxis'
@@ -102,21 +107,22 @@ describe('<ColorAxis /> integration', () => {
       ];
       const Component = ({ min, max }) => {
         return (
-          <HighchartsChart>
-            <ContextSpy chartRef={chartRef} />
-            <Chart />
-            <XAxis />
-            <ColorAxis id="testcoloraxis" min={min} max={max}>
-              <YAxis>
-                <Series colorKey="colorValue" type="column" data={data} />
-              </YAxis>
-            </ColorAxis>
-          </HighchartsChart>
+          <HighchartsProvider Highcharts={Highcharts}>
+            <HighchartsChart>
+              <ContextSpy chartRef={chartRef} />
+              <Chart />
+              <XAxis />
+              <ColorAxis id="testcoloraxis" min={min} max={max}>
+                <YAxis>
+                  <Series colorKey="colorValue" type="column" data={data} />
+                </YAxis>
+              </ColorAxis>
+            </HighchartsChart>
+          </HighchartsProvider>
         );
       };
-      const WithComponent = withHighcharts(Component, Highcharts);
-      const wrapper = mount(<WithComponent min={0} max={10} />);
-      wrapper.setProps({ min: 1 });
+      const wrapper = render(<Component min={0} max={10} />);
+      wrapper.rerender(<Component min={1} max={10} />);
       const chart = chartRef.current.object;
       const colorAxis = chart.colorAxis.find(
         c => c.options.id === 'testcoloraxis'
@@ -133,27 +139,28 @@ describe('<ColorAxis /> integration', () => {
       ];
       const Component = ({ mountColorAxis = true }) => {
         return (
-          <HighchartsChart>
-            <ContextSpy chartRef={chartRef} />
-            <Chart />
-            <XAxis />
-            {mountColorAxis ? (
-              <ColorAxis id="testcoloraxis" min={0} max={10}></ColorAxis>
-            ) : null}
-            <YAxis>
-              <Series
-                colorAxisId="testcoloraxis"
-                colorKey="colorValue"
-                type="column"
-                data={data}
-              />
-            </YAxis>
-          </HighchartsChart>
+          <HighchartsProvider Highcharts={Highcharts}>
+            <HighchartsChart>
+              <ContextSpy chartRef={chartRef} />
+              <Chart />
+              <XAxis />
+              {mountColorAxis ? (
+                <ColorAxis id="testcoloraxis" min={0} max={10}></ColorAxis>
+              ) : null}
+              <YAxis>
+                <Series
+                  colorAxisId="testcoloraxis"
+                  colorKey="colorValue"
+                  type="column"
+                  data={data}
+                />
+              </YAxis>
+            </HighchartsChart>
+          </HighchartsProvider>
         );
       };
-      const WithComponent = withHighcharts(Component, Highcharts);
-      const wrapper = mount(<WithComponent min={0} max={10} />);
-      wrapper.setProps({ mountColorAxis: false });
+      const wrapper = render(<Component min={0} max={10} />);
+      wrapper.rerender(<Component min={0} max={10} mountColorAxis={false} />);
       const chart = chartRef.current.object;
       const colorAxis = chart.colorAxis.find(
         c => c.options.id === 'testcoloraxis'

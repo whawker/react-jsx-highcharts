@@ -1,28 +1,28 @@
 import * as React from 'react';
-import useChart from '../../../src/components/UseChart';
+import { render } from '@testing-library/react';
+
 import ChartContext from '../../../src/components/ChartContext';
+
+import ContextSpy from '../../ContextSpy';
 
 describe('useChart', () => {
   let ProvidedChartComponent;
-  let ChildComponent;
   let testChart;
+  let chartRef;
 
   beforeEach(() => {
     testChart = {};
+    chartRef = {};
 
-    ChildComponent = props => {
-      const chart = useChart();
-      return <div value={chart} />;
-    };
-    ProvidedChartComponent = props => (
+    ProvidedChartComponent = () => (
       <ChartContext.Provider value={testChart}>
-        <ChildComponent {...props} />
+        <ContextSpy chartRef={chartRef} />
       </ChartContext.Provider>
     );
   });
   it('should return chart from context', () => {
-    const wrapper = mount(<ProvidedChartComponent />);
+    render(<ProvidedChartComponent />);
 
-    expect(wrapper.find('div')).toHaveProp('value', testChart);
+    expect(chartRef.current).toEqual(testChart);
   });
 });

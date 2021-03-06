@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { render } from '@testing-library/react';
+
 import useManualEventHandlers from '../../../src/components/UseManualEventHandlers';
 
 import { Highcharts } from '../../test-utils';
@@ -40,7 +42,7 @@ describe('useManualEventHandlers', () => {
         count: 14
       };
 
-      mount(<ProvidedComponent {...props} />);
+      render(<ProvidedComponent {...props} />);
 
       expect(Highcharts.removeEvent).not.toHaveBeenCalled();
       expect(Highcharts.addEvent).toHaveBeenCalledWith(
@@ -61,7 +63,7 @@ describe('useManualEventHandlers', () => {
     });
 
     it('should not call the Highcharts.addEvent when props is undefined', () => {
-      mount(<ProvidedComponent />);
+      render(<ProvidedComponent />);
 
       expect(Highcharts.addEvent).not.toHaveBeenCalled();
     });
@@ -78,7 +80,7 @@ describe('useManualEventHandlers', () => {
         onThirdEventHandler
       };
 
-      const wrapper = mount(<ProvidedComponent {...props} />);
+      const wrapper = render(<ProvidedComponent {...props} />);
       Highcharts.addEvent.mockClear();
       Highcharts.removeEvent.mockClear();
       const onNewOtherEventHandler = jest.fn();
@@ -87,7 +89,8 @@ describe('useManualEventHandlers', () => {
         onEventHandler,
         onOtherEventHandler: onNewOtherEventHandler
       };
-      wrapper.setProps(updatedProps);
+      wrapper.rerender(<ProvidedComponent {...props} {...updatedProps} />);
+
       expect(Highcharts.removeEvent).not.toHaveBeenCalledWith(
         target,
         'eventHandler',

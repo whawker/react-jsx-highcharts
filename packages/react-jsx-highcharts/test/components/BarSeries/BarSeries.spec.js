@@ -1,11 +1,15 @@
 import * as React from 'react';
+import { render } from '@testing-library/react';
+
 import {
+  Highcharts,
   createMockProvidedChart,
   createMockProvidedAxis
 } from '../../test-utils';
-import Series from '../../../src/components/Series';
 import BarSeries from '../../../src/components/BarSeries/BarSeries';
 import ChartContext from '../../../src/components/ChartContext';
+import AxisContext from '../../../src/components/AxisContext';
+import HighchartsContext from '../../../src/components/HighchartsContext';
 
 describe('<BarSeries />', () => {
   let testContext;
@@ -14,35 +18,42 @@ describe('<BarSeries />', () => {
     testContext = {};
 
     const { chartStubs } = createMockProvidedChart();
-
+    const { providedAxis } = createMockProvidedAxis({
+      id: 'myAxis',
+      type: 'yAxis'
+    });
     testContext.chartStubs = chartStubs;
+    testContext.providedAxis = providedAxis;
 
     ProvidedBarSeries = props => (
-      <ChartContext.Provider value={chartStubs}>
-        <BarSeries {...props} />
-      </ChartContext.Provider>
+      <HighchartsContext.Provider value={() => Highcharts}>
+        <ChartContext.Provider value={chartStubs}>
+          <AxisContext.Provider value={providedAxis}>
+            <BarSeries {...props} />
+          </AxisContext.Provider>
+        </ChartContext.Provider>
+      </HighchartsContext.Provider>
     );
   });
 
-  it('renders a <Series />', () => {
-    const wrapper = mount(<ProvidedBarSeries id="mySeries" />);
-    expect(wrapper.find(Series)).toExist();
-  });
-
-  it('renders a <Series type="bar" />', () => {
-    const wrapper = mount(<ProvidedBarSeries id="mySeries" />);
-    expect(wrapper.find(Series)).toHaveProp('type', 'bar');
-  });
-
-  it('passes other props through to <Series />', () => {
-    const wrapper = mount(
-      <ProvidedBarSeries id="myOtherSeries" data={[1, 2, 3, 4]} />
+  it('adds a series with type="bar" />', () => {
+    render(<ProvidedBarSeries id="mySeries" />);
+    expect(testContext.chartStubs.addSeries).toHaveBeenCalledWith(
+      expect.objectContaining({ type: 'bar' }),
+      false
     );
-    expect(wrapper.find(Series)).toHaveProp('data', [1, 2, 3, 4]);
+  });
+
+  it('passes other props through to series', () => {
+    render(<ProvidedBarSeries id="myOtherSeries" data={[1, 2, 3, 4]} />);
+    expect(testContext.chartStubs.addSeries).toHaveBeenCalledWith(
+      expect.objectContaining({ data: [1, 2, 3, 4] }),
+      false
+    );
   });
 
   it('inverts the chart on mount', () => {
-    mount(<ProvidedBarSeries id="mySeries" />);
+    render(<ProvidedBarSeries id="mySeries" />);
     expect(testContext.chartStubs.update).toHaveBeenCalledWith({
       chart: {
         inverted: true

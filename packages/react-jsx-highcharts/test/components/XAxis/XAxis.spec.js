@@ -1,4 +1,6 @@
 import * as React from 'react';
+import TestRenderer from 'react-test-renderer';
+
 import XAxis from '../../../src/components/XAxis/XAxis';
 import Axis from '../../../src/components/Axis';
 import ChartContext from '../../../src/components/ChartContext';
@@ -9,7 +11,7 @@ describe('<XAxis />', () => {
   let ProvidedAxis;
   beforeEach(() => {
     testContext = {};
-    const { chartStubs, needsRedraw } = createMockProvidedChart({
+    const { chartStubs } = createMockProvidedChart({
       type: 'chart'
     });
     testContext.chartStubs = chartStubs;
@@ -22,21 +24,24 @@ describe('<XAxis />', () => {
   });
 
   it('renders an <Axis />', () => {
-    const wrapper = mount(<ProvidedAxis />);
-    const axis = wrapper.find(Axis);
-    expect(axis).toExist();
+    const wrapper = new TestRenderer.create(<ProvidedAxis />);
+    const axis = wrapper.root.findByType(Axis);
+
+    expect(axis).toBeDefined();
   });
 
   it('renders an <Axis isX />', () => {
-    const wrapper = mount(<ProvidedAxis />);
-    const axis = wrapper.find(Axis);
-    expect(axis).toHaveProp('isX', true);
+    const wrapper = new TestRenderer.create(<ProvidedAxis />);
+    const axis = wrapper.root.findByType(Axis);
+
+    expect(axis.props).toHaveProperty('isX', true);
   });
 
   it('passes other props through to <Axis />', () => {
-    const wrapper = mount(<ProvidedAxis tickLength={1337} />);
-    const axis = wrapper.find(Axis);
-    expect(axis).toHaveProp('tickLength', 1337);
+    const wrapper = new TestRenderer.create(<ProvidedAxis tickLength={1337} />);
+    const axis = wrapper.root.findByType(Axis);
+
+    expect(axis.props).toHaveProperty('tickLength', 1337);
   });
 
   describe('Highcharts chart', () => {
@@ -45,29 +50,33 @@ describe('<XAxis />', () => {
     });
 
     it('renders the <Axis /> type if provided', () => {
-      const wrapper = mount(<ProvidedAxis type="logarithmic" />);
-      const axis = wrapper.find(Axis);
-      expect(axis).toHaveProp('type', 'logarithmic');
+      const wrapper = new TestRenderer.create(
+        <ProvidedAxis type="logarithmic" />
+      );
+      const axis = wrapper.root.findByType(Axis);
+
+      expect(axis.props).toHaveProperty('type', 'logarithmic');
     });
 
     it('renders the an <Axis type="linear" /> if no type specified', () => {
-      const wrapper = mount(
-        <ProvidedAxis {...testContext.propsFromProviders} />
-      );
-      const axis = wrapper.find(Axis);
-      expect(axis).toHaveProp('type', 'linear');
+      const wrapper = new TestRenderer.create(<ProvidedAxis />);
+      const axis = wrapper.root.findByType(Axis);
+
+      expect(axis.props).toHaveProperty('type', 'linear');
     });
 
     it('uses the id prop if provided', () => {
-      const wrapper = mount(<ProvidedAxis id="myXAxisId" />);
-      const axis = wrapper.find(Axis);
-      expect(axis).toHaveProp('id', 'myXAxisId');
+      const wrapper = new TestRenderer.create(<ProvidedAxis id="myXAxisId" />);
+      const axis = wrapper.root.findByType(Axis);
+
+      expect(axis.props).toHaveProperty('id', 'myXAxisId');
     });
 
     it('does not create an id if id prop not provided', () => {
-      const wrapper = mount(<ProvidedAxis />);
-      const axis = wrapper.find(Axis);
-      expect(axis.props().id).not.toBeDefined();
+      const wrapper = new TestRenderer.create(<ProvidedAxis />);
+      const axis = wrapper.root.findByType(Axis);
+
+      expect(axis.props.id).not.toBeDefined();
     });
   });
 
@@ -77,27 +86,33 @@ describe('<XAxis />', () => {
     });
 
     it('renders the <Axis /> type if provided', () => {
-      const wrapper = mount(<ProvidedAxis type="logarithmic" />);
-      const axis = wrapper.find(Axis);
-      expect(axis).toHaveProp('type', 'logarithmic');
+      const wrapper = new TestRenderer.create(
+        <ProvidedAxis type="logarithmic" />
+      );
+      const axis = wrapper.root.findByType(Axis);
+
+      expect(axis.props).toHaveProperty('type', 'logarithmic');
     });
 
     it('renders the an <Axis type="datetime" /> if no type specified', () => {
-      const wrapper = mount(<ProvidedAxis />);
-      const axis = wrapper.find(Axis);
-      expect(axis).toHaveProp('type', 'datetime');
+      const wrapper = new TestRenderer.create(<ProvidedAxis />);
+      const axis = wrapper.root.findByType(Axis);
+
+      expect(axis.props).toHaveProperty('type', 'datetime');
     });
 
     it('uses the id `xAxis` even if an id prop is provided', () => {
-      const wrapper = mount(<ProvidedAxis id="myXAxisId" />);
-      const axis = wrapper.find(Axis);
-      expect(axis).toHaveProp('id', 'xAxis');
+      const wrapper = new TestRenderer.create(<ProvidedAxis id="myXAxisId" />);
+      const axis = wrapper.root.findByType(Axis);
+
+      expect(axis.props).toHaveProperty('id', 'xAxis');
     });
 
     it('uses the id `xAxis` if id prop not provided', () => {
-      const wrapper = mount(<ProvidedAxis />);
-      const axis = wrapper.find(Axis);
-      expect(axis).toHaveProp('id', 'xAxis');
+      const wrapper = new TestRenderer.create(<ProvidedAxis />);
+      const axis = wrapper.root.findByType(Axis);
+
+      expect(axis.props).toHaveProperty('id', 'xAxis');
     });
   });
 });

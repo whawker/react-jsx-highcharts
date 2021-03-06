@@ -1,17 +1,25 @@
 import { useEffect } from 'react';
-import { useAxis, useChart, useHighcharts, useSeries } from '../src';
+import {
+  useAxis,
+  useChart,
+  useHighcharts,
+  useSeries,
+  usePlotBandLine
+} from '../src';
 
 const ContextSpy = ({
   axisId,
   axisRef,
   chartRef,
   highchartsRef,
-  seriesRef
+  seriesRef,
+  plotBandLineRef
 }) => {
   const axis = useAxis(axisId);
   const chart = useChart();
   const Highcharts = useHighcharts();
   const series = useSeries();
+  const plotbandline = usePlotBandLine();
 
   useEffect(() => {
     if (highchartsRef) {
@@ -67,6 +75,18 @@ const ContextSpy = ({
       }
     };
   }, [series]);
+
+  useEffect(() => {
+    if (plotBandLineRef) {
+      plotBandLineRef.current = plotbandline;
+    }
+
+    return () => {
+      if (plotBandLineRef) {
+        plotBandLineRef.current = null;
+      }
+    };
+  }, [plotbandline]);
 
   return null;
 };

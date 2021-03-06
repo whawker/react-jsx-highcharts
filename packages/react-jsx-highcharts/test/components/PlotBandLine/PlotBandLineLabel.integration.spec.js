@@ -1,5 +1,7 @@
 import * as React from 'react';
 import Highcharts from 'highcharts';
+import { render } from '@testing-library/react';
+
 import {
   HighchartsChart,
   HighchartsProvider,
@@ -43,7 +45,7 @@ describe('<PlotBandLineLabel /> integration', () => {
 
   describe('when parent axis is updated', () => {
     it('updates plotband style', () => {
-      const wrapper = mount(
+      const wrapper = render(
         <Component
           labelStyle={{ color: '#aaa' }}
           yaxisLabels={{}}
@@ -53,18 +55,29 @@ describe('<PlotBandLineLabel /> integration', () => {
       );
 
       let axis = axisRef.current && axisRef.current.object;
-      wrapper.setProps({
-        labelStyle: { color: '#bbb' },
-        yaxisLabels: {}
-      });
+
+      wrapper.rerender(
+        <Component
+          labelStyle={{ color: '#bbb' }}
+          yaxisLabels={{}}
+          from={1}
+          to={2}
+        />
+      );
+
       expect(axis.plotLinesAndBands[0].options.label.style).toEqual({
         color: '#bbb'
       });
 
-      wrapper.setProps({
-        labelStyle: { color: '#ccc' },
-        yaxisLabels: {}
-      });
+      wrapper.rerender(
+        <Component
+          labelStyle={{ color: '#ccc' }}
+          yaxisLabels={{}}
+          from={1}
+          to={2}
+        />
+      );
+
       expect(axis.plotLinesAndBands[0].options.label.style).toEqual({
         color: '#ccc'
       });
