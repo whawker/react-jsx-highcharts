@@ -5,7 +5,6 @@ const runtimeVersion = pkg.dependencies['@babel/runtime'];
 
 let config = {
   plugins: [
-    '@babel/plugin-proposal-class-properties',
     [
       '@babel/transform-runtime',
       { version: runtimeVersion, useESModules: ENV === 'test' ? false : true }

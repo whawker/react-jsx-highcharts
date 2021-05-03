@@ -121,7 +121,6 @@ module.exports = {
         options: {
           cacheDirectory: true,
           plugins: [
-            "@babel/plugin-proposal-class-properties",
             ["@babel/transform-runtime", { "useESModules": true }]
           ],
           presets: [["@babel/env", { "modules": false }], '@babel/react']
