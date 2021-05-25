@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Highcharts from 'highcharts';
+import ContextSpy from '../../ContextSpy';
 
 import addHighchartsMore from 'highcharts/highcharts-more';
 //import addHighcharts3DModule from 'highcharts/highcharts-3d';
@@ -79,30 +80,30 @@ Object.keys(all)
 
     describe(`<${seriesName} /> integration`, () => {
       if (seriesType in Highcharts.seriesTypes) {
-        it('renders with real highcharts', done => {
-          const afterAddSeries = event => {
-            expect(event.target.series.length).toBe(1);
-            const series = event.target.series[0];
+        it('renders with real highcharts', () => {
+          const seriesRef = {};
 
-            expect(series.type).toBe(seriesType);
-            if (!noAxisSeries.includes(seriesName)) {
-              expect(series.yAxis.userOptions.id).toBe('myYAxis');
-            }
-            done();
-          };
           const Component = () => {
             return (
               <HighchartsProvider Highcharts={Highcharts}>
                 <HighchartsChart>
-                  <Chart zoomType="x" onAfterAddSeries={afterAddSeries} />
+                  <Chart zoomType="x" />
                   <XAxis></XAxis>
                   <YAxis id="myYAxis"></YAxis>
-                  <SeriesComponent axisId="myYAxis" data={[1, 2, 3, 4]} />
+                  <SeriesComponent axisId="myYAxis" data={[1, 2, 3, 4]}>
+                    <ContextSpy seriesRef={seriesRef} />
+                  </SeriesComponent>
                 </HighchartsChart>
               </HighchartsProvider>
             );
           };
           render(<Component />);
+          expect(seriesRef.current.object.type).toEqual(seriesType);
+          if (!noAxisSeries.includes(seriesName)) {
+            expect(seriesRef.current.object.yAxis.userOptions.id).toBe(
+              'myYAxis'
+            );
+          }
         });
         it('binds hide event correctly', done => {
           const afterAddSeries = event => {
