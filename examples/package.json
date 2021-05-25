@@ -15,14 +15,14 @@
   "bugs": "https://github.com/whawker/react-jsx-highcharts/issues",
   "homepage": "https://github.com/whawker/react-jsx-highcharts",
   "devDependencies": {
-    "@babel/cli": "^7.13.16",
-    "@babel/core": "^7.14.0",
-    "@babel/plugin-transform-runtime": "^7.13.15",
-    "@babel/preset-env": "^7.14.0",
+    "@babel/cli": "^7.14.3",
+    "@babel/core": "^7.14.3",
+    "@babel/plugin-transform-runtime": "^7.14.3",
+    "@babel/preset-env": "^7.14.2",
     "@babel/preset-react": "^7.13.13",
     "@babel/runtime": "^7.14.0",
     "babel-loader": "^8.2.2",
-    "css-loader": "^5.2.4",
+    "css-loader": "^5.2.6",
     "html-webpack-plugin": "^5.3.1",
     "html-webpack-tags-plugin": "^3.0.1",
     "lodash": "^4.17.21",
@@ -30,8 +30,8 @@
     "re-resizable": "^6.9.0",
     "react-prism": "^4.1.0",
     "style-loader": "^2.0.0",
-    "webpack": "^5.36.2",
-    "webpack-cli": "^4.6.0"
+    "webpack": "^5.37.1",
+    "webpack-cli": "^4.7.0"
   },
   "dependencies": {
     "react-responsive": "^8.2.0"
