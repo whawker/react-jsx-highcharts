@@ -44,9 +44,10 @@ const HighchartsSparkline = ({
   plotOptions = defaultSparklinePlotOptions,
   ...rest
 }) => {
-  const chartStyle = useMemo(() => ({ overflow: 'visible', ...style }), [
-    style
-  ]);
+  const chartStyle = useMemo(
+    () => ({ overflow: 'visible', ...style }),
+    [style]
+  );
 
   const hasSeriesProp = !!series;
   // If you want to use functionality like Tooltips, pass the data component on the `series` prop

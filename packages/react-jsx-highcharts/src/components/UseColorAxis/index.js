@@ -17,9 +17,8 @@ export default function useColorAxis(colorAxisId) {
     return null;
   };
 
-  const [providedColorAxis, setProvidedColorAxis] = useState(
-    createStateColorAxis
-  );
+  const [providedColorAxis, setProvidedColorAxis] =
+    useState(createStateColorAxis);
 
   useEffect(() => {
     if (providedColorAxis) return; // we already had axis

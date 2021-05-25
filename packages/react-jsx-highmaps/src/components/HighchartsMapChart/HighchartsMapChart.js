@@ -11,10 +11,10 @@ const HighchartsMapChart = ({ map, chart, callback, ...restProps }) => {
   const geojson = useMemo(() => {
     return createGeoJSON(map, Highcharts);
   }, [map]);
-  const chartConfig = useMemo(() => ({ ...chart, map: geojson }), [
-    geojson,
-    chart
-  ]);
+  const chartConfig = useMemo(
+    () => ({ ...chart, map: geojson }),
+    [geojson, chart]
+  );
 
   const chartCallback = useCallback(
     cbChart => {

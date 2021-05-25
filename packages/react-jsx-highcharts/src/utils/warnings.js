@@ -147,12 +147,8 @@ const generateLines = modules => {
 };
 
 const logDetailedErrorMessage = (warning, modules) => {
-  const {
-    importLines,
-    applyLines,
-    importStyling,
-    applyStyling
-  } = generateLines(modules);
+  const { importLines, applyLines, importStyling, applyStyling } =
+    generateLines(modules);
   const isMultiModule = modules.length > 1;
 
   console.group('React JSX Highcharts error');

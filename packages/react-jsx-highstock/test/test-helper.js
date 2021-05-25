@@ -4,5 +4,3 @@ window.crypto = {
     return nodeCrypto.randomFillSync(buffer);
   }
 };
-
-
