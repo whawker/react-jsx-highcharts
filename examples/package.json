@@ -18,7 +18,7 @@
     "@babel/cli": "^7.14.3",
     "@babel/core": "^7.14.3",
     "@babel/plugin-transform-runtime": "^7.14.3",
-    "@babel/preset-env": "^7.14.2",
+    "@babel/preset-env": "^7.14.4",
     "@babel/preset-react": "^7.13.13",
     "@babel/runtime": "^7.14.0",
     "babel-loader": "^8.2.2",
@@ -30,7 +30,7 @@
     "re-resizable": "^6.9.0",
     "react-prism": "^4.1.0",
     "style-loader": "^2.0.0",
-    "webpack": "^5.37.1",
+    "webpack": "^5.38.1",
     "webpack-cli": "^4.7.0"
   },
   "dependencies": {
