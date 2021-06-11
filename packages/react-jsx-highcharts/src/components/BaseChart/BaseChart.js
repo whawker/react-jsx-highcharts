@@ -30,14 +30,10 @@ const BaseChart = ({
 
     callback(myChart);
     setRendered(true);
-  }, []);
 
-  useEffect(() => {
-    const myChart = chartRef.current;
     return () => {
       if (myChart) {
-        // Fixes #14
-        window.requestAnimationFrame(myChart.destroy.bind(myChart));
+        myChart.destroy.bind(myChart)();
         myChart.__destroyed = true;
       }
     };
