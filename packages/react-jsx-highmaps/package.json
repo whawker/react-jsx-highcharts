@@ -45,7 +45,6 @@
     "maps"
   ],
   "dependencies": {
-    "@babel/runtime": "^7.15.4",
     "react-jsx-highcharts": "4.3.1"
   },
   "peerDependencies": {
@@ -54,8 +53,12 @@
     "react": "^16.8.6 || ^17.0.0",
     "react-dom": "^16.8.6 || ^17.0.0"
   },
+  "types": "types/index.d.ts",
   "browserslist": [
-    "ie >= 11"
-  ],
-  "types": "types/index.d.ts"
+    "chrome >= 81",
+    "edge >= 81",
+    "firefox >= 78",
+    "ios >= 12",
+    "safari >= 12"
+  ]
 }
