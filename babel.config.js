@@ -12,7 +12,7 @@ let config = {
   ],
   presets: [
     ['@babel/env', { modules: ENV === 'test' ? 'commonjs' : false }],
-    '@babel/react'
+    ['@babel/react', { runtime: ENV === 'es' ? 'automatic' : 'classic' }]
   ]
 };
 if (ENV !== 'test') {
