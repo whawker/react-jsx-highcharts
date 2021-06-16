@@ -4,10 +4,12 @@
   "description": "Highcharts (including Highstock) charts built using React components",
   "main": "dist/react-jsx-highstock.min.js",
   "module": "dist/es/index.js",
+  "types": "types/index.d.ts",
   "sideEffects": false,
   "files": [
     "dist",
-    "src"
+    "src",
+    "types"
   ],
   "scripts": {
     "build": "cross-env NODE_ENV=development ./node_modules/.bin/webpack",
@@ -18,7 +20,8 @@
     "format": "prettier --write \"src/**/*.js\" \"test/**/*.js\" README.md",
     "lint": "eslint src",
     "test": "jest",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "test:types": "tsc --noEmit"
   },
   "author": "Will Hawker",
   "contributors": [
@@ -70,6 +73,7 @@
     "@babel/preset-env": "^7.14.5",
     "@babel/preset-react": "^7.14.5",
     "@testing-library/react": "^11.2.7",
+    "@types/react": "^17.0.11",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.2.2",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
@@ -89,6 +93,7 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "rimraf": "^3.0.2",
+    "typescript": "^4.3.2",
     "webpack": "^5.38.1",
     "webpack-cli": "^4.7.2"
   },
