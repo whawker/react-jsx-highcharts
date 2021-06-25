@@ -34,7 +34,7 @@ export const createMockProvidedChart = () => {
   };
 };
 
-export const createMockAxis = ({ ...additional }) => ({
+export const createMockAxis = ({ ...additional } = {}) => ({
   ...additional,
   remove: jest.fn(),
   addPlotBandOrLine: jest
@@ -61,7 +61,7 @@ export const createMockProvidedAxis = ({ object, ...additional }) => {
   };
 };
 
-export const createMockSeries = ({ ...additional }) => ({
+export const createMockSeries = ({ ...additional } = {}) => ({
   ...additional,
   remove: jest.fn(),
   setData: jest.fn(),

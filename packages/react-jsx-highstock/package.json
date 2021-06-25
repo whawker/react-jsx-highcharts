@@ -59,14 +59,12 @@
     "data"
   ],
   "dependencies": {
-    "@babel/runtime": "^7.14.5",
     "lodash-es": "^4.17.21",
     "react-jsx-highcharts": "4.2.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.14.5",
     "@babel/core": "^7.14.5",
-    "@babel/plugin-transform-runtime": "^7.14.5",
     "@babel/preset-env": "^7.14.5",
     "@babel/preset-react": "^7.14.5",
     "@testing-library/react": "^11.2.7",
@@ -99,6 +97,10 @@
     "react-dom": "^16.8.6 || ^17.0.0"
   },
   "browserslist": [
-    "ie >= 11"
+    "chrome >= 81",
+    "edge >= 81",
+    "firefox >= 78",
+    "ios >= 12",
+    "safari >= 12"
   ]
 }
