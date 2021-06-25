@@ -30,12 +30,9 @@ describe('<BaseChart />', () => {
     chart = createMockChart();
     testContext.chartCreationFunc = jest.fn();
     testContext.chartCreationFunc.mockReturnValue(chart);
-
-    jest.spyOn(window, 'requestAnimationFrame').mockImplementation(cb => cb());
   });
 
   afterEach(() => {
-    window.requestAnimationFrame.mockRestore();
     chart.get.mockReset();
     chart.setSize.mockReset();
     chart.update.mockReset();
