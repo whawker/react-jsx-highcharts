@@ -40,7 +40,7 @@ React JSX Highcharts is free to use, however **Highcharts** itself requires a li
 
 ## [Documentation](https://github.com/whawker/react-jsx-highcharts/wiki)
 
-## [Examples](https://whawker.github.io/react-jsx-highcharts/examples)
+## [Examples](https://stackblitz.com/github/whawker/react-jsx-highcharts-examples)
 
 ## Getting started
 
