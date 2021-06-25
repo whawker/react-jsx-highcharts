@@ -39,12 +39,18 @@ const Axis = ({ children = null, dynamicAxis = true, ...restProps }) => {
     if (!hasAxis) return;
     if (modifiedProps !== false) {
       const axis = axisRef.current;
+      const nonEventProps = getNonEventHandlerProps(modifiedProps);
+      const events = getEventsConfig(restProps); // update all events to be on safeside
+      const updateProps = {
+        events,
+        ...nonEventProps
+      };
       // if there are plotlines or bands, the chart needs to be redrawn before
       // they can be accessed
       if (axis.plotLinesAndBands && axis.plotLinesAndBands.length > 0) {
-        axis.update(modifiedProps, true);
+        axis.update(updateProps, true);
       } else {
-        axis.update(modifiedProps, false);
+        axis.update(updateProps, false);
         chart.needsRedraw();
       }
     }
