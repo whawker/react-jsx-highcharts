@@ -1,5 +1,5 @@
-import type * as Highcharts from 'highcharts';
-import type { ReactElement, ReactNode } from 'react';
+import type * as Highcharts from 'highcharts'
+import type { ReactElement, ReactNode } from 'react'
 
 interface HighchartsProviderProps {
   Highcharts: any;
@@ -71,6 +71,7 @@ export function Credits(props: CreditProps): ReactElement;
 
 type LoadingProps = {
   children?: ReactNode;
+  isLoading?: boolean;
 } & Partial<Omit<Highcharts.LoadingOptions, 'text'>>;
 export function Loading(props: LoadingProps): ReactElement;
 
