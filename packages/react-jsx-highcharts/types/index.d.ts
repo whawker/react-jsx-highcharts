@@ -1,5 +1,5 @@
-import type * as Highcharts from 'highcharts';
-import type { ReactElement, ReactNode } from 'react';
+import type * as Highcharts from 'highcharts'
+import type { ReactElement, ReactNode } from 'react'
 
 interface HighchartsProviderProps {
   Highcharts: any;
