@@ -1,6 +1,5 @@
 import type * as Highcharts from 'highcharts';
 import type { ReactElement, ReactNode } from 'react';
-import * as React from 'react';
 import type {
   HighchartsChartProps,
   SeriesProps,
