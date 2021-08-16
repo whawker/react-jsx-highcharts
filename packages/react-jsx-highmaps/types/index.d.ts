@@ -6,7 +6,25 @@ import type {
   AxisProps
 } from 'react-jsx-highcharts';
 
-export * from 'react-jsx-highcharts';
+export {
+  Chart,
+  ColorAxis,
+  Credits,
+  Debug,
+  HighchartsProvider as HighmapsProvider,
+  Loading,
+  Legend,
+  Series,
+  Subtitle,
+  Title,
+  Tooltip,
+  useHighcharts,
+  useChart,
+  useAxis,
+  useSeries,
+  withHighcharts as withHighmaps,
+  withSeriesType
+} from 'react-jsx-highcharts';
 
 type HighchartsMapChartsProps = HighchartsChartProps & {
   map: Highcharts.GeoJSON;

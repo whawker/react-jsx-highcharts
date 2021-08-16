@@ -15,7 +15,6 @@ export {
   useChart,
   useAxis,
   useSeries,
-  useModifiedProps,
   withHighcharts as withHighmaps,
   withSeriesType
 } from 'react-jsx-highcharts';
