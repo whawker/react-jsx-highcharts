@@ -1,6 +1,5 @@
 /* eslint-env node */
 const path = require('path');
-const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 
 const isProd = process.env.NODE_ENV === 'production';
 
@@ -48,13 +47,7 @@ const webpackConfig = {
         exclude: /node_modules(\\|\/)(?!react-jsx-highcharts)/
       }
     ]
-  },
-
-  plugins: [
-    new LodashModuleReplacementPlugin({
-      collections: true
-    })
-  ]
+  }
 };
 
 if (isProd) {
