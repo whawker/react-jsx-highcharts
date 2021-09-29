@@ -6,8 +6,7 @@
 const config = {
   testEnvironment: 'jsdom',
   setupFilesAfterEnv: ['<rootDir>/test/test-helper.js'],
-  testMatch: ['**/test/**/*.spec.js?(x)'],
-  transformIgnorePatterns: ['node_modules/(?!(lodash-es)/)']
+  testMatch: ['**/test/**/*.spec.js?(x)']
 };
 
 module.exports = config;
