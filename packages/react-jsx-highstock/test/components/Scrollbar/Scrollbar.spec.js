@@ -10,7 +10,6 @@ jest.mock('react-jsx-highcharts', () => ({
 
 import { useChart } from 'react-jsx-highcharts';
 import Scrollbar from '../../../src/components/Scrollbar/Scrollbar';
-import { HighchartsChartContext } from 'react-jsx-highcharts';
 
 describe('<Scrollbar />', () => {
   let testContext;

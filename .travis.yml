@@ -1,20 +1,9 @@
 language: node_js
 node_js:
   - "lts/*"
-cache:
-  directories:
-    - "packages/react-jsx-highcharts/node_modules"
-    - "packages/react-jsx-highstock/node_modules"
-    - "packages/react-jsx-highmaps/node_modules"
-env:
-  - PKG_DIR=packages/react-jsx-highcharts
-  - PKG_DIR=packages/react-jsx-highstock
-  - PKG_DIR=packages/react-jsx-highmaps
-before_install:
-  - cd $PKG_DIR
 script:
+  - npm run build:prod
   - npm run test:coverage
   - npm run lint
-  - npm run build:prod
 after_success:
   - bash <(curl -s https://codecov.io/bash) || echo "Codecov did not collect coverage reports"

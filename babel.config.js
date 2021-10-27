@@ -1,7 +1,7 @@
 /* eslint-env node */
 const ENV = process.env.BABEL_ENV || process.env.NODE_ENV || 'development';
 const pkg = require('./package.json');
-const runtimeVersion = pkg.dependencies['@babel/runtime'];
+const runtimeVersion = pkg.devDependencies['@babel/runtime'];
 
 let config = {
   plugins: [
