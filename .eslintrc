@@ -1,14 +1,14 @@
 {
   "root": true,
-  "parser": "babel-eslint",
-  "plugins": ["react", "import", "react-hooks", "react-perf"],
+  "parser": "@babel/eslint-parser",
+  "plugins": ["react", "import", "react-hooks", "react-perf", "prettier"],
   "settings": {
     "react": {
       "version": "detect"
     }
   },
   "parserOptions": {
-    "ecmaVersion": 2018,
+    "ecmaVersion": "latest",
     "sourceType": "module",
     "ecmaFeatures": {
       "jsx": true
