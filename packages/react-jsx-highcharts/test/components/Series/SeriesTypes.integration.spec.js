@@ -85,16 +85,18 @@ Object.keys(all)
 
           const Component = () => {
             return (
-              <HighchartsProvider Highcharts={Highcharts}>
-                <HighchartsChart>
-                  <Chart zoomType="x" />
-                  <XAxis></XAxis>
-                  <YAxis id="myYAxis"></YAxis>
-                  <SeriesComponent axisId="myYAxis" data={[1, 2, 3, 4]}>
-                    <ContextSpy seriesRef={seriesRef} />
-                  </SeriesComponent>
-                </HighchartsChart>
-              </HighchartsProvider>
+              <React.StrictMode>
+                <HighchartsProvider Highcharts={Highcharts}>
+                  <HighchartsChart>
+                    <Chart zoomType="x" />
+                    <XAxis></XAxis>
+                    <YAxis id="myYAxis"></YAxis>
+                    <SeriesComponent axisId="myYAxis" data={[1, 2, 3, 4]}>
+                      <ContextSpy seriesRef={seriesRef} />
+                    </SeriesComponent>
+                  </HighchartsChart>
+                </HighchartsProvider>
+              </React.StrictMode>
             );
           };
           render(<Component />);
@@ -105,30 +107,34 @@ Object.keys(all)
             );
           }
         });
-        it('binds hide event correctly', done => {
-          const afterAddSeries = event => {
-            const series = event.target.series[0];
-            expect(series.visible).toBe(true);
-            series.hide();
-          };
-          const onHide = event => {
-            expect(event.target.visible).toBe(false);
-            done();
-          };
+        it('binds hide event correctly', () => {
+          const seriesRef = {};
+          const onHide = jest.fn();
+
           const Component = () => {
             return (
-              <HighchartsProvider Highcharts={Highcharts}>
-                <HighchartsChart>
-                  <Chart zoomType="x" onAfterAddSeries={afterAddSeries} />
-                  <XAxis></XAxis>
-                  <YAxis>
-                    <SeriesComponent data={[1, 2, 3, 4]} onHide={onHide} />
-                  </YAxis>
-                </HighchartsChart>
-              </HighchartsProvider>
+              <React.StrictMode>
+                <HighchartsProvider Highcharts={Highcharts}>
+                  <HighchartsChart>
+                    <Chart zoomType="x" />
+                    <XAxis></XAxis>
+                    <YAxis>
+                      <SeriesComponent data={[1, 2, 3, 4]} onHide={onHide}>
+                        <ContextSpy seriesRef={seriesRef} />
+                      </SeriesComponent>
+                    </YAxis>
+                  </HighchartsChart>
+                </HighchartsProvider>
+              </React.StrictMode>
             );
           };
+
           render(<Component />);
+          const seriesObj = seriesRef.current.object;
+          expect(seriesObj.visible).toEqual(true);
+          seriesObj.hide();
+          expect(onHide).toHaveBeenCalled();
+          expect(seriesObj.visible).toEqual(false);
         });
       }
     });
