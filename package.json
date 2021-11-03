@@ -3,7 +3,7 @@
   "scripts": {
     "build:prod": "npm run build:prod --workspaces",
     "build:jsx-highcharts": "npm run build:prod --workspace packages/react-jsx-highcharts",
-    "lint": "eslint \"packages/!(react-jsx-highstock-datepickers)/+(src|test)/**\"",
+    "lint": "eslint \"packages/*/+(src|test)/**\"",
     "test": "npm run build:jsx-highcharts && jest",
     "test:coverage": "npm run build:jsx-highcharts && jest --coverage",
     "test:watch": "jest --watch"
