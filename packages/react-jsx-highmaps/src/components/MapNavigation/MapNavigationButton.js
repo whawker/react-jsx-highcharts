@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { isEmpty } from 'lodash-es';
 import { useHighcharts, useChart } from 'react-jsx-highcharts';
 
 const MapNavigationButton = props => {
@@ -34,9 +33,11 @@ const getMapNavigationButtonConfig = (props, Highcharts) => {
 };
 
 const updateMapNavigationButton = (type, config, chart) => {
+  const enableButtons = Object.keys(config).length > 0;
+
   chart.update({
     mapNavigation: {
-      enableButtons: !isEmpty(config),
+      enableButtons,
       buttons: {
         [type]: config
       }
