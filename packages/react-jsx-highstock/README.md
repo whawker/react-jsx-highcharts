@@ -163,7 +163,7 @@ const MyChart = (props) => (
 
 ## Demos
 
-[See here](https://stackblitz.com/github/whawker/react-jsx-highcharts-examples)
+[See here](https://codesandbox.io/s/github/whawker/react-jsx-highcharts-examples)
 
 ## Documentation
 
