@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import {
   useModifiedProps,
   useChart,
@@ -51,10 +50,6 @@ const Navigator = ({ enabled = true, ...restProps }) => {
 
 const updateNavigator = (config, chart) => {
   chart.update({ navigator: config }, true);
-};
-
-Navigator.propTypes = {
-  enabled: PropTypes.bool
 };
 
 export default Navigator;

@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import {
   useModifiedProps,
   useChart,
@@ -60,10 +59,6 @@ const getMapNavigationConfig = (props, Highcharts) => {
 
 const updateMapNavigation = (config, chart) => {
   chart.update({ mapNavigation: config }, true);
-};
-
-MapNavigation.propTypes = {
-  enabled: PropTypes.bool
 };
 
 export default MapNavigation;

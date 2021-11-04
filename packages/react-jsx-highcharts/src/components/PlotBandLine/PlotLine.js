@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { memo } from 'react';
-import PropTypes from 'prop-types';
 import PlotBandLineContext from '../PlotBandLineContext';
 import usePlotBandLineLifecycle from './UsePlotBandLineLifecycle';
 
@@ -17,13 +16,6 @@ const PlotLine = memo(props => {
     </PlotBandLineContext.Provider>
   );
 });
-
-PlotLine.propTypes = {
-  id: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-  value: PropTypes.any.isRequired,
-  color: PropTypes.string,
-  children: PropTypes.node
-};
 
 PlotLine.displayName = 'PlotLine';
 export default PlotLine;

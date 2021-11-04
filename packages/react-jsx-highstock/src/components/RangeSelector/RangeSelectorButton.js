@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { getEventsConfig, useChart } from 'react-jsx-highcharts';
 
 const RangeSelectorButton = ({
@@ -88,24 +87,6 @@ const updateRangeSelectorButtons = (config, chart) => {
       buttons: config
     }
   });
-};
-
-RangeSelectorButton.propTypes = {
-  count: PropTypes.number,
-  type: PropTypes.oneOf([
-    'millisecond',
-    'second',
-    'minute',
-    'hour',
-    'day',
-    'week',
-    'month',
-    'ytd',
-    'all'
-  ]),
-  offsetMin: PropTypes.number.isRequired,
-  offsetMax: PropTypes.number.isRequired,
-  dataGrouping: PropTypes.object
 };
 
 export default RangeSelectorButton;

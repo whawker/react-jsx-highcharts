@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { useModifiedProps, useChart } from 'react-jsx-highcharts';
 
 const Scrollbar = ({ children, enabled = true, ...restProps }) => {
@@ -31,10 +30,6 @@ const Scrollbar = ({ children, enabled = true, ...restProps }) => {
 
 const updateScrollbar = (config, chart) => {
   chart.update({ scrollbar: config }, true);
-};
-
-Scrollbar.propTypes = {
-  enabled: PropTypes.bool
 };
 
 export default Scrollbar;

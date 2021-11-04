@@ -1,5 +1,4 @@
 import { useEffect, useRef, memo } from 'react';
-import PropTypes from 'prop-types';
 import { getNonEventHandlerProps } from '../../utils/events';
 import useModifiedProps from '../UseModifiedProps';
 import useChart from '../UseChart';
@@ -41,20 +40,6 @@ const Chart = memo(({ type = 'line', width, height, ...restProps }) => {
 const updateChart = (config, chart) => {
   chart.update({ chart: config }, false);
   chart.needsRedraw();
-};
-
-Chart.propTypes = {
-  type: PropTypes.string,
-  width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  onAddSeries: PropTypes.func,
-  onAfterPrint: PropTypes.func,
-  onBeforePrint: PropTypes.func,
-  onClick: PropTypes.func,
-  onLoad: PropTypes.func,
-  onRedraw: PropTypes.func,
-  onRender: PropTypes.func,
-  onSelection: PropTypes.func
 };
 
 Chart.displayName = 'Chart';

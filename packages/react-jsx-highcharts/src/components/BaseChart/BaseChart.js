@@ -1,9 +1,7 @@
 import * as React from 'react';
 import { useState, useEffect, useRef, useLayoutEffect } from 'react';
-import PropTypes from 'prop-types';
 import ChartContext from '../ChartContext';
 import usePrevious from '../UsePrevious';
-import { validChartTypes } from '../../utils/propTypeValidators';
 import createProvidedChart from './createProvidedChart';
 
 const noop = c => c;
@@ -122,11 +120,6 @@ const initHighcharts = (props, domNode) => {
   myChart.angular = gauge;
 
   return myChart;
-};
-
-BaseChart.propTypes = {
-  chartCreationFunc: PropTypes.func.isRequired,
-  chartType: validChartTypes.isRequired
 };
 
 export default BaseChart;

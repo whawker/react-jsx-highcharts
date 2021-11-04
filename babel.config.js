@@ -15,8 +15,5 @@ let config = {
     '@babel/react'
   ]
 };
-if (ENV !== 'test') {
-  config.plugins.push('transform-react-remove-prop-types');
-}
 
 module.exports = config;
