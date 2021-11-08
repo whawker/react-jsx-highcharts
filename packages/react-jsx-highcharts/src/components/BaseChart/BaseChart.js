@@ -30,7 +30,10 @@ const BaseChart = ({
 
     callback(myChart);
     setRendered(true);
+  }, []);
 
+  useEffect(() => {
+    const myChart = chartRef.current;
     return () => {
       if (myChart) {
         myChart.destroy.bind(myChart)();
