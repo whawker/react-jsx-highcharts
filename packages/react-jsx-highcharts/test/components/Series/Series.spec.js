@@ -38,8 +38,11 @@ describe('<Series />', () => {
     testContext.propsFromProviders = {
       axis: providedAxis
     };
+
+    const highchartsValue = () => Highcharts;
+
     ProvidedSeries = props => (
-      <HighchartsContext.Provider value={() => Highcharts}>
+      <HighchartsContext.Provider value={highchartsValue}>
         <ChartContext.Provider value={chartStubs}>
           <Series {...props} />
         </ChartContext.Provider>

@@ -25,8 +25,10 @@ describe('<BarSeries />', () => {
     testContext.chartStubs = chartStubs;
     testContext.providedAxis = providedAxis;
 
+    const highchartsValue = () => Highcharts;
+
     ProvidedBarSeries = props => (
-      <HighchartsContext.Provider value={() => Highcharts}>
+      <HighchartsContext.Provider value={highchartsValue}>
         <ChartContext.Provider value={chartStubs}>
           <AxisContext.Provider value={providedAxis}>
             <BarSeries {...props} />
