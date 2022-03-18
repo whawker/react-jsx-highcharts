@@ -1,9 +1,0 @@
-language: node_js
-node_js:
-  - "lts/*"
-script:
-  - npm run build:prod
-  - npm run test:coverage
-  - npm run lint
-after_success:
-  - bash <(curl -s https://codecov.io/bash) || echo "Codecov did not collect coverage reports"
