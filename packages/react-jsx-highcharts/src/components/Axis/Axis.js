@@ -1,10 +1,8 @@
 import * as React from 'react';
 import { useEffect, useState, useRef } from 'react';
-import PropTypes from 'prop-types';
 import { v4 as uuid } from 'uuid';
 import AxisContext from '../AxisContext';
 import { getNonEventHandlerProps, getEventsConfig } from '../../utils/events';
-import { validAxisTypes } from '../../utils/propTypeValidators';
 import useModifiedProps from '../UseModifiedProps';
 import useChart from '../UseChart';
 import createProvidedAxis from './createProvidedAxis';
@@ -89,13 +87,6 @@ const createAxis = (chart, props, dynamicAxis) => {
     axis.update.call(axis, opts, false);
   }
   return axis;
-};
-
-Axis.propTypes = {
-  type: validAxisTypes,
-  id: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-  children: PropTypes.node,
-  dynamicAxis: PropTypes.bool
 };
 
 export default Axis;

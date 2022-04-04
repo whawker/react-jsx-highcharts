@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { memo, useRef, useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { v4 as uuid } from 'uuid';
 import SeriesContext from '../SeriesContext';
 import { getNonEventHandlerProps, getEventsConfig } from '../../utils/events';
@@ -131,23 +130,6 @@ const Series = memo(
   }
 );
 
-Series.displayName = 'Series';
-
-Series.propTypes = {
-  id: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-  type: PropTypes.string,
-  data: PropTypes.any,
-  isDataEqual: PropTypes.func,
-  visible: PropTypes.bool,
-  children: PropTypes.node,
-  axisId: PropTypes.string,
-  requiresAxis: PropTypes.bool,
-  jsxOptions: PropTypes.shape({
-    animation: PropTypes.bool,
-    updatePoints: PropTypes.bool
-  })
-};
-
 const getSeriesConfig = (props, axis, colorAxis, requiresAxis) => {
   const { id, data, ...rest } = props;
 
@@ -171,5 +153,7 @@ const getSeriesConfig = (props, axis, colorAxis, requiresAxis) => {
 
   return config;
 };
+
+Series.displayName = 'Series';
 
 export default Series;

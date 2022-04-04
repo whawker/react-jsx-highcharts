@@ -1,5 +1,4 @@
 import { useEffect, memo } from 'react';
-import PropTypes from 'prop-types';
 import { log3DModuleErrorMessage } from '../../utils/warnings';
 import useHighcharts from '../UseHighcharts';
 import useChart from '../UseChart';
@@ -79,16 +78,6 @@ const update3dOptions = (chart, props) => {
     }
   };
   chart.update(opts, true);
-};
-
-Options3d.propTypes = {
-  alpha: PropTypes.number,
-  axisLabelPosition: PropTypes.string,
-  beta: PropTypes.number,
-  depth: PropTypes.number,
-  fitToPlot: PropTypes.bool,
-  frame: PropTypes.object,
-  viewDistance: PropTypes.number
 };
 
 Options3d.displayName = 'Options3d';

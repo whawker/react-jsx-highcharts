@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { useMemo } from 'react';
-import PropTypes from 'prop-types';
 import HighchartsChart from '../HighchartsChart';
 import Chart from '../Chart';
 import XAxis from '../XAxis';
@@ -86,16 +85,6 @@ const HighchartsSparkline = ({
       {hasSeriesProp && <>{children}</>}
     </HighchartsChart>
   );
-};
-
-HighchartsSparkline.propTypes = {
-  height: PropTypes.number,
-  width: PropTypes.number,
-  margin: PropTypes.array,
-  style: PropTypes.object,
-  plotOptions: PropTypes.object,
-  series: PropTypes.node,
-  children: PropTypes.node
 };
 
 export default HighchartsSparkline;

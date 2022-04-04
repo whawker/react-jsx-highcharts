@@ -27,7 +27,7 @@
   ],
   "rules": {
     "no-unused-vars": ["error", { "ignoreRestSiblings": true }],
-    "react/prop-types": "warn",
+    "react/prop-types": "off",
     "prefer-object-spread": "warn",
     "react-hooks/rules-of-hooks": "error",
     "react/jsx-no-constructed-context-values": "error"

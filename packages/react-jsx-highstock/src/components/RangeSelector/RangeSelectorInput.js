@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { useModifiedProps, useChart } from 'react-jsx-highcharts';
 
 const RangeSelectorInput = ({ enabled = true, ...restProps }) => {
@@ -48,11 +47,6 @@ const updateRangeSelectorInputs = (config, chart) => {
       ...inputProps
     }
   });
-};
-
-RangeSelectorInput.propTypes = {
-  update: PropTypes.func, // Provided by ChartProvider
-  enabled: PropTypes.bool
 };
 
 export default RangeSelectorInput;

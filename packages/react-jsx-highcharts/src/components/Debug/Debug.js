@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import PropTypes from 'prop-types';
 import useChart from '../UseChart';
 
 const Debug = ({ varName = 'chart' }) => {
@@ -18,10 +17,6 @@ const Debug = ({ varName = 'chart' }) => {
   }, [varName]);
 
   return null;
-};
-
-Debug.propTypes = {
-  varName: PropTypes.string
 };
 
 export default Debug;

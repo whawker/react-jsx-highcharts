@@ -6,7 +6,6 @@ import {
   cloneElement,
   isValidElement
 } from 'react';
-import PropTypes from 'prop-types';
 import {
   useAxis,
   useModifiedProps,
@@ -52,7 +51,4 @@ const updateNavigatorAxis = (config, axis) => {
   axis.update(config);
 };
 
-NavigatorAxis.propTypes = {
-  axisId: PropTypes.string.isRequired
-};
 export default NavigatorAxis;
