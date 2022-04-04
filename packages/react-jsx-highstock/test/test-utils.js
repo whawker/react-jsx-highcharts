@@ -5,7 +5,7 @@ export const Highcharts = {
   fireEvent: jest.fn()
 };
 
-export const createMockChart = ({ ...additional }) => ({
+export const createMockChart = ({ ...additional } = {}) => ({
   ...additional,
   addAxis: jest.fn(),
   addColorAxis: jest.fn(),
@@ -30,7 +30,7 @@ export const createMockProvidedChart = ({ object, ...additional }) => {
   };
 };
 
-export const createMockAxis = ({ ...additional }) => ({
+export const createMockAxis = ({ ...additional } = {}) => ({
   ...additional,
   remove: jest.fn(),
   addPlotBand: jest.fn(),
@@ -56,7 +56,7 @@ export const createMockProvidedAxis = ({ object, ...additional }) => {
   };
 };
 
-export const createMockSeries = ({ ...additional }) => ({
+export const createMockSeries = ({ ...additional } = {}) => ({
   ...additional,
   remove: jest.fn(),
   setData: jest.fn(),
