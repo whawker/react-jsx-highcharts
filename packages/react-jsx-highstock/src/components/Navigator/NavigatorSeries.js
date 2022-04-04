@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { useSeries } from 'react-jsx-highcharts';
 
 const NavigatorSeries = props => {
@@ -25,7 +24,4 @@ const updateNavigatorSeries = (series, config) => {
   series.update(config);
 };
 
-NavigatorSeries.propTypes = {
-  seriesId: PropTypes.string
-};
 export default NavigatorSeries;

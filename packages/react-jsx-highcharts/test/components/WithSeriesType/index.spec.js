@@ -1,7 +1,6 @@
 import * as React from 'react';
 import ShallowRenderer from 'react-test-renderer/shallow';
 
-import PropTypes from 'prop-types';
 import withSeriesType from '../../../src/components/WithSeriesType';
 import Series from '../../../src/components/Series';
 
@@ -34,20 +33,6 @@ describe('withSeriesType', () => {
     const result = renderer.getRenderOutput();
 
     expect(result.props).toHaveProperty('data', [1, 2, 3, 4]);
-  });
-
-  it(`should set id propType`, () => {
-    const SeriesComponent = withSeriesType('line');
-    expect(SeriesComponent.propTypes).toHaveProperty('id');
-  });
-
-  it(`should add additionalPropTypes`, () => {
-    const SeriesComponent = withSeriesType(
-      'line',
-      {},
-      { baseSeries: PropTypes.string.isRequired }
-    );
-    expect(SeriesComponent.propTypes).toHaveProperty('baseSeries');
   });
 
   it(`should pass additionalProps to Series`, () => {

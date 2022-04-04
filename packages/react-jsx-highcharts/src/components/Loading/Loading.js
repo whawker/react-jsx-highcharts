@@ -1,5 +1,4 @@
 import { useEffect, memo } from 'react';
-import PropTypes from 'prop-types';
 import useModifiedProps from '../UseModifiedProps';
 import useChart from '../UseChart';
 
@@ -29,14 +28,6 @@ const Loading = memo(({ children, isLoading = true, ...restProps }) => {
 
 const updateLoading = (config, chart) => {
   chart.update({ loading: config }, true);
-};
-
-Loading.propTypes = {
-  isLoading: PropTypes.bool,
-  hideDuration: PropTypes.number,
-  labelStyle: PropTypes.object,
-  showDuration: PropTypes.number,
-  style: PropTypes.object
 };
 
 Loading.displayName = 'Loading';

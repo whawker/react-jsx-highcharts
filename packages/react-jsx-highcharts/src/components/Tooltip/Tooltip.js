@@ -1,5 +1,4 @@
 import { useEffect, memo } from 'react';
-import PropTypes from 'prop-types';
 import useChart from '../UseChart';
 import useHighcharts from '../UseHighcharts';
 import useModifiedProps from '../UseModifiedProps';
@@ -44,9 +43,5 @@ const updateTooltip = (chart, config) => {
 };
 
 Tooltip.displayName = 'Tooltip';
-
-Tooltip.propTypes = {
-  enabled: PropTypes.bool
-};
 
 export default Tooltip;

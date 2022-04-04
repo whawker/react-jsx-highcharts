@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import withSeriesType from './components/WithSeriesType';
 
 // Main provider
@@ -27,7 +26,6 @@ export { default as YAxis } from './components/YAxis';
 export { default as ZAxis } from './components/ZAxis';
 
 const axisNotRequired = { requiresAxis: false };
-const hasParentSeries = { baseSeries: PropTypes.string.isRequired };
 
 // Series
 export const AreaRangeSeries = withSeriesType('AreaRange');
@@ -35,7 +33,7 @@ export const AreaSeries = withSeriesType('Area');
 export const AreaSplineRangeSeries = withSeriesType('AreaSplineRange');
 export const AreaSplineSeries = withSeriesType('AreaSpline');
 export { default as BarSeries } from './components/BarSeries';
-export const BellCurveSeries = withSeriesType('BellCurve', {}, hasParentSeries);
+export const BellCurveSeries = withSeriesType('BellCurve', {});
 export const BoxPlotSeries = withSeriesType('BoxPlot');
 export const BubbleSeries = withSeriesType('Bubble');
 export const BulletSeries = withSeriesType('Bullet');
@@ -49,7 +47,7 @@ export const FunnelSeries = withSeriesType('Funnel', axisNotRequired);
 export const Funnel3dSeries = withSeriesType('Funnel3d');
 export const GaugeSeries = withSeriesType('Gauge');
 export const HeatmapSeries = withSeriesType('Heatmap');
-export const HistogramSeries = withSeriesType('Histogram', {}, hasParentSeries);
+export const HistogramSeries = withSeriesType('Histogram', {});
 export const ItemSeries = withSeriesType('Item');
 export const LineSeries = withSeriesType('Line');
 export const NetworkGraphSeries = withSeriesType('NetworkGraph');
@@ -57,7 +55,7 @@ export const PackedBubbleSeries = withSeriesType(
   'PackedBubble',
   axisNotRequired
 );
-export const ParetoSeries = withSeriesType('Pareto', {}, hasParentSeries);
+export const ParetoSeries = withSeriesType('Pareto', {});
 export const PieSeries = withSeriesType('Pie', axisNotRequired);
 export const PolygonSeries = withSeriesType('Polygon');
 export const PyramidSeries = withSeriesType('Pyramid', axisNotRequired);

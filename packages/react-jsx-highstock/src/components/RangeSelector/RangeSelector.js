@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import {
   useHighcharts,
   useAxis,
@@ -83,10 +82,6 @@ const createRenderRangeSelector = (chart, axis) => {
       extremes.max
     );
   };
-};
-
-RangeSelector.propTypes = {
-  enabled: PropTypes.bool
 };
 
 export default RangeSelector;

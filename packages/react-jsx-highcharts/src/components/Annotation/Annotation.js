@@ -1,5 +1,4 @@
 import { useRef, useEffect, memo } from 'react';
-import PropTypes from 'prop-types';
 import { v4 as uuid } from 'uuid';
 import { logModuleErrorMessage } from '../../utils/warnings';
 import useChart from '../UseChart';
@@ -37,10 +36,6 @@ const Annotation = memo(props => {
 
   return null;
 });
-
-Annotation.propTypes = {
-  id: PropTypes.oneOfType([PropTypes.string, PropTypes.func])
-};
 
 Annotation.displayName = 'Annotation';
 

@@ -1,5 +1,3 @@
-import PropTypes from 'prop-types';
-
 import useChartUpdate from '../UseChartUpdate';
 
 const Credits = ({ enabled = true, ...restProps }) => {
@@ -16,7 +14,4 @@ const updateCredits = (chart, config) => {
   chart.addCredits(config, true);
 };
 
-Credits.propTypes = {
-  enabled: PropTypes.bool
-};
 export default Credits;

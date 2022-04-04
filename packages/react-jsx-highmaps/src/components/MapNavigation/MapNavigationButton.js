@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { useHighcharts, useChart } from 'react-jsx-highcharts';
 
 const MapNavigationButton = props => {
@@ -43,10 +42,6 @@ const updateMapNavigationButton = (type, config, chart) => {
       }
     }
   });
-};
-
-MapNavigationButton.propTypes = {
-  type: PropTypes.oneOf(['zoomIn', 'zoomOut']).isRequired
 };
 
 export default MapNavigationButton;

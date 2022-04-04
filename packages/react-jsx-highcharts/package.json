@@ -62,16 +62,18 @@
     "data"
   ],
   "dependencies": {
-    "@babel/runtime": "^7.15.4",
     "uuid": "^8.3.2"
   },
   "peerDependencies": {
     "highcharts": "^9.1.2 || ^10.0.0",
     "react": "^17.0.0 || ^18.0.0",
-    "react-dom": "^17.0.0 || ^18.0.0",
-    "prop-types": "^15.0.0"
+    "react-dom": "^17.0.0 || ^18.0.0"
   },
   "browserslist": [
-    "ie >= 11"
+    "chrome >= 81",
+    "edge >= 81",
+    "firefox >= 78",
+    "ios >= 12",
+    "safari >= 12"
   ]
 }

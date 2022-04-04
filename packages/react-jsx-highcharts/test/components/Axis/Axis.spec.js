@@ -199,6 +199,7 @@ describe('<Axis />', () => {
 
       expect(testContext.axisStubs.update).toHaveBeenCalledWith(
         {
+          events: {},
           newPropName: 'newPropValue'
         },
         false
