@@ -48,9 +48,9 @@
     "react-jsx-highcharts": "4.3.2"
   },
   "peerDependencies": {
-    "highcharts": "^8.0.0 || ^9.0.0 || ^10.0.0",
-    "react": "^16.8.6 || ^17.0.0 || ^18.0.0",
-    "react-dom": "^16.8.6 || ^17.0.0 || ^18.0.0"
+    "highcharts": "^9.1.2 || ^10.0.0",
+    "react": "^17.0.0 || ^18.0.0",
+    "react-dom": "^17.0.0 || ^18.0.0"
   },
   "types": "types/index.d.ts",
   "browserslist": [
