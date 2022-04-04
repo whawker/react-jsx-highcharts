@@ -15,10 +15,6 @@ describe('useSeries', () => {
 
   beforeEach(() => {
     jest.useFakeTimers();
-    jest
-      .spyOn(window, 'requestAnimationFrame')
-      .mockImplementation(cb => window.setTimeout(cb, 0));
-    jest.spyOn(window, 'cancelAnimationFrame');
 
     testSeries = createMockSeries();
 
@@ -37,8 +33,6 @@ describe('useSeries', () => {
   });
 
   afterEach(() => {
-    window.requestAnimationFrame.mockRestore();
-    window.cancelAnimationFrame.mockRestore();
     jest.clearAllTimers();
   });
 
