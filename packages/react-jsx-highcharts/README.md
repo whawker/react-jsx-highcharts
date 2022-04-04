@@ -1,6 +1,6 @@
 ![React JSX Highcharts](https://user-images.githubusercontent.com/2003804/40681848-2d0f5ce2-6382-11e8-8ce9-cd49c409ad2e.png)
 
-[![Build Status](https://github.com/whawker/react-jsx-highcharts/actions/workflows/test.yml/badge.svg?branch=master)](https://github.com/whawker/react-jsx-highcharts/actions/workflows/test.yml) ![npm version](https://img.shields.io/npm/v/react-jsx-highcharts.svg) [![dependencies Status](https://david-dm.org/whawker/react-jsx-highcharts/status.svg?path=packages/react-jsx-highcharts)](https://david-dm.org/whawker/react-jsx-highcharts?path=packages/react-jsx-highcharts)
+[![Build Status](https://github.com/whawker/react-jsx-highcharts/actions/workflows/test.yml/badge.svg?branch=master)](https://github.com/whawker/react-jsx-highcharts/actions/workflows/test.yml) ![npm version](https://img.shields.io/npm/v/react-jsx-highcharts.svg) ![dependencies Status](https://img.shields.io/librariesio/release/npm/react-jsx-highcharts)
 
 ## Introduction
 
