@@ -14,10 +14,6 @@ describe('useAxis', () => {
   let axisCallback;
   beforeEach(() => {
     jest.useFakeTimers();
-    jest
-      .spyOn(window, 'requestAnimationFrame')
-      .mockImplementation(cb => window.setTimeout(cb, 0));
-    jest.spyOn(window, 'cancelAnimationFrame');
 
     testAxis = createMockAxis();
 
@@ -36,8 +32,6 @@ describe('useAxis', () => {
   });
 
   afterEach(() => {
-    window.requestAnimationFrame.mockRestore();
-    window.cancelAnimationFrame.mockRestore();
     jest.clearAllTimers();
   });
 
