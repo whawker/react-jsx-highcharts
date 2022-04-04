@@ -1,6 +1,6 @@
 {
   "name": "react-jsx-highstock",
-  "version": "4.3.1",
+  "version": "4.3.2",
   "description": "Highcharts (including Highstock) charts built using React components",
   "main": "dist/react-jsx-highstock.min.js",
   "module": "dist/es/index.js",
@@ -62,13 +62,13 @@
     "data"
   ],
   "dependencies": {
-    "react-jsx-highcharts": "4.3.1"
+    "react-jsx-highcharts": "4.3.2"
   },
   "peerDependencies": {
     "highcharts": "^8.0.0 || ^9.0.0 || ^10.0.0",
     "prop-types": "^15.0.0",
-    "react": "^16.8.6 || ^17.0.0",
-    "react-dom": "^16.8.6 || ^17.0.0"
+    "react": "^16.8.6 || ^17.0.0 || ^18.0.0",
+    "react-dom": "^16.8.6 || ^17.0.0 || ^18.0.0"
   },
   "browserslist": [
     "chrome >= 81",
