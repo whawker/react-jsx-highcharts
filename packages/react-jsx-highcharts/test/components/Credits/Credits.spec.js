@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { render } from '@testing-library/react';
 
-import { createMockProvidedChart, Highcharts } from '../../test-utils';
+import { createMockProvidedChart } from '../../test-utils';
 import Credits from '../../../src/components/Credits/Credits';
 import ChartContext from '../../../src/components/ChartContext';
 
@@ -11,7 +11,7 @@ describe('<Credits />', () => {
 
   beforeEach(() => {
     testContext = {};
-    const { chartStubs, needsRedraw } = createMockProvidedChart();
+    const { chartStubs } = createMockProvidedChart();
     testContext.chartStubs = chartStubs;
 
     ProvidedCredits = props => (

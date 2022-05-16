@@ -31,7 +31,7 @@ describe('useChartUpdate', () => {
   });
 
   it('should call update function on mount', () => {
-    const wrapper = render(<ProvidedChartComponent firstProp="first" />);
+    render(<ProvidedChartComponent firstProp="first" />);
 
     expect(updateFn).toHaveBeenCalledWith(testChart, { firstProp: 'first' });
     expect(destroyFn).not.toHaveBeenCalled();

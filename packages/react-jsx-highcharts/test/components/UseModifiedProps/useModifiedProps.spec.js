@@ -17,7 +17,7 @@ describe('useChartUpdate', () => {
   });
 
   it('should return all props on initial mount', () => {
-    const wrapper = render(<Component someProp={true} />);
+    render(<Component someProp={true} />);
     expect(callback).toHaveBeenCalledWith({ someProp: true });
   });
 
@@ -38,7 +38,7 @@ describe('useChartUpdate', () => {
   });
 
   it('should return false for empty props', () => {
-    const wrapper = render(<Component />);
+    render(<Component />);
 
     expect(callback).toHaveBeenCalledWith(false);
   });

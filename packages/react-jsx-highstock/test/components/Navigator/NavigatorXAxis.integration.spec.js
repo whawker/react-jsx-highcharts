@@ -17,7 +17,7 @@ describe('<NavigatorXAxis /> integration', () => {
     it('passes additional props to navigators xAxis', () => {
       const data = [1, 2, 3, 4, 5];
       const labels = { x: 0, y: 12 };
-      const Component = props => {
+      const Component = () => {
         return (
           <HighchartsProvider Highcharts={Highstock}>
             <HighchartsStockChart>

@@ -36,7 +36,7 @@ describe('useAxis', () => {
   });
 
   it('should return axis from context', () => {
-    const wrapper = render(
+    render(
       <AxisContext.Provider value={testAxis}>
         <ChildComponent />
       </AxisContext.Provider>
@@ -46,7 +46,7 @@ describe('useAxis', () => {
   });
 
   it('should return axis outside the context', () => {
-    const wrapper = render(
+    render(
       <ChartContext.Provider value={testChart}>
         <ChildComponent axisId="myAxisId" />
       </ChartContext.Provider>

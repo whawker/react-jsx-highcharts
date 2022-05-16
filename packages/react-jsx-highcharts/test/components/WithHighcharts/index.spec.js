@@ -2,7 +2,6 @@ import * as React from 'react';
 import { render } from '@testing-library/react';
 
 import withHighcharts from '../../../src/components/WithHighcharts';
-import HighchartsContext from '../../../src/components/HighchartsContext';
 import { Highcharts } from '../../test-utils';
 import ContextSpy from '../../ContextSpy';
 

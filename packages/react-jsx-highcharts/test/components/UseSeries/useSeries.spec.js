@@ -37,7 +37,7 @@ describe('useSeries', () => {
   });
 
   it('should return series from context', () => {
-    const wrapper = render(
+    render(
       <SeriesContext.Provider value={testSeries}>
         <ChildComponent />
       </SeriesContext.Provider>
@@ -47,7 +47,7 @@ describe('useSeries', () => {
   });
 
   it('should return series outside the context', () => {
-    const wrapper = render(
+    render(
       <ChartContext.Provider value={testChart}>
         <ChildComponent seriesId="mySeriesId" />
       </ChartContext.Provider>

@@ -16,7 +16,7 @@ describe('<Navigator /> integration', () => {
   describe('when mounted', () => {
     it('creates navigator on chart', () => {
       const data = [1, 2, 3, 4, 5];
-      const Component = props => {
+      const Component = () => {
         return (
           <HighchartsProvider Highcharts={Highstock}>
             <HighchartsStockChart>
@@ -39,7 +39,7 @@ describe('<Navigator /> integration', () => {
 
     it('passed additional props to navigator on chart', () => {
       const data = [1, 2, 3, 4, 5];
-      const Component = props => {
+      const Component = () => {
         return (
           <HighchartsProvider Highcharts={Highstock}>
             <HighchartsStockChart>

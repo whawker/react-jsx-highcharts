@@ -71,18 +71,14 @@ describe('<BaseChart />', () => {
     it('should create a angular chart when mounted with the gauge prop', () => {
       expect(chart.angular).toBeFalsy();
 
-      const wrapper = render(
-        <BaseChart gauge {...testContext} chartType="stockChart" />
-      );
+      render(<BaseChart gauge {...testContext} chartType="stockChart" />);
       expect(chart.angular).toEqual(true);
     });
 
     it('should create a polar chart when mounted with the polar prop', () => {
       expect(chart.polar).toBeFalsy();
 
-      const wrapper = render(
-        <BaseChart polar {...testContext} chartType="stockChart" />
-      );
+      render(<BaseChart polar {...testContext} chartType="stockChart" />);
       expect(chart.polar).toBe(true);
     });
 

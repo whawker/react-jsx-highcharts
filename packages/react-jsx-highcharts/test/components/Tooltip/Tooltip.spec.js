@@ -12,7 +12,7 @@ describe('<Tooltip />', () => {
   beforeEach(() => {
     testContext = {};
 
-    const { chartStubs, needsRedraw } = createMockProvidedChart();
+    const { chartStubs } = createMockProvidedChart();
 
     testContext.chartStubs = chartStubs;
     testContext.chart = {};

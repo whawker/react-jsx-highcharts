@@ -39,7 +39,7 @@ describe('<Series /> integration', () => {
   it('fires onHide eventhandler', () => {
     const onHide = jest.fn();
 
-    const wrapper = render(<Component onHide={onHide} />);
+    render(<Component onHide={onHide} />);
     seriesRef.current.object.hide();
     expect(onHide).toHaveBeenCalled();
   });

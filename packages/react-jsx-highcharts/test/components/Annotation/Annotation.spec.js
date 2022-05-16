@@ -12,7 +12,7 @@ describe('<Annotation />', () => {
   beforeEach(() => {
     testContext = {};
 
-    const { chartStubs, needsRedraw } = createMockProvidedChart();
+    const { chartStubs } = createMockProvidedChart();
     chartStubs.addAnnotation = jest.fn();
     chartStubs.removeAnnotation = jest.fn();
     testContext.chartStubs = chartStubs;

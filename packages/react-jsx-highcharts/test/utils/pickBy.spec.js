@@ -7,7 +7,7 @@ describe('utils/pickBy', () => {
       onInit,
       noPassed: false
     };
-    const pickedProps = pickBy(props, (key, value) => {
+    const pickedProps = pickBy(props, key => {
       return key === 'onInit';
     });
 
@@ -15,7 +15,7 @@ describe('utils/pickBy', () => {
   });
 
   it('should return empty object for undefined object', () => {
-    const pickedProps = pickBy(undefined, (key, value) => {
+    const pickedProps = pickBy(undefined, key => {
       return key === 'onInit';
     });
 

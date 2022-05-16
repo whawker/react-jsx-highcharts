@@ -6,7 +6,7 @@ jest.mock('react-jsx-highcharts', () => ({
   useHighcharts: jest.fn()
 }));
 
-import { useHighcharts, BaseChart } from 'react-jsx-highcharts';
+import { useHighcharts } from 'react-jsx-highcharts';
 import { Highcharts, createMockChart } from '../../test-utils';
 import HighchartsStockChart from '../../../src/components/HighchartsStockChart/HighchartsStockChart';
 

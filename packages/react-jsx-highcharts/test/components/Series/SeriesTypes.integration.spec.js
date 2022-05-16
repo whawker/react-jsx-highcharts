@@ -67,7 +67,7 @@ const noAxisSeries = [
   'VennSeries',
   'PackedBubbleSeries'
 ];
-const needParentSeries = ['BellCurveSeries', 'HistogramSeries', 'ParetoSeries'];
+//const needParentSeries = ['BellCurveSeries', 'HistogramSeries', 'ParetoSeries'];
 
 Object.keys(all)
   .filter(name => /^[A-Z].*Series$/.test(name))

@@ -161,7 +161,7 @@ describe('<Chart />', () => {
     });
 
     it('does not update size if both width and height are undefined', () => {
-      const wrapper = render(<ProvidedChart />);
+      render(<ProvidedChart />);
 
       expect(testContext.chartStubs.setSize).not.toHaveBeenCalled();
     });
