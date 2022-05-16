@@ -27,7 +27,7 @@ describe('<PlotBandLineLabel /> integration', () => {
       <HighchartsProvider Highcharts={Highcharts}>
         <HighchartsChart>
           <YAxis></YAxis>
-          <XAxis id="testyaxis" labels={yaxisLabels}>
+          <XAxis tickPositions={[]} labels={yaxisLabels}>
             <ContextSpy axisRef={axisRef} />
             <LineSeries data={seriesData} />
             <PlotBand id={id} from={from} to={to}>

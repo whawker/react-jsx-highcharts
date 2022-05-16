@@ -24,7 +24,7 @@ describe('<NavigatorXAxis /> integration', () => {
               <Debug />
               <Chart />
               <XAxis />
-              <YAxis>
+              <YAxis tickPositions={[]}>
                 <LineSeries data={data} />
               </YAxis>
               <Navigator>
@@ -55,7 +55,7 @@ describe('<NavigatorXAxis /> integration', () => {
               <Debug />
               <Chart />
               <XAxis />
-              <YAxis>
+              <YAxis tickPositions={[]}>
                 <LineSeries data={data} />
               </YAxis>
               <Navigator>
