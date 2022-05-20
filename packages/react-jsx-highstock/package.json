@@ -1,6 +1,6 @@
 {
   "name": "react-jsx-highstock",
-  "version": "5.0.0-alpha.0",
+  "version": "5.0.0",
   "description": "Highcharts (including Highstock) charts built using React components",
   "main": "dist/react-jsx-highstock.min.js",
   "module": "dist/es/index.js",
@@ -62,7 +62,7 @@
     "data"
   ],
   "dependencies": {
-    "react-jsx-highcharts": "5.0.0-alpha.0"
+    "react-jsx-highcharts": "5.0.0"
   },
   "peerDependencies": {
     "highcharts": "^9.1.2 || ^10.0.0",
