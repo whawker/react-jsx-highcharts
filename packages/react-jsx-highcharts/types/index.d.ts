@@ -352,6 +352,7 @@ type ChartContextValue = {
   addCredits: Highcharts.Chart['addCredits'];
   addAnnotation?: any; // missing type in highcharts
   removeAnnotation?: any; // missing type in highcharts
+  exportChart?: any; // missing type in highcharts
   /**
    * Debounced chart redraw
    */
