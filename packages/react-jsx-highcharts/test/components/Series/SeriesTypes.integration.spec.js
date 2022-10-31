@@ -2,6 +2,8 @@ import * as React from 'react';
 import Highcharts from 'highcharts';
 import ContextSpy from '../../ContextSpy';
 
+import addAccessibility from 'highcharts/modules/accessibility';
+
 import addHighchartsMore from 'highcharts/highcharts-more';
 //import addHighcharts3DModule from 'highcharts/highcharts-3d';
 import addBulletModule from 'highcharts/modules/bullet';
@@ -35,6 +37,8 @@ import {
 } from '../../../src';
 
 import * as all from '../../../src';
+
+addAccessibility(Highcharts);
 
 addHighchartsMore(Highcharts);
 //addHighcharts3DModule(Highcharts);

@@ -2,6 +2,8 @@ import * as React from 'react';
 import { render } from '@testing-library/react';
 
 import Highstock from 'highcharts/highstock';
+import addAccessibility from 'highcharts/modules/accessibility';
+
 import {
   Chart,
   Debug,
@@ -11,6 +13,8 @@ import {
   HighchartsProvider
 } from 'react-jsx-highcharts';
 import { HighchartsStockChart, Navigator } from '../../../src';
+
+addAccessibility(Highstock);
 
 describe('<Navigator /> integration', () => {
   describe('when mounted', () => {

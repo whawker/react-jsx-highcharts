@@ -1,5 +1,7 @@
 import * as React from 'react';
 import Highcharts from 'highcharts';
+import addAccessibility from 'highcharts/modules/accessibility';
+
 import { render } from '@testing-library/react';
 
 import {
@@ -12,6 +14,8 @@ import {
 } from '../../../src';
 
 import ContextSpy from '../../ContextSpy';
+
+addAccessibility(Highcharts);
 
 describe('<Series /> integration', () => {
   let Component;

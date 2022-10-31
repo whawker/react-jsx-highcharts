@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Highcharts from 'highcharts';
 import addColorAxis from 'highcharts/modules/coloraxis';
+import addAccessibility from 'highcharts/modules/accessibility';
 
 import { render } from '@testing-library/react';
 
@@ -13,6 +14,7 @@ import XAxis from '../../../src/components/XAxis';
 import ContextSpy from '../../ContextSpy';
 
 addColorAxis(Highcharts);
+addAccessibility(Highcharts);
 
 describe('<ColorAxis /> integration', () => {
   let chartRef;
@@ -140,7 +142,7 @@ describe('<ColorAxis /> integration', () => {
       const Component = ({ mountColorAxis = true }) => {
         return (
           <HighchartsProvider Highcharts={Highcharts}>
-            <HighchartsChart>
+            <HighchartsChart accessibility={{ enabled: false }}>
               <ContextSpy chartRef={chartRef} />
               <Chart />
               <XAxis />
