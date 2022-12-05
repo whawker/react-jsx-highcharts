@@ -65,7 +65,7 @@
     "react-jsx-highcharts": "5.0.0"
   },
   "peerDependencies": {
-    "highcharts": "^9.1.2 || ^10.0.0",
+    "highcharts": "^9.1.2 || ^10.0.0",
     "react": "^17.0.0 || ^18.0.0",
     "react-dom": "^17.0.0 || ^18.0.0"
   },
