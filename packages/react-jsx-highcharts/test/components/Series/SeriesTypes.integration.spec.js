@@ -69,7 +69,8 @@ const noAxisSeries = [
   'PyramidSeries',
   'FunnelSeries',
   'VennSeries',
-  'PackedBubbleSeries'
+  'PackedBubbleSeries',
+  'SunburstSeries'
 ];
 //const needParentSeries = ['BellCurveSeries', 'HistogramSeries', 'ParetoSeries'];
 
