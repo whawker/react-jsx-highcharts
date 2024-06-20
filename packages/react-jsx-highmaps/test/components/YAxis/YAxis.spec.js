@@ -1,5 +1,5 @@
 import * as React from 'react';
-import ShallowRenderer from 'react-test-renderer/shallow';
+import ShallowRenderer from 'react-shallow-renderer';
 
 import { YAxis } from 'react-jsx-highcharts';
 import MapYAxis from '../../../src/components/YAxis';

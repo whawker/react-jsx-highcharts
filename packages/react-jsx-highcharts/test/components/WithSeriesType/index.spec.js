@@ -1,5 +1,5 @@
 import * as React from 'react';
-import ShallowRenderer from 'react-test-renderer/shallow';
+import ShallowRenderer from 'react-shallow-renderer';
 
 import withSeriesType from '../../../src/components/WithSeriesType';
 import Series from '../../../src/components/Series';
