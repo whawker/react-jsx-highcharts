@@ -1,41 +1,76 @@
 import * as React from 'react';
-import ShallowRenderer from 'react-shallow-renderer';
+import Highmaps from 'highcharts/highmaps';
+import addAccessibility from 'highcharts/modules/accessibility';
 
-import { XAxis } from 'react-jsx-highcharts';
+import { render } from '@testing-library/react';
+
+import { HighchartsMapChart, HighmapsProvider } from '../../../src';
 import MapXAxis from '../../../src/components/XAxis';
+import ContextSpy from '../../ContextSpy';
 
-describe('<XAxis />', () => {
-  let renderer;
+addAccessibility(Highmaps);
 
-  beforeEach(() => {
-    renderer = new ShallowRenderer();
-  });
+describe('<XAxis /> integration', () => {
+  it('creates map yaxis', () => {
+    let chartRef = {};
+    const Component = () => {
+      return (
+        <HighmapsProvider Highcharts={Highmaps}>
+          <HighchartsMapChart>
+            <MapXAxis>
+              <ContextSpy chartRef={chartRef} />
+            </MapXAxis>
+          </HighchartsMapChart>
+        </HighmapsProvider>
+      );
+    };
 
-  it('renders an <XAxis />', () => {
-    renderer.render(<MapXAxis />);
-    const result = renderer.getRenderOutput();
+    render(<Component />);
 
-    expect(result.type).toEqual(XAxis);
+    const axis = chartRef.current.object.get('xAxis');
+    expect(axis).toBeDefined();
+    expect(axis.isXAxis).toBe(true);
   });
 
   it('should always have the id `xAxis`', () => {
-    renderer.render(<MapXAxis id="customId" />);
-    const result = renderer.getRenderOutput();
+    let chartRef = {};
+    const Component = () => {
+      return (
+        <HighmapsProvider Highcharts={Highmaps}>
+          <HighchartsMapChart>
+            <MapXAxis id="customaxis">
+              <ContextSpy chartRef={chartRef} />
+            </MapXAxis>
+          </HighchartsMapChart>
+        </HighmapsProvider>
+      );
+    };
 
-    expect(result.props).toHaveProperty('id', 'xAxis');
+    render(<Component />);
+
+    let axis = chartRef.current.object.get('customaxis');
+    expect(axis).not.toBeDefined();
+    axis = chartRef.current.object.get('xAxis');
+    expect(axis).toBeDefined();
   });
 
-  it('should NOT be a dynamic axis', () => {
-    renderer.render(<MapXAxis />);
-    const result = renderer.getRenderOutput();
+  it('passes props to created xaxis', () => {
+    let chartRef = {};
+    const Component = () => {
+      return (
+        <HighmapsProvider Highcharts={Highmaps}>
+          <HighchartsMapChart>
+            <MapXAxis tickLength={1337}>
+              <ContextSpy chartRef={chartRef} />
+            </MapXAxis>
+          </HighchartsMapChart>
+        </HighmapsProvider>
+      );
+    };
 
-    expect(result.props).toHaveProperty('dynamicAxis', false);
-  });
+    render(<Component />);
 
-  it('passes other props through to <XAxis />', () => {
-    renderer.render(<MapXAxis tickLength={1337} />);
-    const result = renderer.getRenderOutput();
-
-    expect(result.props).toHaveProperty('tickLength', 1337);
+    const axis = chartRef.current.object.get('xAxis');
+    expect(axis.userOptions.tickLength).toBe(1337);
   });
 });
