@@ -110,8 +110,38 @@ Object.keys(all)
             expect(seriesRef.current.object.yAxis.userOptions.id).toBe(
               'myYAxis'
             );
+          } else {
+            expect(seriesRef.current.object.yAxis).not.toBeDefined();
           }
         });
+
+        it('passes props to series', () => {
+          const seriesRef = {};
+
+          const Component = () => {
+            return (
+              <React.StrictMode>
+                <HighchartsProvider Highcharts={Highcharts}>
+                  <HighchartsChart>
+                    <Chart zoomType="x" />
+                    <XAxis></XAxis>
+                    <YAxis>
+                      <SeriesComponent data={[1, 2, 3, 4]} zIndex={-1}>
+                        <ContextSpy seriesRef={seriesRef} />
+                      </SeriesComponent>
+                    </YAxis>
+                  </HighchartsChart>
+                </HighchartsProvider>
+              </React.StrictMode>
+            );
+          };
+
+          render(<Component />);
+          const seriesObj = seriesRef.current.object;
+          expect(seriesObj.userOptions.data).toEqual([1, 2, 3, 4]);
+          expect(seriesObj.userOptions.zIndex).toEqual(-1);
+        });
+
         it('binds hide event correctly', () => {
           const seriesRef = {};
           const onHide = jest.fn();
