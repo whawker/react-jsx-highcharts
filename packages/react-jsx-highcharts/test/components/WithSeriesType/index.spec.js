@@ -1,45 +1,93 @@
 import * as React from 'react';
-import ShallowRenderer from 'react-shallow-renderer';
+import Highcharts from 'highcharts';
+import addAccessibility from 'highcharts/modules/accessibility';
+
+import { render } from '@testing-library/react';
+
+import {
+  HighchartsChart,
+  Chart,
+  YAxis,
+  XAxis,
+  HighchartsProvider
+} from '../../../src';
 
 import withSeriesType from '../../../src/components/WithSeriesType';
-import Series from '../../../src/components/Series';
+
+import ContextSpy from '../../ContextSpy';
+
+addAccessibility(Highcharts);
 
 describe('withSeriesType', () => {
-  let renderer;
-
+  let ChartComponent;
+  let seriesRef;
   beforeEach(() => {
-    renderer = new ShallowRenderer();
+    seriesRef = {};
+
+    ChartComponent = ({ children }) => {
+      return (
+        <HighchartsProvider Highcharts={Highcharts}>
+          <HighchartsChart>
+            <Chart zoomType="x" />
+            <XAxis></XAxis>
+            <YAxis>{children}</YAxis>
+          </HighchartsChart>
+        </HighchartsProvider>
+      );
+    };
   });
 
   it('should create Series component', () => {
     const SeriesComponent = withSeriesType('line');
-    renderer.render(<SeriesComponent />);
-    const result = renderer.getRenderOutput();
+    render(
+      <ChartComponent>
+        <SeriesComponent>
+          <ContextSpy seriesRef={seriesRef} />
+        </SeriesComponent>
+      </ChartComponent>
+    );
 
-    expect(result.type).toEqual(Series);
+    expect(seriesRef.current.object).toBeDefined();
   });
 
-  it(`should set type attribute <Series type="line" />`, () => {
-    const SeriesComponent = withSeriesType('line');
-    renderer.render(<SeriesComponent />);
-    const result = renderer.getRenderOutput();
+  it(`should set type attribute for the series`, () => {
+    const SeriesComponent = withSeriesType('column');
+    render(
+      <ChartComponent>
+        <SeriesComponent>
+          <ContextSpy seriesRef={seriesRef} />
+        </SeriesComponent>
+      </ChartComponent>
+    );
 
-    expect(result.props).toHaveProperty('type', 'line');
+    expect(seriesRef.current.object.type).toBe('column');
   });
 
   it(`the created component should pass additional props through to Series`, () => {
     const SeriesComponent = withSeriesType('line');
-    renderer.render(<SeriesComponent data={[1, 2, 3, 4]} />);
-    const result = renderer.getRenderOutput();
+    const data = [1, 2, 3, 4];
+    render(
+      <ChartComponent>
+        <SeriesComponent data={data}>
+          <ContextSpy seriesRef={seriesRef} />
+        </SeriesComponent>
+      </ChartComponent>
+    );
 
-    expect(result.props).toHaveProperty('data', [1, 2, 3, 4]);
+    expect(seriesRef.current.object.userOptions.data).toBe(data);
   });
 
   it(`should pass additionalProps to Series`, () => {
-    const SeriesComponent = withSeriesType('line', { requiresAxis: false });
-    renderer.render(<SeriesComponent />);
-    const result = renderer.getRenderOutput();
+    const SeriesComponent = withSeriesType('line', { visible: false });
+    const data = [1, 2, 3, 4];
+    render(
+      <ChartComponent>
+        <SeriesComponent data={data}>
+          <ContextSpy seriesRef={seriesRef} />
+        </SeriesComponent>
+      </ChartComponent>
+    );
 
-    expect(result.props).toHaveProperty('requiresAxis', false);
+    expect(seriesRef.current.object.visible).toBe(false);
   });
 });
