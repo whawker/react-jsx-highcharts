@@ -1,34 +1,54 @@
 import * as React from 'react';
-import ShallowRenderer from 'react-shallow-renderer';
+import Highcharts from 'highcharts';
+import addAccessibility from 'highcharts/modules/accessibility';
 
-import YAxis from '../../../src/components/YAxis/YAxis';
-import Axis from '../../../src/components/Axis';
+import { render } from '@testing-library/react';
 
-describe('<YAxis />', () => {
-  let renderer;
+import { HighchartsChart, HighchartsProvider } from '../../../src';
+import YAxis from '../../../src/components/YAxis';
+import ContextSpy from '../../ContextSpy';
 
-  beforeEach(() => {
-    renderer = new ShallowRenderer();
+addAccessibility(Highcharts);
+
+describe('<YAxis /> integration', () => {
+  it('creates chart yaxis', () => {
+    let chartRef = {};
+    const Component = () => {
+      return (
+        <HighchartsProvider Highcharts={Highcharts}>
+          <HighchartsChart>
+            <YAxis id="testYAxis">
+              <ContextSpy chartRef={chartRef} />
+            </YAxis>
+          </HighchartsChart>
+        </HighchartsProvider>
+      );
+    };
+
+    render(<Component />);
+
+    const axis = chartRef.current.object.get('testYAxis');
+    expect(axis).toBeDefined();
+    expect(axis.isXAxis).toBe(false);
   });
 
-  it('renders an <Axis />', () => {
-    renderer.render(<YAxis id="y" />);
-    const result = renderer.getRenderOutput();
+  it('passes props to created yaxis', () => {
+    let chartRef = {};
+    const Component = () => {
+      return (
+        <HighchartsProvider Highcharts={Highcharts}>
+          <HighchartsChart>
+            <YAxis id="testYAxis" tickLength={1337}>
+              <ContextSpy chartRef={chartRef} />
+            </YAxis>
+          </HighchartsChart>
+        </HighchartsProvider>
+      );
+    };
 
-    expect(result.type).toEqual(Axis);
-  });
+    render(<Component />);
 
-  it('renders an <Axis isX={false} />', () => {
-    renderer.render(<YAxis id="yAxis" />);
-    const result = renderer.getRenderOutput();
-
-    expect(result.props).toHaveProperty('isX', false);
-  });
-
-  it('passes other props through to <Axis />', () => {
-    renderer.render(<YAxis id="myOtherAxis" tickLength={1337} />);
-    const result = renderer.getRenderOutput();
-
-    expect(result.props).toHaveProperty('tickLength', 1337);
+    const axis = chartRef.current.object.get('testYAxis');
+    expect(axis.userOptions.tickLength).toBe(1337);
   });
 });

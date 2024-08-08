@@ -1,48 +1,79 @@
 import * as React from 'react';
-import ShallowRenderer from 'react-shallow-renderer';
+import Highcharts from 'highcharts';
+import addHighcharts3DModule from 'highcharts/highcharts-3d';
 
+import addAccessibility from 'highcharts/modules/accessibility';
+
+import { render } from '@testing-library/react';
+
+import { Highcharts3dChart, HighchartsProvider } from '../../../src';
 import ZAxis from '../../../src/components/ZAxis/ZAxis';
-import Axis from '../../../src/components/Axis';
+import ContextSpy from '../../ContextSpy';
 
-describe('<ZAxis />', () => {
-  let renderer;
+addAccessibility(Highcharts);
+addHighcharts3DModule(Highcharts);
 
-  beforeEach(() => {
-    renderer = new ShallowRenderer();
-  });
+describe('<ZAxis /> integration', () => {
+  it('creates chart zaxis', () => {
+    let chartRef = {};
+    const Component = () => {
+      return (
+        <HighchartsProvider Highcharts={Highcharts}>
+          <Highcharts3dChart>
+            <ZAxis>
+              <ContextSpy chartRef={chartRef} />
+            </ZAxis>
+          </Highcharts3dChart>
+        </HighchartsProvider>
+      );
+    };
 
-  it('renders an <Axis />', () => {
-    renderer.render(<ZAxis />);
-    const result = renderer.getRenderOutput();
+    render(<Component />);
 
-    expect(result.type).toEqual(Axis);
+    const axis = chartRef.current.object.get('zAxis');
+    expect(axis).toBeDefined();
+    expect(axis.isXAxis).toBe(false);
   });
 
   it('should always have the id `zAxis`', () => {
-    renderer.render(<ZAxis id="customId" />);
-    const result = renderer.getRenderOutput();
+    let chartRef = {};
+    const Component = () => {
+      return (
+        <HighchartsProvider Highcharts={Highcharts}>
+          <Highcharts3dChart>
+            <ZAxis id="customaxis">
+              <ContextSpy chartRef={chartRef} />
+            </ZAxis>
+          </Highcharts3dChart>
+        </HighchartsProvider>
+      );
+    };
 
-    expect(result.props).toHaveProperty('id', 'zAxis');
+    render(<Component />);
+
+    let axis = chartRef.current.object.get('customaxis');
+    expect(axis).not.toBeDefined();
+    axis = chartRef.current.object.get('zAxis');
+    expect(axis).toBeDefined();
   });
 
-  it('should NOT be a dynamic axis', () => {
-    renderer.render(<ZAxis />);
-    const result = renderer.getRenderOutput();
+  it('passes props to created zaxis', () => {
+    let chartRef = {};
+    const Component = () => {
+      return (
+        <HighchartsProvider Highcharts={Highcharts}>
+          <Highcharts3dChart>
+            <ZAxis tickLength={1337}>
+              <ContextSpy chartRef={chartRef} />
+            </ZAxis>
+          </Highcharts3dChart>
+        </HighchartsProvider>
+      );
+    };
 
-    expect(result.props).toHaveProperty('dynamicAxis', false);
-  });
+    render(<Component />);
 
-  it('renders an <Axis isX={false} />', () => {
-    renderer.render(<ZAxis id="ZAxis" />);
-    const result = renderer.getRenderOutput();
-
-    expect(result.props).toHaveProperty('isX', false);
-  });
-
-  it('passes other props through to <Axis />', () => {
-    renderer.render(<ZAxis tickLength={1337} />);
-    const result = renderer.getRenderOutput();
-
-    expect(result.props).toHaveProperty('tickLength', 1337);
+    const axis = chartRef.current.object.get('zAxis');
+    expect(axis.userOptions.tickLength).toBe(1337);
   });
 });
