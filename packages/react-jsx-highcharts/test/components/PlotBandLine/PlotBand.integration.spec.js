@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Highcharts from 'highcharts';
-import addAccessibility from 'highcharts/modules/accessibility';
+import 'highcharts/modules/accessibility';
 
 import { render } from '@testing-library/react';
 
@@ -14,8 +14,6 @@ import {
 } from '../../../src';
 import { uuidRegex } from '../../test-utils';
 import ContextSpy from '../../ContextSpy';
-
-addAccessibility(Highcharts);
 
 describe('<PlotBand /> integration', () => {
   let axisRef;

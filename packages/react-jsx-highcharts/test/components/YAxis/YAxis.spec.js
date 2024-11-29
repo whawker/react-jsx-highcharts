@@ -1,14 +1,12 @@
 import * as React from 'react';
 import Highcharts from 'highcharts';
-import addAccessibility from 'highcharts/modules/accessibility';
+import 'highcharts/modules/accessibility';
 
 import { render } from '@testing-library/react';
 
 import { HighchartsChart, HighchartsProvider } from '../../../src';
 import YAxis from '../../../src/components/YAxis';
 import ContextSpy from '../../ContextSpy';
-
-addAccessibility(Highcharts);
 
 describe('<YAxis /> integration', () => {
   it('creates chart yaxis', () => {
