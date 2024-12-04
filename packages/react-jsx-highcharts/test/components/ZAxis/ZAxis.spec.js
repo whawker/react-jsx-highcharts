@@ -1,17 +1,14 @@
 import * as React from 'react';
 import Highcharts from 'highcharts';
-import addHighcharts3DModule from 'highcharts/highcharts-3d';
+import 'highcharts/highcharts-3d';
 
-import addAccessibility from 'highcharts/modules/accessibility';
+import 'highcharts/modules/accessibility';
 
 import { render } from '@testing-library/react';
 
 import { Highcharts3dChart, HighchartsProvider } from '../../../src';
 import ZAxis from '../../../src/components/ZAxis/ZAxis';
 import ContextSpy from '../../ContextSpy';
-
-addAccessibility(Highcharts);
-addHighcharts3DModule(Highcharts);
 
 describe('<ZAxis /> integration', () => {
   it('creates chart zaxis', () => {

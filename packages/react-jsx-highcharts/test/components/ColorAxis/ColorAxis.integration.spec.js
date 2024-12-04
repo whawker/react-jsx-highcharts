@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Highcharts from 'highcharts';
-import addColorAxis from 'highcharts/modules/coloraxis';
-import addAccessibility from 'highcharts/modules/accessibility';
+import 'highcharts/modules/coloraxis';
+import 'highcharts/modules/accessibility';
 
 import { render } from '@testing-library/react';
 
@@ -12,9 +12,6 @@ import Series from '../../../src/components/Series';
 import YAxis from '../../../src/components/YAxis';
 import XAxis from '../../../src/components/XAxis';
 import ContextSpy from '../../ContextSpy';
-
-addColorAxis(Highcharts);
-addAccessibility(Highcharts);
 
 describe('<ColorAxis /> integration', () => {
   let chartRef;
