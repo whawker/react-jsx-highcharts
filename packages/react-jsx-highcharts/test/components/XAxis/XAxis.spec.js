@@ -1,13 +1,11 @@
 import * as React from 'react';
 import Highcharts from 'highcharts/highstock';
-import addAccessibility from 'highcharts/modules/accessibility';
+import 'highcharts/modules/accessibility';
 
 import { render } from '@testing-library/react';
 
 import { HighchartsChart, HighchartsProvider, XAxis } from '../../../src';
 import ContextSpy from '../../ContextSpy';
-
-addAccessibility(Highcharts);
 
 describe('<XAxis />', () => {
   it('creates an chart xaxis', () => {
