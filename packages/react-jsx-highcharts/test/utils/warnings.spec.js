@@ -55,6 +55,7 @@ describe('utils/warnings', () => {
             "%c %cimport %cHighcharts %cfrom %c'highcharts'%c;\n" +
             "%c %cimport %caddSankeyModule %cfrom %c'highcharts/modules/sankey'%c;\n" +
             '%c\n' +
+            '%c %c// For highcharts below version 12:\n' +
             '%c %c// After imports, but before component - apply additional functionality from module to Highcharts\n' +
             '%c %caddSankeyModule%c(Highcharts);'
         ])
@@ -82,6 +83,7 @@ describe('utils/warnings', () => {
             "%c %cimport %caddFunnel3dModule %cfrom %c'highcharts/modules/funnel3d'%c;\n" +
             "%c %cimport %caddPyramid3dModule %cfrom %c'highcharts/modules/pyramid3d'%c;\n" +
             '%c\n' +
+            '%c %c// For highcharts below version 12:\n' +
             '%c %c// After imports, but before component - apply additional functionality from modules to Highcharts\n' +
             '%c %caddHighcharts3DModule%c(Highcharts);\n' +
             '%c %caddCylinderModule%c(Highcharts);\n' +

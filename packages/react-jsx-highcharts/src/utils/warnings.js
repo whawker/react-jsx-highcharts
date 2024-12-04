@@ -166,6 +166,7 @@ const logDetailedErrorMessage = (warning, modules) => {
     %c %cimport %cHighcharts %cfrom %c'highcharts'%c;
     ${importLines.join('\n')}
     %c
+    %c %c// For highcharts below version 12:
     %c %c// After imports, but before component - apply additional functionality from module${
       isMultiModule ? 's' : ''
     } to Highcharts

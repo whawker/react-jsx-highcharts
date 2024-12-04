@@ -2,29 +2,30 @@ import * as React from 'react';
 import Highcharts from 'highcharts';
 import ContextSpy from '../../ContextSpy';
 
-import addAccessibility from 'highcharts/modules/accessibility';
+import 'highcharts/modules/accessibility';
 
-import addHighchartsMore from 'highcharts/highcharts-more';
-//import addHighcharts3DModule from 'highcharts/highcharts-3d';
-import addBulletModule from 'highcharts/modules/bullet';
-import addFunnelModule from 'highcharts/modules/funnel';
-//import addCylinderModule from 'highcharts/modules/cylinder';
-import addHeatmapModule from 'highcharts/modules/heatmap';
-//import addHistogramBellCurveModule from 'highcharts/modules/histogram-bellcurve';
-import addNetworkGraphModule from 'highcharts/modules/networkgraph';
-//import addParetoModule from 'highcharts/modules/pareto';
-import addSankeyModule from 'highcharts/modules/sankey';
-import addSolidGaugeModule from 'highcharts/modules/solid-gauge';
-import addStreamGraphModule from 'highcharts/modules/streamgraph';
-import addSunburstModule from 'highcharts/modules/sunburst';
-import addTilemapModule from 'highcharts/modules/tilemap';
-import addTreemapModule from 'highcharts/modules/treemap';
-import addVariablePieModule from 'highcharts/modules/variable-pie';
-import addVariwideModule from 'highcharts/modules/variwide';
-import addVectorModule from 'highcharts/modules/vector';
-import addVennModule from 'highcharts/modules/venn';
-import addWindBarbModule from 'highcharts/modules/windbarb';
-import addXRangeModule from 'highcharts/modules/xrange';
+import 'highcharts/highcharts-more';
+//import 'highcharts/highcharts-3d';
+import 'highcharts/modules/bullet';
+import 'highcharts/modules/funnel';
+//impor 'highcharts/modules/cylinder';
+import 'highcharts/modules/heatmap';
+//import 'highcharts/modules/histogram-bellcurve';
+import 'highcharts/modules/networkgraph';
+//import 'highcharts/modules/pareto';
+import 'highcharts/modules/sankey';
+import 'highcharts/modules/solid-gauge';
+import 'highcharts/modules/streamgraph';
+import 'highcharts/modules/sunburst';
+import 'highcharts/modules/tilemap';
+import 'highcharts/modules/treemap';
+import 'highcharts/modules/variable-pie';
+import 'highcharts/modules/variwide';
+import 'highcharts/modules/vector';
+import 'highcharts/modules/venn';
+import 'highcharts/modules/datagrouping';
+import 'highcharts/modules/windbarb';
+import 'highcharts/modules/xrange';
 
 import { render } from '@testing-library/react';
 
@@ -37,30 +38,6 @@ import {
 } from '../../../src';
 
 import * as all from '../../../src';
-
-addAccessibility(Highcharts);
-
-addHighchartsMore(Highcharts);
-//addHighcharts3DModule(Highcharts);
-addBulletModule(Highcharts);
-//addCylinderModule(Highcharts);
-addFunnelModule(Highcharts);
-addHeatmapModule(Highcharts);
-//addHistogramBellCurveModule(Highcharts);
-addNetworkGraphModule(Highcharts);
-//addParetoModule(Highcharts);
-addSankeyModule(Highcharts);
-addSolidGaugeModule(Highcharts);
-addStreamGraphModule(Highcharts);
-addSunburstModule(Highcharts);
-addTilemapModule(Highcharts);
-addTreemapModule(Highcharts);
-addVariablePieModule(Highcharts);
-addVariwideModule(Highcharts);
-addVectorModule(Highcharts);
-addVennModule(Highcharts);
-addWindBarbModule(Highcharts);
-addXRangeModule(Highcharts);
 
 const skippedSeries = ['BarSeries'];
 const noAxisSeries = [

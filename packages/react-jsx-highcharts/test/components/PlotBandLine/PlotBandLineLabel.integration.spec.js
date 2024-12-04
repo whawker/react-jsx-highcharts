@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Highcharts from 'highcharts';
-import addAccessibility from 'highcharts/modules/accessibility';
+import 'highcharts/modules/accessibility';
 
 import { render } from '@testing-library/react';
 
@@ -13,8 +13,6 @@ import {
   LineSeries
 } from '../../../src';
 import ContextSpy from '../../ContextSpy';
-
-addAccessibility(Highcharts);
 
 describe('<PlotBandLineLabel /> integration', () => {
   let axisRef;

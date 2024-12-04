@@ -1,6 +1,6 @@
 {
   "name": "react-jsx-highcharts",
-  "version": "5.0.1",
+  "version": "5.0.2",
   "description": "Highcharts charts built using React components",
   "main": "dist/react-jsx-highcharts.min.js",
   "module": "dist/es/index.js",
@@ -65,7 +65,7 @@
     "uuid": "^9.0.0 || ^10.0.0 || ^11.0.0"
   },
   "peerDependencies": {
-    "highcharts": "^9.1.2 || ^10.0.0 || ^11.0.0",
+    "highcharts": "^9.1.2 || ^10.0.0 || ^11.0.0 || ^12.0.1",
     "react": "^17.0.0 || ^18.0.0",
     "react-dom": "^17.0.0 || ^18.0.0"
   },
