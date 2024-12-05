@@ -18,7 +18,6 @@
     "build:es": "cross-env BABEL_ENV=es babel src --out-dir dist/es",
     "clean": "rimraf dist",
     "format": "prettier --write \"src/**/*.js\" \"test/**/*.js\" README.md \"../../README.md\"",
-    "lint": "eslint src",
     "test": "jest",
     "test:coverage": "jest --coverage",
     "test:types": "tsc --noEmit"
