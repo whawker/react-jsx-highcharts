@@ -1,6 +1,6 @@
 ![React JSX Highcharts](https://user-images.githubusercontent.com/2003804/40681848-2d0f5ce2-6382-11e8-8ce9-cd49c409ad2e.png)
 
-[![Build Status](https://travis-ci.com/whawker/react-jsx-highcharts.svg?branch=master)](https://travis-ci.com/whawker/react-jsx-highcharts)
+[![Build Status](https://github.com/whawker/react-jsx-highcharts/actions/workflows/test.yml/badge.svg?branch=master)](https://github.com/whawker/react-jsx-highcharts/actions/workflows/test.yml)
 
 [Highcharts](https://github.com/highcharts/highcharts) built with **proper React components**. More that just a simple wrapper - utilises the power of React props to create dynamic charts!
 
