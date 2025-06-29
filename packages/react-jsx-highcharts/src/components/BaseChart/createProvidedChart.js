@@ -15,6 +15,7 @@ const createProvidedChart = (chart, type) => ({
   hideLoading: chart.hideLoading.bind(chart),
   addCredits: chart.addCredits.bind(chart),
   addAnnotation: chart.addAnnotation ? chart.addAnnotation.bind(chart) : null,
+  exportChart: chart.exportChart ? chart.exportChart.bind(chart) : null,
   removeAnnotation: chart.removeAnnotation
     ? chart.removeAnnotation.bind(chart)
     : null,
