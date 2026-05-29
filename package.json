@@ -4,9 +4,9 @@
     "build:prod": "npm run build:prod --workspaces",
     "build:jsx-highcharts": "npm run build:prod --workspace packages/react-jsx-highcharts",
     "lint": "eslint",
-    "test": "npm run build:jsx-highcharts && jest",
-    "test:coverage": "npm run build:jsx-highcharts && jest --coverage",
-    "test:watch": "jest --watch"
+    "test": "npm run build:jsx-highcharts && cross-env NODE_OPTIONS=--experimental-vm-modules jest",
+    "test:coverage": "npm run build:jsx-highcharts && cross-env NODE_OPTIONS=--experimental-vm-modules jest --coverage",
+    "test:watch": "cross-env NODE_OPTIONS=--experimental-vm-modules jest --watch"
   },
   "devDependencies": {
     "@babel/cli": "^7.28.6",

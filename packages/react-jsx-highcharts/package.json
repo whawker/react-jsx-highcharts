@@ -18,8 +18,6 @@
     "build:es": "cross-env BABEL_ENV=es babel src --out-dir dist/es",
     "clean": "rimraf dist",
     "format": "prettier --write \"src/**/*.js\" \"test/**/*.js\" README.md \"../../README.md\"",
-    "test": "jest",
-    "test:coverage": "jest --coverage",
     "test:types": "tsc --noEmit"
   },
   "author": "Will Hawker",
@@ -61,7 +59,7 @@
     "data"
   ],
   "dependencies": {
-    "uuid": "^9.0.0 || ^10.0.0 || ^11.0.0"
+    "uuid": "^14.0.0"
   },
   "peerDependencies": {
     "highcharts": "^9.1.2 || ^10.0.0 || ^11.0.0 || ^12.0.1",
