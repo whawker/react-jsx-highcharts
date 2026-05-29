@@ -6,7 +6,7 @@ import globals from 'globals';
 import reactPlugin from 'eslint-plugin-react';
 import reactHooksPlugin from 'eslint-plugin-react-hooks';
 import reactPerfPlugin from 'eslint-plugin-react-perf';
-import importPlugin from 'eslint-plugin-import';
+import { importX } from 'eslint-plugin-import-x';
 import prettierRecommended from 'eslint-plugin-prettier/recommended';
 
 const gitignorePath = path.resolve(import.meta.dirname, '.gitignore');
@@ -22,7 +22,7 @@ export default [
   },
   eslint.configs.recommended,
   reactPlugin.configs.flat.recommended,
-  importPlugin.flatConfigs.errors,
+  importX.flatConfigs.errors,
   reactPerfPlugin.configs.flat['recommended'],
   {
     plugins: { 'react-hooks': reactHooksPlugin },
