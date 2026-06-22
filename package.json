@@ -28,7 +28,7 @@
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-perf": "^3.3.3",
     "globals": "^17.6.0",
-    "highcharts": "^12.6.0",
+    "highcharts": "^13.0.0",
     "jest": "^30.4.2",
     "jest-environment-jsdom": "^30.4.1",
     "prettier": "^3.8.3",
