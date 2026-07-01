@@ -58,7 +58,7 @@ Object.keys(all)
     const seriesType = seriesName
       .substring(0, seriesName.indexOf('Series'))
       .toLowerCase();
-    const SeriesComponent = all[seriesName]; // eslint-disable-line import/namespace
+    const SeriesComponent = all[seriesName]; // eslint-disable-line import-x/namespace
 
     describe(`<${seriesName} /> integration`, () => {
       if (seriesType in Highcharts.seriesTypes) {
