@@ -1,11 +1,15 @@
 import * as React from 'react';
 import { render } from '@testing-library/react';
 
-jest.mock('react-jsx-highcharts', () => ({
-  ...jest.requireActual('react-jsx-highcharts'),
-  useChart: jest.fn(),
-  useHighcharts: jest.fn()
-}));
+vi.mock('react-jsx-highcharts', async () => {
+  const originalModule = await vi.importActual('react-jsx-highcharts');
+
+  return {
+    ...originalModule,
+    useChart: vi.fn(),
+    useHighcharts: vi.fn()
+  };
+});
 
 import { useChart, useHighcharts } from 'react-jsx-highcharts';
 import Navigator from '../../../src/components/Navigator/Navigator';
@@ -29,7 +33,7 @@ describe('<Navigator />', () => {
   });
 
   afterEach(() => {
-    jest.resetAllMocks();
+    vi.resetAllMocks();
   });
 
   describe('when mounted', () => {

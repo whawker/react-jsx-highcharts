@@ -13,7 +13,7 @@ describe('<PlotBandLineLabel.Label />', () => {
     testContext.plotLine = {
       id: 'myPlotLine',
       options: { label: { text: null } },
-      render: jest.fn()
+      render: vi.fn()
     };
     testContext.providedPlotline = {
       get object() {

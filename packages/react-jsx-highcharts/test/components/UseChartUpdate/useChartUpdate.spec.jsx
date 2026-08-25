@@ -15,8 +15,8 @@ describe('useChartUpdate', () => {
   beforeEach(() => {
     const { chartStubs } = createMockProvidedChart();
     testChart = chartStubs;
-    updateFn = jest.fn();
-    destroyFn = jest.fn();
+    updateFn = vi.fn();
+    destroyFn = vi.fn();
 
     ChildComponent = props => {
       useChartUpdate(props, updateFn, destroyFn, false);

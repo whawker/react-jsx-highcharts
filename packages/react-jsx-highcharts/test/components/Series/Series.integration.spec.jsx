@@ -39,7 +39,7 @@ describe('<Series /> integration', () => {
   });
 
   it('fires onHide eventhandler', () => {
-    const onHide = jest.fn();
+    const onHide = vi.fn();
 
     render(<Component onHide={onHide} />);
     seriesRef.current.object.hide();
@@ -47,8 +47,8 @@ describe('<Series /> integration', () => {
   });
 
   it('changes onHide eventhandler when new one is passed', () => {
-    const onHide1 = jest.fn();
-    const onHide2 = jest.fn();
+    const onHide1 = vi.fn();
+    const onHide2 = vi.fn();
 
     const wrapper = render(<Component onHide={onHide1} />);
 

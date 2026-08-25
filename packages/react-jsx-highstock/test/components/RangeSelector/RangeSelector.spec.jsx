@@ -6,12 +6,18 @@ import {
   createMockProvidedChart,
   createMockProvidedAxis
 } from '../../test-utils';
-jest.mock('react-jsx-highcharts', () => ({
-  ...jest.requireActual('react-jsx-highcharts'),
-  useChart: jest.fn(),
-  useHighcharts: jest.fn(),
-  useAxis: jest.fn()
-}));
+
+vi.mock('react-jsx-highcharts', async () => {
+  const originalModule = await vi.importActual('react-jsx-highcharts');
+
+  return {
+    ...originalModule,
+    useChart: vi.fn(),
+    useHighcharts: vi.fn(),
+    useAxis: vi.fn()
+  };
+});
+
 import { useAxis, useChart, useHighcharts } from 'react-jsx-highcharts';
 
 import RangeSelector from '../../../src/components/RangeSelector/RangeSelector';

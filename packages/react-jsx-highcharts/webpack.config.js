@@ -43,8 +43,11 @@ const webpackConfig = {
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.(js|jsx)$/,
         loader: 'babel-loader',
+        resolve: {
+          extensions: ['.js', '.jsx']
+        },
         exclude: /node_modules/
       }
     ]

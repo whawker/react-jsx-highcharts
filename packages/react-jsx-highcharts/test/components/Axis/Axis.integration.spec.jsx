@@ -10,11 +10,8 @@ import ContextSpy from '../../ContextSpy';
 
 describe('<Axis /> integration', () => {
   describe('when rendered to document', () => {
-    it('fires afterInit event', done => {
-      const onAfterInit = () => {
-        expect(true).toBe(true);
-        done();
-      };
+    it('fires afterInit event', () => {
+      const onAfterInit = vi.fn();
       const Component = () => {
         return (
           <HighchartsProvider Highcharts={Highcharts}>
@@ -26,6 +23,7 @@ describe('<Axis /> integration', () => {
       };
 
       render(<Component />);
+      expect(onAfterInit).toHaveBeenCalled();
     });
   });
   describe('when updated', () => {
@@ -46,11 +44,11 @@ describe('<Axis /> integration', () => {
 
       const { rerender } = render(<Component />);
 
-      const onSetExtremes = jest.fn();
+      const onSetExtremes = vi.fn();
 
       rerender(<Component axisProps={{ onSetExtremes }} />);
 
-      const onSetExtremes2 = jest.fn();
+      const onSetExtremes2 = vi.fn();
       axisRef.current.setExtremes(10, 20);
       expect(onSetExtremes).toHaveBeenCalledTimes(1);
       onSetExtremes.mockClear();

@@ -25,7 +25,7 @@ describe('<Series />', () => {
       id: 'myAxis',
       type: 'yAxis'
     });
-    useAxisSpy = jest
+    useAxisSpy = vi
       .spyOn(useAxis, 'default')
       .mockImplementation(() => providedAxis);
 
@@ -133,8 +133,8 @@ describe('<Series />', () => {
     });
 
     it('subscribes to Highcharts events for props that look like event handlers', () => {
-      const handleClick = jest.fn();
-      const handleShow = jest.fn();
+      const handleClick = vi.fn();
+      const handleShow = vi.fn();
 
       render(
         <ProvidedSeries
@@ -157,9 +157,7 @@ describe('<Series />', () => {
     it('throws Error when requiresAxis=true and mounted without axis', () => {
       testContext.propsFromProviders.axis = null;
       //disable console to prevent stacktrace print
-      const consoleSpy = jest
-        .spyOn(console, 'error')
-        .mockImplementation(c => c);
+      const consoleSpy = vi.spyOn(console, 'error').mockImplementation(c => c);
 
       expect(() => {
         render(<Series id="mySeries" requiresAxis={true} />);
@@ -225,7 +223,7 @@ describe('<Series />', () => {
     });
 
     it('should use the isDataEqual prop to compare data', () => {
-      const isDataEqual = jest.fn(() => false);
+      const isDataEqual = vi.fn(() => false);
       const wrapper = render(
         <ProvidedSeries
           id="mySeries"
@@ -246,7 +244,7 @@ describe('<Series />', () => {
     });
 
     it('should NOT setData if isDataEqual returns true', () => {
-      const isDataEqual = jest.fn(() => true);
+      const isDataEqual = vi.fn(() => true);
       const wrapper = render(
         <ProvidedSeries
           id="mySeries"
@@ -267,7 +265,7 @@ describe('<Series />', () => {
     });
 
     it('should setData if isDataEqual returns false', () => {
-      const isDataEqual = jest.fn(() => false);
+      const isDataEqual = vi.fn(() => false);
       const wrapper = render(
         <ProvidedSeries
           id="mySeries"

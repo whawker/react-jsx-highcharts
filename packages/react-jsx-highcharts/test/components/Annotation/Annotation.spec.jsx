@@ -13,8 +13,8 @@ describe('<Annotation />', () => {
     testContext = {};
 
     const { chartStubs } = createMockProvidedChart();
-    chartStubs.addAnnotation = jest.fn();
-    chartStubs.removeAnnotation = jest.fn();
+    chartStubs.addAnnotation = vi.fn();
+    chartStubs.removeAnnotation = vi.fn();
     testContext.chartStubs = chartStubs;
     ProvidedAnnotation = props => (
       <ChartContext.Provider value={chartStubs}>

@@ -14,16 +14,16 @@ describe('useSeries', () => {
   let seriesCallback;
 
   beforeEach(() => {
-    jest.useFakeTimers();
+    vi.useFakeTimers();
 
     testSeries = createMockSeries();
 
     testChart = {
-      get: jest.fn().mockImplementation(() => testSeries)
+      get: vi.fn().mockImplementation(() => testSeries)
     };
-    seriesCallback = jest.fn();
+    seriesCallback = vi.fn();
 
-    jest.spyOn(createProvidedSeries, 'default').mockImplementation(c => c);
+    vi.spyOn(createProvidedSeries, 'default').mockImplementation(c => c);
 
     ChildComponent = props => {
       const axis = useSeries(props.seriesId);
@@ -33,7 +33,7 @@ describe('useSeries', () => {
   });
 
   afterEach(() => {
-    jest.clearAllTimers();
+    vi.clearAllTimers();
   });
 
   it('should return series from context', () => {

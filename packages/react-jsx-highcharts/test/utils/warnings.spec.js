@@ -8,10 +8,10 @@ import {
 describe('utils/warnings', () => {
   const OLD_ENV = process.env.NODE_ENV;
 
-  jest.spyOn(console, 'log').mockImplementation(() => {});
-  jest.spyOn(console.log, 'apply').mockImplementation(() => {});
-  jest.spyOn(console, 'warn').mockImplementation(() => {});
-  jest.spyOn(console, 'group').mockImplementation(() => {});
+  vi.spyOn(console, 'log').mockImplementation(() => {});
+  vi.spyOn(console.log, 'apply').mockImplementation(() => {});
+  vi.spyOn(console, 'warn').mockImplementation(() => {});
+  vi.spyOn(console, 'group').mockImplementation(() => {});
 
   beforeEach(() => {
     process.env.NODE_ENV = 'development';

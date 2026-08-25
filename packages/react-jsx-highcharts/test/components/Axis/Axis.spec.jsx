@@ -94,8 +94,8 @@ describe('<Axis />', () => {
     });
 
     it('subscribes to Highcharts events for props that look like event handlers', () => {
-      const handleSetExtremes = jest.fn();
-      const handleAfterSetExtremes = jest.fn();
+      const handleSetExtremes = vi.fn();
+      const handleAfterSetExtremes = vi.fn();
 
       render(
         <ProvidedAxis
@@ -166,8 +166,8 @@ describe('<Axis />', () => {
     });
 
     it('subscribes to Highcharts events for props that look like event handlers', () => {
-      const handleSetExtremes = jest.fn();
-      const handleAfterSetExtremes = jest.fn();
+      const handleSetExtremes = vi.fn();
+      const handleAfterSetExtremes = vi.fn();
 
       render(
         <ProvidedAxis

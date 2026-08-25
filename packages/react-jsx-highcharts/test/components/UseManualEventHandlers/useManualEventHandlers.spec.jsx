@@ -30,8 +30,8 @@ describe('useManualEventHandlers', () => {
 
   describe('when mounted', () => {
     it('should call the Highcharts.addEvent', () => {
-      const onEventHandler = jest.fn();
-      const onOtherEventHandler = jest.fn();
+      const onEventHandler = vi.fn();
+      const onOtherEventHandler = vi.fn();
 
       const props = {
         enabled: true,
@@ -71,9 +71,9 @@ describe('useManualEventHandlers', () => {
 
   describe('when updated', () => {
     it('should call the Highcharts.removeEvent and addEvent with changed handlers', () => {
-      const onEventHandler = jest.fn();
-      const onOtherEventHandler = jest.fn();
-      const onThirdEventHandler = jest.fn();
+      const onEventHandler = vi.fn();
+      const onOtherEventHandler = vi.fn();
+      const onThirdEventHandler = vi.fn();
       const props = {
         onEventHandler,
         onOtherEventHandler,
@@ -83,7 +83,7 @@ describe('useManualEventHandlers', () => {
       const wrapper = render(<ProvidedComponent {...props} />);
       Highcharts.addEvent.mockClear();
       Highcharts.removeEvent.mockClear();
-      const onNewOtherEventHandler = jest.fn();
+      const onNewOtherEventHandler = vi.fn();
 
       const updatedProps = {
         onEventHandler,

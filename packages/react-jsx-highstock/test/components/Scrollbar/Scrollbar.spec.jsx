@@ -3,10 +3,14 @@ import { render } from '@testing-library/react';
 
 import { createMockProvidedChart } from '../../test-utils';
 
-jest.mock('react-jsx-highcharts', () => ({
-  ...jest.requireActual('react-jsx-highcharts'),
-  useChart: jest.fn()
-}));
+vi.mock('react-jsx-highcharts', async () => {
+  const originalModule = await vi.importActual('react-jsx-highcharts');
+
+  return {
+    ...originalModule,
+    useChart: vi.fn()
+  };
+});
 
 import { useChart } from 'react-jsx-highcharts';
 import Scrollbar from '../../../src/components/Scrollbar/Scrollbar';

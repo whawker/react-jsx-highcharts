@@ -28,7 +28,7 @@ describe('<BaseChart />', () => {
     testContext = {};
 
     chart = createMockChart();
-    testContext.chartCreationFunc = jest.fn();
+    testContext.chartCreationFunc = vi.fn();
     testContext.chartCreationFunc.mockReturnValue(chart);
   });
 
