@@ -1,10 +1,14 @@
 import * as React from 'react';
 import { render } from '@testing-library/react';
 
-jest.mock('react-jsx-highcharts', () => ({
-  ...jest.requireActual('react-jsx-highcharts'),
-  useHighcharts: jest.fn()
-}));
+vi.mock('react-jsx-highcharts', async () => {
+  const originalModule = await vi.importActual('react-jsx-highcharts');
+
+  return {
+    ...originalModule,
+    useHighcharts: vi.fn()
+  };
+});
 
 import { useHighcharts } from 'react-jsx-highcharts';
 import { Highcharts, createMockChart } from '../../test-utils';

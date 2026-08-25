@@ -20,6 +20,9 @@ export default [
     // then the patterns act as global ignores.
     ignores: []
   },
+  {
+    files: [`**/*.{js,jsx,cjs,mjs}`]
+  },
   eslint.configs.recommended,
   reactPlugin.configs.flat.recommended,
   importPlugin.flatConfigs.errors,
@@ -30,6 +33,12 @@ export default [
       // version config for eslint-plugin-react
       react: {
         version: 'detect'
+      },
+      // let import plugin import jsx
+      'import/resolver': {
+        node: {
+          extensions: ['.js', '.jsx']
+        }
       }
     }
   },
@@ -53,11 +62,11 @@ export default [
     }
   },
   {
-    name: 'jest tests',
+    name: 'tests',
     files: [`packages/*/test/**`],
     languageOptions: {
       globals: {
-        ...globals.jest,
+        ...globals.vitest,
         ...globals.node
       }
     },

@@ -2,29 +2,29 @@ export const uuidRegex =
   /^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i;
 
 export const Highcharts = {
-  mapChart: jest.fn(),
-  addEvent: jest.fn(),
-  removeEvent: jest.fn(),
+  mapChart: vi.fn(),
+  addEvent: vi.fn(),
+  removeEvent: vi.fn(),
   maps: {
     'mock/map': { some: 'data' }
   },
-  format: jest.fn()
+  format: vi.fn()
 };
 
 export const createMockChart = () => ({
-  addAxis: jest.fn(),
-  addColorAxis: jest.fn(),
-  addSeries: jest.fn(),
-  get: jest.fn(),
-  setSize: jest.fn(),
-  update: jest.fn(),
-  setTitle: jest.fn(),
-  destroy: jest.fn(),
-  showLoading: jest.fn(),
-  hideLoading: jest.fn(),
-  addCredits: jest.fn(),
-  redraw: jest.fn(),
-  setCaption: jest.fn(),
+  addAxis: vi.fn(),
+  addColorAxis: vi.fn(),
+  addSeries: vi.fn(),
+  get: vi.fn(),
+  setSize: vi.fn(),
+  update: vi.fn(),
+  setTitle: vi.fn(),
+  destroy: vi.fn(),
+  showLoading: vi.fn(),
+  hideLoading: vi.fn(),
+  addCredits: vi.fn(),
+  redraw: vi.fn(),
+  setCaption: vi.fn(),
   options: { credits: {} }
 });
 
@@ -38,15 +38,15 @@ export const createMockProvidedChart = ({ object, ...additional }) => {
 
 export const createMockAxis = ({ ...additional }) => ({
   ...additional,
-  remove: jest.fn(),
-  addPlotBand: jest.fn(),
-  removePlotBand: jest.fn(),
-  addPlotLine: jest.fn(),
-  removePlotLine: jest.fn(),
-  getExtremes: jest.fn(),
-  setExtremes: jest.fn(),
-  update: jest.fn(),
-  setTitle: jest.fn()
+  remove: vi.fn(),
+  addPlotBand: vi.fn(),
+  removePlotBand: vi.fn(),
+  addPlotLine: vi.fn(),
+  removePlotLine: vi.fn(),
+  getExtremes: vi.fn(),
+  setExtremes: vi.fn(),
+  update: vi.fn(),
+  setTitle: vi.fn()
 });
 
 export const createMockProvidedAxis = ({ object, ...additional }) => {
@@ -64,10 +64,10 @@ export const createMockProvidedAxis = ({ object, ...additional }) => {
 
 export const createMockSeries = ({ ...additional }) => ({
   ...additional,
-  remove: jest.fn(),
-  setData: jest.fn(),
-  setVisible: jest.fn(),
-  update: jest.fn()
+  remove: vi.fn(),
+  setData: vi.fn(),
+  setVisible: vi.fn(),
+  update: vi.fn()
 });
 
 export const createMockProvidedSeries = ({ object, ...additional }) => {

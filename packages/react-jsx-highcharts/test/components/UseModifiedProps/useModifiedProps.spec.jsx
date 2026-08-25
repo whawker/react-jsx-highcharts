@@ -8,7 +8,7 @@ describe('useChartUpdate', () => {
   let callback;
 
   beforeEach(() => {
-    callback = jest.fn();
+    callback = vi.fn();
     Component = props => {
       const modifiedProps = useModifiedProps(props);
       callback(modifiedProps);

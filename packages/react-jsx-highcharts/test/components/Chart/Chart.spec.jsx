@@ -69,9 +69,9 @@ describe('<Chart />', () => {
 
     it('subscribes to Highcharts events for props that look like event handlers', () => {
       testContext.chartStubs.object = 'mock-chart';
-      const handleClick = jest.fn();
-      const handleRender = jest.fn();
-      const handleBeforePrint = jest.fn();
+      const handleClick = vi.fn();
+      const handleRender = vi.fn();
+      const handleBeforePrint = vi.fn();
 
       render(
         <ProvidedChart
@@ -118,14 +118,14 @@ describe('<Chart />', () => {
 
     it('should update changed eventhandlers', () => {
       testContext.chartStubs.object = {};
-      const onSelection = jest.fn();
-      const onRedraw = jest.fn();
+      const onSelection = vi.fn();
+      const onRedraw = vi.fn();
       const wrapper = render(
         <ProvidedChart onSelection={onSelection} onRedraw={onRedraw} />
       );
       Highcharts.addEvent.mockClear();
       Highcharts.removeEvent.mockClear();
-      const newOnRedraw = jest.fn();
+      const newOnRedraw = vi.fn();
       wrapper.rerender(
         <ProvidedChart onSelection={onSelection} onRedraw={newOnRedraw} />
       );

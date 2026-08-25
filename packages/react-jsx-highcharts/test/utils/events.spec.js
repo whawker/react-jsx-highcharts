@@ -11,8 +11,8 @@ describe('utils/events', () => {
     const { getEventHandlerProps } = events;
 
     it('should return all props that look like an event handler', () => {
-      const onEventHandler = jest.fn();
-      const onOtherEventHandler = jest.fn();
+      const onEventHandler = vi.fn();
+      const onOtherEventHandler = vi.fn();
 
       const config = {
         enabled: true,
@@ -36,8 +36,8 @@ describe('utils/events', () => {
     it("should return all props that don't look like an event handler", () => {
       const config = {
         enabled: true,
-        onEventHandler: jest.fn(),
-        onOtherEventHandler: jest.fn(),
+        onEventHandler: vi.fn(),
+        onOtherEventHandler: vi.fn(),
         onNotAFunction: 'trip',
         something: 'stringy',
         count: 14
@@ -56,8 +56,8 @@ describe('utils/events', () => {
     const { getEventsConfig } = events;
 
     it('should return all props that look like an event handler, without the `on` prefix', () => {
-      const onEventHandler = jest.fn();
-      const onOtherEventHandler = jest.fn();
+      const onEventHandler = vi.fn();
+      const onOtherEventHandler = vi.fn();
 
       const config = {
         enabled: true,

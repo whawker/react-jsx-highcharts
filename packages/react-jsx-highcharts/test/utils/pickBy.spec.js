@@ -2,7 +2,7 @@ import pickBy from '../../src/utils/pickBy';
 
 describe('utils/pickBy', () => {
   it('should return object which satisfies filter function', () => {
-    const onInit = jest.fn();
+    const onInit = vi.fn();
     const props = {
       onInit,
       noPassed: false

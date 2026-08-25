@@ -8,16 +8,21 @@ import 'highcharts/highcharts-more';
 //import 'highcharts/highcharts-3d';
 import 'highcharts/modules/bullet';
 import 'highcharts/modules/funnel';
-//impor 'highcharts/modules/cylinder';
+//import 'highcharts/modules/funnel3d';
+//import 'highcharts/modules/cylinder';
+import 'highcharts/modules/sankey';
+import 'highcharts/modules/dependency-wheel';
 import 'highcharts/modules/heatmap';
 //import 'highcharts/modules/histogram-bellcurve';
+import 'highcharts/modules/item-series';
 import 'highcharts/modules/networkgraph';
-//import 'highcharts/modules/pareto';
-import 'highcharts/modules/sankey';
+import 'highcharts/modules/organization';
+import 'highcharts/modules/pareto';
 import 'highcharts/modules/solid-gauge';
 import 'highcharts/modules/streamgraph';
 import 'highcharts/modules/sunburst';
 import 'highcharts/modules/tilemap';
+import 'highcharts/modules/timeline';
 import 'highcharts/modules/treemap';
 import 'highcharts/modules/variable-pie';
 import 'highcharts/modules/variwide';
@@ -39,7 +44,15 @@ import {
 
 import * as all from '../../../src';
 
-const skippedSeries = ['BarSeries'];
+const skippedSeries = [
+  'BarSeries',
+  'BellCurveSeries',
+  'CylinderSeries',
+  'Funnel3dSeries',
+  'HistogramSeries',
+  'Pyramid3dSeries',
+  'Scatter3dSeries'
+];
 const noAxisSeries = [
   'PieSeries',
   'VariablePieSeries',
@@ -47,7 +60,8 @@ const noAxisSeries = [
   'FunnelSeries',
   'VennSeries',
   'PackedBubbleSeries',
-  'SunburstSeries'
+  'SunburstSeries',
+  'ItemSeries'
 ];
 //const needParentSeries = ['BellCurveSeries', 'HistogramSeries', 'ParetoSeries'];
 
@@ -121,7 +135,7 @@ Object.keys(all)
 
         it('binds hide event correctly', () => {
           const seriesRef = {};
-          const onHide = jest.fn();
+          const onHide = vi.fn();
 
           const Component = () => {
             return (

@@ -17,7 +17,7 @@ describe('<Axis.Title />', () => {
       type: 'yAxis'
     });
     testContext.axisStubs = axisStubs;
-    useAxisSpy = jest
+    useAxisSpy = vi
       .spyOn(useAxis, 'default')
       .mockImplementation(() => providedAxis);
   });

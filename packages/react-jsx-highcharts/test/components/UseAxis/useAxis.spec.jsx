@@ -13,16 +13,16 @@ describe('useAxis', () => {
   let testChart;
   let axisCallback;
   beforeEach(() => {
-    jest.useFakeTimers();
+    vi.useFakeTimers();
 
     testAxis = createMockAxis();
 
     testChart = {
-      get: jest.fn().mockImplementation(() => testAxis)
+      get: vi.fn().mockImplementation(() => testAxis)
     };
-    axisCallback = jest.fn();
+    axisCallback = vi.fn();
 
-    jest.spyOn(createProvidedAxis, 'default').mockImplementation(c => c);
+    vi.spyOn(createProvidedAxis, 'default').mockImplementation(c => c);
 
     ChildComponent = props => {
       const axis = useAxis(props.axisId);
@@ -32,7 +32,7 @@ describe('useAxis', () => {
   });
 
   afterEach(() => {
-    jest.clearAllTimers();
+    vi.clearAllTimers();
   });
 
   it('should return axis from context', () => {

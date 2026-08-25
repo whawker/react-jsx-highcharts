@@ -48,11 +48,8 @@ const ContextSpy = ({
   useEffect(() => {
     if (axisRef) {
       axisRef.current = axis;
-      axisRef.addPlotBandOrLineSpy = jest.spyOn(axis, 'addPlotBandOrLine');
-      axisRef.removePlotBandOrLineSpy = jest.spyOn(
-        axis,
-        'removePlotBandOrLine'
-      );
+      axisRef.addPlotBandOrLineSpy = vi.spyOn(axis, 'addPlotBandOrLine');
+      axisRef.removePlotBandOrLineSpy = vi.spyOn(axis, 'removePlotBandOrLine');
     }
 
     return () => {
