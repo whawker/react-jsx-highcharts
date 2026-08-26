@@ -13,17 +13,17 @@ type NavigatorProps = {
 export function Navigator(props: NavigatorProps): ReactElement;
 export namespace Navigator {
   type NavigatorSeriesProps = {
-    seriesId: string
-  }
+    seriesId: string;
+  };
   export function Series(props: NavigatorSeriesProps): ReactElement;
 
   type NavigatorXAxisProps = {
-    children?: ReactNode
+    children?: ReactNode;
   } & Partial<Highcharts.NavigatorXAxisOptions>;
   export function XAxis(props: NavigatorXAxisProps): ReactElement;
 
   type NavigatorYAxisProps = {
-    children?: ReactNode
+    children?: ReactNode;
   } & Partial<Highcharts.NavigatorYAxisOptions>;
   export function YAxis(props: NavigatorYAxisProps): ReactElement;
 }
@@ -32,19 +32,17 @@ export namespace Navigator {
 type RangeSelectorProps = {
   children?: ReactNode;
 } & Partial<Highcharts.RangeSelectorOptions>;
-export function RangeSelector(
-  props: RangeSelectorProps
-): ReactElement;
+export function RangeSelector(props: RangeSelectorProps): ReactElement;
 export namespace RangeSelector {
   type RangeSelectorButtonProps = {
     children?: ReactNode;
-  } & Partial<Omit<Highcharts.RangeSelectorButtonsOptions, "text">>;
+  } & Partial<Omit<Highcharts.RangeSelectorButtonsOptions, 'text'>>;
   export function Button(props: RangeSelectorButtonProps): ReactElement;
 
   type RangeSelectorInputProps = {
     boxBorderColor?: Highcharts.ColorString;
     boxHeight?: number;
-    boxWidth?: (number|undefined);
+    boxWidth?: number | undefined;
     dateFormat?: string;
     dateParser?: Highcharts.RangeSelectorParseCallbackFunction;
     editDateFormat?: string;
@@ -52,7 +50,7 @@ export namespace RangeSelector {
     position?: Highcharts.RangeSelectorInputPositionOptions;
     spacing?: number;
     style?: Highcharts.CSSObject;
-  }
+  };
   export function Input(props: RangeSelectorInputProps): ReactElement;
 }
 
