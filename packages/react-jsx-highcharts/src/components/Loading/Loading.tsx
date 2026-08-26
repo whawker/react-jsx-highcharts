@@ -10,7 +10,11 @@ const Loading = memo(({ children, isLoading = true, ...restProps }) => {
     if (modifiedProps !== false) {
       updateLoading(modifiedProps, chart);
     }
-    isLoading ? chart.showLoading(children) : chart.hideLoading();
+    if (isLoading) {
+      chart.showLoading(children);
+    } else {
+      chart.hideLoading();
+    }
   });
 
   useEffect(() => {

@@ -1,17 +1,15 @@
-const path = require('path');
+import path from 'path';
 
 const isProd = process.env.NODE_ENV === 'production';
 
 const webpackConfig = {
   mode: 'development',
 
-  entry: path.resolve(__dirname, 'src'),
+  entry: path.resolve(import.meta.dirname, 'src/index.ts'),
 
   output: {
-    filename: isProd
-      ? 'react-jsx-highcharts.min.js'
-      : 'react-jsx-highcharts.js',
-    path: path.resolve(__dirname, 'dist'),
+    filename: isProd ? 'react-jsx-highstock.min.js' : 'react-jsx-highstock.js',
+    path: path.resolve(import.meta.dirname, 'dist'),
     library: 'ReactHighcharts',
     libraryTarget: 'umd',
     // Prevents webpack from referencing `window` in the UMD build
@@ -43,12 +41,12 @@ const webpackConfig = {
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
+        test: /\.(js|jsx|ts|tsx)$/,
         loader: 'babel-loader',
         resolve: {
-          extensions: ['.js', '.jsx']
+          extensions: ['.js', '.jsx', '.ts', '.tsx']
         },
-        exclude: /node_modules/
+        exclude: /node_modules(\\|\/)(?!react-jsx-highcharts)/
       }
     ]
   }
@@ -58,4 +56,4 @@ if (isProd) {
   webpackConfig.mode = 'production';
 }
 
-module.exports = webpackConfig;
+export default webpackConfig;

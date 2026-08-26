@@ -5,7 +5,7 @@ export default function getModifiedProps(
   currProps,
   childrenIsText = false
 ) {
-  let { children, ...rest } = currProps;
+  const { children, ...rest } = currProps;
 
   const modifiedProps = pickBy(rest, (propName, value) => {
     if (!prevProps) return true;
