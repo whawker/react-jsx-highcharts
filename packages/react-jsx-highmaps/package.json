@@ -4,6 +4,7 @@
   "description": "Highmaps built using React components",
   "main": "dist/react-jsx-highmaps.min.js",
   "module": "dist/es/index.js",
+  "types": "dist/index.d.ts",
   "sideEffects": false,
   "files": [
     "dist",
@@ -52,7 +53,6 @@
     "react": "^17.0.0 || ^18.0.0 || ^19.0.0",
     "react-dom": "^17.0.0 || ^18.0.0 || ^19.0.0"
   },
-  "types": "types/index.d.ts",
   "browserslist": [
     "chrome >= 81",
     "edge >= 81",
