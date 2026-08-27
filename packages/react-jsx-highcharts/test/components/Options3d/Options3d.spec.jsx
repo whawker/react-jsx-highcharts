@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { render } from '@testing-library/react';
 
-import { createMockProvidedChart } from '../../test-utils';
+import { createMockProvidedChart, Highcharts } from '../../test-utils';
 import Options3d from '../../../src/components/Options3d/Options3d';
 import ChartContext from '../../../src/components/ChartContext';
+import { HighchartsProvider } from '../../../src/components/WithHighcharts';
 
 const defaultProps = {
   enabled: false,
@@ -28,15 +29,19 @@ const defaultProps = {
 describe('<Options3d />', () => {
   let testContext;
   let ProvidedOptions3d;
+  let testHighcharts;
 
   beforeEach(() => {
     testContext = {};
+    testHighcharts = Highcharts;
     const { chartStubs } = createMockProvidedChart();
     testContext.chartStubs = chartStubs;
     ProvidedOptions3d = props => (
-      <ChartContext.Provider value={chartStubs}>
-        <Options3d {...props} />
-      </ChartContext.Provider>
+      <HighchartsProvider Highcharts={testHighcharts}>
+        <ChartContext.Provider value={chartStubs}>
+          <Options3d {...props} />
+        </ChartContext.Provider>
+      </HighchartsProvider>
     );
   });
 

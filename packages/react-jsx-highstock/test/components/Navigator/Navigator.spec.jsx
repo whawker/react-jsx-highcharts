@@ -6,17 +6,17 @@ vi.mock('react-jsx-highcharts', async () => {
 
   return {
     ...originalModule,
-    useChart: vi.fn(),
-    useHighcharts: vi.fn()
+    useChart: vi.fn()
   };
 });
 
-import { useChart, useHighcharts } from 'react-jsx-highcharts';
+import { useChart, HighchartsProvider } from 'react-jsx-highcharts';
 import Navigator from '../../../src/components/Navigator/Navigator';
 import { Highcharts, createMockProvidedChart } from '../../test-utils';
 
 describe('<Navigator />', () => {
   let testContext;
+  let WithProviders;
 
   beforeEach(() => {
     testContext = {};
@@ -29,7 +29,12 @@ describe('<Navigator />', () => {
     testContext.chartStubs = chartStubs;
 
     useChart.mockImplementation(() => chartStubs);
-    useHighcharts.mockImplementation(() => Highcharts);
+
+    WithProviders = ({ children }) => (
+      <HighchartsProvider Highcharts={Highcharts}>
+        {children}
+      </HighchartsProvider>
+    );
   });
 
   afterEach(() => {
@@ -38,12 +43,20 @@ describe('<Navigator />', () => {
 
   describe('when mounted', () => {
     it('enables the Navigator', () => {
-      render(<Navigator />);
+      render(
+        <WithProviders>
+          <Navigator />
+        </WithProviders>
+      );
       expect(testContext.object.options.navigator.enabled).toEqual(true);
     });
 
     it('fires the `beforeRender` event to so Highcharts creates a Navigator', () => {
-      render(<Navigator />);
+      render(
+        <WithProviders>
+          <Navigator />
+        </WithProviders>
+      );
       expect(Highcharts.fireEvent).toHaveBeenCalledWith(
         testContext.object,
         'beforeRender'
@@ -51,7 +64,11 @@ describe('<Navigator />', () => {
     });
 
     it('updates the chart with the passed props', () => {
-      render(<Navigator height={100} maskFill="rgba(1,2,3,0.45)" />);
+      render(
+        <WithProviders>
+          <Navigator height={100} maskFill="rgba(1,2,3,0.45)" />
+        </WithProviders>
+      );
       expect(testContext.chartStubs.update).toHaveBeenCalledWith(
         {
           navigator: {
@@ -67,8 +84,16 @@ describe('<Navigator />', () => {
 
   describe('update', () => {
     it('should use the update method when props change', () => {
-      const wrapper = render(<Navigator />);
-      wrapper.rerender(<Navigator maskInside={false} />);
+      const wrapper = render(
+        <WithProviders>
+          <Navigator />
+        </WithProviders>
+      );
+      wrapper.rerender(
+        <WithProviders>
+          <Navigator maskInside={false} />
+        </WithProviders>
+      );
 
       expect(testContext.chartStubs.update).toHaveBeenCalledWith(
         {
@@ -83,7 +108,11 @@ describe('<Navigator />', () => {
 
   describe('when unmounted', () => {
     it('should disable the Navigator', () => {
-      const wrapper = render(<Navigator />);
+      const wrapper = render(
+        <WithProviders>
+          <Navigator />
+        </WithProviders>
+      );
       wrapper.unmount();
       expect(testContext.chartStubs.update).toHaveBeenCalledWith(
         {
