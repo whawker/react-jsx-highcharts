@@ -4,7 +4,8 @@ let config = {
   plugins: [],
   presets: [
     ['@babel/env', { modules: false }],
-    ['@babel/react', { runtime: ENV === 'es' ? 'automatic' : 'classic' }]
+    ['@babel/react', { runtime: ENV === 'es' ? 'automatic' : 'classic' }],
+    ['@babel/typescript', { rewriteImportExtensions: true }]
   ]
 };
 

@@ -1,8 +1,13 @@
 import eslint from '@eslint/js';
+// eslint-disable-next-line import/no-unresolved
+import { defineConfig } from 'eslint/config';
+
 import { includeIgnoreFile } from '@eslint/compat';
 import path from 'node:path';
 
 import globals from 'globals';
+// eslint-disable-next-line import/no-unresolved
+import tseslint from 'typescript-eslint';
 import reactPlugin from 'eslint-plugin-react';
 import reactHooksPlugin from 'eslint-plugin-react-hooks';
 import reactPerfPlugin from 'eslint-plugin-react-perf';
@@ -11,8 +16,7 @@ import prettierRecommended from 'eslint-plugin-prettier/recommended';
 
 const gitignorePath = path.resolve(import.meta.dirname, '.gitignore');
 
-/** @type {import('@typescript-eslint/utils').TSESLint.FlatConfig.ConfigFile} */
-export default [
+export default defineConfig([
   includeIgnoreFile(gitignorePath),
   {
     name: 'global ignore',
@@ -21,9 +25,10 @@ export default [
     ignores: []
   },
   {
-    files: [`**/*.{js,jsx,cjs,mjs}`]
+    files: [`**/*.{js,jsx,cjs,mjs,ts,tsx}`]
   },
   eslint.configs.recommended,
+  tseslint.configs.recommended,
   reactPlugin.configs.flat.recommended,
   importPlugin.flatConfigs.errors,
   reactPerfPlugin.configs.flat['recommended'],
@@ -37,7 +42,7 @@ export default [
       // let import plugin import jsx
       'import/resolver': {
         node: {
-          extensions: ['.js', '.jsx']
+          extensions: ['.js', '.jsx', '.ts', '.tsx']
         }
       }
     }
@@ -53,12 +58,25 @@ export default [
       }
     },
     rules: {
-      'no-unused-vars': ['error', { ignoreRestSiblings: true }],
       'no-console': 'error',
       'react/prop-types': 'off',
       'prefer-object-spread': 'warn',
       'react-hooks/rules-of-hooks': 'error',
-      'react/jsx-no-constructed-context-values': 'error'
+      'react/jsx-no-constructed-context-values': 'error',
+      '@typescript-eslint/consistent-type-imports': 'error',
+      '@typescript-eslint/no-import-type-side-effects': 'error',
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        { ignoreRestSiblings: true, args: 'none', caughtErrors: 'none' }
+      ]
+    }
+  },
+  {
+    name: 'type definitions',
+    files: [`packages/*/types/*.d.ts`],
+    rules: {
+      '@typescript-eslint/no-explicit-any': 'warn',
+      'import/named': 'off'
     }
   },
   {
@@ -87,4 +105,4 @@ export default [
       }
     }
   }
-];
+]);

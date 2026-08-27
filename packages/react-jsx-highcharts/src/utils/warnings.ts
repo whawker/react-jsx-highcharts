@@ -156,6 +156,7 @@ const logDetailedErrorMessage = (warning, modules) => {
   console.log(
     'More information: https://github.com/whawker/react-jsx-highcharts/wiki/Highcharts-error-%2317'
   );
+  // eslint-disable-next-line prefer-spread
   console.log.apply(
     console,
     [].concat(

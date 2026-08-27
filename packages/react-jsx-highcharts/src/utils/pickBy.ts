@@ -1,5 +1,5 @@
 export default function (obj, filterFn) {
-  let retProps = {};
+  const retProps = {};
   if (obj) {
     Object.keys(obj)
       .filter(key => filterFn(key, obj[key]))

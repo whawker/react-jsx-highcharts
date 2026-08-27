@@ -4,8 +4,7 @@ import useHighcharts from '../UseHighcharts';
 import useModifiedProps from '../UseModifiedProps';
 
 const Tooltip = memo(props => {
-  // eslint-disable-next-line no-unused-vars
-  const { children = null, ...restProps } = props;
+  const { children, ...restProps } = props;
   const chart = useChart();
   const Highcharts = useHighcharts();
 

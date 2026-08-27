@@ -56,8 +56,7 @@ export function Chart(props: ChartProps): ReactElement;
 type ColorAxisProps = {
   children?: ReactNode;
   onAfterSetExtremes?: Highcharts.AxisSetExtremesEventCallbackFunction;
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  onLegendItemClick?: Function; // TODO type missing in Highcharts 8.1.0
+  onLegendItemClick?: Highcharts.LegendItemClickCallbackFunction;
   onSetExtremes?: Highcharts.AxisSetExtremesEventCallbackFunction;
 } & Partial<Highcharts.ColorAxisOptions>;
 
@@ -175,7 +174,7 @@ type SeriesProps<TSeriesOptions = Partial<Highcharts.SeriesOptions>> = {
     updatePoints?: boolean;
   };
   onAfterAnimate?: Highcharts.SeriesAfterAnimateCallbackFunction;
-  // eslint-disable-next-line @typescript-eslint/ban-types
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
   onCheckboxClick?: Function | Highcharts.SeriesCheckboxClickCallbackFunction;
   onClick?: Highcharts.SeriesClickCallbackFunction;
   onHide?: Highcharts.SeriesHideCallbackFunction;
@@ -183,7 +182,7 @@ type SeriesProps<TSeriesOptions = Partial<Highcharts.SeriesOptions>> = {
 
   onMouseOut?: Highcharts.SeriesMouseOutCallbackFunction;
   onMouseOver?: Highcharts.SeriesMouseOverCallbackFunction;
-  // eslint-disable-next-line @typescript-eslint/ban-types
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
   onSetRootNode?: Function; // TODO missing type in Highcharts 8.1.0
   onShow?: Highcharts.SeriesShowCallbackFunction;
   [x: string]: any; // TODO: this is here to allow unknown eventhandlers

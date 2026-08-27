@@ -14,11 +14,12 @@
     "build": "cross-env NODE_ENV=development webpack",
     "build:prod": "npm run build:umd && npm run build:es",
     "build:umd": "cross-env NODE_ENV=production webpack",
-    "build:es": "cross-env BABEL_ENV=es babel src --out-dir dist/es",
+    "build:es": "cross-env BABEL_ENV=es babel --extensions .tsx,.ts,.js,.jsx src --out-dir dist/es",
     "clean": "rimraf dist",
     "format": "prettier --write \"src/**/*.js\" \"test/**/*.js\" README.md",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
+    "test:dts": "tsc --project tsconfig.dts.json --noEmit",
     "test:types": "tsc --noEmit"
   },
   "author": "Will Hawker",

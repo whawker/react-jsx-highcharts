@@ -6,6 +6,7 @@
     "lint": "eslint",
     "test": "npm run build:jsx-highcharts && vitest run",
     "test:coverage": "npm run build:jsx-highcharts && vitest run --coverage",
+    "test:dts": "npm run test:dts --workspaces",
     "test:watch": "vitest --watch"
   },
   "devDependencies": {
@@ -13,6 +14,7 @@
     "@babel/core": "^8.0.1",
     "@babel/preset-env": "^8.0.2",
     "@babel/preset-react": "^8.0.1",
+    "@babel/preset-typescript": "^8.0.1",
     "@eslint/compat": "^2.1.0",
     "@testing-library/dom": "10.4.1",
     "@testing-library/react": "^16.3.2",
@@ -37,6 +39,7 @@
     "react-dom": "^19.2.8",
     "rimraf": "^6.1.3",
     "typescript": "^6.0.3",
+    "typescript-eslint": "^8.68.0",
     "vitest": "^4.1.11",
     "webpack": "^5.109.2",
     "webpack-cli": "^7.2.2"
