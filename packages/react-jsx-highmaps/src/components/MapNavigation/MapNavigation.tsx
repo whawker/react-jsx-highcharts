@@ -6,7 +6,20 @@ import {
   useHighcharts
 } from 'react-jsx-highcharts';
 
-const MapNavigation = ({ children, enabled = true, ...restProps }) => {
+import type { ReactNode } from 'react';
+import type { MapNavigationOptions } from 'highcharts';
+import type { ChartContextValue } from 'react-jsx-highcharts';
+import type HC from 'highcharts';
+
+type MapNavigationProps = {
+  children?: ReactNode;
+} & Partial<MapNavigationOptions>;
+
+const MapNavigation = ({
+  children,
+  enabled = true,
+  ...restProps
+}: MapNavigationProps) => {
   const [rendered, setRendered] = useState(false);
   const chart = useChart();
   const Highcharts = useHighcharts();
@@ -14,6 +27,7 @@ const MapNavigation = ({ children, enabled = true, ...restProps }) => {
   useEffect(() => {
     // Workaround inferred from http://jsfiddle.net/x40me94t/2/
     const chartObj = chart.object;
+    // @ts-expect-error do we need type assertion?
     chartObj.options.mapNavigation.enabled = true;
     // Initialise MapNavigation https://github.com/highcharts/highcharts/blob/dd730ab/js/parts-map/MapNavigation.js#L288-L294
     Highcharts.fireEvent(chartObj, 'beforeRender');
@@ -45,7 +59,10 @@ const MapNavigation = ({ children, enabled = true, ...restProps }) => {
 
   return <>{children}</>;
 };
-const getMapNavigationConfig = (props, Highcharts) => {
+const getMapNavigationConfig = (
+  props: Partial<MapNavigationOptions>,
+  Highcharts: typeof HC
+) => {
   return {
     ...(Highcharts.defaultOptions && Highcharts.defaultOptions.mapNavigation),
     ...props,
@@ -57,7 +74,10 @@ const getMapNavigationConfig = (props, Highcharts) => {
   };
 };
 
-const updateMapNavigation = (config, chart) => {
+const updateMapNavigation = (
+  config: Partial<MapNavigationOptions>,
+  chart: ChartContextValue
+) => {
   chart.update({ mapNavigation: config }, true);
 };
 
