@@ -2,13 +2,24 @@ import * as React from 'react';
 import { useEffect } from 'react';
 import { useModifiedProps, useChart } from 'react-jsx-highcharts';
 
-const Scrollbar = ({ children, enabled = true, ...restProps }) => {
+import type { ScrollbarOptions } from 'highcharts';
+import type { ReactNode } from 'react';
+
+type ScrollbarProps = {
+  children?: ReactNode;
+} & ScrollbarOptions;
+
+const Scrollbar = ({
+  children,
+  enabled = true,
+  ...restProps
+}: ScrollbarProps) => {
   const chart = useChart();
 
   useEffect(() => {
     return () => {
       try {
-        updateScrollbar({ enabled: false }, chart);
+        chart.update({ scrollbar: { enabled: false } }, true);
       } catch {
         // ignore as chart might have been already unmounted
       }
@@ -19,17 +30,13 @@ const Scrollbar = ({ children, enabled = true, ...restProps }) => {
 
   useEffect(() => {
     if (modifiedProps !== false) {
-      updateScrollbar(modifiedProps, chart);
+      chart.update({ scrollbar: modifiedProps }, true);
     }
   });
 
   if (!children) return null;
 
   return <>{children}</>;
-};
-
-const updateScrollbar = (config, chart) => {
-  chart.update({ scrollbar: config }, true);
 };
 
 export default Scrollbar;

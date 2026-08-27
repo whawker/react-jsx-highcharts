@@ -12,14 +12,26 @@ import {
   getNonEventHandlerProps
 } from 'react-jsx-highcharts';
 
-const NavigatorAxis = ({ children, axisId, ...restProps }) => {
+import type { NavigatorXAxisOptions, NavigatorYAxisOptions } from 'highcharts';
+import type { ReactNode } from 'react';
+
+type NavigatorAxisProps = {
+  children?: ReactNode;
+  axisId: string;
+} & Partial<NavigatorXAxisOptions | NavigatorYAxisOptions>;
+
+const NavigatorAxis = ({
+  children,
+  axisId,
+  ...restProps
+}: NavigatorAxisProps) => {
   const axis = useAxis(axisId);
   const renderedRef = useRef(false);
 
   useEffect(() => {
     if (!axis) return;
 
-    updateNavigatorAxis(getNonEventHandlerProps(restProps), axis);
+    axis.update(getNonEventHandlerProps(restProps));
   }, [axis]);
 
   const modifiedProps = useModifiedProps(restProps);
@@ -34,7 +46,8 @@ const NavigatorAxis = ({ children, axisId, ...restProps }) => {
     if (!axis) return;
 
     if (modifiedProps !== false) {
-      updateNavigatorAxis(modifiedProps, axis);
+      // @ts-expect-error fix useModifiedProps typings
+      axis.update(modifiedProps);
     }
   });
 
@@ -42,13 +55,11 @@ const NavigatorAxis = ({ children, axisId, ...restProps }) => {
 
   const axisChildren = Children.map(children, child => {
     if (isValidElement(child) === false) return child;
+    // @ts-expect-error needs some typing work
     return cloneElement(child, { axisId });
   });
 
   return <>{axisChildren}</>;
-};
-const updateNavigatorAxis = (config, axis) => {
-  axis.update(config);
 };
 
 export default NavigatorAxis;

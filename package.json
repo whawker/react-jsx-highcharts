@@ -6,7 +6,7 @@
     "lint": "eslint",
     "test": "npm run build:jsx-highcharts && vitest run",
     "test:coverage": "npm run build:jsx-highcharts && vitest run --coverage",
-    "test:dts": "npm run test:dts --workspaces",
+    "test:dts": "npm run test:dts --workspaces --if-present",
     "test:watch": "vitest --watch"
   },
   "devDependencies": {

@@ -441,8 +441,20 @@ export function getNonEventHandlerProps(...any: any[]): any;
  * @private
  */
 export function getEventsConfig(...any: any[]): any;
+
 /**
  *
  * @private
  */
-export function withSeriesType(...any: any[]): any;
+export function withSeriesType<S>(
+  seriesType: string,
+  additionalProps?: Record<string, unknown>
+): (props: SeriesProps<S>) => ReactElement;
+
+/**
+ *
+ * @private
+ */
+export function useModifiedProps<
+  P extends Record<string, unknown> & { children?: React.ReactNode }
+>(props: P, childrenIsText?: boolean): Partial<P> | false;
