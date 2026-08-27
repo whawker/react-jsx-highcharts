@@ -333,7 +333,9 @@ export function XRangeSeries(
 ): ReactElement;
 
 // Hooks
-export function useHighcharts(): any;
+type HighchartsContextValue = typeof Highcharts;
+
+export function useHighcharts(): HighchartsContextValue;
 
 type ChartContextValue = {
   object: Highcharts.Chart;
@@ -357,7 +359,7 @@ type ChartContextValue = {
   needsRedraw: () => void;
 };
 
-export function useChart(): ChartContextValue | null;
+export function useChart(): ChartContextValue;
 
 type AxisContextValue = {
   object: Highcharts.Axis;
