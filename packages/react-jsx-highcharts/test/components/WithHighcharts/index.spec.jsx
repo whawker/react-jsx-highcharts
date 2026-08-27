@@ -2,17 +2,23 @@ import * as React from 'react';
 import { render } from '@testing-library/react';
 
 import withHighcharts from '../../../src/components/WithHighcharts';
+import ChartContext from '../../../src/components/ChartContext';
 import { Highcharts } from '../../test-utils';
 import ContextSpy from '../../ContextSpy';
 
 describe('withHighcharts', () => {
   let highchartsRef;
   let WrappedComponent;
-
+  let testChart;
   beforeEach(() => {
     highchartsRef = {};
+    testChart = {};
 
-    WrappedComponent = () => <ContextSpy highchartsRef={highchartsRef} />;
+    WrappedComponent = () => (
+      <ChartContext.Provider value={testChart}>
+        <ContextSpy highchartsRef={highchartsRef} />
+      </ChartContext.Provider>
+    );
   });
 
   it('should create Highcharts context with the provided object', () => {

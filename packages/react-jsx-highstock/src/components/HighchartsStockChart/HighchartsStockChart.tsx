@@ -1,7 +1,11 @@
 import * as React from 'react';
 import { BaseChart, useHighcharts } from 'react-jsx-highcharts';
 
-const HighchartsStockChart = props => {
+import type { HighchartsChartProps } from 'react-jsx-highcharts';
+// side effect import to include Highcharts.stockChart
+import type {} from 'highcharts/highstock';
+
+const HighchartsStockChart = (props: HighchartsChartProps) => {
   const Highcharts = useHighcharts();
 
   return (

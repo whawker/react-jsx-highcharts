@@ -1,16 +1,21 @@
 import { useEffect } from 'react';
 import { useSeries } from 'react-jsx-highcharts';
 
-const NavigatorSeries = props => {
+type NavigatorSeriesProps = {
+  seriesId: string;
+};
+
+const NavigatorSeries = (props: NavigatorSeriesProps) => {
   const series = useSeries(props.seriesId);
 
   useEffect(() => {
     if (!series) return;
-
-    updateNavigatorSeries(series, { showInNavigator: true });
+    // @ts-expect-error showInNavigator only available in Highstock
+    series.update({ showInNavigator: true });
     return () => {
       try {
-        updateNavigatorSeries(series, { showInNavigator: false });
+        // @ts-expect-error showInNavigator only available in Highstock
+        series.update({ showInNavigator: false });
       } catch {
         // ignore as series might have been already unmounted
       }
@@ -18,10 +23,6 @@ const NavigatorSeries = props => {
   }, [series]);
 
   return null;
-};
-
-const updateNavigatorSeries = (series, config) => {
-  series.update(config);
 };
 
 export default NavigatorSeries;

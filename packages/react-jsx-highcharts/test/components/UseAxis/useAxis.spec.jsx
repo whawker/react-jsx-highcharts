@@ -37,9 +37,11 @@ describe('useAxis', () => {
 
   it('should return axis from context', () => {
     render(
-      <AxisContext.Provider value={testAxis}>
-        <ChildComponent />
-      </AxisContext.Provider>
+      <ChartContext.Provider value={testChart}>
+        <AxisContext.Provider value={testAxis}>
+          <ChildComponent />
+        </AxisContext.Provider>
+      </ChartContext.Provider>
     );
 
     expect(axisCallback).toHaveBeenCalledWith(testAxis);

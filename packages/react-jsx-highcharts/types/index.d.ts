@@ -333,7 +333,9 @@ export function XRangeSeries(
 ): ReactElement;
 
 // Hooks
-export function useHighcharts(): any;
+type HighchartsContextValue = typeof Highcharts;
+
+export function useHighcharts(): HighchartsContextValue;
 
 type ChartContextValue = {
   object: Highcharts.Chart;
@@ -357,7 +359,7 @@ type ChartContextValue = {
   needsRedraw: () => void;
 };
 
-export function useChart(): ChartContextValue | null;
+export function useChart(): ChartContextValue;
 
 type AxisContextValue = {
   object: Highcharts.Axis;
@@ -439,8 +441,20 @@ export function getNonEventHandlerProps(...any: any[]): any;
  * @private
  */
 export function getEventsConfig(...any: any[]): any;
+
 /**
  *
  * @private
  */
-export function withSeriesType(...any: any[]): any;
+export function withSeriesType<S>(
+  seriesType: string,
+  additionalProps?: Record<string, unknown>
+): (props: SeriesProps<S>) => ReactElement;
+
+/**
+ *
+ * @private
+ */
+export function useModifiedProps<
+  P extends Record<string, unknown> & { children?: React.ReactNode }
+>(props: P, childrenIsText?: boolean): Partial<P> | false;

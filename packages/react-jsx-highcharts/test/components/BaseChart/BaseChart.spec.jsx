@@ -3,7 +3,9 @@ import { Component } from 'react';
 import { render } from '@testing-library/react';
 
 import BaseChart from '../../../src/components/BaseChart';
-import { createMockChart } from '../../test-utils';
+import { HighchartsProvider } from '../../../src/components/WithHighcharts';
+
+import { createMockChart, Highcharts } from '../../test-utils';
 
 import ContextSpy from '../../ContextSpy';
 
@@ -23,11 +25,12 @@ class Wrapper extends Component {
 describe('<BaseChart />', () => {
   let testContext;
   let chart;
-
+  let testHighcharts;
   beforeEach(() => {
     testContext = {};
 
     chart = createMockChart();
+    testHighcharts = Highcharts;
     testContext.chartCreationFunc = vi.fn();
     testContext.chartCreationFunc.mockReturnValue(chart);
   });
@@ -40,9 +43,11 @@ describe('<BaseChart />', () => {
     chart.addColorAxis.mockReset();
     chart.addSeries.mockReset();
     chart.setTitle.mockReset();
+    chart.setCaption.mockReset();
     chart.showLoading.mockReset();
     chart.hideLoading.mockReset();
     chart.addCredits.mockReset();
+    chart.destroy.mockReset();
   });
 
   describe('when mounted', () => {
@@ -58,9 +63,11 @@ describe('<BaseChart />', () => {
     it('should create a chart context, with the chart and chart type', () => {
       const chartRef = {};
       render(
-        <BaseChart {...testContext} chartType="stockChart">
-          <ContextSpy chartRef={chartRef} />
-        </BaseChart>
+        <HighchartsProvider Highcharts={testHighcharts}>
+          <BaseChart {...testContext} chartType="stockChart">
+            <ContextSpy chartRef={chartRef} />
+          </BaseChart>
+        </HighchartsProvider>
       );
 
       expect(chartRef.current).toEqual(
@@ -103,9 +110,11 @@ describe('<BaseChart />', () => {
     it('should provide chart functions', () => {
       const chartRef = {};
       render(
-        <BaseChart {...testContext} chartType="chart">
-          <ContextSpy chartRef={chartRef} />
-        </BaseChart>
+        <HighchartsProvider Highcharts={testHighcharts}>
+          <BaseChart {...testContext} chartType="chart">
+            <ContextSpy chartRef={chartRef} />
+          </BaseChart>
+        </HighchartsProvider>
       );
 
       const chartProp = chartRef.current;
@@ -136,9 +145,11 @@ describe('<BaseChart />', () => {
 
       const chartRef = {};
       render(
-        <BaseChart {...testContext} chartType="chart">
-          <ContextSpy chartRef={chartRef} />
-        </BaseChart>
+        <HighchartsProvider Highcharts={testHighcharts}>
+          <BaseChart {...testContext} chartType="chart">
+            <ContextSpy chartRef={chartRef} />
+          </BaseChart>
+        </HighchartsProvider>
       );
 
       const chartProp = chartRef.current;
@@ -187,9 +198,11 @@ describe('<BaseChart />', () => {
 
       const chartRef = {};
       render(
-        <BaseChart {...testContext} chartType="stockChart">
-          <ContextSpy chartRef={chartRef} />
-        </BaseChart>
+        <HighchartsProvider Highcharts={testHighcharts}>
+          <BaseChart {...testContext} chartType="stockChart">
+            <ContextSpy chartRef={chartRef} />
+          </BaseChart>
+        </HighchartsProvider>
       );
 
       const chartProp = chartRef.current;

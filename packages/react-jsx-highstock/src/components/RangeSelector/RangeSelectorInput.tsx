@@ -1,7 +1,35 @@
 import { useEffect } from 'react';
-import { useModifiedProps, useChart } from 'react-jsx-highcharts';
+import {
+  useModifiedProps,
+  useChart,
+  type ChartContextValue
+} from 'react-jsx-highcharts';
 
-const RangeSelectorInput = ({ enabled = true, ...restProps }) => {
+import type {
+  ColorString,
+  CSSObject,
+  RangeSelectorParseCallbackFunction,
+  RangeSelectorInputPositionOptions,
+  RangeSelectorOptions
+} from 'highcharts';
+
+type RangeSelectorInputProps = {
+  boxBorderColor?: ColorString;
+  boxHeight?: number;
+  boxWidth?: number | undefined;
+  dateFormat?: string;
+  dateParser?: RangeSelectorParseCallbackFunction;
+  editDateFormat?: string;
+  enabled?: boolean;
+  position?: RangeSelectorInputPositionOptions;
+  spacing?: number;
+  style?: CSSObject;
+};
+
+const RangeSelectorInput = ({
+  enabled = true,
+  ...restProps
+}: RangeSelectorInputProps) => {
   const chart = useChart();
 
   useEffect(() => {
@@ -25,12 +53,13 @@ const RangeSelectorInput = ({ enabled = true, ...restProps }) => {
   return null;
 };
 
-const upperFirst = str => {
+const upperFirst = (str: string) => {
   return str.charAt(0).toUpperCase() + str.slice(1);
 };
 
-const prefixPropsWithInput = config => {
-  const prefixedConfig = {};
+const prefixPropsWithInput = <T extends Record<string, unknown>>(config: T) => {
+  const prefixedConfig: Record<string, unknown> = {};
+
   Object.keys(config).forEach(key => {
     const newKey = key.indexOf('input') === 0 ? key : `input${upperFirst(key)}`;
     prefixedConfig[newKey] = config[key];
@@ -39,7 +68,10 @@ const prefixPropsWithInput = config => {
   return prefixedConfig;
 };
 
-const updateRangeSelectorInputs = (config, chart) => {
+const updateRangeSelectorInputs = (
+  config: Partial<RangeSelectorOptions>,
+  chart: ChartContextValue
+) => {
   const inputProps = prefixPropsWithInput(config);
 
   chart.update({
