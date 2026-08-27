@@ -72,11 +72,11 @@ const addButton = (config, chart) => {
 };
 
 const removeButton = (props, chart) => {
-  const button = getButtonIndex(props);
+  const button = getButtonIndex(props, chart);
   if (button === -1) return;
 
   // Remove button from array
-  const buttons = [...getButtons()];
+  const buttons = [...getButtons(chart)];
   buttons.splice(button, 1);
   updateRangeSelectorButtons(buttons, chart);
 };
