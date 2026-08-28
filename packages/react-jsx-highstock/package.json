@@ -8,8 +8,7 @@
   "sideEffects": false,
   "files": [
     "dist",
-    "src",
-    "types"
+    "src"
   ],
   "scripts": {
     "build": "cross-env NODE_ENV=development webpack",
