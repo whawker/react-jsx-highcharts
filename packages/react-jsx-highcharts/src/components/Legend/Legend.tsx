@@ -2,11 +2,12 @@ import { memo } from 'react';
 import useChartUpdate from '../UseChartUpdate';
 
 import type { ReactNode } from 'react';
+import type { LegendOptions } from 'highcharts';
 import type { ChartContextValue } from '../ChartContext';
 
 type LegendProps = {
   children?: ReactNode;
-} & Partial<Highcharts.LegendOptions>;
+} & Partial<LegendOptions>;
 
 const Legend = memo(
   ({ children = null, enabled = true, ...restProps }: LegendProps) => {
@@ -23,7 +24,7 @@ const Legend = memo(
 
 const updateLegend = (
   chart: ChartContextValue,
-  config: Partial<Highcharts.LegendOptions>
+  config: Partial<LegendOptions>
 ) => {
   chart.update({ legend: config }, false);
 };

@@ -3,7 +3,9 @@ import { v4 as uuid } from 'uuid';
 import { logModuleErrorMessage } from '../../utils/warnings';
 import useChart from '../UseChart';
 
-type AnnotationProps = Partial<Highcharts.AnnotationsOptions>;
+import type { AnnotationsOptions } from 'highcharts';
+
+type AnnotationProps = Partial<AnnotationsOptions>;
 
 const Annotation = memo((props: AnnotationProps) => {
   // @ts-expect-error TODO

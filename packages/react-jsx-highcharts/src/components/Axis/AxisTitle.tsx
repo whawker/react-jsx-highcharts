@@ -1,10 +1,12 @@
 import { useEffect, memo } from 'react';
 import useAxis from '../UseAxis';
 
+import type { AxisTitleOptions } from 'highcharts';
+
 type AxisTitleProps = {
   children?: string;
   axisId?: string;
-} & Partial<Omit<Highcharts.AxisTitleOptions, 'text'>>;
+} & Partial<Omit<AxisTitleOptions, 'text'>>;
 
 const AxisTitle = memo(
   ({ children: text, axisId, ...restProps }: AxisTitleProps) => {
