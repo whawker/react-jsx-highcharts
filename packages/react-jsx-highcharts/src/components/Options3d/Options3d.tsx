@@ -3,6 +3,9 @@ import { log3DModuleErrorMessage } from '../../utils/warnings';
 import useHighcharts from '../UseHighcharts';
 import useChart from '../UseChart';
 
+import type { Chart3dOptions } from 'highcharts';
+import type { ChartContextValue } from '../UseChart';
+
 const DEFAULT_FRAME = {
   visible: 'default',
   size: 1,
@@ -14,6 +17,8 @@ const DEFAULT_FRAME = {
   front: {}
 };
 
+type Options3dProps = Chart3dOptions;
+
 const Options3d = memo(
   ({
     enabled = false,
@@ -22,10 +27,11 @@ const Options3d = memo(
     depth = 100,
     fitToPlot = true,
     viewDistance = 25,
+    // @ts-expect-error 'default' is not assignable to type AxisLabelPosition
     axisLabelPosition = 'default',
     frame = DEFAULT_FRAME,
     ...restProps
-  }) => {
+  }: Options3dProps) => {
     const props = {
       enabled,
       alpha,
@@ -40,7 +46,9 @@ const Options3d = memo(
     const Highcharts = useHighcharts();
     const chart = useChart();
 
+    // @ts-expect-error TODO
     if (process.env.NODE_ENV === 'development') {
+      // @ts-expect-error TODO
       if (!Highcharts.ZAxis) log3DModuleErrorMessage();
     }
 
@@ -52,7 +60,7 @@ const Options3d = memo(
   }
 );
 
-const update3dOptions = (chart, props) => {
+const update3dOptions = (chart: ChartContextValue, props: Chart3dOptions) => {
   const {
     alpha,
     axisLabelPosition,

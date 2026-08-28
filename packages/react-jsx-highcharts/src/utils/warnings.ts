@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 const titleCSS = 'color:red; font-size:20px; font-weight: bold;';
-const descCSS = color => `font-size: 16px; color:${color};`;
+const descCSS = (color: string) => `font-size: 16px; color:${color};`;
 const descDefaultCSS = descCSS('#000');
 const descDefaultItalicCSS = descCSS('#000') + 'font-style:italic;';
 const descKeywordCSS = descCSS('#008') + 'font-weight:600;';
@@ -111,8 +111,10 @@ const moduleToFeatureMap = {
   pyramid3d: ['pyramid3d']
 };
 
+// @ts-expect-error TODO
 const findModules = feature => {
   const modules = Object.keys(moduleToFeatureMap).filter(key => {
+    // @ts-expect-error TODO
     return moduleToFeatureMap[key].indexOf(feature) > -1;
   });
 
@@ -121,7 +123,7 @@ const findModules = feature => {
   return modules;
 };
 
-const generateLines = modules => {
+const generateLines = (modules: Array<keyof typeof moduleToVarName>) => {
   const importLines = modules.map(
     module =>
       `%c %cimport %c${moduleToVarName[module]} %cfrom %c'highcharts/${moduleToImportPath[module]}'%c;`
@@ -146,7 +148,10 @@ const generateLines = modules => {
   return { importLines, applyLines, importStyling, applyStyling };
 };
 
-const logDetailedErrorMessage = (warning, modules) => {
+const logDetailedErrorMessage = (
+  warning: string,
+  modules: Array<keyof typeof moduleToVarName>
+) => {
   const { importLines, applyLines, importStyling, applyStyling } =
     generateLines(modules);
   const isMultiModule = modules.length > 1;
@@ -160,6 +165,7 @@ const logDetailedErrorMessage = (warning, modules) => {
   console.log.apply(
     console,
     [].concat(
+      // @ts-expect-error TODO
       `You likely need to import the additional module${
         isMultiModule ? 's' : ''
       }, try adding
@@ -189,7 +195,8 @@ const logDetailedErrorMessage = (warning, modules) => {
   console.groupEnd();
 };
 
-export const logSeriesErrorMessage = seriesType => {
+export const logSeriesErrorMessage = (seriesType: string) => {
+  // @ts-expect-error TODO
   if (process.env.NODE_ENV === 'development') {
     const warning = `This series type "${seriesType}" requires an additional Highcharts module`;
     const modules = findModules(seriesType);
@@ -198,12 +205,16 @@ export const logSeriesErrorMessage = seriesType => {
       console.warn(`${warning}, or is invalid.`);
       return;
     }
-
+    // @ts-expect-error TODO
     logDetailedErrorMessage(warning, modules);
   }
 };
 
-export const logModuleErrorMessage = (componentName, moduleName) => {
+export const logModuleErrorMessage = (
+  componentName: string,
+  moduleName: string
+) => {
+  // @ts-expect-error TODO
   if (process.env.NODE_ENV === 'development') {
     const warning = `This component "${componentName}" requires an additional Highcharts module`;
     const modules = findModules(moduleName);
@@ -212,12 +223,13 @@ export const logModuleErrorMessage = (componentName, moduleName) => {
       console.warn(`${warning}, or is invalid.`);
       return;
     }
-
+    // @ts-expect-error TODO
     logDetailedErrorMessage(warning, modules);
   }
 };
 
 export const log3DModuleErrorMessage = () => {
+  // @ts-expect-error TODO
   if (process.env.NODE_ENV === 'development') {
     logDetailedErrorMessage(
       '3D features such as "ZAxis" require an additional Highcharts module',

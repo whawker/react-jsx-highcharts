@@ -2,34 +2,42 @@ import { useEffect, memo } from 'react';
 import useModifiedProps from '../UseModifiedProps';
 import useChart from '../UseChart';
 
-const Loading = memo(({ children, isLoading = true, ...restProps }) => {
-  const chart = useChart();
-  const modifiedProps = useModifiedProps(restProps);
+type LoadingProps = {
+  children?: string;
+  isLoading?: boolean;
+} & Partial<Omit<Highcharts.LoadingOptions, 'text'>>;
 
-  useEffect(() => {
-    if (modifiedProps !== false) {
-      updateLoading(modifiedProps, chart);
-    }
-    if (isLoading) {
-      chart.showLoading(children);
-    } else {
-      chart.hideLoading();
-    }
-  });
+const Loading = memo(
+  ({ children, isLoading = true, ...restProps }: LoadingProps) => {
+    const chart = useChart();
+    const modifiedProps = useModifiedProps(restProps);
 
-  useEffect(() => {
-    return () => {
-      try {
-        chart.hideLoading();
-      } catch {
-        // ignore as chart might have been unmounted
+    useEffect(() => {
+      if (modifiedProps !== false) {
+        updateLoading(modifiedProps, chart);
       }
-    };
-  }, []);
+      if (isLoading) {
+        chart.showLoading(children);
+      } else {
+        chart.hideLoading();
+      }
+    });
 
-  return null;
-});
+    useEffect(() => {
+      return () => {
+        try {
+          chart.hideLoading();
+        } catch {
+          // ignore as chart might have been unmounted
+        }
+      };
+    }, []);
 
+    return null;
+  }
+);
+
+// @ts-expect-error TODO
 const updateLoading = (config, chart) => {
   chart.update({ loading: config }, true);
 };

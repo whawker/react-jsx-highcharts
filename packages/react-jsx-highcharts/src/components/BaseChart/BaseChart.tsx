@@ -4,25 +4,42 @@ import ChartContext from '../ChartContext';
 import usePrevious from '../UsePrevious';
 import createProvidedChart from './createProvidedChart';
 
-const noop = c => c;
+import type { Chart, Options as ChartOptions } from 'highcharts';
+import type { ReactNode, HTMLAttributes } from 'react';
+import type { ChartContextValue } from '../ChartContext';
 
+const noop = (c: unknown) => c;
+
+type BaseChartProps = {
+  children?: ReactNode;
+  callback?: (chart: Chart) => void;
+  className?: string;
+  containerProps?: HTMLAttributes<HTMLDivElement> | null;
+  chartType?: 'chart' | 'stockChart' | 'mapChart';
+  chartCreationFunc: (renderTo: HTMLDivElement, options: ChartOptions) => Chart;
+} & Partial<ChartOptions>;
+
+/**
+ * @private
+ */
 const BaseChart = ({
   children = null,
   callback = noop,
   className = '',
   containerProps = null,
   ...restProps
-}) => {
+}: BaseChartProps) => {
   const [rendered, setRendered] = useState(false);
-  const domNodeRef = useRef(null);
+  const domNodeRef = useRef<HTMLDivElement>(null);
   const chartRef = useRef(null);
-  const providedChartRef = useRef(null);
+  const providedChartRef = useRef<ChartContextValue>(null);
 
   useLayoutEffect(() => {
     const myChart = initHighcharts(restProps, domNodeRef.current);
     chartRef.current = myChart;
     providedChartRef.current = createProvidedChart(
       myChart,
+      // @ts-expect-error TODO
       restProps.chartType
     );
 
@@ -34,7 +51,9 @@ const BaseChart = ({
     const myChart = chartRef.current;
     return () => {
       if (myChart) {
+        // @ts-expect-error destroy is not a typed property on Chart
         myChart.destroy.bind(myChart)();
+        // @ts-expect-error __destroyed is not a typed property on Chart
         myChart.__destroyed = true;
       }
     };
@@ -45,9 +64,11 @@ const BaseChart = ({
     if (!rendered) return;
     const { plotOptions } = restProps;
     const myChart = chartRef.current;
-
+    // @ts-expect-error TODO
     if (Object.is(prevProps.plotOptions, plotOptions) === false && myChart) {
+      // @ts-expect-error TODO
       myChart.update({ plotOptions }, false);
+      // @ts-expect-error TODO
       providedChartRef.current.needsRedraw();
     }
   });
@@ -63,7 +84,11 @@ const BaseChart = ({
   );
 };
 
-const initHighcharts = (props, domNode) => {
+const initHighcharts = (
+  // @ts-expect-error TODO
+  props,
+  domNode: HTMLDivElement | null
+) => {
   if (!domNode) {
     return;
   }

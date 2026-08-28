@@ -1,7 +1,14 @@
 import { memo } from 'react';
 import useChartUpdate from '../UseChartUpdate';
 
-const Title = memo(props => {
+import type { ReactNode } from 'react';
+import type { TitleOptions } from 'highcharts';
+
+type TitleProps = {
+  children?: ReactNode;
+} & Partial<Omit<TitleOptions, 'text'>>;
+
+const Title = memo((props: TitleProps) => {
   useChartUpdate(props, updateTitle, chart =>
     updateTitle(chart, { text: null })
   );
@@ -9,6 +16,7 @@ const Title = memo(props => {
   return null;
 });
 
+// @ts-expect-error TODO
 const updateTitle = (chart, config) => {
   chart.setTitle(config, null, false);
 };

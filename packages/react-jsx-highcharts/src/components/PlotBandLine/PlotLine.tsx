@@ -3,7 +3,14 @@ import { memo } from 'react';
 import PlotBandLineContext from '../PlotBandLineContext';
 import usePlotBandLineLifecycle from './UsePlotBandLineLifecycle';
 
-const PlotLine = memo(props => {
+import type { ReactNode } from 'react';
+import type { AxisPlotLinesOptions } from 'highcharts';
+
+type PlotLineProps = {
+  children?: ReactNode;
+} & Partial<AxisPlotLinesOptions>;
+
+const PlotLine = memo((props: PlotLineProps) => {
   const plotline = usePlotBandLineLifecycle(props, 'plotLines');
 
   const { children } = props;

@@ -1,6 +1,13 @@
 import { memo } from 'react';
 import useChartUpdate from '../UseChartUpdate';
-const Caption = memo(props => {
+
+import type { CaptionOptions } from 'highcharts';
+
+type CaptionProps = {
+  children?: string;
+} & Partial<Omit<CaptionOptions, 'text'>>;
+
+const Caption = memo((props: CaptionProps) => {
   useChartUpdate(props, updateCaption, chart =>
     updateCaption(chart, { text: null })
   );
@@ -8,6 +15,7 @@ const Caption = memo(props => {
   return null;
 });
 
+// @ts-expect-error TODO
 const updateCaption = (chart, config) => {
   chart.setCaption(config);
 };

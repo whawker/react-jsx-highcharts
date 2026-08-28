@@ -3,7 +3,10 @@ import AxisContext from '../AxisContext';
 import useChart from '../UseChart';
 import createProvidedAxis from '../Axis/createProvidedAxis';
 
-export default function useAxis(axisId) {
+import type { Axis } from 'highcharts';
+import type { AxisContextValue } from '../AxisContext';
+
+export default function useAxis(axisId?: string): AxisContextValue | null {
   const chart = useChart();
   const contextAxis = useContext(AxisContext);
 
@@ -11,7 +14,7 @@ export default function useAxis(axisId) {
     if (contextAxis) return contextAxis;
 
     if (axisId) {
-      const axis = chart.get(axisId);
+      const axis = chart.get(axisId) as Axis;
       return createProvidedAxis(axis);
     }
     return null;

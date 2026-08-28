@@ -4,40 +4,79 @@ import useModifiedProps from '../UseModifiedProps';
 import useChart from '../UseChart';
 import useManualEventHandlers from '../UseManualEventHandlers';
 
-const Chart = memo(({ type = 'line', width, height, ...restProps }) => {
-  const chart = useChart();
-  const mounted = useRef(false);
+import type {
+  ChartAddSeriesCallbackFunction,
+  ExportingAfterPrintCallbackFunction,
+  ExportingBeforePrintCallbackFunction,
+  ChartClickCallbackFunction,
+  DrilldownCallbackFunction,
+  DrillupCallbackFunction,
+  DrillupAllCallbackFunction,
+  ExportDataCallbackFunction,
+  ChartLoadCallbackFunction,
+  ChartRedrawCallbackFunction,
+  ChartRenderCallbackFunction,
+  ChartSelectionCallbackFunction,
+  ChartOptions
+} from 'highcharts';
+import type { ChartContextValue } from '../UseChart';
 
-  const modifiedProps = useModifiedProps({ type, ...restProps });
+export type ChartProps = {
+  onAddSeries?: ChartAddSeriesCallbackFunction;
+  onAfterPrint?: ExportingAfterPrintCallbackFunction;
+  onBeforePrint?: ExportingBeforePrintCallbackFunction;
+  onClick?: ChartClickCallbackFunction;
+  onDrilldown?: DrilldownCallbackFunction;
+  onDrillup?: DrillupCallbackFunction;
+  onDrillupall?: DrillupAllCallbackFunction;
+  onExportData?: ExportDataCallbackFunction;
+  onLoad?: ChartLoadCallbackFunction;
+  onRedraw?: ChartRedrawCallbackFunction;
+  onRender?: ChartRenderCallbackFunction;
+  onSelection?: ChartSelectionCallbackFunction;
+  [x: string]: unknown; // TODO: this is here to allow eventhandlers like onAfterAddSeries
+} & Partial<ChartOptions>;
 
-  useEffect(() => {
-    if (!(width === undefined && height === undefined)) {
-      chart.setSize(width, height);
-    }
-  }, [width, height]);
+const Chart = memo(
+  ({ type = 'line', width, height, ...restProps }: ChartProps) => {
+    const chart = useChart();
+    const mounted = useRef(false);
 
-  useEffect(() => {
-    if (modifiedProps !== false && mounted.current) {
-      const notEventProps = getNonEventHandlerProps(modifiedProps);
-      if (Object.getOwnPropertyNames(notEventProps).length > 0) {
-        updateChart(modifiedProps, chart, chart.needsRedraw);
+    const modifiedProps = useModifiedProps({ type, ...restProps });
+
+    useEffect(() => {
+      if (!(width === undefined && height === undefined)) {
+        // @ts-expect-error chart.setSize does not accept string
+        chart.setSize(width, height);
       }
-    }
-  });
+    }, [width, height]);
 
-  useEffect(() => {
-    const notEventProps = getNonEventHandlerProps({ type, ...restProps });
+    useEffect(() => {
+      if (modifiedProps !== false && mounted.current) {
+        const notEventProps = getNonEventHandlerProps(modifiedProps);
+        if (Object.getOwnPropertyNames(notEventProps).length > 0) {
+          updateChart(modifiedProps, chart);
+        }
+      }
+    });
 
-    updateChart(notEventProps, chart);
-    mounted.current = true;
-  }, []);
+    useEffect(() => {
+      const notEventProps = getNonEventHandlerProps({ type, ...restProps });
 
-  useManualEventHandlers(restProps, chart.object);
+      updateChart(notEventProps, chart);
+      mounted.current = true;
+    }, []);
 
-  return null;
-});
+    useManualEventHandlers(restProps, chart.object);
 
-const updateChart = (config, chart) => {
+    return null;
+  }
+);
+
+const updateChart = (
+  config: Partial<ChartOptions>,
+  chart: ChartContextValue
+) => {
   chart.update({ chart: config }, false);
   chart.needsRedraw();
 };
