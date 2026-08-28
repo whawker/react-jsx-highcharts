@@ -8,7 +8,7 @@ import type { Chart } from 'highcharts';
 import type { Options } from 'highcharts';
 
 export type HighchartsChartProps = {
-  callback?: (chart: Chart) => void;
+  callback?: (chart: Chart) => unknown;
   className?: string;
   containerProps?: Record<string, unknown>;
   children?: ReactNode;

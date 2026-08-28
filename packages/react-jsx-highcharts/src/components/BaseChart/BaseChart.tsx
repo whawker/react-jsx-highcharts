@@ -12,7 +12,7 @@ const noop = (c: unknown) => c;
 
 type BaseChartProps = {
   children?: ReactNode;
-  callback?: (chart: Chart) => void;
+  callback?: (chart: Chart) => unknown;
   className?: string;
   containerProps?: HTMLAttributes<HTMLDivElement> | null;
   chartType?: 'chart' | 'stockChart' | 'mapChart';
