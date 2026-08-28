@@ -2,9 +2,10 @@ import * as React from 'react';
 import { useMemo, useCallback } from 'react';
 import { BaseChart, useHighcharts } from 'react-jsx-highcharts';
 
-import type { HighchartsChartProps } from 'react-jsx-highcharts';
+import type { HighchartsChart } from 'react-jsx-highcharts';
 import type { GeoJSON } from 'highcharts';
 import type HC from 'highcharts';
+import type { ComponentProps } from 'react';
 
 // side effect import to include Highcharts.stockChart
 import type {} from 'highcharts/highmaps';
@@ -13,7 +14,7 @@ const XAXIS = { id: 'xAxis' };
 const YAXIS = { id: 'yAxis' };
 const MAP_NAVIGATION = { enabled: false };
 
-type HighchartsMapChartsProps = HighchartsChartProps & {
+type HighchartsMapChartsProps = ComponentProps<typeof HighchartsChart> & {
   map: GeoJSON;
 };
 

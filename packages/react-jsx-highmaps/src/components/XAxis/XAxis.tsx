@@ -1,18 +1,18 @@
 import * as React from 'react';
 import { XAxis } from 'react-jsx-highcharts';
 
-import type { AxisProps } from 'react-jsx-highcharts';
+import type { ComponentProps } from 'react';
 
-export type MapAxisProps<TAxisOptions> = {
+export type MapAxisProps = {
   endOnTick?: boolean;
   visible?: boolean;
   minPadding?: number;
   maxPadding?: number;
   startOnTick?: boolean;
   reversed?: boolean;
-} & AxisProps<TAxisOptions>;
+};
 
-type MapXAxisProps = MapAxisProps<Highcharts.XAxisOptions>;
+export type MapXAxisProps = MapAxisProps & ComponentProps<typeof XAxis>;
 
 const MapXAxis = ({
   endOnTick = false,
