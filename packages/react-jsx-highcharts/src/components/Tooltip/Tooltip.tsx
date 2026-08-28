@@ -4,6 +4,7 @@ import useHighcharts from '../UseHighcharts';
 import useModifiedProps from '../UseModifiedProps';
 
 import type { TooltipOptions } from 'highcharts';
+import type { ChartContextValue } from '../ChartContext';
 
 type TooltipProps = Partial<TooltipOptions>;
 
@@ -40,8 +41,10 @@ const Tooltip = memo((props: TooltipProps) => {
   return null;
 });
 
-// @ts-expect-error TODO
-const updateTooltip = (chart, config) => {
+const updateTooltip = (
+  chart: ChartContextValue,
+  config: Partial<TooltipOptions>
+) => {
   chart.update({
     tooltip: config
   });

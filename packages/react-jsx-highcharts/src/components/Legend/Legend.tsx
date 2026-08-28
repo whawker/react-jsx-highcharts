@@ -2,6 +2,7 @@ import { memo } from 'react';
 import useChartUpdate from '../UseChartUpdate';
 
 import type { ReactNode } from 'react';
+import type { ChartContextValue } from '../ChartContext';
 
 type LegendProps = {
   children?: ReactNode;
@@ -20,8 +21,10 @@ const Legend = memo(
   }
 );
 
-// @ts-expect-error TODO
-const updateLegend = (chart, config) => {
+const updateLegend = (
+  chart: ChartContextValue,
+  config: Partial<Highcharts.LegendOptions>
+) => {
   chart.update({ legend: config }, false);
 };
 

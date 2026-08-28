@@ -2,10 +2,13 @@ import { useEffect, memo } from 'react';
 import useModifiedProps from '../UseModifiedProps';
 import useChart from '../UseChart';
 
+import type { LoadingOptions } from 'highcharts';
+import type { ChartContextValue } from '../ChartContext';
+
 type LoadingProps = {
   children?: string;
   isLoading?: boolean;
-} & Partial<Omit<Highcharts.LoadingOptions, 'text'>>;
+} & Partial<Omit<LoadingOptions, 'text'>>;
 
 const Loading = memo(
   ({ children, isLoading = true, ...restProps }: LoadingProps) => {
@@ -37,8 +40,10 @@ const Loading = memo(
   }
 );
 
-// @ts-expect-error TODO
-const updateLoading = (config, chart) => {
+const updateLoading = (
+  config: Partial<LoadingOptions>,
+  chart: ChartContextValue
+) => {
   chart.update({ loading: config }, true);
 };
 
