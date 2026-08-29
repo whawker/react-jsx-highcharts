@@ -4,7 +4,7 @@ import useChart from '../UseChart';
 
 import type { XAxisProps } from '../Axis/Axis';
 
-const XAxis = ({ id, ...rest }: Omit<XAxisProps, 'isX' | 'type'>) => {
+const XAxis = ({ id, ...rest }: Omit<XAxisProps, 'isX'>) => {
   const chart = useChart();
 
   const isStockChart = chart.type === 'stockChart';
