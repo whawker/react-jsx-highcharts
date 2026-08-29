@@ -30,7 +30,7 @@ const NavigatorAxis = ({
 
   useEffect(() => {
     if (!axis) return;
-
+    // @ts-expect-error TODO
     axis.update(getNonEventHandlerProps(restProps));
   }, [axis]);
 

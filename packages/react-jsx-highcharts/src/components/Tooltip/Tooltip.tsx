@@ -3,7 +3,13 @@ import useChart from '../UseChart';
 import useHighcharts from '../UseHighcharts';
 import useModifiedProps from '../UseModifiedProps';
 
-const Tooltip = memo(props => {
+import type { TooltipOptions } from 'highcharts';
+import type { ChartContextValue } from '../ChartContext';
+
+type TooltipProps = Partial<TooltipOptions>;
+
+const Tooltip = memo((props: TooltipProps) => {
+  // @ts-expect-error TODO
   const { children, ...restProps } = props;
   const chart = useChart();
   const Highcharts = useHighcharts();
@@ -35,7 +41,10 @@ const Tooltip = memo(props => {
   return null;
 });
 
-const updateTooltip = (chart, config) => {
+const updateTooltip = (
+  chart: ChartContextValue,
+  config: Partial<TooltipOptions>
+) => {
   chart.update({
     tooltip: config
   });

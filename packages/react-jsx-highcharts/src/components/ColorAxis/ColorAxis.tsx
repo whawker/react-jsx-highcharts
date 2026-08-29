@@ -7,10 +7,27 @@ import useModifiedProps from '../UseModifiedProps';
 import useChart from '../UseChart';
 import createProvidedColorAxis from './createProvidedColorAxis';
 
-const ColorAxis = ({ children = null, ...restProps }) => {
+import type { ReactNode } from 'react';
+import type {
+  Axis,
+  AxisSetExtremesEventCallbackFunction,
+  LegendItemClickCallbackFunction,
+  ColorAxisOptions
+} from 'highcharts';
+import type { ChartContextValue } from '../UseChart';
+import type { ColorAxisContextValue } from '../ColorAxisContext';
+
+type ColorAxisProps = {
+  children?: ReactNode;
+  onAfterSetExtremes?: AxisSetExtremesEventCallbackFunction;
+  onLegendItemClick?: LegendItemClickCallbackFunction;
+  onSetExtremes?: AxisSetExtremesEventCallbackFunction;
+} & Partial<ColorAxisOptions>;
+
+const ColorAxis = ({ children = null, ...restProps }: ColorAxisProps) => {
   const chart = useChart();
-  const colorAxisRef = useRef(null);
-  const providedColorAxisRef = useRef(null);
+  const colorAxisRef = useRef<Axis>(null);
+  const providedColorAxisRef = useRef<ColorAxisContextValue>(null);
   const [hasColorAxis, setHasColorAxis] = useState(false);
 
   useEffect(() => {
@@ -53,6 +70,7 @@ const ColorAxis = ({ children = null, ...restProps }) => {
   );
 };
 
+// @ts-expect-error TODO
 const getColorAxisConfig = props => {
   const { id = uuid, ...rest } = props;
 
@@ -67,7 +85,8 @@ const getColorAxisConfig = props => {
   };
 };
 
-const createColorAxis = (chart, props) => {
+// @ts-expect-error TODO
+const createColorAxis = (chart: ChartContextValue, props) => {
   const opts = getColorAxisConfig(props);
   return chart.addColorAxis(opts, false);
 };

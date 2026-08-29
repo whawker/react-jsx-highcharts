@@ -2,35 +2,48 @@ import { useEffect, memo } from 'react';
 import useModifiedProps from '../UseModifiedProps';
 import useChart from '../UseChart';
 
-const Loading = memo(({ children, isLoading = true, ...restProps }) => {
-  const chart = useChart();
-  const modifiedProps = useModifiedProps(restProps);
+import type { LoadingOptions } from 'highcharts';
+import type { ChartContextValue } from '../ChartContext';
 
-  useEffect(() => {
-    if (modifiedProps !== false) {
-      updateLoading(modifiedProps, chart);
-    }
-    if (isLoading) {
-      chart.showLoading(children);
-    } else {
-      chart.hideLoading();
-    }
-  });
+type LoadingProps = {
+  children?: string;
+  isLoading?: boolean;
+} & Partial<Omit<LoadingOptions, 'text'>>;
 
-  useEffect(() => {
-    return () => {
-      try {
-        chart.hideLoading();
-      } catch {
-        // ignore as chart might have been unmounted
+const Loading = memo(
+  ({ children, isLoading = true, ...restProps }: LoadingProps) => {
+    const chart = useChart();
+    const modifiedProps = useModifiedProps(restProps);
+
+    useEffect(() => {
+      if (modifiedProps !== false) {
+        updateLoading(modifiedProps, chart);
       }
-    };
-  }, []);
+      if (isLoading) {
+        chart.showLoading(children);
+      } else {
+        chart.hideLoading();
+      }
+    });
 
-  return null;
-});
+    useEffect(() => {
+      return () => {
+        try {
+          chart.hideLoading();
+        } catch {
+          // ignore as chart might have been unmounted
+        }
+      };
+    }, []);
 
-const updateLoading = (config, chart) => {
+    return null;
+  }
+);
+
+const updateLoading = (
+  config: Partial<LoadingOptions>,
+  chart: ChartContextValue
+) => {
   chart.update({ loading: config }, true);
 };
 

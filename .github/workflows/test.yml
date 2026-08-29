@@ -35,7 +35,7 @@ jobs:
         run: npm run test:dts
 
       - name: Test react-jsx-highstock types
-        run: npm run --workspace react-jsx-highstock test:types
+        run: npm run --workspace react-jsx-highstock --workspace react-jsx-highcharts test:types
 
       - name: Upload coverage
         uses: codecov/codecov-action@v3

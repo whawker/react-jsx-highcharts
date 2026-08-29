@@ -3,7 +3,12 @@ import { useEffect } from 'react';
 import Series from '../Series';
 import useChart from '../UseChart';
 
-const BarSeries = props => {
+import type { SeriesProps } from '../Series/Series';
+import type { SeriesBarOptions } from 'highcharts';
+
+type BarSeriesProps = SeriesProps<SeriesBarOptions>;
+
+const BarSeries = (props: BarSeriesProps) => {
   const chart = useChart();
 
   useEffect(() => {

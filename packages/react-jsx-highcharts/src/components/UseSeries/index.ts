@@ -3,7 +3,10 @@ import SeriesContext from '../SeriesContext';
 import useChart from '../UseChart';
 import createProvidedSeries from '../Series/createProvidedSeries';
 
-export default function useSeries(seriesId) {
+import type { Series } from 'highcharts';
+import type { SeriesContextValue } from '../SeriesContext';
+
+export default function useSeries(seriesId: string): SeriesContextValue | null {
   const contextSeries = useContext(SeriesContext);
   const chart = useChart();
 
@@ -11,7 +14,7 @@ export default function useSeries(seriesId) {
     if (contextSeries) return contextSeries;
 
     if (seriesId) {
-      const mySeries = chart.get(seriesId);
+      const mySeries = chart.get(seriesId) as Series;
       return createProvidedSeries(mySeries);
     }
     return null;

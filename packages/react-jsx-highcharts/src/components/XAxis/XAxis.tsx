@@ -2,7 +2,9 @@ import * as React from 'react';
 import Axis from '../Axis';
 import useChart from '../UseChart';
 
-const XAxis = ({ id, ...rest }) => {
+import type { XAxisProps } from '../Axis/Axis';
+
+const XAxis = ({ id, ...rest }: Omit<XAxisProps, 'isX'>) => {
   const chart = useChart();
 
   const isStockChart = chart.type === 'stockChart';
