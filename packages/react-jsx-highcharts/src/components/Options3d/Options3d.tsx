@@ -27,8 +27,7 @@ const Options3d = memo(
     depth = 100,
     fitToPlot = true,
     viewDistance = 25,
-    // @ts-expect-error 'default' is not assignable to type AxisLabelPosition
-    axisLabelPosition = 'default',
+    axisLabelPosition = null,
     frame = DEFAULT_FRAME,
     ...restProps
   }: Options3dProps) => {
