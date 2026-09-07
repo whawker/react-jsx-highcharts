@@ -145,6 +145,10 @@ type AxisProps<TAxisOptions> = {
   onPointBreak?: Highcharts.AxisPointBreakEventCallbackFunction;
   onPointInBreak?: Highcharts.AxisPointBreakEventCallbackFunction;
   onSetExtremes?: Highcharts.AxisSetExtremesEventCallbackFunction;
+  /**
+   * @private
+   */
+  dynamicAxis?: boolean;
 } & Partial<TAxisOptions>;
 
 export function XAxis(props: AxisProps<Highcharts.XAxisOptions>): ReactElement;
