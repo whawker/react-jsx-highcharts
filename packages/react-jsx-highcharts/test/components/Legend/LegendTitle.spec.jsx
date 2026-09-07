@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { render } from '@testing-library/react';
 
 import LegendTitle from '../../../src/components/Legend/LegendTitle';

@@ -1,4 +1,3 @@
-import * as React from 'react';
 import Axis from '../Axis/index.ts';
 
 import type { YAxisProps } from '../Axis/Axis.tsx';

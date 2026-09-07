@@ -1,4 +1,3 @@
-import * as React from 'react';
 import Series from '../Series/index.ts';
 
 import type { SeriesProps } from '../Series/Series.tsx';

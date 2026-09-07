@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { useState, useEffect, useRef, useLayoutEffect } from 'react';
 import ChartContext from '../ChartContext/index.ts';
 import usePrevious from '../UsePrevious/index.ts';

@@ -1,4 +1,3 @@
-import * as React from 'react';
 import BaseChart from '../BaseChart/index.ts';
 import useHighcharts from '../UseHighcharts/index.ts';
 

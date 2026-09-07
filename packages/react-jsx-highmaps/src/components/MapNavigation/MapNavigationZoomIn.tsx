@@ -1,4 +1,3 @@
-import * as React from 'react';
 import MapNavigationButton from './MapNavigationButton.tsx';
 
 import type { MapNavigationButtonsZoomInOptions } from 'highcharts';

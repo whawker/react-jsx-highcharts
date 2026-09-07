@@ -27,6 +27,7 @@ export default defineConfig([
   eslint.configs.recommended,
   tseslint.configs.recommended,
   reactPlugin.configs.flat.recommended,
+  reactPlugin.configs.flat['jsx-runtime'],
   reactPerfPlugin.configs.flat['recommended'],
   {
     plugins: { 'react-hooks': reactHooksPlugin },

@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { useEffect, useRef, useState } from 'react';
 import { v4 as uuid } from 'uuid';
 import {

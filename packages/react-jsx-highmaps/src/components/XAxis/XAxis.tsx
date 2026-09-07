@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { XAxis } from 'react-jsx-highcharts';
 
 import type { ComponentProps } from 'react';

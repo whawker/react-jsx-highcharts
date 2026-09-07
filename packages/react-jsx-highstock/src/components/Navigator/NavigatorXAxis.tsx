@@ -1,4 +1,3 @@
-import * as React from 'react';
 import NavigatorAxis from './NavigatorAxis.tsx';
 
 import type { NavigatorXAxisOptions } from 'highcharts';

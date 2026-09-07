@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { BaseChart, useHighcharts } from 'react-jsx-highcharts';
 
 import type { HighchartsChart } from 'react-jsx-highcharts';

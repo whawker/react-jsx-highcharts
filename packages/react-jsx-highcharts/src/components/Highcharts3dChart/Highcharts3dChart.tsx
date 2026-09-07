@@ -1,4 +1,3 @@
-import * as React from 'react';
 import HighchartsChart from '../HighchartsChart/index.ts';
 import Options3d from '../Options3d/index.ts';
 

@@ -1,4 +1,3 @@
-import * as React from 'react';
 import Highcharts from 'highcharts';
 import 'highcharts/highcharts-3d';
 

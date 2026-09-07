@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { useMemo } from 'react';
 import HighchartsChart from '../HighchartsChart/index.ts';
 import Chart from '../Chart/index.ts';
