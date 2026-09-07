@@ -1,17 +1,14 @@
 import eslint from '@eslint/js';
-// eslint-disable-next-line import/no-unresolved
 import { defineConfig } from 'eslint/config';
 
 import { includeIgnoreFile } from '@eslint/compat';
 import path from 'node:path';
 
 import globals from 'globals';
-// eslint-disable-next-line import/no-unresolved
 import tseslint from 'typescript-eslint';
 import reactPlugin from 'eslint-plugin-react';
 import reactHooksPlugin from 'eslint-plugin-react-hooks';
 import reactPerfPlugin from 'eslint-plugin-react-perf';
-import importPlugin from 'eslint-plugin-import';
 import prettierRecommended from 'eslint-plugin-prettier/recommended';
 
 const gitignorePath = path.resolve(import.meta.dirname, '.gitignore');
@@ -30,7 +27,6 @@ export default defineConfig([
   eslint.configs.recommended,
   tseslint.configs.recommended,
   reactPlugin.configs.flat.recommended,
-  importPlugin.flatConfigs.errors,
   reactPerfPlugin.configs.flat['recommended'],
   {
     plugins: { 'react-hooks': reactHooksPlugin },
@@ -38,23 +34,10 @@ export default defineConfig([
       // version config for eslint-plugin-react
       react: {
         version: 'detect'
-      },
-      // let import plugin import jsx
-      'import/resolver': {
-        node: {
-          extensions: ['.js', '.jsx', '.ts', '.tsx']
-        }
       }
     }
   },
   prettierRecommended,
-  {
-    name: 'require extensions under src',
-    files: ['packages/*/src/**/*'],
-    rules: {
-      'import/extensions': ['error', 'ignorePackages']
-    }
-  },
   {
     name: 'src and test rules',
     files: ['packages/*/+(src|test)/**/*'],
@@ -76,14 +59,6 @@ export default defineConfig([
         'error',
         { ignoreRestSiblings: true, args: 'none', caughtErrors: 'none' }
       ]
-    }
-  },
-  {
-    name: 'type definitions',
-    files: [`packages/*/types/*.d.ts`],
-    rules: {
-      '@typescript-eslint/no-explicit-any': 'warn',
-      'import/named': 'off'
     }
   },
   {
