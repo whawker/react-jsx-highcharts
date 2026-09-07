@@ -1,6 +1,5 @@
-import * as React from 'react';
-import HighchartsChart from '../HighchartsChart';
-import Options3d from '../Options3d';
+import HighchartsChart from '../HighchartsChart/index.ts';
+import Options3d from '../Options3d/index.ts';
 
 import type { Chart3dOptions } from 'highcharts';
 import type { ReactNode } from 'react';

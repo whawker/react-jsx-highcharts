@@ -1,2 +1,2 @@
-import Subtitle from './Subtitle';
+import Subtitle from './Subtitle.tsx';
 export default Subtitle;

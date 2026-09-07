@@ -1,2 +1,2 @@
-import Scrollbar from './Scrollbar';
+import Scrollbar from './Scrollbar.tsx';
 export default Scrollbar;

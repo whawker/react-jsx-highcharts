@@ -1,10 +1,10 @@
 import { useEffect, memo } from 'react';
-import useChart from '../UseChart';
-import useHighcharts from '../UseHighcharts';
-import useModifiedProps from '../UseModifiedProps';
+import useChart from '../UseChart/index.ts';
+import useHighcharts from '../UseHighcharts/index.ts';
+import useModifiedProps from '../UseModifiedProps/index.ts';
 
 import type { TooltipOptions } from 'highcharts';
-import type { ChartContextValue } from '../ChartContext';
+import type { ChartContextValue } from '../ChartContext/index.ts';
 
 type TooltipProps = Partial<TooltipOptions>;
 

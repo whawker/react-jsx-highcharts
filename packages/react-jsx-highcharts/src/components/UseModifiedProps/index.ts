@@ -1,5 +1,5 @@
 import { useRef, useEffect, useDebugValue } from 'react';
-import getModifiedProps from '../../utils/getModifiedProps';
+import getModifiedProps from '../../utils/getModifiedProps.ts';
 
 /**
  *

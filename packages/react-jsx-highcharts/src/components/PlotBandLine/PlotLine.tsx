@@ -1,7 +1,6 @@
-import * as React from 'react';
 import { memo } from 'react';
-import PlotBandLineContext from '../PlotBandLineContext';
-import usePlotBandLineLifecycle from './UsePlotBandLineLifecycle';
+import PlotBandLineContext from '../PlotBandLineContext/index.ts';
+import usePlotBandLineLifecycle from './UsePlotBandLineLifecycle.ts';
 
 import type { ReactNode } from 'react';
 import type { AxisPlotLinesOptions } from 'highcharts';

@@ -1,8 +1,8 @@
-import useChartUpdate from '../UseChartUpdate';
+import useChartUpdate from '../UseChartUpdate/index.ts';
 
 import type { ReactNode } from 'react';
 import type { CreditsOptions } from 'highcharts';
-import type { ChartContextValue } from '../ChartContext';
+import type { ChartContextValue } from '../ChartContext/index.ts';
 type CreditProps = {
   children?: ReactNode;
 } & Partial<Omit<CreditsOptions, 'text'>>;

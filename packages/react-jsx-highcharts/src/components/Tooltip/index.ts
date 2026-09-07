@@ -1,2 +1,2 @@
-import Tooltip from './Tooltip';
+import Tooltip from './Tooltip.tsx';
 export default Tooltip;

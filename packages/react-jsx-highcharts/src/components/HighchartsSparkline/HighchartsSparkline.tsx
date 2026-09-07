@@ -1,13 +1,12 @@
-import * as React from 'react';
 import { useMemo } from 'react';
-import HighchartsChart from '../HighchartsChart';
-import Chart from '../Chart';
-import XAxis from '../XAxis';
-import YAxis from '../YAxis';
+import HighchartsChart from '../HighchartsChart/index.ts';
+import Chart from '../Chart/index.ts';
+import XAxis from '../XAxis/index.ts';
+import YAxis from '../YAxis/index.ts';
 
 import type { ReactNode } from 'react';
-import type { ChartProps } from '../Chart/Chart';
-import type { HighchartsChartProps } from '../HighchartsChart/HighchartsChart';
+import type { ChartProps } from '../Chart/Chart.tsx';
+import type { HighchartsChartProps } from '../HighchartsChart/HighchartsChart.tsx';
 
 const defaultSparklinePlotOptions: HighchartsChartProps['plotOptions'] = {
   series: {

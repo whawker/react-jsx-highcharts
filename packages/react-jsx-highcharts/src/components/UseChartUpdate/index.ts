@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
-import useChart from '../UseChart';
-import useModifiedProps from '../UseModifiedProps';
+import useChart from '../UseChart/index.ts';
+import useModifiedProps from '../UseModifiedProps/index.ts';
 
-import type { ChartContextValue } from '../UseChart';
+import type { ChartContextValue } from '../UseChart/index.ts';
 
 const noop = (_chart: ChartContextValue, _props?: unknown) => undefined;
 

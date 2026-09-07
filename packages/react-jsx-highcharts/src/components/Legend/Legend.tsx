@@ -1,9 +1,9 @@
 import { memo } from 'react';
-import useChartUpdate from '../UseChartUpdate';
+import useChartUpdate from '../UseChartUpdate/index.ts';
 
 import type { ReactNode } from 'react';
 import type { LegendOptions } from 'highcharts';
-import type { ChartContextValue } from '../ChartContext';
+import type { ChartContextValue } from '../ChartContext/index.ts';
 
 type LegendProps = {
   children?: ReactNode;

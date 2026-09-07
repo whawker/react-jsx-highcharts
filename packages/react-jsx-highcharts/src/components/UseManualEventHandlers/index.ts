@@ -1,7 +1,7 @@
-import useHighcharts from '../UseHighcharts';
-import usePrevious from '../UsePrevious';
-import { getEventsConfig } from '../../utils/events';
-import getModifiedProps from '../../utils/getModifiedProps';
+import useHighcharts from '../UseHighcharts/index.ts';
+import usePrevious from '../UsePrevious/index.ts';
+import { getEventsConfig } from '../../utils/events.ts';
+import getModifiedProps from '../../utils/getModifiedProps.ts';
 
 const useManualEventHandlers = function (
   props: Record<string, unknown>,

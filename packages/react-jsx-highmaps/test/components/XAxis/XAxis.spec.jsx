@@ -1,4 +1,3 @@
-import * as React from 'react';
 import Highmaps from 'highcharts/highmaps';
 import 'highcharts/modules/accessibility';
 

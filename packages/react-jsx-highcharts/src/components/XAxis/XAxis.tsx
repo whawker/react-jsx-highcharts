@@ -1,8 +1,7 @@
-import * as React from 'react';
-import Axis from '../Axis';
-import useChart from '../UseChart';
+import Axis from '../Axis/index.ts';
+import useChart from '../UseChart/index.ts';
 
-import type { XAxisProps } from '../Axis/Axis';
+import type { XAxisProps } from '../Axis/Axis.tsx';
 
 const XAxis = ({ id, ...rest }: Omit<XAxisProps, 'isX'>) => {
   const chart = useChart();

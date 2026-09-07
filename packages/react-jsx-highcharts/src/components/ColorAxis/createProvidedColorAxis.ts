@@ -1,5 +1,5 @@
 import type { Axis } from 'highcharts';
-import type { ColorAxisContextValue } from '../ColorAxisContext';
+import type { ColorAxisContextValue } from '../ColorAxisContext/index.ts';
 
 const createProvidedColorAxis = (colorAxis: Axis) => {
   if (!colorAxis) return null;

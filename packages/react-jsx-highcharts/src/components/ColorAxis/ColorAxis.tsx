@@ -1,11 +1,13 @@
-import * as React from 'react';
 import { useEffect, useRef, useState } from 'react';
 import { v4 as uuid } from 'uuid';
-import { getNonEventHandlerProps, getEventsConfig } from '../../utils/events';
-import ColorAxisContext from '../ColorAxisContext';
-import useModifiedProps from '../UseModifiedProps';
-import useChart from '../UseChart';
-import createProvidedColorAxis from './createProvidedColorAxis';
+import {
+  getNonEventHandlerProps,
+  getEventsConfig
+} from '../../utils/events.ts';
+import ColorAxisContext from '../ColorAxisContext/index.ts';
+import useModifiedProps from '../UseModifiedProps/index.ts';
+import useChart from '../UseChart/index.ts';
+import createProvidedColorAxis from './createProvidedColorAxis.ts';
 
 import type { ReactNode } from 'react';
 import type {
@@ -14,8 +16,8 @@ import type {
   LegendItemClickCallbackFunction,
   ColorAxisOptions
 } from 'highcharts';
-import type { ChartContextValue } from '../UseChart';
-import type { ColorAxisContextValue } from '../ColorAxisContext';
+import type { ChartContextValue } from '../UseChart/index.ts';
+import type { ColorAxisContextValue } from '../ColorAxisContext/index.ts';
 
 type ColorAxisProps = {
   children?: ReactNode;

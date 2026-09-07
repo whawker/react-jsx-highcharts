@@ -1,9 +1,8 @@
-import * as React from 'react';
 import { useEffect } from 'react';
-import Series from '../Series';
-import useChart from '../UseChart';
+import Series from '../Series/index.ts';
+import useChart from '../UseChart/index.ts';
 
-import type { SeriesProps } from '../Series/Series';
+import type { SeriesProps } from '../Series/Series.tsx';
 import type { SeriesBarOptions } from 'highcharts';
 
 type BarSeriesProps = SeriesProps<SeriesBarOptions>;

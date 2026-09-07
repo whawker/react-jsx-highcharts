@@ -1,2 +1,2 @@
-import Loading from './Loading';
+import Loading from './Loading.tsx';
 export default Loading;

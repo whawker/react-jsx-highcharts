@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { useState, useEffect } from 'react';
 import {
   useModifiedProps,
@@ -6,7 +5,7 @@ import {
   useHighcharts,
   type ChartContextValue
 } from 'react-jsx-highcharts';
-import NavigatorXAxis from './NavigatorXAxis';
+import NavigatorXAxis from './NavigatorXAxis.tsx';
 
 import type { NavigatorOptions } from 'highcharts';
 import type { ReactNode } from 'react';

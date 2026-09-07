@@ -1,9 +1,9 @@
 import { useEffect, memo } from 'react';
-import useModifiedProps from '../UseModifiedProps';
-import useChart from '../UseChart';
+import useModifiedProps from '../UseModifiedProps/index.ts';
+import useChart from '../UseChart/index.ts';
 
 import type { LoadingOptions } from 'highcharts';
-import type { ChartContextValue } from '../ChartContext';
+import type { ChartContextValue } from '../ChartContext/index.ts';
 
 type LoadingProps = {
   children?: string;

@@ -1,4 +1,4 @@
-import pickBy from './pickBy';
+import pickBy from './pickBy.ts';
 
 const getModifiedProps = function <P>(
   prevProps: P,

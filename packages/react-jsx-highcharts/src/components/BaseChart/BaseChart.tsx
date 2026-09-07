@@ -1,12 +1,11 @@
-import * as React from 'react';
 import { useState, useEffect, useRef, useLayoutEffect } from 'react';
-import ChartContext from '../ChartContext';
-import usePrevious from '../UsePrevious';
-import createProvidedChart from './createProvidedChart';
+import ChartContext from '../ChartContext/index.ts';
+import usePrevious from '../UsePrevious/index.ts';
+import createProvidedChart from './createProvidedChart.ts';
 
 import type { Chart, Options as ChartOptions } from 'highcharts';
 import type { ReactNode, HTMLAttributes } from 'react';
-import type { ChartContextValue } from '../ChartContext';
+import type { ChartContextValue } from '../ChartContext/index.ts';
 
 const noop = (c: unknown) => c;
 

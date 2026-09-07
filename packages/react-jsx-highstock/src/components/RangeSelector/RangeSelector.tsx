@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { useState, useEffect } from 'react';
 import {
   useHighcharts,
@@ -8,7 +7,7 @@ import {
 } from 'react-jsx-highcharts';
 
 import type { RangeSelectorOptions } from 'highcharts';
-import type * as Highcharts from 'highcharts';
+import type Highcharts from 'highcharts';
 import type { ReactNode } from 'react';
 import type { AxisContextValue, ChartContextValue } from 'react-jsx-highcharts';
 

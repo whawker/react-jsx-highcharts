@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { useEffect } from 'react';
 import { useModifiedProps, useChart } from 'react-jsx-highcharts';
 

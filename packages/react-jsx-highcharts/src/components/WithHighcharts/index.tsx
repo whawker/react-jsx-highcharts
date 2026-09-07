@@ -1,5 +1,4 @@
-import * as React from 'react';
-import HighchartsContext from '../HighchartsContext';
+import HighchartsContext from '../HighchartsContext/index.ts';
 
 import type * as HC from 'highcharts';
 import type { ReactNode, ComponentType, JSX } from 'react';

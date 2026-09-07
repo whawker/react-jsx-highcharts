@@ -27,12 +27,12 @@ import type {
 } from 'highcharts';
 
 // Charts
-export { default as HighchartsMapChart } from './components/HighchartsMapChart';
+export { default as HighchartsMapChart } from './components/HighchartsMapChart/index.ts';
 
 // Graph Parts
-export { default as MapNavigation } from './components/MapNavigation';
-export { default as XAxis } from './components/XAxis';
-export { default as YAxis } from './components/YAxis';
+export { default as MapNavigation } from './components/MapNavigation/index.ts';
+export { default as XAxis } from './components/XAxis/index.ts';
+export { default as YAxis } from './components/YAxis/index.ts';
 
 // Series
 const parentAxisId = { axisId: 'yAxis' };

@@ -1,2 +1,2 @@
-import Annotation from './Annotation';
+import Annotation from './Annotation.tsx';
 export default Annotation;

@@ -1,8 +1,8 @@
 import { memo } from 'react';
-import useChartUpdate from '../UseChartUpdate';
+import useChartUpdate from '../UseChartUpdate/index.ts';
 
 import type { PaneOptions } from 'highcharts';
-import type { ChartContextValue } from '../ChartContext';
+import type { ChartContextValue } from '../ChartContext/index.ts';
 
 type PaneProps = Partial<PaneOptions>;
 // @ts-expect-error TODO

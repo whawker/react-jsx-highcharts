@@ -8,12 +8,12 @@ import type {
 } from 'highcharts';
 
 // Charts
-export { default as HighchartsStockChart } from './components/HighchartsStockChart';
+export { default as HighchartsStockChart } from './components/HighchartsStockChart/index.ts';
 
 // Graph parts
-export { default as Navigator } from './components/Navigator';
-export { default as RangeSelector } from './components/RangeSelector';
-export { default as Scrollbar } from './components/Scrollbar';
+export { default as Navigator } from './components/Navigator/index.ts';
+export { default as RangeSelector } from './components/RangeSelector/index.ts';
+export { default as Scrollbar } from './components/Scrollbar/index.ts';
 
 // Series
 export const CandlestickSeries =

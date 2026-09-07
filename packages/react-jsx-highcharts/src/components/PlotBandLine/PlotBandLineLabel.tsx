@@ -1,5 +1,5 @@
 import { useEffect, memo } from 'react';
-import usePlotBandLine from '../UsePlotBandLine';
+import usePlotBandLine from '../UsePlotBandLine/index.ts';
 
 import type { ReactNode } from 'react';
 import type {

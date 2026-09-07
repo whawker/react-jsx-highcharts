@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { render } from '@testing-library/react';
 
 vi.mock('react-jsx-highcharts', async () => {

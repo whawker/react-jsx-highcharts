@@ -1,5 +1,5 @@
 import type { Axis as HighchartsAxis } from 'highcharts';
-import type { AxisContextValue } from '../AxisContext';
+import type { AxisContextValue } from '../AxisContext/index.ts';
 
 const createProvidedAxis = (axis: HighchartsAxis): AxisContextValue | null => {
   if (!axis) return null;

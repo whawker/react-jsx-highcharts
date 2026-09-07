@@ -1,2 +1,2 @@
-import Chart from './Chart';
+import Chart from './Chart.tsx';
 export default Chart;

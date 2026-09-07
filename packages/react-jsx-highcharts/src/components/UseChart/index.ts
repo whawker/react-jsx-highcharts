@@ -1,7 +1,7 @@
 import { useContext } from 'react';
-import ChartContext from '../ChartContext';
+import ChartContext from '../ChartContext/index.ts';
 
-import type { ChartContextValue } from '../ChartContext';
+import type { ChartContextValue } from '../ChartContext/index.ts';
 export type { ChartContextValue };
 
 export default function useChart(): ChartContextValue {
