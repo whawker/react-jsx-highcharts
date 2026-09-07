@@ -2,18 +2,16 @@
   "name": "react-jsx-highcharts",
   "version": "5.0.4",
   "description": "Highcharts charts built using React components",
-  "main": "dist/react-jsx-highcharts.min.js",
-  "module": "dist/es/index.js",
+  "main": "dist/index.js",
+  "type":"module",
   "types": "dist/index.d.ts",
   "sideEffects": false,
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "cross-env NODE_ENV=development webpack",
-    "build:prod": "npm run build:umd && npm run build:es && npm run build:types",
-    "build:umd": "cross-env NODE_ENV=production webpack",
-    "build:es": "cross-env BABEL_ENV=es babel --extensions .tsx,.ts,.js,.jsx src --out-dir dist/es",
+    "build": "babel --extensions .tsx,.ts,.js,.jsx src --out-dir dist",
+    "build:prod": "npm run build && npm run build:types",
     "build:types": "tsc --emitDeclarationOnly",
     "clean": "rimraf dist",
     "format": "prettier --write \"src/**/*.js\" \"test/**/*.js\" README.md \"../../README.md\"",
