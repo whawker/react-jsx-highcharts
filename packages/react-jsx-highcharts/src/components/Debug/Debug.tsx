@@ -1,10 +1,20 @@
 import { useEffect } from 'react';
 import useChart from '../UseChart';
 
-const Debug = ({ varName = 'chart' }) => {
+type DebugProps = {
+  varName?: string;
+};
+
+/**
+ * Debug component for exposing the chart instance as a global variable.
+ *
+ * @private
+ */
+const Debug = ({ varName = 'chart' }: DebugProps) => {
   const chart = useChart();
 
   useEffect(() => {
+    // @ts-expect-error TODO
     window[varName] = chart.object;
     // eslint-disable-next-line no-console
     console.log(
@@ -12,6 +22,7 @@ const Debug = ({ varName = 'chart' }) => {
     );
 
     return () => {
+      // @ts-expect-error TODO
       window[varName] = undefined;
     };
   }, [varName]);

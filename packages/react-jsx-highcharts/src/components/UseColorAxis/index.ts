@@ -3,7 +3,12 @@ import ColorAxisContext from '../ColorAxisContext';
 import useChart from '../UseChart';
 import createProvidedColorAxis from '../ColorAxis/createProvidedColorAxis';
 
-export default function useColorAxis(colorAxisId) {
+import type { Axis } from 'highcharts';
+import type { ColorAxisContextValue } from '../ColorAxisContext';
+
+export default function useColorAxis(
+  colorAxisId?: string
+): ColorAxisContextValue | null {
   const chart = useChart();
   const contextColorAxis = useContext(ColorAxisContext);
 
@@ -11,7 +16,7 @@ export default function useColorAxis(colorAxisId) {
     if (contextColorAxis) return contextColorAxis;
 
     if (colorAxisId) {
-      const colorAxis = chart.get(colorAxisId);
+      const colorAxis = chart.get(colorAxisId) as Axis;
       return createProvidedColorAxis(colorAxis);
     }
     return null;

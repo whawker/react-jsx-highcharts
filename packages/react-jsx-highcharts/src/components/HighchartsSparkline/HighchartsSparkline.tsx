@@ -5,7 +5,11 @@ import Chart from '../Chart';
 import XAxis from '../XAxis';
 import YAxis from '../YAxis';
 
-const defaultSparklinePlotOptions = {
+import type { ReactNode } from 'react';
+import type { ChartProps } from '../Chart/Chart';
+import type { HighchartsChartProps } from '../HighchartsChart/HighchartsChart';
+
+const defaultSparklinePlotOptions: HighchartsChartProps['plotOptions'] = {
   series: {
     animation: false,
     lineWidth: 1,
@@ -23,15 +27,26 @@ const defaultSparklinePlotOptions = {
         }
       }
     },
+    // @ts-expect-error fillOpacity is missing from plotOptions
     fillOpacity: 0.25
   }
 };
 
-const EMPTY_ARRAY = [];
+const EMPTY_ARRAY: number[] = [];
 const EMPTY_OBJECT = {};
 const ZERO_ARRAY = [0];
 const LABELS_DISABLED = { enabled: false };
 const DEFAULT_MARGIN = [2, 0, 2, 0];
+
+type HighchartsSparklineProps = {
+  height?: ChartProps['height'];
+  width?: ChartProps['width'];
+  margin?: ChartProps['margin'];
+  style?: ChartProps['style'];
+  series?: ReactNode;
+  children?: ReactNode;
+  plotOptions?: HighchartsChartProps['plotOptions'];
+};
 
 const HighchartsSparkline = ({
   height = 20,
@@ -42,7 +57,7 @@ const HighchartsSparkline = ({
   children,
   plotOptions = defaultSparklinePlotOptions,
   ...rest
-}) => {
+}: HighchartsSparklineProps) => {
   const chartStyle = useMemo(
     () => ({ overflow: 'visible', ...style }),
     [style]
@@ -58,6 +73,7 @@ const HighchartsSparkline = ({
         height={height}
         width={width}
         animation={false}
+        // @ts-expect-error backgroundColor does not allow null
         backgroundColor={null}
         borderWidth={0}
         margin={margin}

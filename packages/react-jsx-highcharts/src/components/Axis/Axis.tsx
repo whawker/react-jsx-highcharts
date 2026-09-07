@@ -7,10 +7,39 @@ import useModifiedProps from '../UseModifiedProps';
 import useChart from '../UseChart';
 import createProvidedAxis from './createProvidedAxis';
 
-const Axis = ({ children = null, dynamicAxis = true, ...restProps }) => {
+import type { ReactNode } from 'react';
+import type { ChartContextValue } from '../UseChart';
+import type {
+  XAxisOptions,
+  YAxisOptions,
+  ZAxisOptions,
+  Axis as HighchartsAxis
+} from 'highcharts';
+import type { AxisContextValue } from '../AxisContext';
+
+type BaseAxisProps = {
+  children?: ReactNode;
+  dynamicAxis?: boolean;
+  isX?: boolean;
+};
+export type XAxisProps = BaseAxisProps & XAxisOptions;
+export type YAxisProps = BaseAxisProps & YAxisOptions;
+export type ZAxisProps = BaseAxisProps & ZAxisOptions;
+
+type AxisProps = XAxisProps | YAxisProps | ZAxisProps;
+
+/**
+ *
+ * @private
+ */
+const Axis = ({
+  children = null,
+  dynamicAxis = true,
+  ...restProps
+}: AxisProps) => {
   const chart = useChart();
-  const axisRef = useRef(null);
-  const providedAxisRef = useRef(null);
+  const axisRef = useRef<HighchartsAxis>(null);
+  const providedAxisRef = useRef<AxisContextValue>(null);
   const [hasAxis, setHasAxis] = useState(false);
 
   useEffect(() => {
@@ -45,9 +74,12 @@ const Axis = ({ children = null, dynamicAxis = true, ...restProps }) => {
       };
       // if there are plotlines or bands, the chart needs to be redrawn before
       // they can be accessed
+      // @ts-expect-error TODO
       if (axis.plotLinesAndBands && axis.plotLinesAndBands.length > 0) {
+        // @ts-expect-error TODO
         axis.update(updateProps, true);
       } else {
+        // @ts-expect-error TODO
         axis.update(updateProps, false);
         chart.needsRedraw();
       }
@@ -63,7 +95,9 @@ const Axis = ({ children = null, dynamicAxis = true, ...restProps }) => {
   );
 };
 
-const getAxisConfig = props => {
+const getAxisConfig = (
+  props: { isX?: boolean } & (XAxisOptions | YAxisOptions | ZAxisOptions)
+) => {
   const { id = uuid, ...rest } = props;
 
   const axisId = typeof id === 'function' ? id() : id;
@@ -78,18 +112,24 @@ const getAxisConfig = props => {
   };
 };
 
-const createAxis = (chart, props, dynamicAxis) => {
+const createAxis = (
+  chart: ChartContextValue,
+  props: { isX?: boolean } & (XAxisOptions | YAxisOptions | ZAxisOptions),
+  dynamicAxis: boolean
+) => {
   const { id = uuid, isX } = props;
 
   // Create Highcharts Axis
   const opts = getAxisConfig(props);
   let axis;
   if (dynamicAxis) {
+    // @ts-expect-error TODO
     axis = chart.addAxis(opts, isX, false);
   } else {
     // ZAxis cannot be added dynamically, Maps only have a single axes - update instead
     const axisId = typeof id === 'function' ? id() : id;
-    axis = chart.get(axisId);
+    axis = chart.get(axisId) as HighchartsAxis;
+    // @ts-expect-error TODO
     axis.update.call(axis, opts, false);
   }
   return axis;

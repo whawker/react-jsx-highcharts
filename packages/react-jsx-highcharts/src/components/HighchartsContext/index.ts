@@ -1,5 +1,12 @@
 import { createContext } from 'react';
 
-const HighchartsContext = createContext();
+import type Highcharts from 'highcharts';
+
+type HighchartsContextValue = typeof Highcharts;
+
+const HighchartsContext = createContext<HighchartsContextValue | undefined>(
+  undefined
+);
+
 HighchartsContext.displayName = 'HighchartsContext';
 export default HighchartsContext;

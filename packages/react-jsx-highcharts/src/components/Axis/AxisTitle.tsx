@@ -1,33 +1,38 @@
 import { useEffect, memo } from 'react';
 import useAxis from '../UseAxis';
 
-const AxisTitle = memo(({ children: text, axisId, ...restProps }) => {
-  const axis = useAxis(axisId);
+import type { AxisTitleOptions } from 'highcharts';
 
-  useEffect(() => {
-    if (axis) {
-      updateAxisTitle({ text, ...restProps }, axis);
-    }
-  });
+type AxisTitleProps = {
+  children?: string;
+  axisId?: string;
+} & Partial<Omit<AxisTitleOptions, 'text'>>;
 
-  useEffect(() => {
-    return () => {
+const AxisTitle = memo(
+  ({ children: text, axisId, ...restProps }: AxisTitleProps) => {
+    const axis = useAxis(axisId);
+
+    useEffect(() => {
       if (axis) {
-        try {
-          updateAxisTitle({ text: null }, axis);
-        } catch {
-          // ignore as axis might have been already unmounted
-        }
+        axis.setTitle({ text, ...restProps }, true);
       }
-    };
-  }, [axis]);
+    });
 
-  return null;
-});
+    useEffect(() => {
+      return () => {
+        if (axis) {
+          try {
+            axis.setTitle({ text: null }, true);
+          } catch {
+            // ignore as axis might have been already unmounted
+          }
+        }
+      };
+    }, [axis]);
 
-const updateAxisTitle = (config, axis) => {
-  axis.setTitle(config, true);
-};
+    return null;
+  }
+);
 
 AxisTitle.displayName = 'AxisTitle';
 

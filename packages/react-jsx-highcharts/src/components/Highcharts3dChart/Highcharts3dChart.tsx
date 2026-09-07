@@ -2,12 +2,20 @@ import * as React from 'react';
 import HighchartsChart from '../HighchartsChart';
 import Options3d from '../Options3d';
 
+import type { Chart3dOptions } from 'highcharts';
+import type { ReactNode } from 'react';
+
 const CHART = {
   options3d: { enabled: true }
 };
 const ZAXIS = {
   id: 'zAxis'
 };
+
+type Highcharts3dChartProps = { children?: ReactNode } & Omit<
+  Chart3dOptions,
+  'enabled'
+>;
 
 const Highcharts3dChart = ({
   children,
@@ -19,7 +27,7 @@ const Highcharts3dChart = ({
   frame,
   viewDistance,
   ...rest
-}) => (
+}: Highcharts3dChartProps) => (
   <HighchartsChart chart={CHART} zAxis={ZAXIS} {...rest}>
     <Options3d
       alpha={alpha}
@@ -33,6 +41,5 @@ const Highcharts3dChart = ({
     {children}
   </HighchartsChart>
 );
-Highcharts3dChart.propTypes = Options3d.propTypes;
 
 export default Highcharts3dChart;

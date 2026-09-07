@@ -1,10 +1,11 @@
 import pickBy from './pickBy';
 
-export default function getModifiedProps(
-  prevProps,
-  currProps,
+const getModifiedProps = function <P>(
+  prevProps: P,
+  currProps: P,
   childrenIsText = false
 ) {
+  // @ts-expect-error TODO
   const { children, ...rest } = currProps;
 
   const modifiedProps = pickBy(rest, (propName, value) => {
@@ -15,8 +16,10 @@ export default function getModifiedProps(
 
   if (
     childrenIsText &&
+    // @ts-expect-error TODO
     (!prevProps || Object.is(prevProps.children, children) === false)
   ) {
+    // @ts-expect-error TODO
     modifiedProps.text = children;
   }
 
@@ -25,4 +28,6 @@ export default function getModifiedProps(
   }
 
   return false;
-}
+};
+
+export default getModifiedProps;

@@ -1,5 +1,53 @@
 import withSeriesType from './components/WithSeriesType';
 
+import type {
+  SeriesLineOptions,
+  SeriesNetworkgraphOptions,
+  SeriesArearangeOptions,
+  SeriesAreaOptions,
+  SeriesAreasplineOptions,
+  SeriesAreasplinerangeOptions,
+  SeriesBellcurveOptions,
+  SeriesItemOptions,
+  SeriesHistogramOptions,
+  SeriesHeatmapOptions,
+  SeriesGaugeOptions,
+  SeriesFunnel3dOptions,
+  SeriesFunnelOptions,
+  SeriesErrorbarOptions,
+  SeriesDependencywheelOptions,
+  SeriesCylinderOptions,
+  SeriesColumnOptions,
+  SeriesColumnrangeOptions,
+  SeriesColumnpyramidOptions,
+  SeriesBulletOptions,
+  SeriesBubbleOptions,
+  SeriesBoxplotOptions,
+  SeriesParetoOptions,
+  SeriesPieOptions,
+  SeriesPolygonOptions,
+  SeriesVariablepieOptions,
+  SeriesVariwideOptions,
+  SeriesXrangeOptions,
+  SeriesWindbarbOptions,
+  SeriesWaterfallOptions,
+  SeriesVectorOptions,
+  SeriesVennOptions,
+  SeriesTreemapOptions,
+  SeriesTimelineOptions,
+  SeriesTilemapOptions,
+  SeriesSunburstOptions,
+  SeriesStreamgraphOptions,
+  SeriesSplineOptions,
+  SeriesSolidgaugeOptions,
+  SeriesScatter3dOptions,
+  SeriesScatterOptions,
+  SeriesOrganizationOptions,
+  SeriesSankeyOptions,
+  SeriesPyramid3dOptions,
+  SeriesPyramidOptions
+} from 'highcharts';
+
 // Main provider
 export { HighchartsProvider } from './components/WithHighcharts';
 
@@ -28,62 +76,99 @@ export { default as ZAxis } from './components/ZAxis';
 const axisNotRequired = { requiresAxis: false };
 
 // Series
-export const AreaRangeSeries = withSeriesType('AreaRange');
-export const AreaSeries = withSeriesType('Area');
-export const AreaSplineRangeSeries = withSeriesType('AreaSplineRange');
-export const AreaSplineSeries = withSeriesType('AreaSpline');
+export const AreaRangeSeries =
+  withSeriesType<SeriesArearangeOptions>('AreaRange');
+export const AreaSeries = withSeriesType<SeriesAreaOptions>('Area');
+export const AreaSplineRangeSeries =
+  withSeriesType<SeriesAreasplinerangeOptions>('AreaSplineRange');
+export const AreaSplineSeries =
+  withSeriesType<SeriesAreasplineOptions>('AreaSpline');
 export { default as BarSeries } from './components/BarSeries';
-export const BellCurveSeries = withSeriesType('BellCurve', {});
-export const BoxPlotSeries = withSeriesType('BoxPlot');
-export const BubbleSeries = withSeriesType('Bubble');
-export const BulletSeries = withSeriesType('Bullet');
-export const ColumnPyramidSeries = withSeriesType('ColumnPyramid');
-export const ColumnRangeSeries = withSeriesType('ColumnRange');
-export const ColumnSeries = withSeriesType('Column');
-export const CylinderSeries = withSeriesType('Cylinder');
-export const DependencyWheelSeries = withSeriesType('DependencyWheel');
-export const ErrorBarSeries = withSeriesType('ErrorBar');
-export const FunnelSeries = withSeriesType('Funnel', axisNotRequired);
-export const Funnel3dSeries = withSeriesType('Funnel3d');
-export const GaugeSeries = withSeriesType('Gauge');
-export const HeatmapSeries = withSeriesType('Heatmap');
-export const HistogramSeries = withSeriesType('Histogram', {});
-export const ItemSeries = withSeriesType('Item');
-export const LineSeries = withSeriesType('Line');
-export const NetworkGraphSeries = withSeriesType('NetworkGraph');
+export const BellCurveSeries = withSeriesType<SeriesBellcurveOptions>(
+  'BellCurve',
+  {}
+);
+export const BoxPlotSeries = withSeriesType<SeriesBoxplotOptions>('BoxPlot');
+export const BubbleSeries = withSeriesType<SeriesBubbleOptions>('Bubble');
+export const BulletSeries = withSeriesType<SeriesBulletOptions>('Bullet');
+export const ColumnPyramidSeries =
+  withSeriesType<SeriesColumnpyramidOptions>('ColumnPyramid');
+export const ColumnRangeSeries =
+  withSeriesType<SeriesColumnrangeOptions>('ColumnRange');
+export const ColumnSeries = withSeriesType<SeriesColumnOptions>('Column');
+export const CylinderSeries = withSeriesType<SeriesCylinderOptions>('Cylinder');
+export const DependencyWheelSeries =
+  withSeriesType<SeriesDependencywheelOptions>('DependencyWheel');
+export const ErrorBarSeries = withSeriesType<SeriesErrorbarOptions>('ErrorBar');
+export const FunnelSeries = withSeriesType<SeriesFunnelOptions>(
+  'Funnel',
+  axisNotRequired
+);
+export const Funnel3dSeries = withSeriesType<SeriesFunnel3dOptions>('Funnel3d');
+export const GaugeSeries = withSeriesType<SeriesGaugeOptions>('Gauge');
+export const HeatmapSeries = withSeriesType<SeriesHeatmapOptions>('Heatmap');
+export const HistogramSeries = withSeriesType<SeriesHistogramOptions>(
+  'Histogram',
+  {}
+);
+export const ItemSeries = withSeriesType<SeriesItemOptions>('Item');
+export const LineSeries = withSeriesType<SeriesLineOptions>('Line');
+export const NetworkGraphSeries =
+  withSeriesType<SeriesNetworkgraphOptions>('NetworkGraph');
 export const PackedBubbleSeries = withSeriesType(
   'PackedBubble',
   axisNotRequired
 );
-export const ParetoSeries = withSeriesType('Pareto', {});
-export const PieSeries = withSeriesType('Pie', axisNotRequired);
-export const PolygonSeries = withSeriesType('Polygon');
-export const PyramidSeries = withSeriesType('Pyramid', axisNotRequired);
-export const Pyramid3dSeries = withSeriesType('Pyramid3d');
-export const SankeySeries = withSeriesType('Sankey');
-export const OrganizationSeries = withSeriesType('Organization');
-export const ScatterSeries = withSeriesType('Scatter');
-export const Scatter3dSeries = withSeriesType('Scatter3d');
-export const SolidGaugeSeries = withSeriesType('SolidGauge');
-export const SplineSeries = withSeriesType('Spline');
-export const StreamGraphSeries = withSeriesType('StreamGraph');
-export const SunburstSeries = withSeriesType('Sunburst');
-export const TilemapSeries = withSeriesType('Tilemap');
-export const TimelineSeries = withSeriesType('Timeline');
-export const TreemapSeries = withSeriesType('Treemap');
-export const VariablePieSeries = withSeriesType('VariablePie', axisNotRequired);
-export const VariwideSeries = withSeriesType('Variwide');
-export const VennSeries = withSeriesType('Venn', axisNotRequired);
-export const VectorSeries = withSeriesType('Vector');
-export const WaterfallSeries = withSeriesType('Waterfall');
-export const WindBarbSeries = withSeriesType('WindBarb');
-export const XRangeSeries = withSeriesType('XRange');
+export const ParetoSeries = withSeriesType<SeriesParetoOptions>('Pareto', {});
+export const PieSeries = withSeriesType<SeriesPieOptions>(
+  'Pie',
+  axisNotRequired
+);
+export const PolygonSeries = withSeriesType<SeriesPolygonOptions>('Polygon');
+export const PyramidSeries = withSeriesType<SeriesPyramidOptions>(
+  'Pyramid',
+  axisNotRequired
+);
+export const Pyramid3dSeries =
+  withSeriesType<SeriesPyramid3dOptions>('Pyramid3d');
+export const SankeySeries = withSeriesType<SeriesSankeyOptions>('Sankey');
+export const OrganizationSeries =
+  withSeriesType<SeriesOrganizationOptions>('Organization');
+export const ScatterSeries = withSeriesType<SeriesScatterOptions>('Scatter');
+export const Scatter3dSeries =
+  withSeriesType<SeriesScatter3dOptions>('Scatter3d');
+export const SolidGaugeSeries =
+  withSeriesType<SeriesSolidgaugeOptions>('SolidGauge');
+export const SplineSeries = withSeriesType<SeriesSplineOptions>('Spline');
+export const StreamGraphSeries =
+  withSeriesType<SeriesStreamgraphOptions>('StreamGraph');
+export const SunburstSeries = withSeriesType<SeriesSunburstOptions>('Sunburst');
+export const TilemapSeries = withSeriesType<SeriesTilemapOptions>('Tilemap');
+export const TimelineSeries = withSeriesType<SeriesTimelineOptions>('Timeline');
+export const TreemapSeries = withSeriesType<SeriesTreemapOptions>('Treemap');
+export const VariablePieSeries = withSeriesType<SeriesVariablepieOptions>(
+  'VariablePie',
+  axisNotRequired
+);
+export const VariwideSeries = withSeriesType<SeriesVariwideOptions>('Variwide');
+export const VennSeries = withSeriesType<SeriesVennOptions>(
+  'Venn',
+  axisNotRequired
+);
+export const VectorSeries = withSeriesType<SeriesVectorOptions>('Vector');
+export const WaterfallSeries =
+  withSeriesType<SeriesWaterfallOptions>('Waterfall');
+export const WindBarbSeries = withSeriesType<SeriesWindbarbOptions>('WindBarb');
+export const XRangeSeries = withSeriesType<SeriesXrangeOptions>('XRange');
 
 // Hooks
 export { default as useHighcharts } from './components/UseHighcharts';
 export { default as useChart } from './components/UseChart';
+export type { ChartContextValue } from './components/ChartContext';
 export { default as useAxis } from './components/UseAxis';
+export type { AxisContextValue } from './components/AxisContext';
 export { default as useSeries } from './components/UseSeries';
+export type { SeriesContextValue } from './components/SeriesContext';
 export { default as usePlotBandLine } from './components/UsePlotBandLine';
 
 // utility hooks, not part of api

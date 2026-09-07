@@ -1,6 +1,14 @@
 import { createContext } from 'react';
+import type { PlotLineOrBand } from 'highcharts';
 
-const PlotBandLineContext = createContext();
+export type PlotBandLineContextValue = {
+  id: string;
+  object?: PlotLineOrBand;
+};
+
+const PlotBandLineContext = createContext<PlotBandLineContextValue | null>(
+  null
+);
 
 PlotBandLineContext.displayName = 'PlotBandLineContext';
 

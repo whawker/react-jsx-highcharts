@@ -31,11 +31,8 @@ jobs:
       - name: Test
         run: npm run test:coverage
 
-      - name: Test release type definitions
-        run: npm run test:dts
-
-      - name: Test react-jsx-highstock and react-jsx-highmaps types
-        run: npm run --workspace react-jsx-highstock --workspace react-jsx-highmaps test:types
+      - name: Test types
+        run: npm run test:types
 
       - name: Upload coverage
         uses: codecov/codecov-action@v3

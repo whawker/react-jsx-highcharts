@@ -14,12 +14,12 @@ ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 */
 
-export default function (fn) {
+export default function <F extends (...args: unknown[]) => unknown>(fn: F) {
   const cancelAnimationFrame = window.cancelAnimationFrame;
   const requestAnimationFrame = window.requestAnimationFrame;
 
-  let queued;
-  return function (...args) {
+  let queued: number | undefined;
+  return function (...args: Parameters<F>) {
     if (queued) cancelAnimationFrame(queued);
 
     queued = requestAnimationFrame(fn.bind(fn, ...args));

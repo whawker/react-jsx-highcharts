@@ -12,11 +12,40 @@ import useAxis from '../UseAxis';
 import useColorAxis from '../UseColorAxis';
 import createProvidedSeries from './createProvidedSeries';
 
+import type HC from 'highcharts';
+import type { ReactNode } from 'react';
+import type { SeriesContextValue } from '../SeriesContext';
+
+// @ts-expect-error TODO
 const EMPTY_ARRAY = [];
 
+export type SeriesProps<TSeriesOptions = Partial<HC.SeriesOptions>> = {
+  children?: ReactNode;
+  jsxOptions?: {
+    updatePoints?: boolean;
+  };
+  onAfterAnimate?: HC.SeriesAfterAnimateCallbackFunction;
+  onCheckboxClick?: HC.SeriesEventsOptionsObject['checkboxClick'];
+  onClick?: HC.SeriesClickCallbackFunction;
+  onHide?: HC.SeriesHideCallbackFunction;
+  onLegendItemClick?: HC.SeriesLegendItemClickCallbackFunction;
+
+  onMouseOut?: HC.SeriesMouseOutCallbackFunction;
+  onMouseOver?: HC.SeriesMouseOverCallbackFunction;
+  onSetRootNode?: HC.SeriesEventsOptionsObject['setRootNode'];
+  onShow?: HC.SeriesShowCallbackFunction;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [x: string]: any; // TODO: this is here to allow unknown eventhandlers
+} & Partial<Omit<TSeriesOptions, 'type'>>;
+
+/**
+ *
+ * @private
+ */
 const Series = memo(
-  ({
+  <P,>({
     id = uuid,
+    // @ts-expect-error TODO
     data = EMPTY_ARRAY,
     isDataEqual = Object.is,
     type = 'line',
@@ -26,7 +55,7 @@ const Series = memo(
     requiresAxis = true,
     jsxOptions,
     ...restProps
-  }) => {
+  }: SeriesProps<P>) => {
     const seriesProps = { id, data, type, visible, ...restProps };
 
     /*
@@ -38,14 +67,16 @@ const Series = memo(
     const Highcharts = useHighcharts();
     const { addSeries, needsRedraw } = useChart();
 
+    // @ts-expect-error process.env.NODE_ENV not defined
     if (process.env.NODE_ENV === 'development') {
+      // @ts-expect-error Highcharts.seriesTypes not typed
       const seriesTypes = Object.keys(Highcharts.seriesTypes);
       if (seriesTypes.indexOf(type) === -1) logSeriesErrorMessage(type);
     }
 
-    const seriesRef = useRef(null);
+    const seriesRef = useRef<HC.Series>(null);
     const [, setHasSeries] = useState(false);
-    const providerValueRef = useRef(null);
+    const providerValueRef = useRef<SeriesContextValue>(null);
 
     const axis = useAxis(axisId);
     const colorAxis = useColorAxis();
@@ -53,6 +84,7 @@ const Series = memo(
     useEffect(() => {
       if (requiresAxis && !axis) return;
       const opts = getSeriesConfig(seriesProps, axis, colorAxis, requiresAxis);
+      // @ts-expect-error TODO
       const series = addSeries(opts, false);
       seriesRef.current = series;
       providerValueRef.current = createProvidedSeries(seriesRef.current);
@@ -84,6 +116,7 @@ const Series = memo(
       let doRedraw = false;
       // Using setData is more performant than update
       if (isDataEqual(data, prevProps.data) === false) {
+        // @ts-expect-error missing prop?
         const animation = jsxOptions && jsxOptions.animation;
         const updatePoints = jsxOptions && jsxOptions.updatePoints;
         series.setData(data, false, animation, updatePoints);
@@ -97,6 +130,7 @@ const Series = memo(
       const modifiedProps = getModifiedProps(prevProps, rest);
       if (modifiedProps !== false) {
         const nonEventProps = getNonEventHandlerProps(modifiedProps);
+        // @ts-expect-error TODO
         series.update(nonEventProps, false);
 
         // update changed eventhandlers
@@ -105,10 +139,12 @@ const Series = memo(
         Object.keys(modifiedEvents).forEach(eventName => {
           const oldHandler = prevEvents[eventName];
           if (oldHandler) {
+            // @ts-expect-error TODO
             Highcharts.removeEvent(series, eventName, oldHandler);
           }
           const newHandler = modifiedEvents[eventName];
           if (newHandler) {
+            // @ts-expect-error TODO
             Highcharts.addEvent(series, eventName, newHandler);
           }
         });
@@ -130,7 +166,8 @@ const Series = memo(
   }
 );
 
-const getSeriesConfig = (props, axis, colorAxis, requiresAxis) => {
+// @ts-expect-error TODO
+const getSeriesConfig = (props, axis, colorAxis, requiresAxis: boolean) => {
   const { id, data, ...rest } = props;
 
   const seriesId = typeof id === 'function' ? id() : id;
@@ -145,9 +182,11 @@ const getSeriesConfig = (props, axis, colorAxis, requiresAxis) => {
   };
 
   if (colorAxis) {
+    // @ts-expect-error TODO
     config.colorAxis = colorAxis.id;
   }
   if (requiresAxis) {
+    // @ts-expect-error TODO
     config[axis.type] = axis.id;
   }
 

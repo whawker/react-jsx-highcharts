@@ -1,34 +1,52 @@
 import { useEffect, memo } from 'react';
 import usePlotBandLine from '../UsePlotBandLine';
 
-const PlotBandLineLabel = memo(props => {
-  const providedPlotbandline = usePlotBandLine();
+import type { ReactNode } from 'react';
+import type {
+  AxisPlotBandsLabelOptions,
+  AxisPlotLinesLabelOptions
+} from 'highcharts';
 
-  useEffect(() => {
-    if (!providedPlotbandline) return;
-    const { children: text, id, ...rest } = props;
-    updatePlotBandLineLabel(providedPlotbandline.object, {
-      text,
-      ...rest
-    });
-  });
+export type PlotBandLabelProps = {
+  children?: ReactNode;
+} & Partial<Omit<AxisPlotBandsLabelOptions, 'text'>>;
 
-  useEffect(() => {
-    return () => {
+export type PlotLineLabelProps = {
+  children?: ReactNode;
+} & Partial<Omit<AxisPlotLinesLabelOptions, 'text'>>;
+
+const PlotBandLineLabel = memo(
+  (props: PlotBandLabelProps | PlotLineLabelProps) => {
+    const providedPlotbandline = usePlotBandLine();
+
+    useEffect(() => {
       if (!providedPlotbandline) return;
-      try {
-        updatePlotBandLineLabel(providedPlotbandline.object, {
-          text: null
-        });
-      } catch {
-        // ignore as axis might have been unmounted
-      }
-    };
-  }, []);
+      // @ts-expect-error TODO
+      const { children: text, id, ...rest } = props;
+      updatePlotBandLineLabel(providedPlotbandline.object, {
+        text,
+        ...rest
+      });
+    });
 
-  return null;
-});
+    useEffect(() => {
+      return () => {
+        if (!providedPlotbandline) return;
+        try {
+          updatePlotBandLineLabel(providedPlotbandline.object, {
+            text: null
+          });
+        } catch {
+          // ignore as axis might have been unmounted
+        }
+      };
+    }, []);
 
+    return null;
+  }
+);
+
+// @ts-expect-error TODO
 const updatePlotBandLineLabel = (plotbandline, config) => {
   if (plotbandline) {
     plotbandline.options.label = getLabelProps(config);
@@ -36,6 +54,7 @@ const updatePlotBandLineLabel = (plotbandline, config) => {
   }
 };
 
+// @ts-expect-error TODO
 const getLabelProps = props => {
   const {
     text,

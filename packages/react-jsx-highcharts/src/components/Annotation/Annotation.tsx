@@ -3,18 +3,23 @@ import { v4 as uuid } from 'uuid';
 import { logModuleErrorMessage } from '../../utils/warnings';
 import useChart from '../UseChart';
 
-const Annotation = memo(props => {
+import type { AnnotationsOptions } from 'highcharts';
+
+type AnnotationProps = Partial<AnnotationsOptions>;
+
+const Annotation = memo((props: AnnotationProps) => {
+  // @ts-expect-error TODO
   const { id = uuid, children, ...rest } = props;
 
   const { addAnnotation, removeAnnotation } = useChart();
-
+  // @ts-expect-error TODO
   if (process.env.NODE_ENV === 'development') {
     if (addAnnotation === null) {
       logModuleErrorMessage('<Annotation />', 'annotations');
     }
   }
 
-  const idRef = useRef();
+  const idRef = useRef<string | number>(undefined);
 
   useEffect(() => {
     idRef.current = typeof id === 'function' ? id() : id;
