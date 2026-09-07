@@ -1,5 +1,6 @@
 {
   "private": true,
+  "type":"module",
   "scripts": {
     "build:prod": "npm run build:prod --workspaces",
     "build:jsx-highcharts": "npm run build:prod --workspace packages/react-jsx-highcharts",
