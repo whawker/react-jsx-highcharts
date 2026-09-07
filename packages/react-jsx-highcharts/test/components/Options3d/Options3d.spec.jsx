@@ -13,7 +13,7 @@ const defaultProps = {
   depth: 100,
   fitToPlot: true,
   viewDistance: 25,
-  axisLabelPosition: 'default',
+  axisLabelPosition: null,
   frame: {
     visible: 'default',
     size: 1,
