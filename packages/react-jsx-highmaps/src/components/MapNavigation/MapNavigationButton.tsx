@@ -1,7 +1,30 @@
 import { useEffect } from 'react';
 import { useHighcharts, useChart } from 'react-jsx-highcharts';
 
-const MapNavigationButton = props => {
+import type HC from 'highcharts';
+import type { ChartContextValue } from 'react-jsx-highcharts';
+
+type MapNavigationZoomInButtonProps = Omit<
+  HC.MapNavigationButtonsZoomInOptions,
+  'text' | 'onclick'
+> & {
+  onClick?: HC.MapNavigationButtonsZoomInOptions['onclick'];
+  type: 'zoomIn';
+};
+
+type MapNavigationZoomOutButtonProps = Omit<
+  HC.MapNavigationButtonsZoomOutOptions,
+  'text' | 'onclick'
+> & {
+  onClick?: HC.MapNavigationButtonsZoomOutOptions['onclick'];
+  type: 'zoomOut';
+};
+
+type MapNavigationButtonProps = {
+  children?: string;
+} & (MapNavigationZoomInButtonProps | MapNavigationZoomOutButtonProps);
+
+const MapNavigationButton = (props: MapNavigationButtonProps) => {
   const Highcharts = useHighcharts();
   const chart = useChart();
 
@@ -19,11 +42,15 @@ const MapNavigationButton = props => {
 
   return null;
 };
-const getMapNavigationButtonConfig = (props, Highcharts) => {
+const getMapNavigationButtonConfig = (
+  props: Omit<MapNavigationButtonProps, 'type'>,
+  Highcharts: typeof HC
+) => {
   const { children: text, onClick: onclick, ...rest } = props;
 
   return {
     ...(Highcharts.defaultOptions &&
+      //@ts-expect-error do we need type assertion?
       Highcharts.defaultOptions.mapNavigation.buttonOptions),
     onclick, // Weird Highcharts inconsistency, onclick instead of events: { click }
     ...rest,
@@ -31,7 +58,13 @@ const getMapNavigationButtonConfig = (props, Highcharts) => {
   };
 };
 
-const updateMapNavigationButton = (type, config, chart) => {
+const updateMapNavigationButton = (
+  type: 'zoomIn' | 'zoomOut',
+  config:
+    | HC.MapNavigationButtonsZoomInOptions
+    | HC.MapNavigationButtonsZoomOutOptions,
+  chart: ChartContextValue
+) => {
   const enableButtons = Object.keys(config).length > 0;
 
   chart.update({

@@ -2,11 +2,28 @@ import * as React from 'react';
 import { useMemo, useCallback } from 'react';
 import { BaseChart, useHighcharts } from 'react-jsx-highcharts';
 
+import type { HighchartsChart } from 'react-jsx-highcharts';
+import type { GeoJSON } from 'highcharts';
+import type HC from 'highcharts';
+import type { ComponentProps } from 'react';
+
+// side effect import to include Highcharts.stockChart
+import type {} from 'highcharts/highmaps';
+
 const XAXIS = { id: 'xAxis' };
 const YAXIS = { id: 'yAxis' };
 const MAP_NAVIGATION = { enabled: false };
 
-const HighchartsMapChart = ({ map, chart, callback, ...restProps }) => {
+type HighchartsMapChartsProps = ComponentProps<typeof HighchartsChart> & {
+  map: GeoJSON;
+};
+
+const HighchartsMapChart = ({
+  map,
+  chart,
+  callback,
+  ...restProps
+}: HighchartsMapChartsProps) => {
   const Highcharts = useHighcharts();
   const geojson = useMemo(() => {
     return createGeoJSON(map, Highcharts);
@@ -17,6 +34,7 @@ const HighchartsMapChart = ({ map, chart, callback, ...restProps }) => {
   );
 
   const chartCallback = useCallback(
+    // @ts-expect-error missing type for basechart callback
     cbChart => {
       if (geojson) {
         const format = Highcharts.format;
@@ -44,7 +62,7 @@ const HighchartsMapChart = ({ map, chart, callback, ...restProps }) => {
   );
 };
 
-const createGeoJSON = (map, Highcharts) => {
+const createGeoJSON = (map: GeoJSON, Highcharts: typeof HC) => {
   if (!map) return;
 
   return typeof map === 'string' ? Highcharts.maps[map] : map;
