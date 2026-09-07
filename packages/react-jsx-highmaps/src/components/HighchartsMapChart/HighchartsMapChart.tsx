@@ -8,7 +8,7 @@ import type HC from 'highcharts';
 import type { ComponentProps } from 'react';
 
 // side effect import to include Highcharts.stockChart
-import type {} from 'highcharts/highmaps';
+import type {} from 'highcharts/highmaps.js';
 
 const XAXIS = { id: 'xAxis' };
 const YAXIS = { id: 'yAxis' };

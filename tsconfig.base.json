@@ -3,6 +3,7 @@
     "lib": ["ESNext", "DOM"],
     "module": "nodenext",
     "moduleResolution": "nodenext",
+    "rewriteRelativeImportExtensions": true,
     "target": "ES2020",
     "jsx": "react-jsx"
   }

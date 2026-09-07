@@ -1,10 +1,10 @@
 import { useEffect, memo } from 'react';
-import { log3DModuleErrorMessage } from '../../utils/warnings';
-import useHighcharts from '../UseHighcharts';
-import useChart from '../UseChart';
+import { log3DModuleErrorMessage } from '../../utils/warnings.ts';
+import useHighcharts from '../UseHighcharts/index.ts';
+import useChart from '../UseChart/index.ts';
 
 import type { Chart3dOptions } from 'highcharts';
-import type { ChartContextValue } from '../UseChart';
+import type { ChartContextValue } from '../UseChart/index.ts';
 
 const DEFAULT_FRAME = {
   visible: 'default',

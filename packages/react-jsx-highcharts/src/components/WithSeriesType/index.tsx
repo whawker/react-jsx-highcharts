@@ -1,7 +1,7 @@
 import * as React from 'react';
-import Series from '../Series';
+import Series from '../Series/index.ts';
 
-import type { SeriesProps } from '../Series/Series';
+import type { SeriesProps } from '../Series/Series.tsx';
 
 /** This HOC returns Series component with injected type.
  *

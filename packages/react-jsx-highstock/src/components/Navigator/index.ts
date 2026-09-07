@@ -1,7 +1,7 @@
-import Navigator from './Navigator';
-import NavigatorSeries from './NavigatorSeries';
-import NavigatorXAxis from './NavigatorXAxis';
-import NavigatorYAxis from './NavigatorYAxis';
+import Navigator from './Navigator.tsx';
+import NavigatorSeries from './NavigatorSeries.tsx';
+import NavigatorXAxis from './NavigatorXAxis.tsx';
+import NavigatorYAxis from './NavigatorYAxis.tsx';
 
 const ChartNavigator = Navigator as typeof Navigator & {
   Series: typeof NavigatorSeries;

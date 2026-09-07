@@ -1,6 +1,6 @@
 import * as React from 'react';
-import BaseChart from '../BaseChart';
-import useHighcharts from '../UseHighcharts';
+import BaseChart from '../BaseChart/index.ts';
+import useHighcharts from '../UseHighcharts/index.ts';
 
 import type { ReactNode } from 'react';
 

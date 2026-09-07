@@ -1,6 +1,6 @@
-import debounce from '../../utils/debounce-raf';
+import debounce from '../../utils/debounce-raf.ts';
 
-import type { ChartContextValue } from '../ChartContext';
+import type { ChartContextValue } from '../ChartContext/index.ts';
 import type { Chart } from 'highcharts';
 
 const createProvidedChart = (

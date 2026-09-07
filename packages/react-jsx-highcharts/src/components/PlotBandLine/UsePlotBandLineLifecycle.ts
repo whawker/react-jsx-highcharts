@@ -1,9 +1,9 @@
 import { useRef, useEffect, useState } from 'react';
 import { v4 as uuid } from 'uuid';
-import useModifiedProps from '../UseModifiedProps';
-import useAxis from '../UseAxis';
+import useModifiedProps from '../UseModifiedProps/index.ts';
+import useAxis from '../UseAxis/index.ts';
 
-import type { PlotBandLineContextValue } from '../PlotBandLineContext';
+import type { PlotBandLineContextValue } from '../PlotBandLineContext/index.ts';
 
 // @ts-expect-error TODO
 export default function usePlotBandLineLifecycle(props, plotType) {

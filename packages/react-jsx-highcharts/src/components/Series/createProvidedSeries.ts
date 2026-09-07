@@ -1,5 +1,5 @@
 import type { Series } from 'highcharts';
-import type { SeriesContextValue } from '../SeriesContext';
+import type { SeriesContextValue } from '../SeriesContext/index.ts';
 
 export default function createProvidedSeries(
   series?: Series

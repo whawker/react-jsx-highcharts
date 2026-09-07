@@ -49,6 +49,13 @@ export default defineConfig([
   },
   prettierRecommended,
   {
+    name: 'require extensions under src',
+    files: ['packages/*/src/**/*'],
+    rules: {
+      'import/extensions': ['error', 'ignorePackages']
+    }
+  },
+  {
     name: 'src and test rules',
     files: ['packages/*/+(src|test)/**/*'],
     languageOptions: {

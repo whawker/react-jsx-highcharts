@@ -1,5 +1,5 @@
 import * as React from 'react';
-import NavigatorAxis from './NavigatorAxis';
+import NavigatorAxis from './NavigatorAxis.tsx';
 
 import type { NavigatorYAxisOptions } from 'highcharts';
 import type { ReactNode } from 'react';

@@ -1,5 +1,5 @@
 import { useEffect, memo } from 'react';
-import useAxis from '../UseAxis';
+import useAxis from '../UseAxis/index.ts';
 
 import type { AxisTitleOptions } from 'highcharts';
 

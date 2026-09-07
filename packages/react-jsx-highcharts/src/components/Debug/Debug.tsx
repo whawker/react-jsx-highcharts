@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import useChart from '../UseChart';
+import useChart from '../UseChart/index.ts';
 
 type DebugProps = {
   varName?: string;

@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import HighchartsContext from '../HighchartsContext';
+import HighchartsContext from '../HighchartsContext/index.ts';
 
 export default function useHighcharts() {
   const context = useContext(HighchartsContext);

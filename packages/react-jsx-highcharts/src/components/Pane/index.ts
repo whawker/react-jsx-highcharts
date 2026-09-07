@@ -1,2 +1,2 @@
-import Pane from './Pane';
+import Pane from './Pane.tsx';
 export default Pane;

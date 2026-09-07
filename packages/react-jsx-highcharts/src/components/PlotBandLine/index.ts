@@ -1,11 +1,11 @@
-import PlotBand from './PlotBand';
-import PlotLine from './PlotLine';
+import PlotBand from './PlotBand.tsx';
+import PlotLine from './PlotLine.tsx';
+import PlotBandLineLabel from './PlotBandLineLabel.tsx';
 
-import PlotBandLineLabel from './PlotBandLineLabel';
 import type {
   PlotLineLabelProps,
   PlotBandLabelProps
-} from './PlotBandLineLabel';
+} from './PlotBandLineLabel.tsx';
 
 const ChartPlotBand = PlotBand as typeof PlotBand & {
   Label: React.ComponentType<PlotBandLabelProps>;

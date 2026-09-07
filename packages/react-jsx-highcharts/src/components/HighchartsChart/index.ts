@@ -1,2 +1,2 @@
-import HighchartsChart from './HighchartsChart';
+import HighchartsChart from './HighchartsChart.tsx';
 export default HighchartsChart;

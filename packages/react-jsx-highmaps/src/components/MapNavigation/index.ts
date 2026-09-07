@@ -1,6 +1,6 @@
-import MapNavigation from './MapNavigation';
-import MapNavigationZoomIn from './MapNavigationZoomIn';
-import MapNavigationZoomOut from './MapNavigationZoomOut';
+import MapNavigation from './MapNavigation.tsx';
+import MapNavigationZoomIn from './MapNavigationZoomIn.tsx';
+import MapNavigationZoomOut from './MapNavigationZoomOut.tsx';
 
 const ChartMapNavigation = MapNavigation as typeof MapNavigation & {
   ZoomIn: typeof MapNavigationZoomIn;

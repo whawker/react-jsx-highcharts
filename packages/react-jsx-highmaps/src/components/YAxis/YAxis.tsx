@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { YAxis } from 'react-jsx-highcharts';
 
-import type { MapAxisProps } from '../XAxis/XAxis';
+import type { MapAxisProps } from '../XAxis/XAxis.tsx';
 import type { ComponentProps } from 'react';
 
 type MapYAxisProps = MapAxisProps & ComponentProps<typeof YAxis>;

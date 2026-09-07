@@ -1,7 +1,7 @@
 import { useRef, useEffect, memo } from 'react';
 import { v4 as uuid } from 'uuid';
-import { logModuleErrorMessage } from '../../utils/warnings';
-import useChart from '../UseChart';
+import { logModuleErrorMessage } from '../../utils/warnings.ts';
+import useChart from '../UseChart/index.ts';
 
 import type { AnnotationsOptions } from 'highcharts';
 

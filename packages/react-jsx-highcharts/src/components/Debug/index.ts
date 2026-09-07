@@ -1,2 +1,2 @@
-import Debug from './Debug';
+import Debug from './Debug.tsx';
 export default Debug;

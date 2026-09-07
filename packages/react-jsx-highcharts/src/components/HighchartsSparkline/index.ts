@@ -1,2 +1,2 @@
-import HighchartsSparkline from './HighchartsSparkline';
+import HighchartsSparkline from './HighchartsSparkline.tsx';
 export default HighchartsSparkline;

@@ -1,21 +1,24 @@
 import * as React from 'react';
 import { useEffect, useState, useRef } from 'react';
 import { v4 as uuid } from 'uuid';
-import AxisContext from '../AxisContext';
-import { getNonEventHandlerProps, getEventsConfig } from '../../utils/events';
-import useModifiedProps from '../UseModifiedProps';
-import useChart from '../UseChart';
-import createProvidedAxis from './createProvidedAxis';
+import AxisContext from '../AxisContext/index.ts';
+import {
+  getNonEventHandlerProps,
+  getEventsConfig
+} from '../../utils/events.ts';
+import useModifiedProps from '../UseModifiedProps/index.ts';
+import useChart from '../UseChart/index.ts';
+import createProvidedAxis from './createProvidedAxis.ts';
 
 import type { ReactNode } from 'react';
-import type { ChartContextValue } from '../UseChart';
+import type { ChartContextValue } from '../UseChart/index.ts';
 import type {
   XAxisOptions,
   YAxisOptions,
   ZAxisOptions,
   Axis as HighchartsAxis
 } from 'highcharts';
-import type { AxisContextValue } from '../AxisContext';
+import type { AxisContextValue } from '../AxisContext/index.ts';
 
 type BaseAxisProps = {
   children?: ReactNode;

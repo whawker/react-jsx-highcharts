@@ -1,10 +1,10 @@
 import { useContext, useState, useEffect, useDebugValue } from 'react';
-import AxisContext from '../AxisContext';
-import useChart from '../UseChart';
-import createProvidedAxis from '../Axis/createProvidedAxis';
+import AxisContext from '../AxisContext/index.ts';
+import useChart from '../UseChart/index.ts';
+import createProvidedAxis from '../Axis/createProvidedAxis.ts';
 
 import type { Axis } from 'highcharts';
-import type { AxisContextValue } from '../AxisContext';
+import type { AxisContextValue } from '../AxisContext/index.ts';
 
 export default function useAxis(axisId?: string): AxisContextValue | null {
   const chart = useChart();

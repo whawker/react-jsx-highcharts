@@ -1,2 +1,2 @@
-import BarSeries from './BarSeries';
+import BarSeries from './BarSeries.tsx';
 export default BarSeries;

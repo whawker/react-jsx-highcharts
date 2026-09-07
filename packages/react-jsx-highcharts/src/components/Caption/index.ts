@@ -1,2 +1,2 @@
-import Caption from './Caption';
+import Caption from './Caption.tsx';
 export default Caption;

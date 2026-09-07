@@ -1,20 +1,23 @@
 import * as React from 'react';
 import { memo, useRef, useState, useEffect } from 'react';
 import { v4 as uuid } from 'uuid';
-import SeriesContext from '../SeriesContext';
-import { getNonEventHandlerProps, getEventsConfig } from '../../utils/events';
-import getModifiedProps from '../../utils/getModifiedProps';
-import { logSeriesErrorMessage } from '../../utils/warnings';
-import usePrevious from '../UsePrevious';
-import useHighcharts from '../UseHighcharts';
-import useChart from '../UseChart';
-import useAxis from '../UseAxis';
-import useColorAxis from '../UseColorAxis';
-import createProvidedSeries from './createProvidedSeries';
+import SeriesContext from '../SeriesContext/index.ts';
+import {
+  getNonEventHandlerProps,
+  getEventsConfig
+} from '../../utils/events.ts';
+import getModifiedProps from '../../utils/getModifiedProps.ts';
+import { logSeriesErrorMessage } from '../../utils/warnings.ts';
+import usePrevious from '../UsePrevious/index.ts';
+import useHighcharts from '../UseHighcharts/index.ts';
+import useChart from '../UseChart/index.ts';
+import useAxis from '../UseAxis/index.ts';
+import useColorAxis from '../UseColorAxis/index.ts';
+import createProvidedSeries from './createProvidedSeries.ts';
 
 import type HC from 'highcharts';
 import type { ReactNode } from 'react';
-import type { SeriesContextValue } from '../SeriesContext';
+import type { SeriesContextValue } from '../SeriesContext/index.ts';
 
 // @ts-expect-error TODO
 const EMPTY_ARRAY = [];

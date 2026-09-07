@@ -5,7 +5,7 @@ import type { HighchartsChart } from 'react-jsx-highcharts';
 
 import type { ComponentProps } from 'react';
 // side effect import to include Highcharts.stockChart
-import type {} from 'highcharts/highstock';
+import type {} from 'highcharts/highstock.js';
 
 type HighchartsStockChartProps = ComponentProps<typeof HighchartsChart>;
 

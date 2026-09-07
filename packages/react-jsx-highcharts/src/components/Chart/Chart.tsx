@@ -1,8 +1,8 @@
 import { useEffect, useRef, memo } from 'react';
-import { getNonEventHandlerProps } from '../../utils/events';
-import useModifiedProps from '../UseModifiedProps';
-import useChart from '../UseChart';
-import useManualEventHandlers from '../UseManualEventHandlers';
+import { getNonEventHandlerProps } from '../../utils/events.ts';
+import useModifiedProps from '../UseModifiedProps/index.ts';
+import useChart from '../UseChart/index.ts';
+import useManualEventHandlers from '../UseManualEventHandlers/index.ts';
 
 import type {
   ChartAddSeriesCallbackFunction,
@@ -19,7 +19,7 @@ import type {
   ChartSelectionCallbackFunction,
   ChartOptions
 } from 'highcharts';
-import type { ChartContextValue } from '../UseChart';
+import type { ChartContextValue } from '../UseChart/index.ts';
 
 export type ChartProps = {
   onAddSeries?: ChartAddSeriesCallbackFunction;

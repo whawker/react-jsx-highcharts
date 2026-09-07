@@ -1,4 +1,4 @@
-import withSeriesType from './components/WithSeriesType';
+import withSeriesType from './components/WithSeriesType/index.tsx';
 
 import type {
   SeriesLineOptions,
@@ -49,29 +49,29 @@ import type {
 } from 'highcharts';
 
 // Main provider
-export { HighchartsProvider } from './components/WithHighcharts';
+export { HighchartsProvider } from './components/WithHighcharts/index.tsx';
 
 // Graphs
-export { default as HighchartsChart } from './components/HighchartsChart';
-export { default as HighchartsSparkline } from './components/HighchartsSparkline';
-export { default as Highcharts3dChart } from './components/Highcharts3dChart';
+export { default as HighchartsChart } from './components/HighchartsChart/index.ts';
+export { default as HighchartsSparkline } from './components/HighchartsSparkline/index.ts';
+export { default as Highcharts3dChart } from './components/Highcharts3dChart/index.ts';
 
 // Graph parts
-export { default as Annotation } from './components/Annotation';
-export { default as Caption } from './components/Caption';
-export { default as Chart } from './components/Chart';
-export { default as ColorAxis } from './components/ColorAxis';
-export { default as Credits } from './components/Credits';
-export { default as Loading } from './components/Loading';
-export { default as Legend } from './components/Legend';
-export { default as Pane } from './components/Pane';
-export { PlotBand, PlotLine } from './components/PlotBandLine';
-export { default as Subtitle } from './components/Subtitle';
-export { default as Title } from './components/Title';
-export { default as Tooltip } from './components/Tooltip';
-export { default as XAxis } from './components/XAxis';
-export { default as YAxis } from './components/YAxis';
-export { default as ZAxis } from './components/ZAxis';
+export { default as Annotation } from './components/Annotation/index.ts';
+export { default as Caption } from './components/Caption/index.ts';
+export { default as Chart } from './components/Chart/index.ts';
+export { default as ColorAxis } from './components/ColorAxis/index.ts';
+export { default as Credits } from './components/Credits/index.ts';
+export { default as Loading } from './components/Loading/index.ts';
+export { default as Legend } from './components/Legend/index.ts';
+export { default as Pane } from './components/Pane/index.ts';
+export { PlotBand, PlotLine } from './components/PlotBandLine/index.ts';
+export { default as Subtitle } from './components/Subtitle/index.ts';
+export { default as Title } from './components/Title/index.ts';
+export { default as Tooltip } from './components/Tooltip/index.ts';
+export { default as XAxis } from './components/XAxis/index.ts';
+export { default as YAxis } from './components/YAxis/index.ts';
+export { default as ZAxis } from './components/ZAxis/index.ts';
 
 const axisNotRequired = { requiresAxis: false };
 
@@ -83,7 +83,7 @@ export const AreaSplineRangeSeries =
   withSeriesType<SeriesAreasplinerangeOptions>('AreaSplineRange');
 export const AreaSplineSeries =
   withSeriesType<SeriesAreasplineOptions>('AreaSpline');
-export { default as BarSeries } from './components/BarSeries';
+export { default as BarSeries } from './components/BarSeries/index.ts';
 export const BellCurveSeries = withSeriesType<SeriesBellcurveOptions>(
   'BellCurve',
   {}
@@ -162,26 +162,26 @@ export const WindBarbSeries = withSeriesType<SeriesWindbarbOptions>('WindBarb');
 export const XRangeSeries = withSeriesType<SeriesXrangeOptions>('XRange');
 
 // Hooks
-export { default as useHighcharts } from './components/UseHighcharts';
-export { default as useChart } from './components/UseChart';
-export type { ChartContextValue } from './components/ChartContext';
-export { default as useAxis } from './components/UseAxis';
-export type { AxisContextValue } from './components/AxisContext';
-export { default as useSeries } from './components/UseSeries';
-export type { SeriesContextValue } from './components/SeriesContext';
-export { default as usePlotBandLine } from './components/UsePlotBandLine';
+export { default as useHighcharts } from './components/UseHighcharts/index.ts';
+export { default as useChart } from './components/UseChart/index.ts';
+export type { ChartContextValue } from './components/ChartContext/index.ts';
+export { default as useAxis } from './components/UseAxis/index.ts';
+export type { AxisContextValue } from './components/AxisContext/index.ts';
+export { default as useSeries } from './components/UseSeries/index.ts';
+export type { SeriesContextValue } from './components/SeriesContext/index.ts';
+export { default as usePlotBandLine } from './components/UsePlotBandLine/index.ts';
 
 // utility hooks, not part of api
-export { default as useModifiedProps } from './components/UseModifiedProps';
+export { default as useModifiedProps } from './components/UseModifiedProps/index.ts';
 
 // Helpers
-export { default as withHighcharts } from './components/WithHighcharts';
-export { default as Axis } from './components/Axis';
-export { default as BaseChart } from './components/BaseChart';
-export { default as Debug } from './components/Debug';
-export { default as Series } from './components/Series';
+export { default as withHighcharts } from './components/WithHighcharts/index.tsx';
+export { default as Axis } from './components/Axis/index.ts';
+export { default as BaseChart } from './components/BaseChart/index.ts';
+export { default as Debug } from './components/Debug/index.ts';
+export { default as Series } from './components/Series/index.ts';
 
 // Utils
-export { getNonEventHandlerProps } from './utils/events';
-export { getEventsConfig } from './utils/events';
+export { getNonEventHandlerProps } from './utils/events.ts';
+export { getEventsConfig } from './utils/events.ts';
 export { withSeriesType };
