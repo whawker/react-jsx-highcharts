@@ -53,11 +53,7 @@ describe('utils/warnings', () => {
           'You likely need to import the additional module, try adding\n' +
             '%c\n' +
             "%c %cimport %cHighcharts %cfrom %c'highcharts'%c;\n" +
-            "%c %cimport %caddSankeyModule %cfrom %c'highcharts/modules/sankey'%c;\n" +
-            '%c\n' +
-            '%c %c// For highcharts below version 12:\n' +
-            '%c %c// After imports, but before component - apply additional functionality from module to Highcharts\n' +
-            '%c %caddSankeyModule%c(Highcharts);'
+            "%c %cimport %c'highcharts/modules/sankey'%c;"
         ])
       );
     });
@@ -78,17 +74,10 @@ describe('utils/warnings', () => {
           'You likely need to import the additional modules, try adding\n' +
             '%c\n' +
             "%c %cimport %cHighcharts %cfrom %c'highcharts'%c;\n" +
-            "%c %cimport %caddHighcharts3DModule %cfrom %c'highcharts/highcharts-3d'%c;\n" +
-            "%c %cimport %caddCylinderModule %cfrom %c'highcharts/modules/cylinder'%c;\n" +
-            "%c %cimport %caddFunnel3dModule %cfrom %c'highcharts/modules/funnel3d'%c;\n" +
-            "%c %cimport %caddPyramid3dModule %cfrom %c'highcharts/modules/pyramid3d'%c;\n" +
-            '%c\n' +
-            '%c %c// For highcharts below version 12:\n' +
-            '%c %c// After imports, but before component - apply additional functionality from modules to Highcharts\n' +
-            '%c %caddHighcharts3DModule%c(Highcharts);\n' +
-            '%c %caddCylinderModule%c(Highcharts);\n' +
-            '%c %caddFunnel3dModule%c(Highcharts);\n' +
-            '%c %caddPyramid3dModule%c(Highcharts);'
+            "%c %cimport %c'highcharts/highcharts-3d'%c;\n" +
+            "%c %cimport %c'highcharts/modules/cylinder'%c;\n" +
+            "%c %cimport %c'highcharts/modules/funnel3d'%c;\n" +
+            "%c %cimport %c'highcharts/modules/pyramid3d'%c;"
         ])
       );
     });
