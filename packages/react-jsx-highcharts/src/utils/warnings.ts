@@ -38,36 +38,6 @@ const moduleToImportPath = {
   xrange: 'modules/xrange'
 };
 
-const moduleToVarName = {
-  annotations: 'addAnnotations',
-  more: 'addHighchartsMore',
-  threeD: 'addHighcharts3DModule',
-  bullet: 'addBulletModule',
-  cylinder: 'addCylinderModule',
-  dependencyWheel: 'addDependencyWheelModule',
-  funnel: 'addFunnelModule',
-  funnel3d: 'addFunnel3dModule',
-  histogram: 'addHistogramBellCurveModule',
-  item: 'addItemModule',
-  networkgraph: 'addNetworkGraphModule',
-  organization: 'addOrganizationModule',
-  pareto: 'addParetoModule',
-  pyramid3d: 'addPyramid3dModule',
-  sankey: 'addSankeyModule',
-  solidgauge: 'addSolidGaugeModule',
-  streamgraph: 'addStreamGraphModule',
-  sunburst: 'addSunburstModule',
-  tilemap: 'addTilemapModule',
-  timeline: 'addTimelineModule',
-  treemap: 'addTreemapModule',
-  variablepie: 'addVariablePieModule',
-  variwide: 'addVariwideModule',
-  vector: 'addVectorModule',
-  venn: 'addVennModule',
-  windbarb: 'addWindBarbModule',
-  xrange: 'addXRangeModule'
-};
-
 const moduleToFeatureMap = {
   annotations: ['annotations'],
   more: [
@@ -123,13 +93,9 @@ const findModules = feature => {
   return modules;
 };
 
-const generateLines = (modules: Array<keyof typeof moduleToVarName>) => {
+const generateLines = (modules: Array<keyof typeof moduleToImportPath>) => {
   const importLines = modules.map(
-    module =>
-      `%c %cimport %c${moduleToVarName[module]} %cfrom %c'highcharts/${moduleToImportPath[module]}'%c;`
-  );
-  const applyLines = modules.map(
-    module => `%c %c${moduleToVarName[module]}%c(Highcharts);`
+    module => `%c %cimport %c'highcharts/${moduleToImportPath[module]}'%c;`
   );
   const importStyling = modules.map(() => [
     descNewLine,
@@ -145,15 +111,14 @@ const generateLines = (modules: Array<keyof typeof moduleToVarName>) => {
     descDefaultCSS
   ]);
 
-  return { importLines, applyLines, importStyling, applyStyling };
+  return { importLines, importStyling, applyStyling };
 };
 
 const logDetailedErrorMessage = (
   warning: string,
-  modules: Array<keyof typeof moduleToVarName>
+  modules: Array<keyof typeof moduleToImportPath>
 ) => {
-  const { importLines, applyLines, importStyling, applyStyling } =
-    generateLines(modules);
+  const { importLines, importStyling, applyStyling } = generateLines(modules);
   const isMultiModule = modules.length > 1;
 
   console.group('React JSX Highcharts error');
@@ -171,13 +136,7 @@ const logDetailedErrorMessage = (
       }, try adding
     %c
     %c %cimport %cHighcharts %cfrom %c'highcharts'%c;
-    ${importLines.join('\n')}
-    %c
-    %c %c// For highcharts below version 12:
-    %c %c// After imports, but before component - apply additional functionality from module${
-      isMultiModule ? 's' : ''
-    } to Highcharts
-    ${applyLines.join('\n')}`.replace(/^ +/gm, ''),
+    ${importLines.join('\n')}`.replace(/^ +/gm, ''),
       descNewLine,
       descNewLine,
       descKeywordCSS,
