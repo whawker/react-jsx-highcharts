@@ -4,38 +4,14 @@ import useModifiedProps from '../UseModifiedProps/index.ts';
 import useChart from '../UseChart/index.ts';
 import useManualEventHandlers from '../UseManualEventHandlers/index.ts';
 
-import type {
-  ChartAddSeriesCallbackFunction,
-  ExportingAfterPrintCallbackFunction,
-  ExportingBeforePrintCallbackFunction,
-  ChartClickCallbackFunction,
-  DrilldownCallbackFunction,
-  DrillupCallbackFunction,
-  DrillupAllCallbackFunction,
-  ExportDataCallbackFunction,
-  ChartLoadCallbackFunction,
-  ChartRedrawCallbackFunction,
-  ChartRenderCallbackFunction,
-  ChartSelectionCallbackFunction,
-  ChartOptions
-} from 'highcharts';
+import type { ChartOptions, ChartEventsOptions } from 'highcharts';
 import type { ChartContextValue } from '../UseChart/index.ts';
+import type { EventsToHandlerProps } from '../../utils/events.ts';
 
 export type ChartProps = {
-  onAddSeries?: ChartAddSeriesCallbackFunction;
-  onAfterPrint?: ExportingAfterPrintCallbackFunction;
-  onBeforePrint?: ExportingBeforePrintCallbackFunction;
-  onClick?: ChartClickCallbackFunction;
-  onDrilldown?: DrilldownCallbackFunction;
-  onDrillup?: DrillupCallbackFunction;
-  onDrillupall?: DrillupAllCallbackFunction;
-  onExportData?: ExportDataCallbackFunction;
-  onLoad?: ChartLoadCallbackFunction;
-  onRedraw?: ChartRedrawCallbackFunction;
-  onRender?: ChartRenderCallbackFunction;
-  onSelection?: ChartSelectionCallbackFunction;
-  [x: string]: unknown; // TODO: this is here to allow eventhandlers like onAfterAddSeries
-} & Partial<ChartOptions>;
+  [x: string]: unknown; // TODO: this is here to allow untyped eventhandlers like onAfterAddSeries
+} & EventsToHandlerProps<ChartEventsOptions> &
+  Partial<ChartOptions>;
 
 const Chart = memo(
   ({ type = 'line', width, height, ...restProps }: ChartProps) => {
