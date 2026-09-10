@@ -8,9 +8,7 @@ import type { ChartOptions, ChartEventsOptions } from 'highcharts';
 import type { ChartContextValue } from '../UseChart/index.ts';
 import type { EventsToHandlerProps } from '../../utils/events.ts';
 
-export type ChartProps = {
-  [x: string]: unknown; // TODO: this is here to allow untyped eventhandlers like onAfterAddSeries
-} & EventsToHandlerProps<ChartEventsOptions> &
+export type ChartProps = {} & EventsToHandlerProps<ChartEventsOptions> &
   Partial<ChartOptions>;
 
 const Chart = memo(
