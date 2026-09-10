@@ -22,15 +22,23 @@ import type { SeriesContextValue } from '../SeriesContext/index.ts';
 // @ts-expect-error TODO
 const EMPTY_ARRAY = [];
 
-export type SeriesProps<TSeriesOptions = Partial<HC.SeriesOptions>> = {
+export type SeriesProps<TSeriesOptions = HC.SeriesOptions> = {
   children?: ReactNode;
   jsxOptions?: {
     updatePoints?: boolean;
   };
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  [x: string]: any; // TODO: this is here to allow eventhandlers untyped in highcharts
+  isDataEqual: (a: any, b: any) => boolean;
 } & EventsToHandlerProps<HC.SeriesEventsOptionsObject> &
   Partial<Omit<TSeriesOptions, 'type'>>;
+
+type PrivateSeriesProps = {
+  id?: string | (() => string);
+  type?: string;
+  visible?: boolean;
+  axisId?: string;
+  requiresAxis?: boolean;
+};
 
 /**
  *
@@ -49,7 +57,7 @@ const Series = memo(
     requiresAxis = true,
     jsxOptions,
     ...restProps
-  }: SeriesProps<P>) => {
+  }: SeriesProps<P> & PrivateSeriesProps) => {
     const seriesProps = { id, data, type, visible, ...restProps };
 
     /*
