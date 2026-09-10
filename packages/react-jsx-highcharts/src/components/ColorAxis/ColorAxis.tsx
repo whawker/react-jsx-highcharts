@@ -2,7 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 import { v4 as uuid } from 'uuid';
 import {
   getNonEventHandlerProps,
-  getEventsConfig
+  getEventsConfig,
+  type EventsToHandlerProps
 } from '../../utils/events.ts';
 import ColorAxisContext from '../ColorAxisContext/index.ts';
 import useModifiedProps from '../UseModifiedProps/index.ts';
@@ -12,19 +13,16 @@ import createProvidedColorAxis from './createProvidedColorAxis.ts';
 import type { ReactNode } from 'react';
 import type {
   Axis,
-  AxisSetExtremesEventCallbackFunction,
-  LegendItemClickCallbackFunction,
-  ColorAxisOptions
+  ColorAxisOptions,
+  ColorAxisEventsOptions
 } from 'highcharts';
 import type { ChartContextValue } from '../UseChart/index.ts';
 import type { ColorAxisContextValue } from '../ColorAxisContext/index.ts';
 
 type ColorAxisProps = {
   children?: ReactNode;
-  onAfterSetExtremes?: AxisSetExtremesEventCallbackFunction;
-  onLegendItemClick?: LegendItemClickCallbackFunction;
-  onSetExtremes?: AxisSetExtremesEventCallbackFunction;
-} & Partial<ColorAxisOptions>;
+} & EventsToHandlerProps<ColorAxisEventsOptions> &
+  Partial<ColorAxisOptions>;
 
 const ColorAxis = ({ children = null, ...restProps }: ColorAxisProps) => {
   const chart = useChart();
@@ -72,8 +70,7 @@ const ColorAxis = ({ children = null, ...restProps }: ColorAxisProps) => {
   );
 };
 
-// @ts-expect-error TODO
-const getColorAxisConfig = props => {
+const getColorAxisConfig = (props: Omit<ColorAxisProps, 'children'>) => {
   const { id = uuid, ...rest } = props;
 
   const colorAxisId = typeof id === 'function' ? id() : id;
@@ -87,8 +84,10 @@ const getColorAxisConfig = props => {
   };
 };
 
-// @ts-expect-error TODO
-const createColorAxis = (chart: ChartContextValue, props) => {
+const createColorAxis = (
+  chart: ChartContextValue,
+  props: Omit<ColorAxisProps, 'children'>
+) => {
   const opts = getColorAxisConfig(props);
   return chart.addColorAxis(opts, false);
 };
