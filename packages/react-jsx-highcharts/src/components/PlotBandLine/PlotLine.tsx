@@ -1,11 +1,11 @@
 import { memo } from 'react';
-import PlotBandLineContext from '../PlotBandLineContext/index.ts';
+import { PlotLineContext } from '../PlotBandLineContext/index.ts';
 import usePlotBandLineLifecycle from './UsePlotBandLineLifecycle.ts';
 
 import type { ReactNode } from 'react';
 import type { AxisPlotLinesOptions } from 'highcharts';
 
-type PlotLineProps = {
+export type PlotLineProps = {
   children?: ReactNode;
 } & Partial<AxisPlotLinesOptions>;
 
@@ -17,9 +17,9 @@ const PlotLine = memo((props: PlotLineProps) => {
   if (!children && !plotline) return null;
 
   return (
-    <PlotBandLineContext.Provider value={plotline}>
+    <PlotLineContext.Provider value={plotline}>
       {children}
-    </PlotBandLineContext.Provider>
+    </PlotLineContext.Provider>
   );
 });
 
