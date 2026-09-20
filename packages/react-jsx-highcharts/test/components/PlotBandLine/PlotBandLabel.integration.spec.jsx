@@ -13,7 +13,7 @@ import {
 } from '../../../src';
 import ContextSpy from '../../ContextSpy';
 
-describe('<PlotBandLineLabel /> integration', () => {
+describe('<PlotBandLabel /> integration', () => {
   let axisRef;
   const DEFAULT_SERIES_DATA = [1, 2, 3, 4, 5];
   const Component = ({
@@ -66,7 +66,7 @@ describe('<PlotBandLineLabel /> integration', () => {
         />
       );
 
-      expect(axis.plotLinesAndBands[0].options.label.style).toEqual({
+      expect(axis.plotBands[0].options.label.style).toEqual({
         color: '#bbb'
       });
 
@@ -79,7 +79,7 @@ describe('<PlotBandLineLabel /> integration', () => {
         />
       );
 
-      expect(axis.plotLinesAndBands[0].options.label.style).toEqual({
+      expect(axis.plotBands[0].options.label.style).toEqual({
         color: '#ccc'
       });
     });

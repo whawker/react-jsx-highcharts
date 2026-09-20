@@ -12,9 +12,13 @@ const createProvidedAxis = (axis: HighchartsAxis): AxisContextValue | null => {
     update: axis.update.bind(axis),
     remove: axis.remove.bind(axis),
     // @ts-expect-error TODO
-    addPlotBandOrLine: axis.addPlotBandOrLine.bind(axis),
+    addPlotBand: axis.addPlotBand.bind(axis),
     // @ts-expect-error TODO
-    removePlotBandOrLine: axis.removePlotBandOrLine.bind(axis),
+    addPlotLine: axis.addPlotLine.bind(axis),
+    // @ts-expect-error TODO
+    removePlotBand: axis.removePlotBand.bind(axis),
+    // @ts-expect-error TODO
+    removePlotLine: axis.removePlotLine.bind(axis),
     getExtremes: axis.getExtremes.bind(axis),
     setExtremes: axis.setExtremes.bind(axis),
     setTitle: axis.setTitle.bind(axis)

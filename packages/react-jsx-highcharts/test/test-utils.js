@@ -36,10 +36,14 @@ export const createMockProvidedChart = () => {
 export const createMockAxis = ({ ...additional } = {}) => ({
   ...additional,
   remove: vi.fn(),
-  addPlotBandOrLine: vi
+  addPlotLine: vi
     .fn()
     .mockImplementation(() => ({ options: {}, render: vi.fn() })),
-  removePlotBandOrLine: vi.fn(),
+  removePlotLine: vi.fn(),
+  addPlotBand: vi
+    .fn()
+    .mockImplementation(() => ({ options: {}, render: vi.fn() })),
+  removePlotBand: vi.fn(),
   getExtremes: vi.fn(),
   setExtremes: vi.fn(),
   update: vi.fn(),

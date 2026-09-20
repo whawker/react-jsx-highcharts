@@ -1,8 +1,18 @@
 import { useContext } from 'react';
-import PlotLineContext from '../PlotBandLineContext/index.ts';
+import {
+  PlotBandContext,
+  PlotLineContext
+} from '../PlotBandLineContext/index.ts';
 
-import type { PlotBandLineContextValue } from '../PlotBandLineContext/index.ts';
+import type {
+  PlotBandContextValue,
+  PlotLineContextValue
+} from '../PlotBandLineContext/index.ts';
 
-export default function usePlotBandLine(): PlotBandLineContextValue | null {
+export function usePlotBand(): PlotBandContextValue | null {
+  return useContext(PlotBandContext);
+}
+
+export function usePlotLine(): PlotLineContextValue | null {
   return useContext(PlotLineContext);
 }

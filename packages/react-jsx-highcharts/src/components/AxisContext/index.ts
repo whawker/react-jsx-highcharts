@@ -13,11 +13,10 @@ export type AxisContextValue = {
   id: string;
   update: Axis['update'];
   remove: Axis['remove'];
-  addPlotBandOrLine: (
-    options: AxisPlotBandsOptions | AxisPlotLinesOptions,
-    coll: 'plotBands' | 'plotLines'
-  ) => PlotLineOrBand | undefined;
-  removePlotBandOrLine: (id: string) => void;
+  addPlotLine: (options: AxisPlotLinesOptions) => PlotLineOrBand;
+  removePlotLine: (id: string) => void;
+  addPlotBand: (options: AxisPlotBandsOptions) => PlotLineOrBand;
+  removePlotBand: (id: string) => void;
   getExtremes: Axis['getExtremes'];
   setExtremes: Axis['setExtremes'];
   setTitle: Axis['setTitle'];
