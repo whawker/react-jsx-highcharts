@@ -31,8 +31,12 @@ export default function usePlotBandLineLifecycle(props, plotType) {
           /* when parent axis is updated, the plotlines and plotbands are recreated
              therefore the object can't be cached here
           */
-          if (axis && axis.object && axis.object.plotLinesAndBands) {
-            return axis.object.plotLinesAndBands.find(plb => plb.id === myId);
+          if (axis && axis.object) {
+            if (axis.object.plotLinesAndBands)
+              // highcharts < 13.1
+              return axis.object.plotLinesAndBands.find(plb => plb.id === myId);
+            // highcharts > 13.1
+            return axis.object[plotType].find(plb => plb.id === myId);
           }
           return null;
         }
