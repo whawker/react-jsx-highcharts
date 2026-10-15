@@ -42,3 +42,33 @@ export const getEventsConfig = <P extends Record<string, unknown>>(
 
 const _isEventKey = (key: string, value: unknown) =>
   key.indexOf('on') === 0 && key.length > 2 && typeof value === 'function';
+
+/*
+ Converts all keys of a type to event handler props prefixed with "on" and capitalized.
+ example:
+ type ChartEventsOptions = {
+    addSeries?: ChartAddSeriesCallbackFunction | undefined;
+    afterPrint?: ExportingAfterPrintCallbackFunction | undefined;
+    beforePrint?: ExportingBeforePrintCallbackFunction | undefined;
+    click?: ChartClickCallbackFunction | undefined;
+ };
+
+ type PrefixedChartEvents = EventsToHandlerProps<ChartEventsOptions>;
+ // Resulting type:
+ {
+    onAddSeries?: ChartAddSeriesCallbackFunction | undefined;
+    onAfterPrint?: ExportingAfterPrintCallbackFunction | undefined;
+    onBeforePrint?: ExportingBeforePrintCallbackFunction | undefined;
+    onClick?: ChartClickCallbackFunction | undefined;
+ }
+ */
+export type EventsToHandlerProps<T> = PickFunctionProps<PropsToHandlers<T>>;
+
+type PropsToHandlers<T> = {
+  [K in keyof T as `on${Capitalize<string & K>}`]: T[K];
+};
+
+type PickFunctionProps<T> = {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
+  [P in keyof T as T[P] extends Function | undefined ? P : never]: T[P];
+};

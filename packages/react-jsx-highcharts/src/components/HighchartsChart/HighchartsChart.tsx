@@ -11,7 +11,6 @@ export type HighchartsChartProps = {
   className?: string;
   containerProps?: Record<string, unknown>;
   children?: ReactNode;
-  [x: string]: unknown; // TODO: this is here to allow eventhandlers like onLegendItemClick
 } & Partial<Options>;
 
 const HighchartsChart = (props: HighchartsChartProps) => {

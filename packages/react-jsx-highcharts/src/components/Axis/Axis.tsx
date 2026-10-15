@@ -15,18 +15,29 @@ import type {
   XAxisOptions,
   YAxisOptions,
   ZAxisOptions,
-  Axis as HighchartsAxis
+  Axis as HighchartsAxis,
+  XAxisEventsOptions,
+  YAxisEventsOptions,
+  ZAxisEventsOptions
 } from 'highcharts';
 import type { AxisContextValue } from '../AxisContext/index.ts';
+import type { EventsToHandlerProps } from '../../utils/events.ts';
 
 type BaseAxisProps = {
   children?: ReactNode;
   dynamicAxis?: boolean;
   isX?: boolean;
 };
-export type XAxisProps = BaseAxisProps & XAxisOptions;
-export type YAxisProps = BaseAxisProps & YAxisOptions;
-export type ZAxisProps = BaseAxisProps & ZAxisOptions;
+
+export type XAxisProps = BaseAxisProps &
+  XAxisOptions &
+  EventsToHandlerProps<XAxisEventsOptions>;
+export type YAxisProps = BaseAxisProps &
+  YAxisOptions &
+  EventsToHandlerProps<YAxisEventsOptions>;
+export type ZAxisProps = BaseAxisProps &
+  ZAxisOptions &
+  EventsToHandlerProps<ZAxisEventsOptions>;
 
 type AxisProps = XAxisProps | YAxisProps | ZAxisProps;
 

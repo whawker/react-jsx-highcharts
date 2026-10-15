@@ -3,7 +3,8 @@ import { v4 as uuid } from 'uuid';
 import SeriesContext from '../SeriesContext/index.ts';
 import {
   getNonEventHandlerProps,
-  getEventsConfig
+  getEventsConfig,
+  type EventsToHandlerProps
 } from '../../utils/events.ts';
 import getModifiedProps from '../../utils/getModifiedProps.ts';
 import { logSeriesErrorMessage } from '../../utils/warnings.ts';
@@ -21,24 +22,23 @@ import type { SeriesContextValue } from '../SeriesContext/index.ts';
 // @ts-expect-error TODO
 const EMPTY_ARRAY = [];
 
-export type SeriesProps<TSeriesOptions = Partial<HC.SeriesOptions>> = {
+export type SeriesProps<TSeriesOptions = HC.SeriesOptions> = {
   children?: ReactNode;
   jsxOptions?: {
     updatePoints?: boolean;
   };
-  onAfterAnimate?: HC.SeriesAfterAnimateCallbackFunction;
-  onCheckboxClick?: HC.SeriesEventsOptionsObject['checkboxClick'];
-  onClick?: HC.SeriesClickCallbackFunction;
-  onHide?: HC.SeriesHideCallbackFunction;
-  onLegendItemClick?: HC.SeriesLegendItemClickCallbackFunction;
-
-  onMouseOut?: HC.SeriesMouseOutCallbackFunction;
-  onMouseOver?: HC.SeriesMouseOverCallbackFunction;
-  onSetRootNode?: HC.SeriesEventsOptionsObject['setRootNode'];
-  onShow?: HC.SeriesShowCallbackFunction;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  [x: string]: any; // TODO: this is here to allow unknown eventhandlers
-} & Partial<Omit<TSeriesOptions, 'type'>>;
+  isDataEqual: (a: any, b: any) => boolean;
+} & EventsToHandlerProps<HC.SeriesEventsOptionsObject> &
+  Partial<Omit<TSeriesOptions, 'type'>>;
+
+type PrivateSeriesProps = {
+  id?: string | (() => string);
+  type?: string;
+  visible?: boolean;
+  axisId?: string;
+  requiresAxis?: boolean;
+};
 
 /**
  *
@@ -57,7 +57,7 @@ const Series = memo(
     requiresAxis = true,
     jsxOptions,
     ...restProps
-  }: SeriesProps<P>) => {
+  }: SeriesProps<P> & PrivateSeriesProps) => {
     const seriesProps = { id, data, type, visible, ...restProps };
 
     /*
