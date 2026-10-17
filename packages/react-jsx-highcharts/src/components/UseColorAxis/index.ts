@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect, useDebugValue } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import ColorAxisContext from '../ColorAxisContext/index.ts';
 import useChart from '../UseChart/index.ts';
 import createProvidedColorAxis from '../ColorAxis/createProvidedColorAxis.ts';
@@ -30,8 +30,6 @@ export default function useColorAxis(
     // axis should now be created
     setProvidedColorAxis(createStateColorAxis());
   }, []);
-
-  useDebugValue(providedColorAxis ? providedColorAxis.id : null);
 
   return providedColorAxis;
 }
