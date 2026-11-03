@@ -67,7 +67,11 @@ describe('<PlotBandLineLabel /> integration', () => {
         />
       );
 
-      expect(axis.plotLinesAndBands[0].options.label.style).toEqual({
+      let axisPlotLinesAndBands = axis.plotBands
+        ? axis.plotBands
+        : axis.plotLinesAndBands;
+
+      expect(axisPlotLinesAndBands[0].options.label.style).toEqual({
         color: '#bbb'
       });
 
@@ -80,7 +84,10 @@ describe('<PlotBandLineLabel /> integration', () => {
         />
       );
 
-      expect(axis.plotLinesAndBands[0].options.label.style).toEqual({
+      axisPlotLinesAndBands = axis.plotBands
+        ? axis.plotBands
+        : axis.plotLinesAndBands;
+      expect(axisPlotLinesAndBands[0].options.label.style).toEqual({
         color: '#ccc'
       });
     });
