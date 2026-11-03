@@ -52,11 +52,11 @@ describe('<PlotBand /> integration', () => {
     it('adds a plotband to the Axis', () => {
       render(<Component id="My PlotBand" from={1} to={2} />);
       let axis = axisRef.current && axisRef.current.object;
-      const addPlotBandOrLineSpy = axisRef.addPlotBandOrLineSpy;
-      const removePlotBandOrLineSpy = axisRef.removePlotBandOrLineSpy;
-      expect(addPlotBandOrLineSpy).toHaveBeenCalledTimes(1);
-      expect(removePlotBandOrLineSpy).toHaveBeenCalledTimes(0);
-      expect(axis.plotLinesAndBands[0].options).toEqual({
+      const addPlotBandSpy = axisRef.addPlotBandSpy;
+      const removePlotBandSpy = axisRef.removePlotBandSpy;
+      expect(addPlotBandSpy).toHaveBeenCalledTimes(1);
+      expect(removePlotBandSpy).toHaveBeenCalledTimes(0);
+      expect(axis.plotBands[0].options).toEqual({
         id: 'My PlotBand',
         from: 1,
         to: 2
@@ -73,12 +73,14 @@ describe('<PlotBand /> integration', () => {
         />
       );
       let axis = axisRef.current && axisRef.current.object;
-      const addPlotBandOrLineSpy = axisRef.addPlotBandOrLineSpy;
-      expect(addPlotBandOrLineSpy).toHaveBeenCalledWith(
-        { id: 'My Other PlotBand', borderColor: 'red', from: 8.8, to: 24.2 },
-        'plotBands'
-      );
-      expect(axis.plotLinesAndBands[0].options).toEqual({
+      const addPlotBandSpy = axisRef.addPlotBandSpy;
+      expect(addPlotBandSpy).toHaveBeenCalledWith({
+        id: 'My Other PlotBand',
+        borderColor: 'red',
+        from: 8.8,
+        to: 24.2
+      });
+      expect(axis.plotBands[0].options).toEqual({
         id: 'My Other PlotBand',
         borderColor: 'red',
         from: 8.8,
@@ -88,23 +90,21 @@ describe('<PlotBand /> integration', () => {
 
     it('uses the provided ID if id prop is a string', () => {
       render(<Component id="myPlotBandIdStr" from={1} to={2} />);
-      const addPlotBandOrLineSpy = axisRef.addPlotBandOrLineSpy;
-      expect(addPlotBandOrLineSpy.mock.calls[0][0].id).toBe('myPlotBandIdStr');
+      const addPlotBandSpy = axisRef.addPlotBandSpy;
+      expect(addPlotBandSpy.mock.calls[0][0].id).toBe('myPlotBandIdStr');
     });
 
     it('resolves the ID if id prop is a function', () => {
       const idFunc = () => 'myPlotBandIdFromFunc';
       render(<Component id={idFunc} from={1} to={2} />);
-      const addPlotBandOrLineSpy = axisRef.addPlotBandOrLineSpy;
-      expect(addPlotBandOrLineSpy.mock.calls[0][0].id).toBe(
-        'myPlotBandIdFromFunc'
-      );
+      const addPlotBandSpy = axisRef.addPlotBandSpy;
+      expect(addPlotBandSpy.mock.calls[0][0].id).toBe('myPlotBandIdFromFunc');
     });
 
     it('uses a uuid as an ID if no id prop provided', () => {
       render(<Component from={1} to={2} />);
-      const addPlotBandOrLineSpy = axisRef.addPlotBandOrLineSpy;
-      expect(addPlotBandOrLineSpy.mock.calls[0][0].id).toMatch(uuidRegex);
+      const addPlotBandSpy = axisRef.addPlotBandSpy;
+      expect(addPlotBandSpy.mock.calls[0][0].id).toMatch(uuidRegex);
     });
   });
 
@@ -112,20 +112,21 @@ describe('<PlotBand /> integration', () => {
     it('removes and adds plotband to axis', () => {
       const wrapper = render(<Component id="My PlotBand" from={1} to={2} />);
       let axis = axisRef.current && axisRef.current.object;
-      const addPlotBandOrLineSpy = axisRef.addPlotBandOrLineSpy;
-      const removePlotBandOrLineSpy = axisRef.removePlotBandOrLineSpy;
-      addPlotBandOrLineSpy.mockClear();
+      const addPlotBandSpy = axisRef.addPlotBandSpy;
+      const removePlotBandSpy = axisRef.removePlotBandSpy;
+      addPlotBandSpy.mockClear();
 
       wrapper.rerender(<Component id="My PlotBand" from={1} to={5} />);
 
-      expect(removePlotBandOrLineSpy).toHaveBeenCalledWith('My PlotBand');
-      expect(removePlotBandOrLineSpy).toHaveBeenCalledTimes(1);
-      expect(addPlotBandOrLineSpy).toHaveBeenCalledTimes(1);
-      expect(addPlotBandOrLineSpy).toHaveBeenCalledWith(
-        { id: 'My PlotBand', from: 1, to: 5 },
-        'plotBands'
-      );
-      expect(axis.plotLinesAndBands[0].options).toEqual({
+      expect(removePlotBandSpy).toHaveBeenCalledWith('My PlotBand');
+      expect(removePlotBandSpy).toHaveBeenCalledTimes(1);
+      expect(addPlotBandSpy).toHaveBeenCalledTimes(1);
+      expect(addPlotBandSpy).toHaveBeenCalledWith({
+        id: 'My PlotBand',
+        from: 1,
+        to: 5
+      });
+      expect(axis.plotBands[0].options).toEqual({
         id: 'My PlotBand',
         from: 1,
         to: 5
@@ -137,8 +138,8 @@ describe('<PlotBand /> integration', () => {
     it('keeps the plotband on axis', () => {
       const wrapper = render(<Component id="My PlotBand" from={1} to={2} />);
       let axis = axisRef.current && axisRef.current.object;
-      const removePlotBandOrLineSpy = axisRef.removePlotBandOrLineSpy;
-      expect(axis.plotLinesAndBands[0].options).toEqual({
+      const removePlotBandSpy = axisRef.removePlotBandSpy;
+      expect(axis.plotBands[0].options).toEqual({
         id: 'My PlotBand',
         from: 1,
         to: 2
@@ -148,8 +149,8 @@ describe('<PlotBand /> integration', () => {
         <Component id="My PlotBand" from={1} to={2} axisLabels={{}} />
       );
 
-      expect(removePlotBandOrLineSpy).not.toHaveBeenCalled();
-      expect(axis.plotLinesAndBands[0].options).toEqual({
+      expect(removePlotBandSpy).not.toHaveBeenCalled();
+      expect(axis.plotBands[0].options).toEqual({
         id: 'My PlotBand',
         from: 1,
         to: 2
@@ -161,16 +162,16 @@ describe('<PlotBand /> integration', () => {
     it('removes the plot band by id (if the parent axis still exists)', () => {
       const wrapper = render(<Component id="My PlotBand" from={1} to={2} />);
       let axis = axisRef.current && axisRef.current.object;
-      const removePlotBandOrLineSpy = axisRef.removePlotBandOrLineSpy;
-      removePlotBandOrLineSpy.mockClear();
+      const removePlotBandSpy = axisRef.removePlotBandSpy;
+      removePlotBandSpy.mockClear();
 
       wrapper.rerender(
         <Component id="My PlotBand" from={1} to={2} mountPlotBand={false} />
       );
 
-      expect(removePlotBandOrLineSpy).toHaveBeenCalledWith('My PlotBand');
-      expect(removePlotBandOrLineSpy).toHaveBeenCalledTimes(1);
-      expect(axis.plotLinesAndBands.length).toEqual(0);
+      expect(removePlotBandSpy).toHaveBeenCalledWith('My PlotBand');
+      expect(removePlotBandSpy).toHaveBeenCalledTimes(1);
+      expect(axis.plotBands.length).toEqual(0);
     });
   });
 });

@@ -169,7 +169,10 @@ export { default as useAxis } from './components/UseAxis/index.ts';
 export type { AxisContextValue } from './components/AxisContext/index.ts';
 export { default as useSeries } from './components/UseSeries/index.ts';
 export type { SeriesContextValue } from './components/SeriesContext/index.ts';
-export { default as usePlotBandLine } from './components/UsePlotBandLine/index.ts';
+export {
+  usePlotBand,
+  usePlotLine
+} from './components/UsePlotBandLine/index.ts';
 
 // utility hooks, not part of api
 export { default as useModifiedProps } from './components/UseModifiedProps/index.ts';

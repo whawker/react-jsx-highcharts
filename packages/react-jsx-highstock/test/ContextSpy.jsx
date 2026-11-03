@@ -4,7 +4,8 @@ import {
   useChart,
   useHighcharts,
   useSeries,
-  usePlotBandLine
+  usePlotBand,
+  usePlotLine
 } from '../src';
 
 const ContextSpy = ({
@@ -13,13 +14,15 @@ const ContextSpy = ({
   chartRef,
   highchartsRef,
   seriesRef,
-  plotBandLineRef
+  plotBandRef,
+  plotLineRef
 }) => {
   const axis = useAxis(axisId);
   const chart = useChart();
   const Highcharts = useHighcharts();
   const series = useSeries();
-  const plotbandline = usePlotBandLine();
+  const plotband = usePlotBand();
+  const plotline = usePlotLine();
 
   useEffect(() => {
     if (highchartsRef) {
@@ -74,16 +77,28 @@ const ContextSpy = ({
   }, [series]);
 
   useEffect(() => {
-    if (plotBandLineRef) {
-      plotBandLineRef.current = plotbandline;
+    if (plotBandRef) {
+      plotBandRef.current = plotband;
     }
 
     return () => {
-      if (plotBandLineRef) {
-        plotBandLineRef.current = null;
+      if (plotBandRef) {
+        plotBandRef.current = null;
       }
     };
-  }, [plotbandline]);
+  }, [plotband]);
+
+  useEffect(() => {
+    if (plotLineRef) {
+      plotLineRef.current = plotline;
+    }
+
+    return () => {
+      if (plotLineRef) {
+        plotLineRef.current = null;
+      }
+    };
+  }, [plotline]);
 
   return null;
 };

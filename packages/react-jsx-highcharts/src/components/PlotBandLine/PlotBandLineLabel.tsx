@@ -1,11 +1,15 @@
 import { useEffect, memo } from 'react';
-import usePlotBandLine from '../UsePlotBandLine/index.ts';
+import { usePlotBand, usePlotLine } from '../UsePlotBandLine/index.ts';
 
 import type { ReactNode } from 'react';
 import type {
   AxisPlotBandsLabelOptions,
   AxisPlotLinesLabelOptions
 } from 'highcharts';
+import type {
+  PlotBandContextValue,
+  PlotLineContextValue
+} from '../PlotBandLineContext/index.ts';
 
 export type PlotBandLabelProps = {
   children?: ReactNode;
@@ -15,36 +19,45 @@ export type PlotLineLabelProps = {
   children?: ReactNode;
 } & Partial<Omit<AxisPlotLinesLabelOptions, 'text'>>;
 
-const PlotBandLineLabel = memo(
-  (props: PlotBandLabelProps | PlotLineLabelProps) => {
-    const providedPlotbandline = usePlotBandLine();
+const PlotBandLabel = memo((props: PlotBandLabelProps) => {
+  const providedPlotBand = usePlotBand();
+  usePlotBandLineLabelLifecycle(providedPlotBand, props);
+  return null;
+});
 
-    useEffect(() => {
-      if (!providedPlotbandline) return;
-      // @ts-expect-error TODO
-      const { children: text, id, ...rest } = props;
-      updatePlotBandLineLabel(providedPlotbandline.object, {
-        text,
-        ...rest
-      });
+const PlotLineLabel = memo((props: PlotLineLabelProps) => {
+  const providedPlotLine = usePlotLine();
+  usePlotBandLineLabelLifecycle(providedPlotLine, props);
+  return null;
+});
+
+const usePlotBandLineLabelLifecycle = (
+  providedPlotbandline: PlotBandContextValue | PlotLineContextValue | null,
+  props: PlotBandLabelProps | PlotLineLabelProps
+) => {
+  useEffect(() => {
+    if (!providedPlotbandline) return;
+    // @ts-expect-error TODO
+    const { children: text, id, ...rest } = props;
+    updatePlotBandLineLabel(providedPlotbandline.object, {
+      text,
+      ...rest
     });
+  });
 
-    useEffect(() => {
-      return () => {
-        if (!providedPlotbandline) return;
-        try {
-          updatePlotBandLineLabel(providedPlotbandline.object, {
-            text: null
-          });
-        } catch {
-          // ignore as axis might have been unmounted
-        }
-      };
-    }, []);
-
-    return null;
-  }
-);
+  useEffect(() => {
+    return () => {
+      if (!providedPlotbandline) return;
+      try {
+        updatePlotBandLineLabel(providedPlotbandline.object, {
+          text: null
+        });
+      } catch {
+        // ignore as axis might have been unmounted
+      }
+    };
+  }, []);
+};
 
 // @ts-expect-error TODO
 const updatePlotBandLineLabel = (plotbandline, config) => {
@@ -83,6 +96,7 @@ const getLabelProps = props => {
   };
 };
 
-PlotBandLineLabel.displayName = 'PlotBandLineLabel';
+PlotBandLabel.displayName = 'PlotBandLabel';
+PlotLineLabel.displayName = 'PlotLineLabel';
 
-export default PlotBandLineLabel;
+export { PlotBandLabel, PlotLineLabel };

@@ -4,7 +4,8 @@ import {
   useChart,
   useHighcharts,
   useSeries,
-  usePlotBandLine
+  usePlotBand,
+  usePlotLine
 } from '../src';
 
 const ContextSpy = ({
@@ -13,13 +14,15 @@ const ContextSpy = ({
   chartRef,
   highchartsRef,
   seriesRef,
-  plotBandLineRef
+  plotBandRef,
+  plotLineRef
 }) => {
   const axis = useAxis(axisId);
   const chart = useChart();
   const Highcharts = useHighcharts();
   const series = useSeries();
-  const plotbandline = usePlotBandLine();
+  const plotband = usePlotBand();
+  const plotline = usePlotLine();
 
   useEffect(() => {
     if (highchartsRef) {
@@ -48,14 +51,20 @@ const ContextSpy = ({
   useEffect(() => {
     if (axisRef) {
       axisRef.current = axis;
-      axisRef.addPlotBandOrLineSpy = vi.spyOn(axis, 'addPlotBandOrLine');
-      axisRef.removePlotBandOrLineSpy = vi.spyOn(axis, 'removePlotBandOrLine');
+      axisRef.addPlotBandSpy = vi.spyOn(axis, 'addPlotBand');
+      axisRef.removePlotBandSpy = vi.spyOn(axis, 'removePlotBand');
+
+      axisRef.addPlotLineSpy = vi.spyOn(axis, 'addPlotLine');
+      axisRef.removePlotLineSpy = vi.spyOn(axis, 'removePlotLine');
     }
 
     return () => {
       if (axisRef) {
-        axisRef.addPlotBandOrLineSpy.mockRestore();
-        axisRef.removePlotBandOrLineSpy.mockRestore();
+        axisRef.addPlotBandSpy.mockRestore();
+        axisRef.removePlotBandSpy.mockRestore();
+
+        axisRef.addPlotLineSpy.mockRestore();
+        axisRef.removePlotLineSpy.mockRestore();
         axisRef.current = null;
       }
     };
@@ -74,16 +83,28 @@ const ContextSpy = ({
   }, [series]);
 
   useEffect(() => {
-    if (plotBandLineRef) {
-      plotBandLineRef.current = plotbandline;
+    if (plotBandRef) {
+      plotBandRef.current = plotband;
     }
 
     return () => {
-      if (plotBandLineRef) {
-        plotBandLineRef.current = null;
+      if (plotBandRef) {
+        plotBandRef.current = null;
       }
     };
-  }, [plotbandline]);
+  }, [plotband]);
+
+  useEffect(() => {
+    if (plotLineRef) {
+      plotLineRef.current = plotline;
+    }
+
+    return () => {
+      if (plotLineRef) {
+        plotLineRef.current = null;
+      }
+    };
+  }, [plotline]);
 
   return null;
 };
