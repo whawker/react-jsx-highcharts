@@ -57,7 +57,11 @@ describe('<PlotBand /> integration', () => {
       const removePlotBandOrLineSpy = axisRef.removePlotBandOrLineSpy;
       expect(addPlotBandOrLineSpy).toHaveBeenCalledTimes(1);
       expect(removePlotBandOrLineSpy).toHaveBeenCalledTimes(0);
-      expect(axis.plotLinesAndBands[0].options).toEqual({
+
+      const axisPlotLinesAndBands = axis.plotBands
+        ? axis.plotBands
+        : axis.plotLinesAndBands;
+      expect(axisPlotLinesAndBands[0].options).toEqual({
         id: 'My PlotBand',
         from: 1,
         to: 2
@@ -79,7 +83,12 @@ describe('<PlotBand /> integration', () => {
         { id: 'My Other PlotBand', borderColor: 'red', from: 8.8, to: 24.2 },
         'plotBands'
       );
-      expect(axis.plotLinesAndBands[0].options).toEqual({
+
+      const axisPlotLinesAndBands = axis.plotBands
+        ? axis.plotBands
+        : axis.plotLinesAndBands;
+
+      expect(axisPlotLinesAndBands[0].options).toEqual({
         id: 'My Other PlotBand',
         borderColor: 'red',
         from: 8.8,
@@ -126,7 +135,11 @@ describe('<PlotBand /> integration', () => {
         { id: 'My PlotBand', from: 1, to: 5 },
         'plotBands'
       );
-      expect(axis.plotLinesAndBands[0].options).toEqual({
+
+      const axisPlotLinesAndBands = axis.plotBands
+        ? axis.plotBands
+        : axis.plotLinesAndBands;
+      expect(axisPlotLinesAndBands[0].options).toEqual({
         id: 'My PlotBand',
         from: 1,
         to: 5
@@ -139,7 +152,11 @@ describe('<PlotBand /> integration', () => {
       const wrapper = render(<Component id="My PlotBand" from={1} to={2} />);
       let axis = axisRef.current && axisRef.current.object;
       const removePlotBandOrLineSpy = axisRef.removePlotBandOrLineSpy;
-      expect(axis.plotLinesAndBands[0].options).toEqual({
+
+      let axisPlotLinesAndBands = axis.plotBands
+        ? axis.plotBands
+        : axis.plotLinesAndBands;
+      expect(axisPlotLinesAndBands[0].options).toEqual({
         id: 'My PlotBand',
         from: 1,
         to: 2
@@ -150,7 +167,11 @@ describe('<PlotBand /> integration', () => {
       );
 
       expect(removePlotBandOrLineSpy).not.toHaveBeenCalled();
-      expect(axis.plotLinesAndBands[0].options).toEqual({
+
+      axisPlotLinesAndBands = axis.plotBands
+        ? axis.plotBands
+        : axis.plotLinesAndBands;
+      expect(axisPlotLinesAndBands[0].options).toEqual({
         id: 'My PlotBand',
         from: 1,
         to: 2
@@ -171,7 +192,10 @@ describe('<PlotBand /> integration', () => {
 
       expect(removePlotBandOrLineSpy).toHaveBeenCalledWith('My PlotBand');
       expect(removePlotBandOrLineSpy).toHaveBeenCalledTimes(1);
-      expect(axis.plotLinesAndBands.length).toEqual(0);
+      const axisPlotLinesAndBands = axis.plotBands
+        ? axis.plotBands
+        : axis.plotLinesAndBands;
+      expect(axisPlotLinesAndBands.length).toEqual(0);
     });
   });
 });
