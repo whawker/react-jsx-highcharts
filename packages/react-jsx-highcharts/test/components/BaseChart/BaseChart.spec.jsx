@@ -75,10 +75,13 @@ describe('<BaseChart />', () => {
     });
 
     it('should create a angular chart when mounted with the gauge prop', () => {
-      expect(chart.angular).toBeFalsy();
-
       render(<BaseChart gauge {...testContext} chartType="stockChart" />);
-      expect(chart.angular).toEqual(true);
+      expect(testContext.chartCreationFunc).toHaveBeenCalledWith(
+        expect.anything(),
+        expect.objectContaining({
+          chart: expect.objectContaining({ type: 'gauge' })
+        })
+      );
     });
 
     it('should create a polar chart when mounted with the polar prop', () => {
