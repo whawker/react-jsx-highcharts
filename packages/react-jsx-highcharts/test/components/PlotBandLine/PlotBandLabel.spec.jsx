@@ -1,9 +1,9 @@
 import { render } from '@testing-library/react';
 
-import PlotBandLineLabel from '../../../src/components/PlotBandLine/PlotBandLineLabel';
-import PlotLineContext from '../../../src/components/PlotBandLineContext';
+import { PlotBandLabel } from '../../../src/components/PlotBandLine/PlotBandLineLabel';
+import { PlotBandContext } from '../../../src/components/PlotBandLineContext';
 
-describe('<PlotBandLineLabel.Label />', () => {
+describe('<PlotBandLabel />', () => {
   let testContext;
   let ProvidedPlotBandLineLabel;
   beforeEach(() => {
@@ -20,9 +20,9 @@ describe('<PlotBandLineLabel.Label />', () => {
       }
     };
     ProvidedPlotBandLineLabel = props => (
-      <PlotLineContext.Provider value={testContext.providedPlotline}>
-        <PlotBandLineLabel {...props} />
-      </PlotLineContext.Provider>
+      <PlotBandContext.Provider value={testContext.providedPlotline}>
+        <PlotBandLabel {...props} />
+      </PlotBandContext.Provider>
     );
   });
 

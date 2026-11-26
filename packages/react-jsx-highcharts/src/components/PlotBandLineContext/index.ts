@@ -1,15 +1,21 @@
 import { createContext } from 'react';
 import type { PlotLineOrBand } from 'highcharts';
 
-export type PlotBandLineContextValue = {
+export type PlotLineContextValue = {
   id: string;
   object?: PlotLineOrBand;
 };
 
-const PlotBandLineContext = createContext<PlotBandLineContextValue | null>(
-  null
-);
+export type PlotBandContextValue = {
+  id: string;
+  object?: PlotLineOrBand;
+};
 
-PlotBandLineContext.displayName = 'PlotBandLineContext';
+const PlotBandContext = createContext<PlotBandContextValue | null>(null);
 
-export default PlotBandLineContext;
+const PlotLineContext = createContext<PlotLineContextValue | null>(null);
+
+PlotBandContext.displayName = 'PlotBandContext';
+PlotLineContext.displayName = 'PlotLineContext';
+
+export { PlotBandContext, PlotLineContext };

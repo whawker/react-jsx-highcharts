@@ -2,26 +2,26 @@ import { render } from '@testing-library/react';
 
 import { Highcharts } from '../../test-utils';
 import { HighchartsProvider } from '../../../src/components/WithHighcharts';
-import PlotBandLineContext from '../../../src/components/PlotBandLineContext';
+import { PlotBandContext } from '../../../src/components/PlotBandLineContext';
 import ChartContext from '../../../src/components/ChartContext';
 import ContextSpy from '../../ContextSpy';
 
-describe('usePlotBandLine', () => {
+describe('usePlotBand', () => {
   let ProvidedPlotBandLineComponent;
   let testPlotBandLine;
-  let plotBandLineRef;
+  let plotBandRef;
   let testChart;
   beforeEach(() => {
     testPlotBandLine = {};
-    plotBandLineRef = {};
+    plotBandRef = {};
     testChart = {};
 
     ProvidedPlotBandLineComponent = () => (
       <HighchartsProvider Highcharts={Highcharts}>
         <ChartContext.Provider value={testChart}>
-          <PlotBandLineContext.Provider value={testPlotBandLine}>
-            <ContextSpy plotBandLineRef={plotBandLineRef} />
-          </PlotBandLineContext.Provider>
+          <PlotBandContext.Provider value={testPlotBandLine}>
+            <ContextSpy plotBandRef={plotBandRef} />
+          </PlotBandContext.Provider>
         </ChartContext.Provider>
       </HighchartsProvider>
     );
@@ -29,6 +29,6 @@ describe('usePlotBandLine', () => {
   it('should return PlotBandLine from context', () => {
     render(<ProvidedPlotBandLineComponent />);
 
-    expect(plotBandLineRef.current).toEqual(testPlotBandLine);
+    expect(plotBandRef.current).toEqual(testPlotBandLine);
   });
 });
