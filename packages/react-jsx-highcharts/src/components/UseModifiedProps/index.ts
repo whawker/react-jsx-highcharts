@@ -1,4 +1,4 @@
-import { useRef, useEffect, useDebugValue } from 'react';
+import { useRef, useEffect } from 'react';
 import getModifiedProps from '../../utils/getModifiedProps.ts';
 
 /**
@@ -13,8 +13,6 @@ const useModifiedProps = function useModifiedProps<
     ref.current = props;
   });
   const modifiedProps = getModifiedProps(ref.current, props, childrenIsText);
-
-  useDebugValue(modifiedProps ? 'Modified' : 'Not modified');
 
   return modifiedProps;
 };
