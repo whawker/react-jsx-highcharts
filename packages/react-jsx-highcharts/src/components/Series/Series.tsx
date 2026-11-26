@@ -29,6 +29,7 @@ export type SeriesProps<TSeriesOptions = HC.SeriesOptions> = {
   };
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   isDataEqual?: (a: any, b: any) => boolean;
+  axisId?: string;
 } & EventsToHandlerProps<HC.SeriesEventsOptionsObject> &
   Partial<Omit<TSeriesOptions, 'type'>>;
 
@@ -36,7 +37,6 @@ type PrivateSeriesProps = {
   id?: string | (() => string);
   type?: string;
   visible?: boolean;
-  axisId?: string;
   requiresAxis?: boolean;
 };
 
