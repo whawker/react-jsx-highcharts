@@ -2,7 +2,7 @@ import HighchartsChart from '../HighchartsChart/index.ts';
 import Options3d from '../Options3d/index.ts';
 
 import type { Chart3dOptions } from 'highcharts';
-import type { ReactNode } from 'react';
+import type { ComponentProps, ReactNode } from 'react';
 
 const CHART = {
   options3d: { enabled: true }
@@ -14,7 +14,8 @@ const ZAXIS = {
 type Highcharts3dChartProps = { children?: ReactNode } & Omit<
   Chart3dOptions,
   'enabled'
->;
+> &
+  ComponentProps<typeof HighchartsChart>;
 
 const Highcharts3dChart = ({
   children,
