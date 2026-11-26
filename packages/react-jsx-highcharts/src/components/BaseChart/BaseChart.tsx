@@ -18,6 +18,7 @@ export type BaseChartProps = {
   chartCreationFunc: (renderTo: HTMLDivElement, options: HCOptions) => Chart;
   polar?: ChartOptions['polar'];
   gauge?: boolean;
+  styledMode?: ChartOptions['styledMode'];
 } & Partial<HCOptions>;
 
 /**
