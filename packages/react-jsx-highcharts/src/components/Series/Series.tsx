@@ -28,7 +28,7 @@ export type SeriesProps<TSeriesOptions = HC.SeriesOptions> = {
     updatePoints?: boolean;
   };
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  isDataEqual: (a: any, b: any) => boolean;
+  isDataEqual?: (a: any, b: any) => boolean;
 } & EventsToHandlerProps<HC.SeriesEventsOptionsObject> &
   Partial<Omit<TSeriesOptions, 'type'>>;
 
