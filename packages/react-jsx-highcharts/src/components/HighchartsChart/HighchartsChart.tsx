@@ -1,17 +1,12 @@
 import BaseChart from '../BaseChart/index.ts';
 import useHighcharts from '../UseHighcharts/index.ts';
 
-import type { ReactNode } from 'react';
+import type { BaseChartProps } from '../BaseChart/BaseChart.ts';
 
-import type { Chart } from 'highcharts';
-import type { Options } from 'highcharts';
-
-export type HighchartsChartProps = {
-  callback?: (chart: Chart) => unknown;
-  className?: string;
-  containerProps?: Record<string, unknown>;
-  children?: ReactNode;
-} & Partial<Options>;
+export type HighchartsChartProps = Omit<
+  BaseChartProps,
+  'chartCreationFunc' | 'chartType'
+>;
 
 const HighchartsChart = (props: HighchartsChartProps) => {
   const Highcharts = useHighcharts();

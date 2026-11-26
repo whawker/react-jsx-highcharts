@@ -82,10 +82,13 @@ describe('<BaseChart />', () => {
     });
 
     it('should create a polar chart when mounted with the polar prop', () => {
-      expect(chart.polar).toBeFalsy();
-
       render(<BaseChart polar {...testContext} chartType="stockChart" />);
-      expect(chart.polar).toBe(true);
+      expect(testContext.chartCreationFunc).toHaveBeenCalledWith(
+        expect.anything(),
+        expect.objectContaining({
+          chart: expect.objectContaining({ polar: true })
+        })
+      );
     });
 
     it('should create a chart with styledMode=false by default', () => {

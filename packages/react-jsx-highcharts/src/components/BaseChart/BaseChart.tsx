@@ -3,20 +3,22 @@ import ChartContext from '../ChartContext/index.ts';
 import usePrevious from '../UsePrevious/index.ts';
 import createProvidedChart from './createProvidedChart.ts';
 
-import type { Chart, Options as ChartOptions } from 'highcharts';
+import type { Chart, Options as HCOptions, ChartOptions } from 'highcharts';
 import type { ReactNode, HTMLAttributes } from 'react';
 import type { ChartContextValue } from '../ChartContext/index.ts';
 
 const noop = (c: unknown) => c;
 
-type BaseChartProps = {
+export type BaseChartProps = {
   children?: ReactNode;
   callback?: (chart: Chart) => unknown;
   className?: string;
   containerProps?: HTMLAttributes<HTMLDivElement> | null;
   chartType?: 'chart' | 'stockChart' | 'mapChart';
-  chartCreationFunc: (renderTo: HTMLDivElement, options: ChartOptions) => Chart;
-} & Partial<ChartOptions>;
+  chartCreationFunc: (renderTo: HTMLDivElement, options: HCOptions) => Chart;
+  polar?: ChartOptions['polar'];
+  gauge?: boolean;
+} & Partial<HCOptions>;
 
 /**
  * @private
@@ -106,6 +108,7 @@ const initHighcharts = (
   const opts = {
     chart: {
       styledMode,
+      polar,
       ...chart
     },
     title: {
@@ -137,11 +140,10 @@ const initHighcharts = (
     yAxis: [],
     ...rest
   };
+  if (gauge) {
+    opts.chart.type = 'gauge';
+  }
   const myChart = chartCreationFunc(domNode, opts);
-
-  myChart.polar = polar;
-  myChart.angular = gauge;
-
   return myChart;
 };
 
