@@ -20,8 +20,7 @@ const updateCredits = (
 ) => {
   // Use default Highcharts value if text is not explicitly set
   if ('text' in config && !config.text) delete config.text;
-  // @ts-expect-error addCredits second argument?
-  chart.addCredits(config, true);
+  chart.addCredits(config);
 };
 
 export default Credits;

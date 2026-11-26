@@ -23,13 +23,10 @@ describe('<Credits />', () => {
   describe('when mounted', () => {
     it('add credits using the Highcharts addCredits method', () => {
       render(<ProvidedCredits>github.com</ProvidedCredits>);
-      expect(testContext.chartStubs.addCredits).toHaveBeenCalledWith(
-        {
-          enabled: true,
-          text: 'github.com'
-        },
-        true
-      );
+      expect(testContext.chartStubs.addCredits).toHaveBeenCalledWith({
+        enabled: true,
+        text: 'github.com'
+      });
       expect(testContext.chartStubs.addCredits).toHaveBeenCalledTimes(1);
     });
 
@@ -39,14 +36,11 @@ describe('<Credits />', () => {
           github.com
         </ProvidedCredits>
       );
-      expect(testContext.chartStubs.addCredits).toHaveBeenCalledWith(
-        {
-          enabled: true,
-          href: 'https://www.github.com',
-          text: 'github.com'
-        },
-        true
-      );
+      expect(testContext.chartStubs.addCredits).toHaveBeenCalledWith({
+        enabled: true,
+        href: 'https://www.github.com',
+        text: 'github.com'
+      });
     });
   });
 
@@ -64,12 +58,9 @@ describe('<Credits />', () => {
         </ProvidedCredits>
       );
 
-      expect(testContext.chartStubs.addCredits).toHaveBeenCalledWith(
-        {
-          href: 'https://www.github.com/whawker'
-        },
-        true
-      );
+      expect(testContext.chartStubs.addCredits).toHaveBeenCalledWith({
+        href: 'https://www.github.com/whawker'
+      });
     });
   });
 
@@ -77,12 +68,9 @@ describe('<Credits />', () => {
     it('should disable the Credits', () => {
       const wrapper = render(<ProvidedCredits>github.com</ProvidedCredits>);
       wrapper.unmount();
-      expect(testContext.chartStubs.addCredits).toHaveBeenCalledWith(
-        {
-          enabled: false
-        },
-        true
-      );
+      expect(testContext.chartStubs.addCredits).toHaveBeenCalledWith({
+        enabled: false
+      });
     });
   });
 });
