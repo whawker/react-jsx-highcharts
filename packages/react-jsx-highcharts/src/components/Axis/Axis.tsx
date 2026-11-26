@@ -88,7 +88,7 @@ const Axis = ({
       // if there are plotlines or bands, the chart needs to be redrawn before
       // they can be accessed
       // @ts-expect-error TODO
-      if (axis.plotLinesAndBands && axis.plotLinesAndBands.length > 0) {
+      if (axis?.plotLines?.length > 0 || axis?.plotBands?.length > 0) {
         // @ts-expect-error TODO
         axis.update(updateProps, true);
       } else {
