@@ -1,6 +1,6 @@
 {
   "name": "react-jsx-highmaps",
-  "version": "4.0.0-alpha.2",
+  "version": "4.0.0-beta.0",
   "description": "Highmaps built using React components",
   "main": "dist/index.js",
   "type": "module",
@@ -42,7 +42,7 @@
     "maps"
   ],
   "dependencies": {
-    "react-jsx-highcharts": "6.0.0-alpha.2"
+    "react-jsx-highcharts": "6.0.0-beta.0"
   },
   "peerDependencies": {
     "highcharts": "^13.1.0",
