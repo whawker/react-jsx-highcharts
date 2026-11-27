@@ -6,7 +6,9 @@ import createProvidedSeries from '../Series/createProvidedSeries.ts';
 import type { Series } from 'highcharts';
 import type { SeriesContextValue } from '../SeriesContext/index.ts';
 
-export default function useSeries(seriesId: string): SeriesContextValue | null {
+export default function useSeries(
+  seriesId?: string
+): SeriesContextValue | null {
   const contextSeries = useContext(SeriesContext);
   const chart = useChart();
 
