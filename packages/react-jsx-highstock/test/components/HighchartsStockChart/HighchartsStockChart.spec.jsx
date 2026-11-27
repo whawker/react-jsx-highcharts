@@ -1,50 +1,38 @@
-import { vi, describe, it, expect, beforeEach } from 'vitest';
+import { describe, it, expect, beforeEach } from 'vitest';
 import { render } from '@testing-library/react';
 
-vi.mock('react-jsx-highcharts', async () => {
-  const originalModule = await vi.importActual('react-jsx-highcharts');
-
-  return {
-    ...originalModule,
-    useHighcharts: vi.fn()
-  };
-});
-
-import { useHighcharts } from 'react-jsx-highcharts';
-import { Highcharts, createMockChart } from '../../test-utils';
+import Highstock from 'highcharts/highstock';
+import { HighchartsProvider } from 'react-jsx-highcharts';
 import HighchartsStockChart from '../../../src/components/HighchartsStockChart/HighchartsStockChart';
+import ContextSpy from '../../ContextSpy';
 
 describe('<HighchartsStockChart />', () => {
+  let chartRef;
+  let StockChart;
   beforeEach(() => {
-    const chart = createMockChart();
-    Highcharts.stockChart.mockReturnValue(chart);
-
-    useHighcharts.mockImplementation(() => Highcharts);
-  });
-
-  it('creates a chart', () => {
-    render(<HighchartsStockChart />);
-
-    expect(Highcharts.stockChart).toHaveBeenCalled();
-  });
-
-  it('creates a chart with the correct chart type', () => {
-    render(<HighchartsStockChart />);
-
-    expect(Highcharts.stockChart).toHaveBeenCalledWith(
-      expect.anything(),
-      expect.objectContaining({
-        chartType: 'stockChart'
-      })
+    chartRef = { current: null };
+    StockChart = props => (
+      <HighchartsProvider Highcharts={Highstock}>
+        <HighchartsStockChart {...props}>
+          <ContextSpy chartRef={chartRef} />
+        </HighchartsStockChart>
+      </HighchartsProvider>
     );
   });
 
-  it('passes other props through to the chart', () => {
-    render(<HighchartsStockChart plotOptions={{ c: 'd' }} />);
+  it('creates a chart with the correct chart type', () => {
+    render(<StockChart />);
 
-    expect(Highcharts.stockChart).toHaveBeenCalledWith(
-      expect.anything(),
-      expect.objectContaining({ plotOptions: { c: 'd' } })
+    expect(chartRef.current.type).toBe('stockChart');
+  });
+
+  it('passes other props through to the chart', () => {
+    const plotOptions = { line: { animation: false } };
+
+    render(<StockChart plotOptions={plotOptions} />);
+
+    expect(chartRef.current.object.userOptions.plotOptions).toEqual(
+      plotOptions
     );
   });
 });
