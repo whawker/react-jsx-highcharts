@@ -1,77 +1,62 @@
-import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
+import { describe, it, expect, beforeEach } from 'vitest';
 import { render } from '@testing-library/react';
 
-vi.mock('react-jsx-highcharts', async () => {
-  const originalModule = await vi.importActual('react-jsx-highcharts');
+import Highmaps from 'highcharts/highmaps';
 
-  return {
-    ...originalModule,
-    useHighcharts: vi.fn()
-  };
-});
-
-import { useHighcharts } from 'react-jsx-highcharts';
-import { Highcharts, createMockChart } from '../../test-utils';
+import { HighmapsProvider } from '../../../src';
 import HighchartsMapChart from '../../../src/components/HighchartsMapChart/HighchartsMapChart';
+import ContextSpy from '../../ContextSpy';
 
 describe('<HighchartsMapChart />', () => {
-  let chart;
-
+  let chartRef;
+  let MapChart;
   beforeEach(() => {
-    chart = createMockChart();
-    Highcharts.mapChart.mockReturnValue(chart);
-    useHighcharts.mockImplementation(() => Highcharts);
-  });
-
-  afterEach(() => {
-    Highcharts.mapChart.mockRestore();
-  });
-
-  it('creates a chart', () => {
-    render(<HighchartsMapChart />);
-
-    expect(Highcharts.mapChart).toHaveBeenCalled();
+    chartRef = { current: null };
+    MapChart = props => (
+      <HighmapsProvider Highcharts={Highmaps}>
+        <HighchartsMapChart {...props}>
+          <ContextSpy chartRef={chartRef} />
+        </HighchartsMapChart>
+      </HighmapsProvider>
+    );
   });
 
   it('creates a chart with the correct chart type', () => {
-    render(<HighchartsMapChart />);
+    render(<MapChart />);
 
-    expect(Highcharts.mapChart).toHaveBeenCalledWith(
-      expect.anything(),
-      expect.objectContaining({
-        chartType: 'mapChart'
-      })
-    );
+    expect(chartRef.current.type).toBe('mapChart');
   });
 
   it('creates a chart with GeoJSON from a string', () => {
-    render(<HighchartsMapChart map="mock/map" />);
+    const mockMap = {
+      type: 'Feature'
+    };
+    Highmaps.maps['mock/map'] = mockMap;
 
-    expect(Highcharts.mapChart).toHaveBeenCalledWith(
-      expect.anything(),
-      expect.objectContaining({
-        chart: expect.objectContaining({ map: { some: 'data' } })
-      })
-    );
+    render(<MapChart map="mock/map" />);
+
+    expect(chartRef.current.object.options.chart.map).toEqual(mockMap);
   });
 
   it('creates a chart with direct GeoJSON', () => {
-    render(<HighchartsMapChart map={{ direct: 'input' }} />);
+    const geoJSON = {
+      type: 'Feature',
+      geometry: {
+        type: 'Point',
+        coordinates: [125.6, 10.1]
+      }
+    };
+    render(<MapChart map={geoJSON} />);
 
-    expect(Highcharts.mapChart).toHaveBeenCalledWith(
-      expect.anything(),
-      expect.objectContaining({
-        chart: expect.objectContaining({ map: { direct: 'input' } })
-      })
-    );
+    expect(chartRef.current.object.options.chart.map).toEqual(geoJSON);
   });
 
   it('passes other props through to chart', () => {
-    render(<HighchartsMapChart plotOptions={{ c: 'd' }} />);
+    const plotOptions = { map: { animation: false } };
+    render(<MapChart plotOptions={plotOptions} />);
 
-    expect(Highcharts.mapChart).toHaveBeenCalledWith(
-      expect.anything(),
-      expect.objectContaining({ plotOptions: { c: 'd' } })
+    expect(chartRef.current.object.userOptions.plotOptions).toEqual(
+      plotOptions
     );
   });
 
@@ -80,7 +65,7 @@ describe('<HighchartsMapChart />', () => {
     const chartCallback = returnedChart => {
       cbChart = returnedChart;
     };
-    render(<HighchartsMapChart callback={chartCallback} />);
+    render(<MapChart callback={chartCallback} />);
     expect(cbChart).toBeDefined();
   });
 });
