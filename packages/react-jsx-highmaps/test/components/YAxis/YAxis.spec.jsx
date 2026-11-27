@@ -1,3 +1,4 @@
+import { describe, it, expect } from 'vitest';
 import Highmaps from 'highcharts/highmaps';
 import 'highcharts/modules/accessibility';
 

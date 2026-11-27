@@ -1,3 +1,4 @@
+import { describe, it, expect, beforeEach } from 'vitest';
 import Highcharts from 'highcharts';
 import 'highcharts/modules/coloraxis';
 import 'highcharts/modules/accessibility';

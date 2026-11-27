@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest';
 import {
   logModuleErrorMessage,
   logSeriesErrorMessage,

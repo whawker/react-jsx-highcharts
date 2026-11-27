@@ -67,7 +67,6 @@ export default defineConfig([
     files: [`packages/*/test/**`],
     languageOptions: {
       globals: {
-        ...globals.vitest,
         ...globals.node
       }
     },

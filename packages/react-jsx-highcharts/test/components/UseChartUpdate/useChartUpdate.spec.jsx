@@ -1,3 +1,4 @@
+import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { render } from '@testing-library/react';
 
 import useChartUpdate from '../../../src/components/UseChartUpdate';

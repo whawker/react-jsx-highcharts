@@ -1,3 +1,4 @@
+import { vi } from 'vitest';
 import { useEffect } from 'react';
 import {
   useAxis,

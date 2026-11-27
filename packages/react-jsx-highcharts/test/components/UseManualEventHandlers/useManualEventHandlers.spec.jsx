@@ -1,3 +1,4 @@
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { render } from '@testing-library/react';
 
 import useManualEventHandlers from '../../../src/components/UseManualEventHandlers';

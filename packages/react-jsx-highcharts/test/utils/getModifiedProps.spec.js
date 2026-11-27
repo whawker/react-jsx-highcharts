@@ -1,3 +1,4 @@
+import { describe, it, expect } from 'vitest';
 import getModifiedProps from '../../src/utils/getModifiedProps';
 
 describe('utils/getModifiedProps', () => {

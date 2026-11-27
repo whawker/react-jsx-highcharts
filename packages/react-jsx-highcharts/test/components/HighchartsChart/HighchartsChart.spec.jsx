@@ -1,3 +1,4 @@
+import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import { render } from '@testing-library/react';
 
 import { Highcharts, createMockChart } from '../../test-utils';

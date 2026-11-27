@@ -1,8 +1,9 @@
+import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { render } from '@testing-library/react';
 
 import useModifiedProps from '../../../src/components/UseModifiedProps';
 
-describe('useChartUpdate', () => {
+describe('useModifiedProps', () => {
   let Component;
   let callback;
 

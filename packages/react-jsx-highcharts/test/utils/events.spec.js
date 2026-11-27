@@ -1,3 +1,4 @@
+import { vi, describe, it, expect, beforeEach } from 'vitest';
 import * as events from '../../src/utils/events';
 import { Highcharts } from '../test-utils';
 

@@ -1,3 +1,4 @@
+import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest';
 import { render } from '@testing-library/react';
 
 import { createMockProvidedAxis } from '../../test-utils';

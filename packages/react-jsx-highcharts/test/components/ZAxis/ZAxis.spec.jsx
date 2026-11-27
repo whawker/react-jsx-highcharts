@@ -1,3 +1,4 @@
+import { describe, it, expect } from 'vitest';
 import Highcharts from 'highcharts';
 import 'highcharts/highcharts-3d';
 

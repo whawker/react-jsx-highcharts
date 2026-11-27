@@ -1,3 +1,4 @@
+import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest';
 import { render } from '@testing-library/react';
 
 import useAxis from '../../../src/components/UseAxis';

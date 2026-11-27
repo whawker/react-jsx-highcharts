@@ -1,3 +1,5 @@
+import { vi } from 'vitest';
+
 export const Highcharts = {
   stockChart: vi.fn(),
   addEvent: vi.fn(),

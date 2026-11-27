@@ -1,3 +1,4 @@
+import { describe, it, expect, beforeEach, vi } from 'vitest';
 import Highcharts from 'highcharts';
 import 'highcharts/modules/accessibility';
 

@@ -1,3 +1,4 @@
+import { vi, describe, it, expect, beforeEach } from 'vitest';
 import { render } from '@testing-library/react';
 
 import { createMockProvidedChart } from '../../test-utils';

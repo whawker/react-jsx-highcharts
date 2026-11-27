@@ -1,3 +1,4 @@
+import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest';
 import { Component } from 'react';
 import { render } from '@testing-library/react';
 
